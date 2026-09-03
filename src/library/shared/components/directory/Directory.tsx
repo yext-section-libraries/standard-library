@@ -1,22 +1,20 @@
-import { useTemplateProps } from "@yext/visual-editor/section-library-support";
 import {
   backgroundColors,
   ThemeColor,
+  msg,
+  useTemplateProps,
+  isDirectoryGrid,
+  toPuckFields,
+  YextComponentConfig,
+  YextFields,
 } from "@yext/visual-editor/section-library-support";
-import { PageSection } from "@yext/visual-editor/section-library-support";
-import { msg } from "@yext/visual-editor/section-library-support";
-import { Background } from "@yext/visual-editor/section-library-support";
+import { PageSection } from "../atoms/pageSection.tsx";
+import { Background } from "../atoms/background.tsx";
 import { HeadingTextProps } from "../contentBlocks/HeadingText";
 import { BreadcrumbsSectionProps } from "../pageSections/Breadcrumbs";
 import { PuckComponent, setDeep, Slot } from "@puckeditor/core";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import { DirectoryList } from "./DirectoryWrapper";
-import { isDirectoryGrid } from "@yext/visual-editor/section-library-support";
-import {
-  toPuckFields,
-  YextComponentConfig,
-  YextFields,
-} from "@yext/visual-editor/section-library-support";
 
 export interface DirectoryStyles {
   /**

@@ -1,25 +1,26 @@
 import { PuckComponent, Slot } from "@puckeditor/core";
 import React from "react";
-import { useCardContext } from "@yext/visual-editor/section-library-support";
 import {
-  TemplatePropsContext,
-  useTemplateProps,
-} from "@yext/visual-editor/section-library-support";
-import { useGetCardSlots } from "@yext/visual-editor/section-library-support";
-import { msg } from "@yext/visual-editor/section-library-support";
-import {
+  msg,
+  useGetCardSlots,
   backgroundColors,
   ThemeColor,
-} from "@yext/visual-editor/section-library-support";
-import { deepMerge } from "@yext/visual-editor/section-library-support";
-import { bindSlots } from "@yext/visual-editor/section-library-support";
-import {
+  useCardContext,
+  deepMerge,
+  bindSlots,
+  TemplatePropsContext,
+  useTemplateProps,
   mergeMeta,
   resolveUrlTemplateOfChild,
+  TranslatableString,
+  YextComponentConfig,
+  YextFields,
+  YextEntityField,
+  resolveComponentData,
+  normalizeSlug,
 } from "@yext/visual-editor/section-library-support";
-import { TranslatableString } from "@yext/visual-editor/section-library-support";
-import { Background } from "@yext/visual-editor/section-library-support";
-import { MaybeLink } from "@yext/visual-editor/section-library-support";
+import { Background } from "../atoms/background.tsx";
+import { MaybeLink } from "../atoms/maybeLink.tsx";
 import { AddressProps } from "../contentBlocks/Address";
 import { HeadingTextProps } from "../contentBlocks/HeadingText";
 import { HoursStatusProps } from "../contentBlocks/HoursStatus";
@@ -30,13 +31,6 @@ import {
   resolveDirectoryChildFromReference,
   useDirectoryChildren,
 } from "./directoryChildReference";
-import {
-  YextComponentConfig,
-  YextFields,
-} from "@yext/visual-editor/section-library-support";
-import { YextEntityField } from "@yext/visual-editor/section-library-support";
-import { resolveComponentData } from "@yext/visual-editor/section-library-support";
-import { normalizeSlug } from "@yext/visual-editor/section-library-support";
 
 const defaultCardTitle: YextEntityField<TranslatableString> = {
   field: "name",

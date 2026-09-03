@@ -8,17 +8,17 @@ import {
 import { Result } from "@yext/search-headless-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { ImageField } from "@yext/visual-editor/section-library-support";
-import { useDocument } from "@yext/visual-editor/section-library-support";
-import { msg } from "@yext/visual-editor/section-library-support";
 import {
   backgroundColors,
   ThemeColor,
+  StreamDocument,
+  msg,
+  useDocument,
+  ImageField,
+  isVisualEditorTestEnv,
 } from "@yext/visual-editor/section-library-support";
-import { StreamDocument } from "@yext/visual-editor/section-library-support";
-import { Body } from "@yext/visual-editor/section-library-support";
-import { MapPinIcon } from "@yext/visual-editor/section-library-support";
-import { isVisualEditorTestEnv } from "@yext/visual-editor/section-library-support";
+import { Body } from "../atoms/body.tsx";
+import { MapPinIcon } from "../MapPinIcon.tsx";
 import { Location } from "./LocatorResultCard";
 
 export const DEFAULT_MAP_CENTER: Coordinate = {

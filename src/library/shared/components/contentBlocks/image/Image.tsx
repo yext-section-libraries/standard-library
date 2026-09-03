@@ -5,28 +5,27 @@ import {
   isLocalizedAssetImage,
   resolveLocalizedAssetImage,
   TranslatableAssetImage,
+  TranslatableString,
+  EntityField,
+  YextEntityField,
+  msg,
+  pt,
+  resolveComponentData,
+  resolveDataFromParent,
+  useDocument,
+  YextComponentConfig,
+  YextFields,
 } from "@yext/visual-editor/section-library-support";
-import { EntityField } from "@yext/visual-editor/section-library-support";
 import {
   Image,
   ImgSizesByBreakpoint,
   imgSizesHelper,
-} from "@yext/visual-editor/section-library-support";
-import { MaybeLink } from "@yext/visual-editor/section-library-support";
-import { TranslatableString } from "@yext/visual-editor/section-library-support";
-import { YextEntityField } from "@yext/visual-editor/section-library-support";
-import { msg, pt } from "@yext/visual-editor/section-library-support";
-import { resolveComponentData } from "@yext/visual-editor/section-library-support";
-import { resolveDataFromParent } from "@yext/visual-editor/section-library-support";
-import { useDocument } from "@yext/visual-editor/section-library-support";
+} from "../../atoms/image.tsx";
+import { MaybeLink } from "../../atoms/maybeLink.tsx";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { EmptyImageState } from "./EmptyImageState";
 import { ImageStylingFields, ImageStylingProps } from "./styling";
-import {
-  YextComponentConfig,
-  YextFields,
-} from "@yext/visual-editor/section-library-support";
 
 const PLACEHOLDER_IMAGE_URL = "https://placehold.co/640x360";
 const DEFAULT_LINK = "#";

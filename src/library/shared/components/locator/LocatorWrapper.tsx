@@ -30,34 +30,28 @@ import {
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FaSlidersH } from "react-icons/fa";
-import { useDocument } from "@yext/visual-editor/section-library-support";
-import { usePreviewWindow } from "@yext/visual-editor/section-library-support";
 import {
+  resolveLocalizedAssetImage,
+  useDocument,
+  usePreviewWindow,
   getViewport,
   useWindowWidth,
-} from "@yext/visual-editor/section-library-support";
-import { resolveLocalizedAssetImage } from "@yext/visual-editor/section-library-support";
-import {
   getPreferredDistanceUnit,
   toMeters,
   toMiles,
-} from "@yext/visual-editor/section-library-support";
-import { resolveComponentData } from "@yext/visual-editor/section-library-support";
-import {
+  resolveComponentData,
   createSearchAnalyticsConfig,
   createSearchHeadlessConfig,
-} from "@yext/visual-editor/section-library-support";
-import { getThemeColorCssValue } from "@yext/visual-editor/section-library-support";
-import { getValueFromQueryString } from "@yext/visual-editor/section-library-support";
-import { Button } from "@yext/visual-editor/section-library-support";
-import { Body } from "@yext/visual-editor/section-library-support";
-import { Heading } from "@yext/visual-editor/section-library-support";
-import {
+  getThemeColorCssValue,
+  getValueFromQueryString,
   DEFAULT_ENTITY_TYPE,
   LocatorEntityType,
   getLocatorEntityTypeSourceMap,
   isLocatorEntityType,
 } from "@yext/visual-editor/section-library-support";
+import { Button } from "../atoms/button.tsx";
+import { Body } from "../atoms/body.tsx";
+import { Heading } from "../atoms/heading.tsx";
 import {
   DEFAULT_LOCATOR_RESULT_CARD_PROPS,
   Location,

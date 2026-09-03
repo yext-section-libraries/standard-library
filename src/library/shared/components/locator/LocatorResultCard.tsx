@@ -5,36 +5,46 @@ import {
   Coordinate,
   useCardAnalyticsCallback,
 } from "@yext/search-ui-react";
-import { Background } from "@yext/visual-editor/section-library-support";
+import { Background } from "../atoms/background.tsx";
 import {
   backgroundColors,
   ThemeColor,
   HeadingLevel,
   ThemeOptions,
-} from "@yext/visual-editor/section-library-support";
-import { Body, BodyProps } from "@yext/visual-editor/section-library-support";
-import { CTA, CTAVariant } from "@yext/visual-editor/section-library-support";
-import { Heading } from "@yext/visual-editor/section-library-support";
-import { Image } from "@yext/visual-editor/section-library-support";
-import { msg, pt } from "@yext/visual-editor/section-library-support";
-import { PhoneAtom } from "@yext/visual-editor/section-library-support";
-import { useTemplateProps } from "@yext/visual-editor/section-library-support";
-import { resolveComponentData } from "@yext/visual-editor/section-library-support";
-import { HoursStatusAtom } from "@yext/visual-editor/section-library-support";
-import { HoursTableAtom } from "@yext/visual-editor/section-library-support";
-import { type BasicSelectorField } from "@yext/visual-editor/section-library-support";
-import type {
-  YextCustomFieldRenderProps,
-  YextObjectField,
-} from "@yext/visual-editor/section-library-support";
-import {
+  useTemplateProps,
+  resolveComponentData,
+  HoursTableAtom,
+  type BasicSelectorField,
+  msg,
+  pt,
+  type YextCustomFieldRenderProps,
+  type YextObjectField,
+  ConstantValueModeToggler,
+  TranslatableAssetImage,
   buildLocatorDisplayOptions,
+  type EmbeddedStringOption,
+  TranslatableString,
   type ImageField,
+  formatDistance,
+  fromMeters,
+  getPreferredDistanceUnit,
+  useTemplateMetadata,
+  FieldTypeData,
+  DEFAULT_ENTITY_TYPE,
+  LocatorEntityType,
+  resolveLocatorResultUrl,
+  getBackgroundColorClasses,
+  getBackgroundColorStyle,
+  getTextColorClass,
+  getTextColorStyle,
+  themeManagerCn,
 } from "@yext/visual-editor/section-library-support";
-import { ConstantValueModeToggler } from "@yext/visual-editor/section-library-support";
-import { type EmbeddedStringOption } from "@yext/visual-editor/section-library-support";
-import { TranslatableString } from "@yext/visual-editor/section-library-support";
-import { TranslatableAssetImage } from "@yext/visual-editor/section-library-support";
+import { Body, BodyProps } from "../atoms/body.tsx";
+import { CTA, CTAVariant } from "../atoms/cta.tsx";
+import { Heading } from "../atoms/heading.tsx";
+import { Image } from "../atoms/image.tsx";
+import { PhoneAtom } from "../atoms/phone.tsx";
+import { HoursStatusAtom } from "../atoms/hoursStatus.tsx";
 import {
   Address,
   AddressType,
@@ -52,32 +62,13 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@yext/visual-editor/section-library-support";
+} from "../atoms/accordion.tsx";
 import {
   FaAngleRight,
   FaMapMarkerAlt,
   FaRegClock,
   FaRegEnvelope,
 } from "react-icons/fa";
-import { useTemplateMetadata } from "@yext/visual-editor/section-library-support";
-import { FieldTypeData } from "@yext/visual-editor/section-library-support";
-import {
-  formatDistance,
-  fromMeters,
-  getPreferredDistanceUnit,
-} from "@yext/visual-editor/section-library-support";
-import {
-  DEFAULT_ENTITY_TYPE,
-  LocatorEntityType,
-} from "@yext/visual-editor/section-library-support";
-import { resolveLocatorResultUrl } from "@yext/visual-editor/section-library-support";
-import {
-  getBackgroundColorClasses,
-  getBackgroundColorStyle,
-  getTextColorClass,
-  getTextColorStyle,
-} from "@yext/visual-editor/section-library-support";
-import { themeManagerCn } from "@yext/visual-editor/section-library-support";
 
 export interface LocatorResultCardProps {
   /** The entity type this result card applies to. */

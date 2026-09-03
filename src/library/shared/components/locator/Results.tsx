@@ -3,14 +3,16 @@ import { CardProps } from "@yext/search-ui-react";
 import { Result } from "@yext/search-headless-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { YextAutoField } from "@yext/visual-editor/section-library-support";
-import { useDocument } from "@yext/visual-editor/section-library-support";
-import { useTemplateMetadata } from "@yext/visual-editor/section-library-support";
-import { getPreferredDistanceUnit } from "@yext/visual-editor/section-library-support";
-import { getLocatorEntityTypeSourceMap } from "@yext/visual-editor/section-library-support";
-import { LocatorConfig } from "@yext/visual-editor/section-library-support";
-import { Body } from "@yext/visual-editor/section-library-support";
-import { Button } from "@yext/visual-editor/section-library-support";
+import {
+  LocatorConfig,
+  getLocatorEntityTypeSourceMap,
+  getPreferredDistanceUnit,
+  YextAutoField,
+  useDocument,
+  useTemplateMetadata,
+} from "@yext/visual-editor/section-library-support";
+import { Body } from "../atoms/body.tsx";
+import { Button } from "../atoms/button.tsx";
 import {
   DEFAULT_LOCATOR_RESULT_CARD_PROPS,
   Location,

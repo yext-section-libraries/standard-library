@@ -1,26 +1,24 @@
 import { useTranslation } from "react-i18next";
-import { useTemplateProps } from "@yext/visual-editor/section-library-support";
-import { MaybeLink } from "@yext/visual-editor/section-library-support";
-import { PageSection } from "@yext/visual-editor/section-library-support";
-import { VisibilityWrapper } from "@yext/visual-editor/section-library-support";
-import { msg } from "@yext/visual-editor/section-library-support";
-import { TranslatableString } from "@yext/visual-editor/section-library-support";
 import {
+  useTemplateProps,
+  msg,
+  TranslatableString,
   ThemeColor,
   backgroundColors,
   ThemeOptions,
-} from "@yext/visual-editor/section-library-support";
-import { resolveComponentData } from "@yext/visual-editor/section-library-support";
-import { setDeep } from "@puckeditor/core";
-import { AnalyticsScopeProvider } from "@yext/pages-components";
-import { ComponentErrorBoundary } from "@yext/visual-editor/section-library-support";
-import { resolveBreadcrumbs } from "@yext/visual-editor/section-library-support";
-import { YextEntityField } from "@yext/visual-editor/section-library-support";
-import {
+  resolveComponentData,
+  ComponentErrorBoundary,
+  resolveBreadcrumbs,
+  YextEntityField,
   toPuckFields,
   YextComponentConfig,
   YextFields,
 } from "@yext/visual-editor/section-library-support";
+import { MaybeLink } from "../atoms/maybeLink.tsx";
+import { PageSection } from "../atoms/pageSection.tsx";
+import { VisibilityWrapper } from "../atoms/visibilityWrapper.tsx";
+import { setDeep } from "@puckeditor/core";
+import { AnalyticsScopeProvider } from "@yext/pages-components";
 
 export interface BreadcrumbsData {
   /**

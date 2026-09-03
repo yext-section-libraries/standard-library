@@ -4,49 +4,44 @@ import {
   backgroundColors,
   ThemeColor,
   ThemeOptions,
-} from "@yext/visual-editor/section-library-support";
-import { Body } from "@yext/visual-editor/section-library-support";
-import { MaybeLink } from "@yext/visual-editor/section-library-support";
-import { msg, pt } from "@yext/visual-editor/section-library-support";
-import { PageSection } from "@yext/visual-editor/section-library-support";
-import { CardContextProvider } from "@yext/visual-editor/section-library-support";
-import {
+  msg,
+  pt,
+  CardContextProvider,
   isDirectoryGrid,
   sortAlphabetically,
-} from "@yext/visual-editor/section-library-support";
-import {
-  createDefaultLinkOverrideFieldValue,
-  defaultDirectoryCardSlotData,
-  DirectoryCardProps,
-} from "./DirectoryCard";
-import { StreamDocument } from "@yext/visual-editor/section-library-support";
-import { resolveDirectoryListChildren } from "@yext/visual-editor/section-library-support";
-import { getThemeValue } from "@yext/visual-editor/section-library-support";
-import { useDocument } from "@yext/visual-editor/section-library-support";
-import {
-  createDirectoryChildReference,
-  DirectoryChildrenProvider,
-  getSortedDirectoryChildren,
-} from "./directoryChildReference";
-import {
-  YextComponentConfig,
-  type YextCustomFieldRenderProps,
-  type YextFieldDefinition,
-  YextFields,
-} from "@yext/visual-editor/section-library-support";
-import { createSlottedItemSource } from "@yext/visual-editor/section-library-support";
-import { syncLinkedSlotMappedCards } from "@yext/visual-editor/section-library-support";
-import { resolveComponentData } from "@yext/visual-editor/section-library-support";
-import { YextAutoField } from "@yext/visual-editor/section-library-support";
-import {
+  StreamDocument,
+  resolveDirectoryListChildren,
+  getThemeValue,
+  useDocument,
+  useTemplateMetadata,
   Tooltip,
   TooltipArrow,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
+  YextAutoField,
+  createSlottedItemSource,
+  resolveComponentData,
+  syncLinkedSlotMappedCards,
+  YextComponentConfig,
+  type YextCustomFieldRenderProps,
+  type YextFieldDefinition,
+  YextFields,
 } from "@yext/visual-editor/section-library-support";
+import { Body } from "../atoms/body.tsx";
+import { MaybeLink } from "../atoms/maybeLink.tsx";
+import { PageSection } from "../atoms/pageSection.tsx";
+import {
+  createDefaultLinkOverrideFieldValue,
+  defaultDirectoryCardSlotData,
+  DirectoryCardProps,
+} from "./DirectoryCard";
+import {
+  createDirectoryChildReference,
+  DirectoryChildrenProvider,
+  getSortedDirectoryChildren,
+} from "./directoryChildReference";
 import { FaInfoCircle } from "react-icons/fa";
-import { useTemplateMetadata } from "@yext/visual-editor/section-library-support";
 
 export type DirectoryGridProps = {
   data: typeof directoryCardsSource.value;

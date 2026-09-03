@@ -10,23 +10,20 @@ import {
   getDirections,
   Address as RenderAddress,
 } from "@yext/pages-components";
-import { useDocument } from "@yext/visual-editor/section-library-support";
-import { EntityField } from "@yext/visual-editor/section-library-support";
-import { YextEntityField } from "@yext/visual-editor/section-library-support";
 import {
+  useDocument,
+  EntityField,
+  YextEntityField,
   CTA,
   CTAVariant,
   isCtaVariantWithColor,
-} from "@yext/visual-editor/section-library-support";
-import { pt, msg } from "@yext/visual-editor/section-library-support";
-import { resolveComponentData } from "@yext/visual-editor/section-library-support";
-import {
+  pt,
+  msg,
+  resolveComponentData,
   ThemeColor,
   ThemeOptions,
   backgroundColors,
-} from "@yext/visual-editor/section-library-support";
-import { resolveDataFromParent } from "@yext/visual-editor/section-library-support";
-import {
+  resolveDataFromParent,
   YextComponentConfig,
   YextFields,
 } from "@yext/visual-editor/section-library-support";

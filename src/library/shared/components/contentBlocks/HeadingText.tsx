@@ -1,26 +1,22 @@
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
-import { useDocument } from "@yext/visual-editor/section-library-support";
-import { EntityField } from "@yext/visual-editor/section-library-support";
-import { YextEntityField } from "@yext/visual-editor/section-library-support";
 import {
-  Heading,
-  HeadingProps,
-} from "@yext/visual-editor/section-library-support";
-import { TranslatableString } from "@yext/visual-editor/section-library-support";
-import { resolveComponentData } from "@yext/visual-editor/section-library-support";
-import { pt, msg } from "@yext/visual-editor/section-library-support";
-import {
+  useDocument,
+  EntityField,
+  YextEntityField,
+  TranslatableString,
+  resolveComponentData,
+  pt,
+  msg,
   ThemeOptions,
   HeadingLevel,
   ThemeColor,
-} from "@yext/visual-editor/section-library-support";
-import { resolveDataFromParent } from "@yext/visual-editor/section-library-support";
-import { useTranslation } from "react-i18next";
-import {
+  resolveDataFromParent,
   YextComponentConfig,
   YextFields,
 } from "@yext/visual-editor/section-library-support";
+import { Heading, HeadingProps } from "../atoms/heading.tsx";
+import { useTranslation } from "react-i18next";
 
 export type HeadingTextProps = {
   /** The heading text value */

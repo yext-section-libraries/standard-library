@@ -1,16 +1,16 @@
 import * as React from "react";
-import { EntityField } from "@yext/visual-editor/section-library-support";
-import { pt } from "@yext/visual-editor/section-library-support";
-import { themeManagerCn } from "@yext/visual-editor/section-library-support";
-import { AssetImageType } from "@yext/visual-editor/section-library-support";
-import { ImagePlus } from "lucide-react";
-import { Button } from "@yext/visual-editor/section-library-support";
 import {
+  EntityField,
+  themeManagerCn,
+  pt,
+  AssetImageType,
+  type ImagePayload,
   TARGET_ORIGINS,
   useSendMessageToParent,
   useReceiveMessage,
+  EditorButton as Button,
 } from "@yext/visual-editor/section-library-support";
-import { type ImagePayload } from "@yext/visual-editor/section-library-support";
+import { ImagePlus } from "lucide-react";
 
 let pendingEmptyImageSession:
   | { messageId: string; apply: (payload: ImagePayload) => void }

@@ -7,14 +7,16 @@ import {
 } from "@yext/search-headless-react";
 import { AppliedFilters, Facets } from "@yext/search-ui-react";
 import React from "react";
-import { type MultiSelectorOption } from "@yext/visual-editor/section-library-support";
+import {
+  type MultiSelectorOption,
+  getPreferredDistanceUnit,
+  msg,
+  LocatorEntityType,
+} from "@yext/visual-editor/section-library-support";
 import { useCollapse } from "react-collapsed";
 import { useTranslation } from "react-i18next";
 import { FaChevronUp, FaDotCircle, FaRegCircle, FaTimes } from "react-icons/fa";
-import { getPreferredDistanceUnit } from "@yext/visual-editor/section-library-support";
-import { msg } from "@yext/visual-editor/section-library-support";
-import { LocatorEntityType } from "@yext/visual-editor/section-library-support";
-import { Body } from "@yext/visual-editor/section-library-support";
+import { Body } from "../atoms/body.tsx";
 import { translateDistanceUnit } from "./Results";
 
 export const LOCATION_FIELD = "builtin.location";
