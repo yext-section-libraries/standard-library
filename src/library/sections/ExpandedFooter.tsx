@@ -10,20 +10,21 @@ import {
   themeManagerCn,
   YextComponentConfig,
   YextFields,
+  SectionConfig,
 } from "@yext/visual-editor";
-import { Background } from "../shared/components/atoms/background.tsx";
+import { Background } from "../shared/sectionSupport/atoms/background.tsx";
 import {
   PageSection,
   PageSectionProps,
-} from "../shared/components/atoms/pageSection.tsx";
-import { defaultCopyrightMessageSlotProps } from "../shared/components/footer/CopyrightMessageSlot.tsx";
-import { VisibilityWrapper } from "../shared/components/atoms/visibilityWrapper.tsx";
-import { FooterLogoSlotProps } from "../shared/components/footer/FooterLogoSlot.tsx";
-import { FooterSocialLinksSlotProps } from "../shared/components/footer/FooterSocialLinksSlot.tsx";
-import { FooterUtilityImagesSlotProps } from "../shared/components/footer/FooterUtilityImagesSlot.tsx";
-import { FooterLinksSlotProps } from "../shared/components/footer/FooterLinksSlot.tsx";
-import { FooterExpandedLinksWrapperProps } from "../shared/components/footer/FooterExpandedLinksWrapper.tsx";
-import { SecondaryFooterSlotProps } from "../shared/components/footer/SecondaryFooterSlot.tsx";
+} from "../shared/sectionSupport/atoms/pageSection.tsx";
+import { defaultCopyrightMessageSlotProps } from "../shared/sectionSupport/footer/CopyrightMessageSlot.tsx";
+import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
+import { FooterLogoSlotProps } from "../shared/sectionSupport/footer/FooterLogoSlot.tsx";
+import { FooterSocialLinksSlotProps } from "../shared/sectionSupport/footer/FooterSocialLinksSlot.tsx";
+import { FooterUtilityImagesSlotProps } from "../shared/sectionSupport/footer/FooterUtilityImagesSlot.tsx";
+import { FooterLinksSlotProps } from "../shared/sectionSupport/footer/FooterLinksSlot.tsx";
+import { FooterExpandedLinksWrapperProps } from "../shared/sectionSupport/footer/FooterExpandedLinksWrapper.tsx";
+import { SecondaryFooterSlotProps } from "../shared/sectionSupport/footer/SecondaryFooterSlot.tsx";
 
 const PLACEHOLDER_LOGO_IMAGE: string =
   "https://a.mktgcdn.com/p/wa83C1O1lvtxHI9cGqEdP2HILyUzbD0jvtzwWpOAJfE/196x196.jpg";
@@ -693,4 +694,13 @@ export const ExpandedFooter: YextComponentConfig<ExpandedFooterProps> = {
       <ExpandedFooterWrapper {...props} />
     </AnalyticsScopeProvider>
   ),
+};
+
+export const config: SectionConfig = {
+  id: "ExpandedFooter",
+  displayName: "Expanded Footer",
+  description:
+    "Contains links and other information intended for the bottom of the page.",
+  pageSetTypes: ["ENTITY", "DIRECTORY", "LOCATOR"],
+  category: "Other",
 };

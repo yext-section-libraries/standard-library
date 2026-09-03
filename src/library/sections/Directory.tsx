@@ -1,4 +1,4 @@
-import { Directory as SectionComponent } from "../shared/components/directory/Directory";
+import { Directory as SectionComponent } from "../shared/sectionSupport/directory/Directory";
 import type { SectionConfig } from "@yext/visual-editor";
 
 export const Directory = SectionComponent;

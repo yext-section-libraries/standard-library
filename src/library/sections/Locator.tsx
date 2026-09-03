@@ -1,4 +1,4 @@
-import { LocatorComponent as SectionComponent } from "../shared/components/locator/Locator";
+import { LocatorComponent as SectionComponent } from "../shared/sectionSupport/locator/Locator";
 import type { SectionConfig } from "@yext/visual-editor";
 
 export const Locator = SectionComponent;

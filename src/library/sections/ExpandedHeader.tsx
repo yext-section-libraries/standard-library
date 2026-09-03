@@ -6,12 +6,13 @@ import {
   getMaxWidthOptions,
   YextComponentConfig,
   YextFields,
+  SectionConfig,
 } from "@yext/visual-editor";
-import { PageSectionProps } from "../shared/components/atoms/pageSection.tsx";
+import { PageSectionProps } from "../shared/sectionSupport/atoms/pageSection.tsx";
 import { cva } from "class-variance-authority";
-import { defaultPrimaryHeaderProps } from "../shared/components/header/PrimaryHeaderSlot.tsx";
-import { defaultSecondaryHeaderProps } from "../shared/components/header/SecondaryHeaderSlot.tsx";
-import { ExpandedHeaderMenuProvider } from "../shared/components/header/ExpandedHeaderMenuContext.tsx";
+import { defaultPrimaryHeaderProps } from "../shared/sectionSupport/header/PrimaryHeaderSlot.tsx";
+import { defaultSecondaryHeaderProps } from "../shared/sectionSupport/header/SecondaryHeaderSlot.tsx";
+import { ExpandedHeaderMenuProvider } from "../shared/sectionSupport/header/ExpandedHeaderMenuContext.tsx";
 
 export const headerWrapper = cva("flex flex-col", {
   variants: {
@@ -236,4 +237,13 @@ export const ExpandedHeader: YextComponentConfig<ExpandedHeaderProps> = {
       <ExpandedHeaderWrapper {...props} />
     </AnalyticsScopeProvider>
   ),
+};
+
+export const config: SectionConfig = {
+  id: "ExpandedHeader",
+  displayName: "Header",
+  description:
+    "Contains links and other information intended for the top of the page.",
+  pageSetTypes: ["ENTITY", "DIRECTORY", "LOCATOR"],
+  category: "Other",
 };
