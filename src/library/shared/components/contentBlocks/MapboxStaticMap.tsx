@@ -1,0 +1,215 @@
+import { useTranslation } from "react-i18next";
+import { Coordinate } from "@yext/pages-components";
+import {
+  EntityField,
+  resolveComponentData,
+  useDocument,
+  YextEntityField,
+  type BasicSelectorField,
+  msg,
+  pt,
+  themeManagerCn,
+  StreamDocument,
+  YextComponentConfig,
+  YextFields,
+} from "@yext/visual-editor";
+import { Body } from "../atoms/body.tsx";
+import { PuckComponent } from "@puckeditor/core";
+import mapboxLogo from "../assets/mapbox-logo-black.svg";
+import { Map } from "lucide-react";
+import {
+  getThemeValue,
+  MsgString,
+} from "@yext/visual-editor/section-library-support";
+
+export type MapboxStaticProps = {
+  coordinate: YextEntityField<Coordinate>;
+  mapStyle: string;
+  height?: string;
+  zoom?: number;
+};
+
+export const mapboxStaticMapStyleOptions: {
+  value: string;
+  label: MsgString;
+}[] = [
+  { value: "streets-v12", label: msg("fields.options.default", "Default") },
+  {
+    value: "satellite-streets-v12",
+    label: msg("fields.options.satellite", "Satellite"),
+  },
+  { value: "light-v11", label: msg("fields.options.light", "Light") },
+  { value: "dark-v11", label: msg("fields.options.dark", "Dark") },
+  {
+    value: "navigation-day-v1",
+    label: msg("fields.options.navigationDay", "Navigation (Day)"),
+  },
+  {
+    value: "navigation-night-v1",
+    label: msg("fields.options.navigationNight", "Navigation (Night)"),
+  },
+];
+
+export const mapStyleField: BasicSelectorField = {
+  label: msg("fields.mapStyle", "Map Style"),
+  type: "basicSelector",
+  options: mapboxStaticMapStyleOptions,
+};
+
+const mapboxFields: YextFields<MapboxStaticProps> = {
+  coordinate: {
+    type: "entityField",
+    label: msg("fields.coordinates", "Coordinates"),
+    filter: { types: ["type.coordinate"] },
+  },
+  mapStyle: mapStyleField,
+};
+
+const getPrimaryColor = (streamDocument: StreamDocument) => {
+  return (
+    getThemeValue("--colors-palette-primary", streamDocument)
+      ?.replace("#", "")
+      ?.trim() ?? "000000"
+  );
+};
+
+export const MapboxStaticMapComponent: PuckComponent<MapboxStaticProps> = ({
+  coordinate: coordinateField,
+  height = "300px",
+  zoom = 14,
+  mapStyle = "light-v11",
+  puck,
+}) => {
+  const { t, i18n } = useTranslation();
+  const streamDocument = useDocument<any>();
+
+  const coordinate = resolveComponentData<Coordinate>(
+    coordinateField,
+    i18n.language,
+    streamDocument,
+  );
+
+  // If we are in the layout editor, use the non-URL-restricted Mapbox API key
+  const iframe =
+    typeof document === "undefined"
+      ? undefined
+      : (document.getElementById("preview-frame") as HTMLIFrameElement);
+  let mapboxApiKey = streamDocument._env?.YEXT_MAPBOX_API_KEY;
+  if (
+    iframe?.contentDocument &&
+    streamDocument._env?.YEXT_EDIT_LAYOUT_MODE_MAPBOX_API_KEY
+  ) {
+    mapboxApiKey = streamDocument._env.YEXT_EDIT_LAYOUT_MODE_MAPBOX_API_KEY;
+  }
+
+  // Show empty state in editor mode when API key is missing
+  if (!mapboxApiKey) {
+    if (puck?.isEditing) {
+      return (
+        <div
+          className={themeManagerCn(
+            "relative h-[300px] w-full bg-gray-100 rounded-lg border border-gray-200 flex flex-col items-center justify-center py-8 gap-2.5",
+          )}
+        >
+          <Map className="w-12 h-12 text-gray-400" />
+          <div className="flex flex-col items-center gap-0">
+            <Body variant="base" className="text-gray-500 font-medium">
+              {pt(
+                "staticMapEmptyStateSectionHidden",
+                "Section hidden for all locations",
+              )}
+            </Body>
+            <Body variant="base" className="text-gray-500 font-normal">
+              {pt(
+                "staticMapEmptyStateMissingApiKey",
+                "Failed to load YEXT_MAPBOX_API_KEY. Please check your site's advanced configuration.",
+              )}
+            </Body>
+          </div>
+        </div>
+      );
+    }
+    console.warn("YEXT_MAPBOX_API_KEY is required for MapboxStaticMap");
+    return <></>;
+  }
+
+  if (!coordinate) {
+    console.warn(`${coordinateField.field} is not present in the stream`);
+    return <></>;
+  }
+
+  const marker = `pin-l+${getPrimaryColor(streamDocument)}(${coordinate.longitude},${coordinate.latitude})`;
+
+  const staticImageSizes = {
+    large: "1280x720",
+    medium: "960x540",
+    small: "412x412",
+  } as const;
+
+  type StaticImageSize = keyof typeof staticImageSizes;
+
+  const getMapboxStaticImageUrl = (size: StaticImageSize) => {
+    return `https://api.mapbox.com/styles/v1/mapbox/${mapStyle}/static/${marker}/${coordinate.longitude},${coordinate.latitude},${zoom}/${staticImageSizes[size]}?access_token=${mapboxApiKey}&logo=false&attribution=false`;
+  };
+
+  return (
+    <EntityField
+      displayName={pt("coordinate", "Coordinate")}
+      fieldId={coordinateField.field}
+      constantValueEnabled={coordinateField.constantValueEnabled}
+      className="w-full"
+    >
+      <div className="relative w-full overflow-hidden" style={{ height }}>
+        <picture>
+          <source
+            media="(max-width: 412px)"
+            className="components h-full w-full object-cover"
+            srcSet={getMapboxStaticImageUrl("small")}
+          />
+          <source
+            media="(max-width: 960px)"
+            className="components h-full w-full object-cover"
+            srcSet={getMapboxStaticImageUrl("medium")}
+          />
+          <img
+            loading="lazy"
+            src={getMapboxStaticImageUrl("large")}
+            className="components h-full w-full object-cover"
+            alt={t("map", "Map")}
+          />
+        </picture>
+        {/* Mapbox requires attribution when using their static maps, https://docs.mapbox.com/help/dive-deeper/attribution/#static--print */}
+        <span className="absolute bottom-0 right-0 bg-gray-400/50 text-[8px] text-black">
+          © <a href="https://www.mapbox.com/about/maps">Mapbox</a>©{" "}
+          <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>
+        </span>
+        <span className="absolute bottom-0 left-0">
+          <a href="https://www.mapbox.com/">
+            <img
+              loading="lazy"
+              src={mapboxLogo}
+              alt="Mapbox"
+              className="w-10"
+            />
+          </a>
+        </span>
+      </div>
+    </EntityField>
+  );
+};
+
+export const MapboxStaticMap: YextComponentConfig<MapboxStaticProps> = {
+  label: msg("components.mapboxStaticMap", "Mapbox Static Map"),
+  fields: mapboxFields,
+  defaultProps: {
+    coordinate: {
+      field: "yextDisplayCoordinate",
+      constantValue: {
+        latitude: 0,
+        longitude: 0,
+      },
+    },
+    mapStyle: "streets-v12",
+  },
+  render: (props) => <MapboxStaticMapComponent {...props} />,
+};
