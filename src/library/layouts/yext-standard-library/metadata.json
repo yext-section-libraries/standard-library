@@ -1,0 +1,14 @@
+{
+  "id": "yext-standard-library",
+  "displayName": "Standard Section Library",
+  "vertical": [
+    "HEALTHCARE",
+    "FINANCIAL_SERVICES",
+    "FOOD_AND_DINING",
+    "RETAIL",
+    "HOSPITALITY",
+    "PROFESSIONAL_SERVICES"
+  ],
+  "purpose": ["LOCATION", "CITATION"],
+  "pageSetType": "ENTITY"
+}
