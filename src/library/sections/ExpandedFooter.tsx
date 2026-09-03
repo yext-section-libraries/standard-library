@@ -698,9 +698,9 @@ export const ExpandedFooter: YextComponentConfig<ExpandedFooterProps> = {
 
 export const config: SectionConfig = {
   id: "ExpandedFooter",
-  displayName: "Expanded Footer",
+  displayName: "Footer",
   description:
     "Contains links and other information intended for the bottom of the page.",
   pageSetTypes: ["ENTITY", "DIRECTORY", "LOCATOR"],
-  category: "Other",
+  category: "OTHER",
 };

@@ -8,12 +8,12 @@ import {
   useTemplateProps,
   mergeMeta,
   resolveUrlTemplate,
+  type NearbyLocationDoc,
 } from "@yext/visual-editor";
 import { HoursStatusAtom } from "../../atoms/hoursStatus.tsx"; // TODO: this file is different in v-e compared to the directory file
 import { MaybeLink } from "../../atoms/maybeLink.tsx";
 import { PhoneAtom } from "../../atoms/phone.tsx";
 import { NearbyLocationCardsWrapperProps } from "./NearbyLocationsCardsWrapper.tsx";
-import { NearbyLocationDoc } from "./useNearbyLocations.ts";
 
 /** A single card for the Nearby Locations Section */
 type NearbyLocationCardProps = {

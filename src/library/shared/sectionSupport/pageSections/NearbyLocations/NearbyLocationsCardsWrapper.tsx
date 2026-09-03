@@ -15,6 +15,8 @@ import {
   toPuckFields,
   YextComponentConfig,
   YextFields,
+  useNearbyLocations,
+  type NearbyLocationDoc,
 } from "@yext/visual-editor";
 import { Body } from "../../atoms/body.tsx";
 import {
@@ -22,10 +24,6 @@ import {
   toKilometers,
   useTemplateMetadata,
 } from "@yext/visual-editor/section-library-support";
-import {
-  useNearbyLocations,
-  type NearbyLocationDoc,
-} from "./useNearbyLocations.ts";
 import { NearbyLocationCard } from "./NearbyLocationCard.tsx";
 import { MapPinOff } from "lucide-react";
 import {

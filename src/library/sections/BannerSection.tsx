@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import * as React from "react";
+import "@yext/visual-editor/style.css";
 import {
   YextEntityField,
   resolveComponentData,

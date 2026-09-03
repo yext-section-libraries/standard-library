@@ -15,7 +15,7 @@ import {
 } from "@yext/visual-editor";
 import { Body } from "../atoms/body.tsx";
 import { PuckComponent } from "@puckeditor/core";
-import mapboxLogo from "../assets/mapbox-logo-black.svg";
+import mapboxLogo from "../../../assets/mapbox-logo-black.svg";
 import { Map } from "lucide-react";
 import {
   getThemeValue,
