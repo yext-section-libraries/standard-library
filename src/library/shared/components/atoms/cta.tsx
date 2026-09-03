@@ -14,9 +14,13 @@ import {
 } from "@yext/visual-editor";
 import { FaAngleRight, FaExternalLinkAlt } from "react-icons/fa";
 import { getDirections } from "@yext/pages-components";
-import { PresetImageType, FOOD_DELIVERY_SERVICES } from "../../types/types.ts";
-import { presetImageIcons } from "../../utils/presetImageIcons.tsx";
-import { hexToRGB, isColorContrastWcagCompliant } from "../../utils/colors.ts";
+import {
+  PresetImageType,
+  FOOD_DELIVERY_SERVICES,
+  presetImageIcons,
+  hexToRGB,
+  isColorContrastWcagCompliant,
+} from "@yext/visual-editor/section-library-support";
 
 const LINK_TEXT_TRANSFORM_CSS_VAR =
   "var(--textTransform-link-textTransform)" as React.CSSProperties["textTransform"];

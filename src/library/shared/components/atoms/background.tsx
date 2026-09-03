@@ -6,11 +6,11 @@ import {
   themeManagerCn,
   useDocument,
 } from "@yext/visual-editor";
-import { getThemeValue } from "../../utils/getThemeValue.ts";
 import {
+  getThemeValue,
   getBackgroundColorClasses,
   getBackgroundColorStyle,
-} from "../../utils/colors.ts";
+} from "@yext/visual-editor/section-library-support";
 
 export interface BackgroundProps extends React.HTMLAttributes<HTMLDivElement> {
   background?: ThemeColor;

@@ -1,10 +1,5 @@
 import { Config, DropZone } from "@puckeditor/core";
 import {
-  DeprecatedCategory,
-  DeprecatedCategoryComponents,
-  type DeprecatedCategoryProps,
-} from "../categories/DeprecatedCategory.tsx";
-import {
   LocatorCategory,
   LocatorCategoryComponents,
   type LocatorCategoryProps,
@@ -20,15 +15,12 @@ import {
   SlotsCategoryComponents,
   SlotsCategoryProps,
 } from "../categories/SlotsCategory.tsx";
-import { pt } from "../../utils/i18n/platform.ts";
+import { pt } from "@yext/visual-editor/section-library-support";
 import { MainContent, MainContentProps } from "../structure/MainContent.tsx";
 import { rootAllowedComponents } from "./rootAllowedComponents.ts";
 
 export interface LocatorConfigProps
-  extends LocatorCategoryProps,
-    SlotsCategoryProps,
-    DeprecatedCategoryProps,
-    OtherCategoryProps {
+  extends LocatorCategoryProps, SlotsCategoryProps, OtherCategoryProps {
   BannerSection: BannerSectionProps;
   MainContent: MainContentProps;
 }
@@ -36,7 +28,6 @@ export interface LocatorConfigProps
 const components: Config<LocatorConfigProps>["components"] = {
   ...LocatorCategoryComponents,
   ...SlotsCategoryComponents,
-  ...DeprecatedCategoryComponents,
   ...OtherCategoryComponents,
   BannerSection,
   MainContent,
@@ -58,11 +49,6 @@ export const locatorConfig: Config<LocatorConfigProps> = {
       components: ["MainContent"],
       visible: false,
     },
-    // deprecated components are hidden in the sidebar but still render if used in the page
-    deprecatedComponents: {
-      visible: false,
-      components: DeprecatedCategory,
-    },
     other: {
       components: OtherCategory,
     },
@@ -78,7 +64,7 @@ export const locatorConfig: Config<LocatorConfigProps> = {
             minHeight: "100vh",
           }}
           disallow={Object.keys(components).filter(
-            (componentName) => !rootAllowedComponents.includes(componentName)
+            (componentName) => !rootAllowedComponents.includes(componentName),
           )}
         />
       );

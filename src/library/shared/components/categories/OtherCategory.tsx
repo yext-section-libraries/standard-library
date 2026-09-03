@@ -1,7 +1,4 @@
-import {
-  CustomCodeSectionProps,
-  CustomCodeSection,
-} from "../customCode/CustomCodeSection.tsx";
+import { CustomCodeSectionProps, CustomCodeSection } from "@yext/visual-editor";
 import {
   ExpandedFooterProps,
   ExpandedFooter,

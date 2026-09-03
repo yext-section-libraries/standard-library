@@ -1,10 +1,5 @@
 import { Config, DropZone } from "@puckeditor/core";
 import {
-  DeprecatedCategory,
-  DeprecatedCategoryComponents,
-  type DeprecatedCategoryProps,
-} from "../categories/DeprecatedCategory.tsx";
-import {
   DirectoryCategory,
   DirectoryCategoryComponents,
   type DirectoryCategoryProps,
@@ -20,16 +15,15 @@ import {
   SlotsCategoryComponents,
   SlotsCategoryProps,
 } from "../categories/SlotsCategory.tsx";
-import { resolveDirectoryRootProps } from "../../utils/getPageMetadata.ts";
-import { pt } from "../../utils/i18n/platform.ts";
+import {
+  resolveDirectoryRootProps,
+  pt,
+} from "@yext/visual-editor/section-library-support";
 import { MainContent, MainContentProps } from "../structure/MainContent.tsx";
 import { rootAllowedComponents } from "./rootAllowedComponents.ts";
 
 export interface DirectoryConfigProps
-  extends DirectoryCategoryProps,
-    SlotsCategoryProps,
-    DeprecatedCategoryProps,
-    OtherCategoryProps {
+  extends DirectoryCategoryProps, SlotsCategoryProps, OtherCategoryProps {
   BannerSection: BannerSectionProps;
   MainContent: MainContentProps;
 }
@@ -37,7 +31,6 @@ export interface DirectoryConfigProps
 const components: Config<DirectoryConfigProps>["components"] = {
   ...DirectoryCategoryComponents,
   ...SlotsCategoryComponents,
-  ...DeprecatedCategoryComponents,
   ...OtherCategoryComponents,
   BannerSection,
   MainContent,
@@ -59,11 +52,6 @@ export const directoryConfig: Config<DirectoryConfigProps> = {
       components: ["MainContent"],
       visible: false,
     },
-    // deprecated components are hidden in the sidebar but still render if used in the page
-    deprecatedComponents: {
-      visible: false,
-      components: DeprecatedCategory,
-    },
     other: {
       components: OtherCategory,
     },
@@ -75,7 +63,7 @@ export const directoryConfig: Config<DirectoryConfigProps> = {
         ...data,
         props: resolveDirectoryRootProps(
           data.props ?? {},
-          params.metadata?.streamDocument ?? {}
+          params.metadata?.streamDocument ?? {},
         ),
       };
     },
@@ -89,7 +77,7 @@ export const directoryConfig: Config<DirectoryConfigProps> = {
             minHeight: "100vh",
           }}
           disallow={Object.keys(components).filter(
-            (componentName) => !rootAllowedComponents.includes(componentName)
+            (componentName) => !rootAllowedComponents.includes(componentName),
           )}
         />
       );

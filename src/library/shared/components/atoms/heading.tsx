@@ -1,7 +1,10 @@
 import { ThemeColor, HeadingLevel, themeManagerCn } from "@yext/visual-editor";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
-import { getTextColorClass, getTextColorStyle } from "../../utils/colors.ts";
+import {
+  getTextColorClass,
+  getTextColorStyle,
+} from "@yext/visual-editor/section-library-support";
 
 // Define the variants for the heading component
 export const headingVariants = cva("components", {

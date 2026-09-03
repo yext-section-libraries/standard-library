@@ -1,8 +1,6 @@
-# Pages Section Library Starter
+# Standard Section Library
 
-This branch supports a Section Library with at lease one Entity layout, one Directory
-layout, and one Locator layout. A Section Library is the source that users fork
-and edit.
+This repo contains the original Visual Editor "out-of-the-box" sections.
 
 ## Development commands
 

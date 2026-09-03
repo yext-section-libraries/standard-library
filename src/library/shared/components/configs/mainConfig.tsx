@@ -1,10 +1,5 @@
 import { DropZone, Config } from "@puckeditor/core";
-import { pt } from "../../utils/i18n/platform.ts";
-import {
-  DeprecatedCategory,
-  DeprecatedCategoryComponents,
-  type DeprecatedCategoryProps,
-} from "../categories/DeprecatedCategory.tsx";
+import { pt } from "@yext/visual-editor/section-library-support";
 import {
   PageSectionCategory,
   PageSectionCategoryComponents,
@@ -29,8 +24,8 @@ import { MainContent, MainContentProps } from "../structure/MainContent.tsx";
 import { rootAllowedComponents } from "./rootAllowedComponents.ts";
 
 export interface MainConfigProps
-  extends PageSectionCategoryProps,
-    DeprecatedCategoryProps,
+  extends
+    PageSectionCategoryProps,
     OtherCategoryProps,
     AdvancedCoreInfoCategoryProps,
     SlotsCategoryProps {
@@ -39,7 +34,6 @@ export interface MainConfigProps
 
 const components: Config<MainConfigProps>["components"] = {
   ...PageSectionCategoryComponents,
-  ...DeprecatedCategoryComponents,
   ...OtherCategoryComponents,
   ...AdvancedCoreInfoCategoryComponents,
   ...SlotsCategoryComponents,
@@ -70,11 +64,6 @@ export const mainConfig: Config<MainConfigProps> = {
       components: ["MainContent"],
       visible: false,
     },
-    // deprecated components are hidden in the sidebar but still render if used in the page
-    deprecatedComponents: {
-      visible: false,
-      components: DeprecatedCategory,
-    },
   },
   root: {
     render: () => {
@@ -87,7 +76,7 @@ export const mainConfig: Config<MainConfigProps> = {
             minHeight: "100vh",
           }}
           disallow={Object.keys(components).filter(
-            (componentName) => !rootAllowedComponents.includes(componentName)
+            (componentName) => !rootAllowedComponents.includes(componentName),
           )}
         />
       );

@@ -1,7 +1,10 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { themeManagerCn, ThemeColor } from "@yext/visual-editor";
-import { getTextColorClass, getTextColorStyle } from "../../utils/colors.ts";
+import {
+  getTextColorClass,
+  getTextColorStyle,
+} from "@yext/visual-editor/section-library-support";
 
 // Define the variants for the body component
 export const bodyVariants = cva(

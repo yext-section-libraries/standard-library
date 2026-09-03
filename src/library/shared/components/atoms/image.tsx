@@ -17,7 +17,7 @@ import {
   ImageFillType,
 } from "@yext/visual-editor";
 import { useTranslation } from "react-i18next";
-import { getThemeValue } from "../../utils/getThemeValue.ts";
+import { getThemeValue } from "@yext/visual-editor/section-library-support";
 
 export interface ImageProps {
   image: ImageType | ComplexImageType | TranslatableAssetImage;

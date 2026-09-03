@@ -1,7 +1,7 @@
 {
-  "name": "pages-visual-editor-starter",
+  "name": "yext-standard-library",
   "version": "0.0.0",
-  "description": "An example repository to help users get started with Visual Editor Section Libraries on Yext Pages",
+  "description": "A Yext Pages Section Library containing the original 'out-of-the-box' sections.",
   "author": "sprumo@yext.com",
   "license": "BSD-3-Clause",
   "type": "module",
