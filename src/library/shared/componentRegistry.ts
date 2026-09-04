@@ -41,7 +41,11 @@ import { FAQsSection as SharedComponent38 } from "../sections/FAQsSection";
 import { EventCardsWrapper as SharedComponent39 } from "./sectionSupport/pageSections/EventSection/EventCardsWrapper";
 import { EventCard as SharedComponent40 } from "./sectionSupport/pageSections/EventSection/EventCard";
 import { Timestamp as SharedComponent41 } from "./sectionSupport/contentBlocks/Timestamp";
-import { directoryRootConfig, locatorRootConfig } from "./roots";
+import {
+  directoryRootConfig,
+  locatorRootConfig,
+  rootAllowedComponents,
+} from "./roots";
 
 /** Hidden internal Puck components referenced by saved Directory layout data. */
 export const sharedComponentMetadata = [
@@ -167,6 +171,6 @@ export const sharedRootPageSetTypes = ["DIRECTORY", "LOCATOR"] as const;
 
 export const sharedRootAllowedComponentIds: Partial<Record<string, string[]>> =
   {
-    DIRECTORY: ["MainContent", "CustomCodeSection"],
-    LOCATOR: ["MainContent", "CustomCodeSection"],
+    DIRECTORY: rootAllowedComponents,
+    LOCATOR: rootAllowedComponents,
   };
