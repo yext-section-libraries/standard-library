@@ -25,10 +25,10 @@ import { AboutSection } from "../library/sections/AboutSection.tsx";
 import { BannerSection } from "../library/sections/BannerSection.tsx";
 import { CoreInfoSection } from "../library/sections/CoreInfoSection.tsx";
 import { EventSection } from "../library/sections/EventSection.tsx";
-import { FAQsSection } from "../library/sections/FAQsSection.tsx";
+import { FAQSection } from "../library/sections/FAQSection.tsx";
 import { HeroSection } from "../library/sections/HeroSection.tsx";
 import { InsightSection } from "../library/sections/InsightSection.tsx";
-import { Breadcrumbs } from "../library/sections/Breadcrumbs.tsx";
+import { BreadcrumbsSection } from "../library/sections/BreadcrumbsSection.tsx";
 import { NearbyLocationsSection } from "../library/sections/NearbyLocationsSection.tsx";
 import { PhotoGallerySection } from "../library/sections/PhotoGallerySection.tsx";
 import { ProductSection } from "../library/sections/ProductSection.tsx";
@@ -71,10 +71,10 @@ describe("ThemeTest", async () => {
     components: {
       AboutSection,
       BannerSection,
-      BreadcrumbsSection: Breadcrumbs,
+      BreadcrumbsSection,
       CoreInfoSection,
       EventSection,
-      FAQSection: FAQsSection,
+      FAQSection,
       HeroSection,
       InsightSection,
       NearbyLocationsSection,
@@ -88,7 +88,7 @@ describe("ThemeTest", async () => {
       TestimonialSection,
       VideoSection,
       ExpandedHeader,
-      ExpandedFooter
+      ExpandedFooter,
       ...sharedComponentConfigs,
       MainContent,
     },

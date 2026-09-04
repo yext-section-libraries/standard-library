@@ -11,7 +11,7 @@ import {
 import { PageSection } from "../atoms/pageSection.tsx";
 import { Background } from "../atoms/background.tsx";
 import { HeadingTextProps } from "../../../sections/HeadingText.tsx";
-import { BreadcrumbsSectionProps } from "../../../sections/Breadcrumbs.tsx";
+import { BreadcrumbsSectionProps } from "../../../sections/BreadcrumbsSection.tsx";
 import { PuckComponent, setDeep, Slot } from "@puckeditor/core";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import { DirectoryList } from "./DirectoryWrapper.tsx";

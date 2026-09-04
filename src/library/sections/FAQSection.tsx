@@ -175,7 +175,7 @@ const FAQsSectionComponent: PuckComponent<FAQSectionProps> = ({
   slots,
 }) => <FAQsSectionLayout styles={styles} slots={slots} />;
 
-export const FAQsSection: YextComponentConfig<FAQSectionProps> = {
+export const FAQSection: YextComponentConfig<FAQSectionProps> = {
   label: msg("components.faqsSection", "FAQs Section"),
   fields: FAQsSectionFields,
   defaultProps: {
@@ -241,7 +241,7 @@ export const FAQsSection: YextComponentConfig<FAQSectionProps> = {
 };
 
 export const config: SectionConfig = {
-  id: "FAQsSection",
+  id: "FAQSection",
   displayName: "FAQs Section",
   description:
     "Displays a list of questions and answers in an organized format. It includes a main heading for the section and typically renders the FAQs as an accordion, where users can click on a question to reveal the answer.",

@@ -1,6 +1,6 @@
 import type { Config } from "@puckeditor/core";
 import { HeadingText as SharedComponent0 } from "../sections/HeadingText";
-import { Breadcrumbs as SharedComponent1 } from "../sections/Breadcrumbs";
+import { BreadcrumbsSection as SharedComponent1 } from "../sections/BreadcrumbsSection";
 import { DirectoryGrid as SharedComponent2 } from "./sectionSupport/directory/DirectoryWrapper";
 import { DirectoryCard as SharedComponent3 } from "./sectionSupport/directory/DirectoryCard";
 import { Address as SharedComponent4 } from "../sections/Address";
@@ -37,7 +37,6 @@ import { HoursTable as SharedComponent34 } from "../sections/HoursTable";
 import { TextList as SharedComponent35 } from "../sections/TextList";
 import { BodyText as SharedComponent36 } from "../sections/BodyText";
 import { Text as SharedComponent37 } from "../sections/Text";
-import { FAQsSection as SharedComponent38 } from "../sections/FAQsSection";
 import { EventCardsWrapper as SharedComponent39 } from "./sectionSupport/pageSections/EventSection/EventCardsWrapper";
 import { EventCard as SharedComponent40 } from "./sectionSupport/pageSections/EventSection/EventCard";
 import { Timestamp as SharedComponent41 } from "./sectionSupport/contentBlocks/Timestamp";
@@ -105,7 +104,6 @@ export const sharedComponentMetadata = [
   { id: "TextListSlot", pageSetTypes: ["ENTITY"] },
   { id: "BodyTextSlot", pageSetTypes: ["ENTITY"] },
   { id: "TextSlot", pageSetTypes: ["ENTITY"] },
-  { id: "FAQSection", pageSetTypes: ["ENTITY"] },
   { id: "EventCardsWrapper", pageSetTypes: ["ENTITY"] },
   { id: "EventCard", pageSetTypes: ["ENTITY"] },
   { id: "Timestamp", pageSetTypes: ["ENTITY"] },
@@ -154,7 +152,6 @@ export const sharedComponentConfigs: Record<
   TextListSlot: SharedComponent35,
   BodyTextSlot: SharedComponent36,
   TextSlot: SharedComponent37,
-  FAQSection: SharedComponent38,
   EventCardsWrapper: SharedComponent39,
   EventCard: SharedComponent40,
   Timestamp: SharedComponent41,

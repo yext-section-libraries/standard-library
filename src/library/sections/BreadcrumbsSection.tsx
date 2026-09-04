@@ -234,60 +234,63 @@ export const BreadcrumbsComponent = ({
   );
 };
 
-export const Breadcrumbs: YextComponentConfig<BreadcrumbsSectionProps> = {
-  label: msg("components.breadcrumbs", "Breadcrumbs"),
-  fields: breadcrumbsSectionFields,
-  resolveFields: (_data, params) => {
-    const streamDocument = params.metadata?.streamDocument;
-    if (!streamDocument) {
-      return toPuckFields<BreadcrumbsSectionProps>(breadcrumbsSectionFields);
-    }
+export const BreadcrumbsSection: YextComponentConfig<BreadcrumbsSectionProps> =
+  {
+    label: msg("components.breadcrumbs", "Breadcrumbs"),
+    fields: breadcrumbsSectionFields,
+    resolveFields: (_data, params) => {
+      const streamDocument = params.metadata?.streamDocument;
+      if (!streamDocument) {
+        return toPuckFields<BreadcrumbsSectionProps>(breadcrumbsSectionFields);
+      }
 
-    // On root pages there is only one breadcrumb, so "currentPage" duplicates "directoryRoot".
-    const breadcrumbCount = resolveBreadcrumbs(streamDocument).length;
-    return setDeep(
-      toPuckFields<BreadcrumbsSectionProps>(breadcrumbsSectionFields),
-      "data.objectFields.currentPage.visible",
-      breadcrumbCount !== 1,
-    );
-  },
-  defaultProps: {
-    data: {
-      directoryRoot: { defaultValue: "Directory Root" },
-      currentPage: {
-        constantValue: { defaultValue: "[[name]]" },
-        field: "name",
-        constantValueEnabled: false,
+      // On root pages there is only one breadcrumb, so "currentPage" duplicates "directoryRoot".
+      const breadcrumbCount = resolveBreadcrumbs(streamDocument).length;
+      return setDeep(
+        toPuckFields<BreadcrumbsSectionProps>(breadcrumbsSectionFields),
+        "data.objectFields.currentPage.visible",
+        breadcrumbCount !== 1,
+      );
+    },
+    defaultProps: {
+      data: {
+        directoryRoot: { defaultValue: "Directory Root" },
+        currentPage: {
+          constantValue: { defaultValue: "[[name]]" },
+          field: "name",
+          constantValueEnabled: false,
+        },
       },
+      styles: {
+        backgroundColor: backgroundColors.background1.value,
+        showCurrentPage: true,
+      },
+      analytics: {
+        scope: "breadcrumbs",
+      },
+      liveVisibility: true,
     },
-    styles: {
-      backgroundColor: backgroundColors.background1.value,
-      showCurrentPage: true,
-    },
-    analytics: {
-      scope: "breadcrumbs",
-    },
-    liveVisibility: true,
-  },
-  render: (props) => {
-    return (
-      <ComponentErrorBoundary
-        isEditing={props.puck.isEditing}
-        resetKeys={[props]}
-      >
-        <AnalyticsScopeProvider name={props?.analytics?.scope ?? "breadcrumbs"}>
-          <VisibilityWrapper
-            liveVisibility={props.liveVisibility}
-            isEditing={props.puck.isEditing}
-            iconSize="md"
+    render: (props) => {
+      return (
+        <ComponentErrorBoundary
+          isEditing={props.puck.isEditing}
+          resetKeys={[props]}
+        >
+          <AnalyticsScopeProvider
+            name={props?.analytics?.scope ?? "breadcrumbs"}
           >
-            <BreadcrumbsComponent {...props} />
-          </VisibilityWrapper>
-        </AnalyticsScopeProvider>
-      </ComponentErrorBoundary>
-    );
-  },
-};
+            <VisibilityWrapper
+              liveVisibility={props.liveVisibility}
+              isEditing={props.puck.isEditing}
+              iconSize="md"
+            >
+              <BreadcrumbsComponent {...props} />
+            </VisibilityWrapper>
+          </AnalyticsScopeProvider>
+        </ComponentErrorBoundary>
+      );
+    },
+  };
 
 export const config: SectionConfig = {
   id: "BreadcrumbsSection",
