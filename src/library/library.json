@@ -1,5 +1,6 @@
 {
   "schemaVersion": 1,
   "id": "yext-standard-library",
-  "displayName": "Yext Standard Library"
+  "displayName": "Yext Standard Library",
+  "description": "The original Visual Editor 'out-of-the-box' sections."
 }
