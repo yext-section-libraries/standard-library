@@ -4,14 +4,22 @@ import {
   Matcher,
   NearFilterValue,
   SelectableStaticFilter,
+  useSearchState,
 } from "@yext/search-headless-react";
-import { AppliedFilters, Facets } from "@yext/search-ui-react";
+import {
+  AppliedFilters,
+  Facets,
+  NumericalFacet,
+  StandardFacet,
+} from "@yext/search-ui-react";
 import React from "react";
 import {
   type MultiSelectorOption,
   getPreferredDistanceUnit,
   msg,
   LocatorEntityType,
+  resolveComponentData,
+  type TranslatableString,
 } from "@yext/visual-editor/section-library-support";
 import { useCollapse } from "react-collapsed";
 import { useTranslation } from "react-i18next";
@@ -22,6 +30,7 @@ import { translateDistanceUnit } from "./Results.tsx";
 export const LOCATION_FIELD = "builtin.location";
 export const COUNTRY_CODE_FIELD = "address.countryCode";
 export const HOURS_FIELD = "builtin.hours";
+export const KEYWORDS_FIELD = "keywords";
 
 interface FilterModalProps {
   showFilterModal: boolean;
@@ -38,6 +47,7 @@ interface FilterModalProps {
   handleClearFiltersClick: () => void;
   accentColorCssValue: string;
   closeButtonRef: React.Ref<HTMLButtonElement>;
+  keywordsDisplayName?: TranslatableString;
 }
 
 export const FilterModal = ({
@@ -52,9 +62,33 @@ export const FilterModal = ({
   handleClearFiltersClick,
   accentColorCssValue,
   closeButtonRef,
+  keywordsDisplayName,
 }: FilterModalProps) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const popupRef = React.useRef<HTMLDivElement>(null);
+  const facets = useSearchState((state) => state.filters.facets);
+  const facetOverrides = facets?.map((facet) => {
+    const isNumericalFacet = facet.options.some(
+      (option) =>
+        option.matcher === Matcher.Between &&
+        typeof option.value === "object" &&
+        option.value !== null &&
+        ("start" in option.value || "end" in option.value),
+    );
+    const FacetOverride = isNumericalFacet ? NumericalFacet : StandardFacet;
+    const displayName =
+      facet.fieldId === KEYWORDS_FIELD && keywordsDisplayName
+        ? resolveComponentData(keywordsDisplayName, i18n.language) || undefined
+        : undefined;
+
+    return (
+      <FacetOverride
+        key={facet.fieldId}
+        fieldId={facet.fieldId}
+        label={displayName}
+      />
+    );
+  });
 
   return showFilterModal ? (
     <div
@@ -116,7 +150,9 @@ export const FilterModal = ({
               optionLabel: "text-md font-body-fontFamily font-body-fontWeight",
               option: "space-x-4 font-body-fontFamily",
             }}
-          />
+          >
+            {facetOverrides}
+          </Facets>
         </div>
       </div>
       <div className="border-y border-gray-300 justify-center align-middle">
@@ -287,7 +323,7 @@ function getFacetFieldOptionsForEntityType(
         },
         {
           label: msg("fields.options.facets.keywords", "Keywords"),
-          value: "keywords",
+          value: KEYWORDS_FIELD,
         },
         {
           label: msg("fields.options.facets.languages", "Languages"),
@@ -330,7 +366,7 @@ function getFacetFieldOptionsForEntityType(
         },
         {
           label: msg("fields.options.facets.keywords", "Keywords"),
-          value: "keywords",
+          value: KEYWORDS_FIELD,
         },
         {
           label: msg("fields.options.facets.languages", "Languages"),

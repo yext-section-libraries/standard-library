@@ -7,7 +7,6 @@ import {
 import {
   backgroundColors,
   ThemeColor,
-  TranslatableCTA,
   msg,
   useOverflow,
   resolveComponentData,
@@ -15,6 +14,7 @@ import {
   YextComponentConfig,
   YextFields,
 } from "@yext/visual-editor";
+import { resolveLocalizedCtas } from "../../utils/resolveLocalizedCtas.ts";
 import { CTAWrapperProps } from "../../../sections/CTAWrapper.tsx";
 import { ImageWrapperProps } from "../../../sections/ImageWrapper.tsx";
 import { PageSection, PageSectionProps } from "../atoms/pageSection.tsx";
@@ -518,18 +518,28 @@ export const PrimaryHeaderSlot: YextComponentConfig<PrimaryHeaderSlotProps> = {
       !!secondaryCTA?.label &&
       !!secondaryCTA?.link;
 
-    const showNavContent: boolean =
+    const primaryLinksData = data.props.slots.LinksSlot?.[0]?.props.data;
+    const hasPrimaryLinks =
+      resolveLocalizedCtas(primaryLinksData?.links, locale, streamDocument)
+        .length > 0 ||
+      resolveLocalizedCtas(
+        primaryLinksData?.collapsedLinks,
+        locale,
+        streamDocument,
+      ).length > 0;
+
+    const secondaryHeader = data.props.parentValues?.SecondaryHeaderSlot?.[0];
+    const secondaryLinks =
+      secondaryHeader?.props.slots.LinksSlot?.[0]?.props.data.links;
+    const hasSecondaryLinks =
+      !!secondaryHeader?.props.data.show &&
+      resolveLocalizedCtas(secondaryLinks, locale, streamDocument).length > 0;
+
+    const showNavContent =
       showPrimaryCTA ||
       showSecondaryCTA ||
-      !!data.props.slots.LinksSlot?.[0]?.props.data.links?.some(
-        (l: TranslatableCTA) => l.label && l.link,
-      ) ||
-      !!(
-        data.props.parentValues?.SecondaryHeaderSlot?.[0]?.props.data.show &&
-        data.props.parentValues?.SecondaryHeaderSlot?.[0]?.props.data.links?.some(
-          (l: TranslatableCTA) => l.label && l.link,
-        )
-      );
+      hasPrimaryLinks ||
+      hasSecondaryLinks;
 
     return {
       ...data,

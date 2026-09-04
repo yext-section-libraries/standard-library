@@ -32,7 +32,7 @@ const PLACEHOLDER_LOGO_IMAGE: string =
 export const defaultLink = {
   linkType: "URL" as const,
   label: { defaultValue: "Footer Link" },
-  link: "#",
+  link: { defaultValue: "#" },
   normalizeLink: true,
   openInNewTab: false,
 };

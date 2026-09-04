@@ -25,6 +25,10 @@ import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrap
 import { CTAVariant } from "../shared/sectionSupport/atoms/cta.tsx";
 import { HeadingTextProps } from "./HeadingText.tsx";
 import { HoursStatusProps } from "./HoursStatus.tsx";
+import {
+  PhoneListProps,
+  resolvePhoneNumbers,
+} from "../shared/sectionSupport/contentBlocks/PhoneList.tsx";
 import { ImageWrapperProps } from "./ImageWrapper.tsx";
 import { CTAWrapperProps } from "./CTAWrapper.tsx";
 import { ClassicHero } from "../shared/sectionSupport/pageSections/heroVariants/ClassicHero.js";
@@ -101,6 +105,12 @@ export interface HeroStyles {
   showGeomodifier: boolean;
 
   /**
+   * Whether to show the phone number.
+   * @defaultValue true
+   */
+  showPhone: boolean;
+
+  /**
    * Whether to show the hours status.
    * @defaultValue true
    */
@@ -152,6 +162,7 @@ export interface HeroSectionProps {
   slots: {
     BusinessNameSlot: Slot;
     GeomodifierSlot: Slot;
+    PhoneSlot: Slot;
     HoursStatusSlot: Slot;
     ImageSlot: Slot;
     PrimaryCTASlot: Slot;
@@ -161,6 +172,7 @@ export interface HeroSectionProps {
   /** @internal */
   conditionalRender?: {
     hours: boolean;
+    phone: boolean;
   };
 
   /** @internal */
@@ -305,6 +317,11 @@ const heroSectionFields: YextFields<HeroSectionProps> = {
         type: "radio",
         options: ThemeOptions.SHOW_HIDE,
       },
+      showPhone: {
+        label: msg("fields.showPhone", "Show Phone"),
+        type: "radio",
+        options: ThemeOptions.SHOW_HIDE,
+      },
       showHoursStatus: {
         label: msg("fields.showHoursStatus", "Show Hours Status"),
         type: "radio",
@@ -342,6 +359,7 @@ const heroSectionFields: YextFields<HeroSectionProps> = {
     objectFields: {
       BusinessNameSlot: { type: "slot" },
       GeomodifierSlot: { type: "slot" },
+      PhoneSlot: { type: "slot" },
       HoursStatusSlot: { type: "slot" },
       ImageSlot: { type: "slot" },
       PrimaryCTASlot: { type: "slot" },
@@ -395,6 +413,7 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
       mobileImagePosition: "bottom",
       showBusinessName: true,
       showGeomodifier: true,
+      showPhone: true,
       showHoursStatus: true,
       showAverageReview: true,
       showPrimaryCTA: true,
@@ -430,6 +449,28 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
             },
             styles: { level: 1, align: "left" },
           } satisfies HeadingTextProps,
+        },
+      ],
+      PhoneSlot: [
+        {
+          type: "PhoneNumbersSlot",
+          props: {
+            data: {
+              phoneNumbers: [
+                {
+                  number: {
+                    field: "mainPhone",
+                    constantValue: "",
+                  },
+                  label: { defaultValue: "Phone" },
+                },
+              ],
+            },
+            styles: {
+              phoneFormat: "domestic",
+              includePhoneHyperlink: true,
+            },
+          } satisfies PhoneListProps,
         },
       ],
       HoursStatusSlot: [
@@ -612,11 +653,23 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
       streamDocument,
     );
 
+    const phoneSlot = data.props.slots.PhoneSlot?.[0];
+    const resolvedPhoneNumbers = phoneSlot
+      ? resolvePhoneNumbers(
+          phoneSlot.props.data.phoneNumbers,
+          locale,
+          streamDocument,
+        )
+      : [];
+
     return {
       ...data,
       props: {
         ...data.props,
-        conditionalRender: { hours: !!resolvedHours },
+        conditionalRender: {
+          hours: !!resolvedHours,
+          phone: resolvedPhoneNumbers.length > 0,
+        },
       },
     };
   },
