@@ -15,7 +15,7 @@ import {
   YextFields,
   createSlottedItemSource,
 } from "@yext/visual-editor";
-import { HeadingTextProps } from "../shared/sectionSupport/contentBlocks/HeadingText.tsx";
+import { HeadingTextProps } from "./HeadingText.tsx";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import {
   defaultFAQCardData,

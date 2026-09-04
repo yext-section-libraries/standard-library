@@ -16,7 +16,7 @@ import {
   PhoneDataFields,
   PhoneStyleFields,
   PhoneProps,
-} from "./Phone.tsx";
+} from "../../../sections/Phone.tsx";
 import { PuckComponent } from "@puckeditor/core";
 import { useTranslation } from "react-i18next";
 

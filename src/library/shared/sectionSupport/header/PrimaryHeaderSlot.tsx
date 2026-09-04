@@ -15,8 +15,8 @@ import {
   YextComponentConfig,
   YextFields,
 } from "@yext/visual-editor";
-import { CTAWrapperProps } from "../contentBlocks/CtaWrapper.tsx";
-import { ImageWrapperProps } from "../contentBlocks/image/Image.tsx";
+import { CTAWrapperProps } from "../../../sections/CTAWrapper.tsx";
+import { ImageWrapperProps } from "../../../sections/ImageWrapper.tsx";
 import { PageSection, PageSectionProps } from "../atoms/pageSection.tsx";
 import {
   getViewport,

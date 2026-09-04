@@ -15,10 +15,11 @@ import {
   toPuckFields,
   YextComponentConfig,
   YextFields,
+  SectionConfig,
 } from "@yext/visual-editor";
-import { CTA } from "../atoms/cta.tsx";
-import { Background } from "../atoms/background.tsx";
-import { updateFields } from "../../utils/updateFields.ts";
+import { CTA } from "../shared/sectionSupport/atoms/cta.tsx";
+import { Background } from "../shared/sectionSupport/atoms/background.tsx";
+import { updateFields } from "../shared/utils/updateFields.ts";
 
 export interface EmailsProps {
   data: {
@@ -181,4 +182,12 @@ export const Emails: YextComponentConfig<EmailsProps> = {
     },
   },
   render: (props) => <EmailsComponent {...props} />,
+};
+
+export const config: SectionConfig = {
+  id: "Emails",
+  displayName: "Emails",
+  description: "Displays a list of emails.",
+  pageSetTypes: ["ENTITY"],
+  category: "Core Information",
 };

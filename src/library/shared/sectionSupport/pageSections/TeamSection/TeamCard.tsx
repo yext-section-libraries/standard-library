@@ -14,11 +14,11 @@ import {
   i18nComponentsInstance,
 } from "@yext/visual-editor";
 import { Background } from "../../atoms/background.tsx";
-import { ImageWrapperProps } from "../../contentBlocks/image/Image.tsx";
-import { HeadingTextProps } from "../../contentBlocks/HeadingText.tsx";
-import { CTAWrapperProps } from "../../contentBlocks/CtaWrapper.tsx";
+import { ImageWrapperProps } from "../../../../sections/ImageWrapper.tsx";
+import { HeadingTextProps } from "../../../../sections/HeadingText.tsx";
+import { CTAWrapperProps } from "../../../../sections/CTAWrapper.tsx";
 import { ImgSizesByBreakpoint } from "../../atoms/image.tsx";
-import { EmailsProps } from "../../contentBlocks/Emails.tsx";
+import { EmailsProps } from "../../../../sections/Emails.tsx";
 import { PhoneListProps } from "../../contentBlocks/PhoneList.tsx";
 import {
   useCardContext,
@@ -26,7 +26,7 @@ import {
   useGetCardSlots,
   syncParentStyles,
 } from "@yext/visual-editor/section-library-support";
-import { TextProps } from "../../contentBlocks/Text.tsx";
+import { TextProps } from "../../../../sections/Text.tsx";
 
 const defaultPerson = {
   name: { defaultValue: "First Last" },

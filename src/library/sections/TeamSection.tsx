@@ -10,7 +10,7 @@ import {
   SectionConfig,
 } from "@yext/visual-editor";
 import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
-import { HeadingTextProps } from "../shared/sectionSupport/contentBlocks/HeadingText.tsx";
+import { HeadingTextProps } from "./HeadingText.tsx";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import { defaultTeamCardSlotData } from "../shared/sectionSupport/pageSections/TeamSection/TeamCard.tsx";
 import { TeamCardsWrapperProps } from "../shared/sectionSupport/pageSections/TeamSection/TeamCardsWrapper.tsx";

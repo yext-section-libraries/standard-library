@@ -17,10 +17,10 @@ import {
   resolveComponentData,
 } from "@yext/visual-editor";
 import { Background } from "../../atoms/background.tsx";
-import { CTAWrapperProps } from "../../contentBlocks/CtaWrapper.tsx";
-import { BodyTextProps } from "../../contentBlocks/BodyText.tsx";
-import { HeadingTextProps } from "../../contentBlocks/HeadingText.tsx";
-import { ImageWrapperProps } from "../../contentBlocks/image/Image.tsx";
+import { CTAWrapperProps } from "../../../../sections/CTAWrapper.tsx";
+import { BodyTextProps } from "../../../../sections/BodyText.tsx";
+import { HeadingTextProps } from "../../../../sections/HeadingText.tsx";
+import { ImageWrapperProps } from "../../../../sections/ImageWrapper.tsx";
 import { ImgSizesByBreakpoint } from "../../atoms/image.tsx";
 import { PuckComponent, setDeep, Slot, WithId } from "@puckeditor/core";
 import {
@@ -31,7 +31,7 @@ import {
   getRandomPlaceholderImageObject,
 } from "@yext/visual-editor/section-library-support";
 import { isCompleteProductPrice, isInvalidProductPrice } from "./utils.ts";
-import { TextProps } from "../../contentBlocks/Text.tsx";
+import { TextProps } from "../../../../sections/Text.tsx";
 import { ProductSectionVariant } from "../../../../sections/ProductSection.tsx";
 
 /**

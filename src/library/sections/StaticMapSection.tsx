@@ -8,10 +8,7 @@ import {
 } from "@yext/visual-editor";
 import { PageSection } from "../shared/sectionSupport/atoms/pageSection.tsx";
 import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
-import {
-  MapboxStaticMapComponent,
-  mapStyleField,
-} from "../shared/sectionSupport/contentBlocks/MapboxStaticMap.tsx";
+import { MapboxStaticMapComponent, mapStyleField } from "./MapboxStaticMap.tsx";
 import { PuckComponent } from "@puckeditor/core";
 import { ComponentErrorBoundary } from "@yext/visual-editor/section-library-support";
 

@@ -10,6 +10,7 @@ import {
   pt,
   YextComponentConfig,
   YextFields,
+  SectionConfig,
 } from "@yext/visual-editor";
 
 export interface TextListProps {
@@ -100,4 +101,12 @@ export const TextList: YextComponentConfig<TextListProps> = {
     commaSeparated: false,
   },
   render: (props) => <TextListComponent {...props} />,
+};
+
+export const config: SectionConfig = {
+  id: "TextList",
+  displayName: "Text List",
+  description: "Renders a text list.",
+  pageSetTypes: ["ENTITY"],
+  category: "Core Information",
 };

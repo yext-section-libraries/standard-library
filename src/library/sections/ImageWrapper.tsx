@@ -20,12 +20,16 @@ import {
   Image,
   ImgSizesByBreakpoint,
   imgSizesHelper,
-} from "../../atoms/image.tsx";
-import { MaybeLink } from "../../atoms/maybeLink.tsx";
+} from "../shared/sectionSupport/atoms/image.tsx";
+import { MaybeLink } from "../shared/sectionSupport/atoms/maybeLink.tsx";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
-import { EmptyImageState } from "./EmptyImageState.tsx";
-import { ImageStylingFields, ImageStylingProps } from "./styling.ts";
+import { EmptyImageState } from "../shared/sectionSupport/contentBlocks/image/EmptyImageState.tsx";
+import {
+  ImageStylingFields,
+  ImageStylingProps,
+} from "../shared/sectionSupport/contentBlocks/image/styling.ts";
+import { SectionConfig } from "@yext/visual-editor";
 
 const PLACEHOLDER_IMAGE_URL = "https://placehold.co/640x360";
 const DEFAULT_LINK = "#";
@@ -274,4 +278,12 @@ export const ImageWrapper: YextComponentConfig<ImageWrapperProps> = {
     return fields;
   },
   render: (props) => <ImageWrapperComponent {...props} />,
+};
+
+export const config: SectionConfig = {
+  id: "ImageWrapper",
+  displayName: "Image",
+  description: "Renders an image.",
+  pageSetTypes: ["ENTITY"],
+  category: "Core Information",
 };

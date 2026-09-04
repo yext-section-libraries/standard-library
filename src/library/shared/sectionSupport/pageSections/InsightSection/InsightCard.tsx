@@ -14,10 +14,10 @@ import {
   YextFields,
 } from "@yext/visual-editor";
 import { Background } from "../../atoms/background.tsx";
-import { CTAWrapperProps } from "../../contentBlocks/CtaWrapper.tsx";
-import { BodyTextProps } from "../../contentBlocks/BodyText.tsx";
-import { HeadingTextProps } from "../../contentBlocks/HeadingText.tsx";
-import { ImageWrapperProps } from "../../contentBlocks/image/Image.tsx";
+import { CTAWrapperProps } from "../../../../sections/CTAWrapper.tsx";
+import { BodyTextProps } from "../../../../sections/BodyText.tsx";
+import { HeadingTextProps } from "../../../../sections/HeadingText.tsx";
+import { ImageWrapperProps } from "../../../../sections/ImageWrapper.tsx";
 import {
   useCardContext,
   useParentCardStyles,
@@ -25,7 +25,7 @@ import {
   syncParentStyles,
   getRandomPlaceholderImageObject,
 } from "@yext/visual-editor/section-library-support";
-import { TextProps } from "../../contentBlocks/Text.tsx";
+import { TextProps } from "../../../../sections/Text.tsx";
 import { PuckComponent, Slot } from "@puckeditor/core";
 
 const defaultInsight = {

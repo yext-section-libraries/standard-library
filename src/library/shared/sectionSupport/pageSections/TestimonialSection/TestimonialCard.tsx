@@ -15,8 +15,8 @@ import {
   resolveComponentData,
 } from "@yext/visual-editor";
 import { Background } from "../../atoms/background.tsx";
-import { HeadingTextProps } from "../../contentBlocks/HeadingText.tsx";
-import { BodyTextProps } from "../../contentBlocks/BodyText.tsx";
+import { HeadingTextProps } from "../../../../sections/HeadingText.tsx";
+import { BodyTextProps } from "../../../../sections/BodyText.tsx";
 import { TimestampProps } from "../../contentBlocks/Timestamp.tsx";
 import {
   useCardContext,

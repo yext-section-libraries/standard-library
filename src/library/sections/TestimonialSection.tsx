@@ -10,7 +10,7 @@ import {
   SectionConfig,
 } from "@yext/visual-editor";
 import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
-import { HeadingTextProps } from "../shared/sectionSupport/contentBlocks/HeadingText.tsx";
+import { HeadingTextProps } from "./HeadingText.tsx";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import { defaultTestimonialCardSlotData } from "../shared/sectionSupport/pageSections/TestimonialSection/TestimonialCard.tsx";
 import { TestimonialCardsWrapperProps } from "../shared/sectionSupport/pageSections/TestimonialSection/TestimonialCardsWrapper.tsx";

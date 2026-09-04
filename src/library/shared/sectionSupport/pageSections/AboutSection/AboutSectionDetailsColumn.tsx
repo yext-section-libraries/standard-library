@@ -26,18 +26,18 @@ import {
   HoursStatus,
   HoursStatusProps,
   hoursStatusWrapperFields,
-} from "../../contentBlocks/HoursStatus.tsx";
-import { Phone, PhoneProps, PhoneFields } from "../../contentBlocks/Phone.tsx";
+} from "../../../../sections/HoursStatus.tsx";
+import { Phone, PhoneProps, PhoneFields } from "../../../../sections/Phone.tsx";
 import {
   Emails,
   EmailsProps,
   EmailsFields,
-} from "../../contentBlocks/Emails.tsx";
+} from "../../../../sections/Emails.tsx";
 import {
   TextList,
   TextListProps,
   textListFields,
-} from "../../contentBlocks/TextList.tsx";
+} from "../../../../sections/TextList.tsx";
 import {
   FooterSocialLinksSlot,
   FooterSocialLinksSlotFields,
@@ -47,12 +47,12 @@ import {
   Address,
   AddressProps,
   resolveAddressFields,
-} from "../../contentBlocks/Address.tsx";
+} from "../../../../sections/Address.tsx";
 import {
   HoursTableProps,
   hoursTableFields,
   HoursTable,
-} from "../../contentBlocks/HoursTable.tsx";
+} from "../../../../sections/HoursTable.tsx";
 
 export type AboutSectionDetailsColumnProps = {
   sections: DetailSection[];

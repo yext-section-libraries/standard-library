@@ -7,8 +7,13 @@ import {
   resolveDataFromParent,
   YextComponentConfig,
   YextFields,
+  SectionConfig,
 } from "@yext/visual-editor";
-import { CTA, CTAVariant, isCtaVariantWithColor } from "../atoms/cta.tsx";
+import {
+  CTA,
+  CTAVariant,
+  isCtaVariantWithColor,
+} from "../shared/sectionSupport/atoms/cta.tsx";
 import { useTranslation } from "react-i18next";
 
 export type GetDirectionsProps = {
@@ -61,4 +66,12 @@ export const GetDirections: YextComponentConfig<GetDirectionsProps> = {
     return updatedFields;
   },
   render: (props) => <GetDirectionsComponent {...props} />,
+};
+
+export const config: SectionConfig = {
+  id: "GetDirections",
+  displayName: "Get Directions",
+  description: "Displays a get directions call to action.",
+  pageSetTypes: ["ENTITY"],
+  category: "Core Information",
 };

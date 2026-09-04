@@ -10,11 +10,12 @@ import {
   toPuckFields,
   YextComponentConfig,
   YextFields,
+  SectionConfig,
 } from "@yext/visual-editor";
-import { CTA } from "../atoms/cta.tsx";
+import { CTA } from "../shared/sectionSupport/atoms/cta.tsx";
 import { useTranslation } from "react-i18next";
-import { CTAVariant } from "../atoms/cta.tsx";
-import { CTAWrapperProps } from "./CtaWrapper.tsx";
+import { CTAVariant } from "../shared/sectionSupport/atoms/cta.tsx";
+import { CTAWrapperProps } from "./CTAWrapper.tsx";
 import {
   isNonNormalizableLinkType,
   getCTAType,
@@ -183,4 +184,12 @@ export const CTAGroup: YextComponentConfig<CTAGroupProps> = {
     buttons: [defaultButton, defaultButton],
   },
   render: (props) => <CTAGroupComponent {...props} />,
+};
+
+export const config: SectionConfig = {
+  id: "CTAGroup",
+  displayName: "CTA Group",
+  description: "Displays a grid of call to actions.",
+  pageSetTypes: ["ENTITY"],
+  category: "Core Information",
 };

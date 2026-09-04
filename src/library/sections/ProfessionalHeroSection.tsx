@@ -14,13 +14,13 @@ import {
   SectionConfig,
 } from "@yext/visual-editor";
 import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
-import { HeadingTextProps } from "../shared/sectionSupport/contentBlocks/HeadingText.tsx";
-import { BodyTextProps } from "../shared/sectionSupport/contentBlocks/BodyText.tsx";
-import { ImageWrapperProps } from "../shared/sectionSupport/contentBlocks/image/Image.tsx";
-import { CTAWrapperProps } from "../shared/sectionSupport/contentBlocks/CtaWrapper.tsx";
-import { AddressProps } from "../shared/sectionSupport/contentBlocks/Address.tsx";
+import { HeadingTextProps } from "./HeadingText.tsx";
+import { BodyTextProps } from "./BodyText.tsx";
+import { ImageWrapperProps } from "./ImageWrapper.tsx";
+import { CTAWrapperProps } from "./CTAWrapper.tsx";
+import { AddressProps } from "./Address.tsx";
 import { PhoneListProps } from "../shared/sectionSupport/contentBlocks/PhoneList.tsx";
-import { EmailsProps } from "../shared/sectionSupport/contentBlocks/Emails.tsx";
+import { EmailsProps } from "./Emails.tsx";
 import {
   ReviewStars,
   getAggregateRating,

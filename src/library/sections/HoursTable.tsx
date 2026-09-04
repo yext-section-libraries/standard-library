@@ -11,9 +11,10 @@ import {
   pt,
   YextComponentConfig,
   YextFields,
+  SectionConfig,
 } from "@yext/visual-editor";
-import { HoursTableAtom } from "../atoms/hoursTable.tsx";
-import { Body } from "../atoms/body.tsx";
+import { HoursTableAtom } from "../shared/sectionSupport/atoms/hoursTable.tsx";
+import { Body } from "../shared/sectionSupport/atoms/body.tsx";
 
 /** Props for the HoursTable component. */
 export interface HoursTableProps {
@@ -165,4 +166,12 @@ export const HoursTable: YextComponentConfig<HoursTableProps> = {
   },
   label: msg("components.hoursTable", "Hours Table"),
   render: (props) => <VisualEditorHoursTable {...props} />,
+};
+
+export const config: SectionConfig = {
+  id: "HoursTable",
+  displayName: "Hours Table",
+  description: "Displays the hours of the business.",
+  pageSetTypes: ["ENTITY"],
+  category: "Core Information",
 };

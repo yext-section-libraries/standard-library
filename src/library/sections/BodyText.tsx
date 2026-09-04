@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
-import { BodyProps, Body } from "../atoms/body.tsx";
+import { BodyProps, Body } from "../shared/sectionSupport/atoms/body.tsx";
 import {
   useDocument,
   resolveComponentData,
@@ -16,6 +16,7 @@ import {
   ThemeOptions,
   YextComponentConfig,
   YextFields,
+  SectionConfig,
 } from "@yext/visual-editor";
 
 export type BodyTextProps = {
@@ -134,4 +135,12 @@ export const BodyText: YextComponentConfig<BodyTextProps> = {
     },
   },
   render: (props) => <BodyTextComponent {...props} />,
+};
+
+export const config: SectionConfig = {
+  id: "BodyText",
+  displayName: "Rich Text",
+  description: "Displays rich text.",
+  pageSetTypes: ["ENTITY"],
+  category: "Core Information",
 };

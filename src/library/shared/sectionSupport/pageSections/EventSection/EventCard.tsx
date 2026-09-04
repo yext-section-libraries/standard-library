@@ -15,10 +15,10 @@ import {
   YextFields,
 } from "@yext/visual-editor";
 import { Background } from "../../atoms/background.tsx";
-import { ImageWrapperProps } from "../../contentBlocks/image/Image.tsx";
-import { HeadingTextProps } from "../../contentBlocks/HeadingText.tsx";
-import { BodyTextProps } from "../../contentBlocks/BodyText.tsx";
-import { CTAWrapperProps } from "../../contentBlocks/CtaWrapper.tsx";
+import { ImageWrapperProps } from "../../../../sections/ImageWrapper.tsx";
+import { HeadingTextProps } from "../../../../sections/HeadingText.tsx";
+import { BodyTextProps } from "../../../../sections/BodyText.tsx";
+import { CTAWrapperProps } from "../../../../sections/CTAWrapper.tsx";
 import { TimestampProps } from "../../contentBlocks/Timestamp.tsx";
 import { ImgSizesByBreakpoint } from "../../atoms/image.tsx";
 import {

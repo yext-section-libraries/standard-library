@@ -15,11 +15,11 @@ import {
 } from "@yext/visual-editor";
 import { PageSection } from "../shared/sectionSupport/atoms/pageSection.tsx";
 import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
-import { HeadingTextProps } from "../shared/sectionSupport/contentBlocks/HeadingText.tsx";
-import { HoursTableProps } from "../shared/sectionSupport/contentBlocks/HoursTable.tsx";
-import { TextListProps } from "../shared/sectionSupport/contentBlocks/TextList.tsx";
-import { EmailsProps } from "../shared/sectionSupport/contentBlocks/Emails.tsx";
-import { AddressProps } from "../shared/sectionSupport/contentBlocks/Address.tsx";
+import { HeadingTextProps } from "./HeadingText.tsx";
+import { HoursTableProps } from "./HoursTable.tsx";
+import { TextListProps } from "./TextList.tsx";
+import { EmailsProps } from "./Emails.tsx";
+import { AddressProps } from "./Address.tsx";
 import {
   PhoneListProps,
   resolvePhoneNumbers,

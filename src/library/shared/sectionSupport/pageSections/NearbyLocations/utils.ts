@@ -1,9 +1,9 @@
 import { getDistance } from "geolib";
-import { StreamDocument } from "@yext/visual-editor";
 import {
+  StreamDocument,
   NearbyLocationDoc,
   NearbyLocationsResponse,
-} from "./useNearbyLocations.ts";
+} from "@yext/visual-editor";
 
 const V_PARAM = "20250407";
 const PAGE_SIZE = 50;

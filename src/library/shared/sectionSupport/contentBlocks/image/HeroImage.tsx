@@ -17,7 +17,7 @@ import {
   imageDefaultProps,
   ImageWrapperFields,
   ImageWrapperProps,
-} from "./Image.tsx";
+} from "../../../../sections/ImageWrapper.tsx";
 import { EmptyImageState } from "./EmptyImageState.tsx";
 
 export interface HeroImageProps extends ImageWrapperProps {

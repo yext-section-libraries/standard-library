@@ -21,10 +21,10 @@ import {
 } from "@yext/visual-editor/section-library-support";
 import { Background } from "../atoms/background.tsx";
 import { MaybeLink } from "../atoms/maybeLink.tsx";
-import { AddressProps } from "../contentBlocks/Address.tsx";
-import { HeadingTextProps } from "../contentBlocks/HeadingText.tsx";
-import { HoursStatusProps } from "../contentBlocks/HoursStatus.tsx";
-import { PhoneProps } from "../contentBlocks/Phone.tsx";
+import { AddressProps } from "../../../sections/Address.tsx";
+import { HeadingTextProps } from "../../../sections/HeadingText.tsx";
+import { HoursStatusProps } from "../../../sections/HoursStatus.tsx";
+import { PhoneProps } from "../../../sections/Phone.tsx";
 import {
   DirectoryChildReference,
   getSortedDirectoryChildren,

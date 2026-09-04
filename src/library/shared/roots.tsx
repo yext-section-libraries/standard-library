@@ -1,6 +1,13 @@
 import { DropZone, type Config } from "@puckeditor/core";
 import { resolveDirectoryRootProps } from "@yext/visual-editor/section-library-support";
 
+export const rootAllowedComponents = [
+  "ExpandedHeader",
+  "ExpandedFooter",
+  "MainContent",
+  "CustomCodeSection",
+];
+
 // The Puck Root configuration for directory page sets
 export const directoryRootConfig: NonNullable<Config["root"]> = {
   resolveData: (data: any, params: any) => ({
@@ -14,7 +21,7 @@ export const directoryRootConfig: NonNullable<Config["root"]> = {
     <DropZone
       zone="default-zone"
       style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-      disallow={[]}
+      allow={rootAllowedComponents}
     />
   ),
 };
@@ -25,7 +32,7 @@ export const locatorRootConfig: NonNullable<Config["root"]> = {
     <DropZone
       zone="default-zone"
       style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-      disallow={[]}
+      allow={rootAllowedComponents}
     />
   ),
 };

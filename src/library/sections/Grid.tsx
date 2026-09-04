@@ -9,12 +9,32 @@ import {
   toPuckFields,
   YextComponentConfig,
   YextFields,
+  SectionConfig,
 } from "@yext/visual-editor";
-import { PageSection } from "../atoms/pageSection.tsx";
-import { VisibilityWrapper } from "../atoms/visibilityWrapper.tsx";
-import { AdvancedCoreInfoCategory } from "../categories/AdvancedCoreInfoCategory.tsx";
-import { layoutProps, layoutVariants } from "../Layout.tsx";
+import { PageSection } from "../shared/sectionSupport/atoms/pageSection.tsx";
+import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
+import {
+  layoutProps,
+  layoutVariants,
+} from "../shared/sectionSupport/Layout.tsx";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
+
+const gridAllowedComponents = [
+  "Address",
+  "BodyText",
+  "CTAGroup",
+  "CTAWrapper",
+  "Emails",
+  "GetDirections",
+  "HeadingText",
+  "HoursTable",
+  "HoursStatus",
+  "ImageWrapper",
+  "MapboxStaticMap",
+  "Phone",
+  "TextList",
+  "Text",
+];
 
 export interface GridProps extends layoutProps {
   columns: number;
@@ -59,7 +79,7 @@ const GridSection = React.forwardRef<
                     ? `md:items-end text-end`
                     : `md:items-center text-center`),
             )}
-            allow={AdvancedCoreInfoCategory.filter((k) => k !== "Grid")}
+            allow={gridAllowedComponents}
           />
         ))}
       </div>
@@ -156,4 +176,12 @@ export const Grid: YextComponentConfig<GridProps> = {
       </VisibilityWrapper>
     </AnalyticsScopeProvider>
   ),
+};
+
+export const config: SectionConfig = {
+  id: "gridSection",
+  displayName: "Grid Section",
+  description: "Renders a grid for other Core Information atoms.",
+  pageSetTypes: ["ENTITY"],
+  category: "Core Information",
 };

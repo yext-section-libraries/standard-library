@@ -5,7 +5,7 @@ import { getImageAltText, Image } from "../atoms/image.tsx";
 import { useTranslation } from "react-i18next";
 import { ImageStylingFields } from "../contentBlocks/image/styling.ts";
 import { ComplexImageType, ImageType } from "@yext/pages-components";
-import { getImageUrl } from "../contentBlocks/image/Image.tsx";
+import { getImageUrl } from "../../../sections/ImageWrapper.tsx";
 import {
   YextComponentConfig,
   YextEntityField,

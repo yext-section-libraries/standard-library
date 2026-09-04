@@ -29,7 +29,7 @@ import {
   TimestampOption,
 } from "../shared/sectionSupport/atoms/timestamp.tsx";
 import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
-import { HeadingTextProps } from "../shared/sectionSupport/contentBlocks/HeadingText.tsx";
+import { HeadingTextProps } from "./HeadingText.tsx";
 import { StarOff } from "lucide-react";
 import { AnalyticsScopeProvider, useAnalytics } from "@yext/pages-components";
 import {

@@ -15,8 +15,12 @@ import {
   YextComponentConfig,
   YextFields,
 } from "@yext/visual-editor/section-library-support";
-import { Heading, HeadingProps } from "../atoms/heading.tsx";
+import {
+  Heading,
+  HeadingProps,
+} from "../shared/sectionSupport/atoms/heading.tsx";
 import { useTranslation } from "react-i18next";
+import { SectionConfig } from "@yext/visual-editor";
 
 export type HeadingTextProps = {
   /** The heading text value */
@@ -146,4 +150,12 @@ export const HeadingText: YextComponentConfig<HeadingTextProps> = {
     },
   },
   render: (props) => <HeadingTextWrapper {...props} />,
+};
+
+export const config: SectionConfig = {
+  id: "HeadingText",
+  displayName: "Heading Text",
+  description: "Renders heading plain text.",
+  pageSetTypes: ["ENTITY"],
+  category: "Core Information",
 };

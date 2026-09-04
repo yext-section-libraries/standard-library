@@ -1,5 +1,9 @@
 import { PuckComponent, setDeep } from "@puckeditor/core";
-import { CTA, CTAVariant, isCtaVariantWithColor } from "../atoms/cta.tsx";
+import {
+  CTA,
+  CTAVariant,
+  isCtaVariantWithColor,
+} from "../shared/sectionSupport/atoms/cta.tsx";
 import {
   EnhancedTranslatableCTA,
   PresetImageType,
@@ -16,6 +20,7 @@ import {
   type YextCTAField,
   YextComponentConfig,
   YextFields,
+  SectionConfig,
 } from "@yext/visual-editor";
 import { useTranslation } from "react-i18next";
 import {
@@ -399,4 +404,12 @@ export const CTAWrapper: YextComponentConfig<CTAWrapperProps> = {
     return updatedFields;
   },
   render: (props) => <CTAWrapperComponent {...props} />,
+};
+
+export const config: SectionConfig = {
+  id: "CTAWrapper",
+  displayName: "Call To Action",
+  description: "Displays a single call to action.",
+  pageSetTypes: ["ENTITY"],
+  category: "Core Information",
 };

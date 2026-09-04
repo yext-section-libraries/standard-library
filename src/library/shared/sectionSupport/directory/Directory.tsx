@@ -10,7 +10,7 @@ import {
 } from "@yext/visual-editor/section-library-support";
 import { PageSection } from "../atoms/pageSection.tsx";
 import { Background } from "../atoms/background.tsx";
-import { HeadingTextProps } from "../contentBlocks/HeadingText.tsx";
+import { HeadingTextProps } from "../../../sections/HeadingText.tsx";
 import { BreadcrumbsSectionProps } from "../../../sections/Breadcrumbs.tsx";
 import { PuckComponent, setDeep, Slot } from "@puckeditor/core";
 import { AnalyticsScopeProvider } from "@yext/pages-components";

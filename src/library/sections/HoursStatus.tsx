@@ -11,8 +11,9 @@ import {
   resolveDataFromParent,
   YextComponentConfig,
   YextFields,
+  SectionConfig,
 } from "@yext/visual-editor";
-import { HoursStatusAtom } from "../atoms/hoursStatus.tsx";
+import { HoursStatusAtom } from "../shared/sectionSupport/atoms/hoursStatus.tsx";
 
 export interface HoursStatusProps {
   data: {
@@ -158,4 +159,12 @@ export const HoursStatus: YextComponentConfig<HoursStatusProps> = {
   resolveFields: (data) =>
     resolveDataFromParent(hoursStatusWrapperFields, data),
   render: (props) => <HoursStatusWrapper {...props} />,
+};
+
+export const config: SectionConfig = {
+  id: "hoursStatus",
+  displayName: "Hours Status",
+  description: "Displays the current status of the business.",
+  pageSetTypes: ["ENTITY"],
+  category: "Core Information",
 };

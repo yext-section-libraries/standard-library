@@ -23,10 +23,10 @@ import {
 } from "@yext/visual-editor";
 import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
 import { CTAVariant } from "../shared/sectionSupport/atoms/cta.tsx";
-import { HeadingTextProps } from "../shared/sectionSupport/contentBlocks/HeadingText.tsx";
-import { HoursStatusProps } from "../shared/sectionSupport/contentBlocks/HoursStatus.tsx";
-import { ImageWrapperProps } from "../shared/sectionSupport/contentBlocks/image/Image.tsx";
-import { CTAWrapperProps } from "../shared/sectionSupport/contentBlocks/CtaWrapper.tsx";
+import { HeadingTextProps } from "./HeadingText.tsx";
+import { HoursStatusProps } from "./HoursStatus.tsx";
+import { ImageWrapperProps } from "./ImageWrapper.tsx";
+import { CTAWrapperProps } from "./CTAWrapper.tsx";
 import { ClassicHero } from "../shared/sectionSupport/pageSections/heroVariants/ClassicHero.js";
 import { CompactHero } from "../shared/sectionSupport/pageSections/heroVariants/CompactHero.js";
 import { SpotlightHero } from "../shared/sectionSupport/pageSections/heroVariants/SpotlightHero.js";

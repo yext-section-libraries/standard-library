@@ -11,9 +11,9 @@ import {
   YextFields,
   SectionConfig,
 } from "@yext/visual-editor";
-import { BodyTextProps } from "../shared/sectionSupport/contentBlocks/BodyText.tsx";
+import { BodyTextProps } from "./BodyText.tsx";
 import { Button } from "../shared/sectionSupport/atoms/button.tsx";
-import { HeadingTextProps } from "../shared/sectionSupport/contentBlocks/HeadingText.tsx";
+import { HeadingTextProps } from "./HeadingText.tsx";
 import { PageSection } from "../shared/sectionSupport/atoms/pageSection.tsx";
 import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
 import { useTranslation } from "react-i18next";

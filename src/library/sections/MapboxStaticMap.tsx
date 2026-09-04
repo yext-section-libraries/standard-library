@@ -12,10 +12,11 @@ import {
   StreamDocument,
   YextComponentConfig,
   YextFields,
+  SectionConfig,
 } from "@yext/visual-editor";
-import { Body } from "../atoms/body.tsx";
+import { Body } from "../shared/sectionSupport/atoms/body.tsx";
 import { PuckComponent } from "@puckeditor/core";
-import mapboxLogo from "../../../assets/mapbox-logo-black.svg";
+import mapboxLogo from "../assets/mapbox-logo-black.svg";
 import { Map } from "lucide-react";
 import {
   getThemeValue,
@@ -212,4 +213,12 @@ export const MapboxStaticMap: YextComponentConfig<MapboxStaticProps> = {
     mapStyle: "streets-v12",
   },
   render: (props) => <MapboxStaticMapComponent {...props} />,
+};
+
+export const config: SectionConfig = {
+  id: "MapboxStaticMap",
+  displayName: "Mapbox Static Map",
+  description: "Renders a mapbox static map.",
+  pageSetTypes: ["ENTITY"],
+  category: "Core Information",
 };

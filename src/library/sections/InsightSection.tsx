@@ -9,7 +9,7 @@ import {
   SectionConfig,
 } from "@yext/visual-editor";
 import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
-import { HeadingTextProps } from "../shared/sectionSupport/contentBlocks/HeadingText.tsx";
+import { HeadingTextProps } from "./HeadingText.tsx";
 import { Slot } from "@puckeditor/core";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import {

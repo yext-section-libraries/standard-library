@@ -55,8 +55,8 @@ import {
 import {
   HoursTableProps,
   HoursTableStyleFields,
-} from "../contentBlocks/HoursTable.tsx";
-import { getImageUrl } from "../contentBlocks/image/Image.tsx";
+} from "../../../sections/HoursTable.tsx";
+import { getImageUrl } from "../../../sections/ImageWrapper.tsx";
 import {
   Accordion,
   AccordionContent,

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
-import { Body, BodyProps } from "../atoms/body.tsx";
+import { Body, BodyProps } from "../shared/sectionSupport/atoms/body.tsx";
 import {
   useDocument,
   resolveComponentData,
@@ -16,6 +16,7 @@ import {
   themeManagerCn,
   YextComponentConfig,
   YextFields,
+  SectionConfig,
 } from "@yext/visual-editor";
 import { useTranslation } from "react-i18next";
 
@@ -150,4 +151,12 @@ export const Text: YextComponentConfig<TextProps> = {
     },
   },
   render: (props) => <TextComponent {...props} />,
+};
+
+export const config: SectionConfig = {
+  id: "Text",
+  displayName: "Text",
+  description: "Renders body plain text.",
+  pageSetTypes: ["ENTITY"],
+  category: "Core Information",
 };

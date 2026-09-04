@@ -14,7 +14,7 @@ import {
 } from "@yext/visual-editor";
 import { PageSection } from "../shared/sectionSupport/atoms/pageSection.tsx";
 import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
-import { HeadingTextProps } from "../shared/sectionSupport/contentBlocks/HeadingText.tsx";
+import { HeadingTextProps } from "./HeadingText.tsx";
 import { PhotoGalleryWrapperProps } from "../shared/sectionSupport/pageSections/PhotoGallerySection/PhotoGalleryWrapper.tsx";
 import {
   ComponentErrorBoundary,

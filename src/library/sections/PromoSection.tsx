@@ -21,10 +21,10 @@ import {
   SectionConfig,
 } from "@yext/visual-editor";
 import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
-import { BodyTextProps } from "../shared/sectionSupport/contentBlocks/BodyText.tsx";
-import { CTAWrapperProps } from "../shared/sectionSupport/contentBlocks/CtaWrapper.tsx";
-import { HeadingTextProps } from "../shared/sectionSupport/contentBlocks/HeadingText.tsx";
-import { ImageWrapperProps } from "../shared/sectionSupport/contentBlocks/image/Image.tsx";
+import { BodyTextProps } from "./BodyText.tsx";
+import { CTAWrapperProps } from "./CTAWrapper.tsx";
+import { HeadingTextProps } from "./HeadingText.tsx";
+import { ImageWrapperProps } from "./ImageWrapper.tsx";
 import { VideoProps } from "../shared/sectionSupport/contentBlocks/Video.tsx";
 import {
   AnalyticsScopeProvider,

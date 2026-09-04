@@ -27,6 +27,7 @@ import {
   YextComponentConfig,
   YextFields,
 } from "@yext/visual-editor/section-library-support";
+import { SectionConfig } from "@yext/visual-editor";
 
 /** Props for the Address component */
 export interface AddressProps {
@@ -252,4 +253,12 @@ export const Address: YextComponentConfig<AddressProps> = {
   },
   resolveFields: resolveAddressFields,
   render: (props) => <AddressComponent {...props} />,
+};
+
+export const config: SectionConfig = {
+  id: "Address",
+  displayName: "Address",
+  description: "Displays an entity's address.",
+  pageSetTypes: ["ENTITY"],
+  category: "Core Information",
 };

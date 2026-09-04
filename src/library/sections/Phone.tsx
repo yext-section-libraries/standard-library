@@ -13,8 +13,9 @@ import {
   resolveDataFromParent,
   YextComponentConfig,
   YextFields,
+  SectionConfig,
 } from "@yext/visual-editor";
-import { PhoneAtom } from "../atoms/phone.tsx";
+import { PhoneAtom } from "../shared/sectionSupport/atoms/phone.tsx";
 
 /** The props for the Phone component */
 export interface PhoneProps {
@@ -154,4 +155,12 @@ export const Phone: YextComponentConfig<PhoneProps> = {
   },
   resolveFields: (data) => resolveDataFromParent(PhoneFields, data),
   render: (props) => <PhoneComponent {...props} />,
+};
+
+export const config: SectionConfig = {
+  id: "Phone",
+  displayName: "Phone",
+  description: "Renders a phone number.",
+  pageSetTypes: ["ENTITY"],
+  category: "Core Information",
 };
