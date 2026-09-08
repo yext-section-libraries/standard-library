@@ -706,7 +706,7 @@ describe("CoreInfoSection", async () => {
         },
         migrationRegistry,
         puckConfig,
-        document,
+        document
       );
 
       const updatedData = await resolveAllData(data, puckConfig, {
@@ -720,13 +720,13 @@ describe("CoreInfoSection", async () => {
             data={updatedData}
             metadata={{ streamDocument: document }}
           />
-        </VisualEditorProvider>,
+        </VisualEditorProvider>
       );
 
       await page.viewport(width, height);
 
       await expect(
-        `CoreInfoSection/[${viewportName}] ${name}`,
+        `CoreInfoSection/[${viewportName}] ${name}`
       ).toMatchScreenshot();
       const results = await axe(container);
       expect(results).toHaveNoViolations();
@@ -734,11 +734,11 @@ describe("CoreInfoSection", async () => {
       if (interactions) {
         await interactions(page);
         await expect(
-          `CoreInfoSection/[${viewportName}] ${name} (after interactions)`,
+          `CoreInfoSection/[${viewportName}] ${name} (after interactions)`
         ).toMatchScreenshot();
         const results = await axe(container);
         expect(results).toHaveNoViolations();
       }
-    },
+    }
   );
 });

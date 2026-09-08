@@ -102,7 +102,7 @@ export const ImageWrapperFields: YextFields<ImageWrapperProps> = {
 
 export const getImageUrl = (
   image: ImageType | ComplexImageType | TranslatableAssetImage | undefined,
-  locale: string,
+  locale: string
 ): string | undefined => {
   if (!image) {
     return undefined;
@@ -152,7 +152,7 @@ const ImageWrapperComponent: PuckComponent<ImageWrapperProps> = (props) => {
   const inputLink = resolveComponentData(
     data.link ?? { defaultValue: DEFAULT_LINK },
     i18n.language,
-    streamDocument,
+    streamDocument
   );
 
   const resolvedLink =
@@ -268,7 +268,7 @@ export const ImageWrapper: YextComponentConfig<ImageWrapperProps> = {
     fields = setDeep(
       fields,
       "styles.objectFields.imageConstrain.visible",
-      !!data.props.showImageConstrain,
+      !!data.props.showImageConstrain
     );
 
     if (parentType !== "PrimaryHeaderSlot") {

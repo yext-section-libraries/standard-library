@@ -196,7 +196,7 @@ const BannerComponent: PuckComponent<BannerSectionProps> = ({
                     entityType: entityTypeDisplayName
                       ? entityTypeDisplayName.toLowerCase()
                       : "page",
-                  },
+                  }
                 )}
               </Body>
               <Body variant="sm" className="text-gray-500 font-normal">
@@ -208,7 +208,7 @@ const BannerComponent: PuckComponent<BannerSectionProps> = ({
                       ? entityTypeDisplayName.charAt(0).toUpperCase() +
                         entityTypeDisplayName.slice(1)
                       : "Entity",
-                  },
+                  }
                 )}
               </Body>
             </div>

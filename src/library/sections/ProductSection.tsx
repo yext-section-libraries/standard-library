@@ -202,7 +202,7 @@ export const ProductSection: YextComponentConfig<ProductSectionProps> = {
       updatedData = setDeep(
         updatedData,
         "props.slots.CardsWrapperSlot[0].props.styles.variant",
-        updatedData.props.styles.cardVariant,
+        updatedData.props.styles.cardVariant
       );
     }
 
@@ -217,13 +217,13 @@ export const ProductSection: YextComponentConfig<ProductSectionProps> = {
         updatedData = setDeep(
           updatedData,
           `props.slots.CardsWrapperSlot[0].props.slots.CardSlot[${i}].props.slots.ImageSlot[0].props.showImageConstrain`,
-          showImageConstrain,
+          showImageConstrain
         );
 
         updatedData = setDeep(
           updatedData,
           `props.slots.CardsWrapperSlot[0].props.slots.CardSlot[${i}].props.slots.ImageSlot[0].props.hideWidthProp`,
-          isImmersive,
+          isImmersive
         );
       });
     }
@@ -233,7 +233,7 @@ export const ProductSection: YextComponentConfig<ProductSectionProps> = {
       props: {
         ...updatedData.props,
         conditionalRender: getMappedCardsSectionConditionalRender(
-          updatedData.props.slots.CardsWrapperSlot?.[0],
+          updatedData.props.slots.CardsWrapperSlot?.[0]
         ),
       },
     };

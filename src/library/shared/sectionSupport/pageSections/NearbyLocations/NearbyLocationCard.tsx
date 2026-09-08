@@ -34,7 +34,7 @@ type NearbyLocationCardProps = {
 };
 
 export const NearbyLocationCard: React.FC<NearbyLocationCardProps> = (
-  props,
+  props
 ) => {
   const { locationData, styles, cardNumber, sectionHeadingLevel } = props;
 
@@ -49,7 +49,7 @@ export const NearbyLocationCard: React.FC<NearbyLocationCardProps> = (
 
   const resolvedUrl = resolveUrlTemplate(
     mergeMeta(locationData, streamDocument),
-    relativePrefixToRoot ?? "",
+    relativePrefixToRoot ?? ""
   );
 
   const showPhone = styles.showPhone && mainPhone;

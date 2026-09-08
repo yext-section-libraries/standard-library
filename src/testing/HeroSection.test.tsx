@@ -2130,7 +2130,7 @@ describe("HeroSection", async () => {
         },
         migrationRegistry,
         puckConfig,
-        document,
+        document
       );
 
       const updatedData = await resolveAllData(data, puckConfig, {
@@ -2144,7 +2144,7 @@ describe("HeroSection", async () => {
             data={updatedData}
             metadata={{ streamDocument: document }}
           />
-        </VisualEditorProvider>,
+        </VisualEditorProvider>
       );
 
       await page.viewport(width, height);
@@ -2164,7 +2164,7 @@ describe("HeroSection", async () => {
       if (interactions) {
         await interactions(page);
         await expect(
-          `HeroSection/[${viewportName}] ${name} (after interactions)`,
+          `HeroSection/[${viewportName}] ${name} (after interactions)`
         ).toMatchScreenshot();
         const results = await axe(container);
         if (isBrandColorTest(props) && results.violations.length) {
@@ -2173,6 +2173,6 @@ describe("HeroSection", async () => {
           expect(results).toHaveNoViolations();
         }
       }
-    },
+    }
   );
 });

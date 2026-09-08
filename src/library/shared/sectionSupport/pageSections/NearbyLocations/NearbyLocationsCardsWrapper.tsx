@@ -223,7 +223,7 @@ const nearbyLocationCardsWrapperFields: YextFields<NearbyLocationCardsWrapperPro
             phoneNumberLink: {
               label: msg(
                 "fields.includePhoneHyperlink",
-                "Include Phone Hyperlink",
+                "Include Phone Hyperlink"
               ),
               type: "radio",
               options: [
@@ -297,7 +297,7 @@ const NearbyLocationCardsWrapperComponent: PuckComponent<
       constantValueEnabled: false,
     },
     locale,
-    streamDocument,
+    streamDocument
   );
 
   const enableNearbyLocations =
@@ -354,7 +354,7 @@ const NearbyLocationCardsWrapperComponent: PuckComponent<
                   puck={puck}
                   sectionHeadingLevel={sectionHeadingLevel}
                 />
-              ),
+              )
             )}
           </div>
         )}
@@ -430,7 +430,7 @@ const NearbyLocationsEmptyState: React.FC<{
   const distance =
     unit === "mile" ? (radius ?? 10) : toKilometers(radius ?? 10);
   const formattedDistance = Number(
-    formatDistance(distance, i18n.language, 0, 0),
+    formatDistance(distance, i18n.language, 0, 0)
   );
 
   return (
@@ -448,7 +448,7 @@ const NearbyLocationsEmptyState: React.FC<{
               entityType: entityTypeDisplayName
                 ? entityTypeDisplayName
                 : "page",
-            },
+            }
           )}
         </Body>
         <Body variant="base" className="text-gray-500 font-normal">

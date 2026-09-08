@@ -78,7 +78,7 @@ type ResolvedPhoneNumber = {
 export const resolvePhoneNumbers = (
   phoneNumbers: Array<PhoneProps["data"]>,
   locale: string,
-  streamDocument: any,
+  streamDocument: any
 ): ResolvedPhoneNumber[] => {
   return (
     phoneNumbers
@@ -86,7 +86,7 @@ export const resolvePhoneNumbers = (
         const number = resolveComponentData(
           item.number,
           locale,
-          streamDocument,
+          streamDocument
         );
         const label = resolveComponentData(item.label, locale, streamDocument);
 

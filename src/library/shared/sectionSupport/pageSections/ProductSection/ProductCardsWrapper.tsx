@@ -125,7 +125,7 @@ const productCardsWrapperFields: YextFields<ProductCardsWrapperProps> = {
 };
 
 const ProductCardsWrapperComponent: PuckComponent<ProductCardsWrapperProps> = (
-  props,
+  props
 ) => {
   const { slots } = props;
 

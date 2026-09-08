@@ -122,7 +122,7 @@ const ReviewsEmptyState: React.FC<{ backgroundColor: ThemeColor }> = ({
                 entityType: entityTypeDisplayName
                   ? entityTypeDisplayName.toLowerCase()
                   : "page",
-              },
+              }
             )}
           </Body>
           <Body variant="base" className="text-gray-500 font-normal">
@@ -134,7 +134,7 @@ const ReviewsEmptyState: React.FC<{ backgroundColor: ThemeColor }> = ({
                   ? entityTypeDisplayName.charAt(0).toUpperCase() +
                     entityTypeDisplayName.slice(1)
                   : "Entity",
-              },
+              }
             )}
           </Body>
         </div>
@@ -200,7 +200,7 @@ const ReviewsSectionInternal: PuckComponent<ReviewsSectionProps> = (props) => {
 
   const { averageRating, reviewCount } = getAggregateRating(streamDocument);
   const reviews = streamDocument.ref_reviewsAgg?.find(
-    (agg) => agg.publisher === "FIRSTPARTY",
+    (agg) => agg.publisher === "FIRSTPARTY"
   )?.topReviews;
 
   if (!reviews?.length) {
@@ -218,7 +218,7 @@ const ReviewsSectionInternal: PuckComponent<ReviewsSectionProps> = (props) => {
 
   const reviewsPage = reviews.slice(
     currentPageNumber * REVIEWS_PER_PAGE,
-    (currentPageNumber + 1) * REVIEWS_PER_PAGE,
+    (currentPageNumber + 1) * REVIEWS_PER_PAGE
   );
 
   return (
@@ -444,7 +444,7 @@ const ExpandableContent: React.FC<ExpandableContentProps> = ({
     if (contentRef.current && !expanded) {
       // Check if the content is truncated
       setIsTruncated(
-        contentRef.current.scrollHeight > contentRef.current.clientHeight,
+        contentRef.current.scrollHeight > contentRef.current.clientHeight
       );
     } else {
       setIsTruncated(false);

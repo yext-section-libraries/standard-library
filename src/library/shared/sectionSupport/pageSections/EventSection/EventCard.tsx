@@ -39,7 +39,7 @@ const defaultEvent = {
   dateTime: "2022-12-12T14:00:00",
   description: {
     defaultValue: getDefaultRTF(
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     ),
   },
   cta: {
@@ -55,7 +55,7 @@ export const defaultEventCardSlotData = (
   index?: number,
   backgroundColor?: ThemeColor,
   truncateDescription?: boolean,
-  sharedSlotStyles?: Record<string, any>,
+  sharedSlotStyles?: Record<string, any>
 ) => {
   const cardData = {
     type: "EventCard",
@@ -287,7 +287,7 @@ const EventCardComponent: PuckComponent<EventCardProps> = (props) => {
     useParentCardStyles<EventCardProps["parentStyles"]>() ?? props.parentStyles;
 
   const { slotStyles, getPuck, slotProps } = useGetCardSlots<EventCardProps>(
-    props.id,
+    props.id
   );
 
   const showImage =
@@ -335,7 +335,7 @@ const EventCardComponent: PuckComponent<EventCardProps> = (props) => {
         {
           ...deepMerge(
             { props: { styles: { ...sharedCardProps?.slotStyles?.[key] } } },
-            value[0],
+            value[0]
           ),
         },
       ];
@@ -445,18 +445,15 @@ export const EventCard: YextComponentConfig<EventCardProps> = {
     const field = data.props.field ?? "";
     const isLinkedMode = Boolean(field);
     const imageSlotProps = data.props.slots.ImageSlot?.[0]?.props as
-      | WithId<ImageWrapperProps>
-      | undefined;
+      WithId<ImageWrapperProps> | undefined;
     const titleSlotProps = data.props.slots.TitleSlot?.[0]?.props as
-      | WithId<HeadingTextProps>
-      | undefined;
+      WithId<HeadingTextProps> | undefined;
     const dateTimeSlotProps = data.props.slots.DateTimeSlot?.[0]
       ?.props as WithId<TimestampProps | undefined>;
     const descriptionSlotProps = data.props.slots.DescriptionSlot?.[0]
       ?.props as WithId<BodyTextProps | undefined>;
     const ctaSlotProps = data.props.slots.CTASlot?.[0]?.props as
-      | WithId<CTAWrapperProps>
-      | undefined;
+      WithId<CTAWrapperProps> | undefined;
 
     const resolvedImage = isLinkedMode
       ? data.props.image
@@ -464,7 +461,7 @@ export const EventCard: YextComponentConfig<EventCardProps> = {
         ? resolveYextEntityField(
             params.metadata.streamDocument,
             imageSlotProps.data.image,
-            i18nComponentsInstance.language || "en",
+            i18nComponentsInstance.language || "en"
           )
         : undefined;
 
@@ -472,7 +469,7 @@ export const EventCard: YextComponentConfig<EventCardProps> = {
       (resolvedImage as any)?.url ||
       (resolvedImage as any)?.image?.url ||
       ((resolvedImage as any)?.hasLocalizedValue &&
-        (resolvedImage as any)?.[i18nComponentsInstance.language || "en"]?.url),
+        (resolvedImage as any)?.[i18nComponentsInstance.language || "en"]?.url)
     );
     const showDescription = Boolean(
       isLinkedMode
@@ -481,8 +478,8 @@ export const EventCard: YextComponentConfig<EventCardProps> = {
             resolveYextEntityField(
               params.metadata.streamDocument,
               descriptionSlotProps.data.text,
-              i18nComponentsInstance.language || "en",
-            ),
+              i18nComponentsInstance.language || "en"
+            )
     );
     const showTitle = Boolean(
       isLinkedMode
@@ -491,8 +488,8 @@ export const EventCard: YextComponentConfig<EventCardProps> = {
             resolveYextEntityField(
               params.metadata.streamDocument,
               titleSlotProps.data.text,
-              i18nComponentsInstance.language || "en",
-            ),
+              i18nComponentsInstance.language || "en"
+            )
     );
     const showDateTime = Boolean(
       isLinkedMode
@@ -501,8 +498,8 @@ export const EventCard: YextComponentConfig<EventCardProps> = {
             resolveYextEntityField(
               params.metadata.streamDocument,
               dateTimeSlotProps.data.date,
-              i18nComponentsInstance.language || "en",
-            )?.trim(),
+              i18nComponentsInstance.language || "en"
+            )?.trim()
     );
     const showCTA = Boolean(
       isLinkedMode
@@ -511,8 +508,8 @@ export const EventCard: YextComponentConfig<EventCardProps> = {
             resolveComponentData(
               ctaSlotProps.data.entityField,
               i18nComponentsInstance.language || "en",
-              params.metadata.streamDocument,
-            )?.label,
+              params.metadata.streamDocument
+            )?.label
     );
 
     let updatedData = {
@@ -533,7 +530,7 @@ export const EventCard: YextComponentConfig<EventCardProps> = {
     updatedData = setDeep(
       updatedData,
       "props.slots.ImageSlot[0].props.className",
-      "max-w-full h-full object-cover",
+      "max-w-full h-full object-cover"
     );
     updatedData = setDeep(updatedData, "props.slots.ImageSlot[0].props.sizes", {
       base: "calc(100vw - 32px)",
@@ -544,7 +541,7 @@ export const EventCard: YextComponentConfig<EventCardProps> = {
     updatedData = setDeep(
       updatedData,
       "props.slots.CTASlot[0].props.eventName",
-      `cta${data.props.index}`,
+      `cta${data.props.index}`
     );
 
     // Set truncateDescription for the DescriptionSlot
@@ -553,7 +550,7 @@ export const EventCard: YextComponentConfig<EventCardProps> = {
       "props.slots.DescriptionSlot[0].props.parentStyles.className",
       data.props.styles.truncateDescription !== false
         ? "md:line-clamp-2"
-        : undefined,
+        : undefined
     );
 
     updatedData = syncParentStyles(params, updatedData, [
@@ -570,7 +567,7 @@ export const EventCard: YextComponentConfig<EventCardProps> = {
         title,
         i18nComponentsInstance.language || "en",
         params.metadata.streamDocument,
-        { output: "plainText" },
+        { output: "plainText" }
       );
 
     return bindSlots(updatedData as typeof data, {

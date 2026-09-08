@@ -1491,7 +1491,7 @@ describe("InsightSection", async () => {
         },
         migrationRegistry,
         puckConfig,
-        document,
+        document
       );
 
       data = await resolveAllData(data, puckConfig, {
@@ -1501,7 +1501,7 @@ describe("InsightSection", async () => {
       const { container } = reactRender(
         <VisualEditorProvider templateProps={{ document }}>
           <Render config={puckConfig} data={data} />
-        </VisualEditorProvider>,
+        </VisualEditorProvider>
       );
 
       await page.viewport(width, height);
@@ -1511,7 +1511,7 @@ describe("InsightSection", async () => {
       });
 
       await expect(
-        `InsightSection/[${viewportName}] ${name}`,
+        `InsightSection/[${viewportName}] ${name}`
       ).toMatchScreenshot();
       const results = await axe(container);
       expect(results).toHaveNoViolations();
@@ -1519,11 +1519,11 @@ describe("InsightSection", async () => {
       if (interactions) {
         await interactions(page);
         await expect(
-          `InsightSection/[${viewportName}] ${name} (after interactions)`,
+          `InsightSection/[${viewportName}] ${name} (after interactions)`
         ).toMatchScreenshot();
         const results = await axe(container);
         expect(results).toHaveNoViolations();
       }
-    },
+    }
   );
 });

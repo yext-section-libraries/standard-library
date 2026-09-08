@@ -117,7 +117,7 @@ const insightCardsWrapperFields: YextFields<InsightCardsWrapperProps> = {
 };
 
 const InsightCardsWrapperComponent: PuckComponent<InsightCardsWrapperProps> = (
-  props,
+  props
 ) => {
   const { slots } = props;
 

@@ -13,8 +13,7 @@ import {
 import { ImagePlus } from "lucide-react";
 
 let pendingEmptyImageSession:
-  | { messageId: string; apply: (payload: ImagePayload) => void }
-  | undefined;
+  { messageId: string; apply: (payload: ImagePayload) => void } | undefined;
 
 interface EmptyImageStateProps {
   isEmpty: boolean;
@@ -44,7 +43,7 @@ export const EmptyImageState: React.FC<EmptyImageStateProps> = ({
 }) => {
   const { sendToParent: openImageAssetSelector } = useSendMessageToParent(
     "constantValueEditorOpened",
-    TARGET_ORIGINS,
+    TARGET_ORIGINS
   );
 
   // Listen for image selection response
@@ -58,7 +57,7 @@ export const EmptyImageState: React.FC<EmptyImageStateProps> = ({
         pendingEmptyImageSession = undefined;
         apply(imagePayload);
       }
-    },
+    }
   );
 
   const handleImageSelection = React.useCallback(() => {
@@ -143,7 +142,7 @@ export const EmptyImageState: React.FC<EmptyImageStateProps> = ({
             className={themeManagerCn(
               containerClassName ||
                 "max-w-full rounded-image-borderRadius w-full",
-              "border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50 hover:bg-gray-100 transition-colors overflow-hidden relative",
+              "border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50 hover:bg-gray-100 transition-colors overflow-hidden relative"
             )}
             style={containerStyle}
           >

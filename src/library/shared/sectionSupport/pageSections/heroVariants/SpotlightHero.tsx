@@ -21,12 +21,11 @@ export const SpotlightHero: PuckComponent<HeroVariantProps> = (props) => {
   const resolvedBackgroundImage = resolveYextEntityField(
     streamDocument,
     data?.backgroundImage,
-    locale,
+    locale
   );
 
   const localizedImage:
-    | { url: string; width: number; height: number }
-    | undefined =
+    { url: string; width: number; height: number } | undefined =
     resolvedBackgroundImage && isLocalizedAssetImage(resolvedBackgroundImage)
       ? resolveLocalizedAssetImage(resolvedBackgroundImage, locale)
       : resolvedBackgroundImage && "image" in resolvedBackgroundImage

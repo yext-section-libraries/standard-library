@@ -175,7 +175,7 @@ export interface ProfessionalHeroSectionProps {
 }
 
 const ProfessionalHero: PuckComponent<ProfessionalHeroSectionProps> = (
-  props,
+  props
 ) => {
   const { styles, slots, conditionalRender } = props;
   const streamDocument = useDocument();
@@ -200,7 +200,7 @@ const ProfessionalHero: PuckComponent<ProfessionalHeroSectionProps> = (
   const containerClasses = themeManagerCn(
     "flex gap-8 lg:gap-16",
     mobileImageTop ? "flex-col" : "flex-col-reverse",
-    desktopImageRight ? "lg:flex-row-reverse" : "lg:flex-row",
+    desktopImageRight ? "lg:flex-row-reverse" : "lg:flex-row"
   );
 
   return (
@@ -219,7 +219,7 @@ const ProfessionalHero: PuckComponent<ProfessionalHeroSectionProps> = (
       <div
         className={themeManagerCn(
           "w-full flex flex-col gap-4",
-          showImage ? "lg:w-2/3" : "w-full",
+          showImage ? "lg:w-2/3" : "w-full"
         )}
       >
         {/* Top: Names and Title */}
@@ -259,7 +259,7 @@ const ProfessionalHero: PuckComponent<ProfessionalHeroSectionProps> = (
               className={themeManagerCn(
                 "[&_p]:font-bold",
                 subtitleMobileAlignmentClass,
-                subtitleDesktopAlignmentClass,
+                subtitleDesktopAlignmentClass
               )}
             >
               <slots.SubtitleSlot style={{ height: "auto" }} allow={[]} />
@@ -380,7 +380,7 @@ const professionalHeroSectionFields: YextFields<ProfessionalHeroSectionProps> =
         subtitleMobileAlignment: {
           label: msg(
             "fields.subtitleAlignmentMobile",
-            "Subtitle Alignment in Mobile",
+            "Subtitle Alignment in Mobile"
           ),
           type: "radio",
           options: ThemeOptions.ALIGNMENT,
@@ -388,7 +388,7 @@ const professionalHeroSectionFields: YextFields<ProfessionalHeroSectionProps> =
         subtitleDesktopAlignment: {
           label: msg(
             "fields.subtitleAlignmentDesktop",
-            "Subtitle Alignment in Desktop",
+            "Subtitle Alignment in Desktop"
           ),
           type: "radio",
           options: ThemeOptions.ALIGNMENT,
@@ -472,7 +472,7 @@ export const ProfessionalHeroSection: YextComponentConfig<ProfessionalHeroSectio
   {
     label: msg(
       "components.professionalHeroSection",
-      "Professional Hero Section",
+      "Professional Hero Section"
     ),
     fields: professionalHeroSectionFields,
     defaultProps: {
@@ -734,7 +734,7 @@ export const ProfessionalHeroSection: YextComponentConfig<ProfessionalHeroSectio
         ? resolveComponentData(
             emailSlot.props.data.list,
             locale,
-            streamDocument,
+            streamDocument
           )
         : [];
 
@@ -744,7 +744,7 @@ export const ProfessionalHeroSection: YextComponentConfig<ProfessionalHeroSectio
         const resolved = resolveComponentData(
           config.number,
           locale,
-          streamDocument,
+          streamDocument
         );
         return !!resolved;
       });

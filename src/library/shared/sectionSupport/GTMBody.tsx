@@ -19,9 +19,9 @@ export const GTMBody: React.FC<{ children: React.ReactNode }> = ({
 
     try {
       return JSON.parse(streamDocument.__.visualEditorConfig);
-    } catch (_) {
+    } catch {
       console.warn(
-        "Failed to parse visualEditorConfig for GTM. Skipping adding GTM iframe.",
+        "Failed to parse visualEditorConfig for GTM. Skipping adding GTM iframe."
       );
       return null;
     }

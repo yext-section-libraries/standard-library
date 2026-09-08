@@ -70,7 +70,7 @@ const directoryFields: YextFields<DirectoryProps> = {
         type: "basicSelector",
         label: msg(
           "fields.directoryListBackgroundColor",
-          "Directory List Background Color",
+          "Directory List Background Color"
         ),
         options: "BACKGROUND_COLOR",
       },
@@ -153,10 +153,10 @@ export const Directory: YextComponentConfig<DirectoryProps> = {
       const updatedFields = setDeep(
         directoryFields,
         "styles.objectFields.listBackgroundColor.visible",
-        false,
+        false
       );
       return toPuckFields(
-        setDeep(updatedFields, "styles.objectFields.linkColor.visible", false),
+        setDeep(updatedFields, "styles.objectFields.linkColor.visible", false)
       );
     }
     return toPuckFields(directoryFields);

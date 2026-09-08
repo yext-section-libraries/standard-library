@@ -111,7 +111,7 @@ const CTAGroupComponent: PuckComponent<CTAGroupProps> = ({ buttons }) => {
         const cta = resolveComponentData(
           button.entityField,
           locale,
-          streamDocument,
+          streamDocument
         );
         const { ctaType } = getCTAType(button.entityField);
 
@@ -175,7 +175,7 @@ export const CTAGroup: YextComponentConfig<CTAGroupProps> = {
     setDeep(
       updatedFields,
       "buttons.arrayFields.normalizeLink.visible",
-      showNormalizeLinkField,
+      showNormalizeLinkField
     );
 
     return toPuckFields(updatedFields);

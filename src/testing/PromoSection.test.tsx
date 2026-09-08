@@ -1978,7 +1978,7 @@ describe("PromoSection", async () => {
         },
         migrationRegistry,
         puckConfig,
-        document,
+        document
       );
 
       const resolvedData = await resolveAllData(data, puckConfig, {
@@ -1992,7 +1992,7 @@ describe("PromoSection", async () => {
             data={resolvedData}
             metadata={{ streamDocument: document }}
           />
-        </VisualEditorProvider>,
+        </VisualEditorProvider>
       );
 
       await page.viewport(width, height);
@@ -2046,7 +2046,7 @@ describe("PromoSection", async () => {
       if (interactions) {
         await interactions(page);
         await expect(
-          `PromoSection/[${viewportName}] ${name} (after interactions)`,
+          `PromoSection/[${viewportName}] ${name} (after interactions)`
         ).toMatchScreenshot({ customThreshold: 10 });
         const results = await axe(container);
         if (isBrandColorTest(props) && results.violations.length) {
@@ -2055,6 +2055,6 @@ describe("PromoSection", async () => {
           expect(results).toHaveNoViolations();
         }
       }
-    },
+    }
   );
 });

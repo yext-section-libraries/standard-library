@@ -172,7 +172,7 @@ export const TestimonialSection: YextComponentConfig<TestimonialSectionProps> =
         props: {
           ...updatedData.props,
           conditionalRender: getMappedCardsSectionConditionalRender(
-            updatedData.props.slots.CardsWrapperSlot?.[0],
+            updatedData.props.slots.CardsWrapperSlot?.[0]
           ),
         },
       };

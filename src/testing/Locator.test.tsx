@@ -26,7 +26,7 @@ import { page } from "@vitest/browser/context";
 
 vi.mock("@yext/search-ui-react", async () => {
   const actual = await vi.importActual<typeof import("@yext/search-ui-react")>(
-    "@yext/search-ui-react",
+    "@yext/search-ui-react"
   );
 
   return {
@@ -35,7 +35,7 @@ vi.mock("@yext/search-ui-react", async () => {
     getUserLocation: vi
       .fn()
       .mockRejectedValue(
-        new Error("Locator screenshot tests use fixture search data."),
+        new Error("Locator screenshot tests use fixture search data.")
       ),
   };
 });
@@ -45,7 +45,7 @@ const LOCATOR_TEST_IMAGE_URL = `data:image/svg+xml;charset=UTF-8,${encodeURIComp
     <rect width="80" height="80" rx="16" fill="#0f172a"/>
     <circle cx="40" cy="28" r="16" fill="#fbbf24"/>
     <rect x="18" y="50" width="44" height="12" rx="6" fill="#f8fafc"/>
-  </svg>`,
+  </svg>`
 )}`;
 
 const LOCATOR_TEST_ENV = {
@@ -302,12 +302,12 @@ const createLocatorFetchMock = (document: Record<string, any>) => {
                     comingSoon: true,
                   },
                 }))
-              : results,
-          ),
+              : results
+          )
         ),
         {
           status: 200,
-        },
+        }
       );
     }
 
@@ -1334,14 +1334,14 @@ describe("Locator", async () => {
       wrappedSelectorValuesMigrationFixture.data as any,
       migrationRegistry,
       puckConfig,
-      wrappedSelectorValuesMigrationFixture.document as any,
+      wrappedSelectorValuesMigrationFixture.document as any
     );
 
     const mainContent = data.content[0] as any;
     expect(mainContent.type).toBe("MainContent");
 
     const locator = mainContent.props.content.find(
-      (item: any) => item.type === "Locator",
+      (item: any) => item.type === "Locator"
     );
     expect(locator).toBeDefined();
 
@@ -1383,7 +1383,7 @@ describe("Locator", async () => {
         },
         migrationRegistry,
         puckConfig,
-        document,
+        document
       );
 
       data = await resolveAllData(data, puckConfig, {
@@ -1398,7 +1398,7 @@ describe("Locator", async () => {
       const { container } = reactRender(
         <VisualEditorProvider templateProps={{ document, translations }}>
           <Render config={puckConfig} data={data} />
-        </VisualEditorProvider>,
+        </VisualEditorProvider>
       );
 
       // Unless testing empty state, wait for search to load
@@ -1423,11 +1423,11 @@ describe("Locator", async () => {
       if (interactions) {
         await interactions(page);
         await expect(
-          `Locator/[${viewportName}] ${name} (after interactions)`,
+          `Locator/[${viewportName}] ${name} (after interactions)`
         ).toMatchScreenshot({ customThreshold: screenshotThreshold });
         const results = await axe(container);
         logSuppressedWcagViolations(results);
       }
-    },
+    }
   );
 });

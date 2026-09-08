@@ -4,14 +4,14 @@ import { ThemeColor, getThemeColorCssValue } from "@yext/visual-editor";
 
 const resolveCssVarColor = (
   element: Element,
-  varName: string,
+  varName: string
 ): string | undefined => {
   return window.getComputedStyle(element).getPropertyValue(varName).trim();
 };
 
 const resolveContrastColor = (
   element: Element,
-  textToken: string,
+  textToken: string
 ): string | undefined => {
   if (textToken === "black") {
     return "#000000";
@@ -59,7 +59,7 @@ export const MapPinIcon = ({
   const textToken = color?.contrastingColor;
   const svgRef = React.useRef<SVGSVGElement>(null);
   const [contrastColor, setContrastColor] = React.useState<string | undefined>(
-    undefined,
+    undefined
   );
 
   React.useLayoutEffect(() => {
@@ -75,7 +75,7 @@ export const MapPinIcon = ({
       backgroundToken
         ? { color: getThemeColorCssValue(backgroundToken) }
         : undefined,
-    [backgroundToken],
+    [backgroundToken]
   );
 
   const ariaLabel =

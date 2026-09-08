@@ -92,7 +92,7 @@ export const LocatorWrapper = (props: WithPuckProps<LocatorProps>) => {
   const { searchAnalyticsConfig, searcher } = React.useMemo(() => {
     const searchHeadlessConfig = createSearchHeadlessConfig(
       streamDocument,
-      props.puck.metadata?.experienceKeyEnvVar,
+      props.puck.metadata?.experienceKeyEnvVar
     );
     if (searchHeadlessConfig === undefined) {
       return { searchAnalyticsConfig: undefined, searcher: undefined };
@@ -107,7 +107,7 @@ export const LocatorWrapper = (props: WithPuckProps<LocatorProps>) => {
 
   if (searcher === undefined || searchAnalyticsConfig === undefined) {
     console.warn(
-      "Could not create Locator component because Search Headless or Search Analytics config is undefined. Please check your environment variables.",
+      "Could not create Locator component because Search Headless or Search Analytics config is undefined. Please check your environment variables."
     );
     return <></>;
   }
@@ -169,16 +169,16 @@ const LocatorInternal = ({
   const entityTypes =
     Object.keys(entityTypeSourceMap).filter(isLocatorEntityType);
   const resultCount = useSearchState(
-    (state) => state.vertical.resultsCount || 0,
+    (state) => state.vertical.resultsCount || 0
   );
   const searchResults = useSearchState(
-    (state) => (state.vertical.results || []) as Result<Location>[],
+    (state) => (state.vertical.results || []) as Result<Location>[]
   );
   const queryParamString =
     typeof window === "undefined" ? "" : window.location.search;
   const initialLocationParam = getValueFromQueryString(
     INITIAL_LOCATION_KEY,
-    queryParamString,
+    queryParamString
   );
 
   const iframe =
@@ -229,7 +229,7 @@ const LocatorInternal = ({
       selected: isOpenNowSelected,
       displayName: t("openNow", "Open Now"),
     }),
-    [isOpenNowSelected],
+    [isOpenNowSelected]
   );
 
   const searchActions = useSearchActions();
@@ -264,7 +264,7 @@ const LocatorInternal = ({
       facetFields?.selections
         ?.filter((selection) => selection.value !== undefined)
         ?.map((selection) => selection.value as string) ?? [],
-    [facetFields],
+    [facetFields]
   );
   React.useEffect(() => {
     searchActions.setFacetAllowList(selectedFacets);
@@ -276,8 +276,8 @@ const LocatorInternal = ({
         (filter) =>
           filter.filter.kind === "fieldValue" &&
           (filter.filter.fieldId === LOCATION_FIELD ||
-            filter.filter.fieldId === COUNTRY_CODE_FIELD),
-      )?.displayName,
+            filter.filter.fieldId === COUNTRY_CODE_FIELD)
+      )?.displayName
   );
 
   const handleFilterSelect = (params: OnSelectParams) => {
@@ -298,7 +298,7 @@ const LocatorInternal = ({
         locationFilter = buildNearLocationFilterFromPrevious(
           nearFilterValue,
           newDisplayName,
-          radius,
+          radius
         );
         break;
       }
@@ -330,7 +330,7 @@ const LocatorInternal = ({
   };
 
   const searchLoading: boolean | undefined = useSearchState(
-    (state) => state.searchStatus.isLoading,
+    (state) => state.searchStatus.isLoading
   );
   const [searchState, setSearchState] =
     React.useState<SearchState>("not started");
@@ -353,7 +353,7 @@ const LocatorInternal = ({
   const resultsRef = React.useRef<Array<HTMLDivElement | null>>([]);
   const resultsContainer = React.useRef<HTMLDivElement>(null);
   const [mobileResults, setMobileResults] = React.useState<Result<Location>[]>(
-    [],
+    []
   );
   // Tracks the selected pin index to highlight the corresponding result card.
   const [selectedResultIndex, setSelectedResultIndex] = React.useState<
@@ -374,7 +374,7 @@ const LocatorInternal = ({
         let scrollPos = 0;
         // the search results that are listed above this result
         const previousResultsRef = resultsRef.current.filter(
-          (r, index) => r && result.index && index < result.index,
+          (r, index) => r && result.index && index < result.index
         );
 
         // sum up the height of all search results that are listed above this result
@@ -392,7 +392,7 @@ const LocatorInternal = ({
         setSelectedResultIndex(null);
       }
     },
-    [],
+    []
   );
 
   const markerOptionsOverride = React.useCallback(
@@ -401,13 +401,13 @@ const LocatorInternal = ({
         offset: (selected ? [0, -21] : [0, -14]) as [number, number],
       };
     },
-    [],
+    []
   );
 
   const getResultCardProps = React.useCallback(
     (entityType?: LocatorEntityType) => {
       const existingConfig = (resultCardConfigs ?? []).find(
-        (item) => item.props.entityType === entityType,
+        (item) => item.props.entityType === entityType
       );
       if (existingConfig) {
         return existingConfig.props;
@@ -415,7 +415,7 @@ const LocatorInternal = ({
 
       return DEFAULT_LOCATOR_RESULT_CARD_PROPS;
     },
-    [resultCardConfigs],
+    [resultCardConfigs]
   );
 
   const CardComponent = React.useCallback(
@@ -427,7 +427,7 @@ const LocatorInternal = ({
       } else {
         console.warn(
           "Unexpected entityType from search result: ",
-          resultEntityType,
+          resultEntityType
         );
       }
       return (
@@ -445,7 +445,7 @@ const LocatorInternal = ({
       filterDisplayName,
       getResultCardProps,
       selectedResultIndex,
-    ],
+    ]
   );
 
   const [userLocationRetrieved, setUserLocationRetrieved] =
@@ -464,7 +464,7 @@ const LocatorInternal = ({
         locationStyle.pinIcon?.type === "customImage"
           ? resolveLocalizedAssetImage(
               locationStyle.pinIcon.image,
-              i18n.language,
+              i18n.language
             )
           : undefined;
       const customImageUrl = customImageValue?.url?.trim();
@@ -486,7 +486,7 @@ const LocatorInternal = ({
 
   const initialMapCenter = React.useMemo(
     () => getConfiguredMapCenterOrDefault(mapStartingLocation),
-    [mapStartingLocation],
+    [mapStartingLocation]
   );
   const [centerCoords, setCenterCoords] =
     React.useState<Coordinate>(initialMapCenter);
@@ -511,7 +511,7 @@ const LocatorInternal = ({
       markerOptionsOverride,
       scrollToResult,
       locationStylesConfig,
-    ],
+    ]
   );
 
   React.useEffect(() => {
@@ -530,7 +530,7 @@ const LocatorInternal = ({
       let initialLocationFilter = buildNearLocationFilterFromCoords(
         initialMapCenter.latitude,
         initialMapCenter.longitude,
-        radius,
+        radius
       );
       const doSearch = () => {
         searchActions.setVerticalLimit(RESULTS_LIMIT);
@@ -552,7 +552,7 @@ const LocatorInternal = ({
             !isCancelled &&
             areValidCoordinates(
               nextCenterCoords.latitude,
-              nextCenterCoords.longitude,
+              nextCenterCoords.longitude
             )
           ) {
             setCenterCoords(nextCenterCoords);
@@ -566,7 +566,7 @@ const LocatorInternal = ({
       };
 
       const foundStartingLocationFromQueryParam = async (
-        queryParam: string,
+        queryParam: string
       ): Promise<boolean> => {
         return searchActions
           .executeFilterSearch(queryParam, false, [
@@ -588,7 +588,7 @@ const LocatorInternal = ({
                 const filterFromResult = resultFilter.value as NearFilterValue;
                 initialLocationFilter = buildNearLocationFilterFromPrevious(
                   filterFromResult,
-                  firstResult.value,
+                  firstResult.value
                 );
                 apiFilterRadius.current = filterFromResult.radius;
                 return true;
@@ -596,7 +596,7 @@ const LocatorInternal = ({
               case Matcher.Equals: {
                 initialLocationFilter = buildEqualsLocationFilter(
                   resultFilter,
-                  firstResult.value,
+                  firstResult.value
                 );
                 apiFilterRadius.current = null;
                 return true;
@@ -639,7 +639,7 @@ const LocatorInternal = ({
                 : undefined) ||
               "en";
             const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${mapboxApiKey}&types=place,region,country&limit=1&language=${encodeURIComponent(
-              lang,
+              lang
             )}`;
 
             const res = await fetch(url);
@@ -656,7 +656,7 @@ const LocatorInternal = ({
             lat,
             lng,
             radius,
-            displayName,
+            displayName
           );
         }
       } catch {
@@ -753,7 +753,7 @@ const LocatorInternal = ({
 
   const handleDistanceClick = (
     distance: number,
-    distanceUnit: "mile" | "kilometer",
+    distanceUnit: "mile" | "kilometer"
   ) => {
     const existingFilters = searchFilters.static || [];
     let updatedFilters: SelectableStaticFilter[];
@@ -764,13 +764,13 @@ const LocatorInternal = ({
       // revert to API radius (or default if none was found) if user clicks the same distance again
       updatedFilters = updateRadiusInNearFiltersOnLocationField(
         existingFilters,
-        apiFilterRadius.current ?? toMeters(DEFAULT_RADIUS, preferredUnit),
+        apiFilterRadius.current ?? toMeters(DEFAULT_RADIUS, preferredUnit)
       );
     } else {
       setSelectedDistanceOption(distance);
       updatedFilters = updateRadiusInNearFiltersOnLocationField(
         existingFilters,
-        distanceInMeters,
+        distanceInMeters
       );
     }
     searchActions.setStaticFilters(updatedFilters);
@@ -783,7 +783,7 @@ const LocatorInternal = ({
     // revert to API radius (or default if none was found)
     const partiallyUpdatedFilters = updateRadiusInNearFiltersOnLocationField(
       existingFilters,
-      apiFilterRadius.current ?? toMeters(DEFAULT_RADIUS, preferredUnit),
+      apiFilterRadius.current ?? toMeters(DEFAULT_RADIUS, preferredUnit)
     );
     const updatedFilters = deselectOpenNowFilters(partiallyUpdatedFilters);
 
@@ -810,14 +810,14 @@ const LocatorInternal = ({
               staticFilter.selected === true
             );
           })
-        : false,
+        : false
     );
   }, [searchFilters]);
 
   const hasFacetOptions =
     (
       useSearchState((state) =>
-        state.filters.facets?.filter((f) => f.options.length),
+        state.filters.facets?.filter((f) => f.options.length)
       ) ?? []
     ).length > 0;
   const hasFilterModalToggle =
@@ -1012,7 +1012,7 @@ const LocatorInternal = ({
               >
                 {t(
                   "mapRequiresOptIn",
-                  "This map can only be displayed if cookies are enabled",
+                  "This map can only be displayed if cookies are enabled"
                 )}
               </Body>
               <div className="flex justify-center p-2">

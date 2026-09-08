@@ -123,7 +123,7 @@ const AboutComponent: PuckComponent<AboutSectionProps> = (props) => {
     React.useState(false);
   const descriptionSlotRef = React.useRef<HTMLDivElement>(null);
   const readMoreButtonColor = getThemeColorCssValue(
-    styles?.readMoreButtonColor?.selectedColor,
+    styles?.readMoreButtonColor?.selectedColor
   );
   // Only show expand/collapse button if the description content is truncated
   React.useLayoutEffect(() => {
@@ -133,7 +133,7 @@ const AboutComponent: PuckComponent<AboutSectionProps> = (props) => {
 
     const observer = new ResizeObserver(() => {
       const bodyText = descriptionSlotRef.current?.querySelector(
-        ".description-slot",
+        ".description-slot"
       ) as HTMLElement | undefined;
 
       if (!bodyText) {
@@ -292,8 +292,7 @@ export const AboutSection: YextComponentConfig<AboutSectionProps> = {
   resolveData: (data) => {
     const sectionHeadingLevel = (
       data.props.slots.SectionHeadingSlot?.[0]?.props as
-        | WithId<HeadingTextProps>
-        | undefined
+        WithId<HeadingTextProps> | undefined
     )?.styles?.level;
 
     if (

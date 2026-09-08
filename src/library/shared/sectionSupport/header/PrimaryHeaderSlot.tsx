@@ -150,7 +150,7 @@ const PrimaryHeaderSlotWrapper: PuckComponent<PrimaryHeaderSlotProps> = ({
   const primaryOverflow = useOverflow(
     containerRef,
     contentRef,
-    showNavContent ? HAMBURGER_RESERVE_PX : 0,
+    showNavContent ? HAMBURGER_RESERVE_PX : 0
   );
 
   const primaryHasCollapsedLinks =
@@ -195,7 +195,7 @@ const PrimaryHeaderSlotWrapper: PuckComponent<PrimaryHeaderSlotProps> = ({
   // Puck portal registration for the hamburger button
   React.useEffect(
     () => registerOverlayPortal(hamburgerButtonRef.current),
-    [hamburgerButtonRef.current],
+    [hamburgerButtonRef.current]
   );
 
   // Sync overflow state with parent context
@@ -500,7 +500,7 @@ export const PrimaryHeaderSlot: YextComponentConfig<PrimaryHeaderSlotProps> = {
       data.props.slots.PrimaryCTASlot[0]?.props.data
         .entityField as YextCTAField,
       locale,
-      streamDocument,
+      streamDocument
     );
     const showPrimaryCTA: boolean =
       data.props.slots.PrimaryCTASlot[0]?.props.data.show &&
@@ -511,7 +511,7 @@ export const PrimaryHeaderSlot: YextComponentConfig<PrimaryHeaderSlotProps> = {
       data.props.slots.SecondaryCTASlot[0]?.props.data
         .entityField as YextCTAField,
       locale,
-      streamDocument,
+      streamDocument
     );
     const showSecondaryCTA: boolean =
       data.props.slots.SecondaryCTASlot[0]?.props.data.show &&
@@ -525,7 +525,7 @@ export const PrimaryHeaderSlot: YextComponentConfig<PrimaryHeaderSlotProps> = {
       resolveLocalizedCtas(
         primaryLinksData?.collapsedLinks,
         locale,
-        streamDocument,
+        streamDocument
       ).length > 0;
 
     const secondaryHeader = data.props.parentValues?.SecondaryHeaderSlot?.[0];

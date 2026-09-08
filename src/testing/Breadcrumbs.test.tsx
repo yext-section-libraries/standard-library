@@ -157,19 +157,19 @@ describe("BreadcrumbsSection", async () => {
         },
         migrationRegistry,
         puckConfig,
-        document,
+        document
       );
 
       const { container } = reactRender(
         <VisualEditorProvider templateProps={{ document }}>
           <Render config={puckConfig} data={data} />
-        </VisualEditorProvider>,
+        </VisualEditorProvider>
       );
 
       await page.viewport(width, height);
 
       await expect(
-        `BreadcrumbsSection/[${viewportName}] ${name}`,
+        `BreadcrumbsSection/[${viewportName}] ${name}`
       ).toMatchScreenshot({ customThreshold: 25, ignoreExact: [333] });
       const results = await axe(container);
       expect(results).toHaveNoViolations();
@@ -177,11 +177,11 @@ describe("BreadcrumbsSection", async () => {
       if (interactions) {
         await interactions(page);
         await expect(
-          `BreadcrumbsSection/[${viewportName}] ${name} (after interactions)`,
+          `BreadcrumbsSection/[${viewportName}] ${name} (after interactions)`
         ).toMatchScreenshot();
         const results = await axe(container);
         expect(results).toHaveNoViolations();
       }
-    },
+    }
   );
 });

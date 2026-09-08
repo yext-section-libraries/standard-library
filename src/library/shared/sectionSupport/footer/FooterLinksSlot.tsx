@@ -60,7 +60,7 @@ const primaryFooterLinksSlotContainer = cva(
       desktopContentAlignment: "left",
       mobileContentAlignment: "left",
     },
-  },
+  }
 );
 
 const secondaryFooterLinksSlotContainer = cva(
@@ -87,7 +87,7 @@ const secondaryFooterLinksSlotContainer = cva(
       desktopContentAlignment: "left",
       mobileContentAlignment: "left",
     },
-  },
+  }
 );
 
 const primaryLinkClassName = cva("block break-words whitespace-normal", {
@@ -154,11 +154,11 @@ const secondaryLinkClassName = cva(
       desktopContentAlignment: "left",
       mobileContentAlignment: "left",
     },
-  },
+  }
 );
 
 const FooterLinksSlotInternal: PuckComponent<FooterLinksSlotProps> = (
-  props,
+  props
 ) => {
   const {
     data,
@@ -174,7 +174,7 @@ const FooterLinksSlotInternal: PuckComponent<FooterLinksSlotProps> = (
   const resolvedLinks = resolveLocalizedCtas(
     data.links,
     i18n.language,
-    streamDocument,
+    streamDocument
   );
 
   if (resolvedLinks.length === 0) {
@@ -340,7 +340,7 @@ export const FooterLinksSlot: YextComponentConfig<FooterLinksSlotProps> = {
     setDeep(
       toPuckFields(footerLinksSlotFields),
       "data.objectFields.links.arrayFields.normalizeLink.visible",
-      shouldShowNormalizeLinkField(data.props.data.links),
+      shouldShowNormalizeLinkField(data.props.data.links)
     ),
   defaultProps: defaultFooterLinkProps,
   render: (props) => <FooterLinksSlotInternal {...props} />,

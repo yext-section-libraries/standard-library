@@ -24,7 +24,7 @@ export const testSetup = (theme: Record<string, any>) => {
   const themeTags = applyTheme(
     { __: { theme: JSON.stringify(theme) } },
     "./",
-    defaultThemeConfig,
+    defaultThemeConfig
   );
 
   // don't load fonts
@@ -53,13 +53,13 @@ console.error = (...args: unknown[]) => {
   if (
     typeof firstArg === "string" &&
     firstArg.startsWith(
-      "Warning: An update to %s inside a test was not wrapped in act(...).",
+      "Warning: An update to %s inside a test was not wrapped in act(...)."
     )
   ) {
     if (!hasLoggedActWarning) {
       hasLoggedActWarning = true;
       originalConsoleError(
-        "Warning: React emitted not-wrapped-in-act updates during screenshot tests (details suppressed).",
+        "Warning: React emitted not-wrapped-in-act updates during screenshot tests (details suppressed)."
       );
     }
     return;
@@ -154,7 +154,7 @@ expect.extend({
     options?: {
       customThreshold?: number;
       ignoreExact?: number[];
-    },
+    }
   ) {
     disableHoverEffects();
 
@@ -183,7 +183,7 @@ expect.extend({
       screenshotName,
       updatedScreenshotData,
       options?.customThreshold,
-      options?.ignoreExact,
+      options?.ignoreExact
     );
 
     return {
@@ -204,7 +204,7 @@ export const axe = configureAxe({
 
 /** Helper function to log WCAG warnings for tests that are known violations */
 export const logSuppressedWcagViolations = (
-  results: Awaited<ReturnType<typeof axe>>,
+  results: Awaited<ReturnType<typeof axe>>
 ) => {
   if (!results.violations.length) {
     return;
@@ -215,9 +215,9 @@ export const logSuppressedWcagViolations = (
       "[warning] Ignoring the following WCAG/axe violations:",
       ...results.violations.map(
         (violation: any, index: number) =>
-          `${index + 1}. [${violation.impact ?? "none"}] ${violation.id} (${violation.nodes.length} nodes) - ${violation.help}`,
+          `${index + 1}. [${violation.impact ?? "none"}] ${violation.id} (${violation.nodes.length} nodes) - ${violation.help}`
       ),
-    ].join("\n"),
+    ].join("\n")
   );
 };
 

@@ -132,7 +132,7 @@ const CoreInfoSectionWrapper: PuckComponent<CoreInfoSectionProps> = (props) => {
   const showServicesCol = conditionalRender?.servicesCol || puck.isEditing;
 
   const sectionCount = [showCoreInfoCol, showHoursCol, showServicesCol].filter(
-    Boolean,
+    Boolean
   ).length;
 
   const gridColsClass = [
@@ -344,33 +344,33 @@ export const CoreInfoSection: YextComponentConfig<CoreInfoSectionProps> = {
     // Check if the HeadingSlot has content to display
     const resolvedInfoHeading = resolveComponentData(
       data?.props?.slots?.CoreInfoHeadingSlot.map(
-        (slot) => slot.props.data.text,
+        (slot) => slot.props.data.text
       )[0],
       locale,
-      streamDocument,
+      streamDocument
     );
 
     // Check if the AddressSlot has an address to display
     const resolvedInfoAddress = resolveComponentData(
       data.props.slots.CoreInfoAddressSlot.map(
-        (slot) => slot.props.data.address,
+        (slot) => slot.props.data.address
       )[0],
       locale,
-      streamDocument,
+      streamDocument
     ) as unknown as AddressType;
 
     const resolvedPhoneNumbers = resolvePhoneNumbers(
       data.props.slots.CoreInfoPhoneNumbersSlot?.[0].props?.data?.phoneNumbers,
       locale,
-      streamDocument,
+      streamDocument
     );
 
     const resolvedEmails = resolveComponentData(
       data.props.slots.CoreInfoEmailsSlot.map(
-        (slot) => slot.props.data.list,
+        (slot) => slot.props.data.list
       )[0],
       locale,
-      streamDocument,
+      streamDocument
     );
 
     const showCoreInfoCol =
@@ -382,15 +382,15 @@ export const CoreInfoSection: YextComponentConfig<CoreInfoSectionProps> = {
     const resolvedHours = resolveComponentData(
       data.props?.slots?.HoursTableSlot.map((slot) => slot.props.data.hours)[0],
       locale,
-      streamDocument,
+      streamDocument
     );
 
     let resolvedServicesList = resolveComponentData(
       data.props?.slots?.TextListSlot?.map(
-        (slot) => slot.props.list as YextEntityField<TranslatableString[]>,
+        (slot) => slot.props.list as YextEntityField<TranslatableString[]>
       )[0],
       locale,
-      streamDocument,
+      streamDocument
     );
 
     if (resolvedServicesList && !Array.isArray(resolvedServicesList)) {

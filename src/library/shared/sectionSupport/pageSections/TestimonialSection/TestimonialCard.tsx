@@ -28,7 +28,7 @@ import {
 const defaultTestimonial = {
   description: {
     defaultValue: getDefaultRTF(
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
     ),
   },
   contributorName: { defaultValue: "Name" },
@@ -39,7 +39,7 @@ export const defaultTestimonialCardSlotData = (
   id?: string,
   index?: number,
   backgroundColor?: ThemeColor,
-  sharedSlotStyles?: Record<string, any>,
+  sharedSlotStyles?: Record<string, any>
 ) => {
   const cardData = {
     type: "TestimonialCard",
@@ -184,7 +184,7 @@ const testimonialCardFields: YextFields<TestimonialCardProps> = {
 };
 
 const TestimonialCardComponent: PuckComponent<TestimonialCardProps> = (
-  props,
+  props
 ) => {
   const { styles, slots, puck, conditionalRender } = props;
 
@@ -200,7 +200,7 @@ const TestimonialCardComponent: PuckComponent<TestimonialCardProps> = (
     useGetCardSlots<TestimonialCardProps>(props.id);
 
   const showDescription = Boolean(
-    conditionalRender?.description || puck.isEditing,
+    conditionalRender?.description || puck.isEditing
   );
   const showContributorName =
     parentStyles?.showName &&
@@ -239,7 +239,7 @@ const TestimonialCardComponent: PuckComponent<TestimonialCardProps> = (
         {
           ...deepMerge(
             { props: { styles: { ...sharedCardProps?.slotStyles?.[key] } } },
-            value[0],
+            value[0]
           ),
         },
       ];
@@ -354,7 +354,7 @@ export const TestimonialCard: YextComponentConfig<TestimonialCardProps> = {
         params.metadata.streamDocument,
         {
           output: "plainText",
-        },
+        }
       );
     const resolvedDescription = isLinkedMode
       ? description
@@ -362,7 +362,7 @@ export const TestimonialCard: YextComponentConfig<TestimonialCardProps> = {
         ? resolveYextEntityField(
             params.metadata.streamDocument,
             descriptionSlotProps.data.text,
-            i18nComponentsInstance.language || "en",
+            i18nComponentsInstance.language || "en"
           )
         : undefined;
     const resolvedContributorName = isLinkedMode
@@ -371,7 +371,7 @@ export const TestimonialCard: YextComponentConfig<TestimonialCardProps> = {
         ? resolveYextEntityField(
             params.metadata.streamDocument,
             contributorNameSlotProps.data.text,
-            i18nComponentsInstance.language || "en",
+            i18nComponentsInstance.language || "en"
           )
         : undefined;
     const resolvedContributionDate = isLinkedMode
@@ -380,7 +380,7 @@ export const TestimonialCard: YextComponentConfig<TestimonialCardProps> = {
         ? resolveYextEntityField(
             params.metadata.streamDocument,
             contributionDateSlotProps.data.date,
-            i18nComponentsInstance.language || "en",
+            i18nComponentsInstance.language || "en"
           )
         : undefined;
 

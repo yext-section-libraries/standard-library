@@ -2492,13 +2492,13 @@ describe("ExpandedFooter", async () => {
         },
         migrationRegistry,
         puckConfig,
-        document,
+        document
       );
 
       const { container } = reactRender(
         <VisualEditorProvider templateProps={{ document }}>
           <Render config={puckConfig} data={data} />
-        </VisualEditorProvider>,
+        </VisualEditorProvider>
       );
 
       await page.viewport(width, height);
@@ -2508,7 +2508,7 @@ describe("ExpandedFooter", async () => {
       });
 
       await expect(
-        `ExpandedFooter/[${viewportName}] ${name}`,
+        `ExpandedFooter/[${viewportName}] ${name}`
       ).toMatchScreenshot();
       const results = await axe(container);
 
@@ -2520,12 +2520,12 @@ describe("ExpandedFooter", async () => {
       if (interactions) {
         await interactions(page);
         await expect(
-          `ExpandedFooter/[${viewportName}] ${name} (after interactions)`,
+          `ExpandedFooter/[${viewportName}] ${name} (after interactions)`
         ).toMatchScreenshot();
         const results = await axe(container);
         expect(results).toHaveNoViolations();
       }
-    },
+    }
   );
   it.each(socialLinkTestCases)(
     "should validate $name",
@@ -2534,6 +2534,6 @@ describe("ExpandedFooter", async () => {
         const result = regex.test(links[key as keyof typeof links] || "");
         expect(result).toBe(expected);
       }
-    },
+    }
   );
 });

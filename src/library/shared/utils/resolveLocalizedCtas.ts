@@ -15,7 +15,7 @@ export type ResolvedCTA = Omit<TranslatableCTA, "label" | "link"> & {
 export const resolveLocalizedCtas = (
   ctas: TranslatableCTA[] | undefined,
   locale: string,
-  streamDocument?: Record<string, any>,
+  streamDocument?: Record<string, any>
 ): ResolvedCTA[] => {
   return (ctas ?? [])
     .map((cta) => ({

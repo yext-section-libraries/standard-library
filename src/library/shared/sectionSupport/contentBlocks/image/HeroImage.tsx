@@ -32,7 +32,7 @@ const HeroImageComponent: PuckComponent<HeroImageProps> = (props) => {
   const resolvedImage = resolveComponentData(
     data.image,
     i18n.language,
-    streamDocument,
+    streamDocument
   );
   const imageUrl = getImageUrl(resolvedImage, i18n.language);
   const isEmpty =
@@ -90,7 +90,7 @@ export const HeroImage: YextComponentConfig<HeroImageProps> = {
     let fields = setDeep(
       resolveDataFromParent(ImageWrapperFields, data),
       "styles.objectFields.width.visible",
-      true,
+      true
     );
     const filteredAspectRatioOptions = (
       ImageWrapperFields.styles as {
@@ -101,7 +101,7 @@ export const HeroImage: YextComponentConfig<HeroImageProps> = {
         };
       }
     ).objectFields.aspectRatio.options.filter(
-      (option) => !["4:1", "3:1", "2:1", "9:16"].includes(option.label),
+      (option) => !["4:1", "3:1", "2:1", "9:16"].includes(option.label)
     );
 
     switch (data.props.variant ?? "classic") {
@@ -113,7 +113,7 @@ export const HeroImage: YextComponentConfig<HeroImageProps> = {
         fields = setDeep(
           fields,
           "styles.objectFields.aspectRatio.options",
-          filteredAspectRatioOptions,
+          filteredAspectRatioOptions
         );
         break;
       }

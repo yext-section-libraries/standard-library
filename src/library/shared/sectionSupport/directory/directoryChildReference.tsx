@@ -33,7 +33,7 @@ export const useDirectoryChildren = (): DirectoryChild[] =>
   React.useContext(DirectoryChildrenContext);
 
 export const getSortedDirectoryChildren = (
-  directoryChildren: unknown,
+  directoryChildren: unknown
 ): DirectoryChild[] => {
   if (
     !Array.isArray(directoryChildren) ||
@@ -47,7 +47,7 @@ export const getSortedDirectoryChildren = (
 
 export const createDirectoryChildReference = (
   child: DirectoryChild | undefined,
-  childIndex: number,
+  childIndex: number
 ): DirectoryChildReference => ({
   childIndex,
   ...(typeof child?.id === "string" ? { childId: child.id } : {}),
@@ -56,7 +56,7 @@ export const createDirectoryChildReference = (
 export const matchesDirectoryChildReference = (
   childReference: DirectoryChildReference | undefined,
   child: DirectoryChild | undefined,
-  childIndex: number,
+  childIndex: number
 ): boolean => {
   if (!childReference || childReference.childIndex !== childIndex) {
     return false;
@@ -71,7 +71,7 @@ export const matchesDirectoryChildReference = (
 
 export const resolveDirectoryChildFromReference = (
   directoryChildren: DirectoryChild[],
-  childReference: DirectoryChildReference | undefined,
+  childReference: DirectoryChildReference | undefined
 ): DirectoryChild | undefined => {
   if (!childReference) {
     return undefined;
@@ -82,7 +82,7 @@ export const resolveDirectoryChildFromReference = (
     matchesDirectoryChildReference(
       childReference,
       childAtIndex,
-      childReference.childIndex,
+      childReference.childIndex
     )
   ) {
     return childAtIndex;
@@ -90,7 +90,7 @@ export const resolveDirectoryChildFromReference = (
 
   if (childReference.childId) {
     return directoryChildren.find(
-      (child) => child?.id === childReference.childId,
+      (child) => child?.id === childReference.childId
     );
   }
 

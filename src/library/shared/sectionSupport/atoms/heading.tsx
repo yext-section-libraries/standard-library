@@ -84,7 +84,7 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
       color,
       ...props
     },
-    ref,
+    ref
   ) => {
     const Tag = (
       semanticLevelOverride
@@ -108,7 +108,7 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
           }),
           textColorClass,
           Tag === "span" && "block",
-          className,
+          className
         )}
         style={{
           ...getTextColorStyle(color),
@@ -122,6 +122,6 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
         {props.children}
       </Tag>
     );
-  },
+  }
 );
 Heading.displayName = "Heading";

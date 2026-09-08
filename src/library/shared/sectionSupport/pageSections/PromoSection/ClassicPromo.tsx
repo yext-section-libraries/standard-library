@@ -20,7 +20,7 @@ export const ClassicPromo: PuckComponent<PromoVariantProps> = (props) => {
         slots={slots}
         className={themeManagerCn(
           styles.mobileImagePosition === "bottom" && "hidden lg:block",
-          styles.desktopImagePosition === "right" && "lg:hidden",
+          styles.desktopImagePosition === "right" && "lg:hidden"
         )}
       />
       <PromoContent {...props} />
@@ -31,7 +31,7 @@ export const ClassicPromo: PuckComponent<PromoVariantProps> = (props) => {
         slots={slots}
         className={themeManagerCn(
           styles.mobileImagePosition === "top" && "hidden lg:block",
-          styles.desktopImagePosition === "left" && "lg:hidden",
+          styles.desktopImagePosition === "left" && "lg:hidden"
         )}
       />
     </PageSection>

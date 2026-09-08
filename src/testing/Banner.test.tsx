@@ -287,19 +287,19 @@ describe("BannerSection", async () => {
         },
         migrationRegistry,
         puckConfig,
-        document,
+        document
       );
 
       const { container } = reactRender(
         <VisualEditorProvider templateProps={{ document }}>
           <Render config={puckConfig} data={data} />
-        </VisualEditorProvider>,
+        </VisualEditorProvider>
       );
 
       await page.viewport(width, height);
 
       await expect(
-        `BannerSection/[${viewportName}] ${name}`,
+        `BannerSection/[${viewportName}] ${name}`
       ).toMatchScreenshot();
       if (
         // these tests intentionally fails accessibility by using user-override text colors that may not meet contrast standards
@@ -315,11 +315,11 @@ describe("BannerSection", async () => {
       if (interactions) {
         await interactions(page);
         await expect(
-          `BannerSection/[${viewportName}] ${name} (after interactions)`,
+          `BannerSection/[${viewportName}] ${name} (after interactions)`
         ).toMatchScreenshot();
         const results = await axe(container);
         expect(results).toHaveNoViolations();
       }
-    },
+    }
   );
 });

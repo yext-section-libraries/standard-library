@@ -248,7 +248,7 @@ const heroSectionFields: YextFields<HeroSectionProps> = {
       desktopContainerPosition: {
         label: msg(
           "fields.desktopContainerPosition",
-          "Desktop Container Position",
+          "Desktop Container Position"
         ),
         type: "radio",
         options: [
@@ -579,7 +579,7 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
     data = setDeep(
       data,
       "props.slots.ImageSlot[0].props.variant",
-      data.props.styles.variant,
+      data.props.styles.variant
     );
 
     const ctaClassNameFn = (variant: CTAVariant): string => {
@@ -599,13 +599,13 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
     data = setDeep(
       data,
       "props.slots.PrimaryCTASlot[0].props.parentStyles.classNameFn",
-      ctaClassNameFn,
+      ctaClassNameFn
     );
 
     data = setDeep(
       data,
       "props.slots.SecondaryCTASlot[0].props.parentStyles.classNameFn",
-      ctaClassNameFn,
+      ctaClassNameFn
     );
 
     const geomodifierLevel =
@@ -613,7 +613,7 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
     data = setDeep(
       data,
       "props.slots.BusinessNameSlot[0].props.styles.semanticLevelOverride",
-      geomodifierLevel < 6 ? ((geomodifierLevel + 1) as HeadingLevel) : "span",
+      geomodifierLevel < 6 ? ((geomodifierLevel + 1) as HeadingLevel) : "span"
     );
 
     switch (data.props.styles.variant) {
@@ -625,15 +625,15 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
             "w-full h-full",
             data.props.styles.desktopImagePosition === "left"
               ? "mr-auto"
-              : "ml-auto",
-          ),
+              : "ml-auto"
+          )
         );
         break;
       case "classic":
         data = setDeep(
           data,
           "props.slots.ImageSlot[0].props.className",
-          "mx-auto max-w-full md:max-w-[350px] lg:max-w-[calc(min(calc(100vw-1.5rem),var(--maxWidth-pageSection-contentWidth))-350px)] rounded-image-borderRadius",
+          "mx-auto max-w-full md:max-w-[350px] lg:max-w-[calc(min(calc(100vw-1.5rem),var(--maxWidth-pageSection-contentWidth))-350px)] rounded-image-borderRadius"
         );
         break;
     }
@@ -647,10 +647,10 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
     // Check if the HoursStatusSlot has content to display
     const resolvedHours = resolveComponentData(
       data?.props?.slots?.HoursStatusSlot.map(
-        (slot) => slot.props.data.hours,
+        (slot) => slot.props.data.hours
       )[0],
       locale,
-      streamDocument,
+      streamDocument
     );
 
     const phoneSlot = data.props.slots.PhoneSlot?.[0];
@@ -658,7 +658,7 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
       ? resolvePhoneNumbers(
           phoneSlot.props.data.phoneNumbers,
           locale,
-          streamDocument,
+          streamDocument
         )
       : [];
 
@@ -688,7 +688,7 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
             "styles.objectFields.imageHeight",
             "styles.objectFields.desktopContainerPosition",
           ],
-          undefined,
+          undefined
         );
 
         if (!data.props.styles.showImage) {
@@ -698,7 +698,7 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
               "styles.objectFields.mobileImagePosition",
               "styles.objectFields.desktopImagePosition",
             ],
-            undefined,
+            undefined
           );
         }
         break;
@@ -707,7 +707,7 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
         fields = updateFields(
           fields,
           ["styles.objectFields.backgroundColor", "slots.ImageSlot"],
-          undefined,
+          undefined
         );
         // immersive should also remove the props removed by spotlight
       }
@@ -719,7 +719,7 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
             "styles.objectFields.mobileImagePosition",
             "styles.objectFields.desktopImagePosition",
           ],
-          undefined,
+          undefined
         );
         break;
       }

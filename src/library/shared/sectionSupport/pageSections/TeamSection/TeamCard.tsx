@@ -52,7 +52,7 @@ export const defaultTeamCardSlotData = (
   id?: string,
   index?: number,
   backgroundColor?: ThemeColor,
-  sharedSlotStyles?: Record<string, any>,
+  sharedSlotStyles?: Record<string, any>
 ) => {
   const cardData = {
     type: "TeamCard",
@@ -286,7 +286,7 @@ const TeamCardComponent: PuckComponent<TeamCardProps> = (props) => {
     useParentCardStyles<TeamCardProps["parentStyles"]>() ?? props.parentStyles;
 
   const { slotStyles, getPuck, slotProps } = useGetCardSlots<TeamCardProps>(
-    props.id,
+    props.id
   );
 
   const showName = Boolean(conditionalRender?.name || puck.isEditing);
@@ -342,7 +342,7 @@ const TeamCardComponent: PuckComponent<TeamCardProps> = (props) => {
         {
           ...deepMerge(
             { props: { styles: { ...sharedCardProps?.slotStyles?.[key] } } },
-            value[0],
+            value[0]
           ),
         },
       ];
@@ -462,23 +462,17 @@ export const TeamCard: YextComponentConfig<TeamCardProps> = {
     const isLinkedMode = Boolean(field);
 
     const imageSlotProps = data.props.slots.ImageSlot?.[0]?.props as
-      | WithId<ImageWrapperProps>
-      | undefined;
+      WithId<ImageWrapperProps> | undefined;
     const nameSlotProps = data.props.slots.NameSlot?.[0]?.props as
-      | WithId<HeadingTextProps>
-      | undefined;
+      WithId<HeadingTextProps> | undefined;
     const titleSlotProps = data.props.slots.TitleSlot?.[0]?.props as
-      | WithId<TextProps>
-      | undefined;
+      WithId<TextProps> | undefined;
     const phoneSlotProps = data.props.slots.PhoneSlot?.[0]?.props as
-      | WithId<any>
-      | undefined;
+      WithId<any> | undefined;
     const emailSlotProps = data.props.slots.EmailSlot?.[0]?.props as
-      | WithId<any>
-      | undefined;
+      WithId<any> | undefined;
     const ctaSlotProps = data.props.slots.CTASlot?.[0]?.props as
-      | WithId<CTAWrapperProps>
-      | undefined;
+      WithId<CTAWrapperProps> | undefined;
 
     const showImage = Boolean(
       isLinkedMode
@@ -501,7 +495,7 @@ export const TeamCard: YextComponentConfig<TeamCardProps> = {
                 imageSlotProps.data.image.constantValue.url) ||
               (imageSlotProps.data.image.constantValue &&
                 "image" in imageSlotProps.data.image.constantValue &&
-                imageSlotProps.data.image.constantValue.image?.url)),
+                imageSlotProps.data.image.constantValue.image?.url))
     );
     const showName = Boolean(
       isLinkedMode
@@ -510,8 +504,8 @@ export const TeamCard: YextComponentConfig<TeamCardProps> = {
             resolveYextEntityField(
               params.metadata.streamDocument,
               nameSlotProps.data.text,
-              i18nComponentsInstance.language || "en",
-            ),
+              i18nComponentsInstance.language || "en"
+            )
     );
     const showTitle = Boolean(
       isLinkedMode
@@ -520,8 +514,8 @@ export const TeamCard: YextComponentConfig<TeamCardProps> = {
             resolveYextEntityField(
               params.metadata.streamDocument,
               titleSlotProps.data.text,
-              i18nComponentsInstance.language || "en",
-            ),
+              i18nComponentsInstance.language || "en"
+            )
     );
     const showPhone = Boolean(
       isLinkedMode
@@ -529,13 +523,12 @@ export const TeamCard: YextComponentConfig<TeamCardProps> = {
             (phoneSlotProps?.data?.phoneNumbers?.length &&
               phoneSlotProps.data.phoneNumbers.some(
                 (phone: any) =>
-                  phone.number?.constantValue || phone.number?.field,
+                  phone.number?.constantValue || phone.number?.field
               ))
         : phoneSlotProps?.data?.phoneNumbers?.length &&
             phoneSlotProps.data.phoneNumbers.some(
-              (phone: any) =>
-                phone.number?.constantValue || phone.number?.field,
-            ),
+              (phone: any) => phone.number?.constantValue || phone.number?.field
+            )
     );
     const showEmail = Boolean(
       isLinkedMode
@@ -543,7 +536,7 @@ export const TeamCard: YextComponentConfig<TeamCardProps> = {
             emailSlotProps?.data?.list?.constantValue?.length ||
             emailSlotProps?.data?.list?.field
         : emailSlotProps?.data?.list?.constantValue?.length ||
-            emailSlotProps?.data?.list?.field,
+            emailSlotProps?.data?.list?.field
     );
     const showCTA = Boolean(
       isLinkedMode
@@ -555,8 +548,8 @@ export const TeamCard: YextComponentConfig<TeamCardProps> = {
             (ctaSlotProps &&
               resolveYextEntityField(
                 params.metadata.streamDocument,
-                ctaSlotProps.data.entityField,
-              )?.label),
+                ctaSlotProps.data.entityField
+              )?.label)
     );
 
     let updatedData = {
@@ -578,7 +571,7 @@ export const TeamCard: YextComponentConfig<TeamCardProps> = {
     updatedData = setDeep(
       updatedData,
       "props.slots.ImageSlot[0].props.className",
-      "max-w-full h-full object-cover",
+      "max-w-full h-full object-cover"
     );
     updatedData = setDeep(updatedData, "props.slots.ImageSlot[0].props.sizes", {
       base: "80px",
@@ -588,21 +581,21 @@ export const TeamCard: YextComponentConfig<TeamCardProps> = {
     updatedData = setDeep(
       updatedData,
       "props.slots.CTASlot[0].props.eventName",
-      `card${data.props.index}-cta`,
+      `card${data.props.index}-cta`
     );
 
     // Set the Phone's event name
     updatedData = setDeep(
       updatedData,
       "props.slots.PhoneSlot[0].props.eventName",
-      `card${data.props.index}-phone`,
+      `card${data.props.index}-phone`
     );
 
     // Set the Email's event name
     updatedData = setDeep(
       updatedData,
       "props.slots.EmailSlot[0].props.eventName",
-      `card${data.props.index}-email`,
+      `card${data.props.index}-email`
     );
 
     updatedData = syncParentStyles(params, updatedData, [
@@ -623,7 +616,7 @@ export const TeamCard: YextComponentConfig<TeamCardProps> = {
         params.metadata.streamDocument,
         {
           output: "plainText",
-        },
+        }
       );
     return bindSlots(updatedData as typeof data, {
       ImageSlot: headshot

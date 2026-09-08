@@ -17,7 +17,7 @@ export const AccordionItem = React.forwardRef<
       ref={ref}
       className={themeManagerCn(
         "group border-b py-4 last:border-none",
-        className,
+        className
       )}
       {...props}
     />
@@ -33,7 +33,7 @@ export const AccordionTrigger = React.forwardRef<
       ref={ref}
       className={themeManagerCn(
         "flex cursor-pointer list-none items-center justify-between",
-        className,
+        className
       )}
       {...props}
     >

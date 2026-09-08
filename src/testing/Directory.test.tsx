@@ -838,7 +838,7 @@ describe("Directory", async () => {
         },
         migrationRegistry,
         puckConfig,
-        document,
+        document
       );
 
       const updatedData = await resolveAllData(data, puckConfig, {
@@ -852,7 +852,7 @@ describe("Directory", async () => {
             data={updatedData}
             metadata={{ streamDocument: document }}
           />
-        </VisualEditorProvider>,
+        </VisualEditorProvider>
       );
 
       await page.viewport(width, height);
@@ -864,11 +864,11 @@ describe("Directory", async () => {
       if (interactions) {
         await interactions(page);
         await expect(
-          `Directory/[${viewportName}] ${name} (after interactions)`,
+          `Directory/[${viewportName}] ${name} (after interactions)`
         ).toMatchScreenshot();
         const results = await axe(container);
         expect(results).toHaveNoViolations();
       }
-    },
+    }
   );
 });

@@ -2689,7 +2689,7 @@ describe("ExpandedHeader", async () => {
         },
         migrationRegistry,
         puckConfig,
-        document,
+        document
       );
 
       const updatedData = await resolveAllData(data, puckConfig, {
@@ -2703,7 +2703,7 @@ describe("ExpandedHeader", async () => {
             data={updatedData}
             metadata={{ streamDocument: document }}
           />
-        </VisualEditorProvider>,
+        </VisualEditorProvider>
       );
 
       await page.viewport(width, height);
@@ -2713,7 +2713,7 @@ describe("ExpandedHeader", async () => {
       });
 
       await expect(
-        `ExpandedHeader/[${viewportName}] ${name}`,
+        `ExpandedHeader/[${viewportName}] ${name}`
       ).toMatchScreenshot();
       const results = await axe(container);
       expect(results).toHaveNoViolations();
@@ -2724,11 +2724,11 @@ describe("ExpandedHeader", async () => {
           await delay(1_500); // wait for animation
         }
         await expect(
-          `ExpandedHeader/[${viewportName}] ${name} (after interactions)`,
+          `ExpandedHeader/[${viewportName}] ${name} (after interactions)`
         ).toMatchScreenshot({ customThreshold: screenshotThreshold });
         const results = await axe(container);
         expect(results).toHaveNoViolations();
       }
-    },
+    }
   );
 });

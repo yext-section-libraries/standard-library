@@ -2550,7 +2550,7 @@ describe("EventSection", async () => {
         },
         migrationRegistry,
         puckConfig,
-        document,
+        document
       );
       data = await resolveAllData(data, puckConfig, {
         streamDocument: document,
@@ -2559,7 +2559,7 @@ describe("EventSection", async () => {
       const { container } = reactRender(
         <VisualEditorProvider templateProps={{ document }}>
           <Render config={puckConfig} data={data} />
-        </VisualEditorProvider>,
+        </VisualEditorProvider>
       );
       await page.viewport(width, height);
       const images = Array.from(container.querySelectorAll("img"));
@@ -2568,7 +2568,7 @@ describe("EventSection", async () => {
       });
 
       await expect(
-        `EventSection/[${viewportName}] ${name}`,
+        `EventSection/[${viewportName}] ${name}`
       ).toMatchScreenshot();
       const results = await axe(container);
       expect(results).toHaveNoViolations();
@@ -2576,12 +2576,12 @@ describe("EventSection", async () => {
       if (interactions) {
         await interactions(page);
         await expect(
-          `EventSection/[${viewportName}] ${name} (after interactions)`,
+          `EventSection/[${viewportName}] ${name} (after interactions)`
         ).toMatchScreenshot();
         const results = await axe(container);
         expect(results).toHaveNoViolations();
       }
-    },
+    }
   );
 
   it("resolves linked event card mappings through wrapper parent data", async () => {
@@ -2649,7 +2649,7 @@ describe("EventSection", async () => {
       puckConfig,
       {
         streamDocument: { c_eventsSection: eventsData },
-      },
+      }
     );
 
     const cardsWrapper = data.content[0]!.props.slots.CardsWrapperSlot[0];
@@ -2659,7 +2659,7 @@ describe("EventSection", async () => {
       title: "Cooking Class",
     });
     expect(cardsWrapper.props.slots.CardSlot[0].props).not.toHaveProperty(
-      "parentData",
+      "parentData"
     );
   });
 
@@ -2684,7 +2684,7 @@ describe("EventSection", async () => {
       puckConfig,
       {
         streamDocument: { c_eventsSection: eventsData },
-      },
+      }
     );
 
     const firstCard =
@@ -2692,7 +2692,7 @@ describe("EventSection", async () => {
     expect(firstCard.props.parentData).toBeUndefined();
     expect(
       firstCard.props.slots.TitleSlot[0].props.data.text.constantValue
-        .defaultValue,
+        .defaultValue
     ).toBe("Event Title");
   });
 
@@ -2761,11 +2761,11 @@ describe("EventSection", async () => {
       puckConfig,
       {
         streamDocument: { c_eventsSection: { events: [] } },
-      },
+      }
     );
 
     expect(
-      data.content[0]!.props.slots.CardsWrapperSlot[0].props.conditionalRender,
+      data.content[0]!.props.slots.CardsWrapperSlot[0].props.conditionalRender
     ).toEqual({
       isMappedContentEmpty: true,
     });

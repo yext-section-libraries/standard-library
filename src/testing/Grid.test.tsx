@@ -2364,13 +2364,13 @@ describe("Grid", async () => {
         },
         migrationRegistry,
         puckConfig,
-        document,
+        document
       );
 
       const { container } = reactRender(
         <VisualEditorProvider templateProps={{ document }}>
           <Render config={puckConfig} data={data} />
-        </VisualEditorProvider>,
+        </VisualEditorProvider>
       );
 
       await page.viewport(width, height);
@@ -2391,7 +2391,7 @@ describe("Grid", async () => {
       if (interactions) {
         await interactions(page);
         await expect(
-          `Grid/[${viewportName}] ${name} (after interactions)`,
+          `Grid/[${viewportName}] ${name} (after interactions)`
         ).toMatchScreenshot();
         const results2 = await axe(container);
         if (version === 45 || version === 50) {
@@ -2400,6 +2400,6 @@ describe("Grid", async () => {
           expect(results2).toHaveNoViolations();
         }
       }
-    },
+    }
   );
 });

@@ -102,7 +102,7 @@ const eventCardsWrapperFields: YextFields<EventCardsWrapperProps> = {
 };
 
 const EventCardsWrapperComponent: PuckComponent<EventCardsWrapperProps> = (
-  props,
+  props
 ) => {
   const { slots } = props;
 

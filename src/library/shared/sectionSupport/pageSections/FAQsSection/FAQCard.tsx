@@ -34,7 +34,7 @@ const defaultFAQ = {
   question: { defaultValue: "Question Lorem ipsum dolor sit amet?" },
   answer: {
     defaultValue: getDefaultRTF(
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
     ),
   },
 } satisfies FAQStruct;
@@ -44,7 +44,7 @@ export const defaultFAQCardData = (
   index?: number,
   questionVariant?: BodyProps["variant"],
   answerVariant?: BodyProps["variant"],
-  answerColor?: ThemeColor,
+  answerColor?: ThemeColor
 ) => ({
   type: "FAQCard",
   props: {
@@ -292,7 +292,7 @@ export const FAQCard: YextComponentConfig<FAQCardProps> = {
               parentData: { field: data.props.field },
             },
           } as typeof data)
-        : data,
+        : data
     ),
   render: (props) => <FAQCardComponent {...props} />,
 };

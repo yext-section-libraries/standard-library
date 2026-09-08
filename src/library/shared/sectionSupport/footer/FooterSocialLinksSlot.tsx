@@ -155,7 +155,7 @@ const FooterSocialLinksSlotInternal: PuckComponent<
   ];
 
   const validLinks = links.filter(
-    (link) => link.url && link.pattern.test(link.url),
+    (link) => link.url && link.pattern.test(link.url)
   );
 
   // Always show placeholder in editing mode, hide on live if empty
@@ -170,7 +170,7 @@ const FooterSocialLinksSlotInternal: PuckComponent<
       {validLinks.map((link, index) => {
         const Icon = link.icon;
         const filledIconColor = getThemeColorCssValue(
-          styles?.iconColor?.selectedColor,
+          styles?.iconColor?.selectedColor
         );
         const iconElement = styles?.filledBackground ? (
           <div

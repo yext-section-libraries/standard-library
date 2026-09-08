@@ -43,7 +43,7 @@ export const Background = React.forwardRef<HTMLDivElement, BackgroundProps>(
 
       const contrastColor = getThemeValue(
         paletteColorContrastCSSVariable,
-        streamDocument,
+        streamDocument
       );
       if (contrastColor) {
         return {
@@ -86,7 +86,7 @@ export const Background = React.forwardRef<HTMLDivElement, BackgroundProps>(
           className={themeManagerCn(
             "components",
             getBackgroundColorClasses(background),
-            className,
+            className
           )}
           style={{
             ...getBackgroundColorStyle(background),
@@ -99,6 +99,6 @@ export const Background = React.forwardRef<HTMLDivElement, BackgroundProps>(
         </Component>
       </BackgroundProvider>
     );
-  },
+  }
 );
 Background.displayName = "Background";

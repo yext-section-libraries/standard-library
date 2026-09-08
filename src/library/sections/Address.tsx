@@ -136,7 +136,7 @@ const AddressComponent: PuckComponent<AddressProps> = (props) => {
     (resolveComponentData(
       data.address,
       i18n.language,
-      streamDocument,
+      streamDocument
     ) as unknown as AddressType | undefined);
 
   const listings = streamDocument.ref_listings ?? [];
@@ -145,13 +145,13 @@ const AddressComponent: PuckComponent<AddressProps> = (props) => {
     listings,
     undefined,
     { provider: "google" },
-    undefined,
+    undefined
   );
   const addressLink = getDirections(
     address as AddressType,
     undefined,
     undefined,
-    { provider: "google" },
+    { provider: "google" }
   );
 
   // If ref_listings doesn't exist or the address field selected isn't just address, use the address link.
@@ -207,21 +207,21 @@ export const resolveAddressFields = (
   data: Omit<
     ComponentData<AddressProps, string, Record<string, DefaultComponentProps>>,
     "type"
-  >,
+  >
 ) => {
   let updatedFields = resolveDataFromParent(addressFields, data);
   const showGetDirectionsLink = data.props.styles.showGetDirectionsLink;
   updatedFields = setDeep(
     updatedFields,
     "styles.objectFields.ctaVariant.visible",
-    showGetDirectionsLink,
+    showGetDirectionsLink
   );
   const ctaVariant = data.props.styles.ctaVariant;
   const showColor = isCtaVariantWithColor(ctaVariant);
   updatedFields = setDeep(
     updatedFields,
     "styles.objectFields.color.visible",
-    showGetDirectionsLink && showColor,
+    showGetDirectionsLink && showColor
   );
 
   return updatedFields;

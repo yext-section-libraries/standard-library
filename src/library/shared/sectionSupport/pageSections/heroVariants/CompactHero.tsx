@@ -41,7 +41,7 @@ export const CompactHero: PuckComponent<HeroVariantProps> = (props) => {
           "w-full max-w-[1440px] flex flex-col sm:flex-row justify-between",
           styles.desktopImagePosition === "left"
             ? "2xl:mr-[max(calc((100vw-var(--maxWidth-pageSection-contentWidth))/2),1.5rem)] ml-auto"
-            : "2xl:ml-[max(calc((100vw-var(--maxWidth-pageSection-contentWidth))/2),1.5rem)] mr-auto",
+            : "2xl:ml-[max(calc((100vw-var(--maxWidth-pageSection-contentWidth))/2),1.5rem)] mr-auto"
         )}
       >
         {/* Desktop left image / Mobile top image */}
@@ -49,7 +49,7 @@ export const CompactHero: PuckComponent<HeroVariantProps> = (props) => {
           id={id + "-image"}
           className={themeManagerCn(
             styles.mobileImagePosition === "bottom" && "hidden sm:block",
-            styles.desktopImagePosition === "right" && "sm:hidden",
+            styles.desktopImagePosition === "right" && "sm:hidden"
           )}
           styles={styles}
           slots={slots}
@@ -60,7 +60,7 @@ export const CompactHero: PuckComponent<HeroVariantProps> = (props) => {
         <div
           className={themeManagerCn(
             heroContentParentCn(styles),
-            "sm:hidden max-w-[700px] py-pageSection-verticalPadding pt-6 px-4",
+            "sm:hidden max-w-[700px] py-pageSection-verticalPadding pt-6 px-4"
           )}
         >
           <HeroContent {...props} />
@@ -77,7 +77,7 @@ export const CompactHero: PuckComponent<HeroVariantProps> = (props) => {
               : "sm:pr-8 lg:pr-16 sm:pl-0",
             styles.desktopImagePosition === "left"
               ? "mr-[max(calc((100vw-var(--maxWidth-pageSection-contentWidth))/2),1.5rem)] 2xl:mr-0 "
-              : "ml-[max(calc((100vw-var(--maxWidth-pageSection-contentWidth))/2),1.5rem)] 2xl:ml-0",
+              : "ml-[max(calc((100vw-var(--maxWidth-pageSection-contentWidth))/2),1.5rem)] 2xl:ml-0"
           )}
         >
           <HeroContent {...props} />
@@ -88,7 +88,7 @@ export const CompactHero: PuckComponent<HeroVariantProps> = (props) => {
           id={id + "-image"}
           className={themeManagerCn(
             styles.mobileImagePosition === "top" && "hidden sm:block",
-            styles.desktopImagePosition === "left" && "sm:hidden",
+            styles.desktopImagePosition === "left" && "sm:hidden"
           )}
           styles={styles}
           slots={slots}

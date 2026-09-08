@@ -76,7 +76,7 @@ const DirectoryFieldTooltip = () => {
             "Use a custom URL path for each card's title link. If the value is empty, the generated directory URL will be used.",
             {
               entityType: templateMetadata.entityTypeDisplayName,
-            },
+            }
           )}
           <TooltipArrow fill="ve-bg-popover" />
         </TooltipContent>
@@ -203,7 +203,7 @@ const directoryCardsSource = createSlottedItemSource<
 // The linked entity slot helper allows field selection and constant values
 // however the directory should be locked to the dm_directoryChildren field.
 const getNormalizedDirectoryGridData = (
-  value: typeof directoryCardsSource.value | undefined,
+  value: typeof directoryCardsSource.value | undefined
 ): typeof directoryCardsSource.value => ({
   ...directoryCardsSource.defaultValue,
   ...value,
@@ -254,7 +254,7 @@ export const DirectoryList = ({
 }) => {
   const sortedDirectoryChildren = sortAlphabetically(
     [...directoryChildren],
-    "name",
+    "name"
   );
   const linkTextTransformValue = (
     getThemeValue("--textTransform-link-textTransform", streamDocument) ?? ""
@@ -351,7 +351,7 @@ const DirectoryGridWrapper: PuckComponent<DirectoryGridProps> = (props) => {
   const streamDocument = useDocument<StreamDocument>();
   const sortedDirectoryChildren = React.useMemo(
     () => getSortedDirectoryChildren(streamDocument.dm_directoryChildren),
-    [streamDocument.dm_directoryChildren],
+    [streamDocument.dm_directoryChildren]
   );
 
   return (
@@ -394,7 +394,7 @@ export const DirectoryGrid: YextComponentConfig<DirectoryGridProps> = {
     }
 
     const sortedDirectoryChildren = getSortedDirectoryChildren(
-      streamDocument.dm_directoryChildren,
+      streamDocument.dm_directoryChildren
     );
     const normalizedData = getNormalizedDirectoryGridData(data.props.data);
     const titleField = normalizedData.mappings?.cardTitle.constantValueEnabled
@@ -417,7 +417,7 @@ export const DirectoryGrid: YextComponentConfig<DirectoryGridProps> = {
           index,
           createDirectoryChildReference(sortedDirectoryChildren[index], index),
           firstCardProps?.styles,
-          firstCardProps?.slots,
+          firstCardProps?.slots
         ),
       toParentData: ({ child, childIndex }) => ({
         childRef: createDirectoryChildReference(child, childIndex),
@@ -430,7 +430,7 @@ export const DirectoryGrid: YextComponentConfig<DirectoryGridProps> = {
               titleItems[index].cardTitle,
               streamDocument.locale || "en",
               streamDocument,
-              { output: "plainText" },
+              { output: "plainText" }
             )
           : "[[name]]";
       const cardSlots = card.props.slots ?? {};
@@ -463,7 +463,7 @@ export const DirectoryGrid: YextComponentConfig<DirectoryGridProps> = {
                         },
                       },
                     }
-                  : headingSlot,
+                  : headingSlot
             ),
           },
         },

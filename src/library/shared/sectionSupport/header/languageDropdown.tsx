@@ -132,7 +132,7 @@ export const LanguageDropdown: React.FC<LanguageDropdownProps> = ({
                   className={themeManagerCn(
                     "components font-body-fontFamily font-normal bg-white py-4 px-6 text-body-sm-fontSize",
                     "hover:bg-[#EDEDED] active:bg-[#EDEDED] cursor-pointer data-[highlighted]:outline-none data-[highlighted]:shadow-none",
-                    selected === locale && "font-bold",
+                    selected === locale && "font-bold"
                   )}
                 >
                   {getLanguageName(locale)}
@@ -168,7 +168,7 @@ export const LanguageDropdown: React.FC<LanguageDropdownProps> = ({
                       onClick={() => handleLocaleSelected(locale, path)}
                       className={themeManagerCn(
                         "text-left py-3 px-2 rounded text-body-sm-fontSize",
-                        selected === locale && "font-body-fontWeight",
+                        selected === locale && "font-body-fontWeight"
                       )}
                     >
                       {getLanguageName(locale)}
@@ -213,7 +213,7 @@ function normalizeLanguageName(name: string | undefined): string | undefined {
 }
 
 export function parseDocumentForLanguageDropdown(
-  document: any,
+  document: any
 ): LanguageDropdownProps | undefined {
   const businessId: string = document?.businessId;
   if (!businessId) {
@@ -231,7 +231,7 @@ export function parseDocumentForLanguageDropdown(
   const apiKey: string = document?._env?.YEXT_PUBLIC_VISUAL_EDITOR_APP_API_KEY;
   if (!apiKey) {
     console.warn(
-      "Missing YEXT_PUBLIC_VISUAL_EDITOR_APP_API_KEY! Unable to use language dropdown.",
+      "Missing YEXT_PUBLIC_VISUAL_EDITOR_APP_API_KEY! Unable to use language dropdown."
     );
     return undefined;
   }
@@ -260,7 +260,7 @@ export function parseDocumentForLanguageDropdown(
   const contentDeliveryAPIDomain = document?._yext?.contentDeliveryAPIDomain;
   if (!contentDeliveryAPIDomain) {
     console.warn(
-      "Missing contentDeliveryAPIDomain! Unable to use language dropdown.",
+      "Missing contentDeliveryAPIDomain! Unable to use language dropdown."
     );
     return undefined;
   }

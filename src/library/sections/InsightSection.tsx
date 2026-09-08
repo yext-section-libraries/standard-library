@@ -172,7 +172,7 @@ export const InsightSection: YextComponentConfig<InsightSectionProps> = {
   resolveData: (data) => {
     const updatedData = forwardHeadingLevel<InsightCardsWrapperProps>(
       data,
-      "TitleSlot",
+      "TitleSlot"
     );
 
     return {
@@ -180,7 +180,7 @@ export const InsightSection: YextComponentConfig<InsightSectionProps> = {
       props: {
         ...updatedData.props,
         conditionalRender: getMappedCardsSectionConditionalRender(
-          updatedData.props.slots.CardsWrapperSlot?.[0],
+          updatedData.props.slots.CardsWrapperSlot?.[0]
         ),
       },
     };

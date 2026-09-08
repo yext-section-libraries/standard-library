@@ -903,13 +903,13 @@ describe("PhotoGallerySection", async () => {
         },
         migrationRegistry,
         puckConfig,
-        document,
+        document
       );
 
       const { container } = reactRender(
         <VisualEditorProvider templateProps={{ document }}>
           <Render config={puckConfig} data={data} />
-        </VisualEditorProvider>,
+        </VisualEditorProvider>
       );
 
       await page.viewport(width, height);
@@ -922,13 +922,13 @@ describe("PhotoGallerySection", async () => {
             data.content[0].props.slots?.PhotoGalleryWrapper[0].props.styles
               ?.carouselImageCount ?? 1;
           expect(images.slice(0, imagesPerSlide).every((i) => i.complete)).toBe(
-            true,
+            true
           );
         }
       });
 
       await expect(
-        `PhotoGallerySection/[${viewportName}] ${name}`,
+        `PhotoGallerySection/[${viewportName}] ${name}`
       ).toMatchScreenshot();
       const results = await axe(container);
       expect(results).toHaveNoViolations();
@@ -936,11 +936,11 @@ describe("PhotoGallerySection", async () => {
       if (interactions) {
         await interactions(page);
         await expect(
-          `PhotoGallerySection/[${viewportName}] ${name} (after interactions)`,
+          `PhotoGallerySection/[${viewportName}] ${name} (after interactions)`
         ).toMatchScreenshot();
         const results = await axe(container);
         expect(results).toHaveNoViolations();
       }
-    },
+    }
   );
 });

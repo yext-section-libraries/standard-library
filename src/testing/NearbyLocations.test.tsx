@@ -521,13 +521,13 @@ describe("NearbyLocationsSection", async () => {
         },
         migrationRegistry,
         puckConfig,
-        document,
+        document
       );
 
       const { container } = reactRender(
         <VisualEditorProvider templateProps={{ document }}>
           <Render config={puckConfig} data={data} />
-        </VisualEditorProvider>,
+        </VisualEditorProvider>
       );
 
       await page.viewport(width, height);
@@ -543,19 +543,19 @@ describe("NearbyLocationsSection", async () => {
           "fetch",
           vi.fn(() => {
             throw new Error("Network access currently disabled");
-          }),
+          })
         );
         if (document?._env?.YEXT_PUBLIC_VISUAL_EDITOR_APP_API_KEY) {
           await waitFor(() => {
             expect(
-              page.getByText("Loading nearby locations"),
+              page.getByText("Loading nearby locations")
             ).toBeInTheDocument();
           });
         }
       }
 
       await expect(
-        `NearbyLocationsSection/[${viewportName}] ${name}`,
+        `NearbyLocationsSection/[${viewportName}] ${name}`
       ).toMatchScreenshot();
       const results = await axe(container);
       if (version === 60 && results.violations.length) {
@@ -568,7 +568,7 @@ describe("NearbyLocationsSection", async () => {
         await interactions(page);
 
         await expect(
-          `NearbyLocationsSection/[${viewportName}] ${name} (after interactions)`,
+          `NearbyLocationsSection/[${viewportName}] ${name} (after interactions)`
         ).toMatchScreenshot();
 
         const results2 = await axe(container);
@@ -578,6 +578,6 @@ describe("NearbyLocationsSection", async () => {
           expect(results2).toHaveNoViolations();
         }
       }
-    },
+    }
   );
 });

@@ -24,7 +24,7 @@ export type ResolvedFooterLinkSection<
 export const resolveLocalizedFooterLinkSection = <T extends FooterLinkSection>(
   section: T,
   locale: string,
-  streamDocument?: Record<string, any>,
+  streamDocument?: Record<string, any>
 ): ResolvedFooterLinkSection<T> => {
   return {
     ...section,

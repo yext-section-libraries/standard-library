@@ -154,13 +154,13 @@ describe("VideoSection", async () => {
         },
         migrationRegistry,
         puckConfig,
-        document,
+        document
       );
 
       const { container } = reactRender(
         <VisualEditorProvider templateProps={{ document }}>
           <Render config={puckConfig} data={data} />
-        </VisualEditorProvider>,
+        </VisualEditorProvider>
       );
 
       await page.viewport(width, height);
@@ -173,7 +173,7 @@ describe("VideoSection", async () => {
       }
 
       await expect(
-        `VideoSection/[${viewportName}] ${name}`,
+        `VideoSection/[${viewportName}] ${name}`
       ).toMatchScreenshot();
       const results = await axe(container);
       expect(results).toHaveNoViolations();
@@ -181,11 +181,11 @@ describe("VideoSection", async () => {
       if (interactions) {
         await interactions(page);
         await expect(
-          `VideoSection/[${viewportName}] ${name} (after interactions)`,
+          `VideoSection/[${viewportName}] ${name} (after interactions)`
         ).toMatchScreenshot();
         const results = await axe(container);
         expect(results).toHaveNoViolations();
       }
-    },
+    }
   );
 });

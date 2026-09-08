@@ -47,7 +47,7 @@ const TextListComponent: PuckComponent<TextListProps> = ({
   let resolvedTextList = resolveComponentData(
     textListField,
     i18n.language,
-    streamDocument,
+    streamDocument
   );
 
   // If there's a value but it's not an array, convert it to array

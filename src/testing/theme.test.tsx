@@ -358,13 +358,13 @@ describe("ThemeTest", async () => {
         data,
         migrationRegistry,
         puckConfig,
-        document,
+        document
       );
 
       const { container } = reactRender(
         <VisualEditorProvider templateProps={{ document }}>
           <Render config={puckConfig} data={migratedData} />
-        </VisualEditorProvider>,
+        </VisualEditorProvider>
       );
 
       await page.viewport(width, height);
@@ -375,6 +375,6 @@ describe("ThemeTest", async () => {
       });
 
       await expect(`ThemeTest/[${viewportName}] ${name}`).toMatchScreenshot();
-    },
+    }
   );
 });

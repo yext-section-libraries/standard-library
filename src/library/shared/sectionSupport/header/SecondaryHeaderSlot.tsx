@@ -101,7 +101,7 @@ const SecondaryHeaderSlotWrapper: PuckComponent<SecondaryHeaderSlotProps> = ({
 
   const languageDropDownProps = React.useMemo(
     () => parseDocumentForLanguageDropdown(streamDocument),
-    [streamDocument],
+    [streamDocument]
   );
 
   const showLanguageSelector =
@@ -128,7 +128,7 @@ const SecondaryHeaderSlotWrapper: PuckComponent<SecondaryHeaderSlotProps> = ({
         <p className="text-sm text-gray-600">
           {pt(
             "secondaryHeaderHiddenOnLivePage",
-            "Secondary Header (Hidden on live page)",
+            "Secondary Header (Hidden on live page)"
           )}
         </p>
       </div>

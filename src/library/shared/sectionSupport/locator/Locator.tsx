@@ -300,7 +300,7 @@ const locatorFields: YextFields<LocatorProps> = {
       showDistanceOptions: {
         label: msg(
           "fields.options.showDistanceOptions",
-          "Include Distance Options",
+          "Include Distance Options"
         ),
         type: "radio",
         options: [
@@ -325,7 +325,7 @@ const locatorFields: YextFields<LocatorProps> = {
         },
         placeholderOptionLabel: msg(
           "fields.options.selectAField",
-          "Select a field",
+          "Select a field"
         ),
       } as any, // TODO(SUMO-8378): remove 'as any' when puck fixes objectFields typing
       keywordsDisplayName: {
@@ -425,7 +425,7 @@ export const LocatorComponent: YextComponentConfig<LocatorProps> = {
       ? getLocatorEntityTypeSourceMap(entityDocument)
       : { [DEFAULT_ENTITY_TYPE]: undefined };
     const entityTypes = Object.keys(
-      entityTypeSourceMap,
+      entityTypeSourceMap
     ) as (keyof typeof entityTypeSourceMap)[];
     const entityTypeCount = entityTypes.length;
 
@@ -433,12 +433,12 @@ export const LocatorComponent: YextComponentConfig<LocatorProps> = {
     updatedFields = setDeep(
       updatedFields,
       "locationStyles.min",
-      entityTypeCount,
+      entityTypeCount
     );
     updatedFields = setDeep(
       updatedFields,
       "locationStyles.max",
-      entityTypeCount,
+      entityTypeCount
     );
     updatedFields = setDeep(updatedFields, "resultCard.min", entityTypeCount);
     updatedFields = setDeep(updatedFields, "resultCard.max", entityTypeCount);
@@ -446,8 +446,8 @@ export const LocatorComponent: YextComponentConfig<LocatorProps> = {
       updatedFields,
       "filters.objectFields.keywordsDisplayName.visible",
       data.props.filters?.facetFields?.selections.some(
-        (selection) => selection.value === KEYWORDS_FIELD,
-      ) ?? false,
+        (selection) => selection.value === KEYWORDS_FIELD
+      ) ?? false
     );
 
     return toPuckFields<LocatorProps>(updatedFields);
@@ -477,7 +477,7 @@ export const LocatorComponent: YextComponentConfig<LocatorProps> = {
       ? getLocatorEntityTypeSourceMap(entityDocument)
       : { [DEFAULT_ENTITY_TYPE]: undefined };
     const entityTypes = Object.keys(
-      entityTypeSourceMap,
+      entityTypeSourceMap
     ) as (keyof typeof entityTypeSourceMap)[];
 
     const previousLocationStyles = data.props.locationStyles ?? [];
@@ -485,25 +485,25 @@ export const LocatorComponent: YextComponentConfig<LocatorProps> = {
     const hasSameEntityTypes = (currentEntityTypes: string[]) =>
       currentEntityTypes.length === entityTypes.length &&
       entityTypes.every((entityType) =>
-        currentEntityTypes.includes(entityType),
+        currentEntityTypes.includes(entityType)
       );
 
     const locationStylesByEntityType = new globalThis.Map(
       previousLocationStyles
         .filter((item) => !!item.entityType)
-        .map((item) => [item.entityType, item] as const),
+        .map((item) => [item.entityType, item] as const)
     );
     const resultCardsByEntityType = new globalThis.Map(
       previousResultCard
         .filter((item) => !!item?.props?.entityType)
-        .map((item) => [item.props.entityType, item] as const),
+        .map((item) => [item.props.entityType, item] as const)
     );
 
     const previousLocationStyleEntityTypes = previousLocationStyles.map(
-      (item) => item.entityType,
+      (item) => item.entityType
     );
     const previousResultCardEntityTypes = previousResultCard.map(
-      (item) => item.props?.entityType,
+      (item) => item.props?.entityType
     );
 
     const shouldReconcileLocationStyles =

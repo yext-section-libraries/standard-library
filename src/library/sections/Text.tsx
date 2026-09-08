@@ -120,7 +120,7 @@ const TextComponent: PuckComponent<TextProps> = (props) => {
         color={styles.color}
         className={themeManagerCn(
           fontStyleToClassName[styles.fontStyle],
-          parentStyles?.className,
+          parentStyles?.className
         )}
       >
         {resolvedData}

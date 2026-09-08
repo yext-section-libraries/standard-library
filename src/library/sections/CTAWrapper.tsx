@@ -143,7 +143,7 @@ const ctaWrapperFields: YextFields<CTAWrapperProps> = {
         },
         getItemSummary: (
           item: any,
-          index: number, // TODO(SUMO-8378): remove typings
+          index: number // TODO(SUMO-8378): remove typings
         ) =>
           item?.key?.trim()
             ? item.key
@@ -201,7 +201,7 @@ const CTAWrapperComponent: PuckComponent<CTAWrapperProps> = (props) => {
   if (parentStyles?.classNameFn) {
     combinedClassName = themeManagerCn(
       parentStyles.classNameFn(styles.variant),
-      className,
+      className
     );
   }
 
@@ -227,12 +227,12 @@ const CTAWrapperComponent: PuckComponent<CTAWrapperProps> = (props) => {
       : Boolean(
           cta &&
           (ctaType === "presetImage" || resolvedLinkLabel) &&
-          (data.show ?? true),
+          (data.show ?? true)
         );
 
   const resolvedButtonClassName = themeManagerCn(
     combinedClassName,
-    actionType === "button" ? data.customClass : undefined,
+    actionType === "button" ? data.customClass : undefined
   );
 
   const dataAttributeProps =
@@ -249,7 +249,7 @@ const CTAWrapperComponent: PuckComponent<CTAWrapperProps> = (props) => {
             acc[normalizedKey as `data-${string}`] = value ?? "";
             return acc;
           },
-          {} as Record<`data-${string}`, string>,
+          {} as Record<`data-${string}`, string>
         )
       : undefined;
 
@@ -368,37 +368,37 @@ export const CTAWrapper: YextComponentConfig<CTAWrapperProps> = {
     setDeep(
       updatedFields,
       "data.objectFields.entityField.visible",
-      !showButtonFields,
+      !showButtonFields
     );
     setDeep(
       updatedFields,
       "data.objectFields.normalizeLink.visible",
-      showNormalizeLinkField,
+      showNormalizeLinkField
     );
     setDeep(
       updatedFields,
       "data.objectFields.buttonText.visible",
-      showButtonFields,
+      showButtonFields
     );
     setDeep(
       updatedFields,
       "data.objectFields.customId.visible",
-      showButtonFields,
+      showButtonFields
     );
     setDeep(
       updatedFields,
       "data.objectFields.customClass.visible",
-      showButtonFields,
+      showButtonFields
     );
     setDeep(
       updatedFields,
       "data.objectFields.dataAttributes.visible",
-      showButtonFields,
+      showButtonFields
     );
     setDeep(
       updatedFields,
       "data.objectFields.ariaLabel.visible",
-      showButtonFields,
+      showButtonFields
     );
 
     return updatedFields;

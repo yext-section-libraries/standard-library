@@ -16,7 +16,7 @@
     "skipLibCheck": true,
     "allowImportingTsExtensions": true,
     "emitDeclarationOnly": true,
-    "declaration": true,
+    "declaration": true
   },
   "include": ["src", "global.d.ts", "theme.config.ts"]
 }

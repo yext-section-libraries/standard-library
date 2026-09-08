@@ -52,7 +52,7 @@ export type CTAProps = {
   alwaysHideCaret?: boolean;
   ariaLabel?: string;
   onClick?: (
-    event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement, MouseEvent>,
+    event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement, MouseEvent>
   ) => void;
   disabled?: boolean;
   color?: ThemeColor;
@@ -135,14 +135,14 @@ const useResolvedCtaProps = (props: CTAProps) => {
           listings,
           undefined,
           { provider: "google" },
-          undefined,
+          undefined
         );
         const coordinateLink = getDirections(
           undefined,
           undefined,
           undefined,
           { provider: "google" },
-          streamDocument.yextDisplayCoordinate,
+          streamDocument.yextDisplayCoordinate
         );
         // Prefer hardcoded link, then listings link, then coordinate link
         // User settable link props should not be used for get directions
@@ -163,7 +163,7 @@ const useResolvedCtaProps = (props: CTAProps) => {
         if (
           props.presetImageType &&
           (FOOD_DELIVERY_SERVICES as readonly string[]).includes(
-            props.presetImageType,
+            props.presetImageType
           ) &&
           React.isValidElement(label)
         ) {
@@ -221,10 +221,10 @@ const useResolvedCtaProps = (props: CTAProps) => {
         ctaType === "presetImage" &&
         props.presetImageType &&
         (FOOD_DELIVERY_SERVICES as readonly string[]).includes(
-          props.presetImageType,
+          props.presetImageType
         ),
     },
-    className,
+    className
   );
 
   return {
@@ -275,11 +275,11 @@ export const CTA = (props: CTAProps) => {
   const isDarkBackground = background?.isDarkColor;
   const resolvedCtaColorHex = React.useMemo(
     () => getThemeColorHexValue(color?.selectedColor, streamDocument),
-    [color?.selectedColor, streamDocument],
+    [color?.selectedColor, streamDocument]
   );
   const resolvedBackgroundColorHex = React.useMemo(
     () => getThemeColorHexValue(background?.selectedColor, streamDocument),
-    [background?.selectedColor, streamDocument],
+    [background?.selectedColor, streamDocument]
   );
   const resolvedCtaColorRgb = resolvedCtaColorHex
     ? hexToRGB(resolvedCtaColorHex)
@@ -297,7 +297,7 @@ export const CTA = (props: CTAProps) => {
           resolvedCtaColorRgb,
           resolvedBackgroundColorRgb,
           12,
-          400,
+          400
         )));
   const dynamicStyle: React.CSSProperties = (() => {
     const bg = getThemeColorCssValue(color?.selectedColor);
