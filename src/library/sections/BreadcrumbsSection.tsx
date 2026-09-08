@@ -93,7 +93,7 @@ const breadcrumbsSectionFields: YextFields<BreadcrumbsSectionProps> = {
         type: "translatableString",
         label: msg(
           "fields.directoryRootLinkLabel",
-          "Directory Root Link Label",
+          "Directory Root Link Label"
         ),
         filter: { types: ["type.string"] },
       },
@@ -121,7 +121,7 @@ const breadcrumbsSectionFields: YextFields<BreadcrumbsSectionProps> = {
       showCurrentPage: {
         label: msg(
           "fields.showCurrentPagesLinkLabel",
-          "Show Current Page's Link Label",
+          "Show Current Page's Link Label"
         ),
         type: "radio",
         options: ThemeOptions.SHOW_HIDE,
@@ -165,17 +165,17 @@ export const BreadcrumbsComponent = ({
   const directoryRoot = resolveComponentData(
     data.directoryRoot,
     i18n.language,
-    streamDocument,
+    streamDocument
   );
   const currentPage = resolveComponentData(
     data.currentPage,
     i18n.language,
-    streamDocument,
+    streamDocument
   );
   const breadcrumbsToRender = breadcrumbs
     .map((breadcrumb, index) => ({ ...breadcrumb, index }))
     .filter(
-      ({ index }) => styles.showCurrentPage || index < breadcrumbs.length - 1,
+      ({ index }) => styles.showCurrentPage || index < breadcrumbs.length - 1
     );
 
   if (!breadcrumbsToRender.length) {
@@ -249,7 +249,7 @@ export const BreadcrumbsSection: YextComponentConfig<BreadcrumbsSectionProps> =
       return setDeep(
         toPuckFields<BreadcrumbsSectionProps>(breadcrumbsSectionFields),
         "data.objectFields.currentPage.visible",
-        breadcrumbCount !== 1,
+        breadcrumbCount !== 1
       );
     },
     defaultProps: {

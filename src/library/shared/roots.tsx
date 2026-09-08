@@ -14,7 +14,7 @@ export const directoryRootConfig: NonNullable<Config["root"]> = {
     ...data,
     props: resolveDirectoryRootProps(
       data.props ?? {},
-      params.metadata?.streamDocument ?? {},
+      params.metadata?.streamDocument ?? {}
     ),
   }),
   render: () => (

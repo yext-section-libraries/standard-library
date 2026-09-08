@@ -25,7 +25,7 @@ export type MappedCardsSectionConditionalRender = {
  * wrapper slot that owns the mapped entity field.
  */
 export const getMappedCardsSectionConditionalRender = (
-  cardsWrapperSlot: CardWrapperSlot,
+  cardsWrapperSlot: CardWrapperSlot
 ): MappedCardsSectionConditionalRender => ({
   watchForMappedContentEmptyState:
     isMappedCardWrapperSelected(cardsWrapperSlot),
@@ -76,7 +76,7 @@ export const MappedCardsSectionShell = ({
   isEditing: boolean;
   CardsWrapperSlot: SlotComponent;
   children: (
-    setCardsWrapperRef: (element: HTMLDivElement | null) => void,
+    setCardsWrapperRef: (element: HTMLDivElement | null) => void
   ) => React.ReactNode;
 }) => {
   const watchForMappedContentEmptyState =

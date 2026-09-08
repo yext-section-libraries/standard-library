@@ -42,7 +42,7 @@ export const ClassicHero: PuckComponent<HeroVariantProps> = (props) => {
         id={id + "-image"}
         className={themeManagerCn(
           styles.mobileImagePosition === "bottom" && "hidden sm:block",
-          styles.desktopImagePosition === "right" && "sm:hidden",
+          styles.desktopImagePosition === "right" && "sm:hidden"
         )}
         styles={styles}
         slots={slots}
@@ -61,7 +61,7 @@ export const ClassicHero: PuckComponent<HeroVariantProps> = (props) => {
         id={id + "-image"}
         className={themeManagerCn(
           styles.mobileImagePosition === "top" && "hidden sm:block",
-          styles.desktopImagePosition === "left" && "sm:hidden",
+          styles.desktopImagePosition === "left" && "sm:hidden"
         )}
         styles={styles}
         slots={slots}

@@ -190,7 +190,7 @@ export const defaultAboutSectionProps: Omit<DetailSection["content"], "type"> =
 
 const typeToFields = (
   type: DetailSection["content"]["type"],
-  data: DetailSection["content"],
+  data: DetailSection["content"]
 ) => {
   const fields: Record<DetailSection["content"]["type"], YextFields> = {
     hoursStatus: hoursStatusWrapperFields,
@@ -254,14 +254,14 @@ const aboutSectionDetailsColumnFields: YextFields<AboutSectionDetailsColumnProps
                         {
                           label: msg(
                             "fields.options.hoursStatus",
-                            "Hours Status",
+                            "Hours Status"
                           ),
                           value: "hoursStatus",
                         },
                         {
                           label: msg(
                             "fields.options.hoursTable",
-                            "Hours Table",
+                            "Hours Table"
                           ),
                           value: "hoursTable",
                         },
@@ -284,7 +284,7 @@ const aboutSectionDetailsColumnFields: YextFields<AboutSectionDetailsColumnProps
                         {
                           label: msg(
                             "fields.options.socialMedia",
-                            "Social Media",
+                            "Social Media"
                           ),
                           value: "socialMedia",
                         },
@@ -355,7 +355,7 @@ const typeToRenderFunctions: Record<
 const filterEmptySections = (
   section: DetailSection,
   streamDocument: StreamDocument,
-  locale: string,
+  locale: string
 ): boolean => {
   switch (section.content.type) {
     case "hoursStatus": {
@@ -366,7 +366,7 @@ const filterEmptySections = (
       return !!resolveYextEntityField(
         streamDocument,
         section.content.hoursStatus.data.hours,
-        locale,
+        locale
       );
     }
     case "hoursTable": {
@@ -377,7 +377,7 @@ const filterEmptySections = (
       return !!resolveYextEntityField(
         streamDocument,
         section.content.hoursTable.data.hours,
-        locale,
+        locale
       );
     }
     case "address": {
@@ -388,7 +388,7 @@ const filterEmptySections = (
       const address = resolveYextEntityField(
         streamDocument,
         section.content.address.data.address,
-        locale,
+        locale
       );
 
       return !!(
@@ -407,7 +407,7 @@ const filterEmptySections = (
       return !!resolveYextEntityField(
         streamDocument,
         section.content.phone.data.number,
-        locale,
+        locale
       );
     }
     case "emails": {
@@ -418,7 +418,7 @@ const filterEmptySections = (
       const emails = resolveYextEntityField(
         streamDocument,
         section.content.emails.data.list,
-        locale,
+        locale
       );
 
       return Array.isArray(emails) && emails.length > 0;
@@ -431,7 +431,7 @@ const filterEmptySections = (
       const textList = resolveComponentData(
         section.content.textList.list,
         locale,
-        streamDocument,
+        streamDocument
       ) as string[];
 
       return (
@@ -460,9 +460,9 @@ const AboutSectionDetailsColumnComponent: PuckComponent<
   const filteredSections = React.useMemo(
     () =>
       sections.filter((section) =>
-        filterEmptySections(section, streamDocument, i18n.language),
+        filterEmptySections(section, streamDocument, i18n.language)
       ),
-    [sections, streamDocument, i18n.language],
+    [sections, streamDocument, i18n.language]
   );
 
   return (
@@ -484,7 +484,7 @@ const AboutSectionDetailsColumnComponent: PuckComponent<
                 {resolveComponentData(
                   section.header,
                   i18n.language,
-                  streamDocument,
+                  streamDocument
                 )}
               </Heading>
             </EntityField>

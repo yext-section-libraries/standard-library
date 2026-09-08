@@ -87,7 +87,7 @@ export const MapboxStaticMapComponent: PuckComponent<MapboxStaticProps> = ({
   const coordinate = resolveComponentData<Coordinate>(
     coordinateField,
     i18n.language,
-    streamDocument,
+    streamDocument
   );
 
   // If we are in the layout editor, use the non-URL-restricted Mapbox API key
@@ -109,7 +109,7 @@ export const MapboxStaticMapComponent: PuckComponent<MapboxStaticProps> = ({
       return (
         <div
           className={themeManagerCn(
-            "relative h-[300px] w-full bg-gray-100 rounded-lg border border-gray-200 flex flex-col items-center justify-center py-8 gap-2.5",
+            "relative h-[300px] w-full bg-gray-100 rounded-lg border border-gray-200 flex flex-col items-center justify-center py-8 gap-2.5"
           )}
         >
           <Map className="w-12 h-12 text-gray-400" />
@@ -117,13 +117,13 @@ export const MapboxStaticMapComponent: PuckComponent<MapboxStaticProps> = ({
             <Body variant="base" className="text-gray-500 font-medium">
               {pt(
                 "staticMapEmptyStateSectionHidden",
-                "Section hidden for all locations",
+                "Section hidden for all locations"
               )}
             </Body>
             <Body variant="base" className="text-gray-500 font-normal">
               {pt(
                 "staticMapEmptyStateMissingApiKey",
-                "Failed to load YEXT_MAPBOX_API_KEY. Please check your site's advanced configuration.",
+                "Failed to load YEXT_MAPBOX_API_KEY. Please check your site's advanced configuration."
               )}
             </Body>
           </div>

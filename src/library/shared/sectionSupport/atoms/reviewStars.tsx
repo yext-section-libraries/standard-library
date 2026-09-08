@@ -52,12 +52,12 @@ export const ReviewStars = (props: ReviewStarsProps) => {
                 key={i}
                 style={hasDarkBackground ? { display: "none" } : undefined}
               />
-            ),
+            )
           )}
       </div>
       {reviewCount && (
         <Body className="ml-1">
-          {t("totalReviews", {
+          {t("totalReviews", "{{count}} reviews", {
             count: reviewCount,
           })}
         </Body>
@@ -83,7 +83,7 @@ export function getAggregateRating(document: any): AggregateRating {
     (r) =>
       r.publisher === "FIRSTPARTY" &&
       typeof r.averageRating === "number" &&
-      typeof r.reviewCount === "number",
+      typeof r.reviewCount === "number"
   );
 
   if (!firstPartyReview)

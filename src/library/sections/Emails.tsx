@@ -107,7 +107,7 @@ const EmailsComponent: PuckComponent<EmailsProps> = (props) => {
           0,
           data.list.constantValueEnabled
             ? resolvedEmailList.length
-            : Math.min(resolvedEmailList.length, styles?.listLength ?? 1),
+            : Math.min(resolvedEmailList.length, styles?.listLength ?? 1)
         )
         .filter((e) => !!e)
     : [];
@@ -165,8 +165,8 @@ export const Emails: YextComponentConfig<EmailsProps> = {
       updateFields<EmailsProps>(
         updatedFields,
         ["styles.objectFields.listLength.visible"],
-        true,
-      ),
+        true
+      )
     );
   },
   defaultProps: {

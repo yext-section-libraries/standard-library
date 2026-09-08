@@ -1,0 +1,118 @@
+name: Run unit tests
+
+on:
+  workflow_call:
+    secrets:
+      BOT_REPO_SCOPED_TOKEN:
+        required: true
+      COMPONENT_TESTS_VISUAL_EDITOR_APP_API_KEY:
+        required: true
+      COMPONENT_TESTS_SEARCH_API_KEY:
+        required: true
+      COMPONENT_TESTS_MAPBOX_STATIC_MAP_KEY:
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  unit_tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    container:
+      image: mcr.microsoft.com/playwright:v1.55.1@sha256:2f29369043d81d6d69a815ceb80760f55e85f5020371ad06a4d996f18503ad1c
+    env:
+      SECTION_LIBRARY_REVISION_ID: github
+      SCREENSHOT_AUTOCOMMIT_TRAILER: "auto-screenshot-update: true"
+    steps:
+      - name: Checkout pull request branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Mark repository as safe
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Detect screenshot auto-update rerun
+        id: detect_screenshot_autocommit
+        shell: bash
+        run: |
+          last_commit_message=$(git log -1 --pretty=%B)
+          if printf '%s\n' "$last_commit_message" | grep -Fq "$SCREENSHOT_AUTOCOMMIT_TRAILER"; then
+            echo "skip_workflow=true" >> "$GITHUB_OUTPUT"
+            echo "Skipping tests for a screenshot auto-update commit."
+          else
+            echo "skip_workflow=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up Node.js
+        if: steps.detect_screenshot_autocommit.outputs.skip_workflow != 'true'
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: package.json
+          cache: npm
+
+      - name: Install dependencies
+        if: steps.detect_screenshot_autocommit.outputs.skip_workflow != 'true'
+        run: npm ci --ignore-scripts
+
+      - name: Run component tests
+        id: tests
+        if: steps.detect_screenshot_autocommit.outputs.skip_workflow != 'true'
+        continue-on-error: true
+        shell: bash
+        env:
+          COMPONENT_TESTS_VISUAL_EDITOR_APP_API_KEY: ${{ secrets.COMPONENT_TESTS_VISUAL_EDITOR_APP_API_KEY }}
+          COMPONENT_TESTS_SEARCH_API_KEY: ${{ secrets.COMPONENT_TESTS_SEARCH_API_KEY }}
+          COMPONENT_TESTS_MAPBOX_STATIC_MAP_KEY: ${{ secrets.COMPONENT_TESTS_MAPBOX_STATIC_MAP_KEY }}
+        run: |
+          set +e
+          npm test
+          test_exit_code=$?
+          set -e
+          echo "exit_code=${test_exit_code}" >> "$GITHUB_OUTPUT"
+
+      - name: Detect changed screenshots
+        id: screenshots
+        if: steps.detect_screenshot_autocommit.outputs.skip_workflow != 'true'
+        shell: bash
+        run: |
+          changed_count=$(git status --porcelain -- src/testing/screenshots | wc -l | tr -d ' ')
+          echo "count=${changed_count}" >> "$GITHUB_OUTPUT"
+
+      - name: Commit changed screenshots
+        id: commit
+        if: steps.detect_screenshot_autocommit.outputs.skip_workflow != 'true' && steps.screenshots.outputs.count != '0'
+        shell: bash
+        run: |
+          git add src/testing/screenshots
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit \
+            -m "Update component screenshots" \
+            -m "$SCREENSHOT_AUTOCOMMIT_TRAILER"
+          echo "created=true" >> "$GITHUB_OUTPUT"
+
+      - name: Push changed screenshots
+        if: steps.commit.outputs.created == 'true'
+        shell: bash
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_REPO_SCOPED_TOKEN }}
+          HEAD_REF: ${{ github.head_ref }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          auth_header=$(printf 'x-access-token:%s' "$BOT_TOKEN" | base64 | tr -d '\n')
+          git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic ${auth_header}" \
+            push "https://github.com/${REPOSITORY}.git" "HEAD:${HEAD_REF}"
+
+      - name: Fail on test or screenshot changes
+        if: steps.detect_screenshot_autocommit.outputs.skip_workflow != 'true' && (steps.tests.outputs.exit_code != '0' || steps.screenshots.outputs.count != '0')
+        env:
+          TEST_EXIT_CODE: ${{ steps.tests.outputs.exit_code }}
+          SCREENSHOT_COUNT: ${{ steps.screenshots.outputs.count }}
+        run: |
+          echo "Test exit code: ${TEST_EXIT_CODE}"
+          echo "Changed screenshots: ${SCREENSHOT_COUNT}"
+          exit 1

@@ -6,7 +6,7 @@ import { formatCurrency, ProductPrice } from "@yext/visual-editor";
  */
 export const isCompleteProductPrice = (
   value: unknown,
-  locale: string,
+  locale: string
 ): value is NonNullable<ProductPrice> => {
   if (typeof value !== "object" || value === null) {
     return false;

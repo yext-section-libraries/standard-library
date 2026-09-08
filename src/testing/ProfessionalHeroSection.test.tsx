@@ -200,7 +200,7 @@ describe("ProfessionalHeroSection", () => {
     const { container } = reactRender(
       <VisualEditorProvider templateProps={{ document: test.document }}>
         <Render config={config} data={resolvedData} />
-      </VisualEditorProvider>,
+      </VisualEditorProvider>
     );
 
     await page.viewport(test.viewport.width, test.viewport.height);
@@ -210,7 +210,7 @@ describe("ProfessionalHeroSection", () => {
     });
 
     await expect(
-      `ProfessionalHeroSection/[${test.viewport.name}] ${test.name}`,
+      `ProfessionalHeroSection/[${test.viewport.name}] ${test.name}`
     ).toMatchScreenshot({ ignoreExact: [101] });
 
     const results = await axe(container);

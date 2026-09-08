@@ -101,7 +101,7 @@ const nearbyLocationsSectionFields: YextFields<NearbyLocationsSectionProps> = {
 };
 
 const NearbyLocationsComponent: PuckComponent<NearbyLocationsSectionProps> = (
-  props,
+  props
 ) => {
   const { styles, slots, puck } = props;
   const cardsWrapperRef = React.useRef<HTMLDivElement>(null);
@@ -220,7 +220,7 @@ export const NearbyLocationsSection: YextComponentConfig<NearbyLocationsSectionP
       return setDeep(
         data,
         "props.slots.CardsWrapperSlot[0].props.sectionHeadingLevel",
-        sectionHeadingProps?.styles?.level,
+        sectionHeadingProps?.styles?.level
       );
     },
     render: (props) => (

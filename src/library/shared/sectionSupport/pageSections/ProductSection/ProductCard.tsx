@@ -52,7 +52,7 @@ const defaultProductData = {
   },
   description: {
     defaultValue: getDefaultRTF(
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     ),
   },
   cta: {
@@ -71,7 +71,7 @@ export const defaultProductCardSlotData = (
   id?: string,
   index?: number,
   backgroundColor?: ThemeColor,
-  sharedSlotStyles?: Record<string, any>,
+  sharedSlotStyles?: Record<string, any>
 ) => {
   const cardData = {
     type: "ProductCard",
@@ -313,7 +313,7 @@ const ProductCardComponent: PuckComponent<ProductCardProps> = (props) => {
   const variant = parentStyles?.variant ?? "immersive";
 
   const { slotStyles, getPuck, slotProps } = useGetCardSlots<ProductCardProps>(
-    props.id,
+    props.id
   );
 
   // sharedCardProps useEffect
@@ -350,7 +350,7 @@ const ProductCardComponent: PuckComponent<ProductCardProps> = (props) => {
         {
           ...deepMerge(
             { props: { styles: { ...sharedCardProps?.slotStyles?.[key] } } },
-            value[0],
+            value[0]
           ),
         },
       ];
@@ -414,7 +414,7 @@ const ProductCardComponent: PuckComponent<ProductCardProps> = (props) => {
     <Background
       className={themeManagerCn(
         "flex flex-col h-full",
-        variant !== "minimal" && "rounded-lg overflow-hidden border",
+        variant !== "minimal" && "rounded-lg overflow-hidden border"
       )}
       background={variant === "minimal" ? undefined : styles.backgroundColor}
       ref={puck.dragRef}
@@ -430,7 +430,7 @@ const ProductCardComponent: PuckComponent<ProductCardProps> = (props) => {
         className={themeManagerCn(
           "flex flex-col flex-grow gap-4 pt-4",
           variant !== "minimal" && bottomPadding,
-          variant !== "minimal" && "px-8",
+          variant !== "minimal" && "px-8"
         )}
       >
         <div className="gap-4 flex flex-col flex-grow">
@@ -475,32 +475,30 @@ export const ProductCard: YextComponentConfig<ProductCardProps> = {
         })
       | undefined;
     const priceSlotProps = data.props.slots.PriceSlot?.[0]?.props as
-      | WithId<TextProps>
-      | undefined;
+      WithId<TextProps> | undefined;
     const priceEntityField = priceSlotProps?.data.text as
-      | YextEntityField<ProductStruct["price"]>
-      | undefined;
+      YextEntityField<ProductStruct["price"]> | undefined;
     const entityPrice = isLinkedMode
       ? data.props.price
       : priceEntityField
         ? resolveYextEntityField<ProductStruct["price"]>(
             params.metadata.streamDocument,
             priceEntityField,
-            locale,
+            locale
           )
         : undefined;
 
     const resolvedPriceFromEntity = formatCurrency(
       entityPrice?.value,
       entityPrice?.currencyCode,
-      locale,
+      locale
     );
     const fallbackPriceCandidate =
       !isLinkedMode && priceSlotProps
         ? resolveYextEntityField(
             params.metadata.streamDocument,
             priceSlotProps?.data?.text,
-            locale,
+            locale
           )
         : undefined;
     const resolvedFallbackPrice = !fallbackPriceCandidate
@@ -509,7 +507,7 @@ export const ProductCard: YextComponentConfig<ProductCardProps> = {
         ? formatCurrency(
             fallbackPriceCandidate.value,
             fallbackPriceCandidate.currencyCode,
-            locale,
+            locale
           )
         : isInvalidProductPrice(fallbackPriceCandidate, locale)
           ? undefined
@@ -517,7 +515,7 @@ export const ProductCard: YextComponentConfig<ProductCardProps> = {
               fallbackPriceCandidate,
               locale,
               params.metadata.streamDocument,
-              { output: "plainText" },
+              { output: "plainText" }
             );
     const resolvedPrice = resolvedPriceFromEntity
       ? resolvedPriceFromEntity
@@ -525,15 +523,14 @@ export const ProductCard: YextComponentConfig<ProductCardProps> = {
     const showPrice = Boolean(resolvedPrice);
 
     const browSlotProps = data.props.slots.BrowSlot?.[0]?.props as
-      | WithId<TextProps>
-      | undefined;
+      WithId<TextProps> | undefined;
     const resolvedBrow = isLinkedMode
       ? data.props.category
       : browSlotProps
         ? resolveYextEntityField(
             params.metadata.streamDocument,
             browSlotProps.data.text,
-            locale,
+            locale
           )
         : undefined;
     const showBrow = Boolean(resolvedBrow);
@@ -547,21 +544,20 @@ export const ProductCard: YextComponentConfig<ProductCardProps> = {
         ? resolveYextEntityField(
             params.metadata.streamDocument,
             descriptionSlotProps.data.text,
-            locale,
+            locale
           )
         : undefined;
     const showDescription = Boolean(resolvedDescription);
 
     const ctaSlotProps = data.props.slots.CTASlot?.[0]?.props as
-      | WithId<CTAWrapperProps>
-      | undefined;
+      WithId<CTAWrapperProps> | undefined;
     const resolvedCTA = isLinkedMode
       ? data.props.cta
       : ctaSlotProps
         ? resolveYextEntityField(
             params.metadata.streamDocument,
             ctaSlotProps.data.entityField,
-            locale,
+            locale
           )
         : undefined;
     const showCTA = Boolean(resolvedCTA);
@@ -604,7 +600,7 @@ export const ProductCard: YextComponentConfig<ProductCardProps> = {
     updatedData = setDeep(
       updatedData,
       "props.slots.CTASlot[0].props.eventName",
-      `cta${data.props.index}`,
+      `cta${data.props.index}`
     );
 
     const {

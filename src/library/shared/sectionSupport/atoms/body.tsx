@@ -21,7 +21,7 @@ export const bodyVariants = cva(
     defaultVariants: {
       variant: "base",
     },
-  },
+  }
 );
 
 // Omit 'color' from HTMLAttributes<HTMLParagraphElement> to avoid conflict
@@ -41,7 +41,7 @@ export const Body = React.forwardRef<HTMLParagraphElement, BodyProps>(
             variant,
           }),
           getTextColorClass(color),
-          className,
+          className
         )}
         style={{
           ...getTextColorStyle(color),
@@ -55,6 +55,6 @@ export const Body = React.forwardRef<HTMLParagraphElement, BodyProps>(
         {props.children}
       </p>
     );
-  },
+  }
 );
 Body.displayName = "Body";

@@ -575,7 +575,7 @@ describe("AboutSection", async () => {
         },
         migrationRegistry,
         puckConfig,
-        document,
+        document
       );
 
       data = await resolveAllData(data, puckConfig, {
@@ -585,7 +585,7 @@ describe("AboutSection", async () => {
       const { container } = reactRender(
         <VisualEditorProvider templateProps={{ document }}>
           <Render config={puckConfig} data={data} />
-        </VisualEditorProvider>,
+        </VisualEditorProvider>
       );
 
       await page.viewport(width, height);
@@ -603,11 +603,11 @@ describe("AboutSection", async () => {
       if (interactions) {
         await interactions(page);
         await expect(
-          `AboutSection/[${viewportName}] ${name} (after interactions)`,
+          `AboutSection/[${viewportName}] ${name} (after interactions)`
         ).toMatchScreenshot();
         const results = await axe(container);
         expect(results).toHaveNoViolations();
       }
-    },
+    }
   );
 });

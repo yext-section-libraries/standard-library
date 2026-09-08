@@ -83,12 +83,12 @@ const FooterUtilityImagesSlotInternal: PuckComponent<
           };
         }
         return item;
-      },
+      }
     )
     .filter(
       (item): item is { image: AssetImageType; linkTarget?: string } =>
         !!item.image?.url ||
-        (typeof item.image === "object" && "hasLocalizedValue" in item.image),
+        (typeof item.image === "object" && "hasLocalizedValue" in item.image)
     );
 
   if (validImages.length === 0) {
@@ -116,7 +116,7 @@ const FooterUtilityImagesSlotInternal: PuckComponent<
         const altText = resolveComponentData(
           item.image?.alternateText ?? "",
           locale,
-          streamDocument,
+          streamDocument
         );
         const ariaLabel =
           altText ||
@@ -125,7 +125,7 @@ const FooterUtilityImagesSlotInternal: PuckComponent<
             "Utility Image {{number}}",
             {
               number: index + 1,
-            },
+            }
           );
 
         return (
@@ -172,7 +172,7 @@ export const FooterUtilityImagesSlot: YextComponentConfig<FooterUtilityImagesSlo
             },
             getItemSummary: (
               item: FooterUtilityImagesSlotProps["data"]["utilityImages"][number],
-              index?: number,
+              index?: number
             ) => pt("utilityImage", "Utility Image") + " " + ((index ?? 0) + 1),
           },
         },

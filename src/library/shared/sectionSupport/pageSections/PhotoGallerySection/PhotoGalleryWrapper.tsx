@@ -196,7 +196,7 @@ const EmptyImage = ({ imageData }: { imageData: ResolvedGalleryImage }) => {
   return (
     <div
       className={themeManagerCn(
-        "w-full md:w-auto rounded-image-borderRadius border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50 hover:bg-gray-100 transition-colors overflow-hidden relative",
+        "w-full md:w-auto rounded-image-borderRadius border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50 hover:bg-gray-100 transition-colors overflow-hidden relative"
       )}
       style={{
         aspectRatio: imageData.aspectRatio,
@@ -245,7 +245,7 @@ const DesktopImageItem = ({
       width={imageData.width}
       className={themeManagerCn(
         "rounded-image-borderRadius",
-        constrainToParent && "w-full h-auto object-contain max-w-full",
+        constrainToParent && "w-full h-auto object-contain max-w-full"
       )}
       sizes={sizes}
       imageFillType={imageFillType}
@@ -339,7 +339,7 @@ const DesktopCarousel = ({
                     <div
                       className={themeManagerCn(
                         "flex justify-center",
-                        hasCarouselGap && "px-4",
+                        hasCarouselGap && "px-4"
                       )}
                     >
                       <DesktopImageItem
@@ -512,7 +512,7 @@ export const PhotoGalleryWrapper: YextComponentConfig<PhotoGalleryWrapperProps> 
           "styles.objectFields.imageFillType.visible",
           "styles.objectFields.accentColor.visible",
         ],
-        isCarousel,
+        isCarousel
       );
       return toPuckFields(fields);
     },
@@ -531,13 +531,13 @@ const PhotoGalleryWrapperComponent: PuckComponent<PhotoGalleryWrapperProps> = ({
 
   const containerRef = React.useRef(null);
   const [visibleSlides, setVisibleSlides] = React.useState(
-    styles.carouselImageCount,
+    styles.carouselImageCount
   );
 
   const resolvedImages = resolveComponentData(
     data.images,
     locale,
-    streamDocument,
+    streamDocument
   );
   const { galleryImages, hasRenderableImages } = getPhotoGalleryImageData({
     resolvedImages,

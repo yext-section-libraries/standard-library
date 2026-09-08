@@ -60,7 +60,7 @@ const secondaryFooterSlotFields: YextFields<SecondaryFooterSlotProps> = {
       desktopContentAlignment: {
         label: msg(
           "fields.desktopContentAlignment",
-          "Desktop Content Alignment",
+          "Desktop Content Alignment"
         ),
         type: "radio",
         options: ThemeOptions.ALIGNMENT,
@@ -162,12 +162,12 @@ export const SecondaryFooterSlot: YextComponentConfig<SecondaryFooterSlotProps> 
         updatedData = setDeep(
           updatedData,
           "props.slots.SecondaryLinksWrapperSlot[0].props.desktopContentAlignment",
-          data.props.styles.desktopContentAlignment,
+          data.props.styles.desktopContentAlignment
         );
         updatedData = setDeep(
           updatedData,
           "props.slots.SecondaryLinksWrapperSlot[0].props.mobileContentAlignment",
-          data.props.styles.mobileContentAlignment,
+          data.props.styles.mobileContentAlignment
         );
       }
 
@@ -176,12 +176,12 @@ export const SecondaryFooterSlot: YextComponentConfig<SecondaryFooterSlotProps> 
         updatedData = setDeep(
           updatedData,
           "props.slots.CopyrightSlot[0].props.desktopContentAlignment",
-          data.props.styles.desktopContentAlignment,
+          data.props.styles.desktopContentAlignment
         );
         updatedData = setDeep(
           updatedData,
           "props.slots.CopyrightSlot[0].props.mobileContentAlignment",
-          data.props.styles.mobileContentAlignment,
+          data.props.styles.mobileContentAlignment
         );
       }
 

@@ -23,7 +23,7 @@ export type PhoneAtomProps = {
 export const PhoneAtom = (props: PhoneAtomProps) => {
   const formattedPhoneNumber = formatPhoneNumber(
     props.phoneNumber,
-    props.format,
+    props.format
   );
 
   // If a custom click handler is provided, the phone number doesn't get
@@ -39,7 +39,7 @@ export const PhoneAtom = (props: PhoneAtomProps) => {
         (props.backgroundColor ? (
           <div
             className={`h-10 w-10 flex justify-center rounded-full items-center ${getBackgroundColorClasses(
-              props.backgroundColor,
+              props.backgroundColor
             )}`}
             style={getBackgroundColorStyle(props.backgroundColor)}
           >
@@ -76,12 +76,12 @@ export const PhoneAtom = (props: PhoneAtomProps) => {
  */
 export const formatPhoneNumber = (
   phoneNumberString: string,
-  format: string = "domestic",
+  format: string = "domestic"
 ): string => {
   // Remove any '+' that is not the leading character and strip non-digits.
   const cleanedPhoneNumberString = phoneNumberString.replace(
     /(?!^\+)\+|[^\d+]/g,
-    "",
+    ""
   );
 
   const parsedPhoneNumber = parsePhoneNumber(cleanedPhoneNumberString);

@@ -72,7 +72,7 @@ const expandedHeaderSectionFields: YextFields<ExpandedHeaderProps> = {
           {
             description: msg(
               "maxWidthTip",
-              "For optimal content alignment, we recommend setting the header and footer width to match or exceed the page content grid.",
+              "For optimal content alignment, we recommend setting the header and footer width to match or exceed the page content grid."
             ),
             options: getMaxWidthOptions(),
           },
@@ -185,7 +185,7 @@ export const ExpandedHeader: YextComponentConfig<ExpandedHeaderProps> = {
         ?.props.data.show
     ) {
       hiddenProps.push(
-        "slots.PrimaryHeaderSlot[0].props.slots.SecondaryCTASlot",
+        "slots.PrimaryHeaderSlot[0].props.slots.SecondaryCTASlot"
       );
     }
 
@@ -197,7 +197,7 @@ export const ExpandedHeader: YextComponentConfig<ExpandedHeaderProps> = {
       data = setDeep(
         data,
         "props.slots.PrimaryHeaderSlot[0].props.parentValues.maxWidth",
-        data.props.styles.maxWidth,
+        data.props.styles.maxWidth
       );
     }
 
@@ -208,7 +208,7 @@ export const ExpandedHeader: YextComponentConfig<ExpandedHeaderProps> = {
       data = setDeep(
         data,
         "props.slots.SecondaryHeaderSlot[0].props.parentStyles.maxWidth",
-        data.props.styles.maxWidth,
+        data.props.styles.maxWidth
       );
     }
 
@@ -220,7 +220,7 @@ export const ExpandedHeader: YextComponentConfig<ExpandedHeaderProps> = {
       data = setDeep(
         data,
         "props.slots.PrimaryHeaderSlot[0].props.parentValues.SecondaryHeaderSlot",
-        data.props.slots.SecondaryHeaderSlot as Slot,
+        data.props.slots.SecondaryHeaderSlot as Slot
       );
     }
 

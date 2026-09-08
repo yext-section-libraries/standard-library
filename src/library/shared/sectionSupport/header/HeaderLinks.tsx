@@ -134,7 +134,7 @@ const headerLinksFields: YextFields<HeaderLinksProps> = {
         }: YextCustomFieldRenderProps<HeaderLinksProps["data"]["links"]>) => {
           const tooltip = pt(
             "fields.linksTooltip",
-            "Links will automatically collapse if the viewport is too narrow",
+            "Links will automatically collapse if the viewport is too narrow"
           );
           return (
             <div>
@@ -224,7 +224,7 @@ const HeaderLinksComponent: PuckComponent<HeaderLinksProps> = ({
 
   const validLinks = React.useMemo(
     () => resolveLocalizedCtas(data.links, i18n.language, streamDocument),
-    [data.links, i18n.language, streamDocument],
+    [data.links, i18n.language, streamDocument]
   );
   const validAlwaysCollapsedLinks = React.useMemo(
     () =>
@@ -233,9 +233,9 @@ const HeaderLinksComponent: PuckComponent<HeaderLinksProps> = ({
         : resolveLocalizedCtas(
             data.collapsedLinks,
             i18n.language,
-            streamDocument,
+            streamDocument
           ),
-    [isSecondary, data.collapsedLinks, i18n.language, streamDocument],
+    [isSecondary, data.collapsedLinks, i18n.language, streamDocument]
   );
 
   // Derive styles based on display mode and styles props.
@@ -283,7 +283,7 @@ const HeaderLinksComponent: PuckComponent<HeaderLinksProps> = ({
   React.useEffect(() => {
     if (menuContext && displayMode === "inline" && !isSecondary) {
       menuContext.setPrimaryHasCollapsedLinks(
-        validAlwaysCollapsedLinks.length > 0,
+        validAlwaysCollapsedLinks.length > 0
       );
       return () => menuContext.setPrimaryHasCollapsedLinks(false);
     }
@@ -379,13 +379,13 @@ export const HeaderLinks: YextComponentConfig<HeaderLinksProps> = {
     updatedFields = setDeep(
       updatedFields,
       "styles.objectFields.align.visible",
-      params.parent?.type !== "PrimaryHeaderSlot",
+      params.parent?.type !== "PrimaryHeaderSlot"
     );
 
     updatedFields = setDeep(
       updatedFields,
       "data.objectFields.collapsedLinks.visible",
-      params.parent?.type === "PrimaryHeaderSlot",
+      params.parent?.type === "PrimaryHeaderSlot"
     );
 
     updatedFields = setDeep(
@@ -393,8 +393,8 @@ export const HeaderLinks: YextComponentConfig<HeaderLinksProps> = {
       "data.objectFields.links.arrayFields.normalizeLink.visible",
       !data.props.data.links?.length ||
         data.props.data.links.some(
-          (link) => !isNonNormalizableLinkType(link?.linkType),
-        ),
+          (link) => !isNonNormalizableLinkType(link?.linkType)
+        )
     );
 
     updatedFields = setDeep(
@@ -402,8 +402,8 @@ export const HeaderLinks: YextComponentConfig<HeaderLinksProps> = {
       "data.objectFields.collapsedLinks.arrayFields.normalizeLink.visible",
       !data.props.data.collapsedLinks?.length ||
         data.props.data.collapsedLinks.some(
-          (link) => !isNonNormalizableLinkType(link?.linkType),
-        ),
+          (link) => !isNonNormalizableLinkType(link?.linkType)
+        )
     );
 
     return toPuckFields(updatedFields);

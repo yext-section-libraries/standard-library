@@ -41,7 +41,7 @@ const copyrightAlignment = cva("", {
 });
 
 const CopyrightMessageSlotInternal: PuckComponent<CopyrightMessageSlotProps> = (
-  props,
+  props
 ) => {
   const {
     data,
@@ -55,7 +55,7 @@ const CopyrightMessageSlotInternal: PuckComponent<CopyrightMessageSlotProps> = (
   const resolvedText = resolveComponentData(
     data.text,
     i18n.language,
-    streamDocument,
+    streamDocument
   );
 
   return resolvedText ? (

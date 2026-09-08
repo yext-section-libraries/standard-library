@@ -74,7 +74,7 @@ const makiIconModules = import.meta.glob(
   {
     eager: true,
     import: "default",
-  },
+  }
 ) as Record<string, string>;
 
 const makiIconEntries = Object.entries(makiIconModules).map(([path, icon]) => {
@@ -160,12 +160,12 @@ export const LocatorMap: React.FC<MapProps> = ({
   const locatorMapDiv = documentIsUndefined
     ? null
     : ((iframe?.contentDocument || document)?.getElementById(
-        "locatorMapDiv",
+        "locatorMapDiv"
       ) as HTMLDivElement | null);
 
   const mapPadding = React.useMemo(
     () => getMapboxMapPadding(locatorMapDiv),
-    [locatorMapDiv],
+    [locatorMapDiv]
   );
   const mapboxOptions = React.useMemo(
     () => ({
@@ -173,7 +173,7 @@ export const LocatorMap: React.FC<MapProps> = ({
       fitBoundsOptions: { padding: mapPadding },
       ...(mapStyle ? { style: mapStyle } : {}),
     }),
-    [centerCoords, mapPadding, mapStyle],
+    [centerCoords, mapPadding, mapStyle]
   );
   const PinComponent = React.useMemo(
     () =>
@@ -185,7 +185,7 @@ export const LocatorMap: React.FC<MapProps> = ({
           />
         );
       },
-    [locationStyleConfig],
+    [locationStyleConfig]
   );
 
   if (isVisualEditorTestEnv()) {

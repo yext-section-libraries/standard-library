@@ -77,7 +77,7 @@ const GridSection = React.forwardRef<
                   ? `md:items-start text-start`
                   : resolvedAlign === "right"
                     ? `md:items-end text-end`
-                    : `md:items-center text-center`),
+                    : `md:items-center text-center`)
             )}
             allow={gridAllowedComponents}
           />

@@ -20,7 +20,7 @@ function Toggle({
           "font-button-fontFamily text-button-fontSize font-button-fontWeight tracking-button-letterSpacing ",
         "data-[state=on]:bg-palette-secondary data-[state=on]:text-palette-secondary-dark " +
           "self-start w-auto",
-        className,
+        className
       )}
       {...props}
     />

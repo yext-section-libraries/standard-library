@@ -228,7 +228,7 @@ const expandedFooterSectionFields: YextFields<ExpandedFooterProps> = {
           desktopContentAlignment: {
             label: msg(
               "fields.desktopContentAlignment",
-              "Desktop Content Alignment",
+              "Desktop Content Alignment"
             ),
             type: "radio",
             options: ThemeOptions.ALIGNMENT,
@@ -236,7 +236,7 @@ const expandedFooterSectionFields: YextFields<ExpandedFooterProps> = {
           mobileContentAlignment: {
             label: msg(
               "fields.mobileContentAlignment",
-              "Mobile Content Alignment",
+              "Mobile Content Alignment"
             ),
             type: "radio",
             options: ThemeOptions.ALIGNMENT,
@@ -252,7 +252,7 @@ const expandedFooterSectionFields: YextFields<ExpandedFooterProps> = {
           {
             description: msg(
               "maxWidthTip",
-              "For optimal content alignment, we recommend setting the header and footer width to match or exceed the page content grid.",
+              "For optimal content alignment, we recommend setting the header and footer width to match or exceed the page content grid."
             ),
             options: getMaxWidthOptions(),
           },
@@ -334,7 +334,7 @@ const ExpandedFooterWrapper: PuckComponent<ExpandedFooterProps> = (props) => {
           <div
             className={themeManagerCn(
               "order-1 md:hidden flex flex-col gap-6 md:gap-6",
-              contentAlignmentClasses,
+              contentAlignmentClasses
             )}
           >
             <slots.LogoSlot
@@ -348,7 +348,7 @@ const ExpandedFooterWrapper: PuckComponent<ExpandedFooterProps> = (props) => {
             className={themeManagerCn(
               "hidden md:flex flex-col",
               sideContentDesktopOrderClass,
-              contentAlignmentClasses,
+              contentAlignmentClasses
             )}
           >
             {showLogo && (
@@ -398,7 +398,7 @@ const ExpandedFooterWrapper: PuckComponent<ExpandedFooterProps> = (props) => {
           <div
             className={themeManagerCn(
               "order-3 md:hidden flex flex-col",
-              contentAlignmentClasses,
+              contentAlignmentClasses
             )}
           >
             {showSocialLinks && (
@@ -631,12 +631,12 @@ export const ExpandedFooter: YextComponentConfig<ExpandedFooterProps> = {
       updatedData = setDeep(
         updatedData,
         "props.slots.PrimaryLinksWrapperSlot[0].props.desktopContentAlignment",
-        updatedData.props.styles.primaryFooter.desktopContentAlignment,
+        updatedData.props.styles.primaryFooter.desktopContentAlignment
       );
       updatedData = setDeep(
         updatedData,
         "props.slots.PrimaryLinksWrapperSlot[0].props.mobileContentAlignment",
-        updatedData.props.styles.primaryFooter.mobileContentAlignment,
+        updatedData.props.styles.primaryFooter.mobileContentAlignment
       );
     }
 
@@ -644,12 +644,12 @@ export const ExpandedFooter: YextComponentConfig<ExpandedFooterProps> = {
       updatedData = setDeep(
         updatedData,
         "props.slots.ExpandedLinksWrapperSlot[0].props.desktopContentAlignment",
-        updatedData.props.styles.primaryFooter.desktopContentAlignment,
+        updatedData.props.styles.primaryFooter.desktopContentAlignment
       );
       updatedData = setDeep(
         updatedData,
         "props.slots.ExpandedLinksWrapperSlot[0].props.mobileContentAlignment",
-        updatedData.props.styles.primaryFooter.mobileContentAlignment,
+        updatedData.props.styles.primaryFooter.mobileContentAlignment
       );
     }
 
@@ -657,12 +657,12 @@ export const ExpandedFooter: YextComponentConfig<ExpandedFooterProps> = {
       updatedData = setDeep(
         updatedData,
         "props.slots.UtilityImagesSlot[0].props.desktopContentAlignment",
-        updatedData.props.styles.primaryFooter.desktopContentAlignment,
+        updatedData.props.styles.primaryFooter.desktopContentAlignment
       );
       updatedData = setDeep(
         updatedData,
         "props.slots.UtilityImagesSlot[0].props.mobileContentAlignment",
-        updatedData.props.styles.primaryFooter.mobileContentAlignment,
+        updatedData.props.styles.primaryFooter.mobileContentAlignment
       );
     }
 

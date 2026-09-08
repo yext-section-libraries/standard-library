@@ -9,7 +9,7 @@ import { YextFields, YextPuckField } from "@yext/visual-editor";
 export const updateFields = <T extends DefaultComponentProps>(
   obj: Record<string, any>,
   paths: (string | undefined)[],
-  value: any,
+  value: any
 ): YextFields<T> => {
   const newObj = { ...obj };
 

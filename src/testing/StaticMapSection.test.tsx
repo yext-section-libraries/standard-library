@@ -109,13 +109,13 @@ describe("StaticMapSection", async () => {
         },
         migrationRegistry,
         puckConfig,
-        document,
+        document
       );
 
       const { container } = reactRender(
         <VisualEditorProvider templateProps={{ document }}>
           <Render config={puckConfig} data={data} />
-        </VisualEditorProvider>,
+        </VisualEditorProvider>
       );
 
       const results = await axe(container);
@@ -126,7 +126,7 @@ describe("StaticMapSection", async () => {
         const results = await axe(container);
         expect(results).toHaveNoViolations();
       }
-    },
+    }
   );
 
   it("migrates version 77 by removing the legacy data prop", async () => {
@@ -165,7 +165,7 @@ describe("StaticMapSection", async () => {
           latitude: 38.895546,
           longitude: -77.069915,
         },
-      },
+      }
     );
 
     expect(data.content[0]).toEqual({

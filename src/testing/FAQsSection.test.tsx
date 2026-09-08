@@ -137,7 +137,7 @@ const tests: ComponentTest[] = [
                                   field: "",
                                   constantValue: {
                                     en: getDefaultRTF(
-                                      "What is your return policy?",
+                                      "What is your return policy?"
                                     ),
                                     hasLocalizedValue: "true",
                                   },
@@ -164,7 +164,7 @@ const tests: ComponentTest[] = [
                                   field: "",
                                   constantValue: {
                                     en: getDefaultRTF(
-                                      "You can return any item within 30 days of purchase.",
+                                      "You can return any item within 30 days of purchase."
                                     ),
                                     hasLocalizedValue: "true",
                                   },
@@ -203,7 +203,7 @@ const tests: ComponentTest[] = [
                                   field: "",
                                   constantValue: {
                                     en: getDefaultRTF(
-                                      "What is your return policy?",
+                                      "What is your return policy?"
                                     ),
                                     hasLocalizedValue: "true",
                                   },
@@ -230,7 +230,7 @@ const tests: ComponentTest[] = [
                                   field: "",
                                   constantValue: {
                                     en: getDefaultRTF(
-                                      "You can return any item within 30 days of purchase.",
+                                      "You can return any item within 30 days of purchase."
                                     ),
                                     hasLocalizedValue: "true",
                                   },
@@ -328,7 +328,7 @@ const tests: ComponentTest[] = [
                                   field: "question",
                                   constantValue: {
                                     en: getDefaultRTF(
-                                      "Lorem ipsum dolor sit amet?",
+                                      "Lorem ipsum dolor sit amet?"
                                     ),
                                     hasLocalizedValue: "true",
                                   },
@@ -351,7 +351,7 @@ const tests: ComponentTest[] = [
                                   field: "",
                                   constantValue: {
                                     en: getDefaultRTF(
-                                      "You can return any item within 30 days of purchase.",
+                                      "You can return any item within 30 days of purchase."
                                     ),
                                     hasLocalizedValue: "true",
                                   },
@@ -432,7 +432,7 @@ const tests: ComponentTest[] = [
                   field: "",
                   constantValueEnabled: true,
                   constantValue: getDefaultRTF(
-                    "To reset your password, click on 'Forgot Password' at the login screen.",
+                    "To reset your password, click on 'Forgot Password' at the login screen."
                   ),
                 },
               },
@@ -496,7 +496,7 @@ describe("FAQSection", async () => {
         },
         migrationRegistry,
         puckConfig,
-        document,
+        document
       );
 
       const updatedData = await resolveAllData(data, puckConfig, {
@@ -510,7 +510,7 @@ describe("FAQSection", async () => {
             data={updatedData}
             metadata={{ streamDocument: document }}
           />
-        </VisualEditorProvider>,
+        </VisualEditorProvider>
       );
 
       await page.viewport(width, height);
@@ -525,7 +525,7 @@ describe("FAQSection", async () => {
       if (interactions) {
         await interactions(page);
         await expect(
-          `FAQsSection/[${viewportName}] ${name} (after interactions)`,
+          `FAQsSection/[${viewportName}] ${name} (after interactions)`
         ).toMatchScreenshot({
           ignoreExact: ignoredScreenshotDifferences,
           customThreshold: screenshotThreshold,
@@ -533,7 +533,7 @@ describe("FAQSection", async () => {
         const results = await axe(container);
         expect(results).toHaveNoViolations();
       }
-    },
+    }
   );
 
   it("resolves linked FAQ mappings through section parent data", async () => {
@@ -574,7 +574,7 @@ describe("FAQSection", async () => {
       puckConfig,
       {
         streamDocument: { locale: "en", c_faqSection: faqData },
-      },
+      }
     );
 
     expect(updatedData.content[0]!.props.slots.CardSlot).toHaveLength(2);
@@ -582,7 +582,7 @@ describe("FAQSection", async () => {
       {
         field: "c_faqSection.faqs",
         question: "What services do you offer?",
-      },
+      }
     );
   });
 
@@ -607,13 +607,13 @@ describe("FAQSection", async () => {
       puckConfig,
       {
         streamDocument: { locale: "en", c_faqSection: faqData },
-      },
+      }
     );
 
     const firstCard = updatedData.content[0]!.props.slots.CardSlot[0];
     expect(firstCard.props.parentData).toBeUndefined();
     expect(firstCard.props.data.question.constantValue.defaultValue).toBe(
-      "Question Lorem ipsum dolor sit amet?",
+      "Question Lorem ipsum dolor sit amet?"
     );
   });
 
@@ -655,7 +655,7 @@ describe("FAQSection", async () => {
       puckConfig,
       {
         streamDocument: { locale: "en", c_faqSection: { faqs: [] } },
-      },
+      }
     );
 
     expect(updatedData.content[0]!.props.conditionalRender).toEqual({

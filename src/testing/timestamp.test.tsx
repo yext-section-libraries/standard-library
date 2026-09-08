@@ -1,5 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { timestampFormatter, TimestampOption } from "../library/shared/sectionSupport/atoms/timestamp.tsx";
+import {
+  timestampFormatter,
+  TimestampOption,
+} from "../library/shared/sectionSupport/atoms/timestamp.tsx";
 
 describe("timestampFormatter", () => {
   it("formats DATE", () => {

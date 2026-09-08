@@ -1,0 +1,66 @@
+name: Update Third Party Notices
+
+on:
+  workflow_call:
+    secrets:
+      BOT_REPO_SCOPED_TOKEN:
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  license-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout pull request branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.head_ref }}
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: package.json
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Generate third-party notices
+        run: npm run generate-notices
+
+      - name: Commit generated notices
+        id: commit
+        shell: bash
+        run: |
+          git add THIRD-PARTY-NOTICES
+          if git diff --cached --quiet; then
+            echo "created=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "Automated update to THIRD-PARTY-NOTICES"
+          echo "created=true" >> "$GITHUB_OUTPUT"
+
+      - name: Push generated notices
+        if: steps.commit.outputs.created == 'true'
+        shell: bash
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_REPO_SCOPED_TOKEN }}
+          HEAD_REF: ${{ github.head_ref }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          auth_header=$(printf 'x-access-token:%s' "$BOT_TOKEN" | base64 | tr -d '\n')
+          git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic ${auth_header}" \
+            push "https://github.com/${REPOSITORY}.git" "HEAD:${HEAD_REF}"
+
+      - name: Fail when notices were committed
+        if: steps.commit.outputs.created == 'true'
+        run: |
+          echo "THIRD-PARTY-NOTICES was updated and committed."
+          exit 1

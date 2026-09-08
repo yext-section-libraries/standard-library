@@ -63,14 +63,14 @@ export const getPhotoGalleryImageData = ({
         altText = resolveComponentData(
           image?.alternateText ?? "",
           locale,
-          streamDocument,
+          streamDocument
         );
       } else {
         image = rawImage.assetImage;
         altText = resolveComponentData(
           rawImage.assetImage?.alternateText ?? "",
           locale,
-          streamDocument,
+          streamDocument
         );
       }
     } else if (
@@ -114,10 +114,10 @@ export const getPhotoGalleryImageData = ({
 
   return {
     galleryImages: allGalleryImages.filter(
-      (galleryImage) => isEditing || !galleryImage.isEmpty,
+      (galleryImage) => isEditing || !galleryImage.isEmpty
     ),
     hasRenderableImages: allGalleryImages.some(
-      (galleryImage) => !galleryImage.isEmpty,
+      (galleryImage) => !galleryImage.isEmpty
     ),
   };
 };

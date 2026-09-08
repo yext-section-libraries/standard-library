@@ -109,11 +109,11 @@ export const layoutFields: YextFields<layoutProps> = {
   verticalPadding: SpacingSelector<layoutProps["verticalPadding"]>(
     msg("fields.verticalPadding", "Top/Bottom Padding"),
     "padding",
-    true,
+    true
   ),
   horizontalPadding: SpacingSelector<layoutProps["horizontalPadding"]>(
     msg("fields.horizontalPadding", "Left/Right Padding"),
     "padding",
-    false,
+    false
   ),
 };

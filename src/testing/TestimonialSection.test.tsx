@@ -853,7 +853,7 @@ describe("TestimonialSection", async () => {
         },
         migrationRegistry,
         puckConfig,
-        document,
+        document
       );
 
       data = await resolveAllData(data, puckConfig, {
@@ -863,13 +863,13 @@ describe("TestimonialSection", async () => {
       const { container } = reactRender(
         <VisualEditorProvider templateProps={{ document }}>
           <Render config={puckConfig} data={data} />
-        </VisualEditorProvider>,
+        </VisualEditorProvider>
       );
 
       await page.viewport(width, height);
 
       await expect(
-        `TestimonialSection/[${viewportName}] ${name}`,
+        `TestimonialSection/[${viewportName}] ${name}`
       ).toMatchScreenshot();
       const results = await axe(container);
       expect(results).toHaveNoViolations();
@@ -877,11 +877,11 @@ describe("TestimonialSection", async () => {
       if (interactions) {
         await interactions(page);
         await expect(
-          `TestimonialSection/[${viewportName}] ${name} (after interactions)`,
+          `TestimonialSection/[${viewportName}] ${name} (after interactions)`
         ).toMatchScreenshot();
         const results = await axe(container);
         expect(results).toHaveNoViolations();
       }
-    },
+    }
   );
 });

@@ -2669,7 +2669,7 @@ describe("ProductSection", async () => {
         },
         migrationRegistry,
         puckConfig,
-        document,
+        document
       );
 
       const updatedData = await resolveAllData(data, puckConfig, {
@@ -2683,7 +2683,7 @@ describe("ProductSection", async () => {
             data={updatedData}
             metadata={{ streamDocument: document }}
           />
-        </VisualEditorProvider>,
+        </VisualEditorProvider>
       );
 
       await page.viewport(width, height);
@@ -2693,7 +2693,7 @@ describe("ProductSection", async () => {
       });
 
       await expect(
-        `ProductSection/[${viewportName}] ${name}`,
+        `ProductSection/[${viewportName}] ${name}`
       ).toMatchScreenshot({ customThreshold: 10 });
       const results = await axe(container);
       expect(results).toHaveNoViolations();
@@ -2701,11 +2701,11 @@ describe("ProductSection", async () => {
       if (interactions) {
         await interactions(page);
         await expect(
-          `ProductSection/[${viewportName}] ${name} (after interactions)`,
+          `ProductSection/[${viewportName}] ${name} (after interactions)`
         ).toMatchScreenshot({ customThreshold: 10 });
         const results = await axe(container);
         expect(results).toHaveNoViolations();
       }
-    },
+    }
   );
 });

@@ -113,7 +113,7 @@ const footerExpandedLinksWrapperFields: YextFields<FooterExpandedLinksWrapperPro
           defaultItemProps: defaultSection,
           getItemSummary: (
             item: FooterExpandedLinksWrapperProps["data"]["sections"][number],
-            index?: number,
+            index?: number
           ) => {
             const locale = i18nComponentsInstance.language || "en";
             const label = getDisplayValue(item.label, locale);
@@ -189,7 +189,7 @@ const expandedLinksContainerAlignment = cva(
       desktopContentAlignment: "left",
       mobileContentAlignment: "left",
     },
-  },
+  }
 );
 
 const expandedSectionAlignment = cva("flex flex-col gap-6", {
@@ -231,16 +231,14 @@ const expandedLinkJustification = cva("block break-words whitespace-normal", {
 });
 
 const shouldShowNormalizeLinkField = (
-  sections?: FooterExpandedLinksWrapperProps["data"]["sections"],
+  sections?: FooterExpandedLinksWrapperProps["data"]["sections"]
 ) => {
   return (
     !sections?.length ||
     sections.some(
       (section) =>
         !section.links?.length ||
-        section.links.some(
-          (link) => !isNonNormalizableLinkType(link?.linkType),
-        ),
+        section.links.some((link) => !isNonNormalizableLinkType(link?.linkType))
     )
   );
 };
@@ -261,7 +259,7 @@ const FooterExpandedLinksWrapperInternal: PuckComponent<
   const isDarkBackground = background?.isDarkColor ?? false;
 
   const resolvedSections = (data.sections || []).map((section) =>
-    resolveLocalizedFooterLinkSection(section, i18n.language, streamDocument),
+    resolveLocalizedFooterLinkSection(section, i18n.language, streamDocument)
   );
   const sections = puck.isEditing
     ? resolvedSections
@@ -335,7 +333,7 @@ const FooterExpandedLinksWrapperInternal: PuckComponent<
                           expandedLinkJustification({
                             desktopContentAlignment,
                             mobileContentAlignment,
-                          }),
+                          })
                         )}
                         color={resolvedLinkColor}
                       />
@@ -359,8 +357,8 @@ export const FooterExpandedLinksWrapper: YextComponentConfig<FooterExpandedLinks
         setDeep(
           footerExpandedLinksWrapperFields,
           "data.objectFields.sections.arrayFields.links.arrayFields.normalizeLink.visible",
-          shouldShowNormalizeLinkField(data.props.data.sections),
-        ),
+          shouldShowNormalizeLinkField(data.props.data.sections)
+        )
       ),
     defaultProps: {
       data: {

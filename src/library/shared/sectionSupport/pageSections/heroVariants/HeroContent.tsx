@@ -76,7 +76,7 @@ export const HeroContent: PuckComponent<HeroVariantProps> = ({
                   : "justify-center",
                 desktopContainerPosition === "left"
                   ? "sm:justify-start"
-                  : "sm:justify-center",
+                  : "sm:justify-center"
               )}
             />
           )}
@@ -91,7 +91,7 @@ export const HeroContent: PuckComponent<HeroVariantProps> = ({
               : "items-start",
             desktopContainerPosition === "center"
               ? "justify-center"
-              : "justify-start",
+              : "justify-start"
           )}
           aria-label={t("callToActions", "Call to Actions")}
         >

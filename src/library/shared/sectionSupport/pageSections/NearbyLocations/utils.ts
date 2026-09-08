@@ -69,17 +69,17 @@ export const fetchNearbyLocations = async ({
   }
   if (!apiKey) {
     console.warn(
-      "Missing YEXT_PUBLIC_VISUAL_EDITOR_APP_API_KEY! Unable to fetch nearby locations.",
+      "Missing YEXT_PUBLIC_VISUAL_EDITOR_APP_API_KEY! Unable to fetch nearby locations."
     );
   }
   if (!contentEndpointId) {
     console.warn(
-      "Missing contentEndpointId! Unable to fetch nearby locations.",
+      "Missing contentEndpointId! Unable to fetch nearby locations."
     );
   }
   if (!contentDeliveryAPIDomain) {
     console.warn(
-      "Missing contentDeliveryAPIDomain! Unable to fetch nearby locations.",
+      "Missing contentDeliveryAPIDomain! Unable to fetch nearby locations."
     );
   }
 
@@ -103,13 +103,13 @@ export const fetchNearbyLocations = async ({
   let count: number = 0; // the total count of entities available given the filter params
 
   const url = new URL(
-    `${contentDeliveryAPIDomain}/v2/accounts/${businessId}/content/${contentEndpointId}`,
+    `${contentDeliveryAPIDomain}/v2/accounts/${businessId}/content/${contentEndpointId}`
   );
   url.searchParams.set("api_key", apiKey);
   url.searchParams.set("v", V_PARAM);
   url.searchParams.set(
     "yextDisplayCoordinate__geo",
-    `(lat:${latitude},lon:${longitude},radius:${radiusMi},unit:mi)`,
+    `(lat:${latitude},lon:${longitude},radius:${radiusMi},unit:mi)`
   );
   url.searchParams.set("meta.locale", locale);
   url.searchParams.set("id__neq", entityId);
@@ -147,7 +147,7 @@ export const fetchNearbyLocations = async ({
 
   if (nextPageToken) {
     console.warn(
-      `Reached maximum page limit of ${MAX_PAGES}. There were ${count - allDocs.length} locations that were not fetched.`,
+      `Reached maximum page limit of ${MAX_PAGES}. There were ${count - allDocs.length} locations that were not fetched.`
     );
   }
 
@@ -167,7 +167,7 @@ export const fetchNearbyLocations = async ({
       }
 
       return getDocStableSortKey(a.doc).localeCompare(
-        getDocStableSortKey(b.doc),
+        getDocStableSortKey(b.doc)
       );
     })
     .slice(0, limit)
@@ -183,7 +183,7 @@ export const fetchNearbyLocations = async ({
 };
 
 const getDocCoordinate = (
-  doc: NearbyLocationDoc,
+  doc: NearbyLocationDoc
 ): { latitude: number; longitude: number } | null => {
   const coord = doc.yextDisplayCoordinate ?? doc.geocodedCoordinate;
   const latitude = coord?.latitude;

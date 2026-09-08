@@ -67,7 +67,7 @@ export const HoursTableStyleFields: YextFields<HoursTableStyleFieldProps> = {
   showAdditionalHoursText: {
     label: msg(
       "fields.options.showAdditionalHoursText",
-      "Show Additional Hours Text",
+      "Show Additional Hours Text"
     ),
     type: "radio",
     options: [

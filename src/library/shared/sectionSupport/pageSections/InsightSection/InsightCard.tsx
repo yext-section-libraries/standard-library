@@ -38,7 +38,7 @@ const defaultInsight = {
   category: { defaultValue: "Category" },
   description: {
     defaultValue: getDefaultRTF(
-      "Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo.Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. 300 characters",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo.Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. 300 characters"
     ),
   },
   publishTime: "2022-08-02T14:00:00",
@@ -54,7 +54,7 @@ export const defaultInsightCardSlotData = (
   id?: string,
   index?: number,
   backgroundColor?: ThemeColor,
-  sharedSlotStyles?: Record<string, any>,
+  sharedSlotStyles?: Record<string, any>
 ) => {
   const cardData = {
     type: "InsightCard",
@@ -332,7 +332,7 @@ const InsightCardComponent: PuckComponent<InsightCardProps> = (props) => {
         {
           ...deepMerge(
             { props: { styles: { ...sharedCardProps?.slotStyles?.[key] } } },
-            value[0],
+            value[0]
           ),
         },
       ];
@@ -380,7 +380,7 @@ const InsightCardComponent: PuckComponent<InsightCardProps> = (props) => {
 
   const mergedStyles = deepMerge(
     { backgroundColor: sharedCardProps?.cardBackground },
-    styles,
+    styles
   );
 
   const isInEditor = puck.isEditing;
@@ -481,7 +481,7 @@ export const InsightCard: YextComponentConfig<InsightCardProps> = {
         streamDocument,
         {
           output: "plainText",
-        },
+        }
       );
 
       updatedData = {
@@ -502,13 +502,13 @@ export const InsightCard: YextComponentConfig<InsightCardProps> = {
         streamDocument,
         {
           output: "plainText",
-        },
+        }
       );
 
       const publishTime = resolveComponentData(
         updatedData.props.slots.PublishTimeSlot[0]?.props.data.date,
         locale,
-        streamDocument,
+        streamDocument
       );
 
       updatedData = {

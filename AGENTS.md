@@ -9,6 +9,12 @@
 ## Local Workflow
 
 - A build is generally not necessary to run in order to verify changes. Instead, use `npm run typecheck` and `npm run validate`.
+- When running a build, be sure to include the env var SECTION_LIBRARY_REVISION_ID=local
+
+## Testing
+
+- This repo is set up with Vitest Browser screenshot tests. The committed screenshots are taken in a Github actions environment. It is expected that the tests will fail
+  locally due to minor rendering differences between environments.
 
 ## Repo Structure
 

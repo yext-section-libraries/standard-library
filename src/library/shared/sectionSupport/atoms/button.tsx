@@ -82,7 +82,7 @@ export const buttonVariants = cva(
       hasDarkBackground: false,
       linkPadding: "none",
     },
-  },
+  }
 );
 
 export interface ButtonProps
@@ -95,7 +95,7 @@ export interface ButtonProps
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     { className, variant, asChild = false, linkPadding = "none", ...props },
-    ref,
+    ref
   ) => {
     const Comp = asChild ? Slot : "button";
     const background = useBackground();
@@ -108,12 +108,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             hasDarkBackground: background?.isDarkColor,
             linkPadding,
           }),
-          className,
+          className
         )}
         ref={ref}
         {...props}
       />
     );
-  },
+  }
 );
 Button.displayName = "Button";

@@ -369,7 +369,7 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
                 field: "",
                 constantValue: {
                   defaultValue: getDefaultRTF(
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. 100 characters",
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. 100 characters"
                   ),
                 },
                 constantValueEnabled: true,
@@ -463,7 +463,7 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
             "data.objectFields.backgroundImage",
             "styles.objectFields.imageHeight",
           ],
-          undefined,
+          undefined
         );
 
         break;
@@ -472,7 +472,7 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
         fields = updateFields(
           fields,
           ["slots.ImageSlot", "styles.objectFields.backgroundColor"],
-          undefined,
+          undefined
         );
         // immersive should also remove the fields removed by spotlight
       }
@@ -488,7 +488,7 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
               ? undefined
               : "data.objectFields.backgroundImage",
           ],
-          undefined,
+          undefined
         );
         break;
       }
@@ -510,7 +510,7 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
     updatedData = setDeep(
       updatedData,
       "props.slots.DescriptionSlot[0].props.parentStyles.className",
-      `text-${updatedData.props.styles.containerAlignment}`,
+      `text-${updatedData.props.styles.containerAlignment}`
     );
 
     if (data.props.styles.variant === "compact") {
@@ -521,13 +521,13 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
           "!w-full lg:!w-auto h-full",
           data.props.styles.desktopImagePosition === "left"
             ? "mr-auto"
-            : "ml-auto",
-        ),
+            : "ml-auto"
+        )
       );
       updatedData = setDeep(
         updatedData,
         "props.slots.VideoSlot[0].props.className",
-        "h-full",
+        "h-full"
       );
     }
 
@@ -535,7 +535,7 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
       updatedData = setDeep(
         updatedData,
         "props.slots.ImageSlot[0].props.className",
-        "min-w-full lg:min-w-none max-w-full lg:max-w-none rounded-image-borderRadius",
+        "min-w-full lg:min-w-none max-w-full lg:max-w-none rounded-image-borderRadius"
       );
     }
 
@@ -543,22 +543,22 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
       updatedData = setDeep(
         updatedData,
         "props.slots.HeadingSlot[0].props.parentData",
-        undefined,
+        undefined
       );
       updatedData = setDeep(
         updatedData,
         "props.slots.DescriptionSlot[0].props.parentData",
-        undefined,
+        undefined
       );
       updatedData = setDeep(
         updatedData,
         "props.slots.CTASlot[0].props.parentData",
-        undefined,
+        undefined
       );
       updatedData = setDeep(
         updatedData,
         "props.slots.ImageSlot[0].props.parentData",
-        undefined,
+        undefined
       );
 
       return { ...updatedData, readOnly: { [mediaSubfield]: false } };
@@ -567,7 +567,7 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
     const resolvedPromo = resolveYextEntityField(
       params.metadata.streamDocument,
       data.props.data.promo,
-      i18nComponentsInstance.language || "en",
+      i18nComponentsInstance.language || "en"
     );
 
     if (!resolvedPromo || !("title" in resolvedPromo)) {
@@ -581,7 +581,7 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
       {
         text: resolvedPromo.title || "",
         field: data.props?.data?.promo.field || "",
-      },
+      }
     );
     updatedData = setDeep(
       updatedData,
@@ -589,7 +589,7 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
       {
         richText: resolvedPromo.description || {},
         field: data.props?.data?.promo.field || "",
-      },
+      }
     );
     updatedData = setDeep(
       updatedData,
@@ -597,7 +597,7 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
       {
         cta: resolvedPromo.cta || {},
         field: data.props?.data?.promo.field || "",
-      },
+      }
     );
     updatedData = setDeep(
       updatedData,
@@ -605,7 +605,7 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
       {
         image: resolvedPromo.image || {},
         field: data.props?.data?.promo.field || "",
-      },
+      }
     );
     updatedData = setDeep(updatedData, "props.data.backgroundImage", {
       field: data.props?.data?.promo.field

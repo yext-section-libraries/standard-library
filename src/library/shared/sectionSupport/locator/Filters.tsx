@@ -42,7 +42,7 @@ interface FilterModalProps {
   handleOpenNowClick: (selected: boolean) => void;
   handleDistanceClick: (
     distance: number,
-    distanceUnit: "mile" | "kilometer",
+    distanceUnit: "mile" | "kilometer"
   ) => void;
   handleClearFiltersClick: () => void;
   accentColorCssValue: string;
@@ -73,7 +73,7 @@ export const FilterModal = ({
         option.matcher === Matcher.Between &&
         typeof option.value === "object" &&
         option.value !== null &&
-        ("start" in option.value || "end" in option.value),
+        ("start" in option.value || "end" in option.value)
     );
     const FacetOverride = isNumericalFacet ? NumericalFacet : StandardFacet;
     const displayName =
@@ -274,7 +274,7 @@ const DistanceFilter = ({
 };
 
 export function getFacetFieldOptions(
-  entityTypes: LocatorEntityType[],
+  entityTypes: LocatorEntityType[]
 ): MultiSelectorOption<string>[] {
   const facetFields: MultiSelectorOption<string>[] = [];
   const addedValues: Set<string> = new Set<string>();
@@ -284,13 +284,13 @@ export function getFacetFieldOptions(
         facetFields.push(option);
         addedValues.add(option.value);
       }
-    }),
+    })
   );
   return facetFields.sort((a, b) => a.label.localeCompare(b.label));
 }
 
 function getFacetFieldOptionsForEntityType(
-  entityType: LocatorEntityType,
+  entityType: LocatorEntityType
 ): MultiSelectorOption<string>[] {
   let filterOptions: MultiSelectorOption<string>[] = [
     {
@@ -344,7 +344,7 @@ function getFacetFieldOptionsForEntityType(
         {
           label: msg("fields.options.facets.specialties", "Specialties"),
           value: "specialities",
-        },
+        }
       );
       break;
     case "restaurant":
@@ -352,7 +352,7 @@ function getFacetFieldOptionsForEntityType(
         {
           label: msg(
             "fields.options.facets.acceptsReservations",
-            "Accepts Reservations",
+            "Accepts Reservations"
           ),
           value: "acceptsReservations",
         },
@@ -387,7 +387,7 @@ function getFacetFieldOptionsForEntityType(
         {
           label: msg(
             "fields.options.facets.pickupAndDeliveryServices",
-            "Pickup and Delivery Services",
+            "Pickup and Delivery Services"
           ),
           value: "pickupAndDeliveryServices",
         },
@@ -402,7 +402,7 @@ function getFacetFieldOptionsForEntityType(
         {
           label: msg("fields.options.facets.specialties", "Specialties"),
           value: "specialities",
-        },
+        }
       );
       break;
     case "healthcareFacility":
@@ -410,21 +410,21 @@ function getFacetFieldOptionsForEntityType(
         {
           label: msg(
             "fields.options.facets.acceptingNewPatients",
-            "Accepting New Patients",
+            "Accepting New Patients"
           ),
           value: "acceptingNewPatients",
         },
         {
           label: msg(
             "fields.options.facets.conditionsTreated",
-            "Conditions Treated",
+            "Conditions Treated"
           ),
           value: "conditionsTreated",
         },
         {
           label: msg(
             "fields.options.facets.insuranceAccepted",
-            "Insurance Accepted",
+            "Insurance Accepted"
           ),
           value: "insuranceAccepted",
         },
@@ -435,7 +435,7 @@ function getFacetFieldOptionsForEntityType(
         {
           label: msg("fields.options.facets.services", "Services"),
           value: "services",
-        },
+        }
       );
       break;
     case "healthcareProfessional":
@@ -443,14 +443,14 @@ function getFacetFieldOptionsForEntityType(
         {
           label: msg(
             "fields.options.facets.acceptingNewPatients",
-            "Accepting New Patients",
+            "Accepting New Patients"
           ),
           value: "acceptingNewPatients",
         },
         {
           label: msg(
             "fields.options.facets.admittingHospitals",
-            "Admitting Hospitals",
+            "Admitting Hospitals"
           ),
           value: "admittingHospitals",
         },
@@ -465,7 +465,7 @@ function getFacetFieldOptionsForEntityType(
         {
           label: msg(
             "fields.options.facets.conditionsTreated",
-            "Conditions Treated",
+            "Conditions Treated"
           ),
           value: "conditionsTreated",
         },
@@ -480,7 +480,7 @@ function getFacetFieldOptionsForEntityType(
         {
           label: msg(
             "fields.options.facets.insuranceAccepted",
-            "Insurance Accepted",
+            "Insurance Accepted"
           ),
           value: "insuranceAccepted",
         },
@@ -499,7 +499,7 @@ function getFacetFieldOptionsForEntityType(
         {
           label: msg("fields.options.facets.services", "Services"),
           value: "services",
-        },
+        }
       );
       break;
     case "hotel":
@@ -517,7 +517,7 @@ function getFacetFieldOptionsForEntityType(
           label: msg("fields.options.facets.parking", "Parking"),
           value: "parking",
         },
-        { label: msg("fields.options.facets.pools", "Pools"), value: "pools" },
+        { label: msg("fields.options.facets.pools", "Pools"), value: "pools" }
       );
       break;
     case "financialProfessional":
@@ -545,10 +545,10 @@ function getFacetFieldOptionsForEntityType(
         {
           label: msg(
             "fields.options.facets.yearsOfExperience",
-            "Years of Experience",
+            "Years of Experience"
           ),
           value: "yearsOfExperience",
-        },
+        }
       );
       break;
     default:
@@ -582,7 +582,7 @@ const isOpenNowFilter = (filter: SelectableStaticFilter) =>
 export function buildNearLocationFilterFromPrevious(
   previousValue: NearFilterValue,
   displayName?: string,
-  radius?: number,
+  radius?: number
 ): SelectableStaticFilter {
   return {
     selected: true,
@@ -607,7 +607,7 @@ export function buildNearLocationFilterFromCoords(
   lat: number,
   lng: number,
   radius: number,
-  displayName?: string,
+  displayName?: string
 ): SelectableStaticFilter {
   return {
     selected: true,
@@ -631,7 +631,7 @@ export function buildNearLocationFilterFromCoords(
  */
 export function buildEqualsLocationFilter(
   filter: FieldValueFilter,
-  newDisplayName: string,
+  newDisplayName: string
 ): SelectableStaticFilter {
   return {
     displayName: newDisplayName,
@@ -651,7 +651,7 @@ export function buildEqualsLocationFilter(
  */
 export function updateRadiusInNearFiltersOnLocationField(
   filters: SelectableStaticFilter[],
-  newRadius: number,
+  newRadius: number
 ): SelectableStaticFilter[] {
   return filters.map((filter) => {
     if (isLocationNearFilter(filter)) {
@@ -678,7 +678,7 @@ export function updateRadiusInNearFiltersOnLocationField(
  * false on any Open Now filters.
  */
 export function deselectOpenNowFilters(
-  filters: SelectableStaticFilter[],
+  filters: SelectableStaticFilter[]
 ): SelectableStaticFilter[] {
   return filters.map((filter) => {
     if (isOpenNowFilter(filter)) {

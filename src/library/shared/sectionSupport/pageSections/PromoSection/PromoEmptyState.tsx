@@ -33,7 +33,7 @@ export const PromoEmptyState: React.FC<{
                 entityType: entityTypeDisplayName
                   ? entityTypeDisplayName.toLowerCase()
                   : "page",
-              },
+              }
             )}
           </Body>
           <Body variant="base" className="text-gray-500 font-normal">
@@ -45,7 +45,7 @@ export const PromoEmptyState: React.FC<{
                   ? entityTypeDisplayName.charAt(0).toUpperCase() +
                     entityTypeDisplayName.slice(1)
                   : "Entity",
-              },
+              }
             )}
           </Body>
         </div>

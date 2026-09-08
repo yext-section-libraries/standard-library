@@ -49,7 +49,7 @@ const FooterExpandedLinkSectionSlotInternal: PuckComponent<
   const { label, links } = resolveLocalizedFooterLinkSection(
     data,
     i18n.language,
-    streamDocument,
+    streamDocument
   );
 
   const defaultColor: ThemeColor = isDarkBackground
@@ -196,14 +196,14 @@ export const FooterExpandedLinkSectionSlot: YextComponentConfig<FooterExpandedLi
   {
     label: msg(
       "components.footerExpandedLinkSectionSlot",
-      "Expanded Link Section",
+      "Expanded Link Section"
     ),
     fields: footerExpandedLinkSectionSlotFields,
     resolveFields: (data) =>
       setDeep(
         toPuckFields(footerExpandedLinkSectionSlotFields),
         "data.objectFields.links.arrayFields.normalizeLink.visible",
-        shouldShowNormalizeLinkField(data.props.data.links),
+        shouldShowNormalizeLinkField(data.props.data.links)
       ),
     defaultProps: defaultFooterExpandedLinkSectionProps,
     render: (props) => <FooterExpandedLinkSectionSlotInternal {...props} />,

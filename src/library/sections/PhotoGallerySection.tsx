@@ -219,21 +219,20 @@ export const PhotoGallerySection: YextComponentConfig<PhotoGallerySectionProps> 
         updatedData = setDeep(
           data,
           "props.slots.PhotoGalleryWrapper[0].props.parentData.variant",
-          data.props.styles.variant,
+          data.props.styles.variant
         );
       }
 
       const photoGalleryWrapperProps = updatedData.props.slots
         .PhotoGalleryWrapper[0]?.props as unknown as
-        | PhotoGalleryWrapperProps
-        | undefined;
+        PhotoGalleryWrapperProps | undefined;
       const streamDocument = params.metadata.streamDocument;
       const locale = streamDocument?.locale ?? "en";
       const resolvedImages = photoGalleryWrapperProps?.data?.images
         ? (resolveComponentData(
             photoGalleryWrapperProps.data.images as any,
             locale,
-            streamDocument,
+            streamDocument
           ) as unknown as PhotoGalleryImageValue[] | undefined)
         : undefined;
       const { hasRenderableImages } = getPhotoGalleryImageData({
@@ -248,7 +247,7 @@ export const PhotoGallerySection: YextComponentConfig<PhotoGallerySectionProps> 
       return withMappedEntityFieldConditionalRender(
         updatedData,
         isMappedEntityFieldSelected(photoGalleryWrapperProps?.data?.images) &&
-          !hasRenderableImages,
+          !hasRenderableImages
       );
     },
     render: (props) => (

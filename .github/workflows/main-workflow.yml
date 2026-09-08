@@ -1,0 +1,40 @@
+name: main
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  automated_linting:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    uses: ./.github/workflows/automated-linting.yml
+    secrets:
+      BOT_REPO_SCOPED_TOKEN: ${{ secrets.BOT_SCOPED_REPO_TOKEN }}
+
+  update_notices:
+    if: always() && github.event.pull_request.head.repo.full_name == github.repository
+    needs: automated_linting
+    uses: ./.github/workflows/third_party_notices_check.yml
+    secrets:
+      BOT_REPO_SCOPED_TOKEN: ${{ secrets.BOT_SCOPED_REPO_TOKEN }}
+
+  call_build:
+    uses: ./.github/workflows/build.yml
+
+  call_unit_test:
+    if: always() && needs.call_build.result == 'success' && github.event.pull_request.head.repo.full_name == github.repository
+    needs:
+      - call_build
+      - update_notices
+    uses: ./.github/workflows/unit_test.yml
+    secrets:
+      BOT_REPO_SCOPED_TOKEN: ${{ secrets.BOT_SCOPED_REPO_TOKEN }}
+      COMPONENT_TESTS_VISUAL_EDITOR_APP_API_KEY: ${{ secrets.COMPONENT_TESTS_VISUAL_EDITOR_APP_API_KEY }}
+      COMPONENT_TESTS_SEARCH_API_KEY: ${{ secrets.COMPONENT_TESTS_SEARCH_API_KEY }}
+      COMPONENT_TESTS_MAPBOX_STATIC_MAP_KEY: ${{ secrets.COMPONENT_TESTS_MAPBOX_STATIC_MAP_KEY }}

@@ -22,7 +22,7 @@ type ConditionalRenderData = {
 };
 
 export const isMappedEntityFieldSelected = (
-  entityField?: YextEntityField<unknown>,
+  entityField?: YextEntityField<unknown>
 ): boolean => {
   return (
     Boolean(entityField?.field) && entityField?.constantValueEnabled === false
@@ -31,22 +31,22 @@ export const isMappedEntityFieldSelected = (
 
 export const isMappedEntityFieldCollectionEmpty = (
   entityField: YextEntityField<unknown> | undefined,
-  items: unknown[] | undefined,
+  items: unknown[] | undefined
 ): boolean => {
   return isMappedEntityFieldSelected(entityField) && (items?.length ?? 0) === 0;
 };
 
 export const isMappedCardWrapperEmpty = (
-  cardWrapperSlot: CardWrapperSlot | undefined,
+  cardWrapperSlot: CardWrapperSlot | undefined
 ): boolean => {
   return isMappedEntityFieldCollectionEmpty(
     cardWrapperSlot?.props?.data,
-    cardWrapperSlot?.props?.slots?.CardSlot,
+    cardWrapperSlot?.props?.slots?.CardSlot
   );
 };
 
 export const isMappedCardWrapperSelected = (
-  cardWrapperSlot: CardWrapperSlot | undefined,
+  cardWrapperSlot: CardWrapperSlot | undefined
 ): boolean => {
   return isMappedEntityFieldSelected(cardWrapperSlot?.props?.data);
 };
@@ -55,7 +55,7 @@ export const withMappedEntityFieldConditionalRender = <
   T extends ConditionalRenderData,
 >(
   data: T,
-  isMappedContentEmpty: boolean,
+  isMappedContentEmpty: boolean
 ): T => ({
   ...data,
   props: {

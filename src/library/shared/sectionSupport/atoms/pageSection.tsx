@@ -59,7 +59,7 @@ export const PageSection = React.forwardRef<HTMLDivElement, PageSectionProps>(
       maxWidth,
       ...props
     },
-    ref,
+    ref
   ) => {
     const InnerComponent = as ?? "section";
 
@@ -68,7 +68,7 @@ export const PageSection = React.forwardRef<HTMLDivElement, PageSectionProps>(
         className={themeManagerCn(
           "components w-full px-4",
           pageSectionVariants({ verticalPadding }),
-          outerClassName,
+          outerClassName
         )}
         style={outerStyle}
         background={background}
@@ -82,6 +82,6 @@ export const PageSection = React.forwardRef<HTMLDivElement, PageSectionProps>(
         </InnerComponent>
       </Background>
     );
-  },
+  }
 );
 PageSection.displayName = "PageSection";

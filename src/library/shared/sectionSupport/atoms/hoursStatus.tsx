@@ -43,7 +43,7 @@ export const HoursStatusAtom = React.memo(
         : bodyVariant === "sm"
           ? "text-body-sm-fontSize"
           : "text-body-fontSize",
-      className,
+      className
     );
 
     return (
@@ -92,7 +92,7 @@ export const HoursStatusAtom = React.memo(
                 {
                   time,
                   dayOfWeek,
-                },
+                }
               );
             } else {
               statusText = t("closesAtTime", "Closes at {{time}}", { time });
@@ -107,7 +107,7 @@ export const HoursStatusAtom = React.memo(
                 {
                   time,
                   dayOfWeek,
-                },
+                }
               );
             } else {
               statusText = t("opensAtTime", "Opens at {{time}}", { time });
@@ -132,7 +132,7 @@ export const HoursStatusAtom = React.memo(
         timezone={timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone}
       />
     );
-  },
+  }
 );
 
 /**
@@ -144,7 +144,7 @@ export const HoursStatusAtom = React.memo(
 function hoursCurrentTemplateOverride(
   params: HoursStatusParams,
   t: TFunction,
-  boldCurrentStatus: boolean,
+  boldCurrentStatus: boolean
 ): React.ReactNode {
   const style = boldCurrentStatus ? { fontWeight: "bolder" } : undefined;
 

@@ -45,7 +45,7 @@ const getLocatorConfigFromPageSet = (pageSet?: string): LocatorConfig => {
 export const translateDistanceUnit = (
   t: (key: string, options?: Record<string, unknown>) => string,
   unit: "mile" | "kilometer",
-  count: number,
+  count: number
 ) => {
   if (unit === "mile") {
     return t("mile", { count, defaultValue: "mile" });
@@ -89,13 +89,13 @@ export const ResultCardPropsField = ({
     const entityTypeHasSourcePageSet = !!entityTypeSourceMap[value.entityType];
     const scopeExistsForEntityType =
       entityTypeScopes.find(
-        (scope) => scope.entityType === value.entityType,
+        (scope) => scope.entityType === value.entityType
       ) !== undefined;
 
     fields = setDeep(
       fields,
       `objectFields.primaryCTA.objectFields.link.visible`,
-      !entityTypeHasSourcePageSet && scopeExistsForEntityType,
+      !entityTypeHasSourcePageSet && scopeExistsForEntityType
     );
 
     // For each section, show either the field selector or the constant value editor.
@@ -112,22 +112,22 @@ export const ResultCardPropsField = ({
       fields = setDeep(
         fields,
         `objectFields.${key}.objectFields.field.visible`,
-        !constantValueEnabled,
+        !constantValueEnabled
       );
       fields = setDeep(
         fields,
         `objectFields.${key}.objectFields.constantValue.visible`,
-        constantValueEnabled,
+        constantValueEnabled
       );
       fields = setDeep(
         fields,
         `objectFields.${key}.objectFields.trueDisplayText.visible`,
-        !constantValueEnabled && booleanFieldSelected,
+        !constantValueEnabled && booleanFieldSelected
       );
       fields = setDeep(
         fields,
         `objectFields.${key}.objectFields.falseDisplayText.visible`,
-        booleanFieldSelected,
+        booleanFieldSelected
       );
     });
 
@@ -136,12 +136,12 @@ export const ResultCardPropsField = ({
     fields = setDeep(
       fields,
       "objectFields.image.objectFields.field.visible",
-      !imageConstantValueEnabled,
+      !imageConstantValueEnabled
     );
     fields = setDeep(
       fields,
       "objectFields.image.objectFields.constantValue.visible",
-      imageConstantValueEnabled,
+      imageConstantValueEnabled
     );
 
     return fields;
@@ -217,7 +217,7 @@ export const ResultsCountSummary = ({
         <Body>
           {t(
             "useOurLocatorToFindALocationNearYou",
-            "Use our locator to find a location near you",
+            "Use our locator to find a location near you"
           )}
         </Body>
       );

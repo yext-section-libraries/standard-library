@@ -59,7 +59,7 @@ export const createDefaultLinkOverrideFieldValue =
   });
 
 const isHeadingTextField = (
-  value: unknown,
+  value: unknown
 ): value is HeadingTextProps["data"]["text"] =>
   typeof value === "object" &&
   value !== null &&
@@ -70,7 +70,7 @@ export const defaultDirectoryCardSlotData = (
   index: number,
   childRef?: DirectoryChildReference,
   existingCardStyle?: DirectoryCardProps["styles"],
-  existingSlots?: DirectoryCardProps["slots"],
+  existingSlots?: DirectoryCardProps["slots"]
 ) => {
   const existingHeadingText =
     existingSlots?.HeadingSlot?.[0]?.props?.data?.text;
@@ -262,15 +262,15 @@ const DirectoryCardComponent: PuckComponent<DirectoryCardProps> = (props) => {
       directoryChildrenFromContext.length
         ? directoryChildrenFromContext
         : getSortedDirectoryChildren(streamDocument.dm_directoryChildren),
-    [directoryChildrenFromContext, streamDocument.dm_directoryChildren],
+    [directoryChildrenFromContext, streamDocument.dm_directoryChildren]
   );
   const resolvedChild = React.useMemo(
     () =>
       resolveDirectoryChildFromReference(
         sortedDirectoryChildren,
-        parentData?.childRef,
+        parentData?.childRef
       ),
-    [parentData?.childRef, sortedDirectoryChildren],
+    [parentData?.childRef, sortedDirectoryChildren]
   );
   // Give nested slots a child-scoped document context instead of duplicating
   // child values into each slot's parentData.
@@ -288,14 +288,14 @@ const DirectoryCardComponent: PuckComponent<DirectoryCardProps> = (props) => {
             document: streamDocument,
             relativePrefixToRoot,
           },
-    [resolvedChild, relativePrefixToRoot, streamDocument],
+    [resolvedChild, relativePrefixToRoot, streamDocument]
   );
 
   const linkOverrideValue = data.linkOverride.enabled
     ? resolveComponentData(
         data.linkOverride,
         streamDocument.locale || "en",
-        childDocumentContext.document,
+        childDocumentContext.document
       )
     : "";
   const resolvedLinkOverride =
@@ -314,7 +314,7 @@ const DirectoryCardComponent: PuckComponent<DirectoryCardProps> = (props) => {
     resolvedUrl = resolveUrlTemplateOfChild(
       resolvedChild,
       streamDocument,
-      relativePrefixToRoot,
+      relativePrefixToRoot
     );
   }
 
@@ -355,7 +355,7 @@ const DirectoryCardComponent: PuckComponent<DirectoryCardProps> = (props) => {
     Object.entries(slotProps).forEach(([key, value]) => {
       const nextSlotValue = deepMerge(
         { props: { styles: { ...sharedCardProps?.slotStyles?.[key] } } },
-        value[0],
+        value[0]
       );
       newSlotData[key as keyof DirectoryCardProps["slots"]] = [
         {

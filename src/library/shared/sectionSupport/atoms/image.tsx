@@ -39,7 +39,7 @@ export interface ImageProps {
 export const getImageAltText = (
   image: ImageType | ComplexImageType | AssetImageType | undefined,
   locale: string,
-  streamDocument: StreamDocument | Record<string, any>,
+  streamDocument: StreamDocument | Record<string, any>
 ): string | undefined => {
   if (!image) {
     return undefined;
@@ -143,7 +143,7 @@ export const Image: React.FC<ImageProps> = ({
 };
 
 function isComplexImageType(
-  image: ImageType | ComplexImageType | AssetImageType,
+  image: ImageType | ComplexImageType | AssetImageType
 ): image is ComplexImageType {
   return "image" in image;
 }
@@ -167,13 +167,13 @@ export type ImgSizesByBreakpoint = {
  */
 export const imgSizesHelper = (
   sizes: ImgSizesByBreakpoint,
-  width?: string,
+  width?: string
 ): string => {
   const streamDocument = useDocument();
 
   let maxWidth = getThemeValue(
     "--maxWidth-pageSection-contentWidth",
-    streamDocument,
+    streamDocument
   );
   if (!maxWidth && streamDocument?.__?.theme) {
     maxWidth = "1024px";
@@ -185,7 +185,7 @@ export const imgSizesHelper = (
       value
         .replace("maxWidth", maxWidth || "1440px")
         .replace("width", width || 640 + "px"),
-    ]),
+    ])
   );
 
   let sizesString = updatedBreakpointSizes.base;
