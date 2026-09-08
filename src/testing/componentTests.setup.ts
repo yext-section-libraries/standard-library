@@ -2,7 +2,7 @@ import { configureAxe } from "jest-axe";
 // Applies the theme tailwind classes
 import "./componentTests.css";
 // Applies the build css that is applied to the page templates
-import "../../../dist/style.css";
+import "@yext/visual-editor/style.css";
 // Enabled expect().toHaveNoViolations()
 import "jest-axe/extend-expect";
 import { expect, vi, beforeEach } from "vitest";

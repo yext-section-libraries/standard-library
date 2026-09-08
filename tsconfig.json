@@ -8,6 +8,9 @@
     "rootDir": "./src",
     "outDir": "./dist",
     "module": "esnext",
+    "paths": {
+      "@yext/pages": ["./node_modules/@yext/pages/dist/types/src/index.d.ts"]
+    },
     "types": ["vite/client"],
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,

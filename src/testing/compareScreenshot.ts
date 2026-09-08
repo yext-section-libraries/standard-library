@@ -20,7 +20,7 @@ export const compareScreenshot: BrowserCommand<
 ) => {
   const filePath = path.join(
     process.cwd(),
-    `src/components/testing/screenshots/${screenshotName}.png`
+    `src/testing/screenshots/${screenshotName}.png`
   );
 
   const updatedScreenshotBuffer = Buffer.from(updatedScreenshotData, "base64");

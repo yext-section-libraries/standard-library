@@ -12,23 +12,19 @@ import {
 import {
   migrationRegistry,
   migrate,
+  MainContent,
   VisualEditorProvider,
 } from "@yext/visual-editor";
-import { MainContent } from "../library/shared/sectionSupport/structure/MainContent.tsx";
-import {
-  testHours,
-  testSetup,
-  viewports,
-} from "../testing/componentTests.setup.ts";
+import { testHours, testSetup, viewports } from "./componentTests.setup.ts";
 import { sharedComponentConfigs } from "../library/shared/componentRegistry.ts";
 import { AboutSection } from "../library/sections/AboutSection.tsx";
 import { BannerSection } from "../library/sections/BannerSection.tsx";
+import { BreadcrumbsSection } from "../library/sections/BreadcrumbsSection.tsx";
 import { CoreInfoSection } from "../library/sections/CoreInfoSection.tsx";
 import { EventSection } from "../library/sections/EventSection.tsx";
 import { FAQSection } from "../library/sections/FAQSection.tsx";
 import { HeroSection } from "../library/sections/HeroSection.tsx";
 import { InsightSection } from "../library/sections/InsightSection.tsx";
-import { BreadcrumbsSection } from "../library/sections/BreadcrumbsSection.tsx";
 import { NearbyLocationsSection } from "../library/sections/NearbyLocationsSection.tsx";
 import { PhotoGallerySection } from "../library/sections/PhotoGallerySection.tsx";
 import { ProductSection } from "../library/sections/ProductSection.tsx";

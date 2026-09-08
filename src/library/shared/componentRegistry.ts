@@ -40,13 +40,14 @@ import { Text as SharedComponent37 } from "../sections/Text";
 import { EventCardsWrapper as SharedComponent39 } from "./sectionSupport/pageSections/EventSection/EventCardsWrapper";
 import { EventCard as SharedComponent40 } from "./sectionSupport/pageSections/EventSection/EventCard";
 import { Timestamp as SharedComponent41 } from "./sectionSupport/contentBlocks/Timestamp";
+import { AboutSectionDetailsColumn as SharedComponent42 } from "./sectionSupport/pageSections/AboutSection/AboutSectionDetailsColumn";
 import {
   directoryRootConfig,
   locatorRootConfig,
   rootAllowedComponents,
 } from "./roots";
 
-/** Hidden internal Puck components referenced by saved Directory layout data. */
+/** Hidden internal Puck components referenced in slors. */
 export const sharedComponentMetadata = [
   { id: "HeadingTextSlot", pageSetTypes: ["ENTITY", "DIRECTORY"] },
   { id: "BreadcrumbsSlot", pageSetTypes: ["DIRECTORY"] },
@@ -107,6 +108,7 @@ export const sharedComponentMetadata = [
   { id: "EventCardsWrapper", pageSetTypes: ["ENTITY"] },
   { id: "EventCard", pageSetTypes: ["ENTITY"] },
   { id: "Timestamp", pageSetTypes: ["ENTITY"] },
+  { id: "AboutSectionDetailsColumn", pageSetTypes: ["ENTITY"] },
 ] as const;
 
 /** Puck configs for the hidden internal components. */
@@ -155,6 +157,7 @@ export const sharedComponentConfigs: Record<
   EventCardsWrapper: SharedComponent39,
   EventCard: SharedComponent40,
   Timestamp: SharedComponent41,
+  AboutSectionDetailsColumn: SharedComponent42,
 };
 
 export const sharedRootConfigs: Partial<
