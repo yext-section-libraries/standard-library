@@ -22,7 +22,7 @@
     "add-directory-locator": "yextve add-directory-locator"
   },
   "engines": {
-    "node": ">=20.18.2"
+    "node": "22.x"
   },
   "dependencies": {
     "@puckeditor/core": "0.22.2",
