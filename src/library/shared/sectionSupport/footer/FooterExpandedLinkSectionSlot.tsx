@@ -11,7 +11,7 @@ import {
   toPuckFields,
   YextComponentConfig,
   YextFields,
-  i18nComponentsInstance,
+  i18nPageInstance,
   useDocument,
 } from "@yext/visual-editor";
 import { CTA } from "../atoms/cta.tsx";
@@ -165,7 +165,7 @@ const footerExpandedLinkSectionSlotFields: YextFields<FooterExpandedLinkSectionS
           },
           defaultItemProps: defaultLink,
           getItemSummary: (item: any, index?: number) => {
-            const locale = i18nComponentsInstance.language || "en";
+            const locale = i18nPageInstance.language || "en";
             const label =
               typeof item.label === "string"
                 ? item.label

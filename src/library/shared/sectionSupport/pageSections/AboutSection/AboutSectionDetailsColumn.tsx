@@ -5,7 +5,7 @@ import { Body } from "../../atoms/body.tsx";
 import {
   EntityField,
   HeadingLevel,
-  i18nComponentsInstance,
+  i18nPageInstance,
   msg,
   pt,
   resolveComponentData,
@@ -329,7 +329,7 @@ const aboutSectionDetailsColumnFields: YextFields<AboutSectionDetailsColumnProps
         },
       },
       getItemSummary: (item: DetailSection, i?: number) => {
-        const locale = i18nComponentsInstance.language;
+        const locale = i18nPageInstance.language;
         return (
           resolveComponentData(item.header, locale) ||
           pt("section", "Section") + " " + ((i ?? 0) + 1)

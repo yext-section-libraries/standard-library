@@ -9,7 +9,7 @@ import {
   ComponentFields,
   YextEntityField,
   resolveYextEntityField,
-  i18nComponentsInstance,
+  i18nPageInstance,
   getDefaultRTF,
   themeManagerCn,
   useDocument,
@@ -567,7 +567,7 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
     const resolvedPromo = resolveYextEntityField(
       params.metadata.streamDocument,
       data.props.data.promo,
-      i18nComponentsInstance.language || "en"
+      i18nPageInstance.language || "en"
     );
 
     if (!resolvedPromo || !("title" in resolvedPromo)) {

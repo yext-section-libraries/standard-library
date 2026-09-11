@@ -8,7 +8,7 @@ import {
   themeManagerCn,
   getDefaultRTF,
   resolveYextEntityField,
-  i18nComponentsInstance,
+  i18nPageInstance,
   bindSlots,
   msg,
   YextComponentConfig,
@@ -466,7 +466,7 @@ export const ProductCard: YextComponentConfig<ProductCardProps> = {
   fields: ProductCardFields,
   inline: true,
   resolveData: (data, params) => {
-    const locale = i18nComponentsInstance.language || "en";
+    const locale = i18nPageInstance.language || "en";
     const field = data.props.field ?? "";
     const isLinkedMode = Boolean(field);
     const imageSlotProps = data.props.slots.ImageSlot?.[0]?.props as

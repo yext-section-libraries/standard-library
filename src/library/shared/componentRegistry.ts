@@ -47,7 +47,7 @@ import {
   rootAllowedComponents,
 } from "./roots";
 
-/** Hidden internal Puck components referenced in slors. */
+/** Hidden internal Puck components referenced in slots. */
 export const sharedComponentMetadata = [
   { id: "HeadingTextSlot", pageSetTypes: ["ENTITY", "DIRECTORY"] },
   { id: "BreadcrumbsSlot", pageSetTypes: ["DIRECTORY"] },

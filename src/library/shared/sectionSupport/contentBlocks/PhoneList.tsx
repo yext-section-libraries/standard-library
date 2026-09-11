@@ -1,7 +1,7 @@
 import {
   backgroundColors,
   EntityField,
-  i18nComponentsInstance,
+  i18nPageInstance,
   msg,
   pt,
   resolveComponentData,
@@ -50,7 +50,7 @@ export const phoneListFields: YextFields<PhoneListProps> = {
         arrayFields: PhoneDataFields,
         defaultItemProps: defaultPhoneDataProps,
         getItemSummary: (item: PhoneProps["data"]) => {
-          const locale = i18nComponentsInstance.language;
+          const locale = i18nPageInstance.language;
           const resolvedValue = resolveComponentData(item.label, locale);
 
           if (resolvedValue) {

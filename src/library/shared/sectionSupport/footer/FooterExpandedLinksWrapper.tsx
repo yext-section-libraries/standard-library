@@ -15,7 +15,7 @@ import { cva } from "class-variance-authority";
 import {
   TranslatableString,
   TranslatableCTA,
-  i18nComponentsInstance,
+  i18nPageInstance,
   msg,
   pt,
   useDocument,
@@ -104,7 +104,7 @@ const footerExpandedLinksWrapperFields: YextFields<FooterExpandedLinksWrapperPro
               },
               defaultItemProps: defaultLink,
               getItemSummary: (item: TranslatableCTA, index?: number) => {
-                const locale = i18nComponentsInstance.language || "en";
+                const locale = i18nPageInstance.language || "en";
                 const label = getDisplayValue(item.label, locale);
                 return label || pt("link", "Link") + " " + ((index ?? 0) + 1);
               },
@@ -115,7 +115,7 @@ const footerExpandedLinksWrapperFields: YextFields<FooterExpandedLinksWrapperPro
             item: FooterExpandedLinksWrapperProps["data"]["sections"][number],
             index?: number
           ) => {
-            const locale = i18nComponentsInstance.language || "en";
+            const locale = i18nPageInstance.language || "en";
             const label = getDisplayValue(item.label, locale);
             return label || pt("section", "Section") + " " + ((index ?? 0) + 1);
           },

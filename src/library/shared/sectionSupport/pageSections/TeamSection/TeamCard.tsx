@@ -11,7 +11,7 @@ import {
   YextFields,
   resolveYextEntityField,
   bindSlots,
-  i18nComponentsInstance,
+  i18nPageInstance,
 } from "@yext/visual-editor";
 import { Background } from "../../atoms/background.tsx";
 import { ImageWrapperProps } from "../../../../sections/ImageWrapper.tsx";
@@ -504,7 +504,7 @@ export const TeamCard: YextComponentConfig<TeamCardProps> = {
             resolveYextEntityField(
               params.metadata.streamDocument,
               nameSlotProps.data.text,
-              i18nComponentsInstance.language || "en"
+              i18nPageInstance.language || "en"
             )
     );
     const showTitle = Boolean(
@@ -514,7 +514,7 @@ export const TeamCard: YextComponentConfig<TeamCardProps> = {
             resolveYextEntityField(
               params.metadata.streamDocument,
               titleSlotProps.data.text,
-              i18nComponentsInstance.language || "en"
+              i18nPageInstance.language || "en"
             )
     );
     const showPhone = Boolean(
@@ -612,7 +612,7 @@ export const TeamCard: YextComponentConfig<TeamCardProps> = {
       name &&
       resolveComponentData(
         name,
-        i18nComponentsInstance.language || "en",
+        i18nPageInstance.language || "en",
         params.metadata.streamDocument,
         {
           output: "plainText",

@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { FieldLabel, PuckComponent, setDeep } from "@puckeditor/core";
 import { CTA } from "../atoms/cta.tsx";
 import {
-  i18nComponentsInstance,
+  i18nPageInstance,
   msg,
   pt,
   resolveComponentData,
@@ -115,7 +115,7 @@ const linkFieldConfig: YextArrayField<TranslatableCTA[]> = {
   defaultItemProps: defaultLink satisfies TranslatableCTA,
   getItemSummary: (item, i) => {
     return (
-      resolveComponentData(item.label, i18nComponentsInstance.language) ||
+      resolveComponentData(item.label, i18nPageInstance.language) ||
       pt("link", "Link") + " " + ((i ?? 0) + 1)
     );
   },

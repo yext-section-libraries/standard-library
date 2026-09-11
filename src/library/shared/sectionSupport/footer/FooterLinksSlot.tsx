@@ -13,7 +13,7 @@ import {
   pt,
   useDocument,
   TranslatableCTA,
-  i18nComponentsInstance,
+  i18nPageInstance,
   ThemeColor,
   toPuckFields,
   YextComponentConfig,
@@ -306,7 +306,7 @@ const footerLinksSlotFields: YextFields<FooterLinksSlotProps> = {
         },
         defaultItemProps: defaultLink,
         getItemSummary: (item: any, index?: number) => {
-          const locale = i18nComponentsInstance.language || "en";
+          const locale = i18nPageInstance.language || "en";
           const label =
             typeof item.label === "string" ? item.label : item.label?.[locale];
           return label || pt("link", "Link") + " " + ((index ?? 0) + 1);

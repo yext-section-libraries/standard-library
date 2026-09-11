@@ -7,7 +7,7 @@ import {
   deepMerge,
   getDefaultRTF,
   bindSlots,
-  i18nComponentsInstance,
+  i18nPageInstance,
   resolveYextEntityField,
   YextComponentConfig,
   YextFields,
@@ -350,7 +350,7 @@ export const TestimonialCard: YextComponentConfig<TestimonialCardProps> = {
       contributorName &&
       resolveComponentData(
         contributorName,
-        i18nComponentsInstance.language || "en",
+        i18nPageInstance.language || "en",
         params.metadata.streamDocument,
         {
           output: "plainText",
@@ -362,7 +362,7 @@ export const TestimonialCard: YextComponentConfig<TestimonialCardProps> = {
         ? resolveYextEntityField(
             params.metadata.streamDocument,
             descriptionSlotProps.data.text,
-            i18nComponentsInstance.language || "en"
+            i18nPageInstance.language || "en"
           )
         : undefined;
     const resolvedContributorName = isLinkedMode
@@ -371,7 +371,7 @@ export const TestimonialCard: YextComponentConfig<TestimonialCardProps> = {
         ? resolveYextEntityField(
             params.metadata.streamDocument,
             contributorNameSlotProps.data.text,
-            i18nComponentsInstance.language || "en"
+            i18nPageInstance.language || "en"
           )
         : undefined;
     const resolvedContributionDate = isLinkedMode
@@ -380,7 +380,7 @@ export const TestimonialCard: YextComponentConfig<TestimonialCardProps> = {
         ? resolveYextEntityField(
             params.metadata.streamDocument,
             contributionDateSlotProps.data.date,
-            i18nComponentsInstance.language || "en"
+            i18nPageInstance.language || "en"
           )
         : undefined;
 
