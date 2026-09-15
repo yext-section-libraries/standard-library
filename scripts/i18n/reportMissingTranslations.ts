@@ -15,7 +15,7 @@ const pluralBase = (key: string): string | null => {
 const requiredKeysForLocale = (
   english: FlatTranslations,
   localized: FlatTranslations,
-  locale: string,
+  locale: string
 ): Set<string> => {
   const keys = new Set(Object.keys(localized));
   const pluralFamilies = new Set<string>();
@@ -47,7 +47,7 @@ const requiredKeysForLocale = (
 
 export const resolveEnglishSource = (
   key: string,
-  english: FlatTranslations,
+  english: FlatTranslations
 ): string | undefined => {
   if (english[key] !== undefined) {
     return english[key];
@@ -67,7 +67,7 @@ export interface MissingTranslation {
 
 export const findMissingTranslations = async (
   platformDirectory: string,
-  locales: readonly string[] = configuredLocales,
+  locales: readonly string[] = configuredLocales
 ): Promise<MissingTranslation[]> => {
   const englishPath = path.join(platformDirectory, `${primaryLocale}.json`);
   const english = flatten(await loadJson(englishPath, { required: true }));
@@ -93,7 +93,7 @@ export const findMissingTranslations = async (
 
 export const reportMissingTranslations = async (
   platformDirectory = path.resolve("src/library/i18n/platform"),
-  locales: readonly string[] = configuredLocales,
+  locales: readonly string[] = configuredLocales
 ): Promise<void> => {
   const missing = await findMissingTranslations(platformDirectory, locales);
   if (missing.length === 0) {
@@ -102,7 +102,7 @@ export const reportMissingTranslations = async (
   }
   for (const item of missing) {
     console.log(
-      `[${item.locale}] ${item.key} = ${JSON.stringify(item.english)}`,
+      `[${item.locale}] ${item.key} = ${JSON.stringify(item.english)}`
     );
   }
   console.log(`Missing ${missing.length} platform translation value(s).`);

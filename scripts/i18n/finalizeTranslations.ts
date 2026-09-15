@@ -44,7 +44,10 @@ const difference = (expected: string[], actual: string[]): string[][] => {
   const right = counts(actual);
   const expand = (source: Map<string, number>, other: Map<string, number>) =>
     [...source].flatMap(([value, count]) =>
-      Array.from({ length: Math.max(0, count - (other.get(value) ?? 0)) }, () => value)
+      Array.from(
+        { length: Math.max(0, count - (other.get(value) ?? 0)) },
+        () => value
+      )
     );
   return [expand(left, right), expand(right, left)];
 };
@@ -64,14 +67,17 @@ const repairInterpolation = (
 
   const expectedMatch = expected.find(({ name }) => name === missing[0]);
   let replaced = false;
-  return localizedValue.replace(interpolationPattern, (raw, expression: string) => {
-    const name = (expression.split(",")[0] ?? "").trim();
-    if (!replaced && name === unexpected[0] && expectedMatch) {
-      replaced = true;
-      return expectedMatch.raw;
+  return localizedValue.replace(
+    interpolationPattern,
+    (raw, expression: string) => {
+      const name = (expression.split(",")[0] ?? "").trim();
+      if (!replaced && name === unexpected[0] && expectedMatch) {
+        replaced = true;
+        return expectedMatch.raw;
+      }
+      return raw;
     }
-    return raw;
-  });
+  );
 };
 
 const lineForKey = (raw: string, key: string): number => {
@@ -92,7 +98,9 @@ const repairInterpolations = async (
   const englishPath = path.join(directory, `${primaryLocale}.json`);
   const english = flatten(await loadJson(englishPath, { required: true }));
   if (Object.keys(english).length === 0) {
-    throw new Error(`English translation input contains no keys: ${englishPath}`);
+    throw new Error(
+      `English translation input contains no keys: ${englishPath}`
+    );
   }
   for (const locale of locales) {
     if (locale === primaryLocale) continue;
@@ -137,7 +145,9 @@ const pageMembership = (
   hasExtractedPage: boolean
 ): Set<string> => {
   const englishKeys = new Set(Object.keys(pageEnglish));
-  const families = new Set([...englishKeys].map((key) => pluralBase(key) ?? key));
+  const families = new Set(
+    [...englishKeys].map((key) => pluralBase(key) ?? key)
+  );
   const sourceKeys = hasExtractedPage
     ? Object.keys(extractedPage).filter((key) => {
         const base = pluralBase(key);
@@ -162,7 +172,9 @@ const propagatePlatformToPage = async (
     await loadJson(path.join(pageDirectory, "en.json"), { required: true })
   );
   if (Object.keys(pageEnglish).length === 0) {
-    throw new Error("English page extraction contains no keys. Run i18n:prepare first.");
+    throw new Error(
+      "English page extraction contains no keys. Run i18n:prepare first."
+    );
   }
   for (const locale of locales) {
     const platform = flatten(
@@ -174,7 +186,12 @@ const propagatePlatformToPage = async (
     const hasPage = await fileExists(pagePath);
     const existingPage = flatten(await loadJson(pagePath));
     const next: FlatTranslations = {};
-    for (const key of pageMembership(pageEnglish, existingPage, platform, hasPage)) {
+    for (const key of pageMembership(
+      pageEnglish,
+      existingPage,
+      platform,
+      hasPage
+    )) {
       next[key] = platform[key] ?? existingPage[key] ?? "";
     }
     await saveJson(pagePath, sortObject(unflatten(next)));

@@ -86,10 +86,7 @@ export const saveJson = async (
   await fs.writeFile(filePath, `${JSON.stringify(value, null, 2)}\n`, "utf8");
 };
 
-export const flatten = (
-  value: JsonObject,
-  prefix = ""
-): FlatTranslations => {
+export const flatten = (value: JsonObject, prefix = ""): FlatTranslations => {
   const result: FlatTranslations = {};
   for (const [key, child] of Object.entries(value)) {
     const fullKey = prefix ? `${prefix}.${key}` : key;

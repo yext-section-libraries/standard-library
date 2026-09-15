@@ -1,8 +1,5 @@
 import { defineConfig } from "i18next-cli";
-import {
-  locales,
-  sharedExtractConfig,
-} from "./i18next-cli.shared.config.ts";
+import { locales, sharedExtractConfig } from "./i18next-cli.shared.config.ts";
 
 export default defineConfig({
   locales,
