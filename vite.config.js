@@ -17,7 +17,6 @@ export default defineConfig(() => ({
       localEditor: {
         enabled: true,
       },
-      sectionLibrary: true,
     }),
     yextSSG(),
   ],
