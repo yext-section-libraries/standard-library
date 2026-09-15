@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "yext-standard-library",
-  "displayName": "Yext Standard Library",
-  "description": "The original Visual Editor 'out-of-the-box' sections.",
+  "id": "standard-library",
+  "displayName": "Standard Library",
+  "description": "The original Pages for Marketers sections.",
   "locales": [
     "cs",
     "da",
