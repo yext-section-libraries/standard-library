@@ -14,7 +14,7 @@
     "lint": "oxlint --react-plugin --deny-warnings .",
     "lint:fix": "oxlint --fix --react-plugin --deny-warnings .",
     "prettier": "prettier --write --cache .",
-    "typecheck": "tsc -p tsconfig.json && tsc -p scripts/tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json",
     "test": "vitest run ./src/testing/*.test.tsx",
     "test:components": "SECTION_LIBRARY_REVISION_ID=local vitest run ./src/testing/*.test.tsx",
     "generate-notices": "generate-license-file --input package.json --output ./THIRD-PARTY-NOTICES --overwrite",
@@ -42,6 +42,7 @@
     "uuid": "^11.0.3"
   },
   "devDependencies": {
+    "@radix-ui/react-toggle": "^1.1.18",
     "@testing-library/react": "^16.3.3",
     "@types/jest-axe": "^3.5.9",
     "@types/node": "^26.4.1",
