@@ -2,5 +2,32 @@
   "schemaVersion": 1,
   "id": "yext-standard-library",
   "displayName": "Yext Standard Library",
-  "description": "The original Visual Editor 'out-of-the-box' sections."
+  "description": "The original Visual Editor 'out-of-the-box' sections.",
+  "locales": [
+    "cs",
+    "da",
+    "de",
+    "en",
+    "en-GB",
+    "es",
+    "et",
+    "fi",
+    "fr",
+    "hr",
+    "hu",
+    "it",
+    "ja",
+    "lt",
+    "lv",
+    "nb",
+    "nl",
+    "pl",
+    "pt",
+    "ro",
+    "sk",
+    "sv",
+    "tr",
+    "zh",
+    "zh-TW"
+  ]
 }
