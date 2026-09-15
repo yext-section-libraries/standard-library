@@ -2358,13 +2358,13 @@ describe("Grid", async () => {
       viewport: { width, height, name: viewportName },
     }) => {
       const data = migrate(
+        puckConfig,
         {
           root: { props: { version } },
           content: [{ type: "Grid", props }],
         },
-        migrationRegistry,
-        puckConfig,
-        document
+        document,
+        migrationRegistry
       );
 
       const { container } = reactRender(

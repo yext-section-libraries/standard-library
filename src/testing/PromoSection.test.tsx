@@ -1963,6 +1963,7 @@ describe("PromoSection", async () => {
       viewport: { width, height, name: viewportName },
     }) => {
       const data = migrate(
+        puckConfig,
         {
           root: {
             props: {
@@ -1976,9 +1977,8 @@ describe("PromoSection", async () => {
             },
           ],
         },
-        migrationRegistry,
-        puckConfig,
-        document
+        document,
+        migrationRegistry
       );
 
       const resolvedData = await resolveAllData(data, puckConfig, {

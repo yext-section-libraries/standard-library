@@ -2679,6 +2679,7 @@ describe("ExpandedHeader", async () => {
             ];
 
       const data = migrate(
+        puckConfig,
         {
           root: {
             props: {
@@ -2687,9 +2688,8 @@ describe("ExpandedHeader", async () => {
           },
           content: content,
         },
-        migrationRegistry,
-        puckConfig,
-        document
+        document,
+        migrationRegistry
       );
 
       const updatedData = await resolveAllData(data, puckConfig, {

@@ -139,6 +139,7 @@ describe("VideoSection", async () => {
       viewport: { width, height, name: viewportName },
     }) => {
       const data = migrate(
+        puckConfig,
         {
           root: {
             props: {
@@ -152,9 +153,8 @@ describe("VideoSection", async () => {
             },
           ],
         },
-        migrationRegistry,
-        puckConfig,
-        document
+        document,
+        migrationRegistry
       );
 
       const { container } = reactRender(

@@ -823,6 +823,7 @@ describe("Directory", async () => {
       viewport: { width, height, name: viewportName },
     }) => {
       let data = migrate(
+        puckConfig,
         {
           root: {
             props: {
@@ -836,9 +837,8 @@ describe("Directory", async () => {
             },
           ],
         },
-        migrationRegistry,
-        puckConfig,
-        document
+        document,
+        migrationRegistry
       );
 
       const updatedData = await resolveAllData(data, puckConfig, {
