@@ -57,7 +57,6 @@
     "autoprefixer": "^10.4.8",
     "generate-license-file": "^3.6.0",
     "i18next": "^26.4.2",
-    "i18next-cli": "^1.73.2",
     "jest-axe": "^11.0.0",
     "jsdom": "^24.1.1",
     "oxlint": "1.2.0",
