@@ -2,6 +2,10 @@
 
 This repo contains the original Visual Editor "out-of-the-box" sections.
 
+The "components" from the `@yext/visual-editor` library (page sections and content blocks) are now considered
+"sections" and have `SectionConfig`s in `src/library/sections`. Slot-only components are in `src/library/shared/sectionSupport`
+and registered in `src/library/shared/componentRegistry.ts`.
+
 ## Development commands
 
 - `npm run dev`: Runs a local development server using example data from the account. See the Local Editor details below.
