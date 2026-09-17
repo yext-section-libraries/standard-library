@@ -1,4 +1,5 @@
 import { Config, Render } from "@puckeditor/core";
+import { VisualEditorProvider } from "./TestVisualEditorProvider.tsx";
 import { render as reactRender, waitFor } from "@testing-library/react";
 import { page } from "@vitest/browser/context";
 import {
@@ -6,7 +7,6 @@ import {
   migrate,
   MainContent,
   migrationRegistry,
-  VisualEditorProvider,
 } from "@yext/visual-editor";
 import { describe, expect, it } from "vitest";
 import {

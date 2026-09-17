@@ -1,4 +1,5 @@
 import * as React from "react";
+import { VisualEditorProvider } from "./TestVisualEditorProvider.tsx";
 import { describe, it, expect } from "vitest";
 import {
   axe,
@@ -9,12 +10,7 @@ import {
 import { act, render as reactRender, waitFor } from "@testing-library/react";
 import { BannerSection } from "../library/sections/BannerSection.tsx";
 import { ExpandedHeader } from "../library/sections/ExpandedHeader.tsx";
-import {
-  migrate,
-  MainContent,
-  migrationRegistry,
-  VisualEditorProvider,
-} from "@yext/visual-editor";
+import { migrate, MainContent, migrationRegistry } from "@yext/visual-editor";
 import { sharedComponentConfigs } from "../library/shared/componentRegistry.ts";
 import { Render, Config, resolveAllData } from "@puckeditor/core";
 import { page, type BrowserPage } from "@vitest/browser/context";

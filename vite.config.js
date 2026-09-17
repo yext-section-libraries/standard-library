@@ -3,8 +3,11 @@ import react from "@vitejs/plugin-react";
 import yextSSG from "@yext/pages/vite-plugin";
 import { yextVisualEditorPlugin } from "@yext/visual-editor/plugin";
 import { compareScreenshot } from "./src/testing/compareScreenshot.ts";
+import { fileURLToPath } from "node:url";
 
 const isVitest = Boolean(process.env.VITEST);
+/** Used to load the combined translations in tests */
+const sectionLibraryI18nModule = "virtual:section-library-i18n";
 
 export default defineConfig(() => ({
   define: {
@@ -20,6 +23,13 @@ export default defineConfig(() => ({
     }),
     yextSSG(),
   ],
+  resolve: {
+    alias: {
+      [sectionLibraryI18nModule]: fileURLToPath(
+        new URL("./src/library/.generated/i18n.ts", import.meta.url)
+      ),
+    },
+  },
   optimizeDeps: {
     esbuildOptions: {
       target: "es2022",

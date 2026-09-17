@@ -1,4 +1,5 @@
 import * as React from "react";
+import { VisualEditorProvider } from "./TestVisualEditorProvider.tsx";
 import { describe, it, expect } from "vitest";
 import {
   axe,
@@ -7,13 +8,7 @@ import {
   transformTests,
 } from "./componentTests.setup.ts";
 import { act, render as reactRender } from "@testing-library/react";
-import {
-  migrate,
-  MainContent,
-  migrationRegistry,
-  VisualEditorProvider,
-  injectTranslations,
-} from "@yext/visual-editor";
+import { migrate, MainContent, migrationRegistry } from "@yext/visual-editor";
 import { ReviewsSection } from "../library/sections/ReviewsSection.tsx";
 import { sharedComponentConfigs } from "../library/shared/componentRegistry.ts";
 import { Render, Config, resolveAllData } from "@puckeditor/core";
@@ -354,10 +349,8 @@ describe("ReviewsSection", async () => {
         streamDocument: document,
       });
 
-      const translations = await injectTranslations(document);
-
       const { container } = reactRender(
-        <VisualEditorProvider templateProps={{ document, translations }}>
+        <VisualEditorProvider templateProps={{ document }}>
           <Render config={puckConfig} data={data} />
         </VisualEditorProvider>
       );
