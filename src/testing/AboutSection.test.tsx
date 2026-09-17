@@ -1,4 +1,5 @@
 import * as React from "react";
+import { VisualEditorProvider } from "./TestVisualEditorProvider.tsx";
 import { describe, it, expect } from "vitest";
 import {
   axe,
@@ -8,12 +9,7 @@ import {
 } from "./componentTests.setup.ts";
 import { render as reactRender } from "@testing-library/react";
 import { AboutSection } from "../library/sections/AboutSection.tsx";
-import {
-  migrate,
-  MainContent,
-  migrationRegistry,
-  VisualEditorProvider,
-} from "@yext/visual-editor";
+import { migrate, MainContent, migrationRegistry } from "@yext/visual-editor";
 import { sharedComponentConfigs } from "../library/shared/componentRegistry.ts";
 import { Render, Config, resolveAllData } from "@puckeditor/core";
 import { page } from "@vitest/browser/context";

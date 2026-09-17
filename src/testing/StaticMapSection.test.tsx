@@ -1,13 +1,9 @@
 import * as React from "react";
+import { VisualEditorProvider } from "./TestVisualEditorProvider.tsx";
 import { describe, it, expect } from "vitest";
 import { axe, ComponentTest, transformTests } from "./componentTests.setup.ts";
 import { render as reactRender } from "@testing-library/react";
-import {
-  migrate,
-  MainContent,
-  migrationRegistry,
-  VisualEditorProvider,
-} from "@yext/visual-editor";
+import { migrate, MainContent, migrationRegistry } from "@yext/visual-editor";
 import { Render, Config } from "@puckeditor/core";
 import { page } from "@vitest/browser/context";
 import { StaticMapSection } from "../library/sections/StaticMapSection.tsx";

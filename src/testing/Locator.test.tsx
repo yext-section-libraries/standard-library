@@ -1,4 +1,5 @@
 import * as React from "react";
+import { VisualEditorProvider } from "./TestVisualEditorProvider.tsx";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   axe,
@@ -13,11 +14,9 @@ import {
   waitFor,
 } from "@testing-library/react";
 import {
-  injectTranslations,
   migrate,
   MainContent,
   migrationRegistry,
-  VisualEditorProvider,
   backgroundColors,
 } from "@yext/visual-editor";
 import { Locator as LocatorComponent } from "../library/sections/Locator.tsx";
@@ -1390,13 +1389,12 @@ describe("Locator", async () => {
         streamDocument: document,
       });
 
-      const translations = await injectTranslations(document);
       vi.stubGlobal("fetch", createLocatorFetchMock(document));
 
       await page.viewport(width, height);
 
       const { container } = reactRender(
-        <VisualEditorProvider templateProps={{ document, translations }}>
+        <VisualEditorProvider templateProps={{ document }}>
           <Render config={puckConfig} data={data} />
         </VisualEditorProvider>
       );

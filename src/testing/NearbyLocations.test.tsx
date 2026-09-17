@@ -1,4 +1,5 @@
 import * as React from "react";
+import { VisualEditorProvider } from "./TestVisualEditorProvider.tsx";
 import { describe, it, expect, vi } from "vitest";
 import {
   axe,
@@ -14,7 +15,6 @@ import {
   migrate,
   MainContent,
   migrationRegistry,
-  VisualEditorProvider,
   backgroundColors,
 } from "@yext/visual-editor";
 import { Render, Config } from "@puckeditor/core";

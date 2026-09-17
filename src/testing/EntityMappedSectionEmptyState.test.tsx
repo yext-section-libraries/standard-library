@@ -1,4 +1,5 @@
 import * as React from "react";
+import { VisualEditorProvider } from "./TestVisualEditorProvider.tsx";
 import { describe, expect, it } from "vitest";
 import { render as reactRender, waitFor } from "@testing-library/react";
 import { FAQSection } from "../library/sections/FAQSection.tsx";
@@ -14,7 +15,6 @@ import { EventSection } from "../library/sections/EventSection.tsx";
 import { EventCardsWrapper } from "../library/shared/sectionSupport/pageSections/EventSection/EventCardsWrapper.tsx";
 import { InsightSection } from "../library/sections/InsightSection.tsx";
 import { InsightCardsWrapper } from "../library/shared/sectionSupport/pageSections/InsightSection/InsightCardsWrapper.tsx";
-import { VisualEditorProvider } from "@yext/visual-editor";
 import { EntityFieldSectionEmptyStateBox } from "../library/shared/sectionSupport/pageSections/EntityFieldSectionEmptyState.tsx";
 import {
   EmptyStateMarker,

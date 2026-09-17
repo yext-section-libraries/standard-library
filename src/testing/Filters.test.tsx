@@ -2,17 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { FilterModal } from "../library/shared/sectionSupport/locator/Filters.tsx";
-
-vi.mock("react-i18next", async () => {
-  const actual = await vi.importActual("react-i18next");
-  return {
-    ...actual,
-    useTranslation: () => ({
-      t: (_key: string, defaultValue: string) => defaultValue,
-      i18n: { language: "fr" },
-    }),
-  };
-});
+import { VisualEditorProvider } from "./TestVisualEditorProvider.tsx";
 
 vi.mock("@yext/search-headless-react", async () => {
   const actual = await vi.importActual<
@@ -100,20 +90,22 @@ const renderFilterModal = (
   >["keywordsDisplayName"]
 ) =>
   render(
-    <FilterModal
-      showFilterModal={true}
-      showOpenNowOption={false}
-      isOpenNowSelected={false}
-      showDistanceOptions={false}
-      selectedDistanceOption={null}
-      handleCloseModalClick={vi.fn()}
-      handleOpenNowClick={vi.fn()}
-      handleDistanceClick={vi.fn()}
-      handleClearFiltersClick={vi.fn()}
-      accentColorCssValue="#000"
-      closeButtonRef={React.createRef<HTMLButtonElement>()}
-      keywordsDisplayName={keywordsDisplayName}
-    />
+    <VisualEditorProvider templateProps={{ document: { locale: "fr" } }}>
+      <FilterModal
+        showFilterModal={true}
+        showOpenNowOption={false}
+        isOpenNowSelected={false}
+        showDistanceOptions={false}
+        selectedDistanceOption={null}
+        handleCloseModalClick={vi.fn()}
+        handleOpenNowClick={vi.fn()}
+        handleDistanceClick={vi.fn()}
+        handleClearFiltersClick={vi.fn()}
+        accentColorCssValue="#000"
+        closeButtonRef={React.createRef<HTMLButtonElement>()}
+        keywordsDisplayName={keywordsDisplayName}
+      />
+    </VisualEditorProvider>
   );
 
 describe("FilterModal", () => {
