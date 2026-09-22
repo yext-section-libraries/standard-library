@@ -195,6 +195,7 @@
     "key": "Avain",
     "keywordsDisplayName": "Avainsanat Näyttönimi",
     "label": "Merkitä",
+    "labelColor": "Merkinnän väri",
     "latitude": "Leveysaste",
     "limit": "Rajoittaa",
     "link": "Linkki",

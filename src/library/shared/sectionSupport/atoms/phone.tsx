@@ -6,6 +6,8 @@ import { ThemeColor } from "@yext/visual-editor";
 import {
   getBackgroundColorClasses,
   getBackgroundColorStyle,
+  getTextColorClass,
+  getTextColorStyle,
 } from "@yext/visual-editor/section-library-support";
 
 export type PhoneAtomProps = {
@@ -17,6 +19,8 @@ export type PhoneAtomProps = {
   includeHyperlink: boolean;
   includeIcon: boolean;
   linkColor?: ThemeColor;
+  labelColor?: ThemeColor;
+  iconColor?: ThemeColor;
   onClick?: () => void;
 };
 
@@ -43,12 +47,22 @@ export const PhoneAtom = (props: PhoneAtomProps) => {
             )}`}
             style={getBackgroundColorStyle(props.backgroundColor)}
           >
-            <FaPhone className="w-4 h-4" />
+            <FaPhone
+              className={`w-4 h-4 ${getTextColorClass(props.iconColor) ?? ""}`}
+              style={getTextColorStyle(props.iconColor)}
+            />
           </div>
         ) : (
-          <FaPhone className="w-4 h-4" />
+          <FaPhone
+            className={`w-4 h-4 ${getTextColorClass(props.iconColor) ?? ""}`}
+            style={getTextColorStyle(props.iconColor)}
+          />
         ))}
-      {props.label && <Body className="font-bold">{props.label}</Body>}
+      {props.label && (
+        <Body className="font-bold" color={props.labelColor}>
+          {props.label}
+        </Body>
+      )}
       {props.includeHyperlink ? (
         <CTA
           link={phoneNumberLink}
@@ -62,7 +76,7 @@ export const PhoneAtom = (props: PhoneAtomProps) => {
           alwaysHideCaret={true}
         />
       ) : (
-        <Body>{formattedPhoneNumber}</Body>
+        <Body color={props.linkColor}>{formattedPhoneNumber}</Body>
       )}
     </div>
   );

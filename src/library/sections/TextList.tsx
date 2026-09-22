@@ -11,11 +11,20 @@ import {
   YextComponentConfig,
   YextFields,
   SectionConfig,
+  ThemeColor,
 } from "@yext/visual-editor";
+import {
+  getTextColorClass,
+  getTextColorStyle,
+} from "@yext/visual-editor/section-library-support";
 
 export interface TextListProps {
   list: YextEntityField<TranslatableString[]>;
   commaSeparated: boolean;
+  styles?: {
+    /** The color of the list text. */
+    textColor?: ThemeColor;
+  };
 }
 
 export const textListFields: YextFields<TextListProps> = {
@@ -35,11 +44,23 @@ export const textListFields: YextFields<TextListProps> = {
       { label: msg("fields.options.no", "No"), value: false },
     ],
   },
+  styles: {
+    type: "object",
+    label: msg("fields.styles", "Styles"),
+    objectFields: {
+      textColor: {
+        type: "basicSelector",
+        label: msg("fields.textColor", "Text Color"),
+        options: "SITE_COLOR",
+      },
+    },
+  },
 };
 
 const TextListComponent: PuckComponent<TextListProps> = ({
   list: textListField,
   commaSeparated,
+  styles,
   puck,
 }) => {
   const { i18n } = useTranslation();
@@ -63,11 +84,12 @@ const TextListComponent: PuckComponent<TextListProps> = ({
     >
       {resolvedTextList && resolvedTextList.length > 0 ? (
         <ul
-          className={`components text-body-fontSize font-body-fontFamily font-body-fontWeight ${
+          className={`components text-body-fontSize font-body-fontFamily font-body-fontWeight ${getTextColorClass(styles?.textColor) ?? ""} ${
             commaSeparated
               ? "flex flex-row flex-wrap list-none"
               : "list-disc list-inside"
           }`}
+          style={getTextColorStyle(styles?.textColor)}
         >
           {resolvedTextList.map((text, index) => (
             <li
@@ -99,6 +121,7 @@ export const TextList: YextComponentConfig<TextListProps> = {
       constantValue: [],
     },
     commaSeparated: false,
+    styles: {},
   },
   render: (props) => <TextListComponent {...props} />,
 };

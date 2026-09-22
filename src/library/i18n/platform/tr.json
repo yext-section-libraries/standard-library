@@ -195,6 +195,7 @@
     "key": "Anahtar",
     "keywordsDisplayName": "Anahtar Kelimeler Görünen Ad",
     "label": "Etiket",
+    "labelColor": "Etiket Rengi",
     "latitude": "Enlem",
     "limit": "Sınırlamak",
     "link": "Bağlantı",

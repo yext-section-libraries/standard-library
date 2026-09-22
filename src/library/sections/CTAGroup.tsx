@@ -1,4 +1,4 @@
-import { PuckComponent, setDeep } from "@puckeditor/core";
+import { createUsePuck, PuckComponent, setDeep } from "@puckeditor/core";
 import {
   ThemeColor,
   ThemeOptions,
@@ -19,6 +19,8 @@ import { CTAWrapperProps } from "./CTAWrapper.tsx";
 import {
   isNonNormalizableLinkType,
   getCTAType,
+  YextAutoField,
+  YextCustomFieldRenderProps,
 } from "@yext/visual-editor/section-library-support";
 
 type BasicCTAProps = {
@@ -31,6 +33,8 @@ type BasicCTAProps = {
   /** The image to use if the CTA is set to preset image */
   presetImage?: PresetImageType;
   color?: ThemeColor;
+  /** The text and icon color for the primary variant. */
+  textColor?: ThemeColor;
 };
 
 const defaultButton: BasicCTAProps = {
@@ -51,6 +55,47 @@ const defaultButton: BasicCTAProps = {
 export interface CTAGroupProps {
   buttons: BasicCTAProps[];
 }
+
+const usePuck = createUsePuck();
+
+const CTAGroupTextColorField = ({
+  name,
+  value,
+  onChange,
+  readOnly,
+}: YextCustomFieldRenderProps<ThemeColor | undefined>): JSX.Element | null => {
+  const button = usePuck((state) => {
+    const itemSelector = state.appState.ui.itemSelector;
+    const buttonIndex = /^buttons\[(\d+)\]\.textColor$/.exec(name)?.[1];
+    const buttons = itemSelector
+      ? state.getItemBySelector(itemSelector)?.props.buttons
+      : undefined;
+
+    return buttonIndex !== undefined && Array.isArray(buttons)
+      ? (buttons[Number(buttonIndex)] as BasicCTAProps)
+      : undefined;
+  });
+
+  if (
+    button?.variant !== "primary" ||
+    getCTAType(button.entityField).ctaType === "presetImage"
+  ) {
+    return null;
+  }
+
+  return (
+    <YextAutoField
+      field={{
+        type: "basicSelector",
+        label: msg("fields.textColor", "Text Color"),
+        options: "SITE_COLOR",
+      }}
+      value={value}
+      onChange={onChange}
+      readOnly={readOnly}
+    />
+  );
+};
 
 const ctaGroupFields: YextFields<CTAGroupProps> = {
   buttons: {
@@ -85,6 +130,13 @@ const ctaGroupFields: YextFields<CTAGroupProps> = {
         type: "basicSelector",
         label: msg("fields.color", "Color"),
         options: "SITE_COLOR",
+      },
+      textColor: {
+        type: "custom",
+        label: msg("fields.textColor", "Text Color"),
+        render: (props: YextCustomFieldRenderProps<ThemeColor | undefined>) => (
+          <CTAGroupTextColorField {...props} />
+        ),
       },
     },
     getItemSummary: (_: BasicCTAProps, i?: number) =>
@@ -147,6 +199,7 @@ const CTAGroupComponent: PuckComponent<CTAGroupProps> = ({ buttons }) => {
                 presetImageType={button.presetImage}
                 className="truncate w-full"
                 color={button.color}
+                textColor={button.textColor}
               />
             </div>
           )

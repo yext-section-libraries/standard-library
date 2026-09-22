@@ -195,6 +195,7 @@
     "key": "Klíč",
     "keywordsDisplayName": "Zobrazovaný název klíčových slov",
     "label": "Označení",
+    "labelColor": "Barva označení",
     "latitude": "Zeměpisná šířka",
     "limit": "Omezit",
     "link": "Odkaz",

@@ -14,9 +14,6 @@ import {
   useDocument,
   EntityField,
   YextEntityField,
-  CTA,
-  CTAVariant,
-  isCtaVariantWithColor,
   pt,
   msg,
   resolveComponentData,
@@ -26,8 +23,15 @@ import {
   resolveDataFromParent,
   YextComponentConfig,
   YextFields,
+  getTextColorClass,
+  getTextColorStyle,
 } from "@yext/visual-editor/section-library-support";
 import { SectionConfig } from "@yext/visual-editor";
+import {
+  CTA,
+  CTAVariant,
+  isCtaVariantWithColor,
+} from "../shared/sectionSupport/atoms/cta.tsx";
 
 /** Props for the Address component */
 export interface AddressProps {
@@ -56,6 +60,12 @@ export interface AddressProps {
     ctaVariant: CTAVariant;
 
     color?: ThemeColor;
+
+    /** The color of the address text. */
+    textColor?: ThemeColor;
+
+    /** The text and icon color for a primary get directions CTA. */
+    ctaTextColor?: ThemeColor;
   };
 
   /** @internal */
@@ -108,6 +118,16 @@ export const AddressStyleFields: YextFields<AddressProps["styles"]> = {
   color: {
     type: "basicSelector",
     label: msg("fields.linkColor", "Link Color"),
+    options: "SITE_COLOR",
+  },
+  textColor: {
+    type: "basicSelector",
+    label: msg("fields.textColor", "Text Color"),
+    options: "SITE_COLOR",
+  },
+  ctaTextColor: {
+    type: "basicSelector",
+    label: msg("fields.textColor", "Text Color"),
     options: "SITE_COLOR",
   },
 };
@@ -168,7 +188,10 @@ const AddressComponent: PuckComponent<AddressProps> = (props) => {
   );
 
   return showAddress ? (
-    <div className="flex flex-col gap-2 text-body-fontSize font-body-fontWeight font-body-fontFamily">
+    <div
+      className={`flex flex-col gap-2 text-body-fontSize font-body-fontWeight font-body-fontFamily ${getTextColorClass(styles.textColor) ?? ""}`}
+      style={getTextColorStyle(styles.textColor)}
+    >
       <EntityField
         displayName={parentData ? parentData.field : pt("address", "Address")}
         fieldId={data.address.field}
@@ -193,6 +216,7 @@ const AddressComponent: PuckComponent<AddressProps> = (props) => {
             target="_blank"
             variant={styles.ctaVariant}
             color={resolvedColor}
+            textColor={styles.ctaTextColor}
           />
         )}
     </div>
@@ -222,6 +246,11 @@ export const resolveAddressFields = (
     updatedFields,
     "styles.objectFields.color.visible",
     showGetDirectionsLink && showColor
+  );
+  updatedFields = setDeep(
+    updatedFields,
+    "styles.objectFields.ctaTextColor.visible",
+    showGetDirectionsLink && ctaVariant === "primary"
   );
 
   return updatedFields;
