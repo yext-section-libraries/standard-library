@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "id": "yext_standard-library",
-  "displayName": "Standard Library",
+  "id": "yext_standard-library-test",
+  "displayName": "Standard Library Test",
   "description": "The original Pages for Marketers sections.",
   "locales": [
     "cs",
