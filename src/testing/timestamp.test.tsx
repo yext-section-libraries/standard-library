@@ -1,8 +1,10 @@
 import { describe, it, expect } from "vitest";
 import {
+  TimestampAtom,
   timestampFormatter,
   TimestampOption,
 } from "../library/shared/sectionSupport/atoms/timestamp.tsx";
+import { render } from "@testing-library/react";
 
 describe("timestampFormatter", () => {
   it("formats DATE", () => {
@@ -98,5 +100,32 @@ describe("timestampFormatter", () => {
       hideTimeZone: true,
     });
     expect(result).toEqual("Jan 1, 2024 - Jan 2, 2024 | 8:00 AM - 8:00 AM");
+  });
+});
+
+describe("TimestampAtom", () => {
+  it("applies a palette text color", () => {
+    const { container } = render(
+      <TimestampAtom
+        date="2024-01-01T00:00:00"
+        textColor={{
+          selectedColor: "palette-primary",
+          contrastingColor: "palette-primary-contrast",
+        }}
+      />
+    );
+
+    expect(container.firstElementChild).toHaveClass("text-palette-primary");
+  });
+
+  it("applies a custom text color", () => {
+    const { container } = render(
+      <TimestampAtom
+        date="2024-01-01T00:00:00"
+        textColor={{ selectedColor: "[#7C3AED]", contrastingColor: "white" }}
+      />
+    );
+
+    expect(container.firstElementChild).toHaveStyle({ color: "#7C3AED" });
   });
 });

@@ -14,6 +14,10 @@ import { HoursStatusAtom } from "../../atoms/hoursStatus.tsx"; // TODO: this fil
 import { MaybeLink } from "../../atoms/maybeLink.tsx";
 import { PhoneAtom } from "../../atoms/phone.tsx";
 import { NearbyLocationCardsWrapperProps } from "./NearbyLocationsCardsWrapper.tsx";
+import {
+  getTextColorClass,
+  getTextColorStyle,
+} from "@yext/visual-editor/section-library-support";
 
 /** A single card for the Nearby Locations Section */
 type NearbyLocationCardProps = {
@@ -58,7 +62,8 @@ export const NearbyLocationCard: React.FC<NearbyLocationCardProps> = (
   return (
     <Background
       background={styles.backgroundColor}
-      className="flex flex-col flew-grow h-full rounded-lg overflow-hidden border p-6 sm:p-8"
+      className={`flex flex-col flew-grow h-full rounded-lg overflow-hidden border p-6 sm:p-8 ${getTextColorClass(styles.textColor) ?? ""}`}
+      style={getTextColorStyle(styles.textColor)}
       as="section"
     >
       <MaybeLink

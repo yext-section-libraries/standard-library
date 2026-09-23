@@ -195,6 +195,7 @@
     "key": "Cheie",
     "keywordsDisplayName": "Nume afișat pentru cuvinte cheie",
     "label": "Eticheta",
+    "labelColor": "Culoarea etichetei",
     "latitude": "Latitudine",
     "limit": "Limită",
     "link": "Legătură",

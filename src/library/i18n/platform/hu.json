@@ -195,6 +195,7 @@
     "key": "Kulcsfontosságú",
     "keywordsDisplayName": "Kulcsszavak Megjelenített név",
     "label": "Címke",
+    "labelColor": "Címke színe",
     "latitude": "Szélesség",
     "limit": "Határ",
     "link": "Link",

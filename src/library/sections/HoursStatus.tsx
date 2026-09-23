@@ -12,7 +12,12 @@ import {
   YextComponentConfig,
   YextFields,
   SectionConfig,
+  ThemeColor,
 } from "@yext/visual-editor";
+import {
+  getTextColorClass,
+  getTextColorStyle,
+} from "@yext/visual-editor/section-library-support";
 import { HoursStatusAtom } from "../shared/sectionSupport/atoms/hoursStatus.tsx";
 
 export interface HoursStatusProps {
@@ -34,6 +39,8 @@ export interface HoursStatusProps {
     className?: string;
     /** The body size variant */
     bodyVariant?: "lg" | "base" | "sm";
+    /** The color of the hours status text. */
+    textColor?: ThemeColor;
   };
 
   /** @internal */
@@ -95,6 +102,11 @@ export const hoursStatusWrapperFields: YextFields<HoursStatusProps> = {
           { label: msg("fields.options.long", "Long"), value: "long" },
         ],
       },
+      textColor: {
+        type: "basicSelector",
+        label: msg("fields.textColor", "Text Color"),
+        options: "SITE_COLOR",
+      },
     },
   },
 };
@@ -123,12 +135,13 @@ const HoursStatusWrapper: PuckComponent<HoursStatusProps> = ({
         hours={hours ?? {}}
         comingSoon={comingSoon}
         timezone={timezone}
-        className={styles.className}
+        className={`${styles.className ?? ""} ${getTextColorClass(styles.textColor) ?? ""}`}
         showCurrentStatus={styles.showCurrentStatus}
         showDayNames={styles.showDayNames}
         timeFormat={styles.timeFormat}
         dayOfWeekFormat={styles.dayOfWeekFormat}
         bodyVariant={styles.bodyVariant}
+        style={getTextColorStyle(styles.textColor)}
       />
     </EntityField>
   ) : puck.isEditing ? (

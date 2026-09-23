@@ -1,3 +1,9 @@
+import { ThemeColor } from "@yext/visual-editor";
+import {
+  getTextColorClass,
+  getTextColorStyle,
+} from "@yext/visual-editor/section-library-support";
+
 const format1: Intl.DateTimeFormatOptions = {
   month: "short",
   day: "numeric",
@@ -30,6 +36,7 @@ export type TimestampAtomProps = {
   locale?: string;
   dateFormatOverride?: Omit<Intl.DateTimeFormatOptions, "timeZone">;
   dateTimeFormatOverride?: Omit<Intl.DateTimeFormatOptions, "timeZone">;
+  textColor?: ThemeColor;
 };
 
 type TimestampFormatterPropsType = {
@@ -113,6 +120,7 @@ export const TimestampAtom = ({
   locale,
   dateFormatOverride,
   dateTimeFormatOverride,
+  textColor,
 }: TimestampAtomProps): JSX.Element => {
   let timestamp;
   try {
@@ -144,7 +152,10 @@ export const TimestampAtom = ({
   const formattedTimestamp = timestamp.replaceAll("\u202F", " ");
 
   return (
-    <div className="components font-body-fontFamily font-body-fontWeight text-body-fontSize inline-block">
+    <div
+      className={`components font-body-fontFamily font-body-fontWeight text-body-fontSize inline-block ${getTextColorClass(textColor) ?? ""}`}
+      style={getTextColorStyle(textColor)}
+    >
       {formattedTimestamp}
     </div>
   );
