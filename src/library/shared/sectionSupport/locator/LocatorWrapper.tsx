@@ -177,6 +177,7 @@ const LocatorInternal = ({
   const searchResults = useSearchState(
     (state) => (state.vertical.results || []) as Result<Location>[]
   );
+  // Manage browser forward/back button for location searches
   const [urlNavigationVersion, setUrlNavigationVersion] = React.useState(0);
   React.useEffect(() => {
     if (!ENABLE_LOCATION_QUERY_PARAM) {
