@@ -44,7 +44,6 @@ import {
   createSearchAnalyticsConfig,
   createSearchHeadlessConfig,
   getThemeColorCssValue,
-  getValueFromQueryString,
   DEFAULT_ENTITY_TYPE,
   LocatorEntityType,
   getLocatorEntityTypeSourceMap,
@@ -87,6 +86,9 @@ import {
 } from "./Results.tsx";
 
 export const INITIAL_LOCATION_KEY = "initialLocation";
+const LOCATION_QUERY_KEY = "q";
+// Keep URL syncing behind one switch until it has an editor setting.
+const ENABLE_LOCATION_QUERY_PARAM = true;
 
 export const LocatorWrapper = (props: WithPuckProps<LocatorProps>) => {
   const streamDocument = useDocument();
@@ -175,12 +177,16 @@ const LocatorInternal = ({
   const searchResults = useSearchState(
     (state) => (state.vertical.results || []) as Result<Location>[]
   );
-  const queryParamString =
-    typeof window === "undefined" ? "" : window.location.search;
-  const initialLocationParam = getValueFromQueryString(
-    INITIAL_LOCATION_KEY,
-    queryParamString
-  );
+  const [urlNavigationVersion, setUrlNavigationVersion] = React.useState(0);
+  React.useEffect(() => {
+    if (!ENABLE_LOCATION_QUERY_PARAM) {
+      return;
+    }
+    const handlePopState = () =>
+      setUrlNavigationVersion((version) => version + 1);
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
 
   const iframe =
     typeof document === "undefined"
@@ -234,6 +240,7 @@ const LocatorInternal = ({
   );
 
   const searchActions = useSearchActions();
+  const locationSearchVersion = React.useRef(0);
 
   const handleSearchAreaClick = () => {
     if (mapCenter && mapRadius) {
@@ -282,6 +289,7 @@ const LocatorInternal = ({
   );
 
   const handleFilterSelect = (params: OnSelectParams) => {
+    locationSearchVersion.current += 1;
     const newDisplayName = params.newDisplayName;
     const filter = params.newFilter;
 
@@ -317,6 +325,14 @@ const LocatorInternal = ({
     searchActions.setStaticFilters([locationFilter, openNowFilter]);
     searchActions.executeVerticalQuery();
     setSearchState("loading");
+    if (ENABLE_LOCATION_QUERY_PARAM) {
+      const nextUrl = new URL(window.location.href);
+      nextUrl.searchParams.set(LOCATION_QUERY_KEY, newDisplayName);
+      nextUrl.searchParams.delete(INITIAL_LOCATION_KEY);
+      if (nextUrl.href !== window.location.href) {
+        window.history.pushState(window.history.state, "", nextUrl);
+      }
+    }
     if (
       nearFilterValue?.lat &&
       nearFilterValue?.lng &&
@@ -517,6 +533,12 @@ const LocatorInternal = ({
 
   React.useEffect(() => {
     let isCancelled = false;
+    const activeLocationSearchVersion = locationSearchVersion.current;
+    const queryParams = new URLSearchParams(window.location.search);
+    const initialLocationParam =
+      ENABLE_LOCATION_QUERY_PARAM && queryParams.has(LOCATION_QUERY_KEY)
+        ? queryParams.get(LOCATION_QUERY_KEY)
+        : queryParams.get(INITIAL_LOCATION_KEY);
 
     const resolveLocationAndSearch = async () => {
       setIsInitialMapLocationResolved(false);
@@ -534,9 +556,19 @@ const LocatorInternal = ({
         radius
       );
       const doSearch = () => {
+        if (
+          isCancelled ||
+          locationSearchVersion.current !== activeLocationSearchVersion
+        ) {
+          return;
+        }
         searchActions.setVerticalLimit(RESULTS_LIMIT);
         searchActions.setOffset(0);
-        searchActions.setStaticFilters([initialLocationFilter]);
+        searchActions.setStaticFilters(
+          urlNavigationVersion === 0
+            ? [initialLocationFilter]
+            : [initialLocationFilter, openNowFilter]
+        );
         searchActions.executeVerticalQuery();
         setSearchState("loading");
         if (
@@ -613,7 +645,7 @@ const LocatorInternal = ({
           });
       };
 
-      // 1. Check if a location could be determined from the initialLocation query parameter
+      // 1. Resolve q, or the legacy initialLocation parameter when q is absent.
       if (
         initialLocationParam &&
         (await foundStartingLocationFromQueryParam(initialLocationParam))
@@ -622,9 +654,22 @@ const LocatorInternal = ({
         return;
       }
 
+      if (
+        isCancelled ||
+        locationSearchVersion.current !== activeLocationSearchVersion
+      ) {
+        return;
+      }
+
       try {
         // 2. Try to get user location via Geolocation API
         const location = await getUserLocation();
+        if (
+          isCancelled ||
+          locationSearchVersion.current !== activeLocationSearchVersion
+        ) {
+          return;
+        }
         const lat = location.coords.latitude;
         const lng = location.coords.longitude;
         setUserLocationRetrieved(true);
@@ -676,7 +721,7 @@ const LocatorInternal = ({
     return () => {
       isCancelled = true;
     };
-  }, [initialLocationParam, initialMapCenter, searchActions]);
+  }, [urlNavigationVersion, initialMapCenter, searchActions]);
 
   const handleOpenNowClick = (selected: boolean) => {
     if (selected === isOpenNowSelected) {

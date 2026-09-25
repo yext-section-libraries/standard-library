@@ -9,6 +9,7 @@ import {
 } from "./componentTests.setup.ts";
 import {
   act,
+  fireEvent,
   render as reactRender,
   screen,
   waitFor,
@@ -263,7 +264,7 @@ const createLocatorFilterSearchResponse = () => ({
             matchedSubstrings: [],
             filter: {
               "builtin.location": {
-                NEAR: {
+                $near: {
                   lat: 38.895546,
                   lng: -77.069915,
                   radius: 40233,
@@ -1331,6 +1332,80 @@ describe("Locator", async () => {
       },
     },
   };
+
+  it("loads q before initialLocation and syncs selected locations with history", async () => {
+    const originalUrl = window.location.href;
+    const fixture = tests[1];
+    const document = fixture.document;
+    const fetchMock = createLocatorFetchMock(document);
+    const startingUrl = new URL(originalUrl);
+    startingUrl.search = "?initialLocation=Boston&q=Arlington&ref=campaign";
+    window.history.replaceState(window.history.state, "", startingUrl);
+
+    try {
+      let data = migrate(
+        puckConfig,
+        {
+          root: { props: { version: fixture.version } },
+          content: [{ type: "Locator", props: fixture.props }],
+        },
+        document,
+        migrationRegistry
+      );
+      data = await resolveAllData(data, puckConfig, {
+        streamDocument: document,
+      });
+      vi.stubGlobal("fetch", fetchMock);
+
+      reactRender(
+        <VisualEditorProvider templateProps={{ document }}>
+          <Render config={puckConfig} data={data} />
+        </VisualEditorProvider>
+      );
+
+      const filterSearchCalls = () =>
+        fetchMock.mock.calls
+          .map(([input]) => String(input))
+          .filter((url) => url.includes("/search/filtersearch"));
+      await waitFor(() =>
+        expect(filterSearchCalls().length).toBeGreaterThan(0)
+      );
+      expect(decodeURIComponent(filterSearchCalls()[0])).toContain("Arlington");
+      expect(decodeURIComponent(filterSearchCalls()[0])).not.toContain(
+        "Boston"
+      );
+
+      const searchInput = screen.getByRole("combobox", {
+        name: "Find a Location",
+      });
+      await waitFor(() => expect(searchInput).toHaveValue("Arlington, VA"));
+      fireEvent.change(searchInput, { target: { value: "" } });
+      expect(new URL(window.location.href).searchParams.get("q")).toBe(
+        "Arlington"
+      );
+      fireEvent.change(searchInput, { target: { value: "Arlington" } });
+      const suggestion = await screen.findByRole("option", {
+        name: /Arlington, VA/,
+      });
+      await act(async () => suggestion.click());
+
+      const selectedUrl = new URL(window.location.href);
+      expect(selectedUrl.searchParams.get("q")).toBe("Arlington, VA");
+      expect(selectedUrl.searchParams.has("initialLocation")).toBe(false);
+      expect(selectedUrl.searchParams.get("ref")).toBe("campaign");
+
+      const callsBeforeBack = filterSearchCalls().length;
+      await act(async () => window.history.back());
+      await waitFor(() =>
+        expect(window.location.search).toBe(startingUrl.search)
+      );
+      await waitFor(() =>
+        expect(filterSearchCalls().length).toBeGreaterThan(callsBeforeBack)
+      );
+    } finally {
+      window.history.replaceState(window.history.state, "", originalUrl);
+    }
+  });
 
   it("provides accessible result card controls and icons", async () => {
     const fixtureResult = DEFAULT_LOCATOR_RESULTS[0];
