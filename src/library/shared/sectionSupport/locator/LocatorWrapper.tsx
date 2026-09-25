@@ -184,8 +184,11 @@ const LocatorInternal = ({
     }
     const handlePopState = () =>
       setUrlNavigationVersion((version) => version + 1);
-    window.addEventListener("popstate", handlePopState);
-    return () => window.removeEventListener("popstate", handlePopState);
+    const controller = new AbortController();
+    window.addEventListener("popstate", handlePopState, {
+      signal: controller.signal,
+    });
+    return () => controller.abort();
   }, []);
 
   const iframe =
@@ -240,7 +243,6 @@ const LocatorInternal = ({
   );
 
   const searchActions = useSearchActions();
-  const locationSearchVersion = React.useRef(0);
 
   const handleSearchAreaClick = () => {
     if (mapCenter && mapRadius) {
@@ -289,7 +291,6 @@ const LocatorInternal = ({
   );
 
   const handleFilterSelect = (params: OnSelectParams) => {
-    locationSearchVersion.current += 1;
     const newDisplayName = params.newDisplayName;
     const filter = params.newFilter;
 
@@ -533,7 +534,6 @@ const LocatorInternal = ({
 
   React.useEffect(() => {
     let isCancelled = false;
-    const activeLocationSearchVersion = locationSearchVersion.current;
     const queryParams = new URLSearchParams(window.location.search);
     const initialLocationParam =
       ENABLE_LOCATION_QUERY_PARAM && queryParams.has(LOCATION_QUERY_KEY)
@@ -556,10 +556,7 @@ const LocatorInternal = ({
         radius
       );
       const doSearch = () => {
-        if (
-          isCancelled ||
-          locationSearchVersion.current !== activeLocationSearchVersion
-        ) {
+        if (isCancelled) {
           return;
         }
         searchActions.setVerticalLimit(RESULTS_LIMIT);
@@ -645,7 +642,8 @@ const LocatorInternal = ({
           });
       };
 
-      // 1. Resolve q, or the legacy initialLocation parameter when q is absent.
+      // 1. Resolve the q or initialLocation parameter
+      //    q always takes precedence over initialLocation
       if (
         initialLocationParam &&
         (await foundStartingLocationFromQueryParam(initialLocationParam))
@@ -654,20 +652,14 @@ const LocatorInternal = ({
         return;
       }
 
-      if (
-        isCancelled ||
-        locationSearchVersion.current !== activeLocationSearchVersion
-      ) {
+      if (isCancelled) {
         return;
       }
 
       try {
         // 2. Try to get user location via Geolocation API
         const location = await getUserLocation();
-        if (
-          isCancelled ||
-          locationSearchVersion.current !== activeLocationSearchVersion
-        ) {
+        if (isCancelled) {
           return;
         }
         const lat = location.coords.latitude;
