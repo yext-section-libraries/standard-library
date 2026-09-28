@@ -1,4 +1,5 @@
 import type { Config } from "@puckeditor/core";
+import { FormSection } from "./FormSection.tsx";
 import { HeadingText as SharedComponent0 } from "../sections/HeadingText";
 import { BreadcrumbsSection as SharedComponent1 } from "../sections/BreadcrumbsSection";
 import { DirectoryGrid as SharedComponent2 } from "./sectionSupport/directory/DirectoryWrapper";
@@ -49,6 +50,7 @@ import {
 
 /** Hidden internal Puck components referenced in slots. */
 export const sharedComponentMetadata = [
+  { id: "FormSection", pageSetTypes: ["ENTITY"] },
   { id: "HeadingTextSlot", pageSetTypes: ["ENTITY", "DIRECTORY"] },
   { id: "BreadcrumbsSlot", pageSetTypes: ["DIRECTORY"] },
   { id: "DirectoryGrid", pageSetTypes: ["DIRECTORY"] },
@@ -116,6 +118,7 @@ export const sharedComponentConfigs: Record<
   string,
   Config["components"][string]
 > = {
+  FormSection,
   HeadingTextSlot: SharedComponent0,
   BreadcrumbsSlot: SharedComponent1,
   DirectoryGrid: SharedComponent2,
