@@ -207,6 +207,8 @@ const LocatorInternal = ({
   );
   // Manage browser forward/back button for location searches
   const [urlNavigationVersion, setUrlNavigationVersion] = React.useState(0);
+  const [showCurrentLocationButton, setShowCurrentLocationButton] =
+    React.useState(false);
   React.useEffect(() => {
     const handlePopState = () =>
       setUrlNavigationVersion((version) => version + 1);
@@ -216,6 +218,11 @@ const LocatorInternal = ({
     });
     return () => controller.abort();
   }, []);
+  React.useEffect(() => {
+    if (new URLSearchParams(window.location.search).has(LOCATION_QUERY_KEY)) {
+      setShowCurrentLocationButton(true);
+    }
+  }, [urlNavigationVersion]);
 
   const iframe =
     typeof document === "undefined"
@@ -300,6 +307,7 @@ const LocatorInternal = ({
           mapRadius
         )
       );
+      setShowCurrentLocationButton(true);
     }
   };
 
@@ -324,6 +332,7 @@ const LocatorInternal = ({
     searchActions.executeVerticalQuery();
     setSearchState("loading");
     updateLocationQuery(formatCoordinateQuery(latitude, longitude, radius));
+    setShowCurrentLocationButton(true);
   };
 
   const selectedFacets: string[] = React.useMemo(
@@ -384,6 +393,7 @@ const LocatorInternal = ({
     searchActions.executeVerticalQuery();
     setSearchState("loading");
     updateLocationQuery(newDisplayName);
+    setShowCurrentLocationButton(true);
     if (
       nearFilterValue?.lat &&
       nearFilterValue?.lng &&
@@ -515,9 +525,6 @@ const LocatorInternal = ({
       selectedResultIndex,
     ]
   );
-
-  const [userLocationRetrieved, setUserLocationRetrieved] =
-    React.useState<boolean>(false);
 
   const locationStylesConfig = React.useMemo(() => {
     const config: LocationStyleConfig = {};
@@ -726,7 +733,7 @@ const LocatorInternal = ({
         }
         const lat = location.coords.latitude;
         const lng = location.coords.longitude;
-        setUserLocationRetrieved(true);
+        setShowCurrentLocationButton(true);
 
         // Try to reverse-geocode the coordinates to a human-readable place name using Mapbox
         let displayName: string | undefined;
@@ -978,7 +985,7 @@ const LocatorInternal = ({
                 label:
                   "font-body-fontFamily font-body-fontWeight text-body-fontSize text-palette-primary-dark",
               }}
-              showCurrentLocationButton={userLocationRetrieved}
+              showCurrentLocationButton={showCurrentLocationButton}
               geolocationProps={{
                 handleClick: handleCurrentLocationClick,
                 radius:
