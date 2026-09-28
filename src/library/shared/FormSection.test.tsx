@@ -18,9 +18,9 @@ import {
 } from "@testing-library/react";
 import { FormSection, FormSectionProps } from "./FormSection.tsx";
 import {
-  FormSection as EditorFormSection,
-  config as formSectionConfig,
-} from "../sections/FormSection.tsx";
+  sharedComponentConfigs,
+  sharedComponentMetadata,
+} from "./componentRegistry.ts";
 import {
   backgroundColors,
   VisualEditorProvider,
@@ -1122,8 +1122,11 @@ describe("FormSection", () => {
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
   });
 
-  it("when the editor lists entity sections, then FormSection is available", () => {
-    expect(formSectionConfig.pageSetTypes).toContain("ENTITY");
-    expect(EditorFormSection).toBe(FormSection);
+  it("when a saved entity layout uses FormSection, then its hidden config is available", () => {
+    expect(sharedComponentMetadata).toContainEqual({
+      id: "FormSection",
+      pageSetTypes: ["ENTITY"],
+    });
+    expect(sharedComponentConfigs.FormSection).toBe(FormSection);
   });
 });
