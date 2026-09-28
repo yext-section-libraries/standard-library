@@ -9,6 +9,34 @@ const isVitest = Boolean(process.env.VITEST);
 /** Used to load the combined translations in tests */
 const sectionLibraryI18nModule = "virtual:section-library-i18n";
 
+/**
+ * A custom plugin to stub out CSS/SCSS imports during Vitest runs,
+ * except for componentTests.css and style.css. This ensures that
+ * the css applied during tests is the same css applied the page templates.
+ */
+const cssStubPlugin = {
+  name: "css-stub",
+  enforce: "pre",
+  resolveId(id) {
+    if (
+      (id.endsWith(".css") || id.endsWith(".scss")) &&
+      !id.endsWith("componentTests.css") &&
+      !id.endsWith("style.css")
+    ) {
+      return id;
+    }
+  },
+  load(id) {
+    if (
+      (id.endsWith(".css") || id.endsWith(".scss")) &&
+      !id.endsWith("componentTests.css") &&
+      !id.endsWith("style.css")
+    ) {
+      return "export default {}";
+    }
+  },
+};
+
 export default defineConfig({
   define: {
     __VISUAL_EDITOR_TEST__: JSON.stringify(isVitest),
@@ -60,31 +88,3 @@ export default defineConfig({
     },
   },
 });
-
-/**
- * A custom plugin to stub out CSS/SCSS imports during Vitest runs,
- * except for componentTests.css and style.css. This ensures that
- * the css applied during tests is the same css applied the page templates.
- */
-const cssStubPlugin = {
-  name: "css-stub",
-  enforce: "pre",
-  resolveId(id) {
-    if (
-      (id.endsWith(".css") || id.endsWith(".scss")) &&
-      !id.endsWith("componentTests.css") &&
-      !id.endsWith("style.css")
-    ) {
-      return id;
-    }
-  },
-  load(id) {
-    if (
-      (id.endsWith(".css") || id.endsWith(".scss")) &&
-      !id.endsWith("componentTests.css") &&
-      !id.endsWith("style.css")
-    ) {
-      return "export default {}";
-    }
-  },
-};
