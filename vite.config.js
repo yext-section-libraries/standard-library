@@ -9,7 +9,7 @@ const isVitest = Boolean(process.env.VITEST);
 /** Used to load the combined translations in tests */
 const sectionLibraryI18nModule = "virtual:section-library-i18n";
 
-export default defineConfig(() => ({
+export default defineConfig({
   define: {
     __VISUAL_EDITOR_TEST__: JSON.stringify(isVitest),
   },
@@ -59,7 +59,7 @@ export default defineConfig(() => ({
       },
     },
   },
-}));
+});
 
 /**
  * A custom plugin to stub out CSS/SCSS imports during Vitest runs,
