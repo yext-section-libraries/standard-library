@@ -180,12 +180,14 @@ export const MapboxStaticMapComponent: PuckComponent<MapboxStaticProps> = ({
           />
         </picture>
         {/* Mapbox requires attribution when using their static maps, https://docs.mapbox.com/help/dive-deeper/attribution/#static--print */}
+        {/* i18next-instrument-ignore: Mapbox and OpenStreetMap are proper names. */}
         <span className="absolute bottom-0 right-0 bg-gray-400/50 text-[8px] text-black">
           © <a href="https://www.mapbox.com/about/maps">Mapbox</a>©{" "}
           <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>
         </span>
         <span className="absolute bottom-0 left-0">
           <a href="https://www.mapbox.com/">
+            {/* i18next-instrument-ignore: Mapbox is the logo's proper name. */}
             <img
               loading="lazy"
               src={mapboxLogo}
