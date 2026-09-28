@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "yext_standard-library",
-  "displayName": "Standard Library",
-  "description": "The original Pages for Marketers sections.",
+  "id": "blife-standard-library",
+  "displayName": "Ben's Test Standard Library",
+  "description": "A copy of the standard library with some changes.",
   "locales": [
     "cs",
     "da",
