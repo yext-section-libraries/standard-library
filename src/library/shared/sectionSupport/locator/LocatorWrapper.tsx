@@ -87,8 +87,6 @@ import {
 
 export const INITIAL_LOCATION_KEY = "initialLocation";
 const LOCATION_QUERY_KEY = "q";
-// Keep URL syncing behind one switch until it has an editor setting.
-const ENABLE_LOCATION_QUERY_PARAM = true;
 
 export const LocatorWrapper = (props: WithPuckProps<LocatorProps>) => {
   const streamDocument = useDocument();
@@ -180,9 +178,6 @@ const LocatorInternal = ({
   // Manage browser forward/back button for location searches
   const [urlNavigationVersion, setUrlNavigationVersion] = React.useState(0);
   React.useEffect(() => {
-    if (!ENABLE_LOCATION_QUERY_PARAM) {
-      return;
-    }
     const handlePopState = () =>
       setUrlNavigationVersion((version) => version + 1);
     const controller = new AbortController();
@@ -327,13 +322,11 @@ const LocatorInternal = ({
     searchActions.setStaticFilters([locationFilter, openNowFilter]);
     searchActions.executeVerticalQuery();
     setSearchState("loading");
-    if (ENABLE_LOCATION_QUERY_PARAM) {
-      const nextUrl = new URL(window.location.href);
-      nextUrl.searchParams.set(LOCATION_QUERY_KEY, newDisplayName);
-      nextUrl.searchParams.delete(INITIAL_LOCATION_KEY);
-      if (nextUrl.href !== window.location.href) {
-        window.history.pushState(window.history.state, "", nextUrl);
-      }
+    const nextUrl = new URL(window.location.href);
+    nextUrl.searchParams.set(LOCATION_QUERY_KEY, newDisplayName);
+    nextUrl.searchParams.delete(INITIAL_LOCATION_KEY);
+    if (nextUrl.href !== window.location.href) {
+      window.history.pushState(window.history.state, "", nextUrl);
     }
     if (
       nearFilterValue?.lat &&
@@ -536,10 +529,9 @@ const LocatorInternal = ({
   React.useEffect(() => {
     let isCancelled = false;
     const queryParams = new URLSearchParams(window.location.search);
-    const initialLocationParam =
-      ENABLE_LOCATION_QUERY_PARAM && queryParams.has(LOCATION_QUERY_KEY)
-        ? queryParams.get(LOCATION_QUERY_KEY)
-        : queryParams.get(INITIAL_LOCATION_KEY);
+    const initialLocationParam = queryParams.has(LOCATION_QUERY_KEY)
+      ? queryParams.get(LOCATION_QUERY_KEY)
+      : queryParams.get(INITIAL_LOCATION_KEY);
 
     const resolveLocationAndSearch = async () => {
       setIsInitialMapLocationResolved(false);
