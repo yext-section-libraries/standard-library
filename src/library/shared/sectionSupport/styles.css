@@ -6,7 +6,7 @@
 
 /* Keep locator announcements available to screen readers. */
 .ve-locator-filter-search .sr-only {
-  display: block; 
+  display: block;
   position: absolute;
   width: 1px;
   height: 1px;
