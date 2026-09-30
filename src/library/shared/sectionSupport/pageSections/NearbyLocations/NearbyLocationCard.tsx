@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { PuckContext } from "@puckeditor/core";
 import { Address } from "@yext/pages-components";
 import { Background } from "../../atoms/background.tsx";
@@ -8,6 +9,7 @@ import {
   useTemplateProps,
   mergeMeta,
   resolveUrlTemplate,
+  resolveComponentData,
   type NearbyLocationDoc,
 } from "@yext/visual-editor";
 import { HoursStatusAtom } from "../../atoms/hoursStatus.tsx"; // TODO: this file is different in v-e compared to the directory file
@@ -23,6 +25,8 @@ import {
 type NearbyLocationCardProps = {
   /** The location data to display in the card */
   locationData?: NearbyLocationDoc;
+  /** The title binding shared by cards in the section. */
+  title?: NearbyLocationCardsWrapperProps["data"]["title"];
 
   /** @internal Shared styles for the card (controlled by the parent) */
   styles: NearbyLocationCardsWrapperProps["styles"];
@@ -40,7 +44,9 @@ type NearbyLocationCardProps = {
 export const NearbyLocationCard: React.FC<NearbyLocationCardProps> = (
   props
 ) => {
-  const { locationData, styles, cardNumber, sectionHeadingLevel } = props;
+  const { locationData, title, styles, cardNumber, sectionHeadingLevel } =
+    props;
+  const { i18n } = useTranslation();
 
   if (!locationData) {
     return <></>;
@@ -48,6 +54,13 @@ export const NearbyLocationCard: React.FC<NearbyLocationCardProps> = (
 
   const { name, hours, comingSoon, address, timezone, mainPhone } =
     locationData;
+  const resolvedTitle = resolveComponentData(
+    title ?? { field: "name", constantValue: { defaultValue: "" } },
+    i18n.language,
+    locationData,
+    { output: "plainText" }
+  );
+  const cardTitle = resolvedTitle.trim() ? resolvedTitle : name;
 
   const { document: streamDocument, relativePrefixToRoot } = useTemplateProps();
 
@@ -83,7 +96,7 @@ export const NearbyLocationCard: React.FC<NearbyLocationCardProps> = (
               : undefined
           }
         >
-          {name}
+          {cardTitle}
         </Heading>
       </MaybeLink>
       {styles.showHours && (hours || comingSoon) && (

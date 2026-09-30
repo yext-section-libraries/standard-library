@@ -17,6 +17,8 @@ import {
   YextFields,
   useNearbyLocations,
   type NearbyLocationDoc,
+  type TranslatableString,
+  type YextEntityField,
 } from "@yext/visual-editor";
 import { Body } from "../../atoms/body.tsx";
 import {
@@ -35,6 +37,9 @@ import { updateFields } from "../../../utils/updateFields.ts";
 export type NearbyLocationCardsWrapperProps = {
   /** The search parameters for finding nearby locations. */
   data: {
+    /** The Content Endpoint field to use for each card title. Defaults to name. */
+    title?: YextEntityField<TranslatableString>;
+
     /**
      * The search radius in miles.
      * @defaultValue 10
@@ -131,6 +136,11 @@ const nearbyLocationCardsWrapperFields: YextFields<NearbyLocationCardsWrapperPro
       type: "object",
       label: msg("fields.data", "Data"),
       objectFields: {
+        title: {
+          type: "entityField",
+          label: msg("fields.name", "Name"),
+          filter: { types: ["type.string"] },
+        },
         radius: {
           type: "number",
           label: msg("fields.radiusMiles", "Radius (Miles)"),
@@ -356,6 +366,7 @@ const NearbyLocationCardsWrapperComponent: PuckComponent<
                 <NearbyLocationCard
                   key={index}
                   cardNumber={index}
+                  title={data.title}
                   styles={styles}
                   locationData={location}
                   puck={puck}
@@ -372,6 +383,11 @@ const NearbyLocationCardsWrapperComponent: PuckComponent<
 export const defaultNearbyLocationsCardsProps: NearbyLocationCardsWrapperProps =
   {
     data: {
+      title: {
+        field: "name",
+        constantValue: { defaultValue: "" },
+        constantValueEnabled: false,
+      },
       radius: 10,
       limit: 3,
     },
