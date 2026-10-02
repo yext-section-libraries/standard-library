@@ -1,3 +1,4 @@
+import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { setDeep } from "@puckeditor/core";
 import "@yext/pages-components/style.css";
 import {
@@ -65,6 +66,7 @@ const GetDirectionsComponent = ({
 };
 
 export const GetDirections: YextComponentConfig<GetDirectionsProps> = {
+  ...gridAtomPermissions,
   label: msg("components.getDirections", "Get Directions"),
   fields: getDirectionsFields,
   defaultProps: {

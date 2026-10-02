@@ -1,3 +1,4 @@
+import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import {
   ComponentData,
@@ -257,6 +258,7 @@ export const resolveAddressFields = (
 };
 
 export const Address: YextComponentConfig<AddressProps> = {
+  ...gridAtomPermissions,
   label: msg("components.address", "Address"),
   fields: addressFields,
   defaultProps: {

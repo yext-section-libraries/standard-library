@@ -1,3 +1,4 @@
+import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
 import { FaRegEnvelope } from "react-icons/fa";
@@ -166,6 +167,7 @@ const EmailsComponent: PuckComponent<EmailsProps> = (props) => {
 };
 
 export const Emails: YextComponentConfig<EmailsProps> = {
+  ...gridAtomPermissions,
   label: msg("components.emails", "Emails"),
   fields: EmailsFields,
   resolveFields: (data) => {

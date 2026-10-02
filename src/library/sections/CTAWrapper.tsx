@@ -1,3 +1,4 @@
+import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import {
   CTA,
@@ -311,6 +312,7 @@ const CTAWrapperComponent: PuckComponent<CTAWrapperProps> = (props) => {
 };
 
 export const CTAWrapper: YextComponentConfig<CTAWrapperProps> = {
+  ...gridAtomPermissions,
   label: msg("components.callToAction", "Call to Action"),
   fields: ctaWrapperFields,
   defaultProps: {

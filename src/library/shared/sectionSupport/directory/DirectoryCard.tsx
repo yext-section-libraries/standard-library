@@ -420,18 +420,18 @@ const DirectoryCardComponent: PuckComponent<DirectoryCardProps> = (props) => {
             href={resolvedUrl}
             disabled={puck.isEditing}
           >
-            <slots.HeadingSlot style={{ height: "auto" }} />
+            <slots.HeadingSlot style={{ height: "auto" }} allow={[]} />
           </MaybeLink>
         </div>
         {data.showHoursStatus && resolvedChild?.hours && (
-          <slots.HoursSlot style={{ height: "auto" }} />
+          <slots.HoursSlot style={{ height: "auto" }} allow={[]} />
         )}
         {data.showPhoneNumber && resolvedChild?.mainPhone && (
-          <slots.PhoneSlot style={{ height: "auto" }} />
+          <slots.PhoneSlot style={{ height: "auto" }} allow={[]} />
         )}
         {data.showAddress && resolvedChild?.address && (
           <div className="font-body-fontFamily font-body-fontWeight text-body-fontSize">
-            <slots.AddressSlot style={{ height: "auto" }} />
+            <slots.AddressSlot style={{ height: "auto" }} allow={[]} />
           </div>
         )}
       </TemplatePropsContext.Provider>
@@ -460,10 +460,10 @@ const directoryCardFields: YextFields<DirectoryCardProps> = {
   slots: {
     type: "object",
     objectFields: {
-      HeadingSlot: { type: "slot" },
-      AddressSlot: { type: "slot" },
-      PhoneSlot: { type: "slot" },
-      HoursSlot: { type: "slot" },
+      HeadingSlot: { type: "slot", allow: [] },
+      AddressSlot: { type: "slot", allow: [] },
+      PhoneSlot: { type: "slot", allow: [] },
+      HoursSlot: { type: "slot", allow: [] },
     },
     visible: false,
   },

@@ -1,3 +1,4 @@
+import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
 import {
@@ -133,6 +134,7 @@ const headingTextFields: YextFields<HeadingTextProps> = {
 };
 
 export const HeadingText: YextComponentConfig<HeadingTextProps> = {
+  ...gridAtomPermissions,
   label: msg("components.headingText", "Heading Text"),
   fields: headingTextFields,
   resolveFields: (data) => resolveDataFromParent(headingTextFields, data),

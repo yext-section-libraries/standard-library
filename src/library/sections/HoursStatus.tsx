@@ -1,3 +1,4 @@
+import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
 import { HoursType } from "@yext/pages-components";
@@ -152,6 +153,7 @@ const HoursStatusWrapper: PuckComponent<HoursStatusProps> = ({
 };
 
 export const HoursStatus: YextComponentConfig<HoursStatusProps> = {
+  ...gridAtomPermissions,
   label: msg("components.hoursStatus", "Hours Status"),
   fields: hoursStatusWrapperFields,
   defaultProps: {

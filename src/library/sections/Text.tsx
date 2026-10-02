@@ -1,3 +1,4 @@
+import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
 import { Body, BodyProps } from "../shared/sectionSupport/atoms/body.tsx";
@@ -134,6 +135,7 @@ const TextComponent: PuckComponent<TextProps> = (props) => {
 };
 
 export const Text: YextComponentConfig<TextProps> = {
+  ...gridAtomPermissions,
   label: msg("components.text", "Text"),
   fields: textFields,
   resolveFields: (data) => resolveDataFromParent(textFields, data),

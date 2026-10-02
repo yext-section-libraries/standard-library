@@ -1,3 +1,4 @@
+import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { createUsePuck, PuckComponent, setDeep } from "@puckeditor/core";
 import {
   ThemeColor,
@@ -210,6 +211,7 @@ const CTAGroupComponent: PuckComponent<CTAGroupProps> = ({ buttons }) => {
 };
 
 export const CTAGroup: YextComponentConfig<CTAGroupProps> = {
+  ...gridAtomPermissions,
   label: msg("components.ctaGroup", "CTA Group"),
   fields: ctaGroupFields,
   resolveFields: (data) => {

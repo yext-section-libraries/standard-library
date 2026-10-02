@@ -1,3 +1,4 @@
+import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
 import { DayOfWeekNames, HoursType } from "@yext/pages-components";
@@ -164,6 +165,7 @@ const VisualEditorHoursTable: PuckComponent<HoursTableProps> = (props) => {
 };
 
 export const HoursTable: YextComponentConfig<HoursTableProps> = {
+  ...gridAtomPermissions,
   fields: hoursTableFields,
   defaultProps: {
     data: {

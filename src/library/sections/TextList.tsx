@@ -1,3 +1,4 @@
+import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
 import {
@@ -113,6 +114,7 @@ const TextListComponent: PuckComponent<TextListProps> = ({
 };
 
 export const TextList: YextComponentConfig<TextListProps> = {
+  ...gridAtomPermissions,
   label: msg("components.textList", "Text List"),
   fields: textListFields,
   defaultProps: {

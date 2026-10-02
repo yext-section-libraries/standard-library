@@ -1,3 +1,4 @@
+import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import { ComplexImageType, ImageType } from "@yext/pages-components";
 import {
@@ -248,6 +249,7 @@ export const imageDefaultProps = {
 };
 
 export const ImageWrapper: YextComponentConfig<ImageWrapperProps> = {
+  ...gridAtomPermissions,
   label: msg("components.image", "Image"),
   inline: true,
   fields: ImageWrapperFields,

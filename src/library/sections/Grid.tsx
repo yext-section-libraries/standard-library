@@ -20,7 +20,7 @@ import {
 } from "../shared/sectionSupport/Layout.tsx";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 
-const gridAllowedComponents = [
+export const gridAllowedComponents = [
   "Address",
   "BodyText",
   "CTAGroup",
@@ -213,7 +213,7 @@ export const Grid: YextComponentConfig<GridProps> = {
 };
 
 export const config: SectionConfig = {
-  id: "gridSection",
+  id: "Grid",
   displayName: "Grid Section",
   description: "Renders a grid for other Core Information atoms.",
   pageSetTypes: ["ENTITY"],
