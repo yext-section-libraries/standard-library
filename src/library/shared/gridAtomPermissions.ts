@@ -7,7 +7,7 @@ type PermissionContext = Pick<
 
 /** Grid atoms are movable and removable only while they belong to a Grid. */
 export const gridAtomPermissions = {
-  permissions: { drag: false, delete: false },
+  permissions: { drag: false, delete: false, duplicate: false },
   resolvePermissions: (
     _data: unknown,
     { parent, permissions }: PermissionContext
