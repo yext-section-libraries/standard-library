@@ -234,6 +234,7 @@ const BannerComponent: PuckComponent<BannerSectionProps> = ({
         fieldId={data.text.field}
         constantValueEnabled={data.text.constantValueEnabled}
       >
+        <p>Edit for Ben's Section Library</p>
         {resolvedText}
       </EntityField>
     </PageSection>
