@@ -194,10 +194,7 @@ const footerExpandedLinkSectionSlotFields: YextFields<FooterExpandedLinkSectionS
 
 export const FooterExpandedLinkSectionSlot: YextComponentConfig<FooterExpandedLinkSectionSlotProps> =
   {
-    label: msg(
-      "components.footerExpandedLinkSectionSlot",
-      "Expanded Link Section"
-    ),
+    label: msg("components.footerExpandedLinkSlot", "Expanded Link"),
     fields: footerExpandedLinkSectionSlotFields,
     resolveFields: (data) =>
       setDeep(

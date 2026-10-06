@@ -1144,7 +1144,7 @@ const formSectionFields: YextFields<FormSectionProps> = {
 
 /** Configure the Form editor fields, defaults, and live section. */
 export const FormSection: YextComponentConfig<FormSectionProps> = {
-  label: msg("components.form", "Form Section"),
+  label: msg("components.form", "Form"),
   fields: formSectionFields,
   // Puck uses one array field map for all rows, so this hides Options only
   // when no row needs it.

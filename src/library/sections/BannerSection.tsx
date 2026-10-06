@@ -257,7 +257,7 @@ export const defaultBannerProps: BannerSectionProps = {
 };
 
 export const BannerSection: YextComponentConfig<BannerSectionProps> = {
-  label: msg("components.bannerSection", "Banner Section"),
+  label: msg("components.banner", "Banner"),
   fields: bannerSectionFields,
   defaultProps: defaultBannerProps,
   render: (props) => (
@@ -278,7 +278,7 @@ export const BannerSection: YextComponentConfig<BannerSectionProps> = {
 
 export const config: SectionConfig = {
   id: "BannerSection",
-  displayName: "Banner Section",
+  displayName: "Banner",
   description:
     "Displays a single, translatable line of rich text. It's designed to be used as a simple, full-width banner on a page.",
   pageSetTypes: ["ENTITY", "DIRECTORY", "LOCATOR"],

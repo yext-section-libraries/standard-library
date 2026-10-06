@@ -112,7 +112,7 @@ const teamSectionFields: YextFields<TeamSectionProps> = {
 };
 
 export const TeamSection: YextComponentConfig<TeamSectionProps> = {
-  label: msg("components.teamSection", "Team Section"),
+  label: msg("components.team", "Team"),
   fields: teamSectionFields,
   defaultProps: {
     styles: {
@@ -214,7 +214,7 @@ export const TeamSection: YextComponentConfig<TeamSectionProps> = {
 
 export const config: SectionConfig = {
   id: "TeamSection",
-  displayName: "Team Section",
+  displayName: "Team",
   description:
     "Designed to showcase a list of people, such as employees, executives, or other team members. It features a main section heading and renders each person's information—typically a photo, name, and title—as an individual card.",
   pageSetTypes: ["ENTITY"],

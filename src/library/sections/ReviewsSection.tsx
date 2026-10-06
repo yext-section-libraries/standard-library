@@ -600,7 +600,7 @@ const ShowMoreButton: React.FC<{
 
 export const ReviewsSection: YextComponentConfig<ReviewsSectionProps> = {
   fields: reviewsFields,
-  label: msg("components.reviewsSection", "Reviews Section"),
+  label: msg("components.reviews", "Reviews"),
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background1.value,
@@ -676,7 +676,7 @@ export const ReviewsSection: YextComponentConfig<ReviewsSectionProps> = {
 
 export const config: SectionConfig = {
   id: "ReviewsSection",
-  displayName: "Reviews Section",
+  displayName: "Reviews",
   description:
     "Displays customer reviews fetched dynamically from the Yext Reviews API. It features a customizable section heading and shows review details including ratings, content, and timestamps.",
   pageSetTypes: ["ENTITY"],

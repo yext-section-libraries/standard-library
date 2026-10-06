@@ -470,10 +470,7 @@ const professionalHeroSectionFields: YextFields<ProfessionalHeroSectionProps> =
 
 export const ProfessionalHeroSection: YextComponentConfig<ProfessionalHeroSectionProps> =
   {
-    label: msg(
-      "components.professionalHeroSection",
-      "Professional Hero Section"
-    ),
+    label: msg("components.professionalHero", "Professional Hero"),
     fields: professionalHeroSectionFields,
     defaultProps: {
       styles: {
@@ -785,7 +782,7 @@ export const ProfessionalHeroSection: YextComponentConfig<ProfessionalHeroSectio
 
 export const config: SectionConfig = {
   id: "ProfessionalHeroSection",
-  displayName: "Professional Hero Section",
+  displayName: "Professional Hero",
   description:
     "Displays the core details for a professional (financial advisor, healthcare provider, etc.) including name, headshot, title, credentials, and contact info.",
   pageSetTypes: ["ENTITY"],

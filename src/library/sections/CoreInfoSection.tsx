@@ -145,11 +145,11 @@ const CoreInfoSectionWrapper: PuckComponent<CoreInfoSectionProps> = (props) => {
     <PageSection
       className={`grid w-full gap-8 ${gridColsClass}`}
       background={styles?.backgroundColor}
-      aria-label={t("coreInfoSection", "Core Info Section")}
+      aria-label={t("coreInfo", "Core Info")}
     >
       {showCoreInfoCol && (
         <section
-          aria-label={t("informationSection", "Information Section")}
+          aria-label={t("information", "Information")}
           className="flex flex-col gap-4"
         >
           <slots.CoreInfoHeadingSlot style={{ height: "auto" }} allow={[]} />
@@ -163,7 +163,7 @@ const CoreInfoSectionWrapper: PuckComponent<CoreInfoSectionProps> = (props) => {
       )}
       {showHoursCol && (
         <section
-          aria-label={t("hoursSection", "Hours Section")}
+          aria-label={t("hours", "Hours")}
           className="flex flex-col gap-4"
         >
           <slots.HoursHeadingSlot style={{ height: "auto" }} allow={[]} />
@@ -172,7 +172,7 @@ const CoreInfoSectionWrapper: PuckComponent<CoreInfoSectionProps> = (props) => {
       )}
       {showServicesCol && (
         <section
-          aria-label={t("servicesSection", "Services Section")}
+          aria-label={t("services", "Services")}
           className="flex flex-col gap-4"
         >
           <slots.ServicesHeadingSlot style={{ height: "auto" }} allow={[]} />
@@ -184,7 +184,7 @@ const CoreInfoSectionWrapper: PuckComponent<CoreInfoSectionProps> = (props) => {
 };
 
 export const CoreInfoSection: YextComponentConfig<CoreInfoSectionProps> = {
-  label: msg("components.coreInfoSection", "Core Info Section"),
+  label: msg("components.coreInfo", "Core Info"),
   fields: coreInfoSectionFields,
   defaultProps: {
     styles: {
@@ -430,7 +430,7 @@ export const CoreInfoSection: YextComponentConfig<CoreInfoSectionProps> = {
 
 export const config: SectionConfig = {
   id: "CoreInfoSection",
-  displayName: "Core Info Section",
+  displayName: "Core Info",
   description:
     "A comprehensive section designed to display essential business information in a clear, multi-column layout. It typically includes contact details (address, phone, email), hours of operation, and a list of services, with extensive options for customization.",
   pageSetTypes: ["ENTITY"],

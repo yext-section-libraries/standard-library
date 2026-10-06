@@ -175,7 +175,7 @@ const NearbyLocationsComponent: PuckComponent<NearbyLocationsSectionProps> = (
 
 export const NearbyLocationsSection: YextComponentConfig<NearbyLocationsSectionProps> =
   {
-    label: msg("components.nearbyLocationsSection", "Nearby Locations Section"),
+    label: msg("components.nearbyLocations", "Nearby Locations"),
     fields: nearbyLocationsSectionFields,
     defaultProps: {
       styles: {
@@ -244,7 +244,7 @@ export const NearbyLocationsSection: YextComponentConfig<NearbyLocationsSectionP
 
 export const config: SectionConfig = {
   id: "NearbyLocationsSection",
-  displayName: "Nearby Locations Section",
+  displayName: "Nearby Locations",
   description:
     "Dynamically finds and displays a list of business locations within a specified radius of a central point. It's a powerful tool for helping users discover other relevant locations, rendering each result as a detailed card with contact information and business hours.",
   pageSetTypes: ["ENTITY"],

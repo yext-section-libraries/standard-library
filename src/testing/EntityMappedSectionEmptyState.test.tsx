@@ -76,7 +76,7 @@ type DirectSectionCase = {
 
 const directSectionCases: DirectSectionCase[] = [
   {
-    sectionName: "FAQ Section",
+    sectionName: "FAQs",
     sectionConfig: FAQSection,
     createMappedProps: () => {
       const props = cloneValue(FAQSection.defaultProps!);
@@ -125,7 +125,7 @@ const directSectionCases: DirectSectionCase[] = [
     visibleContentText: "FAQ Cards",
   },
   {
-    sectionName: "Photo Gallery Section",
+    sectionName: "Photo Gallery",
     sectionConfig: PhotoGallerySection,
     createMappedProps: () => {
       const props = cloneValue(PhotoGallerySection.defaultProps!);
@@ -315,7 +315,7 @@ type WrapperCase = {
 
 const wrapperCases: WrapperCase[] = [
   {
-    sectionName: "Testimonial Section",
+    sectionName: "Testimonials",
     sectionConfig: TestimonialSection,
     wrapperName: "Testimonial Cards Wrapper",
     wrapperConfig: TestimonialCardsWrapper,
@@ -334,7 +334,7 @@ const wrapperCases: WrapperCase[] = [
     },
   },
   {
-    sectionName: "Product Section",
+    sectionName: "Products",
     sectionConfig: ProductSection,
     wrapperName: "Product Cards Wrapper",
     wrapperConfig: ProductCardsWrapper,
@@ -347,7 +347,7 @@ const wrapperCases: WrapperCase[] = [
     },
   },
   {
-    sectionName: "Team Section",
+    sectionName: "Team",
     sectionConfig: TeamSection,
     wrapperName: "Team Cards Wrapper",
     wrapperConfig: TeamCardsWrapper,
@@ -360,7 +360,7 @@ const wrapperCases: WrapperCase[] = [
     },
   },
   {
-    sectionName: "Event Section",
+    sectionName: "Events",
     sectionConfig: EventSection,
     wrapperName: "Event Cards Wrapper",
     wrapperConfig: EventCardsWrapper,
@@ -373,7 +373,7 @@ const wrapperCases: WrapperCase[] = [
     },
   },
   {
-    sectionName: "Insight Section",
+    sectionName: "Insights",
     sectionConfig: InsightSection,
     wrapperName: "Insight Cards Wrapper",
     wrapperConfig: InsightCardsWrapper,

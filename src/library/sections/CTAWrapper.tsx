@@ -423,7 +423,7 @@ export const CTAWrapper: YextComponentConfig<CTAWrapperProps> = {
 
 export const config: SectionConfig = {
   id: "CTAWrapper",
-  displayName: "Call To Action",
+  displayName: "Call to Action",
   description: "Displays a single call to action.",
   pageSetTypes: ["ENTITY"],
   category: "Core Information",

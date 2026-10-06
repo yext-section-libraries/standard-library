@@ -137,7 +137,7 @@ const PhotoGallerySectionComponent: PuckComponent<PhotoGallerySectionProps> = ({
 
   return (
     <PageSection
-      aria-label={t("photoGallerySection", "Photo Gallery Section")}
+      aria-label={t("photoGallery", "Photo Gallery")}
       background={styles.backgroundColor}
       className="flex flex-col gap-8"
     >
@@ -151,7 +151,7 @@ const PhotoGallerySectionComponent: PuckComponent<PhotoGallerySectionProps> = ({
 
 export const PhotoGallerySection: YextComponentConfig<PhotoGallerySectionProps> =
   {
-    label: msg("components.photoGallerySection", "Photo Gallery Section"),
+    label: msg("components.photoGallery", "Photo Gallery"),
     fields: photoGallerySectionFields,
     defaultProps: {
       styles: {
@@ -272,7 +272,7 @@ export const PhotoGallerySection: YextComponentConfig<PhotoGallerySectionProps> 
 
 export const config: SectionConfig = {
   id: "PhotoGallerySection",
-  displayName: "Photo Gallery Section",
+  displayName: "Photo Gallery",
   description:
     "Displays a collection of images in a visually appealing format. It consists of a main heading for the section and a flexible grid of images, with options for styling the image presentation.",
   pageSetTypes: ["ENTITY"],

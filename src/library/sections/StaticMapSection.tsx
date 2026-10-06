@@ -90,7 +90,7 @@ const StaticMapSectionWrapper: PuckComponent<StaticMapSectionProps> = ({
 };
 
 export const StaticMapSection: YextComponentConfig<StaticMapSectionProps> = {
-  label: msg("components.staticMapSection", "Static Map Section"),
+  label: msg("components.staticMap", "Static Map"),
   fields: staticMapSectionFields,
   defaultProps: {
     liveVisibility: true,
@@ -116,7 +116,7 @@ export const StaticMapSection: YextComponentConfig<StaticMapSectionProps> = {
 
 export const config: SectionConfig = {
   id: "StaticMapSection",
-  displayName: "Static Map Section",
+  displayName: "Static Map",
   description:
     "Displays a non-interactive map image of a business's location. It uses the entity's address or coordinates to generate the map.",
   pageSetTypes: ["ENTITY"],
