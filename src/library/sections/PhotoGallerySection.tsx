@@ -1,44 +1,31 @@
-import { useTranslation } from "react-i18next";
-import { PuckComponent, setDeep, Slot } from "@puckeditor/core";
-import "pure-react-carousel/dist/react-carousel.es.css";
 import {
+  type SectionConfig,
   backgroundColors,
   ThemeColor,
   ThemeOptions,
   msg,
-  AssetImageType,
-  resolveComponentData,
   YextComponentConfig,
   YextFields,
-  SectionConfig,
 } from "@yext/visual-editor";
+import { useTranslation } from "react-i18next";
+import { PuckComponent, setDeep, Slot } from "@puckeditor/core";
+import "pure-react-carousel/dist/react-carousel.es.css";
+
 import { PageSection } from "../shared/sectionSupport/atoms/pageSection.tsx";
 import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
+
 import { HeadingTextProps } from "./HeadingText.tsx";
 import { PhotoGalleryWrapperProps } from "../shared/sectionSupport/pageSections/PhotoGallerySection/PhotoGalleryWrapper.tsx";
-import {
-  ComponentErrorBoundary,
-  getRandomPlaceholderImageObject,
-} from "@yext/visual-editor/section-library-support";
+import { photoGallerySource } from "../shared/sectionSupport/pageSections/PhotoGallerySection/photoGallerySource.ts";
+import { ComponentErrorBoundary } from "@yext/visual-editor/section-library-support";
 import {
   isMappedEntityFieldSelected,
   MappedEntityFieldConditionalRender,
   withMappedEntityFieldConditionalRender,
 } from "../shared/sectionSupport/pageSections/entityFieldSectionUtils.ts";
-import {
-  getPhotoGalleryImageData,
-  PhotoGalleryImageValue,
-} from "../shared/sectionSupport/pageSections/PhotoGallerySection/photoGalleryUtils.ts";
+import { getPhotoGalleryImageData } from "../shared/sectionSupport/pageSections/PhotoGallerySection/photoGalleryUtils.ts";
 
-// Generate 3 random placeholder images for the gallery
-export const PLACEHOLDER: AssetImageType = {
-  ...getRandomPlaceholderImageObject({ width: 1000, height: 570 }),
-  width: 1000,
-  height: 570,
-  assetImage: {
-    name: "Placeholder",
-  },
-};
+import { useMappedEntitySectionEmptyState } from "../shared/sectionSupport/pageSections/useMappedEntitySectionEmptyState.ts";
 
 export interface PhotoGalleryStyles {
   /**
@@ -132,11 +119,28 @@ const photoGallerySectionFields: YextFields<PhotoGallerySectionProps> = {
 const PhotoGallerySectionComponent: PuckComponent<PhotoGallerySectionProps> = ({
   styles,
   slots,
+  conditionalRender,
+  puck,
 }) => {
   const { t } = useTranslation();
+  const { setWrapperRef, isMappedContentEmpty } =
+    useMappedEntitySectionEmptyState({
+      enabled: true,
+      initialIsMappedContentEmpty: conditionalRender?.isMappedContentEmpty,
+    });
+
+  // Keep the gallery mounted so field changes can update the section's visibility.
+  if (isMappedContentEmpty && !puck.isEditing) {
+    return (
+      <div ref={setWrapperRef} className="hidden" aria-hidden="true">
+        <slots.PhotoGalleryWrapper style={{ height: "auto" }} allow={[]} />
+      </div>
+    );
+  }
 
   return (
     <PageSection
+      ref={setWrapperRef}
       aria-label={t("photoGallerySection", "Photo Gallery Section")}
       background={styles.backgroundColor}
       className="flex flex-col gap-8"
@@ -149,6 +153,10 @@ const PhotoGallerySectionComponent: PuckComponent<PhotoGallerySectionProps> = ({
   );
 };
 
+/**
+ * Shows images with an optional heading. Uses a grid or a carousel.
+ * Available on Location templates.
+ */
 export const PhotoGallerySection: YextComponentConfig<PhotoGallerySectionProps> =
   {
     label: msg("components.photoGallerySection", "Photo Gallery Section"),
@@ -182,17 +190,7 @@ export const PhotoGallerySection: YextComponentConfig<PhotoGallerySectionProps> 
           {
             type: "PhotoGalleryWrapper",
             props: {
-              data: {
-                images: {
-                  field: "",
-                  constantValue: [
-                    { assetImage: PLACEHOLDER },
-                    { assetImage: PLACEHOLDER },
-                    { assetImage: PLACEHOLDER },
-                  ],
-                  constantValueEnabled: true,
-                },
-              },
+              data: { images: photoGallerySource.defaultValue },
               styles: {
                 image: {
                   aspectRatio: 1.78,
@@ -228,20 +226,21 @@ export const PhotoGallerySection: YextComponentConfig<PhotoGallerySectionProps> 
         PhotoGalleryWrapperProps | undefined;
       const streamDocument = params.metadata.streamDocument;
       const locale = streamDocument?.locale ?? "en";
-      const resolvedImages = photoGalleryWrapperProps?.data?.images
-        ? (resolveComponentData(
-            photoGalleryWrapperProps.data.images as any,
-            locale,
-            streamDocument
-          ) as unknown as PhotoGalleryImageValue[] | undefined)
-        : undefined;
+      const resolvedItems = photoGalleryWrapperProps?.data?.images
+        ? photoGallerySource.resolveItems(
+            photoGalleryWrapperProps.data.images,
+            { ...streamDocument, locale }
+          )
+        : [];
       const { hasRenderableImages } = getPhotoGalleryImageData({
-        resolvedImages,
+        resolvedItems,
         locale,
         streamDocument,
         aspectRatio: photoGalleryWrapperProps?.styles?.image?.aspectRatio,
         width: photoGalleryWrapperProps?.styles?.image?.width,
         isEditing: false,
+        hasExplicitLinkMapping:
+          !!photoGalleryWrapperProps?.data?.images?.mappings?.link?.field,
       });
 
       return withMappedEntityFieldConditionalRender(
@@ -259,12 +258,7 @@ export const PhotoGallerySection: YextComponentConfig<PhotoGallerySectionProps> 
           liveVisibility={props.liveVisibility}
           isEditing={props.puck.isEditing}
         >
-          {props.conditionalRender?.isMappedContentEmpty &&
-          !props.puck.isEditing ? (
-            <></>
-          ) : (
-            <PhotoGallerySectionComponent {...props} />
-          )}
+          <PhotoGallerySectionComponent {...props} />
         </VisibilityWrapper>
       </ComponentErrorBoundary>
     ),

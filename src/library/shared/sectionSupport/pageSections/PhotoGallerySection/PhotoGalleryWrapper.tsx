@@ -1,4 +1,3 @@
-import { ComplexImageType, ImageType } from "@yext/pages-components";
 import {
   ImageStylingFields,
   ImageStylingProps,
@@ -8,24 +7,23 @@ import {
   themeManagerCn,
   useBackground,
   useDocument,
-  YextEntityField,
   msg,
   pt,
-  resolveComponentData,
-  AssetImageType,
+  getThemeColorCssValue,
   ImageFillType,
-  TranslatableAssetImage,
   ThemeColor,
   toPuckFields,
   YextComponentConfig,
   YextFields,
-  getThemeColorCssValue,
 } from "@yext/visual-editor";
 import { Image } from "../../atoms/image.tsx";
+import { CTA } from "../../atoms/cta.tsx";
+
 import { PuckComponent } from "@puckeditor/core";
-import { PLACEHOLDER } from "../../../../sections/PhotoGallerySection.tsx";
+import { photoGallerySource } from "./photoGallerySource.ts";
 import React, { cloneElement } from "react";
 import { useTranslation } from "react-i18next";
+
 import {
   CarouselProvider,
   Slider,
@@ -38,13 +36,16 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { ImagePlus } from "lucide-react";
 import { EditorButton as Button } from "@yext/visual-editor/section-library-support";
+import { updateFields } from "../../../utils/updateFields.ts";
 import { isMappedEntityFieldSelected } from "../entityFieldSectionUtils.ts";
-import { renderMappedEntityFieldEmptyState } from "../EntityFieldSectionEmptyState.tsx";
+import {
+  EntityFieldSectionEmptyStateBox,
+  renderMappedEntityFieldEmptyState,
+} from "../EntityFieldSectionEmptyState.tsx";
 import {
   getPhotoGalleryImageData,
   ResolvedGalleryImage,
 } from "./photoGalleryUtils.ts";
-import { updateFields } from "../../../utils/updateFields.ts";
 
 export interface PhotoGalleryWrapperProps {
   data: {
@@ -52,11 +53,7 @@ export interface PhotoGalleryWrapperProps {
      * The source of the image data, which can be linked to a Yext field or provided as a constant.
      * @defaultValue A list of 3 placeholder images.
      */
-    images: YextEntityField<
-      | ImageType[]
-      | ComplexImageType[]
-      | { assetImage: AssetImageType | TranslatableAssetImage }[]
-    >;
+    images: typeof photoGallerySource.value;
   };
   styles: {
     /** Styling options for the gallery images, such as aspect ratio. */
@@ -90,14 +87,7 @@ const photoGalleryWrapperFields: YextFields<PhotoGalleryWrapperProps> = {
     type: "object",
     label: msg("fields.data", "Data"),
     objectFields: {
-      images: {
-        type: "entityField",
-        label: msg("fields.images", "Images"),
-        filter: {
-          types: ["type.image"],
-          includeListsOnly: true,
-        },
-      },
+      images: photoGallerySource.field,
     },
   },
   styles: {
@@ -244,16 +234,33 @@ const DesktopImageItem = ({
       aspectRatio={imageData.aspectRatio}
       width={imageData.width}
       className={themeManagerCn(
-        "rounded-image-borderRadius",
-        constrainToParent && "w-full h-auto object-contain max-w-full"
+        "rounded-image-borderRadius max-w-full",
+        constrainToParent && "w-full h-auto object-contain"
       )}
       sizes={sizes}
       imageFillType={imageFillType}
     />
   );
 
+  const linkedImage =
+    imageData.href && !isEditing ? (
+      <CTA
+        link={imageData.href}
+        linkType={imageData.linkType}
+        ariaLabel={imageData.ariaLabel}
+        normalizeLink={false}
+        variant="link"
+        label={imageElement}
+        className="block max-w-full"
+        alwaysHideCaret
+        eventName="photoGalleryImage"
+      />
+    ) : (
+      imageElement
+    );
+
   if (!constrainToParent) {
-    return imageElement;
+    return linkedImage;
   }
 
   return (
@@ -261,7 +268,7 @@ const DesktopImageItem = ({
       className="w-full max-w-full"
       style={{ maxWidth: `${imageData.width}px` }}
     >
-      {imageElement}
+      {linkedImage}
     </div>
   );
 };
@@ -279,6 +286,16 @@ const MobileImageItem = ({
     return <EmptyImage imageData={imageData} />;
   }
 
+  const imageElement = (
+    <Image
+      image={imageData.image}
+      aspectRatio={imageData.aspectRatio}
+      className="w-full h-auto object-contain"
+      sizes="100vw"
+      imageFillType={imageFillType}
+    />
+  );
+
   return (
     <div
       className="w-full max-w-full overflow-hidden"
@@ -287,13 +304,21 @@ const MobileImageItem = ({
         width: "100%",
       }}
     >
-      <Image
-        image={imageData.image}
-        aspectRatio={imageData.aspectRatio}
-        className="w-full h-auto object-contain"
-        sizes={`100vw`}
-        imageFillType={imageFillType}
-      />
+      {imageData.href && !isEditing ? (
+        <CTA
+          link={imageData.href}
+          linkType={imageData.linkType}
+          ariaLabel={imageData.ariaLabel}
+          normalizeLink={false}
+          variant="link"
+          label={imageElement}
+          className="block w-full"
+          alwaysHideCaret
+          eventName="photoGalleryImage"
+        />
+      ) : (
+        imageElement
+      )}
     </div>
   );
 };
@@ -484,17 +509,7 @@ export const PhotoGalleryWrapper: YextComponentConfig<PhotoGalleryWrapperProps> 
     label: msg("components.gallery", "Gallery"),
     fields: photoGalleryWrapperFields,
     defaultProps: {
-      data: {
-        images: {
-          field: "",
-          constantValue: [
-            { assetImage: PLACEHOLDER },
-            { assetImage: PLACEHOLDER },
-            { assetImage: PLACEHOLDER },
-          ],
-          constantValueEnabled: true,
-        },
-      },
+      data: { images: photoGallerySource.defaultValue },
       styles: {
         image: {
           aspectRatio: 1.78,
@@ -534,21 +549,22 @@ const PhotoGalleryWrapperComponent: PuckComponent<PhotoGalleryWrapperProps> = ({
     styles.carouselImageCount
   );
 
-  const resolvedImages = resolveComponentData(
-    data.images,
+  const resolvedItems = photoGallerySource.resolveItems(data.images, {
+    ...streamDocument,
     locale,
-    streamDocument
-  );
+  });
   const { galleryImages, hasRenderableImages } = getPhotoGalleryImageData({
-    resolvedImages,
+    resolvedItems,
     locale,
     streamDocument,
     aspectRatio: styles.image?.aspectRatio,
     width: styles.image?.width,
     isEditing: Boolean(puck?.isEditing),
+    hasExplicitLinkMapping: !!data.images.mappings?.link?.field,
   });
 
-  const hasAnyImages = isMappedEntityFieldSelected(data.images)
+  const isMapped = isMappedEntityFieldSelected(data.images);
+  const hasAnyImages = isMapped
     ? hasRenderableImages
     : galleryImages.length > 0;
   const imageWidth = styles.image?.width || 1000;
@@ -612,10 +628,10 @@ const PhotoGalleryWrapperComponent: PuckComponent<PhotoGalleryWrapperProps> = ({
           </CarouselProvider>
         )
       ) : puck?.isEditing ? (
-        renderMappedEntityFieldEmptyState(true)
-      ) : (
+        <EntityFieldSectionEmptyStateBox showEmptyStateMarker={isMapped} />
+      ) : isMapped ? (
         renderMappedEntityFieldEmptyState(false)
-      )}
+      ) : null}
     </div>
   );
 };
