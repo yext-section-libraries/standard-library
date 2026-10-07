@@ -78,7 +78,7 @@ const VideoSectionComponent: PuckComponent<VideoSectionProps> = (props) => {
 };
 
 export const VideoSection: YextComponentConfig<VideoSectionProps> = {
-  label: msg("components.videoSection", "Video Section"),
+  label: msg("components.video", "Video"),
   fields: videoSectionFields,
   defaultProps: {
     styles: {
@@ -130,7 +130,7 @@ export const VideoSection: YextComponentConfig<VideoSectionProps> = {
 
 export const config: SectionConfig = {
   id: "VideoSection",
-  displayName: "Video Section",
+  displayName: "Video",
   description: "Displays an embedded YouTube video.",
   pageSetTypes: ["ENTITY"],
   category: "Page Sections",

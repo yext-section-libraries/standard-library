@@ -111,7 +111,7 @@ const insightSectionFields: YextFields<InsightSectionProps> = {
 };
 
 export const InsightSection: YextComponentConfig<InsightSectionProps> = {
-  label: msg("components.insightsSection", "Insights Section"),
+  label: msg("components.insights", "Insights"),
   fields: insightSectionFields,
   defaultProps: {
     styles: {
@@ -220,7 +220,7 @@ export const InsightSection: YextComponentConfig<InsightSectionProps> = {
 
 export const config: SectionConfig = {
   id: "InsightSection",
-  displayName: "Insight Section",
+  displayName: "Insights",
   description:
     "Displays a curated list of content such as articles, blog posts, or other informational blurbs. It features a main section heading and renders each insight as a distinct card, making it an effective way to showcase valuable content.",
   pageSetTypes: ["ENTITY"],

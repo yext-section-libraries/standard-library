@@ -312,7 +312,7 @@ const promoSectionFields: YextFields<PromoSectionProps> = {
 };
 
 export const PromoSection: YextComponentConfig<PromoSectionProps> = {
-  label: msg("components.promoSection", "Promo Section"),
+  label: msg("components.promo", "Promo"),
   fields: promoSectionFields,
   defaultProps: {
     data: {
@@ -683,7 +683,7 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
 
 export const config: SectionConfig = {
   id: "PromoSection",
-  displayName: "Promo Section",
+  displayName: "Promo",
   description:
     "A flexible content component designed to highlight a single, specific promotion. It combines an image with a title, description, and a call-to-action button in a customizable, split-column layout, making it perfect for drawing attention to special offers or announcements.",
   pageSetTypes: ["ENTITY"],

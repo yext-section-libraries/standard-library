@@ -113,7 +113,7 @@ const testimonialSectionFields: YextFields<TestimonialSectionProps> = {
 
 export const TestimonialSection: YextComponentConfig<TestimonialSectionProps> =
   {
-    label: msg("components.testimonialsSection", "Testimonials Section"),
+    label: msg("components.testimonials", "Testimonials"),
     fields: testimonialSectionFields,
     defaultProps: {
       styles: {
@@ -212,7 +212,7 @@ export const TestimonialSection: YextComponentConfig<TestimonialSectionProps> =
 
 export const config: SectionConfig = {
   id: "TestimonialSection",
-  displayName: "Testimonial Section",
+  displayName: "Testimonials",
   description:
     "Display a list of customer testimonials or reviews. It features a main section heading and renders each testimonial as an individual card, providing social proof and building trust with visitors.",
   pageSetTypes: ["ENTITY"],

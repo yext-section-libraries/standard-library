@@ -528,7 +528,7 @@ const AboutSectionDetailsColumnComponent: PuckComponent<
 
 export const AboutSectionDetailsColumn: YextComponentConfig<AboutSectionDetailsColumnProps> =
   {
-    label: msg("components.aboutSectionDetailsColumn", "Details Column"),
+    label: msg("components.aboutDetailsColumn", "Details Column"),
     fields: aboutSectionDetailsColumnFields,
     defaultProps: {
       sections: [],

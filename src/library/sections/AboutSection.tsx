@@ -195,7 +195,7 @@ const AboutComponent: PuckComponent<AboutSectionProps> = (props) => {
 };
 
 export const AboutSection: YextComponentConfig<AboutSectionProps> = {
-  label: msg("components.aboutSection", "About Section"),
+  label: msg("components.about", "About"),
   fields: aboutSectionFields,
   defaultProps: {
     styles: {
@@ -330,7 +330,7 @@ export const AboutSection: YextComponentConfig<AboutSectionProps> = {
 
 export const config: SectionConfig = {
   id: "AboutSection",
-  displayName: "About Section",
+  displayName: "About",
   description: "Supports a long paragraph of text and a modular sidebar.",
   pageSetTypes: ["ENTITY"],
   category: "Page Sections",

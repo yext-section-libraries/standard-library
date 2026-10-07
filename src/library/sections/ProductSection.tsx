@@ -132,7 +132,7 @@ const productSectionFields: YextFields<ProductSectionProps> = {
 };
 
 export const ProductSection: YextComponentConfig<ProductSectionProps> = {
-  label: msg("components.productsSection", "Products Section"),
+  label: msg("components.products", "Products"),
   fields: productSectionFields,
   defaultProps: {
     styles: {
@@ -273,7 +273,7 @@ export const ProductSection: YextComponentConfig<ProductSectionProps> = {
 
 export const config: SectionConfig = {
   id: "ProductSection",
-  displayName: "Product Section",
+  displayName: "Products",
   description:
     "Displays a curated list of products in a dedicated section. It features a main heading and renders each product as an individual card, making it ideal for showcasing featured items, new arrivals, or bestsellers.",
   pageSetTypes: ["ENTITY"],

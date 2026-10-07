@@ -389,7 +389,7 @@ const heroSectionFields: YextFields<HeroSectionProps> = {
 };
 
 export const HeroSection: YextComponentConfig<HeroSectionProps> = {
-  label: msg("components.heroSection", "Hero Section"),
+  label: msg("components.hero", "Hero"),
   fields: heroSectionFields,
   defaultProps: {
     data: {
@@ -763,7 +763,7 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
 
 export const config: SectionConfig = {
   id: "HeroSection",
-  displayName: "Hero Section",
+  displayName: "Hero",
   description:
     "Above-the-fold content displaying a title and subtitle for the page, along with an image and additional business details.",
   pageSetTypes: ["ENTITY"],

@@ -111,7 +111,7 @@ const eventSectionFields: YextFields<EventSectionProps> = {
 };
 
 export const EventSection: YextComponentConfig<EventSectionProps> = {
-  label: msg("components.eventsSection", "Events Section"),
+  label: msg("components.events", "Events"),
   fields: eventSectionFields,
   defaultProps: {
     styles: {
@@ -212,7 +212,7 @@ export const EventSection: YextComponentConfig<EventSectionProps> = {
 
 export const config: SectionConfig = {
   id: "EventSection",
-  displayName: "Event Section",
+  displayName: "Events",
   description:
     "Display a curated list of events. It features a prominent section heading and renders each event as an individual card, making it ideal for showcasing upcoming activities, workshops, or promotions.",
   pageSetTypes: ["ENTITY"],
