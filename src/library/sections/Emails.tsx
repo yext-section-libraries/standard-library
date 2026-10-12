@@ -1,3 +1,4 @@
+import { emailsSchema } from "../shared/formalProps/coreInfo.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
@@ -201,6 +202,7 @@ export const Emails: YextComponentConfig<EmailsProps> = {
 };
 
 export const config: SectionConfig = {
+  formalProps: emailsSchema,
   id: "Emails",
   displayName: "Emails",
   description: "Displays a list of emails.",

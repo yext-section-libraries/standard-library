@@ -1,3 +1,4 @@
+import { heroSectionSchema } from "../shared/formalProps/hero.ts";
 import { setDeep, Slot } from "@puckeditor/core";
 import {
   AnalyticsScopeProvider,
@@ -576,8 +577,16 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
     liveVisibility: true,
   },
   resolveData: (data, params) => {
-    data = setDeep(
-      data,
+    // An empty serialized slot must stay empty when parent props are resolved.
+    const updateSlot = (path: string, value: unknown) => {
+      const slotName = path
+        .split(".")[2]
+        .split("[")[0] as keyof HeroSectionProps["slots"];
+      if (data.props.slots[slotName]?.[0]) {
+        data = setDeep(data, path, value);
+      }
+    };
+    updateSlot(
       "props.slots.ImageSlot[0].props.variant",
       data.props.styles.variant
     );
@@ -596,30 +605,26 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
       }
     };
 
-    data = setDeep(
-      data,
+    updateSlot(
       "props.slots.PrimaryCTASlot[0].props.parentStyles.classNameFn",
       ctaClassNameFn
     );
 
-    data = setDeep(
-      data,
+    updateSlot(
       "props.slots.SecondaryCTASlot[0].props.parentStyles.classNameFn",
       ctaClassNameFn
     );
 
     const geomodifierLevel =
       data.props.slots.GeomodifierSlot[0]?.props.styles.level;
-    data = setDeep(
-      data,
+    updateSlot(
       "props.slots.BusinessNameSlot[0].props.styles.semanticLevelOverride",
       geomodifierLevel < 6 ? ((geomodifierLevel + 1) as HeadingLevel) : "span"
     );
 
     switch (data.props.styles.variant) {
       case "compact":
-        data = setDeep(
-          data,
+        updateSlot(
           "props.slots.ImageSlot[0].props.className",
           themeManagerCn(
             "w-full h-full",
@@ -630,8 +635,7 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
         );
         break;
       case "classic":
-        data = setDeep(
-          data,
+        updateSlot(
           "props.slots.ImageSlot[0].props.className",
           "mx-auto max-w-full md:max-w-[350px] lg:max-w-[calc(min(calc(100vw-1.5rem),var(--maxWidth-pageSection-contentWidth))-350px)] rounded-image-borderRadius"
         );
@@ -762,6 +766,7 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
 };
 
 export const config: SectionConfig = {
+  formalProps: heroSectionSchema,
   id: "HeroSection",
   displayName: "Hero",
   description:

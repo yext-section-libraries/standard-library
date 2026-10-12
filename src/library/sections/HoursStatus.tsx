@@ -1,3 +1,4 @@
+import { hoursStatusSchema } from "../shared/formalProps/hero.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
@@ -177,6 +178,7 @@ export const HoursStatus: YextComponentConfig<HoursStatusProps> = {
 };
 
 export const config: SectionConfig = {
+  formalProps: hoursStatusSchema,
   id: "hoursStatus",
   displayName: "Hours Status",
   description: "Displays the current status of the business.",

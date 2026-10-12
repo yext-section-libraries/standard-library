@@ -1,3 +1,4 @@
+import { headingTextSchema } from "../shared/formalProps/hero.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
@@ -155,6 +156,7 @@ export const HeadingText: YextComponentConfig<HeadingTextProps> = {
 };
 
 export const config: SectionConfig = {
+  formalProps: headingTextSchema,
   id: "HeadingText",
   displayName: "Heading Text",
   description: "Renders heading plain text.",
