@@ -1,3 +1,4 @@
+import { addressSchema } from "../shared/formalProps/coreInfo.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import {
@@ -287,6 +288,7 @@ export const Address: YextComponentConfig<AddressProps> = {
 };
 
 export const config: SectionConfig = {
+  formalProps: addressSchema,
   id: "Address",
   displayName: "Address",
   description: "Displays an entity's address.",

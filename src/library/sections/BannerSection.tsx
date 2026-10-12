@@ -1,5 +1,10 @@
 import { useTranslation } from "react-i18next";
 import * as React from "react";
+import { z } from "zod";
+import {
+  backgroundColorSchema,
+  siteColorSchema,
+} from "../shared/formalProps/colors.ts";
 import "@yext/visual-editor/style.css";
 import {
   YextEntityField,
@@ -39,7 +44,7 @@ export interface BannerData {
 export interface BannerStyles {
   /**
    * The background color of the section.
-   * @defaultValue Background Color 6
+   * @defaultValue Background Color 1
    */
   backgroundColor?: ThemeColor;
 
@@ -249,7 +254,7 @@ export const defaultBannerProps: BannerSectionProps = {
     },
   },
   styles: {
-    backgroundColor: backgroundColors.background6.value,
+    backgroundColor: backgroundColors.background1.value,
     textAlignment: "center",
   },
   liveVisibility: true,
@@ -276,6 +281,36 @@ export const BannerSection: YextComponentConfig<BannerSectionProps> = {
   ),
 };
 
+const bannerSectionSchema = z.object({
+  data: z.object({
+    text: z.object({
+      field: z
+        .string()
+        .describe("Use this to render entity knowledge graph data"),
+      constantValue: z.object({
+        defaultValue: z
+          .string()
+          .describe(
+            "Use this to render static text. Embedded fields supported via [[]] syntax."
+          ),
+      }),
+      constantValueEnabled: z
+        .boolean()
+        .describe(
+          "When true constantValue is rendered, when false field is rendered."
+        ),
+    }),
+  }),
+  styles: z.object({
+    backgroundColor: backgroundColorSchema,
+    textColor: siteColorSchema
+      .optional()
+      .describe("Only use when specifically requested by the user"),
+    textAlignment: z.enum(["left", "right", "center"]),
+  }),
+  liveVisibility: z.boolean(),
+}) satisfies z.ZodType<BannerSectionProps>;
+
 export const config: SectionConfig = {
   id: "BannerSection",
   displayName: "Banner",
@@ -283,4 +318,5 @@ export const config: SectionConfig = {
     "Displays a single, translatable line of rich text. It's designed to be used as a simple, full-width banner on a page.",
   pageSetTypes: ["ENTITY", "DIRECTORY", "LOCATOR"],
   category: "Page Sections",
+  formalProps: bannerSectionSchema,
 };

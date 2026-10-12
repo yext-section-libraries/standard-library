@@ -1,3 +1,4 @@
+import { coreInfoSectionSchema } from "../shared/formalProps/coreInfo.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent, Slot } from "@puckeditor/core";
 import { AddressType, AnalyticsScopeProvider } from "@yext/pages-components";
@@ -429,6 +430,7 @@ export const CoreInfoSection: YextComponentConfig<CoreInfoSectionProps> = {
 };
 
 export const config: SectionConfig = {
+  formalProps: coreInfoSectionSchema,
   id: "CoreInfoSection",
   displayName: "Core Info",
   description:

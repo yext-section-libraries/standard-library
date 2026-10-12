@@ -1,3 +1,4 @@
+import { ctaWrapperSchema } from "../shared/formalProps/hero.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import {
@@ -450,6 +451,7 @@ export const CTAWrapper: YextComponentConfig<CTAWrapperProps> = {
 };
 
 export const config: SectionConfig = {
+  formalProps: ctaWrapperSchema,
   id: "CTAWrapper",
   displayName: "Call to Action",
   description: "Displays a single call to action.",
