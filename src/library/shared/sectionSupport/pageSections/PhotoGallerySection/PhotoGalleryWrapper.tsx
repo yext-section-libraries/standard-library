@@ -606,7 +606,10 @@ const PhotoGalleryWrapperComponent: PuckComponent<PhotoGalleryWrapperProps> = ({
     <div ref={containerRef}>
       {hasAnyImages ? (
         parentData?.variant === "gallery" ? (
-          <GalleryGrid {...sharedRenderProps} imageFillType={styles.imageFillType ?? "fill"} />
+          <GalleryGrid
+            {...sharedRenderProps}
+            imageFillType={styles.imageFillType ?? "fill"}
+          />
         ) : (
           <CarouselProvider
             className="flex flex-col gap-8"
