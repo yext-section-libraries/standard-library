@@ -1,4 +1,4 @@
-import { imageWrapperSchema } from "../shared/formalProps/hero.ts";
+import { imageWrapperSchema } from "../shared/formalProps/slots.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import { ComplexImageType, ImageType } from "@yext/pages-components";

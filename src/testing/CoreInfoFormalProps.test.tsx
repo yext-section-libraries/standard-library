@@ -1,3 +1,4 @@
+import { coreInfoSectionSchema } from "../library/shared/formalProps/coreInfo.ts";
 import { describe, expect, it } from "vitest";
 import { z } from "zod";
 import { resolveComponentData } from "@yext/visual-editor";
@@ -11,16 +12,13 @@ import { config as emailsConfig } from "../library/sections/Emails.tsx";
 import { config as textListConfig } from "../library/sections/TextList.tsx";
 import {
   addressSchema,
-  coreInfoSectionSchema,
   emailsSchema,
   hoursTableSchema,
   textListSchema,
-} from "../library/shared/formalProps/coreInfo.ts";
-import {
   headingTextSchema,
   phoneListSchema,
   hoursStatusSchema,
-} from "../library/shared/formalProps/hero.ts";
+} from "../library/shared/formalProps/slots.ts";
 
 const coreInfoProps = () => {
   const props = structuredClone({ ...CoreInfoSection.defaultProps });

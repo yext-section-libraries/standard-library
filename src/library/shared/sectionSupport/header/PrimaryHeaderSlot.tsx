@@ -478,6 +478,7 @@ export const defaultPrimaryHeaderProps: PrimaryHeaderSlotProps = {
 export const PrimaryHeaderSlot: YextComponentConfig<PrimaryHeaderSlotProps> = {
   label: msg("components.primaryHeader", "Primary Header"),
   fields: primaryHeaderSlotFields,
+  derivedSlotPaths: [["parentValues", "SecondaryHeaderSlot"]],
   resolveData: (data, params) => {
     const streamDocument = params.metadata.streamDocument;
     const locale = streamDocument?.locale ?? "en";

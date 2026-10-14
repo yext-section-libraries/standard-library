@@ -1,6 +1,8 @@
 import { z } from "zod";
 import type {
   AssetImageType,
+  AssetVideo,
+  TranslatableRichText,
   EnhancedTranslatableCTA,
   TranslatableString,
 } from "@yext/visual-editor";
@@ -91,3 +93,36 @@ export const enhancedCtaSchema = z.object({
   openInNewTab: z.boolean().optional().describe("Whether to open in a new tab"),
   ctaType: ctaTypeSchema.optional(),
 }) satisfies z.ZodType<EnhancedTranslatableCTA>;
+
+const richTextSchema = z.strictObject({
+  html: z.string().optional(),
+  json: z.string().optional(),
+});
+export const translatableRichTextSchema = z
+  .union([
+    z.string(),
+    richTextSchema,
+    z
+      .object({
+        hasLocalizedValue: z.literal("true").optional(),
+        defaultValue: z.union([z.string(), richTextSchema]).optional(),
+      })
+      .catchall(z.union([z.string(), richTextSchema]).optional()),
+  ])
+  .describe(
+    "Rich text as a string, an HTML/JSON object, or localized values keyed by locale."
+  ) satisfies z.ZodType<TranslatableRichText>;
+
+export const assetVideoSchema = z.object({
+  video: z.object({
+    url: z.string(),
+    id: z.string(),
+    title: z.string(),
+    thumbnail: z.string(),
+    duration: z.string(),
+    embeddedUrl: z.string().describe("The YouTube embed URL."),
+  }),
+  videoDescription: z.string().optional(),
+  name: z.string(),
+  id: z.string(),
+}) satisfies z.ZodType<AssetVideo>;

@@ -1,3 +1,4 @@
+import { expandedHeaderSchema } from "../shared/formalProps/header.ts";
 import * as React from "react";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import { PuckComponent, setDeep, Slot } from "@puckeditor/core";
@@ -240,6 +241,7 @@ export const ExpandedHeader: YextComponentConfig<ExpandedHeaderProps> = {
 };
 
 export const config: SectionConfig = {
+  formalProps: expandedHeaderSchema,
   id: "ExpandedHeader",
   displayName: "Header",
   description:

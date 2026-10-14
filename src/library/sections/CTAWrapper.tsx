@@ -1,4 +1,4 @@
-import { ctaWrapperSchema } from "../shared/formalProps/hero.ts";
+import { ctaWrapperSchema } from "../shared/formalProps/slots.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import {
