@@ -1410,6 +1410,7 @@ describe("PhotoGalleryWrapper", () => {
               },
             }}
             styles={{
+              columns: 3,
               image: { width: 100, aspectRatio: 1 },
               carouselImageCount: 3,
             }}
@@ -1477,6 +1478,7 @@ describe("PhotoGalleryWrapper", () => {
             },
           }}
           styles={{
+            columns: 3,
             image: { width: 100, aspectRatio: 1 },
             carouselImageCount: 3,
           }}
@@ -1606,6 +1608,7 @@ describe("PhotoGalleryWrapper", () => {
                 },
               }}
               styles={{
+                columns: 3,
                 image: { width: imageWidth, aspectRatio: 1.78 },
                 carouselImageCount: 3,
               }}
@@ -1740,6 +1743,7 @@ describe("PhotoGalleryWrapper", () => {
               },
             }}
             styles={{
+              columns: 3,
               image: { width: 100, aspectRatio: 1 },
               carouselImageCount: 1,
             }}
@@ -1805,7 +1809,11 @@ describe("PhotoGalleryWrapper", () => {
           },
         },
       },
-      styles: { image: { width: 100, aspectRatio: 1 }, carouselImageCount: 3 },
+      styles: {
+        columns: 3 as const,
+        image: { width: 100, aspectRatio: 1 },
+        carouselImageCount: 3,
+      },
       parentData: { variant: "carousel" as const },
       puck: {
         isEditing: false,
@@ -1954,6 +1962,7 @@ describe("PhotoGalleryWrapper", () => {
               },
             }}
             styles={{
+              columns: 3,
               image: { width: 200, aspectRatio: 1 },
               carouselImageCount: 3,
             }}

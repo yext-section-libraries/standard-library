@@ -192,6 +192,7 @@ export const PhotoGallerySection: YextComponentConfig<PhotoGallerySectionProps> 
             props: {
               data: { images: photoGallerySource.defaultValue },
               styles: {
+                columns: 3,
                 image: {
                   aspectRatio: 1.78,
                 },

@@ -2,6 +2,7 @@
   "root": {
     "props": {
       "version": 83,
+      "sectionLibraryMigrationVersion": 1,
       "title": {
         "field": "name",
         "constantValue": "",
@@ -3479,6 +3480,7 @@
                         }
                       },
                       "styles": {
+                        "columns": 3,
                         "image": {
                           "aspectRatio": 1.78
                         },

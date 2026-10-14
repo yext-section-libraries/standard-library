@@ -20,6 +20,7 @@ import { Image } from "../../atoms/image.tsx";
 import { CTA } from "../../atoms/cta.tsx";
 
 import { PuckComponent } from "@puckeditor/core";
+import { cva } from "class-variance-authority";
 import { photoGallerySource } from "./photoGallerySource.ts";
 import React, { cloneElement } from "react";
 import { useTranslation } from "react-i18next";
@@ -56,6 +57,13 @@ export interface PhotoGalleryWrapperProps {
     images: typeof photoGallerySource.value;
   };
   styles: {
+    /**
+     * Number of gallery columns on desktop. Mobile shows one column;
+     * medium screens show one column when set to 1, otherwise two.
+     * @defaultValue 3
+     */
+    columns: 1 | 2 | 3 | 4 | 5 | 6;
+
     /** Styling options for the gallery images, such as aspect ratio. */
     image: Omit<ImageStylingProps, "imageFillType">;
 
@@ -94,6 +102,19 @@ const photoGalleryWrapperFields: YextFields<PhotoGalleryWrapperProps> = {
     type: "object",
     label: msg("fields.styles", "Styles"),
     objectFields: {
+      columns: {
+        label: msg("fields.columns", "Columns"),
+        type: "select",
+        options: [
+          { label: msg("fields.options.one", "One"), value: 1 },
+          { label: msg("fields.options.two", "Two"), value: 2 },
+          { label: msg("fields.options.three", "Three"), value: 3 },
+          { label: msg("fields.options.four", "Four"), value: 4 },
+          { label: msg("fields.options.five", "Five"), value: 5 },
+          { label: msg("fields.options.six", "Six"), value: 6 },
+        ],
+        visible: false,
+      },
       image: {
         type: "object",
         label: msg("fields.image", "Image"),
@@ -475,6 +496,19 @@ const MobileCarousel = ({
   );
 };
 
+const galleryGridVariants = cva("grid grid-cols-1 gap-6", {
+  variants: {
+    columns: {
+      1: "md:grid-cols-1 lg:grid-cols-1",
+      2: "md:grid-cols-2 lg:grid-cols-2",
+      3: "md:grid-cols-2 lg:grid-cols-3",
+      4: "md:grid-cols-2 lg:grid-cols-4",
+      5: "md:grid-cols-2 lg:grid-cols-5",
+      6: "md:grid-cols-2 lg:grid-cols-6",
+    },
+  },
+});
+
 const GalleryGrid = ({
   galleryImages,
   imageWidth,
@@ -482,21 +516,25 @@ const GalleryGrid = ({
   imagesFieldId,
   constantValueEnabled,
   imageFillType,
-}: GalleryRenderProps & { imageFillType: ImageFillType }) => {
+  columns = 3,
+}: GalleryRenderProps & {
+  imageFillType: ImageFillType;
+  columns?: PhotoGalleryWrapperProps["styles"]["columns"];
+}) => {
   return (
     <EntityField
       displayName={pt("fields.images", "Images")}
       fieldId={imagesFieldId}
       constantValueEnabled={constantValueEnabled}
     >
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className={galleryGridVariants({ columns })}>
         {galleryImages.map((imageData, idx) => (
           <div key={idx} className="flex justify-center">
             <DesktopImageItem
               imageData={imageData}
               isEditing={isEditing}
               imageFillType={imageFillType}
-              sizes={`(min-width: 1024px) min(${imageWidth}px, calc((100vw - 6rem) / 3)), (min-width: 640px) min(${imageWidth}px, calc((100vw - 4rem) / 2)), min(${imageWidth}px, 100vw)`}
+              sizes={`(min-width: 1024px) min(${imageWidth}px, calc((100vw - 6rem) / ${columns})), (min-width: 768px) min(${imageWidth}px, calc((100vw - 4rem) / ${columns === 1 ? 1 : 2})), min(${imageWidth}px, 100vw)`}
             />
           </div>
         ))}
@@ -512,6 +550,7 @@ export const PhotoGalleryWrapper: YextComponentConfig<PhotoGalleryWrapperProps> 
     defaultProps: {
       data: { images: photoGallerySource.defaultValue },
       styles: {
+        columns: 3,
         image: {
           aspectRatio: 1.78,
         },
@@ -529,7 +568,13 @@ export const PhotoGalleryWrapper: YextComponentConfig<PhotoGalleryWrapperProps> 
         ],
         isCarousel
       );
-      return toPuckFields(fields);
+      return toPuckFields(
+        updateFields<PhotoGalleryWrapperProps>(
+          fields,
+          ["styles.objectFields.columns.visible"],
+          data.props.parentData?.variant === "gallery"
+        )
+      );
     },
     render: (props) => <PhotoGalleryWrapperComponent {...props} />,
   };
@@ -609,6 +654,7 @@ const PhotoGalleryWrapperComponent: PuckComponent<PhotoGalleryWrapperProps> = ({
           <GalleryGrid
             {...sharedRenderProps}
             imageFillType={styles.imageFillType ?? "fill"}
+            columns={styles.columns ?? 3}
           />
         ) : (
           <CarouselProvider
