@@ -557,5 +557,6 @@
   "utilityImage": "Lietderības attēls",
   "visitPage": "Apmeklējuma lapa",
   "visitPageForName": "Apmeklējiet lapu {{name}}",
-  "wednesday": "Trešdiena"
+  "wednesday": "Trešdiena",
+  "mapRequiresWebGL": "Karte nav pieejama, jo WebGL nav pieejams."
 }

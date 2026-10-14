@@ -553,5 +553,6 @@
   "utilityImage": "Kasulik pilt",
   "visitPage": "Külastage leht",
   "visitPageForName": "Külastage lehte {{name}} jaoks",
-  "wednesday": "Kolmapäev"
+  "wednesday": "Kolmapäev",
+  "mapRequiresWebGL": "Kaart pole saadaval, sest WebGL pole saadaval."
 }

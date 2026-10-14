@@ -553,5 +553,6 @@
   "utilityImage": "Utility Image",
   "visitPage": "Visit Page",
   "visitPageForName": "Visit Page for {{name}}",
-  "wednesday": "Wednesday"
+  "wednesday": "Wednesday",
+  "mapRequiresWebGL": "The map is unavailable because WebGL is unavailable."
 }

@@ -553,5 +553,6 @@
   "utilityImage": "Yardımcı Resim",
   "visitPage": "Sayfayı Ziyaret Edin",
   "visitPageForName": "{{name}} Sayfasını Ziyaret Edin",
-  "wednesday": "Çarşamba"
+  "wednesday": "Çarşamba",
+  "mapRequiresWebGL": "WebGL kullanılamadığı için harita kullanılamıyor."
 }

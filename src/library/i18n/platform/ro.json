@@ -559,5 +559,6 @@
   "utilityImage": "Imagine de utilitate",
   "visitPage": "Vizitați pagina",
   "visitPageForName": "Vizitați pagina pentru {{name}}",
-  "wednesday": "miercuri"
+  "wednesday": "miercuri",
+  "mapRequiresWebGL": "Harta nu este disponibilă deoarece WebGL nu este disponibil."
 }
