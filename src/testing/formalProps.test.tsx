@@ -1,3 +1,4 @@
+import { heroSectionSchema } from "../library/shared/formalProps/hero.ts";
 import { resolveAllData } from "@puckeditor/core";
 import { sharedComponentConfigs } from "../library/shared/componentRegistry.ts";
 import { describe, expect, it } from "vitest";
@@ -13,14 +14,13 @@ import {
 import { backgroundColorSchema } from "../library/shared/formalProps/colors.ts";
 import { imageSchema } from "../library/shared/formalProps/data.ts";
 import {
-  heroSectionSchema,
   heroVariantSchema,
   headingTextSchema,
   phoneListSchema,
   hoursStatusSchema,
   heroImageSchema,
   ctaWrapperSchema,
-} from "../library/shared/formalProps/hero.ts";
+} from "../library/shared/formalProps/slots.ts";
 
 const heroProps = () => {
   const props = structuredClone({ ...HeroSection.defaultProps });
@@ -183,7 +183,6 @@ describe("formal props", () => {
 
   it("exports JSON schemas without runtime callbacks", () => {
     for (const schema of [
-      heroSectionSchema,
       headingTextSchema,
       phoneListSchema,
       hoursStatusSchema,

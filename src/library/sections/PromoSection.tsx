@@ -1,3 +1,4 @@
+import { promoSectionSchema } from "../shared/formalProps/promo.ts";
 import { setDeep, Slot } from "@puckeditor/core";
 import {
   PromoSectionType,
@@ -682,6 +683,7 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
 };
 
 export const config: SectionConfig = {
+  formalProps: promoSectionSchema,
   id: "PromoSection",
   displayName: "Promo",
   description:

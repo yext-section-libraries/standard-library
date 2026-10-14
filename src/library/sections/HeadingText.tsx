@@ -1,4 +1,4 @@
-import { headingTextSchema } from "../shared/formalProps/hero.ts";
+import { headingTextSchema } from "../shared/formalProps/slots.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";

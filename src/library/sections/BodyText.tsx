@@ -1,3 +1,4 @@
+import { bodyTextSchema } from "../shared/formalProps/slots.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import * as React from "react";
@@ -140,6 +141,7 @@ export const BodyText: YextComponentConfig<BodyTextProps> = {
 };
 
 export const config: SectionConfig = {
+  formalProps: bodyTextSchema,
   id: "BodyText",
   displayName: "Rich Text",
   description: "Displays rich text.",

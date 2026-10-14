@@ -1,4 +1,4 @@
-import { hoursStatusSchema } from "../shared/formalProps/hero.ts";
+import { hoursStatusSchema } from "../shared/formalProps/slots.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
