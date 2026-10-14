@@ -116,7 +116,10 @@ const UnsupportedMapPlaceholder = () => {
   return (
     <div className="flex items-center justify-center w-full h-full bg-gray-100">
       <Body className="text-gray-700 font-bold text-center p-6" variant="lg">
-        {t("mapRequiresWebGL", "The map is unavailable because WebGL is unavailable.")}
+        {t(
+          "mapRequiresWebGL",
+          "The map is unavailable because WebGL is unavailable."
+        )}
       </Body>
     </div>
   );
@@ -200,10 +203,14 @@ export const LocatorMap: React.FC<MapProps> = ({
     [locationStyleConfig]
   );
 
-  const [mapboxSupported, setMapboxSupported] = React.useState<boolean | undefined>(undefined);
+  const [mapboxSupported, setMapboxSupported] = React.useState<
+    boolean | undefined
+  >(undefined);
   React.useEffect(() => {
     if (!isVisualEditorTestEnv()) {
-      setMapboxSupported((mapboxgl as unknown as { supported: () => boolean }).supported());
+      setMapboxSupported(
+        (mapboxgl as unknown as { supported: () => boolean }).supported()
+      );
     }
   }, []);
 
