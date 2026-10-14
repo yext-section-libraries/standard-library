@@ -1,4 +1,4 @@
-import { bodyTextSchema } from "../shared/formalProps/slots.ts";
+import { bodyTextSchema } from "../shared/generation/slots.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import * as React from "react";
@@ -121,6 +121,7 @@ const BodyTextComponent: PuckComponent<BodyTextProps> = (props) => {
 };
 
 export const BodyText: YextComponentConfig<BodyTextProps> = {
+  generation: { props: bodyTextSchema },
   ...gridAtomPermissions,
   label: msg("components.richText", "Rich Text"),
   fields: bodyTextFields,
@@ -141,7 +142,6 @@ export const BodyText: YextComponentConfig<BodyTextProps> = {
 };
 
 export const config: SectionConfig = {
-  formalProps: bodyTextSchema,
   id: "BodyText",
   displayName: "Rich Text",
   description: "Displays rich text.",

@@ -1,3 +1,4 @@
+import { secondaryHeaderSchema } from "../../generation/header.ts";
 import { PuckComponent, Slot } from "@puckeditor/core";
 import {
   msg,
@@ -78,7 +79,7 @@ const secondaryHeaderSlotFields: YextFields<SecondaryHeaderSlotProps> = {
   slots: {
     type: "object",
     objectFields: {
-      LinksSlot: { type: "slot", allow: [] },
+      LinksSlot: { type: "slot", allow: ["HeaderLinks"] },
     },
     visible: false,
   },
@@ -224,6 +225,7 @@ export const defaultSecondaryHeaderProps: SecondaryHeaderSlotProps = {
 
 export const SecondaryHeaderSlot: YextComponentConfig<SecondaryHeaderSlotProps> =
   {
+    generation: { props: secondaryHeaderSchema },
     label: msg("components.secondaryHeader", "Secondary Header"),
     fields: secondaryHeaderSlotFields,
     defaultProps: defaultSecondaryHeaderProps,

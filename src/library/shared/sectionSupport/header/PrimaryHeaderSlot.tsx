@@ -1,3 +1,5 @@
+import { getImageUrl } from "../../../sections/ImageWrapper.tsx";
+import { primaryHeaderSchema } from "../../generation/header.ts";
 import {
   PuckComponent,
   registerOverlayPortal,
@@ -10,7 +12,6 @@ import {
   msg,
   useOverflow,
   resolveComponentData,
-  YextCTAField,
   YextComponentConfig,
   YextFields,
 } from "@yext/visual-editor";
@@ -19,6 +20,7 @@ import { CTAWrapperProps } from "../../../sections/CTAWrapper.tsx";
 import { ImageWrapperProps } from "../../../sections/ImageWrapper.tsx";
 import { PageSection, PageSectionProps } from "../atoms/pageSection.tsx";
 import {
+  getCTAType,
   getViewport,
   usePreviewWindow,
 } from "@yext/visual-editor/section-library-support";
@@ -76,10 +78,10 @@ const primaryHeaderSlotFields: YextFields<PrimaryHeaderSlotProps> = {
   slots: {
     type: "object",
     objectFields: {
-      PrimaryCTASlot: { type: "slot", allow: [] },
-      SecondaryCTASlot: { type: "slot", allow: [] },
-      LogoSlot: { type: "slot", allow: [] },
-      LinksSlot: { type: "slot", allow: [] },
+      PrimaryCTASlot: { type: "slot", allow: ["CTASlot"] },
+      SecondaryCTASlot: { type: "slot", allow: ["CTASlot"] },
+      LogoSlot: { type: "slot", allow: ["ImageSlot"] },
+      LinksSlot: { type: "slot", allow: ["HeaderLinks"] },
     },
     visible: false,
   },
@@ -476,48 +478,57 @@ export const defaultPrimaryHeaderProps: PrimaryHeaderSlotProps = {
 };
 
 export const PrimaryHeaderSlot: YextComponentConfig<PrimaryHeaderSlotProps> = {
+  generation: { props: primaryHeaderSchema },
   label: msg("components.primaryHeader", "Primary Header"),
   fields: primaryHeaderSlotFields,
-  derivedSlotPaths: [["parentValues", "SecondaryHeaderSlot"]],
   resolveData: (data, params) => {
-    const streamDocument = params.metadata.streamDocument;
+    const streamDocument = params.metadata?.streamDocument ?? {};
     const locale = streamDocument?.locale ?? "en";
-
-    if (!streamDocument || !locale) {
-      return data;
-    }
 
     const logoSlotItem = data.props.slots.LogoSlot?.[0];
 
-    const hasLogoImage =
-      logoSlotItem?.type === "ImageSlot" &&
-      !!(
-        logoSlotItem?.props?.data?.image?.constantValue ||
-        logoSlotItem?.props?.data?.image?.field
+    const logoImage =
+      logoSlotItem?.type === "ImageSlot"
+        ? resolveComponentData<
+            ImageWrapperProps["data"]["image"]["constantValue"]
+          >(logoSlotItem.props.data.image, locale, streamDocument)
+        : undefined;
+    const hasLogoImage = !!getImageUrl(logoImage, locale);
+
+    // Match the CTA's display controls, including buttons and localized labels.
+    const hasCTA = (ctaData: CTAWrapperProps["data"] | undefined): boolean => {
+      if (!ctaData || ctaData.show === false) {
+        return false;
+      }
+      if (ctaData.actionType === "button") {
+        return !!resolveComponentData(
+          ctaData.buttonText ?? "",
+          locale,
+          streamDocument
+        ).trim();
+      }
+      const cta = resolveComponentData(
+        ctaData.entityField,
+        locale,
+        streamDocument
       );
-
-    // Check if PrimaryCTA has data to display
-    const primaryCTA = resolveComponentData(
+      const { ctaType } = getCTAType(ctaData.entityField);
+      if (!cta) {
+        return false;
+      }
+      return (
+        ctaType === "presetImage" ||
+        (ctaType === "getDirections" &&
+          !ctaData.entityField.constantValueEnabled) ||
+        !!resolveComponentData(cta.label, locale, streamDocument).trim()
+      );
+    };
+    const showPrimaryCTA = hasCTA(
       data.props.slots.PrimaryCTASlot[0]?.props.data
-        .entityField as YextCTAField,
-      locale,
-      streamDocument
     );
-    const showPrimaryCTA: boolean =
-      data.props.slots.PrimaryCTASlot[0]?.props.data.show &&
-      !!primaryCTA?.label &&
-      !!primaryCTA?.link;
-
-    const secondaryCTA = resolveComponentData(
+    const showSecondaryCTA = hasCTA(
       data.props.slots.SecondaryCTASlot[0]?.props.data
-        .entityField as YextCTAField,
-      locale,
-      streamDocument
     );
-    const showSecondaryCTA: boolean =
-      data.props.slots.SecondaryCTASlot[0]?.props.data.show &&
-      !!secondaryCTA?.label &&
-      !!secondaryCTA?.link;
 
     const primaryLinksData = data.props.slots.LinksSlot?.[0]?.props.data;
     const hasPrimaryLinks =

@@ -1,4 +1,4 @@
-import { expandedHeaderSchema } from "../shared/formalProps/header.ts";
+import { expandedHeaderSchema } from "../shared/generation/header.ts";
 import * as React from "react";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import { PuckComponent, setDeep, Slot } from "@puckeditor/core";
@@ -95,8 +95,8 @@ const expandedHeaderSectionFields: YextFields<ExpandedHeaderProps> = {
   slots: {
     type: "object",
     objectFields: {
-      PrimaryHeaderSlot: { type: "slot", allow: [] },
-      SecondaryHeaderSlot: { type: "slot", allow: [] },
+      PrimaryHeaderSlot: { type: "slot", allow: ["PrimaryHeaderSlot"] },
+      SecondaryHeaderSlot: { type: "slot", allow: ["SecondaryHeaderSlot"] },
     },
     visible: false,
   },
@@ -141,6 +141,7 @@ const ExpandedHeaderWrapper: PuckComponent<ExpandedHeaderProps> = ({
  * Available on Location templates.
  */
 export const ExpandedHeader: YextComponentConfig<ExpandedHeaderProps> = {
+  generation: { props: expandedHeaderSchema },
   label: msg("components.expandedHeader", "Expanded Header"),
   fields: expandedHeaderSectionFields,
   defaultProps: {
@@ -192,8 +193,9 @@ export const ExpandedHeader: YextComponentConfig<ExpandedHeaderProps> = {
 
     // Ensure maxWidth is passed down to header slots
     if (
-      data.props.slots.PrimaryHeaderSlot[0]?.props.parentStyles?.maxWidth !==
-      data.props.styles.maxWidth
+      data.props.slots.PrimaryHeaderSlot[0] &&
+      data.props.slots.PrimaryHeaderSlot[0]?.props.parentValues?.maxWidth !==
+        data.props.styles.maxWidth
     ) {
       data = setDeep(
         data,
@@ -203,8 +205,9 @@ export const ExpandedHeader: YextComponentConfig<ExpandedHeaderProps> = {
     }
 
     if (
+      data.props.slots.SecondaryHeaderSlot[0] &&
       data.props.slots.SecondaryHeaderSlot[0]?.props.parentStyles?.maxWidth !==
-      data.props.styles.maxWidth
+        data.props.styles.maxWidth
     ) {
       data = setDeep(
         data,
@@ -215,6 +218,7 @@ export const ExpandedHeader: YextComponentConfig<ExpandedHeaderProps> = {
 
     // Ensure SecondaryHeaderSlot is passed down to PrimaryHeaderSlot's parentValues
     if (
+      data.props.slots.PrimaryHeaderSlot[0] &&
       data.props.slots.PrimaryHeaderSlot[0]?.props.parentValues
         ?.SecondaryHeaderSlot !== data.props.slots.SecondaryHeaderSlot
     ) {
@@ -241,7 +245,6 @@ export const ExpandedHeader: YextComponentConfig<ExpandedHeaderProps> = {
 };
 
 export const config: SectionConfig = {
-  formalProps: expandedHeaderSchema,
   id: "ExpandedHeader",
   displayName: "Header",
   description:

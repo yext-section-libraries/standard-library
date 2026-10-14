@@ -1,4 +1,4 @@
-import { textListSchema } from "../shared/formalProps/slots.ts";
+import { textListSchema } from "../shared/generation/slots.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
@@ -115,6 +115,7 @@ const TextListComponent: PuckComponent<TextListProps> = ({
 };
 
 export const TextList: YextComponentConfig<TextListProps> = {
+  generation: { props: textListSchema },
   ...gridAtomPermissions,
   label: msg("components.textList", "Text List"),
   fields: textListFields,
@@ -130,7 +131,6 @@ export const TextList: YextComponentConfig<TextListProps> = {
 };
 
 export const config: SectionConfig = {
-  formalProps: textListSchema,
   id: "TextList",
   displayName: "Text List",
   description: "Renders a text list.",

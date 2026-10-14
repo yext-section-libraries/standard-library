@@ -1,4 +1,4 @@
-import { headingTextSchema } from "../shared/formalProps/slots.ts";
+import { headingTextSchema } from "../shared/generation/slots.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
@@ -135,6 +135,7 @@ const headingTextFields: YextFields<HeadingTextProps> = {
 };
 
 export const HeadingText: YextComponentConfig<HeadingTextProps> = {
+  generation: { props: headingTextSchema },
   ...gridAtomPermissions,
   label: msg("components.headingText", "Heading Text"),
   fields: headingTextFields,
@@ -156,7 +157,6 @@ export const HeadingText: YextComponentConfig<HeadingTextProps> = {
 };
 
 export const config: SectionConfig = {
-  formalProps: headingTextSchema,
   id: "HeadingText",
   displayName: "Heading Text",
   description: "Renders heading plain text.",

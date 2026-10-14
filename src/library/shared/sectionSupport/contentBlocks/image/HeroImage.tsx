@@ -1,3 +1,4 @@
+import { heroImageSchema } from "../../../generation/slots.ts";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { PuckComponent, setDeep } from "@puckeditor/core";
@@ -83,6 +84,7 @@ const HeroImageComponent: PuckComponent<HeroImageProps> = (props) => {
 };
 
 export const HeroImage: YextComponentConfig<HeroImageProps> = {
+  generation: { props: heroImageSchema },
   label: msg("components.heroImage", "Hero Image"),
   fields: ImageWrapperFields,
   defaultProps: imageDefaultProps,

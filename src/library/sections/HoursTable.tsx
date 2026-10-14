@@ -1,4 +1,4 @@
-import { hoursTableSchema } from "../shared/formalProps/slots.ts";
+import { hoursTableSchema } from "../shared/generation/slots.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
@@ -166,6 +166,7 @@ const VisualEditorHoursTable: PuckComponent<HoursTableProps> = (props) => {
 };
 
 export const HoursTable: YextComponentConfig<HoursTableProps> = {
+  generation: { props: hoursTableSchema },
   ...gridAtomPermissions,
   fields: hoursTableFields,
   defaultProps: {
@@ -187,7 +188,6 @@ export const HoursTable: YextComponentConfig<HoursTableProps> = {
 };
 
 export const config: SectionConfig = {
-  formalProps: hoursTableSchema,
   id: "HoursTable",
   displayName: "Hours Table",
   description: "Displays the hours of the business.",

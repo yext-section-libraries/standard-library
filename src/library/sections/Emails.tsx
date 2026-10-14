@@ -1,4 +1,4 @@
-import { emailsSchema } from "../shared/formalProps/slots.ts";
+import { emailsSchema } from "../shared/generation/slots.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
@@ -168,6 +168,7 @@ const EmailsComponent: PuckComponent<EmailsProps> = (props) => {
 };
 
 export const Emails: YextComponentConfig<EmailsProps> = {
+  generation: { props: emailsSchema },
   ...gridAtomPermissions,
   label: msg("components.emails", "Emails"),
   fields: EmailsFields,
@@ -202,7 +203,6 @@ export const Emails: YextComponentConfig<EmailsProps> = {
 };
 
 export const config: SectionConfig = {
-  formalProps: emailsSchema,
   id: "Emails",
   displayName: "Emails",
   description: "Displays a list of emails.",

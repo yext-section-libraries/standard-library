@@ -1,4 +1,4 @@
-import { imageWrapperSchema } from "../shared/formalProps/slots.ts";
+import { imageWrapperSchema } from "../shared/generation/slots.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import { ComplexImageType, ImageType } from "@yext/pages-components";
@@ -250,6 +250,7 @@ export const imageDefaultProps = {
 };
 
 export const ImageWrapper: YextComponentConfig<ImageWrapperProps> = {
+  generation: { props: imageWrapperSchema },
   ...gridAtomPermissions,
   label: msg("components.image", "Image"),
   inline: true,
@@ -284,7 +285,6 @@ export const ImageWrapper: YextComponentConfig<ImageWrapperProps> = {
 };
 
 export const config: SectionConfig = {
-  formalProps: imageWrapperSchema,
   id: "ImageWrapper",
   displayName: "Image",
   description: "Renders an image.",
