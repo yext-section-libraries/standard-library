@@ -1,4 +1,11 @@
-import { ctaWrapperSchema } from "../shared/formalProps/slots.ts";
+import { z } from "zod";
+import { siteColorSchema } from "../shared/generation/colors.ts";
+import {
+  ctaTypeSchema,
+  enhancedCtaSchema,
+  entityFieldSchema,
+  translatableStringSchema,
+} from "../shared/generation/data.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import {
@@ -29,6 +36,47 @@ import {
   getCTAType,
   isNonNormalizableLinkType,
 } from "@yext/visual-editor/section-library-support";
+
+const ctaWrapperSchema = z.object({
+  data: z.object({
+    show: z.boolean().optional().describe("Whether to render this CTA"),
+    actionType: z.enum(["link"]).optional(),
+    // intentionally omit button props
+    normalizeLink: z
+      .boolean()
+      .describe("Whether to standardize casing and encoding"),
+    entityField: entityFieldSchema(enhancedCtaSchema)
+      .extend({ selectedType: ctaTypeSchema.optional() })
+      .describe("The call to action content or entity field."),
+    ariaLabel: translatableStringSchema.optional(),
+  }),
+  styles: z.object({
+    variant: z
+      .enum(["primary", "secondary", "link"])
+      .describe("The visual style of the CTA"),
+    presetImage: z
+      .enum([
+        "app-store",
+        "google-play",
+        "galaxy-store",
+        "app-gallery",
+        "deliveroo",
+        "doordash",
+        "grubhub",
+        "skip-the-dishes",
+        "postmates",
+        "uber-eats",
+        "ezcater",
+      ])
+      .optional()
+      .describe("Use with presetImage type"),
+    color: siteColorSchema
+      .optional()
+      .describe(
+        "CTA background color. The renderer automatically uses this color's contrastingColor for the CTA label and icon."
+      ),
+  }),
+});
 
 export interface CTAWrapperProps {
   data: {
@@ -313,6 +361,7 @@ const CTAWrapperComponent: PuckComponent<CTAWrapperProps> = (props) => {
 };
 
 export const CTAWrapper: YextComponentConfig<CTAWrapperProps> = {
+  generation: { props: ctaWrapperSchema },
   ...gridAtomPermissions,
   label: msg("components.callToAction", "Call to Action"),
   fields: ctaWrapperFields,
@@ -423,7 +472,6 @@ export const CTAWrapper: YextComponentConfig<CTAWrapperProps> = {
 };
 
 export const config: SectionConfig = {
-  formalProps: ctaWrapperSchema,
   id: "CTAWrapper",
   displayName: "Call to Action",
   description: "Displays a single call to action.",

@@ -1,4 +1,4 @@
-import { promoSectionSchema } from "../shared/formalProps/promo.ts";
+import { promoSectionSchema } from "../shared/generation/promo.ts";
 import { setDeep, Slot } from "@puckeditor/core";
 import {
   PromoSectionType,
@@ -10,7 +10,6 @@ import {
   ComponentFields,
   YextEntityField,
   resolveYextEntityField,
-  i18nPageInstance,
   getDefaultRTF,
   themeManagerCn,
   useDocument,
@@ -135,6 +134,9 @@ export interface PromoSectionProps {
    * @propCategory Data Props
    */
   data: PromoData;
+
+  /** @internal Resolved entity media; authored data remains the canonical baseline. */
+  parentData?: Pick<PromoData, "media" | "backgroundImage">;
 
   /**
    * This object contains properties for customizing the component's appearance.
@@ -284,11 +286,11 @@ const promoSectionFields: YextFields<PromoSectionProps> = {
     type: "object",
     visible: false,
     objectFields: {
-      HeadingSlot: { type: "slot" },
-      DescriptionSlot: { type: "slot" },
-      ImageSlot: { type: "slot" },
-      VideoSlot: { type: "slot" },
-      CTASlot: { type: "slot" },
+      HeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      DescriptionSlot: { type: "slot", allow: ["BodyTextSlot"] },
+      ImageSlot: { type: "slot", allow: ["ImageSlot"] },
+      VideoSlot: { type: "slot", allow: ["VideoSlot"] },
+      CTASlot: { type: "slot", allow: ["CTASlot"] },
     },
   },
   analytics: {
@@ -313,6 +315,7 @@ const promoSectionFields: YextFields<PromoSectionProps> = {
 };
 
 export const PromoSection: YextComponentConfig<PromoSectionProps> = {
+  generation: { props: promoSectionSchema },
   label: msg("components.promo", "Promo"),
   fields: promoSectionFields,
   defaultProps: {
@@ -503,21 +506,43 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
     return toPuckFields(fields);
   },
   resolveData: (data, params) => {
-    let updatedData = { ...data };
-    // puck supports dot notation even though the type does not
-    const mediaSubfield = "data.media" as any;
-
-    // Apply the alignment to the description text
-    updatedData = setDeep(
-      updatedData,
-      "props.slots.DescriptionSlot[0].props.parentStyles.className",
-      `text-${updatedData.props.styles.containerAlignment}`
+    let updatedData = {
+      ...data,
+      props: { ...data.props, parentData: undefined },
+    };
+    const updateSlot = (
+      slotName: keyof PromoSectionProps["slots"],
+      key: string,
+      value: unknown
+    ) => {
+      if (updatedData.props.slots[slotName]?.[0]) {
+        updatedData = setDeep(
+          updatedData,
+          `props.slots.${slotName}[0].props.${key}`,
+          value
+        );
+      }
+    };
+    // Clear previously resolved content before applying the active entity and locale.
+    for (const slotName of [
+      "HeadingSlot",
+      "DescriptionSlot",
+      "CTASlot",
+      "ImageSlot",
+    ] as const) {
+      updateSlot(slotName, "parentData", undefined);
+    }
+    updateSlot(
+      "DescriptionSlot",
+      "parentStyles.className",
+      `text-${data.props.styles.containerAlignment}`
     );
-
+    updateSlot("ImageSlot", "className", undefined);
+    updateSlot("VideoSlot", "className", undefined);
     if (data.props.styles.variant === "compact") {
-      updatedData = setDeep(
-        updatedData,
-        "props.slots.ImageSlot[0].props.className",
+      updateSlot(
+        "ImageSlot",
+        "className",
         themeManagerCn(
           "!w-full lg:!w-auto h-full",
           data.props.styles.desktopImagePosition === "left"
@@ -525,102 +550,60 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
             : "ml-auto"
         )
       );
-      updatedData = setDeep(
-        updatedData,
-        "props.slots.VideoSlot[0].props.className",
-        "h-full"
-      );
-    }
-
-    if (data.props.styles.variant === "classic") {
-      updatedData = setDeep(
-        updatedData,
-        "props.slots.ImageSlot[0].props.className",
+      updateSlot("VideoSlot", "className", "h-full");
+    } else if (data.props.styles.variant === "classic") {
+      updateSlot(
+        "ImageSlot",
+        "className",
         "min-w-full lg:min-w-none max-w-full lg:max-w-none rounded-image-borderRadius"
       );
     }
 
-    if (data.props?.data?.promo.constantValueEnabled) {
-      updatedData = setDeep(
-        updatedData,
-        "props.slots.HeadingSlot[0].props.parentData",
-        undefined
-      );
-      updatedData = setDeep(
-        updatedData,
-        "props.slots.DescriptionSlot[0].props.parentData",
-        undefined
-      );
-      updatedData = setDeep(
-        updatedData,
-        "props.slots.CTASlot[0].props.parentData",
-        undefined
-      );
-      updatedData = setDeep(
-        updatedData,
-        "props.slots.ImageSlot[0].props.parentData",
-        undefined
-      );
-
-      return { ...updatedData, readOnly: { [mediaSubfield]: false } };
-    }
-
-    const resolvedPromo = resolveYextEntityField(
-      params.metadata.streamDocument,
-      data.props.data.promo,
-      i18nPageInstance.language || "en"
-    );
-
+    const streamDocument = params.metadata?.streamDocument ?? {};
+    const resolvedPromo = data.props.data.promo.constantValueEnabled
+      ? undefined
+      : (resolveYextEntityField(
+          streamDocument,
+          data.props.data.promo,
+          streamDocument.locale ?? "en"
+        ) as PromoSectionType | undefined);
     if (!resolvedPromo || !("title" in resolvedPromo)) {
-      return { ...data, readOnly: { [mediaSubfield]: false } };
+      return {
+        ...updatedData,
+        readOnly: { ...data.readOnly, "data.media": false },
+      };
     }
-
-    updatedData = setDeep(updatedData, "props.data.media", "image");
-    updatedData = setDeep(
-      updatedData,
-      "props.slots.HeadingSlot[0].props.parentData",
-      {
-        text: resolvedPromo.title || "",
-        field: data.props?.data?.promo.field || "",
-      }
-    );
-    updatedData = setDeep(
-      updatedData,
-      "props.slots.DescriptionSlot[0].props.parentData",
-      {
-        richText: resolvedPromo.description || {},
-        field: data.props?.data?.promo.field || "",
-      }
-    );
-    updatedData = setDeep(
-      updatedData,
-      "props.slots.CTASlot[0].props.parentData",
-      {
-        cta: resolvedPromo.cta || {},
-        field: data.props?.data?.promo.field || "",
-      }
-    );
-    updatedData = setDeep(
-      updatedData,
-      "props.slots.ImageSlot[0].props.parentData",
-      {
-        image: resolvedPromo.image || {},
-        field: data.props?.data?.promo.field || "",
-      }
-    );
-    updatedData = setDeep(updatedData, "props.data.backgroundImage", {
-      field: data.props?.data?.promo.field
-        ? data.props?.data?.promo.field + ".image"
-        : "",
-      constantValue: data.props.data?.backgroundImage?.constantValue,
-      constantValueEnabled: false,
-    } satisfies PromoData["backgroundImage"]);
-
+    const field = data.props.data.promo.field;
+    updateSlot("HeadingSlot", "parentData", {
+      text: resolvedPromo.title || "",
+      field,
+    });
+    updateSlot("DescriptionSlot", "parentData", {
+      richText: resolvedPromo.description || {},
+      field,
+    });
+    updateSlot("CTASlot", "parentData", {
+      cta: resolvedPromo.cta || {},
+      field,
+    });
+    updateSlot("ImageSlot", "parentData", {
+      image: resolvedPromo.image || {},
+      field,
+    });
     return {
       ...updatedData,
-      readOnly: {
-        [mediaSubfield]: true,
+      props: {
+        ...updatedData.props,
+        parentData: {
+          media: "image",
+          backgroundImage: {
+            field: field ? `${field}.image` : "",
+            constantValue: data.props.data.backgroundImage.constantValue,
+            constantValueEnabled: false,
+          },
+        },
       },
+      readOnly: { ...data.readOnly, "data.media": true },
     };
   },
   render: (props) => {
@@ -629,16 +612,20 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
     const locale = i18n.language;
     const streamDocument = useDocument();
 
-    let PromoVariant = <ClassicPromo {...props} />;
+    const resolvedProps = {
+      ...props,
+      data: { ...props.data, ...props.parentData },
+    };
+    let PromoVariant = <ClassicPromo {...resolvedProps} />;
     switch (props.styles.variant) {
       case "immersive":
-        PromoVariant = <ImmersivePromo {...props} />;
+        PromoVariant = <ImmersivePromo {...resolvedProps} />;
         break;
       case "spotlight":
-        PromoVariant = <SpotlightPromo {...props} />;
+        PromoVariant = <SpotlightPromo {...resolvedProps} />;
         break;
       case "compact":
-        PromoVariant = <CompactPromo {...props} />;
+        PromoVariant = <CompactPromo {...resolvedProps} />;
         break;
     }
 
@@ -683,7 +670,6 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
 };
 
 export const config: SectionConfig = {
-  formalProps: promoSectionSchema,
   id: "PromoSection",
   displayName: "Promo",
   description:

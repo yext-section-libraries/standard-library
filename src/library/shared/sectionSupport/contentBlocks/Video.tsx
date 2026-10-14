@@ -1,3 +1,4 @@
+import { videoSchema } from "../../generation/slots.ts";
 import { PuckComponent } from "@puckeditor/core";
 import {
   AssetVideo,
@@ -52,6 +53,7 @@ const VideoComponent: PuckComponent<VideoProps> = (props) => {
 };
 
 export const Video: YextComponentConfig<VideoProps> = {
+  generation: { props: videoSchema },
   fields: videoFields,
   label: msg("components.video", "Video"),
   inline: true,

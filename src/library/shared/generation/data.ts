@@ -41,28 +41,69 @@ export function entityFieldSchema<T extends z.ZodType>(constantValue: T) {
   });
 }
 
-// Entity data stays authoritative; generated constants are empty placeholders.
-export const entityReferenceSchema = z.strictObject({
-  field: z.string().min(1).describe("The entity field to read."),
-  constantValue: z.strictObject({}).describe("Must be an empty object."),
-  constantValueEnabled: z
-    .literal(false)
-    .describe("Always false; use entity data."),
+// Match native authored values, including the empty configuration used by defaults.
+// Entity fields remain the source of business facts unless the user supplies constants.
+export const addressValueSchema = z.object({
+  line1: z.string().optional(),
+  line2: z.string().optional(),
+  line3: z.string().optional(),
+  city: z.string().optional(),
+  region: z.string().optional(),
+  postalCode: z.string().optional(),
+  countryCode: z.string().optional(),
+  extraDescription: z.string().optional(),
+  sublocality: z.string().optional(),
+  localizedRegionName: z.string().optional(),
+  localizedCountryName: z.string().optional(),
+});
+const hoursDaySchema = z.object({
+  isClosed: z.boolean().optional(),
+  openIntervals: z
+    .array(z.object({ start: z.string(), end: z.string() }))
+    .optional(),
+});
+export const hoursValueSchema = z.object({
+  monday: hoursDaySchema.optional(),
+  tuesday: hoursDaySchema.optional(),
+  wednesday: hoursDaySchema.optional(),
+  thursday: hoursDaySchema.optional(),
+  friday: hoursDaySchema.optional(),
+  saturday: hoursDaySchema.optional(),
+  sunday: hoursDaySchema.optional(),
+  holidayHours: z
+    .array(
+      hoursDaySchema.extend({
+        date: z.string(),
+        isRegularHours: z.boolean().optional(),
+      })
+    )
+    .optional(),
+  reopenDate: z.string().optional(),
 });
 
 export const assetImageSchema = z.object({
   url: z.string().describe("The url of the image"),
-  width: z.number().describe("The width of the image"),
-  height: z.number().describe("The height of the image"),
+  width: z.number().min(0).describe("The width of the image"),
+  height: z.number().min(0).describe("The height of the image"),
   alternateText: translatableStringSchema
     .optional()
     .describe("The alt text to use for this image"),
 }) satisfies z.ZodType<AssetImageType>;
 
 export const imageSchema = z
-  .union([assetImageSchema])
+  .union([
+    assetImageSchema,
+    z.object({ image: assetImageSchema }),
+    // The strict compiler supports the canonical image fallback as an ordinary
+    // object. Locale-specific assets remain unexposed serializable configuration
+    // and are preserved by materialization rather than replaced or flattened.
+    z.object({
+      hasLocalizedValue: z.literal("true").optional(),
+      defaultValue: assetImageSchema.optional(),
+    }),
+  ])
   .describe(
-    "An image with url, width and height, a nested image object, or localized asset images keyed by locale."
+    "An image with url, width and height, a nested image object, or a localized image fallback in defaultValue. Alternate text can be localized. Existing locale-specific asset overrides are preserved."
   );
 
 export const ctaTypeSchema = z
@@ -101,13 +142,13 @@ const richTextSchema = z.strictObject({
 export const translatableRichTextSchema = z
   .union([
     z.string(),
-    richTextSchema,
     z
       .object({
         hasLocalizedValue: z.literal("true").optional(),
         defaultValue: z.union([z.string(), richTextSchema]).optional(),
       })
       .catchall(z.union([z.string(), richTextSchema]).optional()),
+    richTextSchema,
   ])
   .describe(
     "Rich text as a string, an HTML/JSON object, or localized values keyed by locale."

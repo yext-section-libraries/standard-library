@@ -1,4 +1,4 @@
-import { hoursStatusSchema } from "../shared/formalProps/slots.ts";
+import { hoursStatusSchema } from "../shared/generation/slots.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
@@ -154,6 +154,7 @@ const HoursStatusWrapper: PuckComponent<HoursStatusProps> = ({
 };
 
 export const HoursStatus: YextComponentConfig<HoursStatusProps> = {
+  generation: { props: hoursStatusSchema },
   ...gridAtomPermissions,
   label: msg("components.hoursStatus", "Hours Status"),
   fields: hoursStatusWrapperFields,
@@ -178,7 +179,6 @@ export const HoursStatus: YextComponentConfig<HoursStatusProps> = {
 };
 
 export const config: SectionConfig = {
-  formalProps: hoursStatusSchema,
   id: "hoursStatus",
   displayName: "Hours Status",
   description: "Displays the current status of the business.",

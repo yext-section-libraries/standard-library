@@ -1,4 +1,4 @@
-import { addressSchema } from "../shared/formalProps/slots.ts";
+import { addressSchema } from "../shared/generation/slots.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import {
@@ -259,6 +259,7 @@ export const resolveAddressFields = (
 };
 
 export const Address: YextComponentConfig<AddressProps> = {
+  generation: { props: addressSchema },
   ...gridAtomPermissions,
   label: msg("components.address", "Address"),
   fields: addressFields,
@@ -288,7 +289,6 @@ export const Address: YextComponentConfig<AddressProps> = {
 };
 
 export const config: SectionConfig = {
-  formalProps: addressSchema,
   id: "Address",
   displayName: "Address",
   description: "Displays an entity's address.",

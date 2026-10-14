@@ -1,3 +1,4 @@
+import { phoneListSchema } from "../../generation/slots.ts";
 import {
   backgroundColors,
   EntityField,
@@ -159,6 +160,7 @@ export const PhoneListComponent: PuckComponent<PhoneListProps> = (props) => {
 };
 
 export const PhoneList: YextComponentConfig<PhoneListProps> = {
+  generation: { props: phoneListSchema },
   label: msg("components.phoneList", "Phone List"),
   fields: phoneListFields,
   resolveFields: (data) => resolveDataFromParent(phoneListFields, data),

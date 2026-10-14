@@ -28,38 +28,40 @@ const hexColorSchema = z
   );
 
 function makeColorSchema(options: ThemeColor[]) {
-  const contrastingColorSchema = z.union([
-    z.enum([
-      ...options.map((color) => color.contrastingColor),
-      "white",
-      "black",
-    ]),
-    hexColorSchema,
-  ]);
+  const themeColorSchemas = options.map((color) =>
+    z.object({
+      selectedColor: z.literal(color.selectedColor),
+      contrastingColor: z.union([
+        z.literal(color.contrastingColor),
+        hexColorSchema,
+      ]),
+      isDarkColor: z.boolean().optional(),
+    })
+  );
+  const customColorSchemas = [
+    z.object({
+      selectedColor: hexColorSchema,
+      contrastingColor: z.literal("black"),
+      isDarkColor: z.literal(false),
+    }),
+    z.object({
+      selectedColor: hexColorSchema,
+      contrastingColor: z.literal("white"),
+      isDarkColor: z.literal(true),
+    }),
+    z.object({
+      selectedColor: hexColorSchema,
+      contrastingColor: hexColorSchema,
+      isDarkColor: z.boolean(),
+    }),
+  ];
+  const schemas = [...themeColorSchemas, ...customColorSchemas] as [
+    (typeof customColorSchemas)[number],
+    ...(typeof customColorSchemas)[number][],
+  ];
 
   return z
-    .union([
-      z.object({
-        selectedColor: z.enum(options.map((color) => color.selectedColor)),
-        contrastingColor: contrastingColorSchema,
-        isDarkColor: z.boolean().optional(),
-      }),
-      z.object({
-        selectedColor: hexColorSchema,
-        contrastingColor: z.literal("black"),
-        isDarkColor: z.literal(false),
-      }),
-      z.object({
-        selectedColor: hexColorSchema,
-        contrastingColor: z.literal("white"),
-        isDarkColor: z.literal(true),
-      }),
-      z.object({
-        selectedColor: hexColorSchema,
-        contrastingColor: hexColorSchema,
-        isDarkColor: z.boolean(),
-      }),
-    ])
+    .union(schemas)
     .describe(
       'Custom colors require selectedColor in [#XXXXXX] format, contrastingColor, and isDarkColor. For a light pink background use {"selectedColor":"[#FFBBC7]","contrastingColor":"black","isDarkColor":false}. Use white contrast with isDarkColor true for dark backgrounds.'
     );

@@ -1,4 +1,4 @@
-import { coreInfoSectionSchema } from "../shared/formalProps/coreInfo.ts";
+import { coreInfoSectionSchema } from "../shared/generation/coreInfo.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent, Slot } from "@puckeditor/core";
 import { AddressType, AnalyticsScopeProvider } from "@yext/pages-components";
@@ -87,14 +87,14 @@ const coreInfoSectionFields: YextFields<CoreInfoSectionProps> = {
   slots: {
     type: "object",
     objectFields: {
-      CoreInfoHeadingSlot: { type: "slot" },
-      CoreInfoAddressSlot: { type: "slot" },
-      CoreInfoPhoneNumbersSlot: { type: "slot" },
-      CoreInfoEmailsSlot: { type: "slot" },
-      HoursHeadingSlot: { type: "slot" },
-      HoursTableSlot: { type: "slot" },
-      ServicesHeadingSlot: { type: "slot" },
-      TextListSlot: { type: "slot" },
+      CoreInfoHeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      CoreInfoAddressSlot: { type: "slot", allow: ["AddressSlot"] },
+      CoreInfoPhoneNumbersSlot: { type: "slot", allow: ["PhoneNumbersSlot"] },
+      CoreInfoEmailsSlot: { type: "slot", allow: ["EmailsSlot"] },
+      HoursHeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      HoursTableSlot: { type: "slot", allow: ["HoursTableSlot"] },
+      ServicesHeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      TextListSlot: { type: "slot", allow: ["TextListSlot"] },
     },
     visible: false,
   },
@@ -185,6 +185,7 @@ const CoreInfoSectionWrapper: PuckComponent<CoreInfoSectionProps> = (props) => {
 };
 
 export const CoreInfoSection: YextComponentConfig<CoreInfoSectionProps> = {
+  generation: { props: coreInfoSectionSchema },
   label: msg("components.coreInfo", "Core Info"),
   fields: coreInfoSectionFields,
   defaultProps: {
@@ -336,11 +337,8 @@ export const CoreInfoSection: YextComponentConfig<CoreInfoSectionProps> = {
   },
   resolveData: async (data, params) => {
     // Determine which columns should be shown on a live page
-    const streamDocument = params.metadata?.streamDocument;
-    const locale = streamDocument?.locale;
-    if (!locale || !streamDocument) {
-      return data;
-    }
+    const streamDocument = params.metadata?.streamDocument ?? {};
+    const locale = streamDocument.locale ?? "en";
 
     // Check if the HeadingSlot has content to display
     const resolvedInfoHeading = resolveComponentData(
@@ -430,7 +428,6 @@ export const CoreInfoSection: YextComponentConfig<CoreInfoSectionProps> = {
 };
 
 export const config: SectionConfig = {
-  formalProps: coreInfoSectionSchema,
   id: "CoreInfoSection",
   displayName: "Core Info",
   description:

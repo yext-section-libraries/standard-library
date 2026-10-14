@@ -1,3 +1,4 @@
+import { headerLinksSchema } from "../../generation/slots.ts";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { FieldLabel, PuckComponent, setDeep } from "@puckeditor/core";
@@ -371,6 +372,7 @@ export const defaultHeaderLinkProps: HeaderLinksProps = {
 };
 
 export const HeaderLinks: YextComponentConfig<HeaderLinksProps> = {
+  generation: { props: headerLinksSchema },
   label: msg("components.headerLinks", "Header Links"),
   fields: headerLinksFields,
   resolveFields: (data, params) => {
@@ -407,6 +409,11 @@ export const HeaderLinks: YextComponentConfig<HeaderLinksProps> = {
     );
 
     return toPuckFields(updatedFields);
+  },
+  resolveData: (data, params) => {
+    const tier =
+      params.parent?.type === "SecondaryHeaderSlot" ? "Secondary" : "Primary";
+    return { ...data, props: { ...data.props, parentData: { type: tier } } };
   },
   defaultProps: defaultHeaderLinkProps,
   render: (props) => <HeaderLinksComponent {...props} />,

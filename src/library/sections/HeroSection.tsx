@@ -1,4 +1,4 @@
-import { heroSectionSchema } from "../shared/formalProps/hero.ts";
+import { heroSectionSchema } from "../shared/generation/hero.ts";
 import { setDeep, Slot } from "@puckeditor/core";
 import {
   AnalyticsScopeProvider,
@@ -358,13 +358,13 @@ const heroSectionFields: YextFields<HeroSectionProps> = {
   slots: {
     type: "object",
     objectFields: {
-      BusinessNameSlot: { type: "slot" },
-      GeomodifierSlot: { type: "slot" },
-      PhoneSlot: { type: "slot" },
-      HoursStatusSlot: { type: "slot" },
-      ImageSlot: { type: "slot" },
-      PrimaryCTASlot: { type: "slot" },
-      SecondaryCTASlot: { type: "slot" },
+      BusinessNameSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      GeomodifierSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      PhoneSlot: { type: "slot", allow: ["PhoneNumbersSlot"] },
+      HoursStatusSlot: { type: "slot", allow: ["HoursStatusSlot"] },
+      ImageSlot: { type: "slot", allow: ["HeroImageSlot"] },
+      PrimaryCTASlot: { type: "slot", allow: ["CTASlot"] },
+      SecondaryCTASlot: { type: "slot", allow: ["CTASlot"] },
     },
     visible: false,
   },
@@ -389,7 +389,15 @@ const heroSectionFields: YextFields<HeroSectionProps> = {
   },
 };
 
+const heroCtaClassName = (variant: CTAVariant): string =>
+  variant === "link" ? "py-3 border-2 border-transparent w-fit " : "";
+const centeredHeroCtaClassName = (variant: CTAVariant): string =>
+  variant === "link"
+    ? "py-3 border-2 border-transparent w-fit  mx-auto sm:m-0"
+    : "";
+
 export const HeroSection: YextComponentConfig<HeroSectionProps> = {
+  generation: { props: heroSectionSchema },
   label: msg("components.hero", "Hero"),
   fields: heroSectionFields,
   defaultProps: {
@@ -591,25 +599,15 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
       data.props.styles.variant
     );
 
-    const ctaClassNameFn = (variant: CTAVariant): string => {
-      switch (variant) {
-        case "link":
-          return (
-            "py-3 border-2 border-transparent w-fit " +
-            (data.props.styles.mobileContentAlignment === "center"
-              ? " mx-auto sm:m-0"
-              : "")
-          );
-        default:
-          return "";
-      }
-    };
-
+    const mobileContentAlignment = data.props.styles.mobileContentAlignment;
+    const ctaClassNameFn =
+      mobileContentAlignment === "center"
+        ? centeredHeroCtaClassName
+        : heroCtaClassName;
     updateSlot(
       "props.slots.PrimaryCTASlot[0].props.parentStyles.classNameFn",
       ctaClassNameFn
     );
-
     updateSlot(
       "props.slots.SecondaryCTASlot[0].props.parentStyles.classNameFn",
       ctaClassNameFn
@@ -622,6 +620,7 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
       geomodifierLevel < 6 ? ((geomodifierLevel + 1) as HeadingLevel) : "span"
     );
 
+    updateSlot("props.slots.ImageSlot[0].props.className", undefined);
     switch (data.props.styles.variant) {
       case "compact":
         updateSlot(
@@ -642,11 +641,8 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
         break;
     }
 
-    const streamDocument = params.metadata?.streamDocument;
-    const locale = streamDocument?.locale;
-    if (!locale || !streamDocument) {
-      return { ...data };
-    }
+    const streamDocument = params.metadata?.streamDocument ?? {};
+    const locale = streamDocument.locale ?? "en";
 
     // Check if the HoursStatusSlot has content to display
     const resolvedHours = resolveComponentData(
@@ -766,7 +762,6 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
 };
 
 export const config: SectionConfig = {
-  formalProps: heroSectionSchema,
   id: "HeroSection",
   displayName: "Hero",
   description:

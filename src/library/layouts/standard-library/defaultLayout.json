@@ -2,6 +2,7 @@
   "root": {
     "props": {
       "version": 83,
+      "sectionLibraryMigrationVersion": 2,
       "title": {
         "field": "name",
         "constantValue": "",
@@ -788,7 +789,11 @@
                 "backgroundImage": {
                   "field": "",
                   "constantValue": {
-                    "defaultValue": "https://images.unsplash.com/photo-1755745360285-0633c972b0fd?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&height=900&width=1440&fit=max"
+                    "defaultValue": {
+                      "url": "https://images.unsplash.com/photo-1755745360285-0633c972b0fd?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&height=900&width=1440&fit=max",
+                      "width": 1440,
+                      "height": 900
+                    }
                   },
                   "constantValueEnabled": true
                 }

@@ -1,5 +1,4 @@
 import { z } from "zod";
-import type { PromoSectionProps } from "../../sections/PromoSection.tsx";
 import { backgroundColorSchema } from "./colors.ts";
 import {
   assetVideoSchema,
@@ -9,14 +8,7 @@ import {
   translatableStringSchema,
   translatableRichTextSchema,
 } from "./data.ts";
-import {
-  bodyTextSchema,
-  videoSchema,
-  ctaWrapperSchema,
-  headingTextSchema,
-  imageWrapperSchema,
-  slotSchema,
-} from "./slots.ts";
+import { slotSchema } from "./slots.ts";
 
 export const promoSectionSchema = z.object({
   data: z.object({
@@ -48,19 +40,12 @@ export const promoSectionSchema = z.object({
     showCTA: z.boolean(),
   }),
   slots: z.object({
-    HeadingSlot: slotSchema(
-      "HeadingTextSlot",
-      headingTextSchema.extend({
-        data: headingTextSchema.shape.data.describe(
-          "The promotional heading text."
-        ),
-      })
-    ),
-    DescriptionSlot: slotSchema("BodyTextSlot", bodyTextSchema),
-    VideoSlot: slotSchema("VideoSlot", videoSchema),
-    ImageSlot: slotSchema("ImageSlot", imageWrapperSchema),
-    CTASlot: slotSchema("CTASlot", ctaWrapperSchema),
+    HeadingSlot: slotSchema(),
+    DescriptionSlot: slotSchema(),
+    VideoSlot: slotSchema(),
+    ImageSlot: slotSchema(),
+    CTASlot: slotSchema(),
   }),
   analytics: z.object({ scope: z.string().optional() }),
   liveVisibility: z.boolean().optional(),
-}) satisfies z.ZodType<PromoSectionProps>;
+});
