@@ -1,4 +1,6 @@
-import { insightCardSchema } from "../../../generation/mappedCards.ts";
+import { z } from "zod";
+import { cardStyles } from "../mappedCardsSchemas.ts";
+import { slotSchema } from "../../../generation/slots.ts";
 import * as React from "react";
 import {
   ThemeColor,
@@ -28,6 +30,18 @@ import {
 } from "@yext/visual-editor/section-library-support";
 import { TextProps } from "../../../../sections/Text.tsx";
 import { PuckComponent, Slot } from "@puckeditor/core";
+
+const insightCardSchema = z.object({
+  styles: cardStyles,
+  slots: z.object({
+    ImageSlot: slotSchema(),
+    TitleSlot: slotSchema(),
+    CategorySlot: slotSchema(),
+    DescriptionSlot: slotSchema(),
+    PublishTimeSlot: slotSchema(),
+    CTASlot: slotSchema(),
+  }),
+});
 
 const defaultInsight = {
   image: {

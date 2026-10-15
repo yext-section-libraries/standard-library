@@ -1,4 +1,5 @@
-import { textSchema } from "../shared/generation/atoms.ts";
+import { bodyTextSchema } from "./BodyText.tsx";
+import { z } from "zod";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
@@ -21,6 +22,12 @@ import {
   SectionConfig,
 } from "@yext/visual-editor";
 import { useTranslation } from "react-i18next";
+
+const textSchema = bodyTextSchema.extend({
+  styles: bodyTextSchema.shape.styles.extend({
+    fontStyle: z.enum(["regular", "bold", "italic"]),
+  }),
+});
 
 export type TextProps = {
   data: {

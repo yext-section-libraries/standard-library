@@ -1,4 +1,10 @@
-import { testimonialCardsWrapperSchema } from "../../../generation/mappedCards.ts";
+import {
+  cardsWrapperSchema,
+  richTextMapping,
+  textMapping,
+  dateMapping,
+} from "../mappedCardsSchemas.ts";
+import { z } from "zod";
 import { PuckComponent } from "@puckeditor/core";
 import {
   TestimonialStruct,
@@ -18,6 +24,15 @@ import {
 } from "./TestimonialCard.tsx";
 import { renderMappedEntityFieldEmptyState } from "../EntityFieldSectionEmptyState.tsx";
 import { MappedEntityFieldConditionalRender } from "../entityFieldSectionUtils.ts";
+
+const testimonialCardsWrapperSchema = cardsWrapperSchema(
+  {
+    description: richTextMapping,
+    contributorName: textMapping,
+    contributionDate: dateMapping,
+  },
+  { showName: z.boolean(), showDate: z.boolean() }
+);
 
 export const testimonialCardsSource = createSlottedItemSource<
   TestimonialStruct,

@@ -1,4 +1,10 @@
-import { reviewsSectionSchema } from "../shared/generation/sections.ts";
+import { mappedCardsSectionSchema } from "../shared/sectionSupport/pageSections/mappedCardsSchemas.ts";
+import {
+  siteColorSchema,
+  optionalTextColorSchema,
+} from "../shared/generation/colors.ts";
+import { z } from "zod";
+import { slotSchema } from "../shared/generation/slots.ts";
 import { useTranslation } from "react-i18next";
 import { FaArrowLeft, FaArrowRight, FaChevronDown } from "react-icons/fa";
 import { PuckComponent, Slot } from "@puckeditor/core";
@@ -39,6 +45,14 @@ import {
   getTextColorClass,
   getTextColorStyle,
 } from "@yext/visual-editor/section-library-support";
+
+const reviewsSectionSchema = mappedCardsSectionSchema.extend({
+  styles: mappedCardsSectionSchema.shape.styles.extend({
+    accentColor: siteColorSchema.optional(),
+    textColor: optionalTextColorSchema,
+  }),
+  slots: z.object({ SectionHeadingSlot: slotSchema() }),
+});
 
 type Review = {
   authorName: string;

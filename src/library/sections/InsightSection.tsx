@@ -1,4 +1,4 @@
-import { mappedCardsSectionSchema } from "../shared/generation/mappedCards.ts";
+import { mappedCardsSectionSchema } from "../shared/sectionSupport/pageSections/mappedCardsSchemas.ts";
 import {
   ThemeColor,
   backgroundColors,

@@ -1,4 +1,6 @@
-import { testimonialCardSchema } from "../../../generation/mappedCards.ts";
+import { z } from "zod";
+import { cardStyles } from "../mappedCardsSchemas.ts";
+import { slotSchema } from "../../../generation/slots.ts";
 import * as React from "react";
 import { PuckComponent, Slot, WithId } from "@puckeditor/core";
 import {
@@ -25,6 +27,15 @@ import {
   useGetCardSlots,
   syncParentStyles,
 } from "@yext/visual-editor/section-library-support";
+
+const testimonialCardSchema = z.object({
+  styles: cardStyles,
+  slots: z.object({
+    DescriptionSlot: slotSchema(),
+    ContributorNameSlot: slotSchema(),
+    ContributionDateSlot: slotSchema(),
+  }),
+});
 
 const defaultTestimonial = {
   description: {

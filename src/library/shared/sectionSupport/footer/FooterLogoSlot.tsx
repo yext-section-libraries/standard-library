@@ -1,4 +1,6 @@
-import { footerLogoSchema } from "../../generation/footer.ts";
+import { z } from "zod";
+import { entityFieldSchema, imageSchema } from "../../generation/data.ts";
+import { imageStylesSchema } from "./footerSchemas.ts";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
 import { MaybeLink } from "../atoms/maybeLink.tsx";
@@ -19,6 +21,14 @@ import {
   resolveLocalizedAssetImage,
   TranslatableAssetImage,
 } from "@yext/visual-editor";
+
+const footerLogoSchema = z.object({
+  data: z.object({
+    image: entityFieldSchema(imageSchema),
+    linkTarget: z.string().optional(),
+  }),
+  styles: imageStylesSchema,
+});
 
 export interface FooterLogoSlotProps {
   data: {

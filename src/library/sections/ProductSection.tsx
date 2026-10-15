@@ -1,4 +1,8 @@
-import { productSectionSchema } from "../shared/generation/mappedCards.ts";
+import {
+  mappedCardsSectionSchema,
+  sectionStyles,
+} from "../shared/sectionSupport/pageSections/mappedCardsSchemas.ts";
+import { productVariantSchema } from "../shared/sectionSupport/pageSections/ProductSection/productSchemas.ts";
 import {
   ThemeColor,
   backgroundColors,
@@ -25,6 +29,12 @@ import {
   MappedCardsSectionContent,
   MappedCardsSectionShell,
 } from "../shared/sectionSupport/pageSections/mappedCardsSectionUtils.tsx";
+
+const productSectionSchema = mappedCardsSectionSchema.extend({
+  styles: sectionStyles.extend({
+    cardVariant: productVariantSchema.optional(),
+  }),
+});
 
 export type ProductSectionVariant = "immersive" | "classic" | "minimal";
 export type ProductSectionImageConstrain = "fill" | "fixed";

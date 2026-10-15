@@ -1,4 +1,12 @@
-import { breadcrumbsSectionSchema } from "../shared/generation/breadcrumbs.ts";
+import { z } from "zod";
+import {
+  translatableStringSchema,
+  entityFieldSchema,
+} from "../shared/generation/data.ts";
+import {
+  backgroundColorSchema,
+  siteColorSchema,
+} from "../shared/generation/colors.ts";
 import { useTranslation } from "react-i18next";
 import {
   useTemplateProps,
@@ -21,6 +29,24 @@ import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrap
 import { setDeep } from "@puckeditor/core";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import { SectionConfig } from "@yext/visual-editor";
+
+const breadcrumbsSectionSchema = z.object({
+  data: z.object({
+    directoryRoot: translatableStringSchema,
+    currentPage: entityFieldSchema(translatableStringSchema),
+  }),
+  styles: z.object({
+    backgroundColor: backgroundColorSchema.optional(),
+    linkColor: siteColorSchema
+      .optional()
+      .describe(
+        "Omit to use the default theme color. Set only when the user explicitly requests a link color override."
+      ),
+    showCurrentPage: z.boolean(),
+  }),
+  analytics: z.object({ scope: z.string().optional() }),
+  liveVisibility: z.boolean(),
+});
 
 export interface BreadcrumbsData {
   /**

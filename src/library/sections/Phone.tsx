@@ -1,4 +1,10 @@
-import { phoneSchema } from "../shared/generation/atoms.ts";
+import { z } from "zod";
+import {
+  entityFieldSchema,
+  translatableStringSchema,
+} from "../shared/generation/data.ts";
+import { optionalSiteColorSchema } from "../shared/sectionSupport/contentBlocks/contactSchemas.ts";
+import { siteColorSchema } from "../shared/generation/colors.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import {
@@ -18,6 +24,40 @@ import {
   SectionConfig,
 } from "@yext/visual-editor";
 import { PhoneAtom } from "../shared/sectionSupport/atoms/phone.tsx";
+
+export const phoneSchema = z.object({
+  data: z.object({
+    number: entityFieldSchema(z.string()).describe(
+      "The entity phone field; never generate a phone number."
+    ),
+    label: translatableStringSchema,
+  }),
+  styles: z.object({
+    phoneFormat: z
+      .enum(["domestic", "international"])
+      .describe("how to format the phone numbers"),
+    includePhoneHyperlink: z
+      .boolean()
+      .describe("whether the phone numbers are hyperlinked"),
+    includeIcon: z
+      .boolean()
+      .optional()
+      .describe("whether to display a phone icon"),
+    color: optionalSiteColorSchema.describe(
+      "Phone link and icon background color. Omit to use default theme colors; set only when the user explicitly requests a phone color override."
+    ),
+    labelColor: siteColorSchema
+      .optional()
+      .describe(
+        "Omit to use the default theme text color. Set only when the user explicitly requests a phone label color override, and use a valid theme color."
+      ),
+    iconColor: siteColorSchema
+      .optional()
+      .describe(
+        "Omit to use the default icon color. Set only when the user explicitly requests a phone icon color override, and use a valid theme color."
+      ),
+  }),
+});
 
 /** The props for the Phone component */
 export interface PhoneProps {

@@ -1,4 +1,6 @@
-import { secondaryHeaderSchema } from "../../generation/header.ts";
+import { z } from "zod";
+import { backgroundColorSchema } from "../../generation/colors.ts";
+import { slotSchema } from "../../generation/slots.ts";
 import { PuckComponent, Slot } from "@puckeditor/core";
 import {
   msg,
@@ -21,6 +23,15 @@ import {
   useHeaderLinksDisplayMode,
 } from "./ExpandedHeaderMenuContext.tsx";
 import * as React from "react";
+
+const secondaryHeaderSchema = z.object({
+  data: z.object({
+    show: z.boolean().describe("Whether to display the secondary top bar."),
+    showLanguageDropdown: z.boolean(),
+  }),
+  styles: z.object({ backgroundColor: backgroundColorSchema.optional() }),
+  slots: z.object({ LinksSlot: slotSchema() }),
+});
 
 export interface SecondaryHeaderSlotProps {
   data: {

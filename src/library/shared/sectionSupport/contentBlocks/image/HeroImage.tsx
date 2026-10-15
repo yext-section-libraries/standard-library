@@ -1,4 +1,10 @@
-import { heroImageSchema } from "../../../generation/slots.ts";
+import {
+  imageWrapperSchema,
+  getImageUrl,
+  imageDefaultProps,
+  ImageWrapperFields,
+  ImageWrapperProps,
+} from "../../../../sections/ImageWrapper.tsx";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { PuckComponent, setDeep } from "@puckeditor/core";
@@ -13,13 +19,10 @@ import {
   YextComponentConfig,
 } from "@yext/visual-editor";
 import { Image, imgSizesHelper } from "../../atoms/image.tsx";
-import {
-  getImageUrl,
-  imageDefaultProps,
-  ImageWrapperFields,
-  ImageWrapperProps,
-} from "../../../../sections/ImageWrapper.tsx";
 import { EmptyImageState } from "./EmptyImageState.tsx";
+
+// Variant and layout classes are inherited from HeroSection.
+const heroImageSchema = imageWrapperSchema;
 
 export interface HeroImageProps extends ImageWrapperProps {
   /** @internal from the parent Hero Section Component */

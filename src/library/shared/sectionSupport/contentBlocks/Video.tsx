@@ -1,4 +1,5 @@
-import { videoSchema } from "../../generation/slots.ts";
+import { z } from "zod";
+
 import { PuckComponent } from "@puckeditor/core";
 import {
   AssetVideo,
@@ -7,6 +8,27 @@ import {
   YextFields,
 } from "@yext/visual-editor";
 import { VideoAtom } from "../atoms/video.tsx";
+
+export const assetVideoSchema = z.object({
+  video: z.object({
+    url: z.string(),
+    id: z.string(),
+    title: z.string(),
+    thumbnail: z.string(),
+    duration: z.string(),
+    embeddedUrl: z.string().describe("The YouTube embed URL."),
+  }),
+  videoDescription: z.string().optional(),
+  name: z.string(),
+  id: z.string(),
+}) satisfies z.ZodType<AssetVideo>;
+
+// An unset video may be omitted or saved as an empty asset object.
+const videoSchema = z.object({
+  data: z.object({
+    assetVideo: z.union([assetVideoSchema, z.strictObject({})]).optional(),
+  }),
+});
 
 export type VideoProps = {
   data: {

@@ -1,4 +1,6 @@
-import { headerLinksSchema } from "../../generation/slots.ts";
+import { z } from "zod";
+import { enhancedCtaSchema } from "../../generation/data.ts";
+import { optionalTextColorSchema } from "../../generation/colors.ts";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { FieldLabel, PuckComponent, setDeep } from "@puckeditor/core";
@@ -36,6 +38,23 @@ import {
   type ResolvedCTA,
   resolveLocalizedCtas,
 } from "../../utils/resolveLocalizedCtas.ts";
+
+const headerLinksSchema = z.object({
+  data: z.object({
+    links: z
+      .array(enhancedCtaSchema)
+      .describe("Navigation links displayed inline while space permits."),
+    collapsedLinks: z
+      .array(enhancedCtaSchema)
+      .describe("Navigation links displayed in the menu."),
+  }),
+  styles: z.object({
+    align: z.enum(["left", "center", "right"]).optional(),
+    variant: z.enum(["xs", "sm", "base", "lg"]).nullable().optional(),
+    color: optionalTextColorSchema,
+    weight: z.enum(["normal", "bold"]).optional(),
+  }),
+});
 
 export type HeaderLinksProps = {
   data: {

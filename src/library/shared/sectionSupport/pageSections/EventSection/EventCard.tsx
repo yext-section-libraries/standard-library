@@ -1,4 +1,6 @@
-import { eventCardSchema } from "../../../generation/mappedCards.ts";
+import { z } from "zod";
+import { cardStyles } from "../mappedCardsSchemas.ts";
+import { slotSchema } from "../../../generation/slots.ts";
 import * as React from "react";
 import { PuckComponent, Slot, WithId, setDeep } from "@puckeditor/core";
 import {
@@ -29,6 +31,17 @@ import {
   getRandomPlaceholderImageObject,
   syncParentStyles,
 } from "@yext/visual-editor/section-library-support";
+
+const eventCardSchema = z.object({
+  styles: cardStyles.extend({ truncateDescription: z.boolean() }),
+  slots: z.object({
+    ImageSlot: slotSchema(),
+    TitleSlot: slotSchema(),
+    DateTimeSlot: slotSchema(),
+    DescriptionSlot: slotSchema(),
+    CTASlot: slotSchema(),
+  }),
+});
 
 const defaultEvent = {
   image: {

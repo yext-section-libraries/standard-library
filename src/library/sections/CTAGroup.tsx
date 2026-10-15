@@ -1,4 +1,9 @@
-import { ctaGroupSchema } from "../shared/generation/atoms.ts";
+import { z } from "zod";
+import { getDirectionsSchema } from "./GetDirections.tsx";
+import {
+  ctaEntityFieldSchema,
+  presetImageSchema,
+} from "../shared/sectionSupport/atoms/ctaSchemas.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { createUsePuck, PuckComponent, setDeep } from "@puckeditor/core";
 import {
@@ -14,9 +19,8 @@ import {
   YextFields,
   SectionConfig,
 } from "@yext/visual-editor";
-import { CTA } from "../shared/sectionSupport/atoms/cta.tsx";
+import { CTA, CTAVariant } from "../shared/sectionSupport/atoms/cta.tsx";
 import { useTranslation } from "react-i18next";
-import { CTAVariant } from "../shared/sectionSupport/atoms/cta.tsx";
 import { CTAWrapperProps } from "./CTAWrapper.tsx";
 import {
   isNonNormalizableLinkType,
@@ -24,6 +28,18 @@ import {
   YextAutoField,
   YextCustomFieldRenderProps,
 } from "@yext/visual-editor/section-library-support";
+
+const ctaGroupSchema = z.object({
+  buttons: z
+    .array(
+      getDirectionsSchema.extend({
+        entityField: ctaEntityFieldSchema,
+        normalizeLink: z.boolean(),
+        presetImage: presetImageSchema.optional(),
+      })
+    )
+    .max(9),
+});
 
 type BasicCTAProps = {
   /** The CTA entity field or static value */

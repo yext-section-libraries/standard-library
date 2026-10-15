@@ -1,4 +1,4 @@
-import { nearbyLocationsSectionSchema } from "../shared/generation/sections.ts";
+import { mappedCardsSectionSchema } from "../shared/sectionSupport/pageSections/mappedCardsSchemas.ts";
 import * as React from "react";
 import { PuckComponent, setDeep, Slot, WithId } from "@puckeditor/core";
 import {
@@ -17,6 +17,8 @@ import { AnalyticsScopeProvider } from "@yext/pages-components";
 import { defaultNearbyLocationsCardsProps } from "../shared/sectionSupport/pageSections/NearbyLocations/NearbyLocationsCardsWrapper.tsx";
 import { ComponentErrorBoundary } from "@yext/visual-editor/section-library-support";
 import { EMPTY_STATE_MARKER_SELECTOR } from "../shared/sectionSupport/pageSections/emptyStateMarker.tsx";
+
+const nearbyLocationsSectionSchema = mappedCardsSectionSchema;
 
 export interface NearbyLocationsSectionProps {
   /**

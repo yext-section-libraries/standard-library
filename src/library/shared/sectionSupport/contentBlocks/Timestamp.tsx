@@ -1,4 +1,6 @@
-import { timestampSchema } from "../../generation/atoms.ts";
+import { z } from "zod";
+import { entityFieldSchema } from "../../generation/data.ts";
+import { optionalTextColorSchema } from "../../generation/colors.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import {
@@ -13,6 +15,18 @@ import {
   ThemeColor,
 } from "@yext/visual-editor";
 import { TimestampAtom, TimestampOption } from "../atoms/timestamp.tsx";
+
+const timestampSchema = z.object({
+  data: z.object({
+    date: entityFieldSchema(z.string()),
+    endDate: entityFieldSchema(z.string()),
+  }),
+  styles: z.object({
+    includeTime: z.boolean(),
+    includeRange: z.boolean(),
+    textColor: optionalTextColorSchema,
+  }),
+});
 
 export type TimestampProps = {
   /** The start and end date to display */

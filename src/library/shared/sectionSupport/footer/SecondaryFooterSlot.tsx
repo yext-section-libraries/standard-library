@@ -1,4 +1,7 @@
-import { secondaryFooterSchema } from "../../generation/footer.ts";
+import { z } from "zod";
+import { backgroundColorSchema } from "../../generation/colors.ts";
+import { alignmentSchema } from "./footerSchemas.ts";
+import { slotSchema } from "../../generation/slots.ts";
 import * as React from "react";
 import { Slot, PuckComponent, setDeep } from "@puckeditor/core";
 import { PageSection, PageSectionProps } from "../atoms/pageSection.tsx";
@@ -10,6 +13,19 @@ import {
   ThemeOptions,
   msg,
 } from "@yext/visual-editor";
+
+const secondaryFooterSchema = z.object({
+  styles: z.object({
+    backgroundColor: backgroundColorSchema.optional(),
+    desktopContentAlignment: alignmentSchema,
+    mobileContentAlignment: alignmentSchema,
+    showLinks: z.boolean(),
+  }),
+  slots: z.object({
+    SecondaryLinksWrapperSlot: slotSchema(),
+    CopyrightSlot: slotSchema(),
+  }),
+});
 
 const defaultLink = {
   linkType: "URL" as const,

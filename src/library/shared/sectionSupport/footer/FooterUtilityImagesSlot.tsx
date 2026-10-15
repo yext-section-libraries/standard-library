@@ -1,4 +1,6 @@
-import { footerUtilityImagesSchema } from "../../generation/footer.ts";
+import { z } from "zod";
+import { assetImageSchema } from "../../generation/data.ts";
+import { imageStylesSchema } from "./footerSchemas.ts";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
 import { cva } from "class-variance-authority";
@@ -15,6 +17,18 @@ import {
   AssetImageType,
   ImageFillType,
 } from "@yext/visual-editor";
+
+const footerUtilityImagesSchema = z.object({
+  data: z.object({
+    utilityImages: z.array(
+      z.object({
+        image: assetImageSchema,
+        linkTarget: z.string().optional(),
+      })
+    ),
+  }),
+  styles: imageStylesSchema,
+});
 
 export interface FooterUtilityImagesSlotProps {
   data: {

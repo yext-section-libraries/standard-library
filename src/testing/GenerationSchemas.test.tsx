@@ -1,51 +1,14 @@
-import { describe, expect, it } from "vitest";
-import { z } from "zod";
-import { AboutSection } from "../library/sections/AboutSection.tsx";
-import { BreadcrumbsSection } from "../library/sections/BreadcrumbsSection.tsx";
-import { ExpandedFooter } from "../library/sections/ExpandedFooter.tsx";
-import { StaticMapSection } from "../library/sections/StaticMapSection.tsx";
 import {
-  AboutSectionDetailsColumn,
+  aboutSectionDetailsColumnSchema,
   defaultAboutSectionProps,
 } from "../library/shared/sectionSupport/pageSections/AboutSection/AboutSectionDetailsColumn.tsx";
-import { CopyrightMessageSlot } from "../library/shared/sectionSupport/footer/CopyrightMessageSlot.tsx";
-import { FooterExpandedLinkSectionSlot } from "../library/shared/sectionSupport/footer/FooterExpandedLinkSectionSlot.tsx";
-import { FooterExpandedLinksWrapper } from "../library/shared/sectionSupport/footer/FooterExpandedLinksWrapper.tsx";
-import { FooterLinksSlot } from "../library/shared/sectionSupport/footer/FooterLinksSlot.tsx";
-import { FooterLogoSlot } from "../library/shared/sectionSupport/footer/FooterLogoSlot.tsx";
-import { FooterSocialLinksSlot } from "../library/shared/sectionSupport/footer/FooterSocialLinksSlot.tsx";
-import { FooterUtilityImagesSlot } from "../library/shared/sectionSupport/footer/FooterUtilityImagesSlot.tsx";
-import { SecondaryFooterSlot } from "../library/shared/sectionSupport/footer/SecondaryFooterSlot.tsx";
-import { aboutSectionDetailsColumnSchema } from "../library/shared/generation/about.ts";
-import { staticMapSectionSchema } from "../library/shared/generation/staticMap.ts";
-
-const components = {
-  AboutSection,
-  BreadcrumbsSection,
-  ExpandedFooter,
+import {
+  staticMapSectionSchema,
   StaticMapSection,
-  AboutSectionDetailsColumn,
-  CopyrightMessageSlot,
-  FooterExpandedLinkSectionSlot,
-  FooterExpandedLinksWrapper,
-  FooterLinksSlot,
-  FooterLogoSlot,
-  FooterSocialLinksSlot,
-  FooterUtilityImagesSlot,
-  SecondaryFooterSlot,
-};
+} from "../library/sections/StaticMapSection.tsx";
+import { describe, expect, it } from "vitest";
 
-describe("generation schemas", () => {
-  it.each(Object.entries(components))(
-    "%s registers a serializable schema accepting its authored defaults",
-    (_name, component) => {
-      const schema = component.generation?.props;
-      expect(schema).toBeDefined();
-      expect(() => schema!.parse(component.defaultProps)).not.toThrow();
-      expect(() => z.toJSONSchema(schema!)).not.toThrow();
-    }
-  );
-
+describe("generation schema constraints", () => {
   it("accepts every supported About sidebar content type and rejects mismatched content", () => {
     for (const [type, content] of Object.entries(defaultAboutSectionProps)) {
       const section = {

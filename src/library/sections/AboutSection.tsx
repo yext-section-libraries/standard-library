@@ -1,4 +1,9 @@
-import { aboutSectionSchema } from "../shared/generation/about.ts";
+import { z } from "zod";
+import {
+  backgroundColorSchema,
+  siteColorSchema,
+} from "../shared/generation/colors.ts";
+import { slotSchema } from "../shared/generation/slots.ts";
 import React from "react";
 import { PuckComponent, Slot, WithId } from "@puckeditor/core";
 import {
@@ -24,6 +29,24 @@ import {
   defaultAboutSectionProps,
 } from "../shared/sectionSupport/pageSections/AboutSection/AboutSectionDetailsColumn.tsx";
 import { ComponentErrorBoundary } from "@yext/visual-editor/section-library-support";
+
+const aboutSectionSchema = z.object({
+  styles: z.object({
+    backgroundColor: backgroundColorSchema.optional(),
+    readMoreButtonColor: siteColorSchema
+      .optional()
+      .describe(
+        "Omit to use the default theme color. Set only when the user explicitly requests a read more button color override."
+      ),
+    showDetailsColumn: z.boolean(),
+  }),
+  slots: z.object({
+    SectionHeadingSlot: slotSchema(),
+    DescriptionSlot: slotSchema(),
+    SidebarSlot: slotSchema(),
+  }),
+  liveVisibility: z.boolean(),
+});
 
 const placeholderText = {
   defaultValue: {

@@ -1,11 +1,11 @@
 import { z } from "zod";
-import { siteColorSchema } from "../shared/generation/colors.ts";
 import {
-  ctaTypeSchema,
-  enhancedCtaSchema,
-  entityFieldSchema,
-  translatableStringSchema,
-} from "../shared/generation/data.ts";
+  ctaEntityFieldSchema,
+  ctaVariantSchema,
+  presetImageSchema,
+} from "../shared/sectionSupport/atoms/ctaSchemas.ts";
+import { translatableStringSchema } from "../shared/generation/data.ts";
+import { siteColorSchema } from "../shared/generation/colors.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import {
@@ -45,29 +45,14 @@ const ctaWrapperSchema = z.object({
     normalizeLink: z
       .boolean()
       .describe("Whether to standardize casing and encoding"),
-    entityField: entityFieldSchema(enhancedCtaSchema)
-      .extend({ selectedType: ctaTypeSchema.optional() })
-      .describe("The call to action content or entity field."),
+    entityField: ctaEntityFieldSchema.describe(
+      "The call to action content or entity field."
+    ),
     ariaLabel: translatableStringSchema.optional(),
   }),
   styles: z.object({
-    variant: z
-      .enum(["primary", "secondary", "link"])
-      .describe("The visual style of the CTA"),
-    presetImage: z
-      .enum([
-        "app-store",
-        "google-play",
-        "galaxy-store",
-        "app-gallery",
-        "deliveroo",
-        "doordash",
-        "grubhub",
-        "skip-the-dishes",
-        "postmates",
-        "uber-eats",
-        "ezcater",
-      ])
+    variant: ctaVariantSchema.describe("The visual style of the CTA"),
+    presetImage: presetImageSchema
       .optional()
       .describe("Use with presetImage type"),
     color: siteColorSchema

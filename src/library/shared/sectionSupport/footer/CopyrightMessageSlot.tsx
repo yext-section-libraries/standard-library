@@ -1,4 +1,6 @@
-import { copyrightMessageSchema } from "../../generation/footer.ts";
+import { z } from "zod";
+import { translatableStringSchema } from "../../generation/data.ts";
+import { optionalTextColorSchema } from "../../generation/colors.ts";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
 import { cva } from "class-variance-authority";
@@ -12,6 +14,11 @@ import {
 } from "@yext/visual-editor";
 import { Body } from "../atoms/body.tsx";
 import { useTranslation } from "react-i18next";
+
+const copyrightMessageSchema = z.object({
+  data: z.object({ text: translatableStringSchema }),
+  styles: z.object({ textColor: optionalTextColorSchema }).optional(),
+});
 
 export interface CopyrightMessageSlotProps {
   data: {
