@@ -352,7 +352,7 @@ When a new section library revision is selected in the platform, the editor and 
 the new revision's code with the existing layout data. If section props have changed, this can cause
 a mismatch. Migrations are applied before rendering, allowing the props to be updated to match the new shape.
 
-There are two MigrationActions:
+There are three MigrationActions:
 
 ### Removed
 
@@ -386,6 +386,25 @@ use the `removed` action.
   propTransformation: ({ heading, ...props }) => ({ title: heading, ...props });
 }
 ```
+
+### Renamed
+
+Changes a component's stored `type` while preserving its props and instance ID,
+including components nested in slots and legacy zones.
+
+```ts
+{
+  hoursStatus: {
+    action: "renamed",
+    newType: "HoursStatus",
+  },
+}
+```
+
+Register the destination component under its new ID. The migration runner uses
+its schema for the old name during migration only, allowing earlier migrations
+in both registries to traverse old layouts before the rename runs. Renames run
+in registry order and cannot use the wildcard `"*"`.
 
 ### Adding a migration
 

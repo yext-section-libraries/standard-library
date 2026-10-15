@@ -2,7 +2,7 @@
   "root": {
     "props": {
       "version": 83,
-      "sectionLibraryMigrationVersion": 1,
+      "sectionLibraryMigrationVersion": 2,
       "title": {
         "field": "name",
         "constantValue": "",
