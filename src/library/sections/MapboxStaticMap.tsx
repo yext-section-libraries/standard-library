@@ -1,3 +1,4 @@
+import { mapboxStaticMapSchema } from "../shared/generation/atoms.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { Coordinate } from "@yext/pages-components";
@@ -206,6 +207,7 @@ export const MapboxStaticMap: YextComponentConfig<MapboxStaticProps> = {
   ...gridAtomPermissions,
   label: msg("components.mapboxStaticMap", "Mapbox Static Map"),
   fields: mapboxFields,
+  generation: { props: mapboxStaticMapSchema },
   defaultProps: {
     coordinate: {
       field: "yextDisplayCoordinate",

@@ -1,3 +1,4 @@
+import { nearbyLocationCardsWrapperSchema } from "../../../generation/sections.ts";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
@@ -418,6 +419,7 @@ export const NearbyLocationCardsWrapper: YextComponentConfig<NearbyLocationCards
   {
     label: msg("slots.nearbyLocationCards", "Nearby Location Cards"),
     fields: nearbyLocationCardsWrapperFields,
+    generation: { props: nearbyLocationCardsWrapperSchema },
     defaultProps: defaultNearbyLocationsCardsProps,
     resolveFields: (data) => {
       let fields = nearbyLocationCardsWrapperFields;

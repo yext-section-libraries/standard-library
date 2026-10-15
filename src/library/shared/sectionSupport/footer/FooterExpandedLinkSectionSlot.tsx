@@ -1,3 +1,4 @@
+import { footerExpandedLinkSectionSchema } from "../../generation/footer.ts";
 import * as React from "react";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import {
@@ -196,6 +197,7 @@ export const FooterExpandedLinkSectionSlot: YextComponentConfig<FooterExpandedLi
   {
     label: msg("components.footerExpandedLinkSlot", "Expanded Link"),
     fields: footerExpandedLinkSectionSlotFields,
+    generation: { props: footerExpandedLinkSectionSchema },
     resolveFields: (data) =>
       setDeep(
         toPuckFields(footerExpandedLinkSectionSlotFields),

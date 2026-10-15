@@ -1,3 +1,4 @@
+import { photoGalleryWrapperSchema } from "../../../generation/photoGallery.ts";
 import {
   ImageStylingFields,
   ImageStylingProps,
@@ -508,6 +509,7 @@ export const PhotoGalleryWrapper: YextComponentConfig<PhotoGalleryWrapperProps> 
   {
     label: msg("components.gallery", "Gallery"),
     fields: photoGalleryWrapperFields,
+    generation: { props: photoGalleryWrapperSchema },
     defaultProps: {
       data: { images: photoGallerySource.defaultValue },
       styles: {

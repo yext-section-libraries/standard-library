@@ -1,3 +1,4 @@
+import { teamCardSchema } from "../../../generation/mappedCards.ts";
 import * as React from "react";
 import { PuckComponent, Slot, WithId, setDeep } from "@puckeditor/core";
 import {
@@ -443,19 +444,13 @@ const TeamCardComponent: PuckComponent<TeamCardProps> = (props) => {
 export const TeamCard: YextComponentConfig<TeamCardProps> = {
   label: msg("components.teamCard", "Team Card"),
   fields: teamCardFields,
+  generation: { props: teamCardSchema },
   inline: true,
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background1.value,
     },
-    slots: {
-      ImageSlot: [],
-      NameSlot: [],
-      TitleSlot: [],
-      PhoneSlot: [],
-      EmailSlot: [],
-      CTASlot: [],
-    },
+    slots: defaultTeamCardSlotData().props.slots,
   },
   resolveData: (data, params) => {
     const field = data.props.field ?? "";

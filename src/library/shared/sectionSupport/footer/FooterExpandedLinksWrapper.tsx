@@ -1,3 +1,4 @@
+import { footerExpandedLinksSchema } from "../../generation/footer.ts";
 import * as React from "react";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import { CTA } from "../atoms/cta.tsx";
@@ -352,6 +353,7 @@ export const FooterExpandedLinksWrapper: YextComponentConfig<FooterExpandedLinks
   {
     label: msg("components.expandedLinks", "Expanded Links"),
     fields: footerExpandedLinksWrapperFields,
+    generation: { props: footerExpandedLinksSchema },
     resolveFields: (data) =>
       toPuckFields(
         setDeep(

@@ -1,3 +1,4 @@
+import { testimonialCardSchema } from "../../../generation/mappedCards.ts";
 import * as React from "react";
 import { PuckComponent, Slot, WithId } from "@puckeditor/core";
 import {
@@ -325,16 +326,13 @@ const TestimonialCardComponent: PuckComponent<TestimonialCardProps> = (
 export const TestimonialCard: YextComponentConfig<TestimonialCardProps> = {
   label: msg("components.testimonialCard", "Testimonial Card"),
   fields: testimonialCardFields,
+  generation: { props: testimonialCardSchema },
   inline: true,
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background1.value,
     },
-    slots: {
-      DescriptionSlot: [],
-      ContributorNameSlot: [],
-      ContributionDateSlot: [],
-    },
+    slots: defaultTestimonialCardSlotData().props.slots,
   },
   resolveData: (data, params) => {
     const field = data.props.field ?? "";

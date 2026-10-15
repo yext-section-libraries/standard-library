@@ -1,3 +1,4 @@
+import { aboutSectionDetailsColumnSchema } from "../../../generation/about.ts";
 import React from "react";
 import { FieldLabel, PuckComponent } from "@puckeditor/core";
 import { useTranslation } from "react-i18next";
@@ -530,6 +531,7 @@ export const AboutSectionDetailsColumn: YextComponentConfig<AboutSectionDetailsC
   {
     label: msg("components.aboutDetailsColumn", "Details Column"),
     fields: aboutSectionDetailsColumnFields,
+    generation: { props: aboutSectionDetailsColumnSchema },
     defaultProps: {
       sections: [],
     },

@@ -1,3 +1,4 @@
+import { reviewsSectionSchema } from "../shared/generation/sections.ts";
 import { useTranslation } from "react-i18next";
 import { FaArrowLeft, FaArrowRight, FaChevronDown } from "react-icons/fa";
 import { PuckComponent, Slot } from "@puckeditor/core";
@@ -600,6 +601,7 @@ const ShowMoreButton: React.FC<{
 
 export const ReviewsSection: YextComponentConfig<ReviewsSectionProps> = {
   fields: reviewsFields,
+  generation: { props: reviewsSectionSchema },
   label: msg("components.reviews", "Reviews"),
   defaultProps: {
     styles: {

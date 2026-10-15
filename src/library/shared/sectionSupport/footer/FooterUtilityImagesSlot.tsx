@@ -1,3 +1,4 @@
+import { footerUtilityImagesSchema } from "../../generation/footer.ts";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
 import { cva } from "class-variance-authority";
@@ -152,6 +153,7 @@ const FooterUtilityImagesSlotInternal: PuckComponent<
 export const FooterUtilityImagesSlot: YextComponentConfig<FooterUtilityImagesSlotProps> =
   {
     label: msg("components.footerUtilityImagesSlotLabel", "Utility Images"),
+    generation: { props: footerUtilityImagesSchema },
     fields: {
       data: {
         type: "object",

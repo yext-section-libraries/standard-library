@@ -1,3 +1,4 @@
+import { eventCardsWrapperSchema } from "../../../generation/mappedCards.ts";
 import { PuckComponent } from "@puckeditor/core";
 import {
   EventStruct,
@@ -116,6 +117,10 @@ const EventCardsWrapperComponent: PuckComponent<EventCardsWrapperProps> = (
 export const EventCardsWrapper: YextComponentConfig<EventCardsWrapperProps> = {
   label: msg("components.eventCardsWrapper", "Event Cards"),
   fields: eventCardsWrapperFields,
+  generation: {
+    props: eventCardsWrapperSchema,
+    slottedItemSource: eventCardsSource.generation,
+  },
   defaultProps: {
     ...eventCardsSource.defaultWrapperProps,
     styles: {

@@ -3,6 +3,23 @@
   "id": "yext_standard-library",
   "displayName": "Standard Library",
   "description": "The original Pages for Marketers sections.",
+  "defaultGenerationComponentIds": [
+    "BannerSection",
+    "BreadcrumbsSection",
+    "CoreInfoSection",
+    "EventSection",
+    "ExpandedFooter",
+    "ExpandedHeader",
+    "FAQSection",
+    "HeroSection",
+    "InsightSection",
+    "NearbyLocationsSection",
+    "PhotoGallerySection",
+    "ProductSection",
+    "PromoSection",
+    "TeamSection",
+    "TestimonialSection"
+  ],
   "locales": [
     "cs",
     "da",

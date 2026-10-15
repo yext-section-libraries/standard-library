@@ -1,3 +1,4 @@
+import { mappedCardsSectionSchema } from "../shared/generation/mappedCards.ts";
 import {
   ThemeColor,
   backgroundColors,
@@ -113,6 +114,7 @@ const insightSectionFields: YextFields<InsightSectionProps> = {
 export const InsightSection: YextComponentConfig<InsightSectionProps> = {
   label: msg("components.insights", "Insights"),
   fields: insightSectionFields,
+  generation: { props: mappedCardsSectionSchema },
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background2.value,

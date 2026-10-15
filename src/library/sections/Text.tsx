@@ -1,3 +1,4 @@
+import { textSchema } from "../shared/generation/atoms.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
@@ -138,6 +139,7 @@ export const Text: YextComponentConfig<TextProps> = {
   ...gridAtomPermissions,
   label: msg("components.text", "Text"),
   fields: textFields,
+  generation: { props: textSchema },
   resolveFields: (data) => resolveDataFromParent(textFields, data),
   defaultProps: {
     data: {

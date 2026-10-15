@@ -1,3 +1,4 @@
+import { videoSectionSchema } from "../shared/generation/sections.ts";
 import { PuckComponent, Slot } from "@puckeditor/core";
 import {
   backgroundColors,
@@ -80,6 +81,7 @@ const VideoSectionComponent: PuckComponent<VideoSectionProps> = (props) => {
 export const VideoSection: YextComponentConfig<VideoSectionProps> = {
   label: msg("components.video", "Video"),
   fields: videoSectionFields,
+  generation: { props: videoSectionSchema },
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background1.value,

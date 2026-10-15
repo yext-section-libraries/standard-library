@@ -69,3 +69,8 @@ function makeColorSchema(options: ThemeColor[]) {
 
 export const backgroundColorSchema = makeColorSchema(backgroundValues);
 export const siteColorSchema = makeColorSchema(textValues);
+export const optionalTextColorSchema = siteColorSchema
+  .optional()
+  .describe(
+    "Leave text color unset so the theme chooses it. A requested palette or background change does not by itself require a text color override. Do not infer a text color from imagery or surrounding content. Set a valid theme color when the user specifically requests a text color override."
+  );

@@ -1,3 +1,4 @@
+import { nearbyLocationsSectionSchema } from "../shared/generation/sections.ts";
 import * as React from "react";
 import { PuckComponent, setDeep, Slot, WithId } from "@puckeditor/core";
 import {
@@ -177,6 +178,7 @@ export const NearbyLocationsSection: YextComponentConfig<NearbyLocationsSectionP
   {
     label: msg("components.nearbyLocations", "Nearby Locations"),
     fields: nearbyLocationsSectionFields,
+    generation: { props: nearbyLocationsSectionSchema },
     defaultProps: {
       styles: {
         backgroundColor: backgroundColors.background1.value,

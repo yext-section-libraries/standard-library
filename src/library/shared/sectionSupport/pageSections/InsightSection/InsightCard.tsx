@@ -1,3 +1,4 @@
+import { insightCardSchema } from "../../../generation/mappedCards.ts";
 import * as React from "react";
 import {
   ThemeColor,
@@ -441,19 +442,13 @@ const InsightCardComponent: PuckComponent<InsightCardProps> = (props) => {
 export const InsightCard: YextComponentConfig<InsightCardProps> = {
   label: msg("slots.insightCard", "Insight Card"),
   fields: insightCardFields,
+  generation: { props: insightCardSchema },
   inline: true,
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background1.value,
     },
-    slots: {
-      ImageSlot: [],
-      TitleSlot: [],
-      CategorySlot: [],
-      DescriptionSlot: [],
-      PublishTimeSlot: [],
-      CTASlot: [],
-    },
+    slots: defaultInsightCardSlotData().props.slots,
   },
   resolveData: (data, params) => {
     const streamDocument = params.metadata?.streamDocument;

@@ -1,3 +1,4 @@
+import { eventCardSchema } from "../../../generation/mappedCards.ts";
 import * as React from "react";
 import { PuckComponent, Slot, WithId, setDeep } from "@puckeditor/core";
 import {
@@ -428,18 +429,13 @@ const EventCardComponent: PuckComponent<EventCardProps> = (props) => {
 export const EventCard: YextComponentConfig<EventCardProps> = {
   label: msg("components.eventCard", "Event Card"),
   fields: eventCardFields,
+  generation: { props: eventCardSchema },
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background1.value,
       truncateDescription: true,
     },
-    slots: {
-      ImageSlot: [],
-      TitleSlot: [],
-      DateTimeSlot: [],
-      DescriptionSlot: [],
-      CTASlot: [],
-    },
+    slots: defaultEventCardSlotData().props.slots,
   },
   resolveData: (data, params) => {
     const field = data.props.field ?? "";

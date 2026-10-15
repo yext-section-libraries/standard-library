@@ -1,3 +1,4 @@
+import { ctaGroupSchema } from "../shared/generation/atoms.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { createUsePuck, PuckComponent, setDeep } from "@puckeditor/core";
 import {
@@ -214,8 +215,9 @@ export const CTAGroup: YextComponentConfig<CTAGroupProps> = {
   ...gridAtomPermissions,
   label: msg("components.ctaGroup", "CTA Group"),
   fields: ctaGroupFields,
+  generation: { props: ctaGroupSchema },
   resolveFields: (data) => {
-    const updatedFields = ctaGroupFields;
+    let updatedFields = ctaGroupFields;
     // show normalize link field if any of the linkTypes are normalizable (not PHONE or EMAIL)
     const showNormalizeLinkField = !data.props.buttons?.length
       ? true
@@ -227,7 +229,7 @@ export const CTAGroup: YextComponentConfig<CTAGroupProps> = {
           return !isNonNormalizableLinkType(linkType);
         });
 
-    setDeep(
+    updatedFields = setDeep(
       updatedFields,
       "buttons.arrayFields.normalizeLink.visible",
       showNormalizeLinkField

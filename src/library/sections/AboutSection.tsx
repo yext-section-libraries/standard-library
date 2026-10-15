@@ -1,3 +1,4 @@
+import { aboutSectionSchema } from "../shared/generation/about.ts";
 import React from "react";
 import { PuckComponent, Slot, WithId } from "@puckeditor/core";
 import {
@@ -197,6 +198,7 @@ const AboutComponent: PuckComponent<AboutSectionProps> = (props) => {
 export const AboutSection: YextComponentConfig<AboutSectionProps> = {
   label: msg("components.about", "About"),
   fields: aboutSectionFields,
+  generation: { props: aboutSectionSchema },
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background2.value,

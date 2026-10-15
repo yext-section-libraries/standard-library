@@ -1,3 +1,4 @@
+import { formSectionSchema } from "./generation/form.ts";
 import React from "react";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import { useTranslation } from "react-i18next";
@@ -1146,6 +1147,7 @@ const formSectionFields: YextFields<FormSectionProps> = {
 export const FormSection: YextComponentConfig<FormSectionProps> = {
   label: msg("components.form", "Form"),
   fields: formSectionFields,
+  generation: { props: formSectionSchema },
   // Puck uses one array field map for all rows, so this hides Options only
   // when no row needs it.
   resolveFields: (data) =>

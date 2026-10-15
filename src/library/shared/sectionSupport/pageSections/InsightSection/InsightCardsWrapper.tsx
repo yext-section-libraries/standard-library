@@ -1,3 +1,4 @@
+import { insightCardsWrapperSchema } from "../../../generation/mappedCards.ts";
 import {
   InsightStruct,
   msg,
@@ -135,6 +136,10 @@ export const InsightCardsWrapper: YextComponentConfig<InsightCardsWrapperProps> 
   {
     label: msg("slots.insightCards", "Insight Cards"),
     fields: insightCardsWrapperFields,
+    generation: {
+      props: insightCardsWrapperSchema,
+      slottedItemSource: insightCardsSource.generation,
+    },
     defaultProps: {
       ...insightCardsSource.defaultWrapperProps,
       styles: {

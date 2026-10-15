@@ -1,3 +1,4 @@
+import { staticMapSectionSchema } from "../shared/generation/staticMap.ts";
 import {
   backgroundColors,
   ThemeColor,
@@ -92,6 +93,7 @@ const StaticMapSectionWrapper: PuckComponent<StaticMapSectionProps> = ({
 export const StaticMapSection: YextComponentConfig<StaticMapSectionProps> = {
   label: msg("components.staticMap", "Static Map"),
   fields: staticMapSectionFields,
+  generation: { props: staticMapSectionSchema },
   defaultProps: {
     liveVisibility: true,
     styles: {

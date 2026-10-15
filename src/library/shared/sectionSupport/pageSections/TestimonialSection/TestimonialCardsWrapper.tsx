@@ -1,3 +1,4 @@
+import { testimonialCardsWrapperSchema } from "../../../generation/mappedCards.ts";
 import { PuckComponent } from "@puckeditor/core";
 import {
   TestimonialStruct,
@@ -112,6 +113,10 @@ export const TestimonialCardsWrapper: YextComponentConfig<TestimonialCardsWrappe
   {
     label: msg("components.testimonialCardsWrapper", "Testimonial Cards"),
     fields: testimonialCardsWrapperFields,
+    generation: {
+      props: testimonialCardsWrapperSchema,
+      slottedItemSource: testimonialCardsSource.generation,
+    },
     defaultProps: {
       ...testimonialCardsSource.defaultWrapperProps,
       styles: {

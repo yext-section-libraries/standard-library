@@ -1,3 +1,4 @@
+import { teamCardsWrapperSchema } from "../../../generation/mappedCards.ts";
 import { PuckComponent } from "@puckeditor/core";
 import {
   PersonStruct,
@@ -130,6 +131,10 @@ const TeamCardsWrapperComponent: PuckComponent<TeamCardsWrapperProps> = (
 export const TeamCardsWrapper: YextComponentConfig<TeamCardsWrapperProps> = {
   label: msg("components.teamCardsWrapper", "Team Cards"),
   fields: teamCardsWrapperFields,
+  generation: {
+    props: teamCardsWrapperSchema,
+    slottedItemSource: teamCardsSource.generation,
+  },
   defaultProps: {
     ...teamCardsSource.defaultWrapperProps,
     styles: {

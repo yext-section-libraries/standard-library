@@ -1,3 +1,4 @@
+import { secondaryFooterSchema } from "../../generation/footer.ts";
 import * as React from "react";
 import { Slot, PuckComponent, setDeep } from "@puckeditor/core";
 import { PageSection, PageSectionProps } from "../atoms/pageSection.tsx";
@@ -125,6 +126,7 @@ export const SecondaryFooterSlot: YextComponentConfig<SecondaryFooterSlotProps> 
   {
     label: msg("components.secondaryFooter", "Secondary Footer"),
     fields: secondaryFooterSlotFields,
+    generation: { props: secondaryFooterSchema },
     defaultProps: {
       styles: {
         desktopContentAlignment: "left",

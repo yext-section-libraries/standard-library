@@ -1,3 +1,4 @@
+import { getDirectionsSchema } from "../shared/generation/atoms.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { setDeep } from "@puckeditor/core";
 import "@yext/pages-components/style.css";
@@ -69,6 +70,7 @@ export const GetDirections: YextComponentConfig<GetDirectionsProps> = {
   ...gridAtomPermissions,
   label: msg("components.getDirections", "Get Directions"),
   fields: getDirectionsFields,
+  generation: { props: getDirectionsSchema },
   defaultProps: {
     variant: "primary",
   },
@@ -76,9 +78,13 @@ export const GetDirections: YextComponentConfig<GetDirectionsProps> = {
     const updatedFields = resolveDataFromParent(getDirectionsFields, data);
     const ctaVariant = data.props.variant;
     const showColor = isCtaVariantWithColor(ctaVariant);
-    setDeep(updatedFields, "color.visible", showColor);
-    setDeep(updatedFields, "textColor.visible", ctaVariant === "primary");
-    return updatedFields;
+    let resolvedFields = setDeep(updatedFields, "color.visible", showColor);
+    resolvedFields = setDeep(
+      resolvedFields,
+      "textColor.visible",
+      ctaVariant === "primary"
+    );
+    return resolvedFields;
   },
   render: (props) => <GetDirectionsComponent {...props} />,
 };

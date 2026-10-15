@@ -1,3 +1,4 @@
+import { productCardsWrapperSchema } from "../../../generation/mappedCards.ts";
 import {
   msg,
   ThemeOptions,
@@ -143,6 +144,10 @@ export const ProductCardsWrapper: YextComponentConfig<ProductCardsWrapperProps> 
   {
     label: msg("slots.productCards", "Product Cards"),
     fields: productCardsWrapperFields,
+    generation: {
+      props: productCardsWrapperSchema,
+      slottedItemSource: productCardsSource.generation,
+    },
     defaultProps: {
       ...productCardsSource.defaultWrapperProps,
       styles: {
