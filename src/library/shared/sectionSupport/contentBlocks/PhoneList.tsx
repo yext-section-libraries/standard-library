@@ -1,4 +1,11 @@
-import { phoneListSchema } from "../../generation/slots.ts";
+import { z } from "zod";
+import {
+  phoneSchema,
+  defaultPhoneDataProps,
+  PhoneDataFields,
+  PhoneStyleFields,
+  PhoneProps,
+} from "../../../sections/Phone.tsx";
 import {
   backgroundColors,
   EntityField,
@@ -12,14 +19,19 @@ import {
   YextFields,
 } from "@yext/visual-editor";
 import { PhoneAtom } from "../atoms/phone.tsx";
-import {
-  defaultPhoneDataProps,
-  PhoneDataFields,
-  PhoneStyleFields,
-  PhoneProps,
-} from "../../../sections/Phone.tsx";
 import { PuckComponent } from "@puckeditor/core";
 import { useTranslation } from "react-i18next";
+
+export const phoneListSchema = z.object({
+  data: z.object({
+    phoneNumbers: z
+      .array(phoneSchema.shape.data)
+      .describe(
+        "Phone fields and their labels. Preserve existing constants; never invent a number."
+      ),
+  }),
+  styles: phoneSchema.shape.styles,
+});
 
 export interface PhoneListProps {
   data: {

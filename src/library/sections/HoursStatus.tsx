@@ -1,4 +1,7 @@
-import { hoursStatusSchema } from "../shared/generation/slots.ts";
+import { hoursValueSchema } from "../shared/sectionSupport/atoms/hoursSchemas.ts";
+import { z } from "zod";
+import { entityFieldSchema } from "../shared/generation/data.ts";
+import { optionalTextColorSchema } from "../shared/generation/colors.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
@@ -21,6 +24,23 @@ import {
   getTextColorStyle,
 } from "@yext/visual-editor/section-library-support";
 import { HoursStatusAtom } from "../shared/sectionSupport/atoms/hoursStatus.tsx";
+
+export const hoursStatusSchema = z.object({
+  data: z.object({
+    hours: entityFieldSchema(hoursValueSchema),
+  }),
+  styles: z
+    .object({
+      showCurrentStatus: z.boolean().optional(),
+      timeFormat: z.enum(["12h", "24h"]).optional(),
+      dayOfWeekFormat: z.enum(["short", "long"]).optional(),
+      showDayNames: z.boolean().optional(),
+      className: z.string().optional(),
+      bodyVariant: z.enum(["lg", "base", "sm"]).optional(),
+      textColor: optionalTextColorSchema,
+    })
+    .describe("The formatting for the hours status line"),
+});
 
 export interface HoursStatusProps {
   data: {

@@ -1,4 +1,9 @@
-import { headingTextSchema } from "../shared/generation/slots.ts";
+import { z } from "zod";
+import {
+  entityFieldSchema,
+  translatableStringSchema,
+} from "../shared/generation/data.ts";
+import { optionalTextColorSchema } from "../shared/generation/colors.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
@@ -23,6 +28,30 @@ import {
 } from "../shared/sectionSupport/atoms/heading.tsx";
 import { useTranslation } from "react-i18next";
 import { SectionConfig } from "@yext/visual-editor";
+
+const headingLevelSchema = z
+  .union([
+    z.literal(1),
+    z.literal(2),
+    z.literal(3),
+    z.literal(4),
+    z.literal(5),
+    z.literal(6),
+  ])
+  .describe("The h tag level");
+
+const headingTextSchema = z.object({
+  data: z
+    .object({
+      text: entityFieldSchema(translatableStringSchema),
+    })
+    .describe("The heading text or entity field."),
+  styles: z.object({
+    level: headingLevelSchema,
+    align: z.enum(["left", "center", "right"]),
+    color: optionalTextColorSchema,
+  }),
+});
 
 export type HeadingTextProps = {
   /** The heading text value */

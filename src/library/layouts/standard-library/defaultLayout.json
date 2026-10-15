@@ -1996,6 +1996,7 @@
                   {
                     "type": "FAQCard",
                     "props": {
+                      "slots": {},
                       "id": "FAQCard-499a5bbc-d6a4-4b7c-bd98-621d2be7425d",
                       "index": 0,
                       "data": {
@@ -2026,6 +2027,7 @@
                   {
                     "type": "FAQCard",
                     "props": {
+                      "slots": {},
                       "id": "FAQCard-a585bc61-0861-4a96-be7e-5b85a70f89eb",
                       "index": 1,
                       "data": {
@@ -2056,6 +2058,7 @@
                   {
                     "type": "FAQCard",
                     "props": {
+                      "slots": {},
                       "id": "FAQCard-19a25060-a7af-4f17-80a3-c63cceb619ad",
                       "index": 2,
                       "data": {

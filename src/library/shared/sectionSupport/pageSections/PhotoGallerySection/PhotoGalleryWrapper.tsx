@@ -1,4 +1,12 @@
-import { photoGalleryWrapperSchema } from "../../../generation/photoGallery.ts";
+import { z } from "zod";
+import {
+  entityFieldSchema,
+  imageSchema,
+  translatableStringSchema,
+  enhancedCtaSchema,
+} from "../../../generation/data.ts";
+import { imageWrapperSchema } from "../../../../sections/ImageWrapper.tsx";
+import { siteColorSchema } from "../../../generation/colors.ts";
 import {
   ImageStylingFields,
   ImageStylingProps,
@@ -47,6 +55,29 @@ import {
   getPhotoGalleryImageData,
   ResolvedGalleryImage,
 } from "./photoGalleryUtils.ts";
+
+const galleryItemSchema = z.object({
+  image: entityFieldSchema(imageSchema.optional()),
+  link: entityFieldSchema(
+    z.union([translatableStringSchema, enhancedCtaSchema]).optional()
+  ),
+});
+
+// createItemSource stores authored items directly, unlike a slotted card source's
+// managed references. Retain the authored items and mappings.
+const photoGalleryWrapperSchema = z.object({
+  data: z.object({
+    images: entityFieldSchema(z.array(galleryItemSchema)).extend({
+      mappings: galleryItemSchema.optional(),
+    }),
+  }),
+  styles: z.object({
+    image: imageWrapperSchema.shape.styles.omit({ imageFillType: true }),
+    imageFillType: z.enum(["fill", "fit"]).optional(),
+    accentColor: siteColorSchema.optional(),
+    carouselImageCount: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+  }),
+});
 
 export interface PhotoGalleryWrapperProps {
   data: {

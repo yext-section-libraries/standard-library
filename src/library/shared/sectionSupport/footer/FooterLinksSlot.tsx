@@ -1,4 +1,6 @@
-import { footerLinksSchema } from "../../generation/footer.ts";
+import { z } from "zod";
+import { enhancedCtaSchema } from "../../generation/data.ts";
+import { optionalSiteColorSchema } from "./footerSchemas.ts";
 import * as React from "react";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import { cva } from "class-variance-authority";
@@ -21,6 +23,11 @@ import {
   YextFields,
 } from "@yext/visual-editor";
 import { resolveLocalizedCtas } from "../../utils/resolveLocalizedCtas.ts";
+
+const footerLinksSchema = z.object({
+  data: z.object({ links: z.array(enhancedCtaSchema) }),
+  color: optionalSiteColorSchema,
+});
 
 export interface FooterLinksSlotProps {
   data: {

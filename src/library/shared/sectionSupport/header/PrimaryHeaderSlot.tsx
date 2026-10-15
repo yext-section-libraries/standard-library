@@ -1,5 +1,10 @@
-import { getImageUrl } from "../../../sections/ImageWrapper.tsx";
-import { primaryHeaderSchema } from "../../generation/header.ts";
+import { z } from "zod";
+import { backgroundColorSchema } from "../../generation/colors.ts";
+import { slotSchema } from "../../generation/slots.ts";
+import {
+  getImageUrl,
+  ImageWrapperProps,
+} from "../../../sections/ImageWrapper.tsx";
 import {
   PuckComponent,
   registerOverlayPortal,
@@ -17,7 +22,6 @@ import {
 } from "@yext/visual-editor";
 import { resolveLocalizedCtas } from "../../utils/resolveLocalizedCtas.ts";
 import { CTAWrapperProps } from "../../../sections/CTAWrapper.tsx";
-import { ImageWrapperProps } from "../../../sections/ImageWrapper.tsx";
 import { PageSection, PageSectionProps } from "../atoms/pageSection.tsx";
 import {
   getCTAType,
@@ -33,6 +37,16 @@ import {
   useExpandedHeaderMenu,
 } from "./ExpandedHeaderMenuContext.tsx";
 import { SlidePanel } from "./SlidePanel.tsx";
+
+const primaryHeaderSchema = z.object({
+  styles: z.object({ backgroundColor: backgroundColorSchema.optional() }),
+  slots: z.object({
+    LogoSlot: slotSchema(),
+    LinksSlot: slotSchema(),
+    PrimaryCTASlot: slotSchema(),
+    SecondaryCTASlot: slotSchema(),
+  }),
+});
 
 const HAMBURGER_RESERVE_PX = 48;
 

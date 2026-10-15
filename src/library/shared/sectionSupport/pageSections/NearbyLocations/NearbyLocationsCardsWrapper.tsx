@@ -1,4 +1,15 @@
-import { nearbyLocationCardsWrapperSchema } from "../../../generation/sections.ts";
+import { z } from "zod";
+import {
+  entityFieldSchema,
+  translatableStringSchema,
+} from "../../../generation/data.ts";
+import {
+  backgroundColorSchema,
+  siteColorSchema,
+  optionalTextColorSchema,
+} from "../../../generation/colors.ts";
+import { hoursStatusSchema } from "../../../../sections/HoursStatus.tsx";
+import { phoneListSchema } from "../../contentBlocks/PhoneList.tsx";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
@@ -34,6 +45,46 @@ import {
   EmptyStateMarker,
 } from "../emptyStateMarker.tsx";
 import { updateFields } from "../../../utils/updateFields.ts";
+
+const nearbyLocationCardsWrapperSchema = z.object({
+  data: z.object({
+    title: entityFieldSchema(translatableStringSchema).optional(),
+    radius: z.number().min(0),
+    limit: z.number().int().min(1).max(50),
+  }),
+  styles: z.object({
+    backgroundColor: backgroundColorSchema.optional(),
+    headingLevel: z
+      .union([
+        z.literal(1),
+        z.literal(2),
+        z.literal(3),
+        z.literal(4),
+        z.literal(5),
+        z.literal(6),
+      ])
+      .optional(),
+    color: siteColorSchema.optional(),
+    textColor: optionalTextColorSchema,
+    hours: hoursStatusSchema.shape.styles.pick({
+      showCurrentStatus: true,
+      timeFormat: true,
+      dayOfWeekFormat: true,
+      showDayNames: true,
+    }),
+    phone: z.object({
+      phoneNumberFormat: phoneListSchema.shape.styles.shape.phoneFormat,
+      phoneNumberLink: z.boolean(),
+      color: siteColorSchema.optional(),
+    }),
+    address: z
+      .object({ showRegion: z.boolean(), showCountry: z.boolean() })
+      .optional(),
+    showHours: z.boolean(),
+    showPhone: z.boolean(),
+    showAddress: z.boolean(),
+  }),
+});
 
 export type NearbyLocationCardsWrapperProps = {
   /** The search parameters for finding nearby locations. */

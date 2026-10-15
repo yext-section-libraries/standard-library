@@ -1,4 +1,10 @@
-import { staticMapSectionSchema } from "../shared/generation/staticMap.ts";
+import { z } from "zod";
+import { backgroundColorSchema } from "../shared/generation/colors.ts";
+import {
+  mapStyleSchema,
+  MapboxStaticMapComponent,
+  mapStyleField,
+} from "./MapboxStaticMap.tsx";
 import {
   backgroundColors,
   ThemeColor,
@@ -9,9 +15,16 @@ import {
 } from "@yext/visual-editor";
 import { PageSection } from "../shared/sectionSupport/atoms/pageSection.tsx";
 import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
-import { MapboxStaticMapComponent, mapStyleField } from "./MapboxStaticMap.tsx";
 import { PuckComponent } from "@puckeditor/core";
 import { ComponentErrorBoundary } from "@yext/visual-editor/section-library-support";
+
+export const staticMapSectionSchema = z.object({
+  styles: z.object({
+    backgroundColor: backgroundColorSchema.optional(),
+    mapStyle: mapStyleSchema,
+  }),
+  liveVisibility: z.boolean(),
+});
 
 export interface StaticMapStyles {
   /**

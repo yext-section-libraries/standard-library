@@ -1,4 +1,7 @@
-import { hoursTableSchema } from "../shared/generation/slots.ts";
+import { hoursValueSchema } from "../shared/sectionSupport/atoms/hoursSchemas.ts";
+import { z } from "zod";
+import { entityFieldSchema } from "../shared/generation/data.ts";
+import { optionalTextColorSchema } from "../shared/generation/colors.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
@@ -22,6 +25,36 @@ import {
 } from "@yext/visual-editor/section-library-support";
 import { HoursTableAtom } from "../shared/sectionSupport/atoms/hoursTable.tsx";
 import { Body } from "../shared/sectionSupport/atoms/body.tsx";
+
+export const hoursTableSchema = z.object({
+  data: z.object({
+    hours: entityFieldSchema(hoursValueSchema),
+  }),
+  styles: z.object({
+    startOfWeek: z
+      .enum([
+        "today",
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday",
+      ])
+      .describe("First day displayed; today follows the current day."),
+    collapseDays: z
+      .boolean()
+      .describe("Combine consecutive days with matching hours."),
+    showAdditionalHoursText: z
+      .boolean()
+      .describe("Show the entity's additionalHoursText below the table."),
+    alignment: z
+      .enum(["items-start", "items-center"])
+      .describe("Left or center alignment of the hours table."),
+    textColor: optionalTextColorSchema,
+  }),
+});
 
 /** Props for the HoursTable component. */
 export interface HoursTableProps {

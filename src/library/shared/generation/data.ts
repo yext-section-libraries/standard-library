@@ -1,7 +1,6 @@
 import { z } from "zod";
 import type {
   AssetImageType,
-  AssetVideo,
   TranslatableRichText,
   EnhancedTranslatableCTA,
   TranslatableString,
@@ -40,46 +39,6 @@ export function entityFieldSchema<T extends z.ZodType>(constantValue: T) {
       ),
   });
 }
-
-// Match native authored values, including the empty configuration used by defaults.
-// Entity fields remain the source of business facts unless the user supplies constants.
-export const addressValueSchema = z.object({
-  line1: z.string().optional(),
-  line2: z.string().optional(),
-  line3: z.string().optional(),
-  city: z.string().optional(),
-  region: z.string().optional(),
-  postalCode: z.string().optional(),
-  countryCode: z.string().optional(),
-  extraDescription: z.string().optional(),
-  sublocality: z.string().optional(),
-  localizedRegionName: z.string().optional(),
-  localizedCountryName: z.string().optional(),
-});
-const hoursDaySchema = z.object({
-  isClosed: z.boolean().optional(),
-  openIntervals: z
-    .array(z.object({ start: z.string(), end: z.string() }))
-    .optional(),
-});
-export const hoursValueSchema = z.object({
-  monday: hoursDaySchema.optional(),
-  tuesday: hoursDaySchema.optional(),
-  wednesday: hoursDaySchema.optional(),
-  thursday: hoursDaySchema.optional(),
-  friday: hoursDaySchema.optional(),
-  saturday: hoursDaySchema.optional(),
-  sunday: hoursDaySchema.optional(),
-  holidayHours: z
-    .array(
-      hoursDaySchema.extend({
-        date: z.string(),
-        isRegularHours: z.boolean().optional(),
-      })
-    )
-    .optional(),
-  reopenDate: z.string().optional(),
-});
 
 export const assetImageSchema = z.object({
   url: z.string().describe("The url of the image"),
@@ -153,17 +112,3 @@ export const translatableRichTextSchema = z
   .describe(
     "Rich text as a string, an HTML/JSON object, or localized values keyed by locale."
   ) satisfies z.ZodType<TranslatableRichText>;
-
-export const assetVideoSchema = z.object({
-  video: z.object({
-    url: z.string(),
-    id: z.string(),
-    title: z.string(),
-    thumbnail: z.string(),
-    duration: z.string(),
-    embeddedUrl: z.string().describe("The YouTube embed URL."),
-  }),
-  videoDescription: z.string().optional(),
-  name: z.string(),
-  id: z.string(),
-}) satisfies z.ZodType<AssetVideo>;

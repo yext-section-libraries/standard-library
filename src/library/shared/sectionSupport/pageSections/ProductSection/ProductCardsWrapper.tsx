@@ -1,4 +1,13 @@
-import { productCardsWrapperSchema } from "../../../generation/mappedCards.ts";
+import {
+  cardsWrapperSchema,
+  imageMapping,
+  richTextMapping,
+  textMapping,
+  ctaMapping,
+} from "../mappedCardsSchemas.ts";
+import { entityFieldSchema } from "../../../generation/data.ts";
+import { z } from "zod";
+import { productVariantSchema } from "./productSchemas.ts";
 import {
   msg,
   ThemeOptions,
@@ -19,6 +28,33 @@ import {
 import { ProductSectionVariant } from "../../../../sections/ProductSection.tsx";
 import { renderMappedEntityFieldEmptyState } from "../EntityFieldSectionEmptyState.tsx";
 import { MappedEntityFieldConditionalRender } from "../entityFieldSectionUtils.ts";
+
+const productCardsWrapperSchema = cardsWrapperSchema(
+  {
+    image: imageMapping,
+    category: richTextMapping,
+    name: textMapping,
+    price: entityFieldSchema(
+      z
+        .object({
+          value: z.number().optional(),
+          currencyCode: z.string().optional(),
+        })
+        .optional()
+    ),
+    description: richTextMapping,
+    cta: ctaMapping,
+  },
+  {
+    showImage: z.boolean(),
+    showBrow: z.boolean(),
+    showTitle: z.boolean(),
+    showPrice: z.boolean(),
+    showDescription: z.boolean(),
+    showCTA: z.boolean(),
+    variant: productVariantSchema.optional(),
+  }
+);
 
 export const productCardsSource = createSlottedItemSource<
   ProductStruct,

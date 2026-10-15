@@ -1,4 +1,6 @@
-import { coreInfoSectionSchema } from "../shared/generation/coreInfo.ts";
+import { z } from "zod";
+import { backgroundColorSchema } from "../shared/generation/colors.ts";
+import { slotSchema } from "../shared/generation/slots.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent, Slot } from "@puckeditor/core";
 import { AddressType, AnalyticsScopeProvider } from "@yext/pages-components";
@@ -26,6 +28,24 @@ import {
   resolvePhoneNumbers,
 } from "../shared/sectionSupport/contentBlocks/PhoneList.tsx";
 import { ComponentErrorBoundary } from "@yext/visual-editor/section-library-support";
+
+const coreInfoSectionSchema = z.object({
+  styles: z.object({ backgroundColor: backgroundColorSchema.optional() }),
+  slots: z.object({
+    CoreInfoHeadingSlot: slotSchema(),
+    CoreInfoAddressSlot: slotSchema(),
+    CoreInfoPhoneNumbersSlot: slotSchema(),
+    CoreInfoEmailsSlot: slotSchema(),
+    HoursHeadingSlot: slotSchema(),
+    HoursTableSlot: slotSchema(),
+    ServicesHeadingSlot: slotSchema(),
+    TextListSlot: slotSchema(),
+  }),
+  analytics: z.object({
+    scope: z.string().optional().describe("Analytics scope for this section."),
+  }),
+  liveVisibility: z.boolean(),
+});
 
 export interface CoreInfoStyles {
   /**

@@ -1,4 +1,6 @@
-import { teamCardSchema } from "../../../generation/mappedCards.ts";
+import { z } from "zod";
+import { cardStyles } from "../mappedCardsSchemas.ts";
+import { slotSchema } from "../../../generation/slots.ts";
 import * as React from "react";
 import { PuckComponent, Slot, WithId, setDeep } from "@puckeditor/core";
 import {
@@ -28,6 +30,18 @@ import {
   syncParentStyles,
 } from "@yext/visual-editor/section-library-support";
 import { TextProps } from "../../../../sections/Text.tsx";
+
+const teamCardSchema = z.object({
+  styles: cardStyles,
+  slots: z.object({
+    ImageSlot: slotSchema(),
+    NameSlot: slotSchema(),
+    TitleSlot: slotSchema(),
+    PhoneSlot: slotSchema(),
+    EmailSlot: slotSchema(),
+    CTASlot: slotSchema(),
+  }),
+});
 
 const defaultPerson = {
   name: { defaultValue: "First Last" },

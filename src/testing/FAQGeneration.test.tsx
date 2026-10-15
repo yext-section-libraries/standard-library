@@ -1,15 +1,16 @@
-import { describe, expect, it } from "vitest";
-import { resolveAllData } from "@puckeditor/core";
-import { FAQSection, faqCardsSource } from "../library/sections/FAQSection.tsx";
-import { HeadingText } from "../library/sections/HeadingText.tsx";
 import {
+  faqCardSchema,
   FAQCard,
   defaultFAQCardData,
 } from "../library/shared/sectionSupport/pageSections/FAQsSection/FAQCard.tsx";
 import {
-  faqCardSchema,
   faqSectionSchema,
-} from "../library/shared/generation/faq.ts";
+  FAQSection,
+  faqCardsSource,
+} from "../library/sections/FAQSection.tsx";
+import { describe, expect, it } from "vitest";
+import { resolveAllData } from "@puckeditor/core";
+import { HeadingText } from "../library/sections/HeadingText.tsx";
 
 const config = {
   components: { FAQSection, FAQCard, HeadingTextSlot: HeadingText },

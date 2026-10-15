@@ -1,4 +1,6 @@
-import { photoGallerySectionSchema } from "../shared/generation/photoGallery.ts";
+import { z } from "zod";
+import { backgroundColorSchema } from "../shared/generation/colors.ts";
+import { slotSchema } from "../shared/generation/slots.ts";
 import {
   type SectionConfig,
   backgroundColors,
@@ -27,6 +29,19 @@ import {
 import { getPhotoGalleryImageData } from "../shared/sectionSupport/pageSections/PhotoGallerySection/photoGalleryUtils.ts";
 
 import { useMappedEntitySectionEmptyState } from "../shared/sectionSupport/pageSections/useMappedEntitySectionEmptyState.ts";
+
+const photoGallerySectionSchema = z.object({
+  styles: z.object({
+    backgroundColor: backgroundColorSchema.optional(),
+    variant: z.enum(["gallery", "carousel"]),
+    showSectionHeading: z.boolean(),
+  }),
+  slots: z.object({
+    HeadingSlot: slotSchema(),
+    PhotoGalleryWrapper: slotSchema(),
+  }),
+  liveVisibility: z.boolean(),
+});
 
 export interface PhotoGalleryStyles {
   /**

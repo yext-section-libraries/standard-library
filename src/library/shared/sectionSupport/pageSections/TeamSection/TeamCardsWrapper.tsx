@@ -1,4 +1,12 @@
-import { teamCardsWrapperSchema } from "../../../generation/mappedCards.ts";
+import {
+  cardsWrapperSchema,
+  imageMapping,
+  textMapping,
+  richTextMapping,
+  dateMapping,
+  ctaMapping,
+} from "../mappedCardsSchemas.ts";
+import { z } from "zod";
 import { PuckComponent } from "@puckeditor/core";
 import {
   PersonStruct,
@@ -15,6 +23,24 @@ import {
 import { defaultTeamCardSlotData, TeamCardProps } from "./TeamCard.tsx";
 import { renderMappedEntityFieldEmptyState } from "../EntityFieldSectionEmptyState.tsx";
 import { MappedEntityFieldConditionalRender } from "../entityFieldSectionUtils.ts";
+
+const teamCardsWrapperSchema = cardsWrapperSchema(
+  {
+    headshot: imageMapping,
+    name: textMapping,
+    title: richTextMapping,
+    phoneNumber: dateMapping,
+    email: dateMapping,
+    cta: ctaMapping,
+  },
+  {
+    showImage: z.boolean(),
+    showTitle: z.boolean(),
+    showPhone: z.boolean(),
+    showEmail: z.boolean(),
+    showCTA: z.boolean(),
+  }
+);
 
 export const teamCardsSource = createSlottedItemSource<
   PersonStruct,

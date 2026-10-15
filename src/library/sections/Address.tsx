@@ -1,4 +1,10 @@
-import { addressSchema } from "../shared/generation/slots.ts";
+import { z } from "zod";
+import { entityFieldSchema } from "../shared/generation/data.ts";
+import { optionalSiteColorSchema } from "../shared/sectionSupport/contentBlocks/contactSchemas.ts";
+import {
+  optionalTextColorSchema,
+  siteColorSchema,
+} from "../shared/generation/colors.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import {
@@ -34,6 +40,43 @@ import {
   CTAVariant,
   isCtaVariantWithColor,
 } from "../shared/sectionSupport/atoms/cta.tsx";
+
+// Match native authored values, including the empty configuration used by defaults.
+// Entity fields remain the source of business facts unless the user supplies constants.
+const addressValueSchema = z.object({
+  line1: z.string().optional(),
+  line2: z.string().optional(),
+  line3: z.string().optional(),
+  city: z.string().optional(),
+  region: z.string().optional(),
+  postalCode: z.string().optional(),
+  countryCode: z.string().optional(),
+  extraDescription: z.string().optional(),
+  sublocality: z.string().optional(),
+  localizedRegionName: z.string().optional(),
+  localizedCountryName: z.string().optional(),
+});
+
+export const addressSchema = z.object({
+  data: z.object({
+    address: entityFieldSchema(addressValueSchema),
+  }),
+  styles: z.object({
+    showRegion: z.boolean().optional(),
+    showCountry: z.boolean().optional(),
+    showGetDirectionsLink: z.boolean(),
+    ctaVariant: z.enum(["primary", "secondary", "link"]),
+    color: optionalSiteColorSchema.describe(
+      "Get Directions link color or button background color. Omit to use the default theme color; set only when the user explicitly requests an override."
+    ),
+    textColor: optionalTextColorSchema,
+    ctaTextColor: siteColorSchema
+      .optional()
+      .describe(
+        "Omit to use the default button text and icon colors. Set only when the user explicitly requests a Get Directions button text or icon color override, and use a valid theme color."
+      ),
+  }),
+});
 
 /** Props for the Address component */
 export interface AddressProps {

@@ -1,6 +1,14 @@
+import { z } from "zod";
+import {
+  entityFieldSchema,
+  translatableRichTextSchema,
+} from "../shared/generation/data.ts";
+import {
+  backgroundColorSchema,
+  optionalTextColorSchema,
+} from "../shared/generation/colors.ts";
 import { useTranslation } from "react-i18next";
 import * as React from "react";
-import { bannerSectionSchema } from "../shared/generation/banner.ts";
 import "@yext/visual-editor/style.css";
 import {
   YextEntityField,
@@ -28,6 +36,16 @@ import {
   useTemplateMetadata,
   ComponentErrorBoundary,
 } from "@yext/visual-editor/section-library-support";
+
+const bannerSectionSchema = z.object({
+  data: z.object({ text: entityFieldSchema(translatableRichTextSchema) }),
+  styles: z.object({
+    backgroundColor: backgroundColorSchema.optional(),
+    textColor: optionalTextColorSchema,
+    textAlignment: z.enum(["left", "right", "center"]),
+  }),
+  liveVisibility: z.boolean(),
+});
 
 export interface BannerData {
   /**

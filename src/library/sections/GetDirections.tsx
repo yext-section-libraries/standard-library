@@ -1,4 +1,9 @@
-import { getDirectionsSchema } from "../shared/generation/atoms.ts";
+import { z } from "zod";
+import { ctaVariantSchema } from "../shared/sectionSupport/atoms/ctaSchemas.ts";
+import {
+  siteColorSchema,
+  optionalTextColorSchema,
+} from "../shared/generation/colors.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { setDeep } from "@puckeditor/core";
 import "@yext/pages-components/style.css";
@@ -17,6 +22,12 @@ import {
   isCtaVariantWithColor,
 } from "../shared/sectionSupport/atoms/cta.tsx";
 import { useTranslation } from "react-i18next";
+
+export const getDirectionsSchema = z.object({
+  variant: ctaVariantSchema,
+  color: siteColorSchema.optional(),
+  textColor: optionalTextColorSchema,
+});
 
 export type GetDirectionsProps = {
   variant: CTAVariant;

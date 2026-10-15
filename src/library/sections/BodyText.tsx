@@ -1,4 +1,9 @@
-import { bodyTextSchema } from "../shared/generation/slots.ts";
+import { z } from "zod";
+import {
+  entityFieldSchema,
+  translatableRichTextSchema,
+} from "../shared/generation/data.ts";
+import { optionalTextColorSchema } from "../shared/generation/colors.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import * as React from "react";
@@ -20,6 +25,14 @@ import {
   YextFields,
   SectionConfig,
 } from "@yext/visual-editor";
+
+export const bodyTextSchema = z.object({
+  data: z.object({ text: entityFieldSchema(translatableRichTextSchema) }),
+  styles: z.object({
+    variant: z.enum(["xs", "sm", "base", "lg"]).nullable(),
+    color: optionalTextColorSchema,
+  }),
+});
 
 export type BodyTextProps = {
   data: {

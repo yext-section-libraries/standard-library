@@ -1,14 +1,16 @@
-import { faqSectionSchema } from "../shared/generation/faq.ts";
+import { z } from "zod";
+import {
+  entityFieldSchema,
+  translatableRichTextSchema,
+} from "../shared/generation/data.ts";
+import { backgroundColorSchema } from "../shared/generation/colors.ts";
+import { slotSchema } from "../shared/generation/slots.ts";
 import { PuckComponent, Slot, SlotComponent } from "@puckeditor/core";
 import {
   backgroundColors,
   SectionConfig,
   ThemeColor,
   ThemeOptions,
-} from "@yext/visual-editor";
-import { PageSection } from "../shared/sectionSupport/atoms/pageSection.tsx";
-import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
-import {
   msg,
   getAnalyticsScopeHash,
   FAQStruct,
@@ -16,6 +18,8 @@ import {
   YextFields,
   createSlottedItemSource,
 } from "@yext/visual-editor";
+import { PageSection } from "../shared/sectionSupport/atoms/pageSection.tsx";
+import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
 import { HeadingTextProps } from "./HeadingText.tsx";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import {
@@ -28,6 +32,37 @@ import {
 } from "@yext/visual-editor/section-library-support";
 import { EntityFieldSectionEmptyStateBox } from "../shared/sectionSupport/pageSections/EntityFieldSectionEmptyState.tsx";
 import { MappedEntityFieldConditionalRender } from "../shared/sectionSupport/pageSections/entityFieldSectionUtils.ts";
+
+export const faqSectionSchema = z.object({
+  data: z
+    .object({
+      field: z.string(),
+      constantValueEnabled: z.boolean().optional(),
+      mappings: z
+        .object({
+          question: entityFieldSchema(translatableRichTextSchema.optional()),
+          answer: entityFieldSchema(translatableRichTextSchema.optional()),
+        })
+        .optional(),
+    })
+    .describe(
+      "Bind an entity FAQ list with question/answer mappings, or enable constants and author FAQCard children in CardSlot. Card references are assigned automatically. Linked cards use library defaults."
+    ),
+  styles: z.object({
+    backgroundColor: backgroundColorSchema.optional(),
+    showSectionHeading: z.boolean(),
+  }),
+  slots: z.object({
+    HeadingSlot: slotSchema(),
+    CardSlot: z
+      .array(z.unknown())
+      .describe(
+        "Ordered FAQCard children for manual FAQs, or select the default cards. Leave empty or select defaults in linked mode."
+      ),
+  }),
+  analytics: z.object({ scope: z.string().optional() }),
+  liveVisibility: z.boolean(),
+});
 
 export interface FAQStyles {
   /**

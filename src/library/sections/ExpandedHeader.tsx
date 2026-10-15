@@ -1,4 +1,5 @@
-import { expandedHeaderSchema } from "../shared/generation/header.ts";
+import { z } from "zod";
+import { slotSchema } from "../shared/generation/slots.ts";
 import * as React from "react";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import { PuckComponent, setDeep, Slot } from "@puckeditor/core";
@@ -14,6 +15,24 @@ import { cva } from "class-variance-authority";
 import { defaultPrimaryHeaderProps } from "../shared/sectionSupport/header/PrimaryHeaderSlot.tsx";
 import { defaultSecondaryHeaderProps } from "../shared/sectionSupport/header/SecondaryHeaderSlot.tsx";
 import { ExpandedHeaderMenuProvider } from "../shared/sectionSupport/header/ExpandedHeaderMenuContext.tsx";
+
+const maxWidthSchema = z
+  .enum(["theme", "768px", "960px", "1024px", "1280px", "1440px", "fullWidth"])
+  .nullable();
+
+const expandedHeaderSchema = z.object({
+  styles: z.object({
+    maxWidth: maxWidthSchema.describe(
+      "Maximum width shared by both header tiers."
+    ),
+    headerPosition: z.enum(["fixed", "scrollsWithPage"]),
+  }),
+  slots: z.object({
+    PrimaryHeaderSlot: slotSchema(),
+    SecondaryHeaderSlot: slotSchema(),
+  }),
+  analytics: z.object({ scope: z.string().optional() }),
+});
 
 export const headerWrapper = cva("flex flex-col", {
   variants: {

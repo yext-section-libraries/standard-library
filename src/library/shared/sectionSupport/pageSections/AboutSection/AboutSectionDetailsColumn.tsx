@@ -1,4 +1,51 @@
-import { aboutSectionDetailsColumnSchema } from "../../../generation/about.ts";
+import { z } from "zod";
+import {
+  entityFieldSchema,
+  translatableStringSchema,
+} from "../../../generation/data.ts";
+import {
+  hoursStatusSchema,
+  HoursStatus,
+  HoursStatusProps,
+  hoursStatusWrapperFields,
+} from "../../../../sections/HoursStatus.tsx";
+import {
+  hoursTableSchema,
+  HoursTableProps,
+  hoursTableFields,
+  HoursTable,
+} from "../../../../sections/HoursTable.tsx";
+import {
+  addressSchema,
+  addressFields,
+  Address,
+  AddressProps,
+  resolveAddressFields,
+} from "../../../../sections/Address.tsx";
+import {
+  phoneSchema,
+  Phone,
+  PhoneProps,
+  PhoneFields,
+} from "../../../../sections/Phone.tsx";
+import {
+  emailsSchema,
+  Emails,
+  EmailsProps,
+  EmailsFields,
+} from "../../../../sections/Emails.tsx";
+import {
+  textListSchema,
+  TextList,
+  TextListProps,
+  textListFields,
+} from "../../../../sections/TextList.tsx";
+import {
+  footerSocialLinksSchema,
+  FooterSocialLinksSlotProps,
+  FooterSocialLinksSlot,
+  FooterSocialLinksSlotFields,
+} from "../../footer/FooterSocialLinksSlot.tsx";
 import React from "react";
 import { FieldLabel, PuckComponent } from "@puckeditor/core";
 import { useTranslation } from "react-i18next";
@@ -21,39 +68,33 @@ import {
   YextFieldDefinition,
   YextFields,
 } from "@yext/visual-editor";
-import { FooterSocialLinksSlotProps } from "../../footer/FooterSocialLinksSlot.tsx";
 import { Heading } from "../../atoms/heading.tsx";
-import {
-  HoursStatus,
-  HoursStatusProps,
-  hoursStatusWrapperFields,
-} from "../../../../sections/HoursStatus.tsx";
-import { Phone, PhoneProps, PhoneFields } from "../../../../sections/Phone.tsx";
-import {
-  Emails,
-  EmailsProps,
-  EmailsFields,
-} from "../../../../sections/Emails.tsx";
-import {
-  TextList,
-  TextListProps,
-  textListFields,
-} from "../../../../sections/TextList.tsx";
-import {
-  FooterSocialLinksSlot,
-  FooterSocialLinksSlotFields,
-} from "../../footer/FooterSocialLinksSlot.tsx";
-import {
-  addressFields,
-  Address,
-  AddressProps,
-  resolveAddressFields,
-} from "../../../../sections/Address.tsx";
-import {
-  HoursTableProps,
-  hoursTableFields,
-  HoursTable,
-} from "../../../../sections/HoursTable.tsx";
+
+export const aboutSectionDetailsColumnSchema = z.object({
+  sections: z.array(
+    z.object({
+      header: entityFieldSchema(translatableStringSchema),
+      content: z.discriminatedUnion("type", [
+        z.object({
+          type: z.literal("hoursStatus"),
+          hoursStatus: hoursStatusSchema,
+        }),
+        z.object({
+          type: z.literal("hoursTable"),
+          hoursTable: hoursTableSchema,
+        }),
+        z.object({ type: z.literal("address"), address: addressSchema }),
+        z.object({ type: z.literal("phone"), phone: phoneSchema }),
+        z.object({ type: z.literal("emails"), emails: emailsSchema }),
+        z.object({ type: z.literal("textList"), textList: textListSchema }),
+        z.object({
+          type: z.literal("socialMedia"),
+          socialMedia: footerSocialLinksSchema,
+        }),
+      ]),
+    })
+  ),
+});
 
 export type AboutSectionDetailsColumnProps = {
   sections: DetailSection[];

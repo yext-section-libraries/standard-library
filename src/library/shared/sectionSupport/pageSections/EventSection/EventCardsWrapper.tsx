@@ -1,4 +1,12 @@
-import { eventCardsWrapperSchema } from "../../../generation/mappedCards.ts";
+import {
+  cardsWrapperSchema,
+  imageMapping,
+  textMapping,
+  dateMapping,
+  richTextMapping,
+  ctaMapping,
+} from "../mappedCardsSchemas.ts";
+import { z } from "zod";
 import { PuckComponent } from "@puckeditor/core";
 import {
   EventStruct,
@@ -15,6 +23,22 @@ import {
 import { defaultEventCardSlotData, EventCardProps } from "./EventCard.tsx";
 import { renderMappedEntityFieldEmptyState } from "../EntityFieldSectionEmptyState.tsx";
 import { MappedEntityFieldConditionalRender } from "../entityFieldSectionUtils.ts";
+
+const eventCardsWrapperSchema = cardsWrapperSchema(
+  {
+    image: imageMapping,
+    title: textMapping,
+    dateTime: dateMapping,
+    description: richTextMapping,
+    cta: ctaMapping,
+  },
+  {
+    showImage: z.boolean(),
+    showDateTime: z.boolean(),
+    showDescription: z.boolean(),
+    showCTA: z.boolean(),
+  }
+);
 
 export const eventCardsSource = createSlottedItemSource<
   EventStruct,

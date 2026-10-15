@@ -1,4 +1,6 @@
-import { productCardSchema } from "../../../generation/mappedCards.ts";
+import { z } from "zod";
+import { cardStyles } from "../mappedCardsSchemas.ts";
+import { slotSchema } from "../../../generation/slots.ts";
 import * as React from "react";
 import {
   ThemeColor,
@@ -34,6 +36,18 @@ import {
 import { isCompleteProductPrice, isInvalidProductPrice } from "./utils.ts";
 import { TextProps } from "../../../../sections/Text.tsx";
 import { ProductSectionVariant } from "../../../../sections/ProductSection.tsx";
+
+const productCardSchema = z.object({
+  styles: cardStyles,
+  slots: z.object({
+    ImageSlot: slotSchema(),
+    BrowSlot: slotSchema(),
+    TitleSlot: slotSchema(),
+    PriceSlot: slotSchema(),
+    DescriptionSlot: slotSchema(),
+    CTASlot: slotSchema(),
+  }),
+});
 
 /**
  * Default product-shaped data used to keep placeholder content aligned with

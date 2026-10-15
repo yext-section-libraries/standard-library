@@ -1,4 +1,12 @@
-import { insightCardsWrapperSchema } from "../../../generation/mappedCards.ts";
+import {
+  cardsWrapperSchema,
+  imageMapping,
+  textMapping,
+  richTextMapping,
+  dateMapping,
+  ctaMapping,
+} from "../mappedCardsSchemas.ts";
+import { z } from "zod";
 import {
   InsightStruct,
   msg,
@@ -18,6 +26,24 @@ import {
 } from "./InsightCard.tsx";
 import { renderMappedEntityFieldEmptyState } from "../EntityFieldSectionEmptyState.tsx";
 import { MappedEntityFieldConditionalRender } from "../entityFieldSectionUtils.ts";
+
+const insightCardsWrapperSchema = cardsWrapperSchema(
+  {
+    image: imageMapping,
+    name: textMapping,
+    category: richTextMapping,
+    publishTime: dateMapping,
+    description: richTextMapping,
+    cta: ctaMapping,
+  },
+  {
+    showImage: z.boolean(),
+    showCategory: z.boolean(),
+    showPublishTime: z.boolean(),
+    showDescription: z.boolean(),
+    showCTA: z.boolean(),
+  }
+);
 
 export const insightCardsSource = createSlottedItemSource<
   InsightStruct,
