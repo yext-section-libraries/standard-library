@@ -1,3 +1,4 @@
+import { footerLinksSchema } from "../../generation/footer.ts";
 import * as React from "react";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import { cva } from "class-variance-authority";
@@ -336,6 +337,7 @@ const footerLinksSlotFields: YextFields<FooterLinksSlotProps> = {
 export const FooterLinksSlot: YextComponentConfig<FooterLinksSlotProps> = {
   label: msg("components.footerLinksSlot", "Links"),
   fields: footerLinksSlotFields,
+  generation: { props: footerLinksSchema },
   resolveFields: (data) =>
     setDeep(
       toPuckFields(footerLinksSlotFields),

@@ -1,3 +1,4 @@
+import { professionalHeroSectionSchema } from "../shared/generation/sections.ts";
 import React from "react";
 import { Slot, PuckComponent } from "@puckeditor/core";
 import {
@@ -472,6 +473,7 @@ export const ProfessionalHeroSection: YextComponentConfig<ProfessionalHeroSectio
   {
     label: msg("components.professionalHero", "Professional Hero"),
     fields: professionalHeroSectionFields,
+    generation: { props: professionalHeroSectionSchema },
     defaultProps: {
       styles: {
         backgroundColor: backgroundColors.background1.value,

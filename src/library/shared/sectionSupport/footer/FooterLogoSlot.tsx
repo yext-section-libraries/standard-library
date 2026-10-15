@@ -1,3 +1,4 @@
+import { footerLogoSchema } from "../../generation/footer.ts";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
 import { MaybeLink } from "../atoms/maybeLink.tsx";
@@ -91,6 +92,7 @@ const FooterLogoSlotInternal: PuckComponent<FooterLogoSlotProps> = (props) => {
 
 export const FooterLogoSlot: YextComponentConfig<FooterLogoSlotProps> = {
   label: msg("components.footerLogoSlot", "Logo"),
+  generation: { props: footerLogoSchema },
   fields: {
     data: {
       type: "object",

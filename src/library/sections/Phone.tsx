@@ -1,3 +1,4 @@
+import { phoneSchema } from "../shared/generation/atoms.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import {
@@ -163,6 +164,7 @@ export const Phone: YextComponentConfig<PhoneProps> = {
   ...gridAtomPermissions,
   label: msg("components.phone", "Phone"),
   fields: PhoneFields,
+  generation: { props: phoneSchema },
   defaultProps: {
     data: defaultPhoneDataProps,
     styles: {

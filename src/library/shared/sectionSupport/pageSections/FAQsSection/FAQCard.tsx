@@ -1,3 +1,4 @@
+import { faqCardSchema } from "../../../generation/faq.ts";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
 import { Body, BodyProps } from "../../atoms/body.tsx";
@@ -278,6 +279,7 @@ const FAQCardComponent: PuckComponent<FAQCardProps> = (props) => {
 export const FAQCard: YextComponentConfig<FAQCardProps> = {
   label: msg("faq", "FAQ"),
   fields: FAQCardFields,
+  generation: { props: faqCardSchema },
   defaultProps: defaultFAQCardData().props,
   resolveFields: (data) =>
     resolveDataFromParent(

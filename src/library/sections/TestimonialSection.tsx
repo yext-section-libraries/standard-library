@@ -1,3 +1,4 @@
+import { mappedCardsSectionSchema } from "../shared/generation/mappedCards.ts";
 import { Slot } from "@puckeditor/core";
 import {
   ThemeColor,
@@ -115,6 +116,7 @@ export const TestimonialSection: YextComponentConfig<TestimonialSectionProps> =
   {
     label: msg("components.testimonials", "Testimonials"),
     fields: testimonialSectionFields,
+    generation: { props: mappedCardsSectionSchema },
     defaultProps: {
       styles: {
         backgroundColor: backgroundColors.background2.value,

@@ -1,3 +1,4 @@
+import { footerSocialLinksSchema } from "../../generation/footer.ts";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
 import { CTA } from "../atoms/cta.tsx";
@@ -206,6 +207,7 @@ export const FooterSocialLinksSlot: YextComponentConfig<FooterSocialLinksSlotPro
   {
     label: msg("components.footerSocialLinksSlot", "Social Links"),
     fields: FooterSocialLinksSlotFields,
+    generation: { props: footerSocialLinksSchema },
     defaultProps: {
       data: {
         xLink: "",

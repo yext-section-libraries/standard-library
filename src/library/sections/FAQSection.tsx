@@ -1,3 +1,4 @@
+import { faqSectionSchema } from "../shared/generation/faq.ts";
 import { PuckComponent, Slot, SlotComponent } from "@puckeditor/core";
 import {
   backgroundColors,
@@ -178,6 +179,10 @@ const FAQsSectionComponent: PuckComponent<FAQSectionProps> = ({
 export const FAQSection: YextComponentConfig<FAQSectionProps> = {
   label: msg("components.faqs", "FAQs"),
   fields: FAQsSectionFields,
+  generation: {
+    props: faqSectionSchema,
+    slottedItemSource: faqCardsSource.generation,
+  },
   defaultProps: {
     ...faqCardsSource.defaultWrapperProps,
     slots: {

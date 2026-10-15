@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { siteColorSchema } from "./colors.ts";
+import { optionalTextColorSchema, siteColorSchema } from "./colors.ts";
 import {
   assetVideoSchema,
   translatableRichTextSchema,
@@ -39,7 +39,7 @@ export const headingTextSchema = z.object({
   styles: z.object({
     level: headingLevelSchema,
     align: z.enum(["left", "center", "right"]),
-    color: optionalSiteColorSchema,
+    color: optionalTextColorSchema,
   }),
 });
 
@@ -69,13 +69,19 @@ export const phoneListSchema = z.object({
       .boolean()
       .optional()
       .describe("whether to display a phone icon"),
-    color: optionalSiteColorSchema.describe("Phone link and icon background color. Omit to use default theme colors; set only when the user explicitly requests a phone color override."),
+    color: optionalSiteColorSchema.describe(
+      "Phone link and icon background color. Omit to use default theme colors; set only when the user explicitly requests a phone color override."
+    ),
     labelColor: siteColorSchema
       .optional()
-      .describe("Omit to use the default theme text color. Set only when the user explicitly requests a phone label color override, and use a valid theme color."),
+      .describe(
+        "Omit to use the default theme text color. Set only when the user explicitly requests a phone label color override, and use a valid theme color."
+      ),
     iconColor: siteColorSchema
       .optional()
-      .describe("Omit to use the default icon color. Set only when the user explicitly requests a phone icon color override, and use a valid theme color."),
+      .describe(
+        "Omit to use the default icon color. Set only when the user explicitly requests a phone icon color override, and use a valid theme color."
+      ),
   }),
 });
 
@@ -91,7 +97,7 @@ export const hoursStatusSchema = z.object({
       showDayNames: z.boolean().optional(),
       className: z.string().optional(),
       bodyVariant: z.enum(["lg", "base", "sm"]).optional(),
-      textColor: optionalSiteColorSchema,
+      textColor: optionalTextColorSchema,
     })
     .describe("The formatting for the hours status line"),
 });
@@ -135,11 +141,15 @@ export const addressSchema = z.object({
     showCountry: z.boolean().optional(),
     showGetDirectionsLink: z.boolean(),
     ctaVariant: z.enum(["primary", "secondary", "link"]),
-    color: optionalSiteColorSchema.describe("Get Directions link color or button background color. Omit to use the default theme color; set only when the user explicitly requests an override."),
-    textColor: siteColorSchema.optional().describe("Omit to use the default text color. Set only when the user explicitly requests a Get Directions text color override, and use a valid theme color."),
-    ctaTextColor: siteColorSchema.optional().describe(
-      "Omit to use the default button text and icon colors. Set only when the user explicitly requests a Get Directions button text or icon color override, and use a valid theme color."
+    color: optionalSiteColorSchema.describe(
+      "Get Directions link color or button background color. Omit to use the default theme color; set only when the user explicitly requests an override."
     ),
+    textColor: optionalTextColorSchema,
+    ctaTextColor: siteColorSchema
+      .optional()
+      .describe(
+        "Omit to use the default button text and icon colors. Set only when the user explicitly requests a Get Directions button text or icon color override, and use a valid theme color."
+      ),
   }),
 });
 
@@ -169,7 +179,7 @@ export const hoursTableSchema = z.object({
     alignment: z
       .enum(["items-start", "items-center"])
       .describe("Left or center alignment of the hours table."),
-    textColor: optionalSiteColorSchema,
+    textColor: optionalTextColorSchema,
   }),
 });
 
@@ -208,22 +218,22 @@ export const textListSchema = z.object({
   commaSeparated: z
     .boolean()
     .describe("Display items inline with commas instead of bullets."),
-  styles: z.object({ textColor: optionalSiteColorSchema }).optional(),
+  styles: z.object({ textColor: optionalTextColorSchema }).optional(),
 });
 
 export const bodyTextSchema = z.object({
   data: z.object({ text: entityFieldSchema(translatableRichTextSchema) }),
   styles: z.object({
     variant: z.enum(["xs", "sm", "base", "lg"]).nullable(),
-    color: siteColorSchema
-      .optional()
-      .describe("Only use when specifically requested by the user"),
+    color: optionalTextColorSchema,
   }),
 });
 
-// An unset video is omitted when props are serialized as JSON.
+// An unset video may be omitted or saved as an empty asset object.
 export const videoSchema = z.object({
-  data: z.object({ assetVideo: assetVideoSchema.optional() }),
+  data: z.object({
+    assetVideo: z.union([assetVideoSchema, z.strictObject({})]).optional(),
+  }),
 });
 
 export const headerLinksSchema = z.object({
@@ -238,9 +248,7 @@ export const headerLinksSchema = z.object({
   styles: z.object({
     align: z.enum(["left", "center", "right"]).optional(),
     variant: z.enum(["xs", "sm", "base", "lg"]).nullable().optional(),
-    color: siteColorSchema
-      .optional()
-      .describe("Only use when specifically requested by the user"),
+    color: optionalTextColorSchema,
     weight: z.enum(["normal", "bold"]).optional(),
   }),
 });

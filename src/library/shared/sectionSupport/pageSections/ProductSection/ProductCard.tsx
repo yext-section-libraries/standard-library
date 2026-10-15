@@ -1,3 +1,4 @@
+import { productCardSchema } from "../../../generation/mappedCards.ts";
 import * as React from "react";
 import {
   ThemeColor,
@@ -464,6 +465,7 @@ const ProductCardComponent: PuckComponent<ProductCardProps> = (props) => {
 export const ProductCard: YextComponentConfig<ProductCardProps> = {
   label: msg("slots.productCard", "Product Card"),
   fields: ProductCardFields,
+  generation: { props: productCardSchema },
   inline: true,
   resolveData: (data, params) => {
     const locale = i18nPageInstance.language || "en";
@@ -657,14 +659,7 @@ export const ProductCard: YextComponentConfig<ProductCardProps> = {
     styles: {
       backgroundColor: backgroundColors.background1.value,
     },
-    slots: {
-      ImageSlot: [],
-      BrowSlot: [],
-      TitleSlot: [],
-      PriceSlot: [],
-      DescriptionSlot: [],
-      CTASlot: [],
-    },
+    slots: defaultProductCardSlotData().props.slots,
   },
   render: (props) => <ProductCardComponent {...props} />,
 };

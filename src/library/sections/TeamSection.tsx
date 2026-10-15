@@ -1,3 +1,4 @@
+import { mappedCardsSectionSchema } from "../shared/generation/mappedCards.ts";
 import { Slot } from "@puckeditor/core";
 import {
   ThemeColor,
@@ -114,6 +115,7 @@ const teamSectionFields: YextFields<TeamSectionProps> = {
 export const TeamSection: YextComponentConfig<TeamSectionProps> = {
   label: msg("components.team", "Team"),
   fields: teamSectionFields,
+  generation: { props: mappedCardsSectionSchema },
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background3.value,

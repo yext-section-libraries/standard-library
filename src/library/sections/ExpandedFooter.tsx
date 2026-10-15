@@ -1,3 +1,4 @@
+import { expandedFooterSchema } from "../shared/generation/footer.ts";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import { Slot, PuckComponent, setDeep } from "@puckeditor/core";
 import { cva } from "class-variance-authority";
@@ -437,6 +438,7 @@ const ExpandedFooterWrapper: PuckComponent<ExpandedFooterProps> = (props) => {
 export const ExpandedFooter: YextComponentConfig<ExpandedFooterProps> = {
   label: msg("components.expandedFooter", "Expanded Footer"),
   fields: expandedFooterSectionFields,
+  generation: { props: expandedFooterSchema },
   defaultProps: {
     data: {
       primaryFooter: {

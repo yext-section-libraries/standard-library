@@ -1,3 +1,4 @@
+import { breadcrumbsSectionSchema } from "../shared/generation/breadcrumbs.ts";
 import { useTranslation } from "react-i18next";
 import {
   useTemplateProps,
@@ -238,6 +239,7 @@ export const BreadcrumbsSection: YextComponentConfig<BreadcrumbsSectionProps> =
   {
     label: msg("components.breadcrumbs", "Breadcrumbs"),
     fields: breadcrumbsSectionFields,
+    generation: { props: breadcrumbsSectionSchema },
     resolveFields: (_data, params) => {
       const streamDocument = params.metadata?.streamDocument;
       if (!streamDocument) {

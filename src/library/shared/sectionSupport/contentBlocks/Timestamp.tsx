@@ -1,3 +1,4 @@
+import { timestampSchema } from "../../generation/atoms.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import {
@@ -127,6 +128,7 @@ const TimestampComponent: PuckComponent<TimestampProps> = (props) => {
 export const Timestamp: YextComponentConfig<TimestampProps> = {
   label: msg("components.timestamp", "Timestamp"),
   fields: timestampFields,
+  generation: { props: timestampSchema },
   defaultProps: {
     data: {
       date: {
@@ -147,13 +149,13 @@ export const Timestamp: YextComponentConfig<TimestampProps> = {
   },
   resolveFields: (data) => {
     if (data.props.parentData) {
-      let fields = resolveDataFromParent(timestampFields, data);
+      const fields = resolveDataFromParent(timestampFields, data);
       return toPuckFields(
         setDeep(fields, "styles.objectFields.includeRange.visible", false)
       );
     }
 
-    const updatedFields = setDeep(
+    const fields = setDeep(
       timestampFields,
       "styles.objectFields.includeRange.visible",
       true
@@ -161,11 +163,11 @@ export const Timestamp: YextComponentConfig<TimestampProps> = {
 
     if (data.props.styles.includeRange) {
       return toPuckFields(
-        setDeep(updatedFields, "data.objectFields.endDate.visible", true)
+        setDeep(fields, "data.objectFields.endDate.visible", true)
       );
     }
     return toPuckFields(
-      setDeep(updatedFields, "data.objectFields.endDate.visible", false)
+      setDeep(fields, "data.objectFields.endDate.visible", false)
     );
   },
   render: (props) => <TimestampComponent {...props} />,

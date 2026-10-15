@@ -1,3 +1,4 @@
+import { photoGallerySectionSchema } from "../shared/generation/photoGallery.ts";
 import {
   type SectionConfig,
   backgroundColors,
@@ -161,6 +162,7 @@ export const PhotoGallerySection: YextComponentConfig<PhotoGallerySectionProps> 
   {
     label: msg("components.photoGallery", "Photo Gallery"),
     fields: photoGallerySectionFields,
+    generation: { props: photoGallerySectionSchema },
     defaultProps: {
       styles: {
         variant: "gallery",
