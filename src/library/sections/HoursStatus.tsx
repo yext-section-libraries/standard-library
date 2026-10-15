@@ -177,7 +177,7 @@ export const HoursStatus: YextComponentConfig<HoursStatusProps> = {
 };
 
 export const config: SectionConfig = {
-  id: "hoursStatus",
+  id: "HoursStatus",
   displayName: "Hours Status",
   description: "Displays the current status of the business.",
   pageSetTypes: ["ENTITY"],
