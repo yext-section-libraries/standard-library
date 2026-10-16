@@ -340,7 +340,7 @@ export const CTAWrapper: YextComponentConfig<CTAWrapperProps> = {
     },
   },
   resolveFields: (data) => {
-    const updatedFields = resolveDataFromParent(ctaWrapperFields, data);
+    let updatedFields = resolveDataFromParent(ctaWrapperFields, data);
     const ctaVariant = data.props.styles.variant;
     const actionType = data.props.data.actionType ?? "link";
     const ctaType = getCTAType(data.props.data.entityField).ctaType;
@@ -353,24 +353,52 @@ export const CTAWrapper: YextComponentConfig<CTAWrapperProps> = {
       !showButtonFields && !isNonNormalizableLinkType(constantLinkType);
 
     if (effectiveCtaType === "presetImage") {
-      setDeep(updatedFields, "styles.objectFields.variant.visible", false);
-      setDeep(updatedFields, "styles.objectFields.presetImage.visible", true);
+      updatedFields = setDeep(
+        updatedFields,
+        "styles.objectFields.variant.visible",
+        false
+      );
+      updatedFields = setDeep(
+        updatedFields,
+        "styles.objectFields.presetImage.visible",
+        true
+      );
     } else {
-      setDeep(updatedFields, "styles.objectFields.variant.visible", true);
-      setDeep(updatedFields, "styles.objectFields.presetImage.visible", false);
+      updatedFields = setDeep(
+        updatedFields,
+        "styles.objectFields.variant.visible",
+        true
+      );
+      updatedFields = setDeep(
+        updatedFields,
+        "styles.objectFields.presetImage.visible",
+        false
+      );
     }
 
     // If the show field exists, make it visible in the editor
     if (data.props.data.show !== undefined) {
-      setDeep(updatedFields, "data.objectFields.show.visible", true);
+      updatedFields = setDeep(
+        updatedFields,
+        "data.objectFields.show.visible",
+        true
+      );
     } else {
-      setDeep(updatedFields, "data.objectFields.show.visible", false);
+      updatedFields = setDeep(
+        updatedFields,
+        "data.objectFields.show.visible",
+        false
+      );
     }
 
     const showColor =
       isCtaVariantWithColor(ctaVariant) && effectiveCtaType !== "presetImage";
-    setDeep(updatedFields, "styles.objectFields.color.visible", showColor);
-    setDeep(
+    updatedFields = setDeep(
+      updatedFields,
+      "styles.objectFields.color.visible",
+      showColor
+    );
+    updatedFields = setDeep(
       updatedFields,
       "styles.objectFields.textColor.visible",
       ctaVariant === "primary" && effectiveCtaType !== "presetImage"
@@ -380,37 +408,37 @@ export const CTAWrapper: YextComponentConfig<CTAWrapperProps> = {
       return updatedFields;
     }
 
-    setDeep(
+    updatedFields = setDeep(
       updatedFields,
       "data.objectFields.entityField.visible",
       !showButtonFields
     );
-    setDeep(
+    updatedFields = setDeep(
       updatedFields,
       "data.objectFields.normalizeLink.visible",
       showNormalizeLinkField
     );
-    setDeep(
+    updatedFields = setDeep(
       updatedFields,
       "data.objectFields.buttonText.visible",
       showButtonFields
     );
-    setDeep(
+    updatedFields = setDeep(
       updatedFields,
       "data.objectFields.customId.visible",
       showButtonFields
     );
-    setDeep(
+    updatedFields = setDeep(
       updatedFields,
       "data.objectFields.customClass.visible",
       showButtonFields
     );
-    setDeep(
+    updatedFields = setDeep(
       updatedFields,
       "data.objectFields.dataAttributes.visible",
       showButtonFields
     );
-    setDeep(
+    updatedFields = setDeep(
       updatedFields,
       "data.objectFields.ariaLabel.visible",
       showButtonFields
