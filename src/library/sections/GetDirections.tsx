@@ -73,11 +73,15 @@ export const GetDirections: YextComponentConfig<GetDirectionsProps> = {
     variant: "primary",
   },
   resolveFields: (data) => {
-    const updatedFields = resolveDataFromParent(getDirectionsFields, data);
+    let updatedFields = resolveDataFromParent(getDirectionsFields, data);
     const ctaVariant = data.props.variant;
     const showColor = isCtaVariantWithColor(ctaVariant);
-    setDeep(updatedFields, "color.visible", showColor);
-    setDeep(updatedFields, "textColor.visible", ctaVariant === "primary");
+    updatedFields = setDeep(updatedFields, "color.visible", showColor);
+    updatedFields = setDeep(
+      updatedFields,
+      "textColor.visible",
+      ctaVariant === "primary"
+    );
     return updatedFields;
   },
   render: (props) => <GetDirectionsComponent {...props} />,

@@ -153,15 +153,19 @@ export const Timestamp: YextComponentConfig<TimestampProps> = {
       );
     }
 
-    setDeep(timestampFields, "styles.objectFields.includeRange.visible", true);
+    const updatedFields = setDeep(
+      timestampFields,
+      "styles.objectFields.includeRange.visible",
+      true
+    );
 
     if (data.props.styles.includeRange) {
       return toPuckFields(
-        setDeep(timestampFields, "data.objectFields.endDate.visible", true)
+        setDeep(updatedFields, "data.objectFields.endDate.visible", true)
       );
     }
     return toPuckFields(
-      setDeep(timestampFields, "data.objectFields.endDate.visible", false)
+      setDeep(updatedFields, "data.objectFields.endDate.visible", false)
     );
   },
   render: (props) => <TimestampComponent {...props} />,
