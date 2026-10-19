@@ -7,7 +7,6 @@ import {
 } from "../mappedCardsSchemas.ts";
 import { entityFieldSchema } from "../../../generation/data.ts";
 import { z } from "zod";
-import { productVariantSchema } from "./productSchemas.ts";
 import {
   msg,
   ThemeOptions,
@@ -52,7 +51,7 @@ const productCardsWrapperSchema = cardsWrapperSchema(
     showPrice: z.boolean(),
     showDescription: z.boolean(),
     showCTA: z.boolean(),
-    variant: productVariantSchema.optional(),
+    // The parent ProductSection derives variant from its cardVariant setting.
   }
 );
 
