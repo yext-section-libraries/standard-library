@@ -16,7 +16,11 @@ import {
   waitFor,
   type RenderResult,
 } from "@testing-library/react";
-import { config, FormSection, FormSectionProps } from "../library/sections/FormSection.tsx";
+import {
+  config,
+  FormSection,
+  FormSectionProps,
+} from "../library/sections/FormSection.tsx";
 import {
   sharedComponentConfigs,
   sharedComponentMetadata,
@@ -61,7 +65,9 @@ const renderForm = async (
       renderToString(form).replaceAll("<YEXT_TURNSTILE_SITE_KEY>", siteKey),
       "text/html"
     );
-    renderContainer.replaceChildren(...Array.from(renderedPage.body.childNodes));
+    renderContainer.replaceChildren(
+      ...Array.from(renderedPage.body.childNodes)
+    );
   }
 
   let result!: RenderResult;
@@ -180,59 +186,64 @@ describe("FormSection", () => {
     ).toBe("");
   });
 
-  it.each(["HS_EVENT", "CUSTOM_PLUGIN", "EMAIL_ONLY"] as const)("sends a %s form with email when the method selector is hidden", async (formType) => {
-    const props = getProps();
-    props.data.formType = formType;
-    props.data.showPreferredContactMethod = false;
-    props.data.defaultContactMethod = "EMAIL";
-    props.data.fields.push({
-      type: "dropdown",
-      label: "Preferred time",
-      key: "preferred_time",
-      options: [{ label: "Morning", value: "morning" }],
-    });
-    await renderForm(props);
-    await waitFor(() =>
+  it.each(["HS_EVENT", "CUSTOM_PLUGIN", "EMAIL_ONLY"] as const)(
+    "sends a %s form with email when the method selector is hidden",
+    async (formType) => {
+      const props = getProps();
+      props.data.formType = formType;
+      props.data.showPreferredContactMethod = false;
+      props.data.defaultContactMethod = "EMAIL";
+      props.data.fields.push({
+        type: "dropdown",
+        label: "Preferred time",
+        key: "preferred_time",
+        options: [{ label: "Morning", value: "morning" }],
+      });
+      await renderForm(props);
+      await waitFor(() =>
+        expect(
+          (
+            screen.getByRole("button", {
+              name: "Send Message",
+            }) as HTMLButtonElement
+          ).disabled
+        ).toBe(false)
+      );
+
+      fireEvent.change(screen.getByLabelText(/First name/), {
+        target: { value: "Ada" },
+      });
+      fireEvent.change(screen.getByLabelText(/Last name/), {
+        target: { value: "Lovelace" },
+      });
+      fireEvent.change(screen.getByPlaceholderText("Email"), {
+        target: { value: "ada@example.com" },
+      });
+      fireEvent.change(screen.getByLabelText("Preferred time"), {
+        target: { value: "morning" },
+      });
+      fireEvent.click(screen.getByRole("button", { name: "Send Message" }));
+
+      await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
+      const body = JSON.parse(
+        vi.mocked(fetch).mock.calls[0][1]?.body as string
+      );
+      expect(body.type).toBe(formType);
+      expect(body.data).toEqual({
+        first_name: "Ada",
+        last_name: "Lovelace",
+        preferred_contact_method: "EMAIL",
+        email: "ada@example.com",
+        custom_data: {
+          yext_wingspan_url: "",
+          preferred_time: "morning",
+        },
+      });
       expect(
-        (
-          screen.getByRole("button", {
-            name: "Send Message",
-          }) as HTMLButtonElement
-        ).disabled
-      ).toBe(false)
-    );
-
-    fireEvent.change(screen.getByLabelText(/First name/), {
-      target: { value: "Ada" },
-    });
-    fireEvent.change(screen.getByLabelText(/Last name/), {
-      target: { value: "Lovelace" },
-    });
-    fireEvent.change(screen.getByPlaceholderText("Email"), {
-      target: { value: "ada@example.com" },
-    });
-    fireEvent.change(screen.getByLabelText("Preferred time"), {
-      target: { value: "morning" },
-    });
-    fireEvent.click(screen.getByRole("button", { name: "Send Message" }));
-
-    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
-    const body = JSON.parse(vi.mocked(fetch).mock.calls[0][1]?.body as string);
-    expect(body.type).toBe(formType);
-    expect(body.data).toEqual({
-      first_name: "Ada",
-      last_name: "Lovelace",
-      preferred_contact_method: "EMAIL",
-      email: "ada@example.com",
-      custom_data: {
-        yext_wingspan_url: "",
-        preferred_time: "morning",
-      },
-    });
-    expect(
-      screen.queryByLabelText("I consent to receive text messages.")
-    ).toBeNull();
-  });
+        screen.queryByLabelText("I consent to receive text messages.")
+      ).toBeNull();
+    }
+  );
 
   it("blocks submission when a required contact field is missing", async () => {
     const props = getProps();
@@ -1133,7 +1144,9 @@ describe("FormSection", () => {
       id: "FormSection",
       pageSetTypes: ["ENTITY"],
     });
-    expect(sharedComponentMetadata.some((component) => component.id === config.id)).toBe(false);
+    expect(
+      sharedComponentMetadata.some((component) => component.id === config.id)
+    ).toBe(false);
     expect(sharedComponentConfigs.FormSection).toBeUndefined();
   });
 });
