@@ -203,6 +203,7 @@
     "linkType": "Link-Typ",
     "listLength": "Listenlänge",
     "longitude": "Längengrad",
+    "mapStartingZoom": "Anfängliche Zoomstufe der Karte",
     "mapStyle": "Kartenstil",
     "maxWidth": "Maximale Breite",
     "media": "Medien",

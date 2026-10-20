@@ -203,6 +203,7 @@
     "linkType": "Typ odkazu",
     "listLength": "Délka seznamu",
     "longitude": "Zeměpisná délka",
+    "mapStartingZoom": "Počáteční přiblížení mapy",
     "mapStyle": "Styl mapy",
     "maxWidth": "Max šířka",
     "media": "Média",

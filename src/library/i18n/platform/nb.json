@@ -203,6 +203,7 @@
     "linkType": "Koblingstype",
     "listLength": "Listelengde",
     "longitude": "Lengdegrad",
+    "mapStartingZoom": "Kartets startzoom",
     "mapStyle": "Kartstil",
     "maxWidth": "Maks bredde",
     "media": "Media",

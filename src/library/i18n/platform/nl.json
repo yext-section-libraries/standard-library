@@ -203,6 +203,7 @@
     "linkType": "Linktype",
     "listLength": "Maak een lijst van lengte",
     "longitude": "Lengte",
+    "mapStartingZoom": "Initieel zoomniveau van de kaart",
     "mapStyle": "Kaartstijl",
     "maxWidth": "Maximale breedte",
     "media": "Media",

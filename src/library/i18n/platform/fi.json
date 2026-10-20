@@ -203,6 +203,7 @@
     "linkType": "Linkkityyppi",
     "listLength": "Listata pituus",
     "longitude": "Pituusaste",
+    "mapStartingZoom": "Kartan aloituszoomaus",
     "mapStyle": "Karttatyyli",
     "maxWidth": "Enimmäisleveys",
     "media": "Media",

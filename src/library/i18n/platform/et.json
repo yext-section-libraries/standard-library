@@ -203,6 +203,7 @@
     "linkType": "Lingi tüüp",
     "listLength": "Nimekirja pikkus",
     "longitude": "Pikkuskraad",
+    "mapStartingZoom": "Kaardi algne suumitase",
     "mapStyle": "Kaardistiil",
     "maxWidth": "Maksimaalne laius",
     "media": "Meedium",

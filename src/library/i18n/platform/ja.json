@@ -203,6 +203,7 @@
     "linkType": "リンクタイプ",
     "listLength": "リストの長さ",
     "longitude": "経度",
+    "mapStartingZoom": "地図の初期ズームレベル",
     "mapStyle": "マップスタイル",
     "maxWidth": "最大幅",
     "media": "メディア",

@@ -203,6 +203,7 @@
     "linkType": "Link Type",
     "listLength": "List Length",
     "longitude": "Longitude",
+    "mapStartingZoom": "Map Starting Zoom",
     "mapStyle": "Map Style",
     "maxWidth": "Max Width",
     "media": "Media",

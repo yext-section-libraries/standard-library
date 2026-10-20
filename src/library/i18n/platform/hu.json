@@ -203,6 +203,7 @@
     "linkType": "Linktípus",
     "listLength": "Lista hossza",
     "longitude": "Hosszúság",
+    "mapStartingZoom": "A térkép kezdeti nagyítási szintje",
     "mapStyle": "Térképstílus",
     "maxWidth": "Maximális szélesség",
     "media": "Média",

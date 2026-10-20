@@ -203,6 +203,7 @@
     "linkType": "Saites tips",
     "listLength": "Saraksta garums",
     "longitude": "Garums",
+    "mapStartingZoom": "Kartes sākotnējais tālummaiņas līmenis",
     "mapStyle": "Kartes stils",
     "maxWidth": "Maksimālais platums",
     "media": "Plašsaziņas līdzekļi",

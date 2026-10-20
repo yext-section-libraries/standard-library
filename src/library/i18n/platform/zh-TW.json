@@ -203,6 +203,7 @@
     "linkType": "鏈接類型",
     "listLength": "列表長度",
     "longitude": "經度",
+    "mapStartingZoom": "地圖初始縮放層級",
     "mapStyle": "地圖樣式",
     "maxWidth": "最大寬度",
     "media": "媒體",
