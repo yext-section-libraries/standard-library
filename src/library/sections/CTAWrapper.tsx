@@ -39,7 +39,12 @@ import {
 
 const ctaWrapperSchema = z.object({
   data: z.object({
-    show: z.boolean().optional().describe("Whether to render this CTA"),
+    show: z
+      .boolean()
+      .optional()
+      .describe(
+        "Whether to render this CTA. Set true when authoring CTA content or binding an entity field, including a secondary header CTA. Set false only when intentionally omitting the CTA or when the user explicitly asks to hide it."
+      ),
     actionType: z.enum(["link"]).optional(),
     // intentionally omit button props
     normalizeLink: z
@@ -346,7 +351,7 @@ const CTAWrapperComponent: PuckComponent<CTAWrapperProps> = (props) => {
 };
 
 export const CTAWrapper: YextComponentConfig<CTAWrapperProps> = {
-  generation: { props: ctaWrapperSchema },
+  layoutGenerationMetadata: { props: ctaWrapperSchema },
   ...gridAtomPermissions,
   label: msg("components.callToAction", "Call to Action"),
   fields: ctaWrapperFields,

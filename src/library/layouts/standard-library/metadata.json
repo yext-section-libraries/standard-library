@@ -10,5 +10,22 @@
     "PROFESSIONAL_SERVICES"
   ],
   "purpose": ["LOCATION", "CITATION"],
-  "pageSetType": "ENTITY"
+  "pageSetType": "ENTITY",
+  "defaultGenerationSectionIds": [
+    "BannerSection",
+    "BreadcrumbsSection",
+    "CoreInfoSection",
+    "EventSection",
+    "ExpandedFooter",
+    "ExpandedHeader",
+    "FAQSection",
+    "HeroSection",
+    "InsightSection",
+    "NearbyLocationsSection",
+    "PhotoGallerySection",
+    "ProductSection",
+    "PromoSection",
+    "TeamSection",
+    "TestimonialSection"
+  ]
 }

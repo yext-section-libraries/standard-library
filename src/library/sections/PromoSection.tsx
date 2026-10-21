@@ -367,7 +367,7 @@ const promoSectionFields: YextFields<PromoSectionProps> = {
 };
 
 export const PromoSection: YextComponentConfig<PromoSectionProps> = {
-  generation: { props: promoSectionSchema },
+  layoutGenerationMetadata: { props: promoSectionSchema },
   label: msg("components.promo", "Promo"),
   fields: promoSectionFields,
   defaultProps: {

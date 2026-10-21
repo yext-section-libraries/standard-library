@@ -160,7 +160,7 @@ const ExpandedHeaderWrapper: PuckComponent<ExpandedHeaderProps> = ({
  * Available on Location templates.
  */
 export const ExpandedHeader: YextComponentConfig<ExpandedHeaderProps> = {
-  generation: { props: expandedHeaderSchema },
+  layoutGenerationMetadata: { props: expandedHeaderSchema },
   label: msg("components.expandedHeader", "Expanded Header"),
   fields: expandedHeaderSectionFields,
   defaultProps: {

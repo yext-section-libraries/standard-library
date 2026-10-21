@@ -272,7 +272,7 @@ export const imageDefaultProps = {
 };
 
 export const ImageWrapper: YextComponentConfig<ImageWrapperProps> = {
-  generation: { props: imageWrapperSchema },
+  layoutGenerationMetadata: { props: imageWrapperSchema },
   ...gridAtomPermissions,
   label: msg("components.image", "Image"),
   inline: true,

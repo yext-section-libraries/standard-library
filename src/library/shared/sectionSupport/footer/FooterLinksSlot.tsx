@@ -344,7 +344,7 @@ const footerLinksSlotFields: YextFields<FooterLinksSlotProps> = {
 export const FooterLinksSlot: YextComponentConfig<FooterLinksSlotProps> = {
   label: msg("components.footerLinksSlot", "Links"),
   fields: footerLinksSlotFields,
-  generation: { props: footerLinksSchema },
+  layoutGenerationMetadata: { props: footerLinksSchema },
   resolveFields: (data) =>
     setDeep(
       toPuckFields(footerLinksSlotFields),

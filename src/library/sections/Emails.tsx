@@ -198,7 +198,7 @@ const EmailsComponent: PuckComponent<EmailsProps> = (props) => {
 };
 
 export const Emails: YextComponentConfig<EmailsProps> = {
-  generation: { props: emailsSchema },
+  layoutGenerationMetadata: { props: emailsSchema },
   ...gridAtomPermissions,
   label: msg("components.emails", "Emails"),
   fields: EmailsFields,

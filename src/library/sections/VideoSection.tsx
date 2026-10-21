@@ -92,7 +92,7 @@ const VideoSectionComponent: PuckComponent<VideoSectionProps> = (props) => {
 export const VideoSection: YextComponentConfig<VideoSectionProps> = {
   label: msg("components.video", "Video"),
   fields: videoSectionFields,
-  generation: { props: videoSectionSchema },
+  layoutGenerationMetadata: { props: videoSectionSchema },
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background1.value,

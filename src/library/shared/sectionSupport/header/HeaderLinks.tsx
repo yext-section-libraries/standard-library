@@ -391,7 +391,7 @@ export const defaultHeaderLinkProps: HeaderLinksProps = {
 };
 
 export const HeaderLinks: YextComponentConfig<HeaderLinksProps> = {
-  generation: { props: headerLinksSchema },
+  layoutGenerationMetadata: { props: headerLinksSchema },
   label: msg("components.headerLinks", "Header Links"),
   fields: headerLinksFields,
   resolveFields: (data, params) => {

@@ -19,10 +19,10 @@ const copy = <T,>(value: T): T => structuredClone(value);
 
 describe("FAQ generation contracts", () => {
   it("registers the shared slotted-source contract and excludes card references from authored data", () => {
-    expect(FAQSection.generation?.slottedItemSource).toBe(
-      faqCardsSource.generation
+    expect(FAQSection.layoutGenerationMetadata?.slottedItemSource).toBe(
+      faqCardsSource.generationMetadata
     );
-    expect(faqCardsSource.generation.cardType).toBe("FAQCard");
+    expect(faqCardsSource.generationMetadata.cardType).toBe("FAQCard");
     const authored = faqSectionSchema.parse(FAQSection.defaultProps);
     expect(authored.data).not.toHaveProperty("constantValue");
     expect(authored).not.toHaveProperty("manualSlots");

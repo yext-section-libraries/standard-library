@@ -199,7 +199,7 @@ const VisualEditorHoursTable: PuckComponent<HoursTableProps> = (props) => {
 };
 
 export const HoursTable: YextComponentConfig<HoursTableProps> = {
-  generation: { props: hoursTableSchema },
+  layoutGenerationMetadata: { props: hoursTableSchema },
   ...gridAtomPermissions,
   fields: hoursTableFields,
   defaultProps: {

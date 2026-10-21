@@ -205,7 +205,7 @@ const CoreInfoSectionWrapper: PuckComponent<CoreInfoSectionProps> = (props) => {
 };
 
 export const CoreInfoSection: YextComponentConfig<CoreInfoSectionProps> = {
-  generation: { props: coreInfoSectionSchema },
+  layoutGenerationMetadata: { props: coreInfoSectionSchema },
   label: msg("components.coreInfo", "Core Info"),
   fields: coreInfoSectionFields,
   defaultProps: {

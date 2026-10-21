@@ -162,9 +162,9 @@ export const InsightCardsWrapper: YextComponentConfig<InsightCardsWrapperProps> 
   {
     label: msg("slots.insightCards", "Insight Cards"),
     fields: insightCardsWrapperFields,
-    generation: {
+    layoutGenerationMetadata: {
       props: insightCardsWrapperSchema,
-      slottedItemSource: insightCardsSource.generation,
+      slottedItemSource: insightCardsSource.generationMetadata,
     },
     defaultProps: {
       ...insightCardsSource.defaultWrapperProps,

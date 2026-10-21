@@ -128,9 +128,9 @@ export const TestimonialCardsWrapper: YextComponentConfig<TestimonialCardsWrappe
   {
     label: msg("components.testimonialCardsWrapper", "Testimonial Cards"),
     fields: testimonialCardsWrapperFields,
-    generation: {
+    layoutGenerationMetadata: {
       props: testimonialCardsWrapperSchema,
-      slottedItemSource: testimonialCardsSource.generation,
+      slottedItemSource: testimonialCardsSource.generationMetadata,
     },
     defaultProps: {
       ...testimonialCardsSource.defaultWrapperProps,

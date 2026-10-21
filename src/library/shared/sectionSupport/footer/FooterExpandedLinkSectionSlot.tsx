@@ -211,7 +211,7 @@ export const FooterExpandedLinkSectionSlot: YextComponentConfig<FooterExpandedLi
   {
     label: msg("components.footerExpandedLinkSlot", "Expanded Link"),
     fields: footerExpandedLinkSectionSlotFields,
-    generation: { props: footerExpandedLinkSectionSchema },
+    layoutGenerationMetadata: { props: footerExpandedLinkSectionSchema },
     resolveFields: (data) =>
       setDeep(
         toPuckFields(footerExpandedLinkSectionSlotFields),

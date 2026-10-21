@@ -157,9 +157,9 @@ const TeamCardsWrapperComponent: PuckComponent<TeamCardsWrapperProps> = (
 export const TeamCardsWrapper: YextComponentConfig<TeamCardsWrapperProps> = {
   label: msg("components.teamCardsWrapper", "Team Cards"),
   fields: teamCardsWrapperFields,
-  generation: {
+  layoutGenerationMetadata: {
     props: teamCardsWrapperSchema,
-    slottedItemSource: teamCardsSource.generation,
+    slottedItemSource: teamCardsSource.generationMetadata,
   },
   defaultProps: {
     ...teamCardsSource.defaultWrapperProps,

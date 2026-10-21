@@ -180,7 +180,7 @@ export const NearbyLocationsSection: YextComponentConfig<NearbyLocationsSectionP
   {
     label: msg("components.nearbyLocations", "Nearby Locations"),
     fields: nearbyLocationsSectionFields,
-    generation: { props: nearbyLocationsSectionSchema },
+    layoutGenerationMetadata: { props: nearbyLocationsSectionSchema },
     defaultProps: {
       styles: {
         backgroundColor: backgroundColors.background1.value,

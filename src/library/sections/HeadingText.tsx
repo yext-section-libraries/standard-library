@@ -164,7 +164,7 @@ const headingTextFields: YextFields<HeadingTextProps> = {
 };
 
 export const HeadingText: YextComponentConfig<HeadingTextProps> = {
-  generation: { props: headingTextSchema },
+  layoutGenerationMetadata: { props: headingTextSchema },
   ...gridAtomPermissions,
   label: msg("components.headingText", "Heading Text"),
   fields: headingTextFields,

@@ -102,7 +102,7 @@ const FooterLogoSlotInternal: PuckComponent<FooterLogoSlotProps> = (props) => {
 
 export const FooterLogoSlot: YextComponentConfig<FooterLogoSlotProps> = {
   label: msg("components.footerLogoSlot", "Logo"),
-  generation: { props: footerLogoSchema },
+  layoutGenerationMetadata: { props: footerLogoSchema },
   fields: {
     data: {
       type: "object",

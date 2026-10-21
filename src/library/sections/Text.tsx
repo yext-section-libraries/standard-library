@@ -146,7 +146,7 @@ export const Text: YextComponentConfig<TextProps> = {
   ...gridAtomPermissions,
   label: msg("components.text", "Text"),
   fields: textFields,
-  generation: { props: textSchema },
+  layoutGenerationMetadata: { props: textSchema },
   resolveFields: (data) => resolveDataFromParent(textFields, data),
   defaultProps: {
     data: {

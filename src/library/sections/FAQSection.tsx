@@ -214,9 +214,9 @@ const FAQsSectionComponent: PuckComponent<FAQSectionProps> = ({
 export const FAQSection: YextComponentConfig<FAQSectionProps> = {
   label: msg("components.faqs", "FAQs"),
   fields: FAQsSectionFields,
-  generation: {
+  layoutGenerationMetadata: {
     props: faqSectionSchema,
-    slottedItemSource: faqCardsSource.generation,
+    slottedItemSource: faqCardsSource.generationMetadata,
   },
   defaultProps: {
     ...faqCardsSource.defaultWrapperProps,

@@ -236,7 +236,7 @@ export const defaultSecondaryHeaderProps: SecondaryHeaderSlotProps = {
 
 export const SecondaryHeaderSlot: YextComponentConfig<SecondaryHeaderSlotProps> =
   {
-    generation: { props: secondaryHeaderSchema },
+    layoutGenerationMetadata: { props: secondaryHeaderSchema },
     label: msg("components.secondaryHeader", "Secondary Header"),
     fields: secondaryHeaderSlotFields,
     defaultProps: defaultSecondaryHeaderProps,

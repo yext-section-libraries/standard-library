@@ -81,7 +81,7 @@ export const GetDirections: YextComponentConfig<GetDirectionsProps> = {
   ...gridAtomPermissions,
   label: msg("components.getDirections", "Get Directions"),
   fields: getDirectionsFields,
-  generation: { props: getDirectionsSchema },
+  layoutGenerationMetadata: { props: getDirectionsSchema },
   defaultProps: {
     variant: "primary",
   },

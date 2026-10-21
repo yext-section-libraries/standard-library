@@ -517,7 +517,7 @@ export const ProfessionalHeroSection: YextComponentConfig<ProfessionalHeroSectio
   {
     label: msg("components.professionalHero", "Professional Hero"),
     fields: professionalHeroSectionFields,
-    generation: { props: professionalHeroSectionSchema },
+    layoutGenerationMetadata: { props: professionalHeroSectionSchema },
     defaultProps: {
       styles: {
         backgroundColor: backgroundColors.background1.value,

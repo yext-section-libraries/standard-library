@@ -179,9 +179,9 @@ export const ProductCardsWrapper: YextComponentConfig<ProductCardsWrapperProps> 
   {
     label: msg("slots.productCards", "Product Cards"),
     fields: productCardsWrapperFields,
-    generation: {
+    layoutGenerationMetadata: {
       props: productCardsWrapperSchema,
-      slottedItemSource: productCardsSource.generation,
+      slottedItemSource: productCardsSource.generationMetadata,
     },
     defaultProps: {
       ...productCardsSource.defaultWrapperProps,

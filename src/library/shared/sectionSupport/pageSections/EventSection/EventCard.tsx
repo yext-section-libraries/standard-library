@@ -442,7 +442,7 @@ const EventCardComponent: PuckComponent<EventCardProps> = (props) => {
 export const EventCard: YextComponentConfig<EventCardProps> = {
   label: msg("components.eventCard", "Event Card"),
   fields: eventCardFields,
-  generation: { props: eventCardSchema },
+  layoutGenerationMetadata: { props: eventCardSchema },
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background1.value,

@@ -47,6 +47,7 @@ export default defineConfig({
     yextVisualEditorPlugin({
       localEditor: {
         enabled: true,
+        layoutGenerationEnabled: true,
       },
     }),
     yextSSG(),

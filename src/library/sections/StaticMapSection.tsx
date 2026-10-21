@@ -106,7 +106,7 @@ const StaticMapSectionWrapper: PuckComponent<StaticMapSectionProps> = ({
 export const StaticMapSection: YextComponentConfig<StaticMapSectionProps> = {
   label: msg("components.staticMap", "Static Map"),
   fields: staticMapSectionFields,
-  generation: { props: staticMapSectionSchema },
+  layoutGenerationMetadata: { props: staticMapSectionSchema },
   defaultProps: {
     liveVisibility: true,
     styles: {

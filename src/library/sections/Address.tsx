@@ -302,7 +302,7 @@ export const resolveAddressFields = (
 };
 
 export const Address: YextComponentConfig<AddressProps> = {
-  generation: { props: addressSchema },
+  layoutGenerationMetadata: { props: addressSchema },
   ...gridAtomPermissions,
   label: msg("components.address", "Address"),
   fields: addressFields,

@@ -134,7 +134,7 @@ const BodyTextComponent: PuckComponent<BodyTextProps> = (props) => {
 };
 
 export const BodyText: YextComponentConfig<BodyTextProps> = {
-  generation: { props: bodyTextSchema },
+  layoutGenerationMetadata: { props: bodyTextSchema },
   ...gridAtomPermissions,
   label: msg("components.richText", "Rich Text"),
   fields: bodyTextFields,

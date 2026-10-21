@@ -75,7 +75,7 @@ const VideoComponent: PuckComponent<VideoProps> = (props) => {
 };
 
 export const Video: YextComponentConfig<VideoProps> = {
-  generation: { props: videoSchema },
+  layoutGenerationMetadata: { props: videoSchema },
   fields: videoFields,
   label: msg("components.video", "Video"),
   inline: true,

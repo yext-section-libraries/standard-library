@@ -231,7 +231,7 @@ export const CTAGroup: YextComponentConfig<CTAGroupProps> = {
   ...gridAtomPermissions,
   label: msg("components.ctaGroup", "CTA Group"),
   fields: ctaGroupFields,
-  generation: { props: ctaGroupSchema },
+  layoutGenerationMetadata: { props: ctaGroupSchema },
   resolveFields: (data) => {
     let updatedFields = ctaGroupFields;
     // show normalize link field if any of the linkTypes are normalizable (not PHONE or EMAIL)

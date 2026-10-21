@@ -231,7 +231,7 @@ export const FooterSocialLinksSlot: YextComponentConfig<FooterSocialLinksSlotPro
   {
     label: msg("components.footerSocialLinksSlot", "Social Links"),
     fields: FooterSocialLinksSlotFields,
-    generation: { props: footerSocialLinksSchema },
+    layoutGenerationMetadata: { props: footerSocialLinksSchema },
     defaultProps: {
       data: {
         xLink: "",
