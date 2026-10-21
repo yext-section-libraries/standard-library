@@ -172,7 +172,7 @@ export const PhoneListComponent: PuckComponent<PhoneListProps> = (props) => {
 };
 
 export const PhoneList: YextComponentConfig<PhoneListProps> = {
-  generation: { props: phoneListSchema },
+  layoutGenerationMetadata: { props: phoneListSchema },
   label: msg("components.phoneList", "Phone List"),
   fields: phoneListFields,
   resolveFields: (data) => resolveDataFromParent(phoneListFields, data),

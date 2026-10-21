@@ -142,7 +142,7 @@ export const SecondaryFooterSlot: YextComponentConfig<SecondaryFooterSlotProps> 
   {
     label: msg("components.secondaryFooter", "Secondary Footer"),
     fields: secondaryFooterSlotFields,
-    generation: { props: secondaryFooterSchema },
+    layoutGenerationMetadata: { props: secondaryFooterSchema },
     defaultProps: {
       styles: {
         desktopContentAlignment: "left",

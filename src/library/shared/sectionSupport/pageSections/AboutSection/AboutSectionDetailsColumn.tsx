@@ -572,7 +572,7 @@ export const AboutSectionDetailsColumn: YextComponentConfig<AboutSectionDetailsC
   {
     label: msg("components.aboutDetailsColumn", "Details Column"),
     fields: aboutSectionDetailsColumnFields,
-    generation: { props: aboutSectionDetailsColumnSchema },
+    layoutGenerationMetadata: { props: aboutSectionDetailsColumnSchema },
     defaultProps: {
       sections: [],
     },

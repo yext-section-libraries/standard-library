@@ -446,7 +446,7 @@ const centeredHeroCtaClassName = (variant: CTAVariant): string =>
     : "";
 
 export const HeroSection: YextComponentConfig<HeroSectionProps> = {
-  generation: { props: heroSectionSchema },
+  layoutGenerationMetadata: { props: heroSectionSchema },
   label: msg("components.hero", "Hero"),
   fields: heroSectionFields,
   defaultProps: {

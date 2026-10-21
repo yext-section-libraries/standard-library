@@ -458,7 +458,7 @@ const TeamCardComponent: PuckComponent<TeamCardProps> = (props) => {
 export const TeamCard: YextComponentConfig<TeamCardProps> = {
   label: msg("components.teamCard", "Team Card"),
   fields: teamCardFields,
-  generation: { props: teamCardSchema },
+  layoutGenerationMetadata: { props: teamCardSchema },
   inline: true,
   defaultProps: {
     styles: {

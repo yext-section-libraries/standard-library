@@ -174,7 +174,7 @@ const HoursStatusWrapper: PuckComponent<HoursStatusProps> = ({
 };
 
 export const HoursStatus: YextComponentConfig<HoursStatusProps> = {
-  generation: { props: hoursStatusSchema },
+  layoutGenerationMetadata: { props: hoursStatusSchema },
   ...gridAtomPermissions,
   label: msg("components.hoursStatus", "Hours Status"),
   fields: hoursStatusWrapperFields,

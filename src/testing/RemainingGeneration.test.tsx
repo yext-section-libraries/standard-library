@@ -121,25 +121,26 @@ describe("remaining generation contracts", () => {
   it.each(Object.entries(sections))(
     "%s exposes an authored schema",
     (_name, component) => {
-      expect(component.generation?.props).toBeDefined();
+      expect(component.layoutGenerationMetadata?.props).toBeDefined();
     }
   );
 
-  it.each(Object.entries(components).filter(([, c]) => c.generation))(
-    "%s accepts defaults and serializes to JSON Schema",
-    (_name, component) => {
-      expect(
-        component.generation.props.safeParse(component.defaultProps)
-      ).toMatchObject({ success: true });
-      expect(() => z.toJSONSchema(component.generation.props)).not.toThrow();
-    }
-  );
+  it.each(
+    Object.entries(components).filter(([, c]) => c.layoutGenerationMetadata)
+  )("%s accepts defaults and serializes to JSON Schema", (_name, component) => {
+    expect(
+      component.layoutGenerationMetadata.props.safeParse(component.defaultProps)
+    ).toMatchObject({ success: true });
+    expect(() =>
+      z.toJSONSchema(component.layoutGenerationMetadata.props)
+    ).not.toThrow();
+  });
 
   it.each(sources)(
     "$name requires exactly one child in every fixed card slot, including hidden content",
     ({ source }) => {
-      const card = components[source.generation.cardType];
-      const schema = card.generation.props;
+      const card = components[source.generationMetadata.cardType];
+      const schema = card.layoutGenerationMetadata.props;
       const defaults = copy(card.defaultProps);
       expect(schema.safeParse(defaults).success).toBe(true);
       for (const [slot, children] of Object.entries(defaults.slots)) {
@@ -162,28 +163,34 @@ describe("remaining generation contracts", () => {
   it.each(sources)(
     "$name declares the helper metadata and omits managed state",
     ({ name, wrapper, source }) => {
-      expect(wrapper.generation?.slottedItemSource).toBe(source.generation);
-      expect(source.generation.cardType).toBe(`${name}Card`);
-      const authored = wrapper.generation!.props.parse(
+      expect(wrapper.layoutGenerationMetadata?.slottedItemSource).toBe(
+        source.generationMetadata
+      );
+      expect(source.generationMetadata.cardType).toBe(`${name}Card`);
+      const authored = wrapper.layoutGenerationMetadata!.props.parse(
         wrapper.defaultProps
       ) as any;
       expect(authored.data).not.toHaveProperty("constantValue");
       expect(authored).not.toHaveProperty("manualSlots");
       expect(authored).not.toHaveProperty("conditionalRender");
-      const card = components[source.generation.cardType];
-      expect(card.generation.props.shape).not.toHaveProperty("index");
-      expect(card.generation.props.shape).not.toHaveProperty("id");
+      const card = components[source.generationMetadata.cardType];
+      expect(card.layoutGenerationMetadata.props.shape).not.toHaveProperty(
+        "index"
+      );
+      expect(card.layoutGenerationMetadata.props.shape).not.toHaveProperty(
+        "id"
+      );
     }
   );
 
   it.each(sources)(
     "$name preserves ordered manual cards, localized content, and styles",
     async ({ name, wrapper, source, titleSlot }) => {
-      const defaultProps = source.generation.defaultItemProps;
+      const defaultProps = source.generationMetadata.defaultItemProps;
       const makeCard = (id: string) =>
         withIds(
           {
-            type: source.generation.cardType,
+            type: source.generationMetadata.cardType,
             props:
               typeof defaultProps === "function"
                 ? defaultProps()
@@ -233,7 +240,7 @@ describe("remaining generation contracts", () => {
       expect(props.slots.CardSlot).toHaveLength(3);
       expect(
         props.slots.CardSlot.every(
-          (card: any) => card.type === source.generation.cardType
+          (card: any) => card.type === source.generationMetadata.cardType
         )
       ).toBe(true);
       expect(props.data.constantValue).toEqual(
@@ -294,7 +301,7 @@ describe("remaining generation contracts", () => {
       );
       expect(props.slots.CardSlot).toHaveLength(1);
       const card = props.slots.CardSlot[0];
-      expect(card.type).toBe(source.generation.cardType);
+      expect(card.type).toBe(source.generationMetadata.cardType);
       expect(card.props.slots[titleSlot][0].props.parentData.text).toBe(
         "Linked title"
       );

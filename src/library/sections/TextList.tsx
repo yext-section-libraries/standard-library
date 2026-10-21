@@ -130,7 +130,7 @@ const TextListComponent: PuckComponent<TextListProps> = ({
 };
 
 export const TextList: YextComponentConfig<TextListProps> = {
-  generation: { props: textListSchema },
+  layoutGenerationMetadata: { props: textListSchema },
   ...gridAtomPermissions,
   label: msg("components.textList", "Text List"),
   fields: textListFields,

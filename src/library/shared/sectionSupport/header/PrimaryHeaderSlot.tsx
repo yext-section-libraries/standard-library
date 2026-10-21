@@ -44,7 +44,9 @@ const primaryHeaderSchema = z.object({
     LogoSlot: slotSchema(),
     LinksSlot: slotSchema(),
     PrimaryCTASlot: slotSchema(),
-    SecondaryCTASlot: slotSchema(),
+    SecondaryCTASlot: slotSchema().describe(
+      "Second header CTA. Set the child CTA's data.show to true when providing its content; use false only when intentionally omitting this CTA."
+    ),
   }),
 });
 
@@ -492,7 +494,7 @@ export const defaultPrimaryHeaderProps: PrimaryHeaderSlotProps = {
 };
 
 export const PrimaryHeaderSlot: YextComponentConfig<PrimaryHeaderSlotProps> = {
-  generation: { props: primaryHeaderSchema },
+  layoutGenerationMetadata: { props: primaryHeaderSchema },
   label: msg("components.primaryHeader", "Primary Header"),
   fields: primaryHeaderSlotFields,
   resolveData: (data, params) => {

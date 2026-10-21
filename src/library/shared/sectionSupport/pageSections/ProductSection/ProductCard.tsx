@@ -479,7 +479,7 @@ const ProductCardComponent: PuckComponent<ProductCardProps> = (props) => {
 export const ProductCard: YextComponentConfig<ProductCardProps> = {
   label: msg("slots.productCard", "Product Card"),
   fields: ProductCardFields,
-  generation: { props: productCardSchema },
+  layoutGenerationMetadata: { props: productCardSchema },
   inline: true,
   resolveData: (data, params) => {
     const locale = i18nPageInstance.language || "en";

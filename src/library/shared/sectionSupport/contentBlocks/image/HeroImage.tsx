@@ -87,7 +87,7 @@ const HeroImageComponent: PuckComponent<HeroImageProps> = (props) => {
 };
 
 export const HeroImage: YextComponentConfig<HeroImageProps> = {
-  generation: { props: heroImageSchema },
+  layoutGenerationMetadata: { props: heroImageSchema },
   label: msg("components.heroImage", "Hero Image"),
   fields: ImageWrapperFields,
   defaultProps: imageDefaultProps,

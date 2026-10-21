@@ -115,7 +115,7 @@ const teamSectionFields: YextFields<TeamSectionProps> = {
 export const TeamSection: YextComponentConfig<TeamSectionProps> = {
   label: msg("components.team", "Team"),
   fields: teamSectionFields,
-  generation: { props: mappedCardsSectionSchema },
+  layoutGenerationMetadata: { props: mappedCardsSectionSchema },
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background3.value,

@@ -204,7 +204,7 @@ export const Phone: YextComponentConfig<PhoneProps> = {
   ...gridAtomPermissions,
   label: msg("components.phone", "Phone"),
   fields: PhoneFields,
-  generation: { props: phoneSchema },
+  layoutGenerationMetadata: { props: phoneSchema },
   defaultProps: {
     data: defaultPhoneDataProps,
     styles: {

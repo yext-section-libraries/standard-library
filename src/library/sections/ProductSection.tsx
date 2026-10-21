@@ -145,7 +145,7 @@ const productSectionFields: YextFields<ProductSectionProps> = {
 export const ProductSection: YextComponentConfig<ProductSectionProps> = {
   label: msg("components.products", "Products"),
   fields: productSectionFields,
-  generation: { props: productSectionSchema },
+  layoutGenerationMetadata: { props: productSectionSchema },
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background2.value,

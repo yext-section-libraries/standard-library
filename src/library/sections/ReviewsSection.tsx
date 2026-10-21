@@ -615,7 +615,7 @@ const ShowMoreButton: React.FC<{
 
 export const ReviewsSection: YextComponentConfig<ReviewsSectionProps> = {
   fields: reviewsFields,
-  generation: { props: reviewsSectionSchema },
+  layoutGenerationMetadata: { props: reviewsSectionSchema },
   label: msg("components.reviews", "Reviews"),
   defaultProps: {
     styles: {

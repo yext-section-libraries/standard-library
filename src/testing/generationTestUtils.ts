@@ -43,7 +43,7 @@ export const makeLayout = (type: string): Data => {
 };
 export const authored = (layout: Data) => {
   const project = (item: any): any => {
-    const schema = components[item.type].generation!.props;
+    const schema = components[item.type].layoutGenerationMetadata!.props;
     const props = schema.parse(item.props) as Record<string, any>;
     for (const [slotName, items] of Object.entries(props.slots ?? {})) {
       props.slots[slotName] = (items as any[]).map(project);

@@ -114,7 +114,7 @@ const eventSectionFields: YextFields<EventSectionProps> = {
 export const EventSection: YextComponentConfig<EventSectionProps> = {
   label: msg("components.events", "Events"),
   fields: eventSectionFields,
-  generation: { props: mappedCardsSectionSchema },
+  layoutGenerationMetadata: { props: mappedCardsSectionSchema },
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background3.value,

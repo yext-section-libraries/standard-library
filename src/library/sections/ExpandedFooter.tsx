@@ -479,7 +479,7 @@ const ExpandedFooterWrapper: PuckComponent<ExpandedFooterProps> = (props) => {
 export const ExpandedFooter: YextComponentConfig<ExpandedFooterProps> = {
   label: msg("components.expandedFooter", "Expanded Footer"),
   fields: expandedFooterSectionFields,
-  generation: { props: expandedFooterSchema },
+  layoutGenerationMetadata: { props: expandedFooterSchema },
   defaultProps: {
     data: {
       primaryFooter: {

@@ -303,7 +303,7 @@ const FAQCardComponent: PuckComponent<FAQCardProps> = (props) => {
 export const FAQCard: YextComponentConfig<FAQCardProps> = {
   label: msg("faq", "FAQ"),
   fields: FAQCardFields,
-  generation: { props: faqCardSchema },
+  layoutGenerationMetadata: { props: faqCardSchema },
   defaultProps: defaultFAQCardData().props,
   resolveFields: (data) =>
     resolveDataFromParent(

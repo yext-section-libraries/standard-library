@@ -276,7 +276,7 @@ export const defaultBannerProps: BannerSectionProps = {
 };
 
 export const BannerSection: YextComponentConfig<BannerSectionProps> = {
-  generation: { props: bannerSectionSchema },
+  layoutGenerationMetadata: { props: bannerSectionSchema },
   label: msg("components.banner", "Banner"),
   fields: bannerSectionFields,
   defaultProps: defaultBannerProps,

@@ -265,7 +265,7 @@ export const BreadcrumbsSection: YextComponentConfig<BreadcrumbsSectionProps> =
   {
     label: msg("components.breadcrumbs", "Breadcrumbs"),
     fields: breadcrumbsSectionFields,
-    generation: { props: breadcrumbsSectionSchema },
+    layoutGenerationMetadata: { props: breadcrumbsSectionSchema },
     resolveFields: (_data, params) => {
       const streamDocument = params.metadata?.streamDocument;
       if (!streamDocument) {

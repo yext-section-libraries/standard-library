@@ -20,8 +20,8 @@ import {
 // Audit actual native defaults and registered hidden children, not duplicated schemas.
 const audit = (item: any, checkFixedSlots = false) => {
   const component = components[item.type];
-  expect(component.generation, item.type).toBeDefined();
-  const schema = component.generation!.props;
+  expect(component.layoutGenerationMetadata, item.type).toBeDefined();
+  const schema = component.layoutGenerationMetadata!.props;
   expect(schema.safeParse(item.props).success, item.type).toBe(true);
   for (const key of [
     "id",
@@ -61,7 +61,11 @@ describe("component-owned generation contracts", () => {
     (layout) => {
       const visit = (value: any) => {
         if (!value || typeof value !== "object") return;
-        if (value.type && value.props && components[value.type]?.generation)
+        if (
+          value.type &&
+          value.props &&
+          components[value.type]?.layoutGenerationMetadata
+        )
           audit(value);
         for (const child of Object.values(value)) visit(child);
       };
@@ -136,6 +140,8 @@ describe("component-owned generation contracts", () => {
     ).toBe(false);
     const props = makeLayout("PromoSection").content[0].props;
     props.styles.imageHeight = -1;
-    expect(PromoSection.generation!.props.safeParse(props).success).toBe(false);
+    expect(
+      PromoSection.layoutGenerationMetadata!.props.safeParse(props).success
+    ).toBe(false);
   });
 });

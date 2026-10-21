@@ -337,7 +337,7 @@ const TestimonialCardComponent: PuckComponent<TestimonialCardProps> = (
 export const TestimonialCard: YextComponentConfig<TestimonialCardProps> = {
   label: msg("components.testimonialCard", "Testimonial Card"),
   fields: testimonialCardFields,
-  generation: { props: testimonialCardSchema },
+  layoutGenerationMetadata: { props: testimonialCardSchema },
   inline: true,
   defaultProps: {
     styles: {

@@ -142,7 +142,7 @@ const TimestampComponent: PuckComponent<TimestampProps> = (props) => {
 export const Timestamp: YextComponentConfig<TimestampProps> = {
   label: msg("components.timestamp", "Timestamp"),
   fields: timestampFields,
-  generation: { props: timestampSchema },
+  layoutGenerationMetadata: { props: timestampSchema },
   defaultProps: {
     data: {
       date: {

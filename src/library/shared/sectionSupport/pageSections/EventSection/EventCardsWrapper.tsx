@@ -141,9 +141,9 @@ const EventCardsWrapperComponent: PuckComponent<EventCardsWrapperProps> = (
 export const EventCardsWrapper: YextComponentConfig<EventCardsWrapperProps> = {
   label: msg("components.eventCardsWrapper", "Event Cards"),
   fields: eventCardsWrapperFields,
-  generation: {
+  layoutGenerationMetadata: {
     props: eventCardsWrapperSchema,
-    slottedItemSource: eventCardsSource.generation,
+    slottedItemSource: eventCardsSource.generationMetadata,
   },
   defaultProps: {
     ...eventCardsSource.defaultWrapperProps,

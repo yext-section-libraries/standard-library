@@ -221,7 +221,7 @@ const AboutComponent: PuckComponent<AboutSectionProps> = (props) => {
 export const AboutSection: YextComponentConfig<AboutSectionProps> = {
   label: msg("components.about", "About"),
   fields: aboutSectionFields,
-  generation: { props: aboutSectionSchema },
+  layoutGenerationMetadata: { props: aboutSectionSchema },
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background2.value,

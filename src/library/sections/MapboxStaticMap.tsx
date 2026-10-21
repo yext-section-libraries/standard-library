@@ -226,7 +226,7 @@ export const MapboxStaticMap: YextComponentConfig<MapboxStaticProps> = {
   ...gridAtomPermissions,
   label: msg("components.mapboxStaticMap", "Mapbox Static Map"),
   fields: mapboxFields,
-  generation: { props: mapboxStaticMapSchema },
+  layoutGenerationMetadata: { props: mapboxStaticMapSchema },
   defaultProps: {
     coordinate: {
       field: "yextDisplayCoordinate",

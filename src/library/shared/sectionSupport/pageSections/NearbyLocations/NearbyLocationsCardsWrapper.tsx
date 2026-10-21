@@ -470,7 +470,7 @@ export const NearbyLocationCardsWrapper: YextComponentConfig<NearbyLocationCards
   {
     label: msg("slots.nearbyLocationCards", "Nearby Location Cards"),
     fields: nearbyLocationCardsWrapperFields,
-    generation: { props: nearbyLocationCardsWrapperSchema },
+    layoutGenerationMetadata: { props: nearbyLocationCardsWrapperSchema },
     defaultProps: defaultNearbyLocationsCardsProps,
     resolveFields: (data) => {
       let fields = nearbyLocationCardsWrapperFields;

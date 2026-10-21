@@ -173,7 +173,7 @@ const gridSectionFields: YextFields<GridProps> = {
 export const Grid: YextComponentConfig<GridProps> = {
   label: msg("components.grid", "Grid"),
   fields: gridSectionFields,
-  generation: { props: gridSchema },
+  layoutGenerationMetadata: { props: gridSchema },
   defaultProps: {
     columns: 2,
     slots: [{ Column: [] }, { Column: [] }],

@@ -456,7 +456,7 @@ const InsightCardComponent: PuckComponent<InsightCardProps> = (props) => {
 export const InsightCard: YextComponentConfig<InsightCardProps> = {
   label: msg("slots.insightCard", "Insight Card"),
   fields: insightCardFields,
-  generation: { props: insightCardSchema },
+  layoutGenerationMetadata: { props: insightCardSchema },
   inline: true,
   defaultProps: {
     styles: {
