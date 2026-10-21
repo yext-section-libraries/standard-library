@@ -29,15 +29,36 @@ export const mappedCardsSectionSchema = z.object({
 // Slotted sources own card references and the manual mirror. Only bindings and
 // mappings are authored here; native CardSlot children supply manual content.
 export function cardsWrapperSchema(
-  mappings: z.ZodRawShape,
+  mappings: Record<string, z.ZodObject>,
   styles: z.ZodRawShape
 ) {
   return z.object({
-    data: z.object({
-      field: z.string(),
-      constantValueEnabled: z.boolean().optional(),
-      mappings: z.object(mappings).optional(),
-    }),
+    // The editor requires an object with string/boolean binding fields here.
+    // Narrow individual mappings so generated static content must use CardSlot.
+    data: z
+      .object({
+        field: z.string(),
+        constantValueEnabled: z.boolean(),
+        mappings: z
+          .object(
+            Object.fromEntries(
+              Object.entries(mappings).map(([name, mapping]) => [
+                name,
+                z.strictObject({
+                  field: mapping.shape.field,
+                  constantValueEnabled: z.literal(false),
+                }),
+              ])
+            )
+          )
+          .optional()
+          .describe(
+            "Entity field bindings for linked cards only. Static card content belongs in slots.CardSlot child components."
+          ),
+      })
+      .describe(
+        "For manual cards, use field: empty string and constantValueEnabled: true, omit mappings, and author content in slots.CardSlot. For entity-linked cards, use a nonempty source field and constantValueEnabled: false."
+      ),
     styles: z.object(styles),
     slots: z.object({
       CardSlot: z
