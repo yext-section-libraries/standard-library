@@ -98,7 +98,7 @@ export interface LocatorProps {
     keywordsDisplayName?: TranslatableString;
   };
 
-  /** The initial map zoom. When unset, preserves the map's default zoom. */
+  /** The zoom for the initial results. Later searches auto-fit to their pins. */
   mapStartingZoom?: number;
 
   /**
