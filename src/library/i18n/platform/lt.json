@@ -203,6 +203,7 @@
     "linkType": "Nuorodos tipas",
     "listLength": "Sąrašo ilgis",
     "longitude": "Ilguma",
+    "mapStartingZoom": "Pradinis žemėlapio mastelio lygis",
     "mapStyle": "Žemėlapio stilius",
     "maxWidth": "Maksimalus plotis",
     "media": "Žiniasklaida",

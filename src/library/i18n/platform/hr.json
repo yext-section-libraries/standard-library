@@ -203,6 +203,7 @@
     "linkType": "Vrsta veze",
     "listLength": "Dužina popisa",
     "longitude": "Dužina",
+    "mapStartingZoom": "Početna razina zumiranja karte",
     "mapStyle": "Stil karte",
     "maxWidth": "Maksimalna širina",
     "media": "Medija",

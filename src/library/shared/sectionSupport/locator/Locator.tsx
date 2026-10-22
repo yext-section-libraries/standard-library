@@ -98,6 +98,9 @@ export interface LocatorProps {
     keywordsDisplayName?: TranslatableString;
   };
 
+  /** The initial map zoom. When unset, preserves the map's default zoom. */
+  mapStartingZoom?: number;
+
   /**
    * The starting location for the map.
    */
@@ -335,6 +338,12 @@ const locatorFields: YextFields<LocatorProps> = {
         visible: false,
       },
     },
+  },
+  mapStartingZoom: {
+    type: "number",
+    label: msg("fields.mapStartingZoom", "Map Starting Zoom"),
+    min: 0,
+    max: 22,
   },
   mapStartingLocation: {
     type: "object",

@@ -203,6 +203,7 @@
     "linkType": "Bağlantı türü",
     "listLength": "Liste uzunluğu",
     "longitude": "Boylam",
+    "mapStartingZoom": "Haritanın başlangıç yakınlaştırma düzeyi",
     "mapStyle": "Harita stili",
     "maxWidth": "Maksimum genişlik",
     "media": "Medya",

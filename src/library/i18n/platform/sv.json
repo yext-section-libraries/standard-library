@@ -203,6 +203,7 @@
     "linkType": "Länktyp",
     "listLength": "Listlängd",
     "longitude": "Longitud",
+    "mapStartingZoom": "Kartans startzoom",
     "mapStyle": "Kartstil",
     "maxWidth": "Maxbredd",
     "media": "Media",

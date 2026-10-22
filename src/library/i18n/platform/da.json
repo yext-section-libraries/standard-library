@@ -203,6 +203,7 @@
     "linkType": "Linktype",
     "listLength": "Liste længde",
     "longitude": "Længde",
+    "mapStartingZoom": "Kortets startzoom",
     "mapStyle": "Kortstil",
     "maxWidth": "Maks. Bredde",
     "media": "Medier",

@@ -203,6 +203,7 @@
     "linkType": "链接类型",
     "listLength": "列表长度",
     "longitude": "经度",
+    "mapStartingZoom": "地图初始缩放级别",
     "mapStyle": "地图样式",
     "maxWidth": "最大宽度",
     "media": "媒体",
