@@ -160,6 +160,22 @@ export const sharedComponentConfigs: Record<
   AboutSectionDetailsColumn: SharedComponent42,
 };
 
+// Fixed slot components must stay in their parent sections. Copy each config
+// to keep the controls for sections used in Grid. Remove the Grid permission
+// resolver so it cannot enable structural changes for a fixed slot component.
+for (const [id, component] of Object.entries(sharedComponentConfigs)) {
+  sharedComponentConfigs[id] = {
+    ...component,
+    permissions: {
+      delete: false,
+      drag: false,
+      duplicate: false,
+      insert: false,
+    },
+    resolvePermissions: undefined,
+  };
+}
+
 export const sharedRootConfigs: Partial<
   Record<string, NonNullable<Config["root"]>>
 > = {
