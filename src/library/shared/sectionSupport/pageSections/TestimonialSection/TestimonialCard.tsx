@@ -187,9 +187,12 @@ const testimonialCardFields: YextFields<TestimonialCardProps> = {
   slots: {
     type: "object",
     objectFields: {
-      DescriptionSlot: { type: "slot" },
-      ContributorNameSlot: { type: "slot" },
-      ContributionDateSlot: { type: "slot" },
+      DescriptionSlot: { type: "slot", allow: ["BodyTextSlot"] },
+      ContributorNameSlot: {
+        type: "slot",
+        allow: ["HeadingTextSlot"],
+      },
+      ContributionDateSlot: { type: "slot", allow: ["Timestamp"] },
     },
     visible: false,
   },

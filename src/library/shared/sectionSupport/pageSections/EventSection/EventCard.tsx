@@ -280,11 +280,11 @@ const eventCardFields: YextFields<EventCardProps> = {
   slots: {
     type: "object",
     objectFields: {
-      ImageSlot: { type: "slot" },
-      TitleSlot: { type: "slot" },
-      DateTimeSlot: { type: "slot" },
-      DescriptionSlot: { type: "slot" },
-      CTASlot: { type: "slot" },
+      ImageSlot: { type: "slot", allow: ["ImageSlot"] },
+      TitleSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      DateTimeSlot: { type: "slot", allow: ["Timestamp"] },
+      DescriptionSlot: { type: "slot", allow: ["BodyTextSlot"] },
+      CTASlot: { type: "slot", allow: ["CTASlot"] },
     },
     visible: false,
   },
