@@ -5,6 +5,7 @@ import {
   axe,
   ComponentTest,
   testHours,
+  testSetup,
   transformTests,
 } from "./componentTests.setup.ts";
 import { render as reactRender } from "@testing-library/react";
@@ -13,6 +14,7 @@ import { migrate, MainContent, migrationRegistry } from "@yext/visual-editor";
 import { sharedComponentConfigs } from "../library/shared/componentRegistry.ts";
 import { Render, Config, resolveAllData } from "@puckeditor/core";
 import { page } from "@vitest/browser/context";
+import type { DirectoryStyles } from "../library/shared/sectionSupport/directory/Directory.tsx";
 
 const rootDocument = {
   locale: "en",
@@ -808,6 +810,138 @@ describe("Directory", async () => {
       },
     },
   };
+
+  const casingTests: {
+    textTransform: DirectoryStyles["textTransform"];
+    themeTransform?: string;
+    expected: string;
+  }[] = [
+    { textTransform: "none", themeTransform: "uppercase", expected: "none" },
+    {
+      textTransform: "lowercase",
+      themeTransform: "uppercase",
+      expected: "lowercase",
+    },
+    {
+      textTransform: "uppercase",
+      themeTransform: "lowercase",
+      expected: "uppercase",
+    },
+    {
+      textTransform: "capitalize",
+      themeTransform: "lowercase",
+      expected: "capitalize",
+    },
+    ...([undefined, "default"] as const).flatMap((textTransform) =>
+      [
+        undefined,
+        "",
+        "none",
+        "normal",
+        "lowercase",
+        "uppercase",
+        "capitalize",
+      ].map((themeTransform) => ({
+        textTransform,
+        themeTransform,
+        expected:
+          !themeTransform ||
+          themeTransform === "none" ||
+          themeTransform === "normal"
+            ? "capitalize"
+            : themeTransform,
+      }))
+    ),
+  ];
+
+  it.each(casingTests)(
+    "list text transform $textTransform with theme $themeTransform resolves to $expected",
+    async ({ textTransform, themeTransform, expected }) => {
+      const theme = {
+        "--textTransform-link-textTransform": themeTransform,
+        "--textTransform-body-textTransform": "uppercase",
+      };
+      testSetup(theme);
+      const document = {
+        ...regionDocument,
+        __: { ...regionDocument.__, theme: JSON.stringify(theme) },
+        dm_directoryChildren: [
+          { id: "emalahleni", name: "eMalahleni", slug: "emalahleni" },
+          { id: "cape-town", name: "cape Town", slug: "cape-town" },
+        ],
+      };
+      const data = await resolveAllData(
+        {
+          root: { props: {} },
+          content: [
+            {
+              type: "Directory",
+              props: {
+                ...Directory.defaultProps,
+                id: "directory-casing",
+                styles: { ...Directory.defaultProps?.styles, textTransform },
+              },
+            },
+          ],
+        },
+        puckConfig,
+        { streamDocument: document }
+      );
+      const { container } = reactRender(
+        <VisualEditorProvider templateProps={{ document }}>
+          <Render
+            config={puckConfig}
+            data={data}
+            metadata={{ streamDocument: document }}
+          />
+        </VisualEditorProvider>
+      );
+
+      const labels = container.querySelectorAll("li a p");
+      expect(Array.from(labels, (label) => label.textContent)).toEqual([
+        "cape Town",
+        "eMalahleni",
+      ]);
+      for (const label of labels) {
+        expect(getComputedStyle(label).textTransform).toBe(expected);
+      }
+    }
+  );
+
+  it.each([
+    { name: "list", document: regionDocument, visible: true },
+    { name: "grid", document: cityDocument, visible: false },
+  ])(
+    "shows the text transform selector only for lists: $name",
+    async ({ document, visible }) => {
+      const fields = await Directory.resolveFields!(
+        {
+          type: "Directory",
+          props: { ...Directory.defaultProps, id: "directory-fields" },
+        } as Parameters<NonNullable<typeof Directory.resolveFields>>[0],
+        { metadata: { streamDocument: document } } as unknown as Parameters<
+          NonNullable<typeof Directory.resolveFields>
+        >[1]
+      );
+      const styles = fields.styles;
+      expect(styles.type).toBe("object");
+      if (styles.type === "object") {
+        const field = styles.objectFields.textTransform!;
+        expect(field.visible !== false).toBe(visible);
+        expect(field.type).toBe("select");
+        if (field.type === "select") {
+          expect(field.options.map((option) => option.value)).toEqual([
+            "none",
+            "default",
+            "lowercase",
+            "uppercase",
+            "capitalize",
+          ]);
+        }
+      }
+    }
+  );
+
   it.each(transformTests(tests))(
     "$viewport.name $name",
     async ({
