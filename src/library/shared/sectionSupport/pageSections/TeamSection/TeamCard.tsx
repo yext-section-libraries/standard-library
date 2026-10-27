@@ -279,12 +279,12 @@ const teamCardFields: YextFields<TeamCardProps> = {
   slots: {
     type: "object",
     objectFields: {
-      ImageSlot: { type: "slot" },
-      NameSlot: { type: "slot" },
-      TitleSlot: { type: "slot" },
-      PhoneSlot: { type: "slot" },
-      EmailSlot: { type: "slot" },
-      CTASlot: { type: "slot" },
+      ImageSlot: { type: "slot", allow: ["ImageSlot"] },
+      NameSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      TitleSlot: { type: "slot", allow: ["TextSlot"] },
+      PhoneSlot: { type: "slot", allow: ["PhoneNumbersSlot"] },
+      EmailSlot: { type: "slot", allow: ["EmailsSlot"] },
+      CTASlot: { type: "slot", allow: ["CTASlot"] },
     },
     visible: false,
   },

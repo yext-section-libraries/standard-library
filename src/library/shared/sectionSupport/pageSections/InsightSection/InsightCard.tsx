@@ -288,12 +288,12 @@ const insightCardFields: YextFields<InsightCardProps> = {
   slots: {
     type: "object",
     objectFields: {
-      ImageSlot: { type: "slot" },
-      TitleSlot: { type: "slot" },
-      CategorySlot: { type: "slot" },
-      DescriptionSlot: { type: "slot" },
-      PublishTimeSlot: { type: "slot" },
-      CTASlot: { type: "slot" },
+      ImageSlot: { type: "slot", allow: ["ImageSlot"] },
+      TitleSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      CategorySlot: { type: "slot", allow: ["TextSlot"] },
+      DescriptionSlot: { type: "slot", allow: ["BodyTextSlot"] },
+      PublishTimeSlot: { type: "slot", allow: ["Timestamp"] },
+      CTASlot: { type: "slot", allow: ["CTASlot"] },
     },
     visible: false,
   },

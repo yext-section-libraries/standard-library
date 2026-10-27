@@ -304,12 +304,12 @@ const ProductCardFields: YextFields<ProductCardProps> = {
   slots: {
     type: "object",
     objectFields: {
-      ImageSlot: { type: "slot" },
-      BrowSlot: { type: "slot" },
-      TitleSlot: { type: "slot" },
-      PriceSlot: { type: "slot" },
-      DescriptionSlot: { type: "slot" },
-      CTASlot: { type: "slot" },
+      ImageSlot: { type: "slot", allow: ["ImageSlot"] },
+      BrowSlot: { type: "slot", allow: ["TextSlot"] },
+      TitleSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      PriceSlot: { type: "slot", allow: ["TextSlot"] },
+      DescriptionSlot: { type: "slot", allow: ["BodyTextSlot"] },
+      CTASlot: { type: "slot", allow: ["CTASlot"] },
     },
     visible: false,
   },

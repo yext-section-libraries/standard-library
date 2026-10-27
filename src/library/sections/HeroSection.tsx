@@ -67,25 +67,43 @@ const heroSectionSchema = z.object({
     desktopImagePosition: z.enum(["left", "right"]),
     mobileImagePosition: z.enum(["bottom", "top"]),
     showBusinessName: z.boolean(),
-    showGeomodifier: z.boolean(),
+    showGeomodifier: z
+      .boolean()
+      .describe(
+        "Controls GeomodifierSlot, which may contain the main marketing headline rather than a location. Keep true when authoring a headline there. Changing to a product or topic page does not require hiding this slot. Set false only when intentionally omitting its content."
+      ),
     showPhone: z.boolean(),
     showHoursStatus: z.boolean(),
     showAverageReview: z.boolean(),
     reviewStarsColor: optionalSiteColorSchema.describe(
       "Omit to use the default review star color. Set only when the user explicitly requests a star color override."
     ),
-    showPrimaryCTA: z.boolean(),
-    showSecondaryCTA: z.boolean(),
+    showPrimaryCTA: z
+      .boolean()
+      .describe(
+        "Controls PrimaryCTASlot in addition to the child CTA's data.show. Enable both when authoring a visible primary CTA."
+      ),
+    showSecondaryCTA: z
+      .boolean()
+      .describe(
+        "Controls SecondaryCTASlot in addition to the child CTA's data.show. Enable both when authoring a visible secondary CTA. Preserve hidden defaults when the secondary CTA is intentionally omitted."
+      ),
     showImage: z.boolean(),
   }),
   slots: z.object({
     BusinessNameSlot: slotSchema(),
-    GeomodifierSlot: slotSchema(),
+    GeomodifierSlot: slotSchema(
+      "Hero subtitle or main marketing headline. Despite its name, it need not contain location text. Rendered only when styles.showGeomodifier is true; enable that control when writing a headline here."
+    ),
     PhoneSlot: slotSchema(),
     HoursStatusSlot: slotSchema(),
     ImageSlot: slotSchema(),
-    PrimaryCTASlot: slotSchema(),
-    SecondaryCTASlot: slotSchema(),
+    PrimaryCTASlot: slotSchema(
+      "Primary hero CTA. Enable styles.showPrimaryCTA and the child CTA's data.show when writing visible CTA content."
+    ),
+    SecondaryCTASlot: slotSchema(
+      "Optional secondary hero CTA. Enable styles.showSecondaryCTA and the child CTA's data.show when writing visible CTA content. A required child may retain its hidden default when this CTA is intentionally omitted."
+    ),
   }),
   analytics: z.object({ scope: z.string().optional() }),
   liveVisibility: z.boolean().optional(),

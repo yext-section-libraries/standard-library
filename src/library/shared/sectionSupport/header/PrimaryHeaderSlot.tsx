@@ -43,9 +43,11 @@ const primaryHeaderSchema = z.object({
   slots: z.object({
     LogoSlot: slotSchema(),
     LinksSlot: slotSchema(),
-    PrimaryCTASlot: slotSchema(),
+    PrimaryCTASlot: slotSchema(
+      "Primary header CTA. Visibility is controlled by the child CTA's data.show; enable it when authoring visible CTA content."
+    ),
     SecondaryCTASlot: slotSchema().describe(
-      "Second header CTA. Set the child CTA's data.show to true when providing its content; use false only when intentionally omitting this CTA."
+      "Optional second header CTA. Its child CTA owns the visibility control: data.show must be true when authoring visible secondary CTA content. There is no parent showSecondaryCTA switch on this header. If intentionally omitting this CTA, retain its hidden default instead of writing a new label and link that will never display."
     ),
   }),
 });
