@@ -58,12 +58,12 @@ const expandedFooterSchema = z.object({
     maxWidth: maxWidthSchema.optional(),
   }),
   slots: z.object({
-    LogoSlot: slotSchema(),
-    SocialLinksSlot: slotSchema(),
-    UtilityImagesSlot: slotSchema(),
-    PrimaryLinksWrapperSlot: slotSchema(),
-    ExpandedLinksWrapperSlot: slotSchema(),
-    SecondaryFooterSlot: slotSchema(),
+    LogoSlot: slotSchema(undefined, "FooterLogoSlot"),
+    SocialLinksSlot: slotSchema(undefined, "FooterSocialLinksSlot"),
+    UtilityImagesSlot: slotSchema(undefined, "FooterUtilityImagesSlot"),
+    PrimaryLinksWrapperSlot: slotSchema(undefined, "FooterLinksSlot"),
+    ExpandedLinksWrapperSlot: slotSchema(undefined, "FooterExpandedLinksWrapper"),
+    SecondaryFooterSlot: slotSchema(undefined, "SecondaryFooterSlot"),
   }),
   analytics: z.object({ scope: z.string().optional() }),
 });
