@@ -88,20 +88,20 @@ const directoryFields: YextFields<DirectoryProps> = {
       },
       textTransform: {
         type: "select",
-        label: msg("fields.textTransform", "Text Transform"),
+        label: msg("theme.textTransform.textTransform", "Text Transform"),
         options: [
           { label: msg("fields.options.none", "None"), value: "none" },
           { label: msg("fields.options.default", "Default"), value: "default" },
           {
-            label: msg("fields.options.lowercase", "Lowercase"),
+            label: msg("theme.textTransform.lowercase", "Lowercase"),
             value: "lowercase",
           },
           {
-            label: msg("fields.options.uppercase", "Uppercase"),
+            label: msg("theme.textTransform.uppercase", "Uppercase"),
             value: "uppercase",
           },
           {
-            label: msg("fields.options.titlecase", "Titlecase"),
+            label: msg("theme.textTransform.capitalize", "Capitalize"),
             value: "capitalize",
           },
         ],
