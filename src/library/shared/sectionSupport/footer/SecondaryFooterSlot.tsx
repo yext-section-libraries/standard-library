@@ -22,8 +22,8 @@ const secondaryFooterSchema = z.object({
     showLinks: z.boolean(),
   }),
   slots: z.object({
-    SecondaryLinksWrapperSlot: slotSchema(),
-    CopyrightSlot: slotSchema(),
+    SecondaryLinksWrapperSlot: slotSchema(undefined, "FooterLinksSlot"),
+    CopyrightSlot: slotSchema(undefined, "CopyrightMessageSlot"),
   }),
 });
 
