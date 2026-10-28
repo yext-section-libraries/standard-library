@@ -41,13 +41,12 @@ import { SlidePanel } from "./SlidePanel.tsx";
 const primaryHeaderSchema = z.object({
   styles: z.object({ backgroundColor: backgroundColorSchema.optional() }),
   slots: z.object({
-    LogoSlot: slotSchema(undefined, "ImageSlot"),
-    LinksSlot: slotSchema(undefined, "HeaderLinks"),
+    LogoSlot: slotSchema(),
+    LinksSlot: slotSchema(),
     PrimaryCTASlot: slotSchema(
-      "Primary header CTA. Visibility is controlled by the child CTA's data.show; enable it when authoring visible CTA content.",
-      "CTASlot"
+      "Primary header CTA. Visibility is controlled by the child CTA's data.show; enable it when authoring visible CTA content."
     ),
-    SecondaryCTASlot: slotSchema(undefined, "CTASlot").describe(
+    SecondaryCTASlot: slotSchema().describe(
       "Optional second header CTA. Its child CTA owns the visibility control: data.show must be true when authoring visible secondary CTA content. There is no parent showSecondaryCTA switch on this header. If intentionally omitting this CTA, retain its hidden default instead of writing a new label and link that will never display."
     ),
   }),

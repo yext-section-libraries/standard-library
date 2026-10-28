@@ -30,7 +30,7 @@ const secondaryHeaderSchema = z.object({
     showLanguageDropdown: z.boolean(),
   }),
   styles: z.object({ backgroundColor: backgroundColorSchema.optional() }),
-  slots: z.object({ LinksSlot: slotSchema(undefined, "HeaderLinks") }),
+  slots: z.object({ LinksSlot: slotSchema() }),
 });
 
 export interface SecondaryHeaderSlotProps {

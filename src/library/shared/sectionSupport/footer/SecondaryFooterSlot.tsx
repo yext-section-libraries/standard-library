@@ -22,8 +22,8 @@ const secondaryFooterSchema = z.object({
     showLinks: z.boolean(),
   }),
   slots: z.object({
-    SecondaryLinksWrapperSlot: slotSchema(undefined, "FooterLinksSlot"),
-    CopyrightSlot: slotSchema(undefined, "CopyrightMessageSlot"),
+    SecondaryLinksWrapperSlot: slotSchema(),
+    CopyrightSlot: slotSchema(),
   }),
 });
 
@@ -97,8 +97,8 @@ const secondaryFooterSlotFields: YextFields<SecondaryFooterSlotProps> = {
   slots: {
     type: "object",
     objectFields: {
-      SecondaryLinksWrapperSlot: { type: "slot" },
-      CopyrightSlot: { type: "slot" },
+      SecondaryLinksWrapperSlot: { type: "slot", allow: ["FooterLinksSlot"] },
+      CopyrightSlot: { type: "slot", allow: ["CopyrightMessageSlot"] },
     },
     visible: false,
   },

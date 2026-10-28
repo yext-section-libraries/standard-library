@@ -28,8 +28,8 @@ const expandedHeaderSchema = z.object({
     headerPosition: z.enum(["fixed", "scrollsWithPage"]),
   }),
   slots: z.object({
-    PrimaryHeaderSlot: slotSchema(undefined, "PrimaryHeaderSlot"),
-    SecondaryHeaderSlot: slotSchema(undefined, "SecondaryHeaderSlot"),
+    PrimaryHeaderSlot: slotSchema(),
+    SecondaryHeaderSlot: slotSchema(),
   }),
   analytics: z.object({ scope: z.string().optional() }),
 });
