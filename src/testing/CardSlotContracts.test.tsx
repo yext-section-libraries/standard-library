@@ -59,14 +59,14 @@ const components: Record<string, unknown> = {
 
 describe("fixed card slot contracts", () => {
   it.each(Object.entries(expected))(
-    "declares native and compatible aliases for %s",
+    "restricts new children to native types and retains compatible aliases for %s",
     (type, slots) => {
       const component = sharedComponentConfigs[type];
       const fields = (component.fields!.slots as any).objectFields;
       const defaults = component.defaultProps!.slots as Record<string, any[]>;
       expect(Object.keys(fields).sort()).toEqual(Object.keys(slots).sort());
       for (const [slot, types] of Object.entries(slots)) {
-        expect(fields[slot].allow).toEqual(types);
+        expect(fields[slot].allow).toEqual([types[0]]);
         expect(defaults[slot].map((child) => child.type)).toEqual([types[0]]);
         if (types.length > 1) {
           expect(components[types[0]]).toBe(components[types[1]]);
@@ -103,7 +103,7 @@ describe("fixed card slot contracts", () => {
     expect(data.content[0].props).toEqual(before);
   });
 
-  it("preserves arbitrary saved child values in the new migration", () => {
+  it("preserves arbitrary saved child values in the fixed-slot migration", () => {
     const props = {
       slots: {
         ImageSlot: [
@@ -111,7 +111,7 @@ describe("fixed card slot contracts", () => {
         ],
       },
     };
-    const migration = (migrationRegistry[2] as any)["*"];
+    const migration = (migrationRegistry[0] as any)["*"];
     expect(migration.action).toBe("updated");
     expect(migration.propTransformation(props, {})).toBe(props);
   });
