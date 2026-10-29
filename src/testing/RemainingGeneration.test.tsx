@@ -52,6 +52,25 @@ const config = {
   ),
 };
 const copy = <T,>(value: T): T => structuredClone(value);
+const generationDefaults = (component: any) => {
+  const props = copy(component.defaultProps);
+  if (
+    component.layoutGenerationMetadata.slottedItemSource &&
+    props.data.mappings
+  ) {
+    // Native mapping defaults include constants; generation exposes only bindings.
+    props.data.mappings = Object.fromEntries(
+      Object.entries(props.data.mappings).map(([name, mapping]) => {
+        const { field, constantValueEnabled } = mapping as {
+          field: string;
+          constantValueEnabled: boolean;
+        };
+        return [name, { field, constantValueEnabled }];
+      })
+    );
+  }
+  return props;
+};
 const sources = [
   {
     name: "Event",
@@ -127,14 +146,19 @@ describe("remaining generation contracts", () => {
 
   it.each(
     Object.entries(components).filter(([, c]) => c.layoutGenerationMetadata)
-  )("%s accepts defaults and serializes to JSON Schema", (_name, component) => {
-    expect(
-      component.layoutGenerationMetadata.props.safeParse(component.defaultProps)
-    ).toMatchObject({ success: true });
-    expect(() =>
-      z.toJSONSchema(component.layoutGenerationMetadata.props)
-    ).not.toThrow();
-  });
+  )(
+    "%s accepts authored defaults and serializes to JSON Schema",
+    (_name, component) => {
+      expect(
+        component.layoutGenerationMetadata.props.safeParse(
+          generationDefaults(component)
+        )
+      ).toMatchObject({ success: true });
+      expect(() =>
+        z.toJSONSchema(component.layoutGenerationMetadata.props)
+      ).not.toThrow();
+    }
+  );
 
   it.each(sources)(
     "$name requires exactly one child in every fixed card slot, including hidden content",
@@ -168,9 +192,12 @@ describe("remaining generation contracts", () => {
       );
       expect(source.generationMetadata.cardType).toBe(`${name}Card`);
       const authored = wrapper.layoutGenerationMetadata!.props.parse(
-        wrapper.defaultProps
+        generationDefaults(wrapper)
       ) as any;
       expect(authored.data).not.toHaveProperty("constantValue");
+      for (const mapping of Object.values(authored.data.mappings ?? {})) {
+        expect(mapping).not.toHaveProperty("constantValue");
+      }
       expect(authored).not.toHaveProperty("manualSlots");
       expect(authored).not.toHaveProperty("conditionalRender");
       const card = components[source.generationMetadata.cardType];

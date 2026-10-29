@@ -116,8 +116,8 @@ const productSectionFields: YextFields<ProductSectionProps> = {
   slots: {
     type: "object",
     objectFields: {
-      SectionHeadingSlot: { type: "slot" },
-      CardsWrapperSlot: { type: "slot" },
+      SectionHeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      CardsWrapperSlot: { type: "slot", allow: ["ProductCardsWrapper"] },
     },
     visible: false,
   },
