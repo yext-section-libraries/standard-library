@@ -1625,6 +1625,49 @@ describe("Locator", async () => {
     expect(resultCardProps.image.field).toBe("headshot");
   });
 
+  it.each([
+    { name: "mobile", width: 375, height: 667 },
+    { name: "tablet", width: 800, height: 667 },
+  ])(
+    "keeps the footer below search results on $name",
+    async ({ width, height }) => {
+      const fixture = tests[1];
+      const document = fixture.document;
+      let data = migrate(
+        puckConfig,
+        {
+          root: { props: { version: fixture.version } },
+          content: [{ type: "Locator", props: fixture.props }],
+        },
+        document,
+        migrationRegistry
+      );
+      data = await resolveAllData(data, puckConfig, {
+        streamDocument: document,
+      });
+      vi.stubGlobal("fetch", createLocatorFetchMock(document));
+      await page.viewport(width, height);
+
+      const { container } = reactRender(
+        <VisualEditorProvider templateProps={{ document }}>
+          <Render config={puckConfig} data={data} />
+          <footer>Footer</footer>
+        </VisualEditorProvider>
+      );
+
+      await screen.findAllByText("Comet Cafe");
+      const results = container.querySelector<HTMLElement>("#innerDiv")!;
+      const footer = screen.getByRole("contentinfo");
+      expect(footer.getBoundingClientRect().top).toBeGreaterThanOrEqual(
+        results.getBoundingClientRect().bottom
+      );
+      if (width >= 768) {
+        expect(getComputedStyle(results).overflowY).toBe("auto");
+        expect(results.scrollHeight).toBeGreaterThan(results.clientHeight);
+      }
+    }
+  );
+
   it.each(transformTests(tests))(
     "$viewport.name $name",
     async ({
