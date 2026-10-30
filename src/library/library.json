@@ -29,6 +29,5 @@
     "tr",
     "zh",
     "zh-TW"
-  ],
-  "features": ["INTENT_PAGE_GENERATION", "UNKNOWN_FEATURE"]
+  ]
 }
