@@ -975,11 +975,11 @@ const LocatorInternal = ({
   }, []);
 
   return (
-    <div className="components flex h-screen w-full mx-auto">
+    <div className="components flex md:h-screen w-full mx-auto">
       <Dialog.Root>
         {/* Left Section: FilterSearch + Results. Full width for small screens */}
         <div
-          className="relative h-screen w-full md:w-2/5 lg:w-[40rem] flex flex-col md:min-w-[24rem]"
+          className="relative md:h-screen w-full md:w-2/5 lg:w-[40rem] flex flex-col md:min-w-[24rem]"
           id="locatorLeftDiv"
         >
           <div className="px-8 py-6 gap-4 flex flex-col">
