@@ -30,7 +30,7 @@ const modules = import.meta.glob("../library/sections/*.tsx", {
 }) as Record<string, Record<string, any>>;
 const sections: Record<string, any> = Object.fromEntries(
   Object.values(modules)
-    .filter((m) => m.config && !["Directory", "Locator"].includes(m.config.id))
+    .filter((m) => m.config)
     .map((m) => [
       m.config.id,
       m[Object.keys(m).find((key) => key !== "config" && m[key]?.fields)!],

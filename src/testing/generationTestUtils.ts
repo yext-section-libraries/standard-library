@@ -5,6 +5,8 @@ import { HeroSection } from "../library/sections/HeroSection.tsx";
 import { PromoSection } from "../library/sections/PromoSection.tsx";
 import { CoreInfoSection } from "../library/sections/CoreInfoSection.tsx";
 import { BannerSection } from "../library/sections/BannerSection.tsx";
+import { Directory } from "../library/sections/Directory.tsx";
+import { Locator } from "../library/sections/Locator.tsx";
 import { sharedComponentConfigs } from "../library/shared/componentRegistry.ts";
 
 export const components = {
@@ -14,6 +16,8 @@ export const components = {
   PromoSection,
   CoreInfoSection,
   BannerSection,
+  Directory,
+  Locator,
 } as Record<string, YextComponentConfig<any>>;
 const config = { components } as Config;
 export const sectionNames = [

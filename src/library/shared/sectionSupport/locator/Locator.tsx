@@ -30,6 +30,7 @@ import {
 } from "./LocatorResultCard";
 import { ResultCardPropsField } from "./Results";
 import { LocatorWrapper } from "./LocatorWrapper";
+import { locatorSchema } from "./locatorSchemas.ts";
 import {
   DEFAULT_LOCATION_STYLE,
   DEFAULT_MAKI_ICON_NAME,
@@ -424,6 +425,7 @@ const locatorFields: YextFields<LocatorProps> = {
  */
 export const LocatorComponent: YextComponentConfig<LocatorProps> = {
   fields: locatorFields,
+  layoutGenerationMetadata: { props: locatorSchema },
   /**
    * Locks array lengths for `locationStyles` and `resultCard` to the current
    * locator entity types so each entity type has exactly one entry.

@@ -71,7 +71,7 @@ export const getConfiguredMapCenterOrDefault = (mapStartingLocation?: {
 };
 
 const makiIconModules = import.meta.glob(
-  "../../../node_modules/@mapbox/maki/icons/*.svg",
+  "../../../../../node_modules/@mapbox/maki/icons/*.svg",
   {
     eager: true,
     import: "default",

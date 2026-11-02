@@ -48,6 +48,9 @@ export default defineConfig({
       localEditor: {
         enabled: true,
         layoutGenerationEnabled: true,
+        generationModel: "gpt-6.1-terra",
+        generationPromptsPath:
+          "~/alpha/gocode/src/yext/publish/yextsites/storm/js/visualeditor/generationPrompts.ts",
       },
     }),
     yextSSG(),
