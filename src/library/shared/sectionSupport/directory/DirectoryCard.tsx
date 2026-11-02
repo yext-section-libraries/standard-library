@@ -473,7 +473,20 @@ const directoryCardFields: YextFields<DirectoryCardProps> = {
 export const DirectoryCard: YextComponentConfig<DirectoryCardProps> = {
   label: msg("slots.directoryCard", "Directory Card"),
   fields: directoryCardFields,
-  layoutGenerationMetadata: { props: directoryCardSchema },
+  layoutGenerationMetadata: {
+    props: directoryCardSchema,
+    resolvedProps: [
+      "/data/cardTitle",
+      "/data/linkOverride",
+      "/data/showAddress",
+      "/data/showHoursStatus",
+      "/data/showPhoneNumber",
+      "/field",
+      "/index",
+      "/parentData/childRef",
+      "/slots/HeadingSlot/0/props/parentData",
+    ],
+  },
   defaultProps: {
     data: {
       cardTitle: defaultCardTitle,

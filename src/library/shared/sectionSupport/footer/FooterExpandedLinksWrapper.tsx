@@ -370,7 +370,10 @@ export const FooterExpandedLinksWrapper: YextComponentConfig<FooterExpandedLinks
   {
     label: msg("components.expandedLinks", "Expanded Links"),
     fields: footerExpandedLinksWrapperFields,
-    layoutGenerationMetadata: { props: footerExpandedLinksSchema },
+    layoutGenerationMetadata: {
+      props: footerExpandedLinksSchema,
+      resolvedProps: ["/desktopContentAlignment", "/mobileContentAlignment"],
+    },
     resolveFields: (data) =>
       toPuckFields(
         setDeep(

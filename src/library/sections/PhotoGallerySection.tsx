@@ -177,7 +177,10 @@ export const PhotoGallerySection: YextComponentConfig<PhotoGallerySectionProps> 
   {
     label: msg("components.photoGallery", "Photo Gallery"),
     fields: photoGallerySectionFields,
-    layoutGenerationMetadata: { props: photoGallerySectionSchema },
+    layoutGenerationMetadata: {
+      props: photoGallerySectionSchema,
+      resolvedProps: ["/conditionalRender"],
+    },
     defaultProps: {
       styles: {
         variant: "gallery",

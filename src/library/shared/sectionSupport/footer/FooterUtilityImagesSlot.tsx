@@ -167,7 +167,10 @@ const FooterUtilityImagesSlotInternal: PuckComponent<
 export const FooterUtilityImagesSlot: YextComponentConfig<FooterUtilityImagesSlotProps> =
   {
     label: msg("components.footerUtilityImagesSlotLabel", "Utility Images"),
-    layoutGenerationMetadata: { props: footerUtilityImagesSchema },
+    layoutGenerationMetadata: {
+      props: footerUtilityImagesSchema,
+      resolvedProps: ["/desktopContentAlignment", "/mobileContentAlignment"],
+    },
     fields: {
       data: {
         type: "object",

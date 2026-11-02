@@ -254,6 +254,73 @@ describe("locator and directory generation", () => {
     expect(result.resultCard).toEqual(props.resultCard);
   });
 
+  it("declares every changed derived card value when directory mappings change", async () => {
+    const document = {
+      locale: "en",
+      dm_directoryChildren: [
+        { ...child("a", "Alpha"), c_cardTitle: "Custom title" },
+      ],
+    };
+    const props = await resolve(
+      "DirectoryGrid",
+      DirectoryGrid.defaultProps,
+      document
+    );
+    props.data.mappings = {
+      ...props.data.mappings,
+      cardTitle: {
+        ...props.data.mappings.cardTitle,
+        field: "c_cardTitle",
+        constantValueEnabled: false,
+      },
+      linkOverride: {
+        ...props.data.mappings.linkOverride,
+        enabled: true,
+        constantValueEnabled: true,
+        constantValue: { defaultValue: "/custom" },
+      },
+      showAddress: false,
+      showHoursStatus: false,
+      showPhoneNumber: false,
+    };
+    const before = props.slots.CardSlot[0].props;
+    before.index = 99;
+    before.parentData.childRef.childIndex = 99;
+    const result = await resolve("DirectoryGrid", props, document);
+    const after = result.slots.CardSlot[0].props;
+    expect(after.id).toBe(before.id);
+    expect(after.data.cardTitle).toBe("Custom title");
+    expect(after.slots.HeadingSlot[0].props.parentData).toEqual({
+      field: "c_cardTitle",
+      text: "Custom title",
+    });
+
+    // Check actual resolver output, so new derived fields cannot silently bypass preservation.
+    const declared = DirectoryCard.layoutGenerationMetadata!.resolvedProps!;
+    const checkChanges = (before: any, after: any, path = "") => {
+      if (JSON.stringify(before) === JSON.stringify(after)) return;
+      if (
+        declared.some((owned) => path === owned || path.startsWith(owned + "/"))
+      ) {
+        return;
+      }
+      expect(
+        before &&
+          after &&
+          typeof before === "object" &&
+          typeof after === "object",
+        path
+      ).toBeTruthy();
+      for (const key of new Set([
+        ...Object.keys(before),
+        ...Object.keys(after),
+      ])) {
+        checkChanges(before[key], after[key], `${path}/${key}`);
+      }
+    };
+    checkChanges(before, after);
+  });
+
   it("derives cards from children and preserves customization by child identity", async () => {
     const document = {
       locale: "en",

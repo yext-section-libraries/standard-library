@@ -579,7 +579,10 @@ export const PhotoGalleryWrapper: YextComponentConfig<PhotoGalleryWrapperProps> 
   {
     label: msg("components.gallery", "Gallery"),
     fields: photoGalleryWrapperFields,
-    layoutGenerationMetadata: { props: photoGalleryWrapperSchema },
+    layoutGenerationMetadata: {
+      props: photoGalleryWrapperSchema,
+      resolvedProps: ["/parentData/variant"],
+    },
     defaultProps: {
       data: { images: photoGallerySource.defaultValue },
       styles: {

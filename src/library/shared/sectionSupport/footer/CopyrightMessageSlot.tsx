@@ -102,7 +102,10 @@ export const defaultCopyrightMessageSlotProps: CopyrightMessageSlotProps = {
 export const CopyrightMessageSlot: YextComponentConfig<CopyrightMessageSlotProps> =
   {
     label: msg("components.copyrightMessage", "Copyright Message"),
-    layoutGenerationMetadata: { props: copyrightMessageSchema },
+    layoutGenerationMetadata: {
+      props: copyrightMessageSchema,
+      resolvedProps: ["/desktopContentAlignment", "/mobileContentAlignment"],
+    },
     fields: {
       data: {
         type: "object",
