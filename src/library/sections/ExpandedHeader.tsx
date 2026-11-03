@@ -240,16 +240,38 @@ export const ExpandedHeader: YextComponentConfig<ExpandedHeaderProps> = {
       );
     }
 
-    // Ensure SecondaryHeaderSlot is passed down to PrimaryHeaderSlot's parentValues
-    if (
-      data.props.slots.PrimaryHeaderSlot[0] &&
-      data.props.slots.PrimaryHeaderSlot[0]?.props.parentValues
-        ?.SecondaryHeaderSlot !== data.props.slots.SecondaryHeaderSlot
-    ) {
+    // The menu is a separate Puck slot, so its components need distinct,
+    // stable IDs to avoid collisions with the inline secondary header.
+    if (data.props.slots.PrimaryHeaderSlot[0]) {
+      const menuSecondaryHeader = data.props.slots.SecondaryHeaderSlot.map(
+        (header, headerIndex) => {
+          const headerId =
+            header.props.id ?? `${data.props.id}-secondary-${headerIndex}`;
+          return {
+            ...header,
+            props: {
+              ...header.props,
+              id: `${headerId}-menu`,
+              slots: {
+                ...header.props.slots,
+                LinksSlot: header.props.slots.LinksSlot.map(
+                  (links: Slot[number], linksIndex: number) => ({
+                    ...links,
+                    props: {
+                      ...links.props,
+                      id: `${links.props.id ?? `${headerId}-links-${linksIndex}`}-menu`,
+                    },
+                  })
+                ),
+              },
+            },
+          };
+        }
+      );
       data = setDeep(
         data,
         "props.slots.PrimaryHeaderSlot[0].props.parentValues.SecondaryHeaderSlot",
-        data.props.slots.SecondaryHeaderSlot as Slot
+        menuSecondaryHeader
       );
     }
 

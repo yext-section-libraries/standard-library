@@ -50,7 +50,7 @@ export default defineConfig({
       localEditor: {
         enabled: true,
         layoutGenerationEnabled: true,
-        generationModel: "gpt-6.1-luna",
+        generationModel: "gpt-6-luna",
         generationPromptsPath: join(
           homedir(),
           "alpha/gocode/src/yext/publish/yextsites/storm/js/visualeditor/generationPrompts.ts"

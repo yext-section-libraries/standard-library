@@ -95,8 +95,14 @@ export const enhancedCtaSchema = z.object({
 }) satisfies z.ZodType<EnhancedTranslatableCTA>;
 
 const richTextSchema = z.strictObject({
-  html: z.string().optional(),
-  json: z.string().optional(),
+  // The runtime recognizes rich text by its HTML property; JSON alone cannot render.
+  html: z.string().describe("HTML markup used to render the rich text."),
+  json: z
+    .string()
+    .optional()
+    .describe(
+      "Optional serialized Lexical editor state. Never put plain text here."
+    ),
 });
 export const translatableRichTextSchema = z
   .union([
@@ -110,5 +116,5 @@ export const translatableRichTextSchema = z
     richTextSchema,
   ])
   .describe(
-    "Rich text as a string, an HTML/JSON object, or localized values keyed by locale."
+    "Rich text as a plain string, an object with required html and optional Lexical json, or localized values keyed by locale. Use a plain string for unformatted text. JSON-only objects are not renderable."
   ) satisfies z.ZodType<TranslatableRichText>;

@@ -11,6 +11,8 @@ import {
 import { describe, expect, it } from "vitest";
 import { resolveAllData } from "@puckeditor/core";
 import { HeadingText } from "../../library/sections/HeadingText.tsx";
+import { getDefaultRTF, resolveComponentData } from "@yext/visual-editor";
+import { render, cleanup } from "@testing-library/react";
 
 const config = {
   components: { FAQSection, FAQCard, HeadingTextSlot: HeadingText },
@@ -18,6 +20,74 @@ const config = {
 const copy = <T,>(value: T): T => structuredClone(value);
 
 describe("FAQ generation contracts", () => {
+  it.each(["question", "answer"])(
+    "rejects generated %s JSON wrappers without renderable HTML",
+    (name) => {
+      for (const value of [
+        { defaultValue: { json: "How often should I change my car’s oil?" } },
+        { defaultValue: { json: getDefaultRTF("FAQ text").json } },
+        { defaultValue: "FAQ text", fr: { json: "Texte" } },
+      ]) {
+        const card = copy(FAQCard.defaultProps!);
+        expect(
+          faqCardSchema.safeParse({
+            ...card,
+            data: {
+              ...card.data,
+              [name]: {
+                field: "",
+                constantValueEnabled: true,
+                constantValue: value,
+              },
+            },
+          }).success
+        ).toBe(false);
+      }
+    }
+  );
+
+  it("renders generated plain and rich questions and localized answers", () => {
+    for (const question of [
+      "Oil change question?",
+      getDefaultRTF("Oil change question?"),
+    ]) {
+      const card = copy(FAQCard.defaultProps!);
+      const parsed = faqCardSchema.parse({
+        ...card,
+        data: {
+          question: {
+            field: "",
+            constantValueEnabled: true,
+            constantValue: { defaultValue: question },
+          },
+          answer: {
+            field: "",
+            constantValueEnabled: true,
+            constantValue: {
+              defaultValue: getDefaultRTF("Default answer"),
+              fr: { html: "<p>Localized answer</p>" },
+            },
+          },
+        },
+      });
+      const view = render(
+        <>
+          {resolveComponentData(
+            parsed.data.question,
+            "fr",
+            {},
+            { output: "plainText" }
+          )}
+          {resolveComponentData(parsed.data.answer, "fr", {})}
+        </>
+      );
+      expect(view.container.textContent).toBe(
+        "Oil change question?Localized answer"
+      );
+      cleanup();
+    }
+  });
+
   it("registers the shared slotted-source contract and excludes card references from authored data", () => {
     expect(FAQSection.layoutGenerationMetadata?.slottedItemSource).toBe(
       faqCardsSource.generationMetadata
