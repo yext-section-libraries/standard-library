@@ -13,11 +13,12 @@ import { HeadingTextProps } from "./HeadingText.tsx";
 import { Slot, setDeep } from "@puckeditor/core";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import { defaultProductCardSlotData } from "../shared/sectionSupport/pageSections/ProductSection/ProductCard.tsx";
-import { ProductCardsWrapperProps } from "../shared/sectionSupport/pageSections/ProductSection/ProductCardsWrapper.tsx";
 import {
-  ComponentErrorBoundary,
-  forwardHeadingLevel,
-} from "@yext/visual-editor/section-library-support";
+  ProductCardsWrapperProps,
+  productCardsSource,
+} from "../shared/sectionSupport/pageSections/ProductSection/ProductCardsWrapper.tsx";
+import { ComponentErrorBoundary } from "@yext/visual-editor/section-library-support";
+import { forwardCardHeadingLevel } from "../shared/sectionSupport/pageSections/cardHeadingLevel.ts";
 import {
   getMappedCardsSectionConditionalRender,
   MappedCardsSectionConditionalRender,
@@ -192,8 +193,8 @@ export const ProductSection: YextComponentConfig<ProductSectionProps> = {
     },
     liveVisibility: true,
   },
-  resolveData: (data) => {
-    let updatedData = forwardHeadingLevel(data, "TitleSlot");
+  resolveData: (data, params) => {
+    let updatedData = forwardCardHeadingLevel(data);
 
     if (
       data.props.slots.CardsWrapperSlot?.[0]?.props.styles?.variant !==
@@ -206,34 +207,16 @@ export const ProductSection: YextComponentConfig<ProductSectionProps> = {
       );
     }
 
-    const isImmersive = updatedData.props.styles.cardVariant === "immersive";
-    const showImageConstrain = !isImmersive;
-
-    const cards =
-      updatedData.props.slots.CardsWrapperSlot?.[0]?.props?.slots?.CardSlot;
-
-    if (cards) {
-      cards.forEach((_: any, i: number) => {
-        updatedData = setDeep(
-          updatedData,
-          `props.slots.CardsWrapperSlot[0].props.slots.CardSlot[${i}].props.slots.ImageSlot[0].props.showImageConstrain`,
-          showImageConstrain
-        );
-
-        updatedData = setDeep(
-          updatedData,
-          `props.slots.CardsWrapperSlot[0].props.slots.CardSlot[${i}].props.slots.ImageSlot[0].props.hideWidthProp`,
-          isImmersive
-        );
-      });
-    }
-
     return {
       ...updatedData,
       props: {
         ...updatedData.props,
         conditionalRender: getMappedCardsSectionConditionalRender(
-          updatedData.props.slots.CardsWrapperSlot?.[0]
+          updatedData.props.slots.CardsWrapperSlot?.[0],
+          productCardsSource.resolveItems(
+            updatedData.props.slots.CardsWrapperSlot?.[0]?.props.data,
+            params.metadata.streamDocument ?? {}
+          )
         ),
       },
     };

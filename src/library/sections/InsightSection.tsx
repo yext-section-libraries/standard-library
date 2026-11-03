@@ -12,12 +12,13 @@ import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrap
 import { HeadingTextProps } from "./HeadingText.tsx";
 import { Slot } from "@puckeditor/core";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
-import {
-  ComponentErrorBoundary,
-  forwardHeadingLevel,
-} from "@yext/visual-editor/section-library-support";
+import { ComponentErrorBoundary } from "@yext/visual-editor/section-library-support";
+import { forwardCardHeadingLevel } from "../shared/sectionSupport/pageSections/cardHeadingLevel.ts";
 import { defaultInsightCardSlotData } from "../shared/sectionSupport/pageSections/InsightSection/InsightCard.tsx";
-import { InsightCardsWrapperProps } from "../shared/sectionSupport/pageSections/InsightSection/InsightCardsWrapper.tsx";
+import {
+  InsightCardsWrapperProps,
+  insightCardsSource,
+} from "../shared/sectionSupport/pageSections/InsightSection/InsightCardsWrapper.tsx";
 import {
   getMappedCardsSectionConditionalRender,
   MappedCardsSectionConditionalRender,
@@ -169,18 +170,19 @@ export const InsightSection: YextComponentConfig<InsightSectionProps> = {
     },
     liveVisibility: true,
   },
-  resolveData: (data) => {
-    const updatedData = forwardHeadingLevel<InsightCardsWrapperProps>(
-      data,
-      "TitleSlot"
-    );
+  resolveData: (data, params) => {
+    const updatedData = forwardCardHeadingLevel(data);
 
     return {
       ...updatedData,
       props: {
         ...updatedData.props,
         conditionalRender: getMappedCardsSectionConditionalRender(
-          updatedData.props.slots.CardsWrapperSlot?.[0]
+          updatedData.props.slots.CardsWrapperSlot?.[0],
+          insightCardsSource.resolveItems(
+            updatedData.props.slots.CardsWrapperSlot?.[0]?.props.data,
+            params.metadata.streamDocument ?? {}
+          )
         ),
       },
     };

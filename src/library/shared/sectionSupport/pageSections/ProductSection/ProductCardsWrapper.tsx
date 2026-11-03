@@ -1,4 +1,8 @@
 import {
+  applyCardHeadingLevel,
+  CardHeadingLevelProps,
+} from "../cardHeadingLevel.ts";
+import {
   msg,
   ThemeOptions,
   ProductStruct,
@@ -62,20 +66,21 @@ export const productCardsSource = createSlottedItemSource<
 });
 
 export type ProductCardsWrapperProps =
-  SlotMappedCardWrapperType<ProductStruct> & {
-    styles: {
-      showImage: boolean;
-      showBrow: boolean;
-      showTitle: boolean;
-      showPrice: boolean;
-      showDescription: boolean;
-      showCTA: boolean;
-      variant?: ProductSectionVariant;
-    };
+  SlotMappedCardWrapperType<ProductStruct> &
+    CardHeadingLevelProps & {
+      styles: {
+        showImage: boolean;
+        showBrow: boolean;
+        showTitle: boolean;
+        showPrice: boolean;
+        showDescription: boolean;
+        showCTA: boolean;
+        variant?: ProductSectionVariant;
+      };
 
-    /** @internal */
-    conditionalRender?: MappedEntityFieldConditionalRender;
-  };
+      /** @internal */
+      conditionalRender?: MappedEntityFieldConditionalRender;
+    };
 
 const productCardsWrapperFields: YextFields<ProductCardsWrapperProps> = {
   data: productCardsSource.field,
@@ -155,7 +160,10 @@ export const ProductCardsWrapper: YextComponentConfig<ProductCardsWrapperProps> 
       },
     },
     resolveData: (data, params) =>
-      productCardsSource.populateSlots(data, params.metadata.streamDocument),
+      applyCardHeadingLevel(
+        productCardsSource.populateSlots(data, params.metadata.streamDocument),
+        "TitleSlot"
+      ),
     render: (props) => {
       if (props.conditionalRender?.isMappedContentEmpty) {
         return renderMappedEntityFieldEmptyState(props.puck.isEditing);

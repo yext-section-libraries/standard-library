@@ -589,6 +589,20 @@ export const ProductCard: YextComponentConfig<ProductCardProps> = {
       "showCTA",
     ]);
 
+    // Apply image behavior after the wrapper has generated the final card slots.
+    const isImmersive =
+      (updatedData.props.parentStyles?.variant ?? "immersive") === "immersive";
+    updatedData = setDeep(
+      updatedData,
+      "props.slots.ImageSlot[0].props.showImageConstrain",
+      !isImmersive
+    );
+    updatedData = setDeep(
+      updatedData,
+      "props.slots.ImageSlot[0].props.hideWidthProp",
+      isImmersive
+    );
+
     // Set the image's sizes attribute
     updatedData = setDeep(updatedData, "props.slots.ImageSlot[0].props.sizes", {
       base: "calc(100vw - 32px)",

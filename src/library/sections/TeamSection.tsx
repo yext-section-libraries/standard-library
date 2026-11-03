@@ -13,11 +13,12 @@ import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrap
 import { HeadingTextProps } from "./HeadingText.tsx";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import { defaultTeamCardSlotData } from "../shared/sectionSupport/pageSections/TeamSection/TeamCard.tsx";
-import { TeamCardsWrapperProps } from "../shared/sectionSupport/pageSections/TeamSection/TeamCardsWrapper.tsx";
 import {
-  ComponentErrorBoundary,
-  forwardHeadingLevel,
-} from "@yext/visual-editor/section-library-support";
+  TeamCardsWrapperProps,
+  teamCardsSource,
+} from "../shared/sectionSupport/pageSections/TeamSection/TeamCardsWrapper.tsx";
+import { ComponentErrorBoundary } from "@yext/visual-editor/section-library-support";
+import { forwardCardHeadingLevel } from "../shared/sectionSupport/pageSections/cardHeadingLevel.ts";
 import {
   getMappedCardsSectionConditionalRender,
   MappedCardsSectionConditionalRender,
@@ -167,14 +168,18 @@ export const TeamSection: YextComponentConfig<TeamSectionProps> = {
     },
     liveVisibility: true,
   },
-  resolveData: (data) => {
-    const updatedData = forwardHeadingLevel(data, "TitleSlot");
+  resolveData: (data, params) => {
+    const updatedData = forwardCardHeadingLevel(data);
     return {
       ...updatedData,
       props: {
         ...updatedData.props,
         conditionalRender: getMappedCardsSectionConditionalRender(
-          updatedData.props.slots.CardsWrapperSlot?.[0]
+          updatedData.props.slots.CardsWrapperSlot?.[0],
+          teamCardsSource.resolveItems(
+            updatedData.props.slots.CardsWrapperSlot?.[0]?.props.data,
+            params.metadata.streamDocument ?? {}
+          )
         ),
       },
     };

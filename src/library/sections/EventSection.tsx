@@ -12,11 +12,12 @@ import {
 import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import { defaultEventCardSlotData } from "../shared/sectionSupport/pageSections/EventSection/EventCard.tsx";
+import { ComponentErrorBoundary } from "@yext/visual-editor/section-library-support";
+import { forwardCardHeadingLevel } from "../shared/sectionSupport/pageSections/cardHeadingLevel.ts";
 import {
-  ComponentErrorBoundary,
-  forwardHeadingLevel,
-} from "@yext/visual-editor/section-library-support";
-import { EventCardsWrapperProps } from "../shared/sectionSupport/pageSections/EventSection/EventCardsWrapper.tsx";
+  EventCardsWrapperProps,
+  eventCardsSource,
+} from "../shared/sectionSupport/pageSections/EventSection/EventCardsWrapper.tsx";
 import {
   getMappedCardsSectionConditionalRender,
   MappedCardsSectionConditionalRender,
@@ -165,14 +166,18 @@ export const EventSection: YextComponentConfig<EventSectionProps> = {
     },
     liveVisibility: true,
   },
-  resolveData: (data) => {
-    const updatedData = forwardHeadingLevel(data, "TitleSlot");
+  resolveData: (data, params) => {
+    const updatedData = forwardCardHeadingLevel(data);
     return {
       ...updatedData,
       props: {
         ...updatedData.props,
         conditionalRender: getMappedCardsSectionConditionalRender(
-          updatedData.props.slots.CardsWrapperSlot?.[0]
+          updatedData.props.slots.CardsWrapperSlot?.[0],
+          eventCardsSource.resolveItems(
+            updatedData.props.slots.CardsWrapperSlot?.[0]?.props.data,
+            params.metadata.streamDocument ?? {}
+          )
         ),
       },
     };

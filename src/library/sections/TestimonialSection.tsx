@@ -13,11 +13,12 @@ import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrap
 import { HeadingTextProps } from "./HeadingText.tsx";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import { defaultTestimonialCardSlotData } from "../shared/sectionSupport/pageSections/TestimonialSection/TestimonialCard.tsx";
-import { TestimonialCardsWrapperProps } from "../shared/sectionSupport/pageSections/TestimonialSection/TestimonialCardsWrapper.tsx";
 import {
-  ComponentErrorBoundary,
-  forwardHeadingLevel,
-} from "@yext/visual-editor/section-library-support";
+  TestimonialCardsWrapperProps,
+  testimonialCardsSource,
+} from "../shared/sectionSupport/pageSections/TestimonialSection/TestimonialCardsWrapper.tsx";
+import { ComponentErrorBoundary } from "@yext/visual-editor/section-library-support";
+import { forwardCardHeadingLevel } from "../shared/sectionSupport/pageSections/cardHeadingLevel.ts";
 import {
   getMappedCardsSectionConditionalRender,
   MappedCardsSectionConditionalRender,
@@ -165,14 +166,18 @@ export const TestimonialSection: YextComponentConfig<TestimonialSectionProps> =
       },
       liveVisibility: true,
     },
-    resolveData: (data) => {
-      const updatedData = forwardHeadingLevel(data, "ContributorNameSlot");
+    resolveData: (data, params) => {
+      const updatedData = forwardCardHeadingLevel(data);
       return {
         ...updatedData,
         props: {
           ...updatedData.props,
           conditionalRender: getMappedCardsSectionConditionalRender(
-            updatedData.props.slots.CardsWrapperSlot?.[0]
+            updatedData.props.slots.CardsWrapperSlot?.[0],
+            testimonialCardsSource.resolveItems(
+              updatedData.props.slots.CardsWrapperSlot?.[0]?.props.data,
+              params.metadata.streamDocument ?? {}
+            )
           ),
         },
       };

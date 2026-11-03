@@ -1,3 +1,7 @@
+import {
+  applyCardHeadingLevel,
+  CardHeadingLevelProps,
+} from "../cardHeadingLevel.ts";
 import { PuckComponent } from "@puckeditor/core";
 import {
   TestimonialStruct,
@@ -46,24 +50,25 @@ export const testimonialCardsSource = createSlottedItemSource<
 });
 
 export type TestimonialCardsWrapperProps =
-  SlotMappedCardWrapperType<TestimonialStruct> & {
-    styles: {
-      /**
-       * Whether to show the name slot in the testimonial cards.
-       * @defaultValue true
-       */
-      showName: boolean;
+  SlotMappedCardWrapperType<TestimonialStruct> &
+    CardHeadingLevelProps & {
+      styles: {
+        /**
+         * Whether to show the name slot in the testimonial cards.
+         * @defaultValue true
+         */
+        showName: boolean;
 
-      /**
-       * Whether to show the date slot in the testimonial cards.
-       * @defaultValue true
-       */
-      showDate: boolean;
+        /**
+         * Whether to show the date slot in the testimonial cards.
+         * @defaultValue true
+         */
+        showDate: boolean;
+      };
+
+      /** @internal */
+      conditionalRender?: MappedEntityFieldConditionalRender;
     };
-
-    /** @internal */
-    conditionalRender?: MappedEntityFieldConditionalRender;
-  };
 
 const testimonialCardsWrapperFields: YextFields<TestimonialCardsWrapperProps> =
   {
@@ -120,9 +125,12 @@ export const TestimonialCardsWrapper: YextComponentConfig<TestimonialCardsWrappe
       },
     },
     resolveData: (data, params) =>
-      testimonialCardsSource.populateSlots(
-        data,
-        params.metadata.streamDocument
+      applyCardHeadingLevel(
+        testimonialCardsSource.populateSlots(
+          data,
+          params.metadata.streamDocument
+        ),
+        "ContributorNameSlot"
       ),
     render: (props) => {
       if (props.conditionalRender?.isMappedContentEmpty) {

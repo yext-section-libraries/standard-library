@@ -1,3 +1,7 @@
+import {
+  applyCardHeadingLevel,
+  CardHeadingLevelProps,
+} from "../cardHeadingLevel.ts";
 import { PuckComponent } from "@puckeditor/core";
 import {
   PersonStruct,
@@ -57,18 +61,19 @@ export const teamCardsSource = createSlottedItemSource<
   },
 });
 
-export type TeamCardsWrapperProps = SlotMappedCardWrapperType<PersonStruct> & {
-  styles: {
-    showImage: boolean;
-    showTitle: boolean;
-    showPhone: boolean;
-    showEmail: boolean;
-    showCTA: boolean;
-  };
+export type TeamCardsWrapperProps = SlotMappedCardWrapperType<PersonStruct> &
+  CardHeadingLevelProps & {
+    styles: {
+      showImage: boolean;
+      showTitle: boolean;
+      showPhone: boolean;
+      showEmail: boolean;
+      showCTA: boolean;
+    };
 
-  /** @internal */
-  conditionalRender?: MappedEntityFieldConditionalRender;
-};
+    /** @internal */
+    conditionalRender?: MappedEntityFieldConditionalRender;
+  };
 
 const teamCardsWrapperFields: YextFields<TeamCardsWrapperProps> = {
   data: teamCardsSource.field,
@@ -141,7 +146,10 @@ export const TeamCardsWrapper: YextComponentConfig<TeamCardsWrapperProps> = {
     },
   },
   resolveData: (data, params) =>
-    teamCardsSource.populateSlots(data, params.metadata.streamDocument),
+    applyCardHeadingLevel(
+      teamCardsSource.populateSlots(data, params.metadata.streamDocument),
+      "NameSlot"
+    ),
   render: (props) => {
     if (props.conditionalRender?.isMappedContentEmpty) {
       return renderMappedEntityFieldEmptyState(props.puck.isEditing);

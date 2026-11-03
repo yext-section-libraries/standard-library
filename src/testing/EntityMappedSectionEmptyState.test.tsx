@@ -1,4 +1,7 @@
 import * as React from "react";
+import { Config, Render, resolveAllData } from "@puckeditor/core";
+import { renderToStaticMarkup } from "react-dom/server";
+import { sharedComponentConfigs } from "../library/shared/componentRegistry.ts";
 import { VisualEditorProvider } from "./TestVisualEditorProvider.tsx";
 import { describe, expect, it } from "vitest";
 import { render as reactRender, waitFor } from "@testing-library/react";
@@ -458,6 +461,102 @@ const createCardsSectionRenderProps = (
     },
   };
 };
+
+describe.each(wrapperCases)(
+  "$sectionName initial visibility",
+  ({ sectionConfig, mappedField, populatedDocument }) => {
+    const config: Config = {
+      components: { ...sharedComponentConfigs, CardsSection: sectionConfig },
+      root: {
+        render: ({ children }: { children: React.ReactNode }) => (
+          <>{children}</>
+        ),
+      },
+    };
+
+    it.each([
+      { savedCards: false, hasItems: true },
+      { savedCards: true, hasItems: false },
+      { savedCards: false, hasItems: false },
+      { savedCards: true, hasItems: true },
+    ])(
+      "uses current linked data before hydration: saved cards=$savedCards, source items=$hasItems",
+      async ({ savedCards, hasItems }) => {
+        const props = cloneValue(sectionConfig.defaultProps!);
+        const wrapper = props.slots!.CardsWrapperSlot[0].props;
+        wrapper.data = {
+          ...wrapper.data,
+          field: mappedField,
+          constantValueEnabled: false,
+        };
+        if (!savedCards) {
+          wrapper.slots.CardSlot = [];
+        }
+        const streamDocument = hasItems ? populatedDocument : { locale: "en" };
+        const resolved = await resolveAllData(
+          {
+            root: { props: {} },
+            content: [
+              { type: "CardsSection", props: { ...props, id: "section" } },
+            ],
+          } as any,
+          config,
+          { streamDocument }
+        );
+        expect(resolved.content[0].props.conditionalRender).toEqual({
+          watchForMappedContentEmptyState: true,
+          initialMappedContentEmpty: !hasItems,
+        });
+        expect(
+          resolved.content[0].props.slots.CardsWrapperSlot[0].props.slots
+            .CardSlot
+        ).toHaveLength(hasItems ? 1 : 0);
+
+        // Server rendering does not run the effects that correct stale empty state.
+        const container = document.createElement("div");
+        container.innerHTML = renderToStaticMarkup(
+          <VisualEditorProvider templateProps={{ document: streamDocument }}>
+            <Render
+              config={config}
+              data={resolved}
+              metadata={{ streamDocument }}
+            />
+          </VisualEditorProvider>
+        );
+        expect(container.querySelector("section") !== null).toBe(hasItems);
+        expect(
+          container.querySelector('.hidden[aria-hidden="true"]') !== null
+        ).toBe(!hasItems);
+      }
+    );
+
+    it("keeps manual empty sections visible before hydration", async () => {
+      const props = cloneValue(sectionConfig.defaultProps!);
+      const wrapper = props.slots!.CardsWrapperSlot[0].props;
+      wrapper.data = {
+        ...wrapper.data,
+        field: mappedField,
+        constantValueEnabled: true,
+        constantValue: [],
+      };
+      wrapper.slots.CardSlot = [];
+      const resolved = await resolveAllData(
+        {
+          root: { props: {} },
+          content: [
+            { type: "CardsSection", props: { ...props, id: "section" } },
+          ],
+        } as any,
+        config,
+        { streamDocument: { locale: "en" } }
+      );
+      expect(resolved.content[0].props.conditionalRender).toEqual({
+        watchForMappedContentEmptyState: false,
+        initialMappedContentEmpty: false,
+      });
+    });
+  }
+);
 
 describe.each(wrapperCases)(
   "$wrapperName resolveData",

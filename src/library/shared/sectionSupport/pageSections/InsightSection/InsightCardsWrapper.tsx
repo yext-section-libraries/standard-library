@@ -1,4 +1,8 @@
 import {
+  applyCardHeadingLevel,
+  CardHeadingLevelProps,
+} from "../cardHeadingLevel.ts";
+import {
   InsightStruct,
   msg,
   ThemeOptions,
@@ -61,18 +65,19 @@ export const insightCardsSource = createSlottedItemSource<
 });
 
 export type InsightCardsWrapperProps =
-  SlotMappedCardWrapperType<InsightStruct> & {
-    styles: {
-      showImage: boolean;
-      showCategory: boolean;
-      showPublishTime: boolean;
-      showDescription: boolean;
-      showCTA: boolean;
-    };
+  SlotMappedCardWrapperType<InsightStruct> &
+    CardHeadingLevelProps & {
+      styles: {
+        showImage: boolean;
+        showCategory: boolean;
+        showPublishTime: boolean;
+        showDescription: boolean;
+        showCTA: boolean;
+      };
 
-    /** @internal */
-    conditionalRender?: MappedEntityFieldConditionalRender;
-  };
+      /** @internal */
+      conditionalRender?: MappedEntityFieldConditionalRender;
+    };
 
 const insightCardsWrapperFields: YextFields<InsightCardsWrapperProps> = {
   data: insightCardsSource.field,
@@ -146,7 +151,10 @@ export const InsightCardsWrapper: YextComponentConfig<InsightCardsWrapperProps> 
       },
     },
     resolveData: (data, params) =>
-      insightCardsSource.populateSlots(data, params.metadata.streamDocument),
+      applyCardHeadingLevel(
+        insightCardsSource.populateSlots(data, params.metadata.streamDocument),
+        "TitleSlot"
+      ),
     render: (props) => {
       if (props.conditionalRender?.isMappedContentEmpty) {
         return renderMappedEntityFieldEmptyState(props.puck.isEditing);

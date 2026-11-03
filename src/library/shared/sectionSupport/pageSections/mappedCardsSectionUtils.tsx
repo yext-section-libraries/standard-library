@@ -3,7 +3,7 @@ import { SlotComponent } from "@puckeditor/core";
 import { ThemeColor } from "@yext/visual-editor";
 import { PageSection } from "../atoms/pageSection.tsx";
 import {
-  isMappedCardWrapperEmpty,
+  isMappedEntityFieldCollectionEmpty,
   isMappedCardWrapperSelected,
 } from "./entityFieldSectionUtils.ts";
 import { useMappedEntitySectionEmptyState } from "./useMappedEntitySectionEmptyState.ts";
@@ -21,15 +21,19 @@ export type MappedCardsSectionConditionalRender = {
 };
 
 /**
- * Derives the section-level mapped-empty observer state from the nested cards
- * wrapper slot that owns the mapped entity field.
+ * Derives the initial mapped-empty state from current source items, before the
+ * nested wrapper reconciles its saved card slots.
  */
 export const getMappedCardsSectionConditionalRender = (
-  cardsWrapperSlot: CardWrapperSlot
+  cardsWrapperSlot: CardWrapperSlot,
+  resolvedItems: unknown[]
 ): MappedCardsSectionConditionalRender => ({
   watchForMappedContentEmptyState:
     isMappedCardWrapperSelected(cardsWrapperSlot),
-  initialMappedContentEmpty: isMappedCardWrapperEmpty(cardsWrapperSlot),
+  initialMappedContentEmpty: isMappedEntityFieldCollectionEmpty(
+    cardsWrapperSlot?.props?.data,
+    resolvedItems
+  ),
 });
 
 /**

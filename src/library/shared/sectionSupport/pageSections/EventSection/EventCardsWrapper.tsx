@@ -1,3 +1,7 @@
+import {
+  applyCardHeadingLevel,
+  CardHeadingLevelProps,
+} from "../cardHeadingLevel.ts";
 import { PuckComponent } from "@puckeditor/core";
 import {
   EventStruct,
@@ -52,17 +56,18 @@ export const eventCardsSource = createSlottedItemSource<
   },
 });
 
-export type EventCardsWrapperProps = SlotMappedCardWrapperType<EventStruct> & {
-  styles: {
-    showImage: boolean;
-    showDateTime: boolean;
-    showDescription: boolean;
-    showCTA: boolean;
-  };
+export type EventCardsWrapperProps = SlotMappedCardWrapperType<EventStruct> &
+  CardHeadingLevelProps & {
+    styles: {
+      showImage: boolean;
+      showDateTime: boolean;
+      showDescription: boolean;
+      showCTA: boolean;
+    };
 
-  /** @internal */
-  conditionalRender?: MappedEntityFieldConditionalRender;
-};
+    /** @internal */
+    conditionalRender?: MappedEntityFieldConditionalRender;
+  };
 
 const eventCardsWrapperFields: YextFields<EventCardsWrapperProps> = {
   data: eventCardsSource.field,
@@ -126,7 +131,10 @@ export const EventCardsWrapper: YextComponentConfig<EventCardsWrapperProps> = {
     },
   },
   resolveData: (data, params) =>
-    eventCardsSource.populateSlots(data, params.metadata.streamDocument),
+    applyCardHeadingLevel(
+      eventCardsSource.populateSlots(data, params.metadata.streamDocument),
+      "TitleSlot"
+    ),
   render: (props) => {
     if (props.conditionalRender?.isMappedContentEmpty) {
       return renderMappedEntityFieldEmptyState(props.puck.isEditing);
