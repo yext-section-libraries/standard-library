@@ -1,3 +1,5 @@
+import { z } from "zod";
+import { slotSchema } from "../shared/zodSchemaHelpers/slots.ts";
 import * as React from "react";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import { PuckComponent, setDeep, Slot } from "@puckeditor/core";
@@ -13,6 +15,29 @@ import { cva } from "class-variance-authority";
 import { defaultPrimaryHeaderProps } from "../shared/sectionSupport/header/PrimaryHeaderSlot.tsx";
 import { defaultSecondaryHeaderProps } from "../shared/sectionSupport/header/SecondaryHeaderSlot.tsx";
 import { ExpandedHeaderMenuProvider } from "../shared/sectionSupport/header/ExpandedHeaderMenuContext.tsx";
+
+const expandedHeaderSchema = z.object({
+  styles: z.object({
+    maxWidth: z
+      .enum([
+        "theme",
+        "768px",
+        "960px",
+        "1024px",
+        "1280px",
+        "1440px",
+        "fullWidth",
+      ])
+      .nullable()
+      .describe("Maximum width shared by both header tiers."),
+    headerPosition: z.enum(["fixed", "scrollsWithPage"]),
+  }),
+  slots: z.object({
+    PrimaryHeaderSlot: slotSchema(),
+    SecondaryHeaderSlot: slotSchema(),
+  }),
+  analytics: z.object({ scope: z.string().optional() }),
+});
 
 export const headerWrapper = cva("flex flex-col", {
   variants: {
@@ -94,8 +119,8 @@ const expandedHeaderSectionFields: YextFields<ExpandedHeaderProps> = {
   slots: {
     type: "object",
     objectFields: {
-      PrimaryHeaderSlot: { type: "slot", allow: [] },
-      SecondaryHeaderSlot: { type: "slot", allow: [] },
+      PrimaryHeaderSlot: { type: "slot", allow: ["PrimaryHeaderSlot"] },
+      SecondaryHeaderSlot: { type: "slot", allow: ["SecondaryHeaderSlot"] },
     },
     visible: false,
   },
@@ -140,6 +165,7 @@ const ExpandedHeaderWrapper: PuckComponent<ExpandedHeaderProps> = ({
  * Available on Location templates.
  */
 export const ExpandedHeader: YextComponentConfig<ExpandedHeaderProps> = {
+  layoutGenerationMetadata: { props: expandedHeaderSchema },
   label: msg("components.expandedHeader", "Expanded Header"),
   fields: expandedHeaderSectionFields,
   defaultProps: {
@@ -191,8 +217,9 @@ export const ExpandedHeader: YextComponentConfig<ExpandedHeaderProps> = {
 
     // Ensure maxWidth is passed down to header slots
     if (
-      data.props.slots.PrimaryHeaderSlot[0]?.props.parentStyles?.maxWidth !==
-      data.props.styles.maxWidth
+      data.props.slots.PrimaryHeaderSlot[0] &&
+      data.props.slots.PrimaryHeaderSlot[0]?.props.parentValues?.maxWidth !==
+        data.props.styles.maxWidth
     ) {
       data = setDeep(
         data,
@@ -202,8 +229,9 @@ export const ExpandedHeader: YextComponentConfig<ExpandedHeaderProps> = {
     }
 
     if (
+      data.props.slots.SecondaryHeaderSlot[0] &&
       data.props.slots.SecondaryHeaderSlot[0]?.props.parentStyles?.maxWidth !==
-      data.props.styles.maxWidth
+        data.props.styles.maxWidth
     ) {
       data = setDeep(
         data,
@@ -214,6 +242,7 @@ export const ExpandedHeader: YextComponentConfig<ExpandedHeaderProps> = {
 
     // Ensure SecondaryHeaderSlot is passed down to PrimaryHeaderSlot's parentValues
     if (
+      data.props.slots.PrimaryHeaderSlot[0] &&
       data.props.slots.PrimaryHeaderSlot[0]?.props.parentValues
         ?.SecondaryHeaderSlot !== data.props.slots.SecondaryHeaderSlot
     ) {

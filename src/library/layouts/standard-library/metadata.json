@@ -1,6 +1,6 @@
 {
-  "id": "yext-standard-library",
-  "displayName": "Standard Section Library",
+  "id": "blife-ai-standard-library",
+  "displayName": "Ben's AI Standard Section Library",
   "vertical": [
     "HEALTHCARE",
     "FINANCIAL_SERVICES",
@@ -10,5 +10,22 @@
     "PROFESSIONAL_SERVICES"
   ],
   "purpose": ["LOCATION", "CITATION"],
-  "pageSetType": "ENTITY"
+  "pageSetType": "ENTITY",
+  "defaultGenerationSectionIds": [
+    "BannerSection",
+    "BreadcrumbsSection",
+    "CoreInfoSection",
+    "EventSection",
+    "ExpandedFooter",
+    "ExpandedHeader",
+    "FAQSection",
+    "HeroSection",
+    "InsightSection",
+    "NearbyLocationsSection",
+    "PhotoGallerySection",
+    "ProductSection",
+    "PromoSection",
+    "TeamSection",
+    "TestimonialSection"
+  ]
 }

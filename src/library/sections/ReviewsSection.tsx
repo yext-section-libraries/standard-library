@@ -1,3 +1,10 @@
+import { mappedCardsSectionSchema } from "../shared/zodSchemaHelpers/mappedCardsZodSchemas.ts";
+import {
+  siteColorSchema,
+  optionalTextColorSchema,
+} from "../shared/zodSchemaHelpers/colors.ts";
+import { z } from "zod";
+import { slotSchema } from "../shared/zodSchemaHelpers/slots.ts";
 import { useTranslation } from "react-i18next";
 import { FaArrowLeft, FaArrowRight, FaChevronDown } from "react-icons/fa";
 import { PuckComponent, Slot } from "@puckeditor/core";
@@ -38,6 +45,14 @@ import {
   getTextColorClass,
   getTextColorStyle,
 } from "@yext/visual-editor/section-library-support";
+
+const reviewsSectionSchema = mappedCardsSectionSchema.extend({
+  styles: mappedCardsSectionSchema.shape.styles.extend({
+    accentColor: siteColorSchema.optional(),
+    textColor: optionalTextColorSchema,
+  }),
+  slots: z.object({ SectionHeadingSlot: slotSchema() }),
+});
 
 type Review = {
   authorName: string;
@@ -178,7 +193,7 @@ const reviewsFields: YextFields<ReviewsSectionProps> = {
   slots: {
     type: "object",
     objectFields: {
-      SectionHeadingSlot: { type: "slot" },
+      SectionHeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
     },
     visible: false,
   },
@@ -600,6 +615,7 @@ const ShowMoreButton: React.FC<{
 
 export const ReviewsSection: YextComponentConfig<ReviewsSectionProps> = {
   fields: reviewsFields,
+  layoutGenerationMetadata: { props: reviewsSectionSchema },
   label: msg("components.reviews", "Reviews"),
   defaultProps: {
     styles: {

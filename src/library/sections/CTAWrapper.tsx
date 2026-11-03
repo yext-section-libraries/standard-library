@@ -1,3 +1,11 @@
+import { z } from "zod";
+import {
+  ctaEntityFieldSchema,
+  ctaVariantSchema,
+  presetImageSchema,
+} from "../shared/sectionSupport/atoms/ctaZodSchemas.ts";
+import { translatableStringSchema } from "../shared/zodSchemaHelpers/data.ts";
+import { siteColorSchema } from "../shared/zodSchemaHelpers/colors.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import {
@@ -28,6 +36,37 @@ import {
   getCTAType,
   isNonNormalizableLinkType,
 } from "@yext/visual-editor/section-library-support";
+
+const ctaWrapperSchema = z.object({
+  data: z.object({
+    show: z
+      .boolean()
+      .optional()
+      .describe(
+        "Whether to render this CTA. Set true when authoring CTA content or binding an entity field, including a secondary header CTA. Set false only when intentionally omitting the CTA or when the user explicitly asks to hide it."
+      ),
+    actionType: z.enum(["link"]).optional(),
+    // intentionally omit button props
+    normalizeLink: z
+      .boolean()
+      .describe("Whether to standardize casing and encoding"),
+    entityField: ctaEntityFieldSchema.describe(
+      "The call to action content or entity field."
+    ),
+    ariaLabel: translatableStringSchema.optional(),
+  }),
+  styles: z.object({
+    variant: ctaVariantSchema.describe("The visual style of the CTA"),
+    presetImage: presetImageSchema
+      .optional()
+      .describe("Use with presetImage type"),
+    color: siteColorSchema
+      .optional()
+      .describe(
+        "CTA background color. The renderer automatically uses this color's contrastingColor for the CTA label and icon."
+      ),
+  }),
+});
 
 export interface CTAWrapperProps {
   data: {
@@ -312,6 +351,7 @@ const CTAWrapperComponent: PuckComponent<CTAWrapperProps> = (props) => {
 };
 
 export const CTAWrapper: YextComponentConfig<CTAWrapperProps> = {
+  layoutGenerationMetadata: { props: ctaWrapperSchema },
   ...gridAtomPermissions,
   label: msg("components.callToAction", "Call to Action"),
   fields: ctaWrapperFields,

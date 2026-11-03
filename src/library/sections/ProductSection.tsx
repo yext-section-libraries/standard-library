@@ -1,4 +1,8 @@
 import {
+  mappedCardsSectionSchema,
+  sectionStyles,
+} from "../shared/zodSchemaHelpers/mappedCardsZodSchemas.ts";
+import {
   ThemeColor,
   backgroundColors,
   ThemeOptions,
@@ -25,6 +29,13 @@ import {
   MappedCardsSectionContent,
   MappedCardsSectionShell,
 } from "../shared/sectionSupport/pageSections/mappedCardsSectionUtils.tsx";
+import z from "zod";
+
+const productSectionSchema = mappedCardsSectionSchema.extend({
+  styles: sectionStyles.extend({
+    cardVariant: z.enum(["immersive", "classic", "minimal"]).optional(),
+  }),
+});
 
 export type ProductSectionVariant = "immersive" | "classic" | "minimal";
 export type ProductSectionImageConstrain = "fill" | "fixed";
@@ -106,8 +117,8 @@ const productSectionFields: YextFields<ProductSectionProps> = {
   slots: {
     type: "object",
     objectFields: {
-      SectionHeadingSlot: { type: "slot" },
-      CardsWrapperSlot: { type: "slot" },
+      SectionHeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      CardsWrapperSlot: { type: "slot", allow: ["ProductCardsWrapper"] },
     },
     visible: false,
   },
@@ -135,6 +146,7 @@ const productSectionFields: YextFields<ProductSectionProps> = {
 export const ProductSection: YextComponentConfig<ProductSectionProps> = {
   label: msg("components.products", "Products"),
   fields: productSectionFields,
+  layoutGenerationMetadata: { props: productSectionSchema },
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background2.value,

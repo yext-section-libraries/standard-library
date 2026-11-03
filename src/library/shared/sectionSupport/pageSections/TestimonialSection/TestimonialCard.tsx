@@ -1,3 +1,6 @@
+import { z } from "zod";
+import { cardStyles } from "../../../zodSchemaHelpers/mappedCardsZodSchemas.ts";
+import { slotSchema } from "../../../zodSchemaHelpers/slots.ts";
 import * as React from "react";
 import { PuckComponent, Slot, WithId } from "@puckeditor/core";
 import {
@@ -24,6 +27,15 @@ import {
   useGetCardSlots,
   syncParentStyles,
 } from "@yext/visual-editor/section-library-support";
+
+const testimonialCardSchema = z.object({
+  styles: cardStyles,
+  slots: z.object({
+    DescriptionSlot: slotSchema(),
+    ContributorNameSlot: slotSchema(),
+    ContributionDateSlot: slotSchema(),
+  }),
+});
 
 const defaultTestimonial = {
   description: {
@@ -175,9 +187,12 @@ const testimonialCardFields: YextFields<TestimonialCardProps> = {
   slots: {
     type: "object",
     objectFields: {
-      DescriptionSlot: { type: "slot" },
-      ContributorNameSlot: { type: "slot" },
-      ContributionDateSlot: { type: "slot" },
+      DescriptionSlot: { type: "slot", allow: ["BodyTextSlot"] },
+      ContributorNameSlot: {
+        type: "slot",
+        allow: ["HeadingTextSlot"],
+      },
+      ContributionDateSlot: { type: "slot", allow: ["Timestamp"] },
     },
     visible: false,
   },
@@ -325,16 +340,13 @@ const TestimonialCardComponent: PuckComponent<TestimonialCardProps> = (
 export const TestimonialCard: YextComponentConfig<TestimonialCardProps> = {
   label: msg("components.testimonialCard", "Testimonial Card"),
   fields: testimonialCardFields,
+  layoutGenerationMetadata: { props: testimonialCardSchema },
   inline: true,
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background1.value,
     },
-    slots: {
-      DescriptionSlot: [],
-      ContributorNameSlot: [],
-      ContributionDateSlot: [],
-    },
+    slots: defaultTestimonialCardSlotData().props.slots,
   },
   resolveData: (data, params) => {
     const field = data.props.field ?? "";

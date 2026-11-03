@@ -15,8 +15,8 @@
     "lint:fix": "oxlint --fix --react-plugin --deny-warnings .",
     "prettier": "prettier --write --cache .",
     "typecheck": "tsc -p tsconfig.json",
-    "test": "vitest run ./src/testing/*.test.ts ./src/testing/*.test.tsx",
-    "test:components": "SECTION_LIBRARY_REVISION_ID=local vitest run ./src/testing/*.test.ts ./src/testing/*.test.tsx",
+    "test": "vitest run",
+    "test:components": "SECTION_LIBRARY_REVISION_ID=local vitest run",
     "generate-notices": "generate-license-file --input package.json --output ./THIRD-PARTY-NOTICES --overwrite",
     "validate": "yextve validate",
     "deploy": "yextve deploy",
@@ -40,7 +40,7 @@
     "react-dom": "^18.2.0",
     "react-i18next": "^17.0.13",
     "react-icons": "^5.2.1",
-    "uuid": "^11.0.3"
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@radix-ui/react-toggle": "^1.1.18",
@@ -73,6 +73,9 @@
     "vitest": "^3.2.7"
   },
   "overrides": {
+    "@yext/visual-editor": {
+      "next-themes": "0.4.6"
+    },
     "vite": {
       "rollup": "npm:@rollup/wasm-node"
     }

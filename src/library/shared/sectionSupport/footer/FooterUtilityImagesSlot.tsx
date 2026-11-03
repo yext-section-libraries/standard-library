@@ -1,3 +1,6 @@
+import { z } from "zod";
+import { assetImageSchema } from "../../zodSchemaHelpers/data.ts";
+import { imageStylesSchema } from "./footerZodSchemas.ts";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
 import { cva } from "class-variance-authority";
@@ -14,6 +17,18 @@ import {
   AssetImageType,
   ImageFillType,
 } from "@yext/visual-editor";
+
+const footerUtilityImagesSchema = z.object({
+  data: z.object({
+    utilityImages: z.array(
+      z.object({
+        image: assetImageSchema,
+        linkTarget: z.string().optional(),
+      })
+    ),
+  }),
+  styles: imageStylesSchema,
+});
 
 export interface FooterUtilityImagesSlotProps {
   data: {
@@ -152,6 +167,10 @@ const FooterUtilityImagesSlotInternal: PuckComponent<
 export const FooterUtilityImagesSlot: YextComponentConfig<FooterUtilityImagesSlotProps> =
   {
     label: msg("components.footerUtilityImagesSlotLabel", "Utility Images"),
+    layoutGenerationMetadata: {
+      props: footerUtilityImagesSchema,
+      resolvedProps: ["/desktopContentAlignment", "/mobileContentAlignment"],
+    },
     fields: {
       data: {
         type: "object",

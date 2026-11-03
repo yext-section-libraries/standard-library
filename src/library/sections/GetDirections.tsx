@@ -1,3 +1,9 @@
+import { z } from "zod";
+import { ctaVariantSchema } from "../shared/sectionSupport/atoms/ctaZodSchemas.ts";
+import {
+  siteColorSchema,
+  optionalTextColorSchema,
+} from "../shared/zodSchemaHelpers/colors.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { setDeep } from "@puckeditor/core";
 import "@yext/pages-components/style.css";
@@ -16,6 +22,12 @@ import {
   isCtaVariantWithColor,
 } from "../shared/sectionSupport/atoms/cta.tsx";
 import { useTranslation } from "react-i18next";
+
+export const getDirectionsSchema = z.object({
+  variant: ctaVariantSchema,
+  color: siteColorSchema.optional(),
+  textColor: optionalTextColorSchema,
+});
 
 export type GetDirectionsProps = {
   variant: CTAVariant;
@@ -69,6 +81,7 @@ export const GetDirections: YextComponentConfig<GetDirectionsProps> = {
   ...gridAtomPermissions,
   label: msg("components.getDirections", "Get Directions"),
   fields: getDirectionsFields,
+  layoutGenerationMetadata: { props: getDirectionsSchema },
   defaultProps: {
     variant: "primary",
   },

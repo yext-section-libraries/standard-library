@@ -1,3 +1,6 @@
+import { z } from "zod";
+import { cardStyles } from "../../../zodSchemaHelpers/mappedCardsZodSchemas.ts";
+import { slotSchema } from "../../../zodSchemaHelpers/slots.ts";
 import * as React from "react";
 import { PuckComponent, Slot, WithId, setDeep } from "@puckeditor/core";
 import {
@@ -27,6 +30,18 @@ import {
   syncParentStyles,
 } from "@yext/visual-editor/section-library-support";
 import { TextProps } from "../../../../sections/Text.tsx";
+
+const teamCardSchema = z.object({
+  styles: cardStyles,
+  slots: z.object({
+    ImageSlot: slotSchema(),
+    NameSlot: slotSchema(),
+    TitleSlot: slotSchema(),
+    PhoneSlot: slotSchema(),
+    EmailSlot: slotSchema(),
+    CTASlot: slotSchema(),
+  }),
+});
 
 const defaultPerson = {
   name: { defaultValue: "First Last" },
@@ -264,12 +279,12 @@ const teamCardFields: YextFields<TeamCardProps> = {
   slots: {
     type: "object",
     objectFields: {
-      ImageSlot: { type: "slot" },
-      NameSlot: { type: "slot" },
-      TitleSlot: { type: "slot" },
-      PhoneSlot: { type: "slot" },
-      EmailSlot: { type: "slot" },
-      CTASlot: { type: "slot" },
+      ImageSlot: { type: "slot", allow: ["ImageSlot"] },
+      NameSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      TitleSlot: { type: "slot", allow: ["TextSlot"] },
+      PhoneSlot: { type: "slot", allow: ["PhoneNumbersSlot"] },
+      EmailSlot: { type: "slot", allow: ["EmailsSlot"] },
+      CTASlot: { type: "slot", allow: ["CTASlot"] },
     },
     visible: false,
   },
@@ -443,19 +458,13 @@ const TeamCardComponent: PuckComponent<TeamCardProps> = (props) => {
 export const TeamCard: YextComponentConfig<TeamCardProps> = {
   label: msg("components.teamCard", "Team Card"),
   fields: teamCardFields,
+  layoutGenerationMetadata: { props: teamCardSchema },
   inline: true,
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background1.value,
     },
-    slots: {
-      ImageSlot: [],
-      NameSlot: [],
-      TitleSlot: [],
-      PhoneSlot: [],
-      EmailSlot: [],
-      CTASlot: [],
-    },
+    slots: defaultTeamCardSlotData().props.slots,
   },
   resolveData: (data, params) => {
     const field = data.props.field ?? "";

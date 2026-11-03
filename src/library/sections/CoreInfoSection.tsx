@@ -1,3 +1,6 @@
+import { z } from "zod";
+import { backgroundColorSchema } from "../shared/zodSchemaHelpers/colors.ts";
+import { slotSchema } from "../shared/zodSchemaHelpers/slots.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent, Slot } from "@puckeditor/core";
 import { AddressType, AnalyticsScopeProvider } from "@yext/pages-components";
@@ -25,6 +28,24 @@ import {
   resolvePhoneNumbers,
 } from "../shared/sectionSupport/contentBlocks/PhoneList.tsx";
 import { ComponentErrorBoundary } from "@yext/visual-editor/section-library-support";
+
+const coreInfoSectionSchema = z.object({
+  styles: z.object({ backgroundColor: backgroundColorSchema.optional() }),
+  slots: z.object({
+    CoreInfoHeadingSlot: slotSchema(),
+    CoreInfoAddressSlot: slotSchema(),
+    CoreInfoPhoneNumbersSlot: slotSchema(),
+    CoreInfoEmailsSlot: slotSchema(),
+    HoursHeadingSlot: slotSchema(),
+    HoursTableSlot: slotSchema(),
+    ServicesHeadingSlot: slotSchema(),
+    TextListSlot: slotSchema(),
+  }),
+  analytics: z.object({
+    scope: z.string().optional().describe("Analytics scope for this section."),
+  }),
+  liveVisibility: z.boolean(),
+});
 
 export interface CoreInfoStyles {
   /**
@@ -86,14 +107,14 @@ const coreInfoSectionFields: YextFields<CoreInfoSectionProps> = {
   slots: {
     type: "object",
     objectFields: {
-      CoreInfoHeadingSlot: { type: "slot" },
-      CoreInfoAddressSlot: { type: "slot" },
-      CoreInfoPhoneNumbersSlot: { type: "slot" },
-      CoreInfoEmailsSlot: { type: "slot" },
-      HoursHeadingSlot: { type: "slot" },
-      HoursTableSlot: { type: "slot" },
-      ServicesHeadingSlot: { type: "slot" },
-      TextListSlot: { type: "slot" },
+      CoreInfoHeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      CoreInfoAddressSlot: { type: "slot", allow: ["AddressSlot"] },
+      CoreInfoPhoneNumbersSlot: { type: "slot", allow: ["PhoneNumbersSlot"] },
+      CoreInfoEmailsSlot: { type: "slot", allow: ["EmailsSlot"] },
+      HoursHeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      HoursTableSlot: { type: "slot", allow: ["HoursTableSlot"] },
+      ServicesHeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      TextListSlot: { type: "slot", allow: ["TextListSlot"] },
     },
     visible: false,
   },
@@ -184,6 +205,7 @@ const CoreInfoSectionWrapper: PuckComponent<CoreInfoSectionProps> = (props) => {
 };
 
 export const CoreInfoSection: YextComponentConfig<CoreInfoSectionProps> = {
+  layoutGenerationMetadata: { props: coreInfoSectionSchema },
   label: msg("components.coreInfo", "Core Info"),
   fields: coreInfoSectionFields,
   defaultProps: {

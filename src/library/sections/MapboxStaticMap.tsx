@@ -1,3 +1,5 @@
+import { z } from "zod";
+import { entityFieldSchema } from "../shared/zodSchemaHelpers/data.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { Coordinate } from "@yext/pages-components";
@@ -23,6 +25,24 @@ import {
   getThemeValue,
   MsgString,
 } from "@yext/visual-editor/section-library-support";
+
+export const mapStyleSchema = z.enum([
+  "streets-v12",
+  "satellite-streets-v12",
+  "light-v11",
+  "dark-v11",
+  "navigation-day-v1",
+  "navigation-night-v1",
+]);
+
+const mapboxStaticMapSchema = z.object({
+  coordinate: entityFieldSchema(
+    z.object({ latitude: z.number(), longitude: z.number() })
+  ),
+  mapStyle: mapStyleSchema,
+  height: z.string().optional(),
+  zoom: z.number().optional(),
+});
 
 export type MapboxStaticProps = {
   coordinate: YextEntityField<Coordinate>;
@@ -206,6 +226,7 @@ export const MapboxStaticMap: YextComponentConfig<MapboxStaticProps> = {
   ...gridAtomPermissions,
   label: msg("components.mapboxStaticMap", "Mapbox Static Map"),
   fields: mapboxFields,
+  layoutGenerationMetadata: { props: mapboxStaticMapSchema },
   defaultProps: {
     coordinate: {
       field: "yextDisplayCoordinate",

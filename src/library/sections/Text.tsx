@@ -1,3 +1,5 @@
+import { bodyTextSchema } from "./BodyText.tsx";
+import { z } from "zod";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
@@ -20,6 +22,12 @@ import {
   SectionConfig,
 } from "@yext/visual-editor";
 import { useTranslation } from "react-i18next";
+
+const textSchema = bodyTextSchema.extend({
+  styles: bodyTextSchema.shape.styles.extend({
+    fontStyle: z.enum(["regular", "bold", "italic"]),
+  }),
+});
 
 export type TextProps = {
   data: {
@@ -138,6 +146,7 @@ export const Text: YextComponentConfig<TextProps> = {
   ...gridAtomPermissions,
   label: msg("components.text", "Text"),
   fields: textFields,
+  layoutGenerationMetadata: { props: textSchema },
   resolveFields: (data) => resolveDataFromParent(textFields, data),
   defaultProps: {
     data: {

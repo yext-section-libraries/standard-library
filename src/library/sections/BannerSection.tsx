@@ -1,3 +1,12 @@
+import { z } from "zod";
+import {
+  entityFieldSchema,
+  translatableRichTextSchema,
+} from "../shared/zodSchemaHelpers/data.ts";
+import {
+  backgroundColorSchema,
+  optionalTextColorSchema,
+} from "../shared/zodSchemaHelpers/colors.ts";
 import { useTranslation } from "react-i18next";
 import * as React from "react";
 import "@yext/visual-editor/style.css";
@@ -28,6 +37,16 @@ import {
   ComponentErrorBoundary,
 } from "@yext/visual-editor/section-library-support";
 
+const bannerSectionSchema = z.object({
+  data: z.object({ text: entityFieldSchema(translatableRichTextSchema) }),
+  styles: z.object({
+    backgroundColor: backgroundColorSchema.optional(),
+    textColor: optionalTextColorSchema,
+    textAlignment: z.enum(["left", "right", "center"]),
+  }),
+  liveVisibility: z.boolean(),
+});
+
 export interface BannerData {
   /**
    * The rich text to display. It can be linked to a Yext entity field or set as a constant value.
@@ -39,7 +58,7 @@ export interface BannerData {
 export interface BannerStyles {
   /**
    * The background color of the section.
-   * @defaultValue Background Color 6
+   * @defaultValue Background Color 1
    */
   backgroundColor?: ThemeColor;
 
@@ -257,6 +276,7 @@ export const defaultBannerProps: BannerSectionProps = {
 };
 
 export const BannerSection: YextComponentConfig<BannerSectionProps> = {
+  layoutGenerationMetadata: { props: bannerSectionSchema },
   label: msg("components.banner", "Banner"),
   fields: bannerSectionFields,
   defaultProps: defaultBannerProps,

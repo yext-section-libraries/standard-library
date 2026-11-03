@@ -1,3 +1,5 @@
+import { z } from "zod";
+import { backgroundColorSchema } from "../shared/zodSchemaHelpers/colors.ts";
 import * as React from "react";
 import { PuckComponent, Slot } from "@puckeditor/core";
 import { cva } from "class-variance-authority";
@@ -19,6 +21,26 @@ import {
   layoutVariants,
 } from "../shared/sectionSupport/Layout.tsx";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
+
+const gridSchema = z.object({
+  columns: z.union([
+    z.literal(1),
+    z.literal(2),
+    z.literal(3),
+    z.literal(4),
+    z.literal(5),
+    z.literal(6),
+  ]),
+  slots: z
+    .array(z.object({ Column: z.array(z.unknown()) }))
+    .min(1)
+    .max(6),
+  backgroundColor: backgroundColorSchema.optional(),
+  align: z.enum(["left", "center", "right"]).optional(),
+  className: z.string().optional(),
+  analytics: z.object({ scope: z.string().optional() }),
+  liveVisibility: z.boolean(),
+});
 
 export const gridAllowedComponents = [
   "Address",
@@ -151,6 +173,7 @@ const gridSectionFields: YextFields<GridProps> = {
 export const Grid: YextComponentConfig<GridProps> = {
   label: msg("components.grid", "Grid"),
   fields: gridSectionFields,
+  layoutGenerationMetadata: { props: gridSchema },
   defaultProps: {
     columns: 2,
     slots: [{ Column: [] }, { Column: [] }],

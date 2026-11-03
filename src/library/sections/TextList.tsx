@@ -1,3 +1,9 @@
+import { z } from "zod";
+import {
+  entityFieldSchema,
+  translatableStringSchema,
+} from "../shared/zodSchemaHelpers/data.ts";
+import { optionalTextColorSchema } from "../shared/zodSchemaHelpers/colors.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
@@ -18,6 +24,16 @@ import {
   getTextColorClass,
   getTextColorStyle,
 } from "@yext/visual-editor/section-library-support";
+
+export const textListSchema = z.object({
+  list: entityFieldSchema(z.array(translatableStringSchema)).describe(
+    "Text items, such as the entity's services."
+  ),
+  commaSeparated: z
+    .boolean()
+    .describe("Display items inline with commas instead of bullets."),
+  styles: z.object({ textColor: optionalTextColorSchema }).optional(),
+});
 
 export interface TextListProps {
   list: YextEntityField<TranslatableString[]>;
@@ -114,6 +130,7 @@ const TextListComponent: PuckComponent<TextListProps> = ({
 };
 
 export const TextList: YextComponentConfig<TextListProps> = {
+  layoutGenerationMetadata: { props: textListSchema },
   ...gridAtomPermissions,
   label: msg("components.textList", "Text List"),
   fields: textListFields,

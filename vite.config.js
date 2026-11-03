@@ -4,6 +4,8 @@ import yextSSG from "@yext/pages/vite-plugin";
 import { yextVisualEditorPlugin } from "@yext/visual-editor/plugin";
 import { compareScreenshot } from "./src/testing/compareScreenshot.ts";
 import { fileURLToPath } from "node:url";
+import { homedir } from "node:os";
+import { join } from "node:path";
 
 const isVitest = Boolean(process.env.VITEST);
 /** Used to load the combined translations in tests */
@@ -47,6 +49,12 @@ export default defineConfig({
     yextVisualEditorPlugin({
       localEditor: {
         enabled: true,
+        layoutGenerationEnabled: true,
+        generationModel: "gpt-6.1-luna",
+        generationPromptsPath: join(
+          homedir(),
+          "alpha/gocode/src/yext/publish/yextsites/storm/js/visualeditor/generationPrompts.ts"
+        ),
       },
     }),
     yextSSG(),

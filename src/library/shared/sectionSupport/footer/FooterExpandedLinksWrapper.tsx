@@ -1,3 +1,9 @@
+import { z } from "zod";
+import {
+  translatableStringSchema,
+  enhancedCtaSchema,
+} from "../../zodSchemaHelpers/data.ts";
+import { optionalSiteColorSchema } from "../../zodSchemaHelpers/colors.ts";
 import * as React from "react";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import { CTA } from "../atoms/cta.tsx";
@@ -27,6 +33,18 @@ import {
   YextFields,
 } from "@yext/visual-editor";
 import { resolveLocalizedFooterLinkSection } from "./resolveLocalizedFooterLinkSection.ts";
+
+const footerExpandedLinksSchema = z.object({
+  data: z.object({
+    sections: z.array(
+      z.object({
+        label: translatableStringSchema,
+        links: z.array(enhancedCtaSchema),
+      })
+    ),
+  }),
+  styles: z.object({ color: optionalSiteColorSchema }).optional(),
+});
 
 const defaultSection = {
   label: { defaultValue: "Footer Label" },
@@ -352,6 +370,10 @@ export const FooterExpandedLinksWrapper: YextComponentConfig<FooterExpandedLinks
   {
     label: msg("components.expandedLinks", "Expanded Links"),
     fields: footerExpandedLinksWrapperFields,
+    layoutGenerationMetadata: {
+      props: footerExpandedLinksSchema,
+      resolvedProps: ["/desktopContentAlignment", "/mobileContentAlignment"],
+    },
     resolveFields: (data) =>
       toPuckFields(
         setDeep(
