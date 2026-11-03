@@ -1,8 +1,4 @@
 import { z } from "zod";
-import {
-  entityFieldSchema,
-  translatableRichTextSchema,
-} from "../shared/generation/data.ts";
 import { backgroundColorSchema } from "../shared/generation/colors.ts";
 import { slotSchema } from "../shared/generation/slots.ts";
 import { PuckComponent, Slot, SlotComponent } from "@puckeditor/core";
@@ -33,6 +29,11 @@ import {
 import { EntityFieldSectionEmptyStateBox } from "../shared/sectionSupport/pageSections/EntityFieldSectionEmptyState.tsx";
 import { MappedEntityFieldConditionalRender } from "../shared/sectionSupport/pageSections/entityFieldSectionUtils.ts";
 
+const faqMappingSchema = z.strictObject({
+  field: z.string(),
+  constantValueEnabled: z.literal(false),
+});
+
 export const faqSectionSchema = z.object({
   data: z
     .object({
@@ -40,13 +41,16 @@ export const faqSectionSchema = z.object({
       constantValueEnabled: z.boolean().optional(),
       mappings: z
         .object({
-          question: entityFieldSchema(translatableRichTextSchema.optional()),
-          answer: entityFieldSchema(translatableRichTextSchema.optional()),
+          question: faqMappingSchema,
+          answer: faqMappingSchema,
         })
-        .optional(),
+        .optional()
+        .describe(
+          "Entity field bindings for linked FAQs only. Static questions and answers belong in slots.CardSlot FAQCard children."
+        ),
     })
     .describe(
-      "Bind an entity FAQ list with question/answer mappings, or enable constants and author FAQCard children in CardSlot. Card references are assigned automatically. Linked cards use library defaults."
+      "For manual FAQs, use field: empty string and constantValueEnabled: true, omit mappings, and author FAQCard children in slots.CardSlot. For linked FAQs, use a nonempty source field and constantValueEnabled: false with question/answer entity bindings. Card references are assigned automatically."
     ),
   styles: z.object({
     backgroundColor: backgroundColorSchema.optional(),

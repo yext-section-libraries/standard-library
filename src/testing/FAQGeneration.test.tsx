@@ -23,11 +23,51 @@ describe("FAQ generation contracts", () => {
       faqCardsSource.generationMetadata
     );
     expect(faqCardsSource.generationMetadata.cardType).toBe("FAQCard");
-    const authored = faqSectionSchema.parse(FAQSection.defaultProps);
+    const authored = faqSectionSchema.parse({
+      ...FAQSection.defaultProps,
+      data: { field: "", constantValueEnabled: true },
+    });
     expect(authored.data).not.toHaveProperty("constantValue");
     expect(authored).not.toHaveProperty("manualSlots");
     expect(() => faqCardSchema.parse(FAQCard.defaultProps)).not.toThrow();
   });
+
+  it("accepts entity-linked question and answer bindings", () => {
+    const data = {
+      field: "c_faqs",
+      constantValueEnabled: false,
+      mappings: {
+        question: { field: "question", constantValueEnabled: false },
+        answer: { field: "answer", constantValueEnabled: false },
+      },
+    };
+    expect(
+      faqSectionSchema.parse({ ...FAQSection.defaultProps, data }).data
+    ).toEqual(data);
+  });
+
+  it.each(["question", "answer"])(
+    "rejects manual %s content in mappings",
+    (name) => {
+      const mappingSchema = faqSectionSchema.shape.data.shape.mappings.unwrap();
+      const mappings = {
+        question: { field: "question", constantValueEnabled: false },
+        answer: { field: "answer", constantValueEnabled: false },
+      };
+      for (const invalid of [
+        { field: "", constantValueEnabled: true },
+        {
+          field: name,
+          constantValueEnabled: false,
+          constantValue: { defaultValue: "Manual content" },
+        },
+      ]) {
+        expect(
+          mappingSchema.safeParse({ ...mappings, [name]: invalid }).success
+        ).toBe(false);
+      }
+    }
+  );
 
   it("resolves default FAQ cards with references and a preserved manual mirror", async () => {
     const candidate = {
