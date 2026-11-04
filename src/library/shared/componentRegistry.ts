@@ -43,6 +43,7 @@ import { Timestamp as SharedComponent41 } from "./sectionSupport/contentBlocks/T
 import { AboutSectionDetailsColumn as SharedComponent42 } from "./sectionSupport/pageSections/AboutSection/AboutSectionDetailsColumn";
 import {
   directoryRootConfig,
+  entityRootConfig,
   locatorRootConfig,
   rootAllowedComponents,
 } from "./roots";
@@ -179,14 +180,20 @@ for (const [id, component] of Object.entries(sharedComponentConfigs)) {
 export const sharedRootConfigs: Partial<
   Record<string, NonNullable<Config["root"]>>
 > = {
+  ENTITY: entityRootConfig,
   DIRECTORY: directoryRootConfig,
   LOCATOR: locatorRootConfig,
 };
 
-export const sharedRootPageSetTypes = ["DIRECTORY", "LOCATOR"] as const;
+export const sharedRootPageSetTypes = [
+  "ENTITY",
+  "DIRECTORY",
+  "LOCATOR",
+] as const;
 
 export const sharedRootAllowedComponentIds: Partial<Record<string, string[]>> =
   {
+    ENTITY: rootAllowedComponents,
     DIRECTORY: rootAllowedComponents,
     LOCATOR: rootAllowedComponents,
   };
