@@ -98,6 +98,14 @@ const GridSection = React.forwardRef<
         {slots.slice(0, columns).map(({ Column }, idx) => {
           const resolvedAlign =
             props[alignmentFields[idx]] ?? props.align ?? "left";
+          const alignmentClass =
+            resolvedAlign === "left"
+              ? columns === 1
+                ? "md:items-start text-start"
+                : undefined
+              : resolvedAlign === "right"
+                ? "md:items-end text-end"
+                : "md:items-center text-center";
 
           return (
             <Column
@@ -105,11 +113,10 @@ const GridSection = React.forwardRef<
               className={themeManagerCn(
                 layoutVariants({ gap: "4" }),
                 `flex flex-col max-w-full overflow-hidden`,
-                resolvedAlign === "left"
-                  ? `md:items-start text-start`
-                  : resolvedAlign === "right"
-                    ? `md:items-end text-end`
-                    : `md:items-center text-center`
+                // Multi-column left keeps its original stretch; center and right fit children to the column.
+                columns > 1 && resolvedAlign !== "left" &&
+                  "md:[&>*]:max-w-full",
+                alignmentClass
               )}
               allow={gridAllowedComponents}
             />
