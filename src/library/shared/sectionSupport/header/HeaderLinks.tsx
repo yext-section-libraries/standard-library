@@ -1,3 +1,6 @@
+import { z } from "zod";
+import { enhancedCtaSchema } from "../../zodSchemaHelpers/data.ts";
+import { optionalTextColorSchema } from "../../zodSchemaHelpers/colors.ts";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { FieldLabel, PuckComponent, setDeep } from "@puckeditor/core";
@@ -35,6 +38,23 @@ import {
   type ResolvedCTA,
   resolveLocalizedCtas,
 } from "../../utils/resolveLocalizedCtas.ts";
+
+const headerLinksSchema = z.object({
+  data: z.object({
+    links: z
+      .array(enhancedCtaSchema)
+      .describe("Navigation links displayed inline while space permits."),
+    collapsedLinks: z
+      .array(enhancedCtaSchema)
+      .describe("Navigation links displayed in the menu."),
+  }),
+  styles: z.object({
+    align: z.enum(["left", "center", "right"]).optional(),
+    variant: z.enum(["xs", "sm", "base", "lg"]).nullable().optional(),
+    color: optionalTextColorSchema,
+    weight: z.enum(["normal", "bold"]).optional(),
+  }),
+});
 
 export type HeaderLinksProps = {
   data: {
@@ -371,6 +391,7 @@ export const defaultHeaderLinkProps: HeaderLinksProps = {
 };
 
 export const HeaderLinks: YextComponentConfig<HeaderLinksProps> = {
+  layoutGenerationMetadata: { props: headerLinksSchema },
   label: msg("components.headerLinks", "Header Links"),
   fields: headerLinksFields,
   resolveFields: (data, params) => {
@@ -407,6 +428,11 @@ export const HeaderLinks: YextComponentConfig<HeaderLinksProps> = {
     );
 
     return toPuckFields(updatedFields);
+  },
+  resolveData: (data, params) => {
+    const tier =
+      params.parent?.type === "SecondaryHeaderSlot" ? "Secondary" : "Primary";
+    return { ...data, props: { ...data.props, parentData: { type: tier } } };
   },
   defaultProps: defaultHeaderLinkProps,
   render: (props) => <HeaderLinksComponent {...props} />,

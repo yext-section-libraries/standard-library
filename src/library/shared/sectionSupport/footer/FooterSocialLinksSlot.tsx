@@ -1,3 +1,5 @@
+import { z } from "zod";
+import { optionalSiteColorSchema } from "../../zodSchemaHelpers/colors.ts";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
 import { CTA } from "../atoms/cta.tsx";
@@ -20,6 +22,29 @@ import {
   useBackground,
   msg,
 } from "@yext/visual-editor";
+
+export const footerSocialLinksSchema = z.object({
+  data: z
+    .object({
+      xLink: z.string(),
+      facebookLink: z.string(),
+      instagramLink: z.string(),
+      linkedInLink: z.string(),
+      pinterestLink: z.string(),
+      tiktokLink: z.string(),
+      youtubeLink: z.string(),
+    })
+    .describe(
+      "Social profile URLs. Leave unavailable profiles empty; never invent URLs."
+    ),
+  styles: z
+    .object({
+      filledBackground: z.boolean().optional(),
+      mobileAlignment: z.enum(["left", "center"]).optional(),
+      iconColor: optionalSiteColorSchema,
+    })
+    .optional(),
+});
 
 export interface FooterSocialLinksSlotProps {
   data: {
@@ -206,6 +231,7 @@ export const FooterSocialLinksSlot: YextComponentConfig<FooterSocialLinksSlotPro
   {
     label: msg("components.footerSocialLinksSlot", "Social Links"),
     fields: FooterSocialLinksSlotFields,
+    layoutGenerationMetadata: { props: footerSocialLinksSchema },
     defaultProps: {
       data: {
         xLink: "",

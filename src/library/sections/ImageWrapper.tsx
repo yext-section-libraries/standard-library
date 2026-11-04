@@ -1,3 +1,9 @@
+import { z } from "zod";
+import {
+  entityFieldSchema,
+  imageSchema,
+  translatableStringSchema,
+} from "../shared/zodSchemaHelpers/data.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import { ComplexImageType, ImageType } from "@yext/pages-components";
@@ -31,6 +37,23 @@ import {
   ImageStylingProps,
 } from "../shared/sectionSupport/contentBlocks/image/styling.ts";
 import { SectionConfig } from "@yext/visual-editor";
+
+export const imageWrapperSchema = z.object({
+  data: z.object({
+    image: entityFieldSchema(imageSchema).describe(
+      "The image content or entity field."
+    ),
+    link: translatableStringSchema.optional(),
+  }),
+  styles: z
+    .object({
+      aspectRatio: z.number().positive(),
+      width: z.number().min(0).optional(),
+      imageConstrain: z.enum(["fill", "fixed"]).optional(),
+      imageFillType: z.enum(["fill", "fit"]).optional(),
+    })
+    .describe("Image size and aspect ratio."),
+});
 
 const PLACEHOLDER_IMAGE_URL = "https://placehold.co/640x360";
 const DEFAULT_LINK = "#";
@@ -249,6 +272,7 @@ export const imageDefaultProps = {
 };
 
 export const ImageWrapper: YextComponentConfig<ImageWrapperProps> = {
+  layoutGenerationMetadata: { props: imageWrapperSchema },
   ...gridAtomPermissions,
   label: msg("components.image", "Image"),
   inline: true,

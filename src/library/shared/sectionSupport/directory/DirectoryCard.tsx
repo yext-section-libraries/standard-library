@@ -31,6 +31,7 @@ import {
   resolveDirectoryChildFromReference,
   useDirectoryChildren,
 } from "./directoryChildReference.tsx";
+import { directoryCardSchema } from "./directoryZodSchemas.ts";
 
 const defaultCardTitle: YextEntityField<TranslatableString> = {
   field: "name",
@@ -460,10 +461,10 @@ const directoryCardFields: YextFields<DirectoryCardProps> = {
   slots: {
     type: "object",
     objectFields: {
-      HeadingSlot: { type: "slot", allow: [] },
-      AddressSlot: { type: "slot", allow: [] },
-      PhoneSlot: { type: "slot", allow: [] },
-      HoursSlot: { type: "slot", allow: [] },
+      HeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      AddressSlot: { type: "slot", allow: ["AddressSlot"] },
+      PhoneSlot: { type: "slot", allow: ["PhoneSlot"] },
+      HoursSlot: { type: "slot", allow: ["HoursStatusSlot"] },
     },
     visible: false,
   },
@@ -472,6 +473,20 @@ const directoryCardFields: YextFields<DirectoryCardProps> = {
 export const DirectoryCard: YextComponentConfig<DirectoryCardProps> = {
   label: msg("slots.directoryCard", "Directory Card"),
   fields: directoryCardFields,
+  layoutGenerationMetadata: {
+    props: directoryCardSchema,
+    resolvedProps: [
+      "/data/cardTitle",
+      "/data/linkOverride",
+      "/data/showAddress",
+      "/data/showHoursStatus",
+      "/data/showPhoneNumber",
+      "/field",
+      "/index",
+      "/parentData/childRef",
+      "/slots/HeadingSlot/0/props/parentData",
+    ],
+  },
   defaultProps: {
     data: {
       cardTitle: defaultCardTitle,
@@ -483,12 +498,7 @@ export const DirectoryCard: YextComponentConfig<DirectoryCardProps> = {
     styles: {
       backgroundColor: backgroundColors.background1.value,
     },
-    slots: {
-      HeadingSlot: [],
-      PhoneSlot: [],
-      HoursSlot: [],
-      AddressSlot: [],
-    },
+    slots: defaultDirectoryCardSlotData("", 0).props.slots,
   },
   resolveData: (data) =>
     bindSlots(data, {

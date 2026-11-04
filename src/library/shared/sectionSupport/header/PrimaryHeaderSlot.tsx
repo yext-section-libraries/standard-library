@@ -1,3 +1,7 @@
+import { z } from "zod";
+import { backgroundColorSchema } from "../../zodSchemaHelpers/colors.ts";
+import { slotSchema } from "../../zodSchemaHelpers/slots.ts";
+import { ImageWrapperProps } from "../../../sections/ImageWrapper.tsx";
 import {
   PuckComponent,
   registerOverlayPortal,
@@ -10,13 +14,12 @@ import {
   msg,
   useOverflow,
   resolveComponentData,
-  YextCTAField,
   YextComponentConfig,
   YextFields,
+  YextCTAField,
 } from "@yext/visual-editor";
 import { resolveLocalizedCtas } from "../../utils/resolveLocalizedCtas.ts";
 import { CTAWrapperProps } from "../../../sections/CTAWrapper.tsx";
-import { ImageWrapperProps } from "../../../sections/ImageWrapper.tsx";
 import { PageSection, PageSectionProps } from "../atoms/pageSection.tsx";
 import {
   getViewport,
@@ -31,6 +34,20 @@ import {
   useExpandedHeaderMenu,
 } from "./ExpandedHeaderMenuContext.tsx";
 import { SlidePanel } from "./SlidePanel.tsx";
+
+const primaryHeaderSchema = z.object({
+  styles: z.object({ backgroundColor: backgroundColorSchema.optional() }),
+  slots: z.object({
+    LogoSlot: slotSchema(),
+    LinksSlot: slotSchema(),
+    PrimaryCTASlot: slotSchema(
+      "Primary header CTA. Visibility is controlled by the child CTA's data.show; enable it when authoring visible CTA content."
+    ),
+    SecondaryCTASlot: slotSchema().describe(
+      "Optional second header CTA. Its child CTA owns the visibility control: data.show must be true when authoring visible secondary CTA content. There is no parent showSecondaryCTA switch on this header. If intentionally omitting this CTA, retain its hidden default instead of writing a new label and link that will never display."
+    ),
+  }),
+});
 
 const HAMBURGER_RESERVE_PX = 48;
 
@@ -76,10 +93,10 @@ const primaryHeaderSlotFields: YextFields<PrimaryHeaderSlotProps> = {
   slots: {
     type: "object",
     objectFields: {
-      PrimaryCTASlot: { type: "slot", allow: [] },
-      SecondaryCTASlot: { type: "slot", allow: [] },
-      LogoSlot: { type: "slot", allow: [] },
-      LinksSlot: { type: "slot", allow: [] },
+      PrimaryCTASlot: { type: "slot", allow: ["CTASlot"] },
+      SecondaryCTASlot: { type: "slot", allow: ["CTASlot"] },
+      LogoSlot: { type: "slot", allow: ["ImageSlot"] },
+      LinksSlot: { type: "slot", allow: ["HeaderLinks"] },
     },
     visible: false,
   },
@@ -476,6 +493,7 @@ export const defaultPrimaryHeaderProps: PrimaryHeaderSlotProps = {
 };
 
 export const PrimaryHeaderSlot: YextComponentConfig<PrimaryHeaderSlotProps> = {
+  layoutGenerationMetadata: { props: primaryHeaderSchema },
   label: msg("components.primaryHeader", "Primary Header"),
   fields: primaryHeaderSlotFields,
   resolveData: (data, params) => {

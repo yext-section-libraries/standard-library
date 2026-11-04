@@ -1,3 +1,6 @@
+import { z } from "zod";
+import { enhancedCtaSchema } from "../../zodSchemaHelpers/data.ts";
+import { optionalSiteColorSchema } from "../../zodSchemaHelpers/colors.ts";
 import * as React from "react";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import { cva } from "class-variance-authority";
@@ -20,6 +23,11 @@ import {
   YextFields,
 } from "@yext/visual-editor";
 import { resolveLocalizedCtas } from "../../utils/resolveLocalizedCtas.ts";
+
+const footerLinksSchema = z.object({
+  data: z.object({ links: z.array(enhancedCtaSchema) }),
+  color: optionalSiteColorSchema,
+});
 
 export interface FooterLinksSlotProps {
   data: {
@@ -336,6 +344,10 @@ const footerLinksSlotFields: YextFields<FooterLinksSlotProps> = {
 export const FooterLinksSlot: YextComponentConfig<FooterLinksSlotProps> = {
   label: msg("components.footerLinksSlot", "Links"),
   fields: footerLinksSlotFields,
+  layoutGenerationMetadata: {
+    props: footerLinksSchema,
+    resolvedProps: ["/desktopContentAlignment", "/mobileContentAlignment"],
+  },
   resolveFields: (data) =>
     setDeep(
       toPuckFields(footerLinksSlotFields),

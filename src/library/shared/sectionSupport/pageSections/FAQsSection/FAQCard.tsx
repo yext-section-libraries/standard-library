@@ -1,3 +1,9 @@
+import { z } from "zod";
+import {
+  entityFieldSchema,
+  translatableRichTextSchema,
+} from "../../../zodSchemaHelpers/data.ts";
+import { siteColorSchema } from "../../../zodSchemaHelpers/colors.ts";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
 import { Body, BodyProps } from "../../atoms/body.tsx";
@@ -29,6 +35,25 @@ import {
   useCardContext,
   useGetCardSlots,
 } from "@yext/visual-editor/section-library-support";
+
+const bodyVariantSchema = z.enum(["xs", "sm", "base", "lg"]).nullable();
+
+export const faqCardSchema = z.object({
+  data: z.object({
+    question: entityFieldSchema(translatableRichTextSchema),
+    answer: entityFieldSchema(translatableRichTextSchema),
+  }),
+  styles: z.object({
+    questionVariant: bodyVariantSchema,
+    answerVariant: bodyVariantSchema,
+    answerColor: siteColorSchema
+      .optional()
+      .describe(
+        "Omit to use the default theme color. Set only for an explicit answer color override."
+      ),
+  }),
+  slots: z.object({}),
+});
 
 const defaultFAQ = {
   question: { defaultValue: "Question Lorem ipsum dolor sit amet?" },
@@ -278,6 +303,7 @@ const FAQCardComponent: PuckComponent<FAQCardProps> = (props) => {
 export const FAQCard: YextComponentConfig<FAQCardProps> = {
   label: msg("faq", "FAQ"),
   fields: FAQCardFields,
+  layoutGenerationMetadata: { props: faqCardSchema },
   defaultProps: defaultFAQCardData().props,
   resolveFields: (data) =>
     resolveDataFromParent(

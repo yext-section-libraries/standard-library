@@ -1,3 +1,7 @@
+import { z } from "zod";
+import { backgroundColorSchema } from "../shared/zodSchemaHelpers/colors.ts";
+import { alignmentSchema } from "../shared/sectionSupport/footer/footerZodSchemas.ts";
+import { slotSchema } from "../shared/zodSchemaHelpers/slots.ts";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import { Slot, PuckComponent, setDeep } from "@puckeditor/core";
 import { cva } from "class-variance-authority";
@@ -25,6 +29,44 @@ import { FooterUtilityImagesSlotProps } from "../shared/sectionSupport/footer/Fo
 import { FooterLinksSlotProps } from "../shared/sectionSupport/footer/FooterLinksSlot.tsx";
 import { FooterExpandedLinksWrapperProps } from "../shared/sectionSupport/footer/FooterExpandedLinksWrapper.tsx";
 import { SecondaryFooterSlotProps } from "../shared/sectionSupport/footer/SecondaryFooterSlot.tsx";
+
+const maxWidthSchema = z
+  .enum(["theme", "768px", "960px", "1024px", "1280px", "1440px", "fullWidth"])
+  .nullable();
+
+const expandedFooterSchema = z.object({
+  data: z.object({
+    primaryFooter: z.object({
+      expandedFooter: z
+        .boolean()
+        .describe(
+          "Use columns of categorized links instead of a single row of links."
+        ),
+      showLogo: z.boolean(),
+      showSocialLinks: z.boolean(),
+      showUtilityImages: z.boolean(),
+    }),
+    secondaryFooter: z.object({ show: z.boolean() }),
+  }),
+  styles: z.object({
+    primaryFooter: z.object({
+      backgroundColor: backgroundColorSchema.optional(),
+      linksPosition: z.enum(["left", "right"]),
+      desktopContentAlignment: alignmentSchema,
+      mobileContentAlignment: alignmentSchema,
+    }),
+    maxWidth: maxWidthSchema.optional(),
+  }),
+  slots: z.object({
+    LogoSlot: slotSchema(),
+    SocialLinksSlot: slotSchema(),
+    UtilityImagesSlot: slotSchema(),
+    PrimaryLinksWrapperSlot: slotSchema(),
+    ExpandedLinksWrapperSlot: slotSchema(),
+    SecondaryFooterSlot: slotSchema(),
+  }),
+  analytics: z.object({ scope: z.string().optional() }),
+});
 
 const PLACEHOLDER_LOGO_IMAGE: string =
   "https://a.mktgcdn.com/p/wa83C1O1lvtxHI9cGqEdP2HILyUzbD0jvtzwWpOAJfE/196x196.jpg";
@@ -263,12 +305,15 @@ const expandedFooterSectionFields: YextFields<ExpandedFooterProps> = {
   slots: {
     type: "object",
     objectFields: {
-      LogoSlot: { type: "slot" },
-      SocialLinksSlot: { type: "slot" },
-      UtilityImagesSlot: { type: "slot" },
-      PrimaryLinksWrapperSlot: { type: "slot" },
-      ExpandedLinksWrapperSlot: { type: "slot" },
-      SecondaryFooterSlot: { type: "slot" },
+      LogoSlot: { type: "slot", allow: ["FooterLogoSlot"] },
+      SocialLinksSlot: { type: "slot", allow: ["FooterSocialLinksSlot"] },
+      UtilityImagesSlot: { type: "slot", allow: ["FooterUtilityImagesSlot"] },
+      PrimaryLinksWrapperSlot: { type: "slot", allow: ["FooterLinksSlot"] },
+      ExpandedLinksWrapperSlot: {
+        type: "slot",
+        allow: ["FooterExpandedLinksWrapper"],
+      },
+      SecondaryFooterSlot: { type: "slot", allow: ["SecondaryFooterSlot"] },
     },
     visible: false,
   },
@@ -437,6 +482,7 @@ const ExpandedFooterWrapper: PuckComponent<ExpandedFooterProps> = (props) => {
 export const ExpandedFooter: YextComponentConfig<ExpandedFooterProps> = {
   label: msg("components.expandedFooter", "Expanded Footer"),
   fields: expandedFooterSectionFields,
+  layoutGenerationMetadata: { props: expandedFooterSchema },
   defaultProps: {
     data: {
       primaryFooter: {

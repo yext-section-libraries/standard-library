@@ -1,3 +1,10 @@
+import {
+  imageWrapperSchema,
+  getImageUrl,
+  imageDefaultProps,
+  ImageWrapperFields,
+  ImageWrapperProps,
+} from "../../../../sections/ImageWrapper.tsx";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { PuckComponent, setDeep } from "@puckeditor/core";
@@ -12,12 +19,6 @@ import {
   YextComponentConfig,
 } from "@yext/visual-editor";
 import { Image, imgSizesHelper } from "../../atoms/image.tsx";
-import {
-  getImageUrl,
-  imageDefaultProps,
-  ImageWrapperFields,
-  ImageWrapperProps,
-} from "../../../../sections/ImageWrapper.tsx";
 import { EmptyImageState } from "./EmptyImageState.tsx";
 
 export interface HeroImageProps extends ImageWrapperProps {
@@ -83,6 +84,7 @@ const HeroImageComponent: PuckComponent<HeroImageProps> = (props) => {
 };
 
 export const HeroImage: YextComponentConfig<HeroImageProps> = {
+  layoutGenerationMetadata: { props: imageWrapperSchema },
   label: msg("components.heroImage", "Hero Image"),
   fields: ImageWrapperFields,
   defaultProps: imageDefaultProps,

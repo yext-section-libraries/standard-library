@@ -1,3 +1,6 @@
+import { z } from "zod";
+import { backgroundColorSchema } from "../shared/zodSchemaHelpers/colors.ts";
+import { slotSchema } from "../shared/zodSchemaHelpers/slots.ts";
 import {
   type SectionConfig,
   backgroundColors,
@@ -26,6 +29,19 @@ import {
 import { getPhotoGalleryImageData } from "../shared/sectionSupport/pageSections/PhotoGallerySection/photoGalleryUtils.ts";
 
 import { useMappedEntitySectionEmptyState } from "../shared/sectionSupport/pageSections/useMappedEntitySectionEmptyState.ts";
+
+const photoGallerySectionSchema = z.object({
+  styles: z.object({
+    backgroundColor: backgroundColorSchema.optional(),
+    variant: z.enum(["gallery", "carousel"]),
+    showSectionHeading: z.boolean(),
+  }),
+  slots: z.object({
+    HeadingSlot: slotSchema(),
+    PhotoGalleryWrapper: slotSchema(),
+  }),
+  liveVisibility: z.boolean(),
+});
 
 export interface PhotoGalleryStyles {
   /**
@@ -101,8 +117,8 @@ const photoGallerySectionFields: YextFields<PhotoGallerySectionProps> = {
   slots: {
     type: "object",
     objectFields: {
-      HeadingSlot: { type: "slot" },
-      PhotoGalleryWrapper: { type: "slot" },
+      HeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      PhotoGalleryWrapper: { type: "slot", allow: ["PhotoGalleryWrapper"] },
     },
     visible: false,
   },
@@ -161,6 +177,10 @@ export const PhotoGallerySection: YextComponentConfig<PhotoGallerySectionProps> 
   {
     label: msg("components.photoGallery", "Photo Gallery"),
     fields: photoGallerySectionFields,
+    layoutGenerationMetadata: {
+      props: photoGallerySectionSchema,
+      resolvedProps: ["/conditionalRender"],
+    },
     defaultProps: {
       styles: {
         variant: "gallery",

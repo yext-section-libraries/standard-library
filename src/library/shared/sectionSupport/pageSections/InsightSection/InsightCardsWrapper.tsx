@@ -3,6 +3,15 @@ import {
   CardHeadingLevelProps,
 } from "../cardHeadingLevel.ts";
 import {
+  cardsWrapperSchema,
+  imageMapping,
+  textMapping,
+  richTextMapping,
+  dateMapping,
+  ctaMapping,
+} from "../../../zodSchemaHelpers/mappedCardsZodSchemas.ts";
+import { z } from "zod";
+import {
   InsightStruct,
   msg,
   ThemeOptions,
@@ -21,6 +30,24 @@ import {
 } from "./InsightCard.tsx";
 import { renderMappedEntityFieldEmptyState } from "../EntityFieldSectionEmptyState.tsx";
 import { MappedEntityFieldConditionalRender } from "../entityFieldSectionUtils.ts";
+
+const insightCardsWrapperSchema = cardsWrapperSchema(
+  {
+    image: imageMapping,
+    name: textMapping,
+    category: richTextMapping,
+    publishTime: dateMapping,
+    description: richTextMapping,
+    cta: ctaMapping,
+  },
+  {
+    showImage: z.boolean(),
+    showCategory: z.boolean(),
+    showPublishTime: z.boolean(),
+    showDescription: z.boolean(),
+    showCTA: z.boolean(),
+  }
+);
 
 export const insightCardsSource = createSlottedItemSource<
   InsightStruct,
@@ -140,6 +167,10 @@ export const InsightCardsWrapper: YextComponentConfig<InsightCardsWrapperProps> 
   {
     label: msg("slots.insightCards", "Insight Cards"),
     fields: insightCardsWrapperFields,
+    layoutGenerationMetadata: {
+      props: insightCardsWrapperSchema,
+      slottedItemSource: insightCardsSource.generationMetadata,
+    },
     defaultProps: {
       ...insightCardsSource.defaultWrapperProps,
       styles: {

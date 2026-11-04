@@ -1,3 +1,7 @@
+import { z } from "zod";
+import { backgroundColorSchema } from "../../zodSchemaHelpers/colors.ts";
+import { alignmentSchema } from "./footerZodSchemas.ts";
+import { slotSchema } from "../../zodSchemaHelpers/slots.ts";
 import * as React from "react";
 import { Slot, PuckComponent, setDeep } from "@puckeditor/core";
 import { PageSection, PageSectionProps } from "../atoms/pageSection.tsx";
@@ -9,6 +13,19 @@ import {
   ThemeOptions,
   msg,
 } from "@yext/visual-editor";
+
+const secondaryFooterSchema = z.object({
+  styles: z.object({
+    backgroundColor: backgroundColorSchema.optional(),
+    desktopContentAlignment: alignmentSchema,
+    mobileContentAlignment: alignmentSchema,
+    showLinks: z.boolean(),
+  }),
+  slots: z.object({
+    SecondaryLinksWrapperSlot: slotSchema(),
+    CopyrightSlot: slotSchema(),
+  }),
+});
 
 const defaultLink = {
   linkType: "URL" as const,
@@ -80,8 +97,8 @@ const secondaryFooterSlotFields: YextFields<SecondaryFooterSlotProps> = {
   slots: {
     type: "object",
     objectFields: {
-      SecondaryLinksWrapperSlot: { type: "slot" },
-      CopyrightSlot: { type: "slot" },
+      SecondaryLinksWrapperSlot: { type: "slot", allow: ["FooterLinksSlot"] },
+      CopyrightSlot: { type: "slot", allow: ["CopyrightMessageSlot"] },
     },
     visible: false,
   },
@@ -125,6 +142,7 @@ export const SecondaryFooterSlot: YextComponentConfig<SecondaryFooterSlotProps> 
   {
     label: msg("components.secondaryFooter", "Secondary Footer"),
     fields: secondaryFooterSlotFields,
+    layoutGenerationMetadata: { props: secondaryFooterSchema },
     defaultProps: {
       styles: {
         desktopContentAlignment: "left",

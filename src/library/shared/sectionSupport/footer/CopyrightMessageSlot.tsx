@@ -1,3 +1,6 @@
+import { z } from "zod";
+import { translatableStringSchema } from "../../zodSchemaHelpers/data.ts";
+import { optionalTextColorSchema } from "../../zodSchemaHelpers/colors.ts";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
 import { cva } from "class-variance-authority";
@@ -11,6 +14,11 @@ import {
 } from "@yext/visual-editor";
 import { Body } from "../atoms/body.tsx";
 import { useTranslation } from "react-i18next";
+
+const copyrightMessageSchema = z.object({
+  data: z.object({ text: translatableStringSchema }),
+  styles: z.object({ textColor: optionalTextColorSchema }).optional(),
+});
 
 export interface CopyrightMessageSlotProps {
   data: {
@@ -94,6 +102,10 @@ export const defaultCopyrightMessageSlotProps: CopyrightMessageSlotProps = {
 export const CopyrightMessageSlot: YextComponentConfig<CopyrightMessageSlotProps> =
   {
     label: msg("components.copyrightMessage", "Copyright Message"),
+    layoutGenerationMetadata: {
+      props: copyrightMessageSchema,
+      resolvedProps: ["/desktopContentAlignment", "/mobileContentAlignment"],
+    },
     fields: {
       data: {
         type: "object",

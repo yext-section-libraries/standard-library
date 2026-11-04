@@ -1,3 +1,4 @@
+import { mappedCardsSectionSchema } from "../shared/zodSchemaHelpers/mappedCardsZodSchemas.ts";
 import { Slot } from "@puckeditor/core";
 import {
   ThemeColor,
@@ -85,8 +86,8 @@ const eventSectionFields: YextFields<EventSectionProps> = {
   slots: {
     type: "object",
     objectFields: {
-      SectionHeadingSlot: { type: "slot" },
-      CardsWrapperSlot: { type: "slot" },
+      SectionHeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      CardsWrapperSlot: { type: "slot", allow: ["EventCardsWrapper"] },
     },
     visible: false,
   },
@@ -114,6 +115,7 @@ const eventSectionFields: YextFields<EventSectionProps> = {
 export const EventSection: YextComponentConfig<EventSectionProps> = {
   label: msg("components.events", "Events"),
   fields: eventSectionFields,
+  layoutGenerationMetadata: { props: mappedCardsSectionSchema },
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background3.value,

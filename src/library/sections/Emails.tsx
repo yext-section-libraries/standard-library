@@ -1,3 +1,6 @@
+import { z } from "zod";
+import { entityFieldSchema } from "../shared/zodSchemaHelpers/data.ts";
+import { optionalSiteColorSchema } from "../shared/zodSchemaHelpers/colors.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
@@ -25,6 +28,34 @@ import {
 import { CTA } from "../shared/sectionSupport/atoms/cta.tsx";
 import { Background } from "../shared/sectionSupport/atoms/background.tsx";
 import { updateFields } from "../shared/utils/updateFields.ts";
+
+export const emailsSchema = z.object({
+  data: z.object({
+    list: entityFieldSchema(z.array(z.string())).describe(
+      "Email addresses to display."
+    ),
+  }),
+  styles: z
+    .object({
+      listLength: z
+        .number()
+        .int()
+        .min(1)
+        .max(5)
+        .optional()
+        .describe(
+          "Maximum emails displayed from an entity field; defaults to 1."
+        ),
+      showIcon: z.boolean().optional(),
+      color: optionalSiteColorSchema.describe(
+        "Email link and icon background color. Omit to use the default theme colors; set only when the user explicitly requests an email color override."
+      ),
+      iconColor: optionalSiteColorSchema.describe(
+        "Email icon glyph color. Omit to use the default icon color; set only when the user explicitly requests an icon color override."
+      ),
+    })
+    .optional(),
+});
 
 export interface EmailsProps {
   data: {
@@ -167,6 +198,7 @@ const EmailsComponent: PuckComponent<EmailsProps> = (props) => {
 };
 
 export const Emails: YextComponentConfig<EmailsProps> = {
+  layoutGenerationMetadata: { props: emailsSchema },
   ...gridAtomPermissions,
   label: msg("components.emails", "Emails"),
   fields: EmailsFields,

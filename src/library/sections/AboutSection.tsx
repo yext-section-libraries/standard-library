@@ -1,3 +1,9 @@
+import { z } from "zod";
+import {
+  backgroundColorSchema,
+  siteColorSchema,
+} from "../shared/zodSchemaHelpers/colors.ts";
+import { slotSchema } from "../shared/zodSchemaHelpers/slots.ts";
 import React from "react";
 import { PuckComponent, Slot, WithId } from "@puckeditor/core";
 import {
@@ -23,6 +29,24 @@ import {
   defaultAboutSectionProps,
 } from "../shared/sectionSupport/pageSections/AboutSection/AboutSectionDetailsColumn.tsx";
 import { ComponentErrorBoundary } from "@yext/visual-editor/section-library-support";
+
+const aboutSectionSchema = z.object({
+  styles: z.object({
+    backgroundColor: backgroundColorSchema.optional(),
+    readMoreButtonColor: siteColorSchema
+      .optional()
+      .describe(
+        "Omit to use the default theme color. Set only when the user explicitly requests a read more button color override."
+      ),
+    showDetailsColumn: z.boolean(),
+  }),
+  slots: z.object({
+    SectionHeadingSlot: slotSchema(),
+    DescriptionSlot: slotSchema(),
+    SidebarSlot: slotSchema(),
+  }),
+  liveVisibility: z.boolean(),
+});
 
 const placeholderText = {
   defaultValue: {
@@ -93,15 +117,9 @@ const aboutSectionFields: YextFields<AboutSectionProps> = {
   slots: {
     type: "object",
     objectFields: {
-      SectionHeadingSlot: {
-        type: "slot",
-      },
-      DescriptionSlot: {
-        type: "slot",
-      },
-      SidebarSlot: {
-        type: "slot",
-      },
+      SectionHeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      DescriptionSlot: { type: "slot", allow: ["BodyTextSlot"] },
+      SidebarSlot: { type: "slot", allow: ["AboutSectionDetailsColumn"] },
     },
     visible: false,
   },
@@ -197,6 +215,7 @@ const AboutComponent: PuckComponent<AboutSectionProps> = (props) => {
 export const AboutSection: YextComponentConfig<AboutSectionProps> = {
   label: msg("components.about", "About"),
   fields: aboutSectionFields,
+  layoutGenerationMetadata: { props: aboutSectionSchema },
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background2.value,

@@ -1,3 +1,6 @@
+import { z } from "zod";
+import { backgroundColorSchema } from "../shared/zodSchemaHelpers/colors.ts";
+import { slotSchema } from "../shared/zodSchemaHelpers/slots.ts";
 import { PuckComponent, Slot } from "@puckeditor/core";
 import {
   backgroundColors,
@@ -10,6 +13,15 @@ import {
 import { PageSection } from "../shared/sectionSupport/atoms/pageSection.tsx";
 import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
 import { ComponentErrorBoundary } from "@yext/visual-editor/section-library-support";
+
+const videoSectionSchema = z.object({
+  styles: z.object({ backgroundColor: backgroundColorSchema.optional() }),
+  slots: z.object({
+    SectionHeadingSlot: slotSchema(),
+    VideoSlot: slotSchema(),
+  }),
+  liveVisibility: z.boolean(),
+});
 
 export interface VideoSectionProps {
   /**
@@ -51,8 +63,8 @@ const videoSectionFields: YextFields<VideoSectionProps> = {
   slots: {
     type: "object",
     objectFields: {
-      SectionHeadingSlot: { type: "slot" },
-      VideoSlot: { type: "slot" },
+      SectionHeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      VideoSlot: { type: "slot", allow: ["VideoSlot"] },
     },
     visible: false,
   },
@@ -80,6 +92,7 @@ const VideoSectionComponent: PuckComponent<VideoSectionProps> = (props) => {
 export const VideoSection: YextComponentConfig<VideoSectionProps> = {
   label: msg("components.video", "Video"),
   fields: videoSectionFields,
+  layoutGenerationMetadata: { props: videoSectionSchema },
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background1.value,

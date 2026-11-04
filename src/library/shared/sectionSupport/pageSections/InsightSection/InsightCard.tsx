@@ -1,3 +1,6 @@
+import { z } from "zod";
+import { cardStyles } from "../../../zodSchemaHelpers/mappedCardsZodSchemas.ts";
+import { slotSchema } from "../../../zodSchemaHelpers/slots.ts";
 import * as React from "react";
 import {
   ThemeColor,
@@ -27,6 +30,18 @@ import {
 } from "@yext/visual-editor/section-library-support";
 import { TextProps } from "../../../../sections/Text.tsx";
 import { PuckComponent, Slot } from "@puckeditor/core";
+
+const insightCardSchema = z.object({
+  styles: cardStyles,
+  slots: z.object({
+    ImageSlot: slotSchema(),
+    TitleSlot: slotSchema(),
+    CategorySlot: slotSchema(),
+    DescriptionSlot: slotSchema(),
+    PublishTimeSlot: slotSchema(),
+    CTASlot: slotSchema(),
+  }),
+});
 
 const defaultInsight = {
   image: {
@@ -273,12 +288,12 @@ const insightCardFields: YextFields<InsightCardProps> = {
   slots: {
     type: "object",
     objectFields: {
-      ImageSlot: { type: "slot" },
-      TitleSlot: { type: "slot" },
-      CategorySlot: { type: "slot" },
-      DescriptionSlot: { type: "slot" },
-      PublishTimeSlot: { type: "slot" },
-      CTASlot: { type: "slot" },
+      ImageSlot: { type: "slot", allow: ["ImageSlot"] },
+      TitleSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      CategorySlot: { type: "slot", allow: ["TextSlot"] },
+      DescriptionSlot: { type: "slot", allow: ["BodyTextSlot"] },
+      PublishTimeSlot: { type: "slot", allow: ["Timestamp"] },
+      CTASlot: { type: "slot", allow: ["CTASlot"] },
     },
     visible: false,
   },
@@ -441,19 +456,13 @@ const InsightCardComponent: PuckComponent<InsightCardProps> = (props) => {
 export const InsightCard: YextComponentConfig<InsightCardProps> = {
   label: msg("slots.insightCard", "Insight Card"),
   fields: insightCardFields,
+  layoutGenerationMetadata: { props: insightCardSchema },
   inline: true,
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background1.value,
     },
-    slots: {
-      ImageSlot: [],
-      TitleSlot: [],
-      CategorySlot: [],
-      DescriptionSlot: [],
-      PublishTimeSlot: [],
-      CTASlot: [],
-    },
+    slots: defaultInsightCardSlotData().props.slots,
   },
   resolveData: (data, params) => {
     const streamDocument = params.metadata?.streamDocument;

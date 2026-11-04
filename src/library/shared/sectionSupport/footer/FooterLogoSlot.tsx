@@ -1,3 +1,6 @@
+import { z } from "zod";
+import { entityFieldSchema, imageSchema } from "../../zodSchemaHelpers/data.ts";
+import { imageStylesSchema } from "./footerZodSchemas.ts";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
 import { MaybeLink } from "../atoms/maybeLink.tsx";
@@ -18,6 +21,14 @@ import {
   resolveLocalizedAssetImage,
   TranslatableAssetImage,
 } from "@yext/visual-editor";
+
+const footerLogoSchema = z.object({
+  data: z.object({
+    image: entityFieldSchema(imageSchema),
+    linkTarget: z.string().optional(),
+  }),
+  styles: imageStylesSchema,
+});
 
 export interface FooterLogoSlotProps {
   data: {
@@ -91,6 +102,7 @@ const FooterLogoSlotInternal: PuckComponent<FooterLogoSlotProps> = (props) => {
 
 export const FooterLogoSlot: YextComponentConfig<FooterLogoSlotProps> = {
   label: msg("components.footerLogoSlot", "Logo"),
+  layoutGenerationMetadata: { props: footerLogoSchema },
   fields: {
     data: {
       type: "object",

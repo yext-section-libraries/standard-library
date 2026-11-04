@@ -1,3 +1,10 @@
+import { z } from "zod";
+import {
+  entityFieldSchema,
+  translatableStringSchema,
+  enhancedCtaSchema,
+} from "../../zodSchemaHelpers/data.ts";
+import { optionalSiteColorSchema } from "../../zodSchemaHelpers/colors.ts";
 import * as React from "react";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import {
@@ -23,6 +30,14 @@ import {
 } from "../../../sections/ExpandedFooter.tsx";
 import { isNonNormalizableLinkType } from "@yext/visual-editor/section-library-support";
 import { resolveLocalizedFooterLinkSection } from "./resolveLocalizedFooterLinkSection.ts";
+
+const footerExpandedLinkSectionSchema = z.object({
+  data: z.object({
+    label: entityFieldSchema(translatableStringSchema),
+    links: z.array(enhancedCtaSchema),
+  }),
+  styles: z.object({ color: optionalSiteColorSchema }).optional(),
+});
 
 export interface FooterExpandedLinkSectionSlotProps {
   data: {
@@ -196,6 +211,7 @@ export const FooterExpandedLinkSectionSlot: YextComponentConfig<FooterExpandedLi
   {
     label: msg("components.footerExpandedLinkSlot", "Expanded Link"),
     fields: footerExpandedLinkSectionSlotFields,
+    layoutGenerationMetadata: { props: footerExpandedLinkSectionSchema },
     resolveFields: (data) =>
       setDeep(
         toPuckFields(footerExpandedLinkSectionSlotFields),
