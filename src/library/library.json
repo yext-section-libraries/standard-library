@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "id": "blife-ai-standard-library",
-  "displayName": "Ben's AI Standard Library",
+  "id": "yext_standard-library",
+  "displayName": "Standard Library",
   "description": "The original Pages for Marketers sections.",
   "locales": [
     "cs",

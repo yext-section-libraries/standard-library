@@ -73,9 +73,6 @@
     "vitest": "^3.2.7"
   },
   "overrides": {
-    "@yext/visual-editor": {
-      "next-themes": "0.4.6"
-    },
     "vite": {
       "rollup": "npm:@rollup/wasm-node"
     }
