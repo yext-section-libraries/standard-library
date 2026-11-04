@@ -114,7 +114,8 @@ const GridSection = React.forwardRef<
                 layoutVariants({ gap: "4" }),
                 `flex flex-col max-w-full overflow-hidden`,
                 // Multi-column left keeps its original stretch; center and right fit children to the column.
-                columns > 1 && resolvedAlign !== "left" &&
+                columns > 1 &&
+                  resolvedAlign !== "left" &&
                   "md:[&>*]:max-w-full",
                 alignmentClass
               )}
