@@ -98,8 +98,8 @@ const GridSection = React.forwardRef<
                 ? "md:items-start text-start"
                 : undefined
               : resolvedAlign === "right"
-                ? "md:items-end text-end"
-                : "md:items-center text-center";
+                ? "items-end text-end"
+                : "items-center text-center";
 
           return (
             <Column
@@ -107,10 +107,7 @@ const GridSection = React.forwardRef<
               className={themeManagerCn(
                 layoutVariants({ gap: "4" }),
                 `flex flex-col max-w-full overflow-hidden`,
-                // Multi-column left keeps its original stretch; center and right fit children to the column.
-                columns > 1 &&
-                  resolvedAlign !== "left" &&
-                  "md:[&>*]:max-w-full",
+                resolvedAlign !== "left" && "[&>*]:max-w-full",
                 alignmentClass
               )}
               allow={gridAllowedComponents}
