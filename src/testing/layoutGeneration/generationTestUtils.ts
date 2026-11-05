@@ -1,25 +1,40 @@
 import { resolveAllData, type Config, type Data } from "@puckeditor/core";
-import type { YextComponentConfig } from "@yext/visual-editor";
-import { ExpandedHeader } from "../../library/sections/ExpandedHeader.tsx";
-import { HeroSection } from "../../library/sections/HeroSection.tsx";
-import { PromoSection } from "../../library/sections/PromoSection.tsx";
-import { CoreInfoSection } from "../../library/sections/CoreInfoSection.tsx";
-import { BannerSection } from "../../library/sections/BannerSection.tsx";
-import { Directory } from "../../library/sections/Directory.tsx";
-import { Locator } from "../../library/sections/Locator.tsx";
+import { toPuckFields, type YextComponentConfig } from "@yext/visual-editor";
+import { createPuckGenerationCatalog } from "@yext/visual-editor/section-library-support";
 import { sharedComponentConfigs } from "../../library/shared/componentRegistry.ts";
 
-export const components = {
-  ...sharedComponentConfigs,
-  ExpandedHeader,
-  HeroSection,
-  PromoSection,
-  CoreInfoSection,
-  BannerSection,
-  Directory,
-  Locator,
-} as Record<string, YextComponentConfig<any>>;
-const config = { components } as Config;
+const modules = import.meta.glob("../../library/sections/*.tsx", {
+  eager: true,
+}) as Record<string, Record<string, any>>;
+export const sections: Record<
+  string,
+  YextComponentConfig<any>
+> = Object.fromEntries(
+  Object.values(modules)
+    .filter((m) => m.config)
+    .map((m) => [
+      m.config.id,
+      m[Object.keys(m).find((key) => key !== "config" && m[key]?.fields)!],
+    ])
+);
+export const components = { ...sections, ...sharedComponentConfigs } as Record<
+  string,
+  YextComponentConfig<any>
+>;
+export const catalog = createPuckGenerationCatalog(components);
+export const generationSchema = (name: string) =>
+  catalog.data.components[name].generation!.props;
+export const config = {
+  components: Object.fromEntries(
+    Object.entries(components).map(([name, component]) => [
+      name,
+      {
+        ...component,
+        fields: component.fields ? toPuckFields(component.fields) : undefined,
+      },
+    ])
+  ),
+} as Config;
 export const sectionNames = [
   "ExpandedHeader",
   "HeroSection",
@@ -47,7 +62,7 @@ export const makeLayout = (type: string): Data => {
 };
 export const authored = (layout: Data) => {
   const project = (item: any): any => {
-    const schema = components[item.type].layoutGenerationMetadata!.props;
+    const schema = generationSchema(item.type);
     const props = schema.parse(item.props) as Record<string, any>;
     for (const [slotName, items] of Object.entries(props.slots ?? {})) {
       props.slots[slotName] = (items as any[]).map(project);

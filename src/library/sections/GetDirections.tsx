@@ -1,9 +1,3 @@
-import { z } from "zod";
-import { ctaVariantSchema } from "../shared/sectionSupport/atoms/ctaZodSchemas.ts";
-import {
-  siteColorSchema,
-  optionalTextColorSchema,
-} from "../shared/zodSchemaHelpers/colors.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { setDeep } from "@puckeditor/core";
 import "@yext/pages-components/style.css";
@@ -22,12 +16,6 @@ import {
   isCtaVariantWithColor,
 } from "../shared/sectionSupport/atoms/cta.tsx";
 import { useTranslation } from "react-i18next";
-
-export const getDirectionsSchema = z.object({
-  variant: ctaVariantSchema,
-  color: siteColorSchema.optional(),
-  textColor: optionalTextColorSchema,
-});
 
 export type GetDirectionsProps = {
   variant: CTAVariant;
@@ -48,6 +36,10 @@ const getDirectionsFields: YextFields<GetDirectionsProps> = {
     options: "SITE_COLOR",
   },
   textColor: {
+    generation: {
+      instructions:
+        "Leave text color unset so the theme chooses it. A requested palette or background change does not by itself require a text color override. Do not infer a text color from imagery or surrounding content. Set a valid theme color when the user specifically requests a text color override.",
+    },
     type: "basicSelector",
     label: msg("fields.textColor", "Text Color"),
     options: "SITE_COLOR",
@@ -81,7 +73,6 @@ export const GetDirections: YextComponentConfig<GetDirectionsProps> = {
   ...gridAtomPermissions,
   label: msg("components.getDirections", "Get Directions"),
   fields: getDirectionsFields,
-  layoutGenerationMetadata: { props: getDirectionsSchema },
   defaultProps: {
     variant: "primary",
   },

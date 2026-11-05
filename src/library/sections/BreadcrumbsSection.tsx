@@ -1,12 +1,3 @@
-import { z } from "zod";
-import {
-  translatableStringSchema,
-  entityFieldSchema,
-} from "../shared/zodSchemaHelpers/data.ts";
-import {
-  backgroundColorSchema,
-  siteColorSchema,
-} from "../shared/zodSchemaHelpers/colors.ts";
 import { useTranslation } from "react-i18next";
 import {
   useTemplateProps,
@@ -29,24 +20,6 @@ import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrap
 import { setDeep } from "@puckeditor/core";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import { SectionConfig } from "@yext/visual-editor";
-
-const breadcrumbsSectionSchema = z.object({
-  data: z.object({
-    directoryRoot: translatableStringSchema,
-    currentPage: entityFieldSchema(translatableStringSchema),
-  }),
-  styles: z.object({
-    backgroundColor: backgroundColorSchema.optional(),
-    linkColor: siteColorSchema
-      .optional()
-      .describe(
-        "Omit to use the default theme color. Set only when the user explicitly requests a link color override."
-      ),
-    showCurrentPage: z.boolean(),
-  }),
-  analytics: z.object({ scope: z.string().optional() }),
-  liveVisibility: z.boolean(),
-});
 
 export interface BreadcrumbsData {
   /**
@@ -136,11 +109,16 @@ const breadcrumbsSectionFields: YextFields<BreadcrumbsSectionProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       backgroundColor: {
+        generation: { required: false },
         type: "basicSelector",
         label: msg("fields.backgroundColor", "Background Color"),
         options: "BACKGROUND_COLOR",
       },
       linkColor: {
+        generation: {
+          instructions:
+            "Omit to use the default theme color. Set only when the user explicitly requests a link color override.",
+        },
         type: "basicSelector",
         label: msg("fields.linkColor", "Link Color"),
         options: "SITE_COLOR",
@@ -161,6 +139,7 @@ const breadcrumbsSectionFields: YextFields<BreadcrumbsSectionProps> = {
     visible: false,
     objectFields: {
       scope: {
+        generation: { required: false },
         label: msg("fields.scope", "Scope"),
         type: "text",
       },
@@ -265,7 +244,6 @@ export const BreadcrumbsSection: YextComponentConfig<BreadcrumbsSectionProps> =
   {
     label: msg("components.breadcrumbs", "Breadcrumbs"),
     fields: breadcrumbsSectionFields,
-    layoutGenerationMetadata: { props: breadcrumbsSectionSchema },
     resolveFields: (_data, params) => {
       const streamDocument = params.metadata?.streamDocument;
       if (!streamDocument) {

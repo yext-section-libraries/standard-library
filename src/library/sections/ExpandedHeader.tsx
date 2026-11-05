@@ -1,11 +1,7 @@
-import { z } from "zod";
-import { slotSchema } from "../shared/zodSchemaHelpers/slots.ts";
-import * as React from "react";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import { PuckComponent, setDeep, Slot } from "@puckeditor/core";
 import {
   msg,
-  getMaxWidthOptions,
   YextComponentConfig,
   YextFields,
   SectionConfig,
@@ -15,29 +11,7 @@ import { cva } from "class-variance-authority";
 import { defaultPrimaryHeaderProps } from "../shared/sectionSupport/header/PrimaryHeaderSlot.tsx";
 import { defaultSecondaryHeaderProps } from "../shared/sectionSupport/header/SecondaryHeaderSlot.tsx";
 import { ExpandedHeaderMenuProvider } from "../shared/sectionSupport/header/ExpandedHeaderMenuContext.tsx";
-
-const expandedHeaderSchema = z.object({
-  styles: z.object({
-    maxWidth: z
-      .enum([
-        "theme",
-        "768px",
-        "960px",
-        "1024px",
-        "1280px",
-        "1440px",
-        "fullWidth",
-      ])
-      .nullable()
-      .describe("Maximum width shared by both header tiers."),
-    headerPosition: z.enum(["fixed", "scrollsWithPage"]),
-  }),
-  slots: z.object({
-    PrimaryHeaderSlot: slotSchema(),
-    SecondaryHeaderSlot: slotSchema(),
-  }),
-  analytics: z.object({ scope: z.string().optional() }),
-});
+import { resolveCanonicalSelectorGroups } from "@yext/visual-editor/section-library-support";
 
 export const headerWrapper = cva("flex flex-col", {
   variants: {
@@ -90,18 +64,22 @@ const expandedHeaderSectionFields: YextFields<ExpandedHeaderProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       maxWidth: {
+        generation: {
+          nullable: true,
+          instructions: "Maximum width shared by both header tiers.",
+        },
         type: "basicSelector",
         label: msg("fields.maxWidth", "Max Width"),
         disableSearch: true,
-        optionGroups: [
-          {
+        optionGroups: resolveCanonicalSelectorGroups("MAX_WIDTH").map(
+          (group) => ({
+            ...group,
             description: msg(
               "maxWidthTip",
               "For optimal content alignment, we recommend setting the header and footer width to match or exceed the page content grid."
             ),
-            options: getMaxWidthOptions(),
-          },
-        ],
+          })
+        ),
       },
       headerPosition: {
         label: msg("fields.headerPosition", "Header Position"),
@@ -119,8 +97,20 @@ const expandedHeaderSectionFields: YextFields<ExpandedHeaderProps> = {
   slots: {
     type: "object",
     objectFields: {
-      PrimaryHeaderSlot: { type: "slot", allow: ["PrimaryHeaderSlot"] },
-      SecondaryHeaderSlot: { type: "slot", allow: ["SecondaryHeaderSlot"] },
+      PrimaryHeaderSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["PrimaryHeaderSlot"],
+      },
+      SecondaryHeaderSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["SecondaryHeaderSlot"],
+      },
     },
     visible: false,
   },
@@ -130,6 +120,7 @@ const expandedHeaderSectionFields: YextFields<ExpandedHeaderProps> = {
     visible: false,
     objectFields: {
       scope: {
+        generation: { required: false },
         label: msg("fields.scope", "Scope"),
         type: "text",
       },
@@ -165,7 +156,6 @@ const ExpandedHeaderWrapper: PuckComponent<ExpandedHeaderProps> = ({
  * Available on Location templates.
  */
 export const ExpandedHeader: YextComponentConfig<ExpandedHeaderProps> = {
-  layoutGenerationMetadata: { props: expandedHeaderSchema },
   label: msg("components.expandedHeader", "Expanded Header"),
   fields: expandedHeaderSectionFields,
   defaultProps: {

@@ -1,11 +1,3 @@
-import { z } from "zod";
-import {
-  ctaEntityFieldSchema,
-  ctaVariantSchema,
-  presetImageSchema,
-} from "../shared/sectionSupport/atoms/ctaZodSchemas.ts";
-import { translatableStringSchema } from "../shared/zodSchemaHelpers/data.ts";
-import { siteColorSchema } from "../shared/zodSchemaHelpers/colors.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import {
@@ -36,37 +28,7 @@ import {
   getCTAType,
   isNonNormalizableLinkType,
 } from "@yext/visual-editor/section-library-support";
-
-const ctaWrapperSchema = z.object({
-  data: z.object({
-    show: z
-      .boolean()
-      .optional()
-      .describe(
-        "Whether to render this CTA. Set true when authoring CTA content or binding an entity field, including a secondary header CTA. Set false only when intentionally omitting the CTA or when the user explicitly asks to hide it."
-      ),
-    actionType: z.enum(["link"]).optional(),
-    // intentionally omit button props
-    normalizeLink: z
-      .boolean()
-      .describe("Whether to standardize casing and encoding"),
-    entityField: ctaEntityFieldSchema.describe(
-      "The call to action content or entity field."
-    ),
-    ariaLabel: translatableStringSchema.optional(),
-  }),
-  styles: z.object({
-    variant: ctaVariantSchema.describe("The visual style of the CTA"),
-    presetImage: presetImageSchema
-      .optional()
-      .describe("Use with presetImage type"),
-    color: siteColorSchema
-      .optional()
-      .describe(
-        "CTA background color. The renderer automatically uses this color's contrastingColor for the CTA label and icon."
-      ),
-  }),
-});
+import { z } from "zod";
 
 export interface CTAWrapperProps {
   data: {
@@ -124,6 +86,10 @@ const ctaWrapperFields: YextFields<CTAWrapperProps> = {
     label: msg("fields.data", "Data"),
     objectFields: {
       show: {
+        generation: {
+          instructions:
+            "Whether to render this CTA. Set true when authoring CTA content or binding an entity field, including a secondary header CTA. Set false only when intentionally omitting the CTA or when the user explicitly asks to hide it.",
+        },
         label: msg("fields.showCTA", "Show CTA"),
         type: "radio",
         options: [
@@ -133,6 +99,11 @@ const ctaWrapperFields: YextFields<CTAWrapperProps> = {
         visible: false,
       },
       actionType: {
+        generation: {
+          schema: z.literal("link").optional(),
+          instructions:
+            "Generate navigation CTAs. Button actions require external behavior configured by the site author.",
+        },
         label: msg("fields.actionType", "Action Type"),
         type: "radio",
         options: [
@@ -141,10 +112,16 @@ const ctaWrapperFields: YextFields<CTAWrapperProps> = {
         ],
       },
       entityField: {
+        generation: {
+          instructions: "The call to action content or entity field.",
+        },
         type: "ctaSelector",
         label: msg("fields.cta", "CTA"),
       },
       normalizeLink: {
+        generation: {
+          instructions: "Whether to standardize casing and encoding",
+        },
         label: msg("fields.normalizeLink", "Normalize Link"),
         type: "radio",
         options: [
@@ -154,19 +131,23 @@ const ctaWrapperFields: YextFields<CTAWrapperProps> = {
         visible: false,
       },
       buttonText: {
+        generation: { exclude: true },
         type: "translatableString",
         label: msg("fields.buttonText", "Button Text"),
         filter: { types: ["type.string"] },
       },
       customId: {
+        generation: { exclude: true },
         label: msg("fields.customId", "Custom ID"),
         type: "text",
       },
       customClass: {
+        generation: { exclude: true },
         label: msg("fields.customClass", "Custom Class"),
         type: "text",
       },
       dataAttributes: {
+        generation: { exclude: true },
         label: msg("fields.dataAttributes", "Data Attributes"),
         type: "array",
         defaultItemProps: {
@@ -192,6 +173,7 @@ const ctaWrapperFields: YextFields<CTAWrapperProps> = {
             : `${pt("dataAttribute", "Attribute")} ${(index ?? 0) + 1}`,
       },
       ariaLabel: {
+        generation: { required: false },
         type: "translatableString",
         label: msg("fields.ariaLabel", "Aria Label"),
         filter: { types: ["type.string"] },
@@ -203,16 +185,25 @@ const ctaWrapperFields: YextFields<CTAWrapperProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       variant: {
+        generation: { instructions: "The visual style of the CTA" },
         label: msg("fields.variant", "Variant"),
         type: "radio",
         options: ThemeOptions.CTA_VARIANT,
       },
       presetImage: {
+        generation: {
+          required: false,
+          instructions: "Use with presetImage type",
+        },
         type: "basicSelector",
         label: msg("fields.presetImage", "Preset Image"),
         options: "PRESET_IMAGE",
       },
       color: {
+        generation: {
+          instructions:
+            "CTA background color. The renderer automatically uses this color's contrastingColor for the CTA label and icon.",
+        },
         type: "basicSelector",
         label: msg("fields.color", "Color"),
         options: "SITE_COLOR",
@@ -351,7 +342,6 @@ const CTAWrapperComponent: PuckComponent<CTAWrapperProps> = (props) => {
 };
 
 export const CTAWrapper: YextComponentConfig<CTAWrapperProps> = {
-  layoutGenerationMetadata: { props: ctaWrapperSchema },
   ...gridAtomPermissions,
   label: msg("components.callToAction", "Call to Action"),
   fields: ctaWrapperFields,

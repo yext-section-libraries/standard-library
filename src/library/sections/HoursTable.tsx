@@ -1,7 +1,3 @@
-import { hoursValueSchema } from "../shared/sectionSupport/atoms/hoursZodSchemas.ts";
-import { z } from "zod";
-import { entityFieldSchema } from "../shared/zodSchemaHelpers/data.ts";
-import { optionalTextColorSchema } from "../shared/zodSchemaHelpers/colors.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
@@ -25,36 +21,6 @@ import {
 } from "@yext/visual-editor/section-library-support";
 import { HoursTableAtom } from "../shared/sectionSupport/atoms/hoursTable.tsx";
 import { Body } from "../shared/sectionSupport/atoms/body.tsx";
-
-export const hoursTableSchema = z.object({
-  data: z.object({
-    hours: entityFieldSchema(hoursValueSchema),
-  }),
-  styles: z.object({
-    startOfWeek: z
-      .enum([
-        "today",
-        "monday",
-        "tuesday",
-        "wednesday",
-        "thursday",
-        "friday",
-        "saturday",
-        "sunday",
-      ])
-      .describe("First day displayed; today follows the current day."),
-    collapseDays: z
-      .boolean()
-      .describe("Combine consecutive days with matching hours."),
-    showAdditionalHoursText: z
-      .boolean()
-      .describe("Show the entity's additionalHoursText below the table."),
-    alignment: z
-      .enum(["items-start", "items-center"])
-      .describe("Left or center alignment of the hours table."),
-    textColor: optionalTextColorSchema,
-  }),
-});
 
 /** Props for the HoursTable component. */
 export interface HoursTableProps {
@@ -94,11 +60,17 @@ type HoursTableStyleFieldProps = Omit<HoursTableProps["styles"], "alignment">;
 // HoursTable style fields used in HoursTable and CoreInfoSection
 export const HoursTableStyleFields: YextFields<HoursTableStyleFieldProps> = {
   startOfWeek: {
+    generation: {
+      instructions: "First day displayed; today follows the current day.",
+    },
     type: "basicSelector",
     label: msg("fields.startOfTheWeek", "Start of the Week"),
     options: "HOURS_OPTIONS",
   },
   collapseDays: {
+    generation: {
+      instructions: "Combine consecutive days with matching hours.",
+    },
     label: msg("fields.collapseDays", "Collapse Days"),
     type: "radio",
     options: [
@@ -107,6 +79,9 @@ export const HoursTableStyleFields: YextFields<HoursTableStyleFieldProps> = {
     ],
   },
   showAdditionalHoursText: {
+    generation: {
+      instructions: "Show the entity's additionalHoursText below the table.",
+    },
     label: msg(
       "fields.options.showAdditionalHoursText",
       "Show Additional Hours Text"
@@ -133,6 +108,9 @@ export const hoursTableFields: YextFields<HoursTableProps> = {
     objectFields: {
       ...HoursTableStyleFields,
       alignment: {
+        generation: {
+          instructions: "Left or center alignment of the hours table.",
+        },
         label: msg("fields.contentAlignment", "Content Alignment"),
         type: "radio",
         options: [
@@ -144,6 +122,10 @@ export const hoursTableFields: YextFields<HoursTableProps> = {
         ],
       },
       textColor: {
+        generation: {
+          instructions:
+            "Leave text color unset so the theme chooses it. A requested palette or background change does not by itself require a text color override. Do not infer a text color from imagery or surrounding content. Set a valid theme color when the user specifically requests a text color override.",
+        },
         type: "basicSelector",
         label: msg("fields.textColor", "Text Color"),
         options: "SITE_COLOR",
@@ -199,7 +181,6 @@ const VisualEditorHoursTable: PuckComponent<HoursTableProps> = (props) => {
 };
 
 export const HoursTable: YextComponentConfig<HoursTableProps> = {
-  layoutGenerationMetadata: { props: hoursTableSchema },
   ...gridAtomPermissions,
   fields: hoursTableFields,
   defaultProps: {

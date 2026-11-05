@@ -1,11 +1,4 @@
-import { z } from "zod";
-import {
-  entityFieldSchema,
-  translatableStringSchema,
-} from "../shared/zodSchemaHelpers/data.ts";
-import { optionalTextColorSchema } from "../shared/zodSchemaHelpers/colors.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
-import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
 import {
   useDocument,
@@ -28,30 +21,6 @@ import {
 } from "../shared/sectionSupport/atoms/heading.tsx";
 import { useTranslation } from "react-i18next";
 import { SectionConfig } from "@yext/visual-editor";
-
-const headingLevelSchema = z
-  .union([
-    z.literal(1),
-    z.literal(2),
-    z.literal(3),
-    z.literal(4),
-    z.literal(5),
-    z.literal(6),
-  ])
-  .describe("The h tag level");
-
-const headingTextSchema = z.object({
-  data: z
-    .object({
-      text: entityFieldSchema(translatableStringSchema),
-    })
-    .describe("The heading text or entity field."),
-  styles: z.object({
-    level: headingLevelSchema,
-    align: z.enum(["left", "center", "right"]),
-    color: optionalTextColorSchema,
-  }),
-});
 
 export type HeadingTextProps = {
   /** The heading text value */
@@ -128,6 +97,7 @@ const HeadingTextWrapper: PuckComponent<HeadingTextProps> = (props) => {
 
 const headingTextFields: YextFields<HeadingTextProps> = {
   data: {
+    generation: { instructions: "The heading text or entity field." },
     label: msg("fields.data", "Data"),
     type: "object",
     objectFields: {
@@ -145,6 +115,7 @@ const headingTextFields: YextFields<HeadingTextProps> = {
     type: "object",
     objectFields: {
       level: {
+        generation: { instructions: "The h tag level" },
         type: "basicSelector",
         label: msg("fields.headingLevel", "Heading Level"),
         options: "HEADING_LEVEL",
@@ -155,6 +126,10 @@ const headingTextFields: YextFields<HeadingTextProps> = {
         options: ThemeOptions.ALIGNMENT,
       },
       color: {
+        generation: {
+          instructions:
+            "Leave text color unset so the theme chooses it. A requested palette or background change does not by itself require a text color override. Do not infer a text color from imagery or surrounding content. Set a valid theme color when the user specifically requests a text color override.",
+        },
         type: "basicSelector",
         label: msg("fields.color", "Color"),
         options: "SITE_COLOR",
@@ -164,7 +139,6 @@ const headingTextFields: YextFields<HeadingTextProps> = {
 };
 
 export const HeadingText: YextComponentConfig<HeadingTextProps> = {
-  layoutGenerationMetadata: { props: headingTextSchema },
   ...gridAtomPermissions,
   label: msg("components.headingText", "Heading Text"),
   fields: headingTextFields,

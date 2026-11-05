@@ -1,4 +1,3 @@
-import { mappedCardsSectionSchema } from "../shared/zodSchemaHelpers/mappedCardsZodSchemas.ts";
 import {
   ThemeColor,
   backgroundColors,
@@ -72,6 +71,7 @@ const insightSectionFields: YextFields<InsightSectionProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       backgroundColor: {
+        generation: { required: false },
         type: "basicSelector",
         label: msg("fields.backgroundColor", "Background Color"),
         options: "BACKGROUND_COLOR",
@@ -86,8 +86,20 @@ const insightSectionFields: YextFields<InsightSectionProps> = {
   slots: {
     type: "object",
     objectFields: {
-      SectionHeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
-      CardsWrapperSlot: { type: "slot", allow: ["InsightCardsWrapper"] },
+      SectionHeadingSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["HeadingTextSlot"],
+      },
+      CardsWrapperSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["InsightCardsWrapper"],
+      },
     },
     visible: false,
   },
@@ -97,6 +109,7 @@ const insightSectionFields: YextFields<InsightSectionProps> = {
     visible: false,
     objectFields: {
       scope: {
+        generation: { required: false },
         label: msg("fields.scope", "Scope"),
         type: "text",
       },
@@ -115,7 +128,6 @@ const insightSectionFields: YextFields<InsightSectionProps> = {
 export const InsightSection: YextComponentConfig<InsightSectionProps> = {
   label: msg("components.insights", "Insights"),
   fields: insightSectionFields,
-  layoutGenerationMetadata: { props: mappedCardsSectionSchema },
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background2.value,

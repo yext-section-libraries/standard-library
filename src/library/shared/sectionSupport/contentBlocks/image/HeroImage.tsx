@@ -1,11 +1,3 @@
-import {
-  imageWrapperSchema,
-  getImageUrl,
-  imageDefaultProps,
-  ImageWrapperFields,
-  ImageWrapperProps,
-} from "../../../../sections/ImageWrapper.tsx";
-import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import {
@@ -19,7 +11,14 @@ import {
   YextComponentConfig,
 } from "@yext/visual-editor";
 import { Image, imgSizesHelper } from "../../atoms/image.tsx";
+import {
+  getImageUrl,
+  imageDefaultProps,
+  ImageWrapperFields,
+  ImageWrapperProps,
+} from "../../../../sections/ImageWrapper.tsx";
 import { EmptyImageState } from "./EmptyImageState.tsx";
+import { ImageStylingFields } from "./styling.ts";
 
 export interface HeroImageProps extends ImageWrapperProps {
   /** @internal from the parent Hero Section Component */
@@ -83,27 +82,34 @@ const HeroImageComponent: PuckComponent<HeroImageProps> = (props) => {
   );
 };
 
+const heroAspectRatioOptions = (
+  ImageStylingFields.aspectRatio as {
+    options: { label: string; value: number }[];
+  }
+).options.filter((option) => ![2, 3, 4, 0.56].includes(option.value));
+
+const heroImageFields = setDeep(
+  setDeep(
+    ImageWrapperFields,
+    "styles.objectFields.aspectRatio.options",
+    heroAspectRatioOptions
+  ),
+  "styles.objectFields.aspectRatio.generation",
+  {
+    instructions:
+      "HeroImage renders in classic and compact heroes. Use a supported image aspect ratio; wide background images for immersive/spotlight belong in the parent hero data.backgroundImage.",
+  }
+);
+
 export const HeroImage: YextComponentConfig<HeroImageProps> = {
-  layoutGenerationMetadata: { props: imageWrapperSchema },
   label: msg("components.heroImage", "Hero Image"),
-  fields: ImageWrapperFields,
+  fields: heroImageFields,
   defaultProps: imageDefaultProps,
   resolveFields: (data) => {
     let fields = setDeep(
       resolveDataFromParent(ImageWrapperFields, data),
       "styles.objectFields.width.visible",
       true
-    );
-    const filteredAspectRatioOptions = (
-      ImageWrapperFields.styles as {
-        objectFields: {
-          aspectRatio: {
-            options: { label: string; value: number }[];
-          };
-        };
-      }
-    ).objectFields.aspectRatio.options.filter(
-      (option) => !["4:1", "3:1", "2:1", "9:16"].includes(option.label)
     );
 
     switch (data.props.variant ?? "classic") {
@@ -115,7 +121,7 @@ export const HeroImage: YextComponentConfig<HeroImageProps> = {
         fields = setDeep(
           fields,
           "styles.objectFields.aspectRatio.options",
-          filteredAspectRatioOptions
+          heroAspectRatioOptions
         );
         break;
       }

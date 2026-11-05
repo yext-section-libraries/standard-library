@@ -1,4 +1,3 @@
-import { mappedCardsSectionSchema } from "../shared/zodSchemaHelpers/mappedCardsZodSchemas.ts";
 import { Slot } from "@puckeditor/core";
 import {
   ThemeColor,
@@ -73,6 +72,7 @@ const testimonialSectionFields: YextFields<TestimonialSectionProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       backgroundColor: {
+        generation: { required: false },
         type: "basicSelector",
         label: msg("fields.backgroundColor", "Background Color"),
         options: "BACKGROUND_COLOR",
@@ -87,8 +87,20 @@ const testimonialSectionFields: YextFields<TestimonialSectionProps> = {
   slots: {
     type: "object",
     objectFields: {
-      SectionHeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
-      CardsWrapperSlot: { type: "slot", allow: ["TestimonialCardsWrapper"] },
+      SectionHeadingSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["HeadingTextSlot"],
+      },
+      CardsWrapperSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["TestimonialCardsWrapper"],
+      },
     },
     visible: false,
   },
@@ -98,6 +110,7 @@ const testimonialSectionFields: YextFields<TestimonialSectionProps> = {
     visible: false,
     objectFields: {
       scope: {
+        generation: { required: false },
         label: msg("fields.scope", "Scope"),
         type: "text",
       },
@@ -117,7 +130,6 @@ export const TestimonialSection: YextComponentConfig<TestimonialSectionProps> =
   {
     label: msg("components.testimonials", "Testimonials"),
     fields: testimonialSectionFields,
-    layoutGenerationMetadata: { props: mappedCardsSectionSchema },
     defaultProps: {
       styles: {
         backgroundColor: backgroundColors.background2.value,

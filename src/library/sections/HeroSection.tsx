@@ -1,13 +1,3 @@
-import {
-  siteColorSchema,
-  backgroundColorSchema,
-} from "../shared/zodSchemaHelpers/colors.ts";
-import { z } from "zod";
-import {
-  entityFieldSchema,
-  imageSchema,
-} from "../shared/zodSchemaHelpers/data.ts";
-import { slotSchema } from "../shared/zodSchemaHelpers/slots.ts";
 import { setDeep, Slot } from "@puckeditor/core";
 import {
   AnalyticsScopeProvider,
@@ -50,67 +40,6 @@ import {
   getRandomPlaceholderImageObject,
 } from "@yext/visual-editor/section-library-support";
 import { updateFields } from "../shared/utils/updateFields.ts";
-
-const optionalSiteColorSchema = siteColorSchema.optional();
-
-const heroVariantSchema = z
-  .enum(["classic", "immersive", "spotlight", "compact"])
-  .describe("The different options for hero rendering");
-
-const heroSectionSchema = z.object({
-  data: z
-    .object({ backgroundImage: entityFieldSchema(imageSchema) })
-    .describe("The background image for immersive/spotlight"),
-  styles: z.object({
-    variant: heroVariantSchema.describe("The visual variant of the hero"),
-    backgroundColor: backgroundColorSchema.optional(),
-    imageHeight: z.number().min(0).optional(),
-    desktopContainerPosition: z.enum(["left", "center"]).optional(),
-    mobileContentAlignment: z.enum(["left", "center"]).optional(),
-    desktopImagePosition: z.enum(["left", "right"]),
-    mobileImagePosition: z.enum(["bottom", "top"]),
-    showBusinessName: z.boolean(),
-    showGeomodifier: z
-      .boolean()
-      .describe(
-        "Controls GeomodifierSlot, which may contain the main marketing headline rather than a location. Keep true when authoring a headline there. Changing to a product or topic page does not require hiding this slot. Set false only when intentionally omitting its content."
-      ),
-    showPhone: z.boolean(),
-    showHoursStatus: z.boolean(),
-    showAverageReview: z.boolean(),
-    reviewStarsColor: optionalSiteColorSchema.describe(
-      "Omit to use the default review star color. Set only when the user explicitly requests a star color override."
-    ),
-    showPrimaryCTA: z
-      .boolean()
-      .describe(
-        "Controls PrimaryCTASlot in addition to the child CTA's data.show. Enable both when authoring a visible primary CTA."
-      ),
-    showSecondaryCTA: z
-      .boolean()
-      .describe(
-        "Controls SecondaryCTASlot in addition to the child CTA's data.show. Enable both when authoring a visible secondary CTA. Preserve hidden defaults when the secondary CTA is intentionally omitted."
-      ),
-    showImage: z.boolean(),
-  }),
-  slots: z.object({
-    BusinessNameSlot: slotSchema(),
-    GeomodifierSlot: slotSchema(
-      "Hero subtitle or main marketing headline. Despite its name, it need not contain location text. Rendered only when styles.showGeomodifier is true; enable that control when writing a headline here."
-    ),
-    PhoneSlot: slotSchema(),
-    HoursStatusSlot: slotSchema(),
-    ImageSlot: slotSchema(),
-    PrimaryCTASlot: slotSchema(
-      "Primary hero CTA. Enable styles.showPrimaryCTA and the child CTA's data.show when writing visible CTA content."
-    ),
-    SecondaryCTASlot: slotSchema(
-      "Optional secondary hero CTA. Enable styles.showSecondaryCTA and the child CTA's data.show when writing visible CTA content. A required child may retain its hidden default when this CTA is intentionally omitted."
-    ),
-  }),
-  analytics: z.object({ scope: z.string().optional() }),
-  liveVisibility: z.boolean().optional(),
-});
 
 export interface HeroData {
   backgroundImage: YextEntityField<
@@ -271,6 +200,9 @@ export type HeroImageProps = {
 
 const heroSectionFields: YextFields<HeroSectionProps> = {
   data: {
+    generation: {
+      instructions: "The background image for immersive/spotlight",
+    },
     type: "object",
     label: msg("fields.data", "Data"),
     objectFields: {
@@ -288,6 +220,7 @@ const heroSectionFields: YextFields<HeroSectionProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       variant: {
+        generation: { instructions: "The visual variant of the hero" },
         type: "basicSelector",
         label: msg("fields.variant", "Variant"),
         options: [
@@ -307,16 +240,19 @@ const heroSectionFields: YextFields<HeroSectionProps> = {
         ],
       },
       backgroundColor: {
+        generation: { required: false },
         type: "basicSelector",
         label: msg("fields.backgroundColor", "Background Color"),
         options: "BACKGROUND_COLOR",
       },
       imageHeight: {
+        generation: { required: false },
         type: "number",
         label: msg("fields.imageHeight", "Image Height"),
         min: 0,
       },
       desktopContainerPosition: {
+        generation: { required: false },
         label: msg(
           "fields.desktopContainerPosition",
           "Desktop Container Position"
@@ -338,6 +274,7 @@ const heroSectionFields: YextFields<HeroSectionProps> = {
         ],
       },
       mobileContentAlignment: {
+        generation: { required: false },
         label: msg("fields.mobileContentAlignment", "Mobile Content Alignment"),
         type: "radio",
         options: [
@@ -384,6 +321,10 @@ const heroSectionFields: YextFields<HeroSectionProps> = {
         options: ThemeOptions.SHOW_HIDE,
       },
       showGeomodifier: {
+        generation: {
+          instructions:
+            "Controls GeomodifierSlot, which may contain the main marketing headline rather than a location. Keep true when authoring a headline there. Changing to a product or topic page does not require hiding this slot. Set false only when intentionally omitting its content.",
+        },
         label: msg("fields.showGeomodifier", "Show Geomodifier"),
         type: "radio",
         options: ThemeOptions.SHOW_HIDE,
@@ -404,16 +345,28 @@ const heroSectionFields: YextFields<HeroSectionProps> = {
         options: ThemeOptions.SHOW_HIDE,
       },
       reviewStarsColor: {
+        generation: {
+          instructions:
+            "Omit to use the default review star color. Set only when the user explicitly requests a star color override.",
+        },
         type: "basicSelector",
         label: msg("fields.reviewStarsColor", "Review Stars Color"),
         options: "SITE_COLOR",
       },
       showPrimaryCTA: {
+        generation: {
+          instructions:
+            "Controls PrimaryCTASlot in addition to the child CTA's data.show. Enable both when authoring a visible primary CTA.",
+        },
         label: msg("fields.showPrimaryCTA", "Show Primary CTA"),
         type: "radio",
         options: ThemeOptions.SHOW_HIDE,
       },
       showSecondaryCTA: {
+        generation: {
+          instructions:
+            "Controls SecondaryCTASlot in addition to the child CTA's data.show. Enable both when authoring a visible secondary CTA. Preserve hidden defaults when the secondary CTA is intentionally omitted.",
+        },
         label: msg("fields.showSecondaryCTA", "Show Secondary CTA"),
         type: "radio",
         options: ThemeOptions.SHOW_HIDE,
@@ -428,13 +381,61 @@ const heroSectionFields: YextFields<HeroSectionProps> = {
   slots: {
     type: "object",
     objectFields: {
-      BusinessNameSlot: { type: "slot", allow: ["HeadingTextSlot"] },
-      GeomodifierSlot: { type: "slot", allow: ["HeadingTextSlot"] },
-      PhoneSlot: { type: "slot", allow: ["PhoneNumbersSlot"] },
-      HoursStatusSlot: { type: "slot", allow: ["HoursStatusSlot"] },
-      ImageSlot: { type: "slot", allow: ["HeroImageSlot"] },
-      PrimaryCTASlot: { type: "slot", allow: ["CTASlot"] },
-      SecondaryCTASlot: { type: "slot", allow: ["CTASlot"] },
+      BusinessNameSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["HeadingTextSlot"],
+      },
+      GeomodifierSlot: {
+        generation: {
+          singleChild: true,
+          instructions:
+            "Hero subtitle or main marketing headline. Despite its name, it need not contain location text. Rendered only when styles.showGeomodifier is true; enable that control when writing a headline here.",
+        },
+        type: "slot",
+        allow: ["HeadingTextSlot"],
+      },
+      PhoneSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["PhoneNumbersSlot"],
+      },
+      HoursStatusSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["HoursStatusSlot"],
+      },
+      ImageSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["HeroImageSlot"],
+      },
+      PrimaryCTASlot: {
+        generation: {
+          singleChild: true,
+          instructions:
+            "Primary hero CTA. Enable styles.showPrimaryCTA and the child CTA's data.show when writing visible CTA content.",
+        },
+        type: "slot",
+        allow: ["CTASlot"],
+      },
+      SecondaryCTASlot: {
+        generation: {
+          singleChild: true,
+          instructions:
+            "Optional secondary hero CTA. Enable styles.showSecondaryCTA and the child CTA's data.show when writing visible CTA content. A required child may retain its hidden default when this CTA is intentionally omitted.",
+        },
+        type: "slot",
+        allow: ["CTASlot"],
+      },
     },
     visible: false,
   },
@@ -444,12 +445,14 @@ const heroSectionFields: YextFields<HeroSectionProps> = {
     visible: false,
     objectFields: {
       scope: {
+        generation: { required: false },
         label: msg("fields.scope", "Scope"),
         type: "text",
       },
     },
   },
   liveVisibility: {
+    generation: { required: false },
     label: msg("fields.visibleOnLivePage", "Visible on Live Page"),
     type: "radio",
     options: [
@@ -460,7 +463,6 @@ const heroSectionFields: YextFields<HeroSectionProps> = {
 };
 
 export const HeroSection: YextComponentConfig<HeroSectionProps> = {
-  layoutGenerationMetadata: { props: heroSectionSchema },
   label: msg("components.hero", "Hero"),
   fields: heroSectionFields,
   defaultProps: {

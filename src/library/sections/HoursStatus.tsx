@@ -1,7 +1,3 @@
-import { hoursValueSchema } from "../shared/sectionSupport/atoms/hoursZodSchemas.ts";
-import { z } from "zod";
-import { entityFieldSchema } from "../shared/zodSchemaHelpers/data.ts";
-import { optionalTextColorSchema } from "../shared/zodSchemaHelpers/colors.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
@@ -24,23 +20,6 @@ import {
   getTextColorStyle,
 } from "@yext/visual-editor/section-library-support";
 import { HoursStatusAtom } from "../shared/sectionSupport/atoms/hoursStatus.tsx";
-
-export const hoursStatusSchema = z.object({
-  data: z.object({
-    hours: entityFieldSchema(hoursValueSchema),
-  }),
-  styles: z
-    .object({
-      showCurrentStatus: z.boolean().optional(),
-      timeFormat: z.enum(["12h", "24h"]).optional(),
-      dayOfWeekFormat: z.enum(["short", "long"]).optional(),
-      showDayNames: z.boolean().optional(),
-      className: z.string().optional(),
-      bodyVariant: z.enum(["lg", "base", "sm"]).optional(),
-      textColor: optionalTextColorSchema,
-    })
-    .describe("The formatting for the hours status line"),
-});
 
 export interface HoursStatusProps {
   data: {
@@ -89,10 +68,12 @@ export const hoursStatusWrapperFields: YextFields<HoursStatusProps> = {
     },
   },
   styles: {
+    generation: { instructions: "The formatting for the hours status line" },
     type: "object",
     label: msg("fields.styles", "Styles"),
     objectFields: {
       showCurrentStatus: {
+        generation: { required: false },
         label: msg("fields.showCurrentStatus", "Show Current Status"),
         type: "radio",
         options: [
@@ -101,6 +82,7 @@ export const hoursStatusWrapperFields: YextFields<HoursStatusProps> = {
         ],
       },
       timeFormat: {
+        generation: { required: false },
         label: msg("fields.timeFormat", "Time Format"),
         type: "radio",
         options: [
@@ -109,6 +91,7 @@ export const hoursStatusWrapperFields: YextFields<HoursStatusProps> = {
         ],
       },
       showDayNames: {
+        generation: { required: false },
         label: msg("fields.showDayNames", "Show Day Names"),
         type: "radio",
         options: [
@@ -117,6 +100,7 @@ export const hoursStatusWrapperFields: YextFields<HoursStatusProps> = {
         ],
       },
       dayOfWeekFormat: {
+        generation: { required: false },
         label: msg("fields.dayOfWeekFormat", "Day of Week Format"),
         type: "radio",
         options: [
@@ -125,6 +109,10 @@ export const hoursStatusWrapperFields: YextFields<HoursStatusProps> = {
         ],
       },
       textColor: {
+        generation: {
+          instructions:
+            "Leave text color unset so the theme chooses it. A requested palette or background change does not by itself require a text color override. Do not infer a text color from imagery or surrounding content. Set a valid theme color when the user specifically requests a text color override.",
+        },
         type: "basicSelector",
         label: msg("fields.textColor", "Text Color"),
         options: "SITE_COLOR",
@@ -174,7 +162,6 @@ const HoursStatusWrapper: PuckComponent<HoursStatusProps> = ({
 };
 
 export const HoursStatus: YextComponentConfig<HoursStatusProps> = {
-  layoutGenerationMetadata: { props: hoursStatusSchema },
   ...gridAtomPermissions,
   label: msg("components.hoursStatus", "Hours Status"),
   fields: hoursStatusWrapperFields,

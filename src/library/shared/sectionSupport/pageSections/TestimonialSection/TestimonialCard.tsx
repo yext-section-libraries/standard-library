@@ -1,6 +1,3 @@
-import { z } from "zod";
-import { cardStyles } from "../../../zodSchemaHelpers/mappedCardsZodSchemas.ts";
-import { slotSchema } from "../../../zodSchemaHelpers/slots.ts";
 import * as React from "react";
 import { PuckComponent, Slot, WithId } from "@puckeditor/core";
 import {
@@ -27,15 +24,6 @@ import {
   useGetCardSlots,
   syncParentStyles,
 } from "@yext/visual-editor/section-library-support";
-
-const testimonialCardSchema = z.object({
-  styles: cardStyles,
-  slots: z.object({
-    DescriptionSlot: slotSchema(),
-    ContributorNameSlot: slotSchema(),
-    ContributionDateSlot: slotSchema(),
-  }),
-});
 
 const defaultTestimonial = {
   description: {
@@ -178,6 +166,7 @@ const testimonialCardFields: YextFields<TestimonialCardProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       backgroundColor: {
+        generation: { required: false },
         type: "basicSelector",
         label: msg("fields.backgroundColor", "Background Color"),
         options: "BACKGROUND_COLOR",
@@ -187,12 +176,27 @@ const testimonialCardFields: YextFields<TestimonialCardProps> = {
   slots: {
     type: "object",
     objectFields: {
-      DescriptionSlot: { type: "slot", allow: ["BodyTextSlot"] },
+      DescriptionSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["BodyTextSlot"],
+      },
       ContributorNameSlot: {
+        generation: {
+          singleChild: true,
+        },
         type: "slot",
         allow: ["HeadingTextSlot"],
       },
-      ContributionDateSlot: { type: "slot", allow: ["Timestamp"] },
+      ContributionDateSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["Timestamp"],
+      },
     },
     visible: false,
   },
@@ -340,7 +344,6 @@ const TestimonialCardComponent: PuckComponent<TestimonialCardProps> = (
 export const TestimonialCard: YextComponentConfig<TestimonialCardProps> = {
   label: msg("components.testimonialCard", "Testimonial Card"),
   fields: testimonialCardFields,
-  layoutGenerationMetadata: { props: testimonialCardSchema },
   inline: true,
   defaultProps: {
     styles: {

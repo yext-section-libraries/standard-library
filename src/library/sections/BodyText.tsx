@@ -1,9 +1,3 @@
-import { z } from "zod";
-import {
-  entityFieldSchema,
-  translatableRichTextSchema,
-} from "../shared/zodSchemaHelpers/data.ts";
-import { optionalTextColorSchema } from "../shared/zodSchemaHelpers/colors.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import * as React from "react";
@@ -25,14 +19,6 @@ import {
   YextFields,
   SectionConfig,
 } from "@yext/visual-editor";
-
-export const bodyTextSchema = z.object({
-  data: z.object({ text: entityFieldSchema(translatableRichTextSchema) }),
-  styles: z.object({
-    variant: z.enum(["xs", "sm", "base", "lg"]).nullable(),
-    color: optionalTextColorSchema,
-  }),
-});
 
 export type BodyTextProps = {
   data: {
@@ -81,11 +67,16 @@ const bodyTextFields: YextFields<BodyTextProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       variant: {
+        generation: { nullable: true },
         label: msg("fields.variant", "Variant"),
         type: "radio",
         options: ThemeOptions.BODY_VARIANT,
       },
       color: {
+        generation: {
+          instructions:
+            "Leave text color unset so the theme chooses it. A requested palette or background change does not by itself require a text color override. Do not infer a text color from imagery or surrounding content. Set a valid theme color when the user specifically requests a text color override.",
+        },
         type: "basicSelector",
         label: msg("fields.color", "Color"),
         options: "SITE_COLOR",
@@ -134,7 +125,6 @@ const BodyTextComponent: PuckComponent<BodyTextProps> = (props) => {
 };
 
 export const BodyText: YextComponentConfig<BodyTextProps> = {
-  layoutGenerationMetadata: { props: bodyTextSchema },
   ...gridAtomPermissions,
   label: msg("components.richText", "Rich Text"),
   fields: bodyTextFields,

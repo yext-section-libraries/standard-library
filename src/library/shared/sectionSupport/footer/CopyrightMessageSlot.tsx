@@ -1,7 +1,3 @@
-import { z } from "zod";
-import { translatableStringSchema } from "../../zodSchemaHelpers/data.ts";
-import { optionalTextColorSchema } from "../../zodSchemaHelpers/colors.ts";
-import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
 import { cva } from "class-variance-authority";
 import {
@@ -14,11 +10,6 @@ import {
 } from "@yext/visual-editor";
 import { Body } from "../atoms/body.tsx";
 import { useTranslation } from "react-i18next";
-
-const copyrightMessageSchema = z.object({
-  data: z.object({ text: translatableStringSchema }),
-  styles: z.object({ textColor: optionalTextColorSchema }).optional(),
-});
 
 export interface CopyrightMessageSlotProps {
   data: {
@@ -103,7 +94,6 @@ export const CopyrightMessageSlot: YextComponentConfig<CopyrightMessageSlotProps
   {
     label: msg("components.copyrightMessage", "Copyright Message"),
     layoutGenerationMetadata: {
-      props: copyrightMessageSchema,
       resolvedProps: ["/desktopContentAlignment", "/mobileContentAlignment"],
     },
     fields: {
@@ -119,10 +109,15 @@ export const CopyrightMessageSlot: YextComponentConfig<CopyrightMessageSlotProps
         },
       },
       styles: {
+        generation: { required: false },
         type: "object",
         label: msg("fields.styles", "Styles"),
         objectFields: {
           textColor: {
+            generation: {
+              instructions:
+                "Leave text color unset so the theme chooses it. A requested palette or background change does not by itself require a text color override. Do not infer a text color from imagery or surrounding content. Set a valid theme color when the user specifically requests a text color override.",
+            },
             type: "basicSelector",
             label: msg("fields.textColor", "Text Color"),
             options: "SITE_COLOR",

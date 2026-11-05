@@ -38,6 +38,8 @@ import {
   getTextColorClass,
   getTextColorStyle,
   themeManagerCn,
+  imageZodSchema,
+  LOCATOR_ENTITY_TYPES,
 } from "@yext/visual-editor/section-library-support";
 import { Body, BodyProps } from "../atoms/body.tsx";
 import { CTA, CTAVariant } from "../atoms/cta.tsx";
@@ -63,6 +65,7 @@ import {
   FaRegClock,
   FaRegEnvelope,
 } from "react-icons/fa";
+import { z } from "zod";
 
 export interface LocatorResultCardProps {
   /** The entity type this result card applies to. */
@@ -363,11 +366,14 @@ const getDisplayFieldOptions = (
 const DisplayFieldSelector = (
   fieldTypeId: string | string[]
 ): BasicSelectorField => ({
+  generation: { schema: z.string().optional() },
   type: "basicSelector",
   label: msg("fields.field", "Field"),
   options: () => getDisplayFieldOptions(fieldTypeId),
   translateOptions: false,
 });
+
+export const locatorEntityTypeSchema = z.enum(LOCATOR_ENTITY_TYPES);
 
 export const LocatorResultCardFields: YextObjectField<LocatorResultCardProps> =
   {
@@ -375,6 +381,7 @@ export const LocatorResultCardFields: YextObjectField<LocatorResultCardProps> =
     type: "object",
     objectFields: {
       entityType: {
+        generation: { schema: locatorEntityTypeSchema },
         label: msg("fields.entityType", "Entity Type"),
         type: "text",
         visible: false,
@@ -384,6 +391,7 @@ export const LocatorResultCardFields: YextObjectField<LocatorResultCardProps> =
         type: "object",
         objectFields: {
           constantValueEnabled: {
+            generation: { schema: z.boolean().optional() },
             type: "custom",
             render: ({
               value,
@@ -436,6 +444,7 @@ export const LocatorResultCardFields: YextObjectField<LocatorResultCardProps> =
         type: "object",
         objectFields: {
           constantValueEnabled: {
+            generation: { schema: z.boolean().optional() },
             type: "custom",
             render: ({
               value,
@@ -472,6 +481,7 @@ export const LocatorResultCardFields: YextObjectField<LocatorResultCardProps> =
             showFieldSelector: false,
           },
           variant: {
+            generation: { nullable: true },
             label: msg("fields.variant", "Variant"),
             type: "radio",
             options: ThemeOptions.BODY_VARIANT,
@@ -491,6 +501,7 @@ export const LocatorResultCardFields: YextObjectField<LocatorResultCardProps> =
         type: "object",
         objectFields: {
           constantValueEnabled: {
+            generation: { schema: z.boolean().optional() },
             type: "custom",
             render: ({
               value,
@@ -527,6 +538,7 @@ export const LocatorResultCardFields: YextObjectField<LocatorResultCardProps> =
             showFieldSelector: false,
           },
           variant: {
+            generation: { nullable: true },
             label: msg("fields.variant", "Variant"),
             type: "radio",
             options: ThemeOptions.BODY_VARIANT,
@@ -787,6 +799,7 @@ export const LocatorResultCardFields: YextObjectField<LocatorResultCardProps> =
         type: "object",
         objectFields: {
           constantValueEnabled: {
+            generation: { schema: z.boolean().optional() },
             type: "custom",
             render: ({
               value,
@@ -803,7 +816,10 @@ export const LocatorResultCardFields: YextObjectField<LocatorResultCardProps> =
               />
             ),
           },
-          constantValue: LOCATOR_IMAGE_CONSTANT_CONFIG,
+          constantValue: {
+            ...LOCATOR_IMAGE_CONSTANT_CONFIG,
+            generation: { schema: imageZodSchema.optional() },
+          },
           field: DisplayFieldSelector("type.image"),
           liveVisibility: {
             label: msg("fields.visibleOnLivePage", "Visible on Live Page"),

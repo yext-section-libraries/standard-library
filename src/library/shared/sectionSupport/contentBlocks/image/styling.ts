@@ -28,6 +28,7 @@ export const ImageStylingFields: YextFields<ImageStylingProps> = {
     visible: false,
   },
   imageFillType: {
+    generation: { required: false },
     type: "basicSelector",
     label: msg("fields.imageFillType", "Image Fill Type"),
     options: [
@@ -36,6 +37,7 @@ export const ImageStylingFields: YextFields<ImageStylingProps> = {
     ],
   },
   width: {
+    generation: { required: false },
     type: "number",
     label: msg("fields.options.width", "Width"),
     min: 0,

@@ -1,12 +1,13 @@
-import { z } from "zod";
-import { backgroundColorSchema } from "../shared/zodSchemaHelpers/colors.ts";
-import { slotSchema } from "../shared/zodSchemaHelpers/slots.ts";
 import { PuckComponent, Slot, SlotComponent } from "@puckeditor/core";
 import {
   backgroundColors,
   SectionConfig,
   ThemeColor,
   ThemeOptions,
+} from "@yext/visual-editor";
+import { PageSection } from "../shared/sectionSupport/atoms/pageSection.tsx";
+import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
+import {
   msg,
   getAnalyticsScopeHash,
   FAQStruct,
@@ -14,8 +15,6 @@ import {
   YextFields,
   createSlottedItemSource,
 } from "@yext/visual-editor";
-import { PageSection } from "../shared/sectionSupport/atoms/pageSection.tsx";
-import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
 import { HeadingTextProps } from "./HeadingText.tsx";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import {
@@ -28,45 +27,6 @@ import {
 } from "@yext/visual-editor/section-library-support";
 import { EntityFieldSectionEmptyStateBox } from "../shared/sectionSupport/pageSections/EntityFieldSectionEmptyState.tsx";
 import { MappedEntityFieldConditionalRender } from "../shared/sectionSupport/pageSections/entityFieldSectionUtils.ts";
-
-const faqMappingSchema = z.strictObject({
-  field: z.string(),
-  constantValueEnabled: z.literal(false),
-});
-
-export const faqSectionSchema = z.object({
-  data: z
-    .object({
-      field: z.string(),
-      constantValueEnabled: z.boolean().optional(),
-      mappings: z
-        .object({
-          question: faqMappingSchema,
-          answer: faqMappingSchema,
-        })
-        .optional()
-        .describe(
-          "Entity field bindings for linked FAQs only. Static questions and answers belong in slots.CardSlot FAQCard children."
-        ),
-    })
-    .describe(
-      "For manual FAQs, use field: empty string and constantValueEnabled: true, omit mappings, and author FAQCard children in slots.CardSlot. For linked FAQs, use a nonempty source field and constantValueEnabled: false with question/answer entity bindings. Card references are assigned automatically."
-    ),
-  styles: z.object({
-    backgroundColor: backgroundColorSchema.optional(),
-    showSectionHeading: z.boolean(),
-  }),
-  slots: z.object({
-    HeadingSlot: slotSchema(),
-    CardSlot: z
-      .array(z.unknown())
-      .describe(
-        "Ordered FAQCard children for manual FAQs, or select the default cards. Leave empty or select defaults in linked mode."
-      ),
-  }),
-  analytics: z.object({ scope: z.string().optional() }),
-  liveVisibility: z.boolean(),
-});
 
 export interface FAQStyles {
   /**
@@ -135,12 +95,19 @@ export const faqCardsSource = createSlottedItemSource<FAQStruct, FAQCardProps>({
 });
 
 const FAQsSectionFields: YextFields<FAQSectionProps> = {
-  data: faqCardsSource.field,
+  data: {
+    ...faqCardsSource.field,
+    generation: {
+      instructions:
+        "Use question/answer entity bindings for linked FAQs. Card references are assigned automatically.",
+    },
+  },
   styles: {
     type: "object",
     label: msg("fields.styles", "Styles"),
     objectFields: {
       backgroundColor: {
+        generation: { required: false },
         type: "basicSelector",
         label: msg("fields.backgroundColor", "Background Color"),
         options: "BACKGROUND_COLOR",
@@ -155,8 +122,21 @@ const FAQsSectionFields: YextFields<FAQSectionProps> = {
   slots: {
     type: "object",
     objectFields: {
-      HeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
-      CardSlot: { type: "slot", allow: [] },
+      HeadingSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["HeadingTextSlot"],
+      },
+      CardSlot: {
+        generation: {
+          instructions:
+            "Ordered FAQCard children for manual FAQs, or select the default cards. Leave empty or select defaults in linked mode.",
+        },
+        type: "slot",
+        allow: [],
+      },
     },
     visible: false,
   },
@@ -166,6 +146,7 @@ const FAQsSectionFields: YextFields<FAQSectionProps> = {
     visible: false,
     objectFields: {
       scope: {
+        generation: { required: false },
         label: msg("fields.scope", "Scope"),
         type: "text",
       },
@@ -219,7 +200,6 @@ export const FAQSection: YextComponentConfig<FAQSectionProps> = {
   label: msg("components.faqs", "FAQs"),
   fields: FAQsSectionFields,
   layoutGenerationMetadata: {
-    props: faqSectionSchema,
     slottedItemSource: faqCardsSource.generationMetadata,
   },
   defaultProps: {

@@ -1,14 +1,4 @@
-import { z } from "zod";
-import {
-  entityFieldSchema,
-  translatableRichTextSchema,
-} from "../shared/zodSchemaHelpers/data.ts";
-import {
-  backgroundColorSchema,
-  optionalTextColorSchema,
-} from "../shared/zodSchemaHelpers/colors.ts";
 import { useTranslation } from "react-i18next";
-import * as React from "react";
 import "@yext/visual-editor/style.css";
 import {
   YextEntityField,
@@ -36,16 +26,6 @@ import {
   useTemplateMetadata,
   ComponentErrorBoundary,
 } from "@yext/visual-editor/section-library-support";
-
-const bannerSectionSchema = z.object({
-  data: z.object({ text: entityFieldSchema(translatableRichTextSchema) }),
-  styles: z.object({
-    backgroundColor: backgroundColorSchema.optional(),
-    textColor: optionalTextColorSchema,
-    textAlignment: z.enum(["left", "right", "center"]),
-  }),
-  liveVisibility: z.boolean(),
-});
 
 export interface BannerData {
   /**
@@ -120,11 +100,16 @@ const bannerSectionFields: YextFields<BannerSectionProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       backgroundColor: {
+        generation: { required: false },
         type: "basicSelector",
         label: msg("fields.backgroundColor", "Background Color"),
         options: "BACKGROUND_COLOR",
       },
       textColor: {
+        generation: {
+          instructions:
+            "Leave text color unset so the theme chooses it. A requested palette or background change does not by itself require a text color override. Do not infer a text color from imagery or surrounding content. Set a valid theme color when the user specifically requests a text color override.",
+        },
         type: "basicSelector",
         label: msg("fields.textColor", "Text Color"),
         options: "SITE_COLOR",
@@ -276,7 +261,6 @@ export const defaultBannerProps: BannerSectionProps = {
 };
 
 export const BannerSection: YextComponentConfig<BannerSectionProps> = {
-  layoutGenerationMetadata: { props: bannerSectionSchema },
   label: msg("components.banner", "Banner"),
   fields: bannerSectionFields,
   defaultProps: defaultBannerProps,

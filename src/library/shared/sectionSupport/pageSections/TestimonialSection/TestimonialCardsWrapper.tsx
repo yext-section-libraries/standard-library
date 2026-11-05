@@ -2,13 +2,6 @@ import {
   applyCardHeadingLevel,
   CardHeadingLevelProps,
 } from "../cardHeadingLevel.ts";
-import {
-  cardsWrapperSchema,
-  richTextMapping,
-  textMapping,
-  dateMapping,
-} from "../../../zodSchemaHelpers/mappedCardsZodSchemas.ts";
-import { z } from "zod";
 import { PuckComponent } from "@puckeditor/core";
 import {
   TestimonialStruct,
@@ -28,15 +21,6 @@ import {
 } from "./TestimonialCard.tsx";
 import { renderMappedEntityFieldEmptyState } from "../EntityFieldSectionEmptyState.tsx";
 import { MappedEntityFieldConditionalRender } from "../entityFieldSectionUtils.ts";
-
-const testimonialCardsWrapperSchema = cardsWrapperSchema(
-  {
-    description: richTextMapping,
-    contributorName: textMapping,
-    contributionDate: dateMapping,
-  },
-  { showName: z.boolean(), showDate: z.boolean() }
-);
 
 export const testimonialCardsSource = createSlottedItemSource<
   TestimonialStruct,
@@ -92,7 +76,13 @@ const testimonialCardsWrapperFields: YextFields<TestimonialCardsWrapperProps> =
     slots: {
       type: "object",
       objectFields: {
-        CardSlot: { type: "slot" },
+        CardSlot: {
+          generation: {
+            instructions:
+              "Ordered manual card children. An explicit [] means zero cards; $default selects library defaults.",
+          },
+          type: "slot",
+        },
       },
       visible: false,
     },
@@ -134,7 +124,6 @@ export const TestimonialCardsWrapper: YextComponentConfig<TestimonialCardsWrappe
     label: msg("components.testimonialCardsWrapper", "Testimonial Cards"),
     fields: testimonialCardsWrapperFields,
     layoutGenerationMetadata: {
-      props: testimonialCardsWrapperSchema,
       slottedItemSource: testimonialCardsSource.generationMetadata,
     },
     defaultProps: {

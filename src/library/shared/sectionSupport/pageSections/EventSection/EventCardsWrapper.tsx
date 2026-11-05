@@ -2,15 +2,6 @@ import {
   applyCardHeadingLevel,
   CardHeadingLevelProps,
 } from "../cardHeadingLevel.ts";
-import {
-  cardsWrapperSchema,
-  imageMapping,
-  textMapping,
-  dateMapping,
-  richTextMapping,
-  ctaMapping,
-} from "../../../zodSchemaHelpers/mappedCardsZodSchemas.ts";
-import { z } from "zod";
 import { PuckComponent } from "@puckeditor/core";
 import {
   EventStruct,
@@ -27,22 +18,6 @@ import {
 import { defaultEventCardSlotData, EventCardProps } from "./EventCard.tsx";
 import { renderMappedEntityFieldEmptyState } from "../EntityFieldSectionEmptyState.tsx";
 import { MappedEntityFieldConditionalRender } from "../entityFieldSectionUtils.ts";
-
-const eventCardsWrapperSchema = cardsWrapperSchema(
-  {
-    image: imageMapping,
-    title: textMapping,
-    dateTime: dateMapping,
-    description: richTextMapping,
-    cta: ctaMapping,
-  },
-  {
-    showImage: z.boolean(),
-    showDateTime: z.boolean(),
-    showDescription: z.boolean(),
-    showCTA: z.boolean(),
-  }
-);
 
 export const eventCardsSource = createSlottedItemSource<
   EventStruct,
@@ -99,7 +74,13 @@ const eventCardsWrapperFields: YextFields<EventCardsWrapperProps> = {
   slots: {
     type: "object",
     objectFields: {
-      CardSlot: { type: "slot" },
+      CardSlot: {
+        generation: {
+          instructions:
+            "Ordered manual card children. An explicit [] means zero cards; $default selects library defaults.",
+        },
+        type: "slot",
+      },
     },
     visible: false,
   },
@@ -147,7 +128,6 @@ export const EventCardsWrapper: YextComponentConfig<EventCardsWrapperProps> = {
   label: msg("components.eventCardsWrapper", "Event Cards"),
   fields: eventCardsWrapperFields,
   layoutGenerationMetadata: {
-    props: eventCardsWrapperSchema,
     slottedItemSource: eventCardsSource.generationMetadata,
   },
   defaultProps: {

@@ -1,9 +1,3 @@
-import { z } from "zod";
-import {
-  entityFieldSchema,
-  imageSchema,
-  translatableStringSchema,
-} from "../shared/zodSchemaHelpers/data.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import { ComplexImageType, ImageType } from "@yext/pages-components";
@@ -37,23 +31,6 @@ import {
   ImageStylingProps,
 } from "../shared/sectionSupport/contentBlocks/image/styling.ts";
 import { SectionConfig } from "@yext/visual-editor";
-
-export const imageWrapperSchema = z.object({
-  data: z.object({
-    image: entityFieldSchema(imageSchema).describe(
-      "The image content or entity field."
-    ),
-    link: translatableStringSchema.optional(),
-  }),
-  styles: z
-    .object({
-      aspectRatio: z.number().positive(),
-      width: z.number().min(0).optional(),
-      imageConstrain: z.enum(["fill", "fixed"]).optional(),
-      imageFillType: z.enum(["fill", "fit"]).optional(),
-    })
-    .describe("Image size and aspect ratio."),
-});
 
 const PLACEHOLDER_IMAGE_URL = "https://placehold.co/640x360";
 const DEFAULT_LINK = "#";
@@ -94,6 +71,7 @@ export const ImageWrapperFields: YextFields<ImageWrapperProps> = {
     label: msg("fields.data", "Data"),
     objectFields: {
       image: {
+        generation: { instructions: "The image content or entity field." },
         type: "entityField",
         label: msg("fields.options.image", "Image"),
         filter: {
@@ -101,12 +79,14 @@ export const ImageWrapperFields: YextFields<ImageWrapperProps> = {
         },
       },
       link: {
+        generation: { required: false },
         type: "translatableString",
         label: msg("fields.link", "Link"),
       },
     },
   },
   styles: {
+    generation: { instructions: "Image size and aspect ratio." },
     type: "object",
     label: msg("fields.styles", "Styles"),
     objectFields: {
@@ -114,6 +94,7 @@ export const ImageWrapperFields: YextFields<ImageWrapperProps> = {
     },
   },
   showImageConstrain: {
+    generation: { exclude: true },
     label: msg("fields.showImageConstrain", "Show Image Constrain"),
     type: "radio",
     options: [
@@ -272,7 +253,6 @@ export const imageDefaultProps = {
 };
 
 export const ImageWrapper: YextComponentConfig<ImageWrapperProps> = {
-  layoutGenerationMetadata: { props: imageWrapperSchema },
   ...gridAtomPermissions,
   label: msg("components.image", "Image"),
   inline: true,

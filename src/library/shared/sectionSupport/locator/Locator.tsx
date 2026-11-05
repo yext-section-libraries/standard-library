@@ -21,24 +21,26 @@ import {
   YextComponentConfig,
   YextFields,
 } from "@yext/visual-editor/section-library-support";
-import { ImageStylingFields } from "../contentBlocks/image/styling";
 import { getFacetFieldOptions, KEYWORDS_FIELD } from "./Filters";
 import {
   DEFAULT_LOCATOR_RESULT_CARD_PROPS,
   DistanceDisplayOption,
   LocatorResultCardProps,
+  locatorEntityTypeSchema,
 } from "./LocatorResultCard";
 import { ResultCardPropsField } from "./Results";
 import { LocatorWrapper } from "./LocatorWrapper";
-import { locatorSchema } from "./locatorZodSchemas.ts";
 import {
   DEFAULT_LOCATION_STYLE,
   DEFAULT_MAKI_ICON_NAME,
   DEFAULT_PIN_ICON_WIDTH,
-  LOCATOR_PIN_ICON_FIELD,
-  MAX_PIN_ICON_WIDTH,
-  makiIconOptions,
 } from "./Map";
+import { locatorPinIconFields } from "./locatorPinIconFields.ts";
+import {
+  locatorFacetFieldsSchema,
+  locatorPinIconSchema,
+  locatorResultCardSchema,
+} from "./locatorZodSchemas.ts";
 const DEFAULT_TITLE = "Find a Location";
 const DEFAULT_DISTANCE_DISPLAY = "distanceFromUser";
 
@@ -167,17 +169,23 @@ const locatorFields: YextFields<LocatorProps> = {
     ],
   },
   locationStyles: {
+    generation: {
+      instructions:
+        "One pin style per active locator entity type; membership is managed by the page set.",
+    },
     type: "array",
     label: msg("fields.pinStyles", "Location styles"),
     getItemSummary: (item: LocatorProps["locationStyles"][number]) =>
       getEntityTypeLabel(item.entityType),
     arrayFields: {
       entityType: {
+        generation: { schema: locatorEntityTypeSchema },
         label: msg("fields.entityType", "Entity Type"),
         type: "text",
         visible: false,
       },
       pinIcon: {
+        generation: { schema: locatorPinIconSchema },
         type: "custom",
         render: ({
           value,
@@ -189,24 +197,7 @@ const locatorFields: YextFields<LocatorProps> = {
           return (
             <div className="flex flex-col gap-3">
               <YextAutoField
-                field={{
-                  type: "basicSelector",
-                  label: msg("fields.pinIcon", "Pin Icon"),
-                  options: [
-                    {
-                      label: msg("fields.options.none", "None"),
-                      value: "none",
-                    },
-                    {
-                      label: msg("fields.options.icon", "Icon"),
-                      value: "icon",
-                    },
-                    {
-                      label: msg("fields.options.customImage", "Custom image"),
-                      value: "customImage",
-                    },
-                  ],
-                }}
+                field={locatorPinIconFields.type}
                 value={selectedType}
                 onChange={(type) =>
                   onChange({
@@ -221,11 +212,7 @@ const locatorFields: YextFields<LocatorProps> = {
               />
               {selectedType === "icon" && (
                 <YextAutoField
-                  field={{
-                    type: "basicSelector",
-                    label: msg("fields.icon", "Icon"),
-                    options: makiIconOptions,
-                  }}
+                  field={locatorPinIconFields.iconName}
                   value={value?.iconName}
                   onChange={(iconName) =>
                     onChange({ ...value, type: "icon", iconName })
@@ -235,9 +222,7 @@ const locatorFields: YextFields<LocatorProps> = {
               {selectedType === "customImage" && (
                 <>
                   <YextAutoField
-                    field={{
-                      ...LOCATOR_PIN_ICON_FIELD,
-                    }}
+                    field={locatorPinIconFields.image}
                     value={value?.image}
                     onChange={(image) =>
                       onChange({ ...value, type: "customImage", image })
@@ -245,11 +230,7 @@ const locatorFields: YextFields<LocatorProps> = {
                   />
                   <FieldLabel label={pt("fields.options.width", "Width")}>
                     <YextAutoField
-                      field={{
-                        type: "number",
-                        min: 1,
-                        max: MAX_PIN_ICON_WIDTH,
-                      }}
+                      field={locatorPinIconFields.width}
                       value={value?.width ?? DEFAULT_PIN_ICON_WIDTH}
                       onChange={(width) =>
                         onChange({
@@ -261,7 +242,7 @@ const locatorFields: YextFields<LocatorProps> = {
                     />
                   </FieldLabel>
                   <YextAutoField
-                    field={ImageStylingFields.aspectRatio}
+                    field={locatorPinIconFields.aspectRatio}
                     value={value?.aspectRatio}
                     onChange={(aspectRatio) =>
                       onChange({
@@ -278,6 +259,7 @@ const locatorFields: YextFields<LocatorProps> = {
         },
       },
       pinColor: {
+        generation: { required: false },
         type: "basicSelector",
         label: msg("fields.pinColor", "Pin Color"),
         options: "BACKGROUND_COLOR",
@@ -318,20 +300,23 @@ const locatorFields: YextFields<LocatorProps> = {
         options: "SITE_COLOR",
       },
       facetFields: {
-        type: "multiSelector",
-        label: msg("fields.dynamicFilters", "Dynamic Filters"),
-        dropdownLabel: msg("fields.field", "Field"),
-        options: () => {
-          const entityTypeSourceMap = getLocatorEntityTypeSourceMap();
-          const entityTypes =
-            Object.keys(entityTypeSourceMap).filter(isLocatorEntityType);
-          return getFacetFieldOptions(entityTypes);
-        },
-        placeholderOptionLabel: msg(
-          "fields.options.selectAField",
-          "Select a field"
-        ),
-      } as any, // TODO(SUMO-8378): remove 'as any' when puck fixes objectFields typing
+        ...({
+          type: "multiSelector",
+          label: msg("fields.dynamicFilters", "Dynamic Filters"),
+          dropdownLabel: msg("fields.field", "Field"),
+          options: () => {
+            const entityTypeSourceMap = getLocatorEntityTypeSourceMap();
+            const entityTypes =
+              Object.keys(entityTypeSourceMap).filter(isLocatorEntityType);
+            return getFacetFieldOptions(entityTypes);
+          },
+          placeholderOptionLabel: msg(
+            "fields.options.selectAField",
+            "Select a field"
+          ),
+        } as any),
+        generation: { schema: locatorFacetFieldsSchema },
+      }, // TODO(SUMO-8378): remove 'as any' when puck fixes objectFields typing
       keywordsDisplayName: {
         type: "translatableString",
         label: msg("fields.keywordsDisplayName", "Keywords Display Name"),
@@ -351,16 +336,19 @@ const locatorFields: YextFields<LocatorProps> = {
     label: msg("fields.options.mapStartingLocation", "Map Starting Location"),
     objectFields: {
       latitude: {
+        generation: { required: true },
         label: msg("fields.latitude", "Latitude"),
         type: "text",
       },
       longitude: {
+        generation: { required: true },
         label: msg("fields.longitude", "Longitude"),
         type: "text",
       },
     },
   },
   pageHeading: {
+    generation: { required: false },
     type: "object",
     label: msg("fields.pageHeading", "Page Heading"),
     objectFields: {
@@ -377,12 +365,17 @@ const locatorFields: YextFields<LocatorProps> = {
     },
   },
   resultCard: {
+    generation: {
+      instructions:
+        "One result-card configuration per active locator entity type, matching locationStyles.",
+    },
     type: "array",
     label: msg("fields.resultCard", "Result Card"),
     getItemSummary: (item: LocatorProps["resultCard"][number]) =>
       getEntityTypeLabel(item.props.entityType),
     arrayFields: {
       props: {
+        generation: { schema: locatorResultCardSchema },
         type: "custom",
         render: ({
           value,
@@ -397,6 +390,7 @@ const locatorFields: YextFields<LocatorProps> = {
     },
   },
   distanceDisplay: {
+    generation: { required: false },
     type: "basicSelector",
     label: msg("fields.distanceDisplay", "Distance Display"),
     options: [
@@ -425,7 +419,6 @@ const locatorFields: YextFields<LocatorProps> = {
  */
 export const LocatorComponent: YextComponentConfig<LocatorProps> = {
   fields: locatorFields,
-  layoutGenerationMetadata: { props: locatorSchema },
   /**
    * Locks array lengths for `locationStyles` and `resultCard` to the current
    * locator entity types so each entity type has exactly one entry.

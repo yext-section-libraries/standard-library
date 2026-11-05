@@ -1,20 +1,15 @@
-import defaultLayout from "../../library/layouts/standard-library/defaultLayout.json";
+import { describe, expect, it } from "vitest";
 import directoryLayout from "../../library/layouts/standard-library-directory/defaultLayout.json";
 import locatorLayout from "../../library/layouts/standard-library-locator/defaultLayout.json";
-import { describe, expect, it } from "vitest";
-import { PromoSection } from "../../library/sections/PromoSection.tsx";
+import defaultLayout from "../../library/layouts/standard-library/defaultLayout.json";
 import {
-  components,
-  sectionNames,
-  makeLayout,
   authored,
+  catalog,
+  generationSchema,
+  makeLayout,
   resolve,
+  sectionNames,
 } from "./generationTestUtils.ts";
-import { backgroundColorSchema } from "../../library/shared/zodSchemaHelpers/colors.ts";
-import {
-  translatableRichTextSchema,
-  imageSchema,
-} from "../../library/shared/zodSchemaHelpers/data.ts";
 
 describe("component-owned generation contracts", () => {
   it.each([defaultLayout, directoryLayout, locatorLayout])(
@@ -25,12 +20,10 @@ describe("component-owned generation contracts", () => {
         if (
           value.type &&
           value.props &&
-          components[value.type]?.layoutGenerationMetadata
+          catalog.data.components[value.type]?.generation
         ) {
           expect(
-            components[value.type].layoutGenerationMetadata!.props.safeParse(
-              value.props
-            ).success,
+            generationSchema(value.type).safeParse(value.props).success,
             value.type
           ).toBe(true);
         }
@@ -73,12 +66,16 @@ describe("component-owned generation contracts", () => {
       defaultValue: "Image",
       fr: "Illustration",
     };
-    expect(translatableRichTextSchema.parse(richText)).toEqual(richText);
+    const description = props.slots.DescriptionSlot[0];
     expect(
-      imageSchema.safeParse(
-        props.slots.ImageSlot[0].props.data.image.constantValue
-      ).success
-    ).toBe(true);
+      generationSchema(description.type).parse(description.props)
+    ).toMatchObject({
+      data: { text: { constantValue: richText } },
+    });
+    const image = props.slots.ImageSlot[0];
+    expect(generationSchema(image.type).safeParse(image.props).success).toBe(
+      true
+    );
     for (const locale of ["en", "fr"]) {
       const resolved = await resolve(layout, { locale, name: "Entity name" });
       expect(authored(resolved)).toEqual(authored(layout));
@@ -86,24 +83,23 @@ describe("component-owned generation contracts", () => {
   });
 
   it("keeps bracketed custom color and scalar constraints", () => {
-    expect(
-      backgroundColorSchema.safeParse({
-        selectedColor: "[#FFBBC7]",
-        contrastingColor: "black",
-        isDarkColor: false,
-      }).success
-    ).toBe(true);
-    expect(
-      backgroundColorSchema.safeParse({
-        selectedColor: "#FFBBC7",
-        contrastingColor: "black",
-        isDarkColor: false,
-      }).success
-    ).toBe(false);
     const props = makeLayout("PromoSection").content[0].props;
+    props.styles.backgroundColor = {
+      selectedColor: "[#FFBBC7]",
+      contrastingColor: "black",
+      isDarkColor: false,
+    };
+    expect(generationSchema("PromoSection").safeParse(props).success).toBe(
+      true
+    );
+    props.styles.backgroundColor.selectedColor = "#FFBBC7";
+    expect(generationSchema("PromoSection").safeParse(props).success).toBe(
+      false
+    );
+    props.styles.backgroundColor.selectedColor = "[#FFBBC7]";
     props.styles.imageHeight = -1;
-    expect(
-      PromoSection.layoutGenerationMetadata!.props.safeParse(props).success
-    ).toBe(false);
+    expect(generationSchema("PromoSection").safeParse(props).success).toBe(
+      false
+    );
   });
 });

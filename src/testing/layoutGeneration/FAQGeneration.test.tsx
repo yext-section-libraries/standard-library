@@ -1,23 +1,25 @@
+import { resolveAllData } from "@puckeditor/core";
+import { cleanup, render } from "@testing-library/react";
+import { getDefaultRTF, resolveComponentData } from "@yext/visual-editor";
+import { describe, expect, it } from "vitest";
 import {
-  faqCardSchema,
-  FAQCard,
-  defaultFAQCardData,
-} from "../../library/shared/sectionSupport/pageSections/FAQsSection/FAQCard.tsx";
-import {
-  faqSectionSchema,
   FAQSection,
   faqCardsSource,
 } from "../../library/sections/FAQSection.tsx";
-import { describe, expect, it } from "vitest";
-import { resolveAllData } from "@puckeditor/core";
 import { HeadingText } from "../../library/sections/HeadingText.tsx";
-import { getDefaultRTF, resolveComponentData } from "@yext/visual-editor";
-import { render, cleanup } from "@testing-library/react";
+import {
+  FAQCard,
+  defaultFAQCardData,
+} from "../../library/shared/sectionSupport/pageSections/FAQsSection/FAQCard.tsx";
+import { generationSchema } from "./generationTestUtils.ts";
 
 const config = {
   components: { FAQSection, FAQCard, HeadingTextSlot: HeadingText },
 };
 const copy = <T,>(value: T): T => structuredClone(value);
+
+const faqCardSchema = generationSchema("FAQCard");
+const faqSectionSchema = generationSchema("FAQSection");
 
 describe("FAQ generation contracts", () => {
   it.each(["question", "answer"])(
@@ -70,15 +72,16 @@ describe("FAQ generation contracts", () => {
           },
         },
       });
+      const parsedData = parsed.data as any;
       const view = render(
         <>
           {resolveComponentData(
-            parsed.data.question,
+            parsedData.question,
             "fr",
             {},
             { output: "plainText" }
           )}
-          {resolveComponentData(parsed.data.answer, "fr", {})}
+          {resolveComponentData(parsedData.answer, "fr", {})}
         </>
       );
       expect(view.container.textContent).toBe(

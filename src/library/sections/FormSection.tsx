@@ -1242,6 +1242,7 @@ export const FormSection: YextComponentConfig<FormSectionProps> = {
       <FormSectionComponent {...props} />
     </VisibilityWrapper>
   ),
+  layoutGenerationMetadata: { exclude: true },
 };
 
 export const config: SectionConfig = {

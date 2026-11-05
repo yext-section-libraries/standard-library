@@ -1,6 +1,3 @@
-import { z } from "zod";
-import { cardStyles } from "../../../zodSchemaHelpers/mappedCardsZodSchemas.ts";
-import { slotSchema } from "../../../zodSchemaHelpers/slots.ts";
 import * as React from "react";
 import { PuckComponent, Slot, WithId, setDeep } from "@puckeditor/core";
 import {
@@ -30,18 +27,6 @@ import {
   syncParentStyles,
 } from "@yext/visual-editor/section-library-support";
 import { TextProps } from "../../../../sections/Text.tsx";
-
-const teamCardSchema = z.object({
-  styles: cardStyles,
-  slots: z.object({
-    ImageSlot: slotSchema(),
-    NameSlot: slotSchema(),
-    TitleSlot: slotSchema(),
-    PhoneSlot: slotSchema(),
-    EmailSlot: slotSchema(),
-    CTASlot: slotSchema(),
-  }),
-});
 
 const defaultPerson = {
   name: { defaultValue: "First Last" },
@@ -270,6 +255,7 @@ const teamCardFields: YextFields<TeamCardProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       backgroundColor: {
+        generation: { required: false },
         type: "basicSelector",
         label: msg("fields.backgroundColor", "Background Color"),
         options: "BACKGROUND_COLOR",
@@ -279,12 +265,48 @@ const teamCardFields: YextFields<TeamCardProps> = {
   slots: {
     type: "object",
     objectFields: {
-      ImageSlot: { type: "slot", allow: ["ImageSlot"] },
-      NameSlot: { type: "slot", allow: ["HeadingTextSlot"] },
-      TitleSlot: { type: "slot", allow: ["TextSlot"] },
-      PhoneSlot: { type: "slot", allow: ["PhoneNumbersSlot"] },
-      EmailSlot: { type: "slot", allow: ["EmailsSlot"] },
-      CTASlot: { type: "slot", allow: ["CTASlot"] },
+      ImageSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["ImageSlot"],
+      },
+      NameSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["HeadingTextSlot"],
+      },
+      TitleSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["TextSlot"],
+      },
+      PhoneSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["PhoneNumbersSlot"],
+      },
+      EmailSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["EmailsSlot"],
+      },
+      CTASlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["CTASlot"],
+      },
     },
     visible: false,
   },
@@ -458,7 +480,6 @@ const TeamCardComponent: PuckComponent<TeamCardProps> = (props) => {
 export const TeamCard: YextComponentConfig<TeamCardProps> = {
   label: msg("components.teamCard", "Team Card"),
   fields: teamCardFields,
-  layoutGenerationMetadata: { props: teamCardSchema },
   inline: true,
   defaultProps: {
     styles: {

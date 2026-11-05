@@ -1,7 +1,3 @@
-import { z } from "zod";
-import { enhancedCtaSchema } from "../../zodSchemaHelpers/data.ts";
-import { optionalSiteColorSchema } from "../../zodSchemaHelpers/colors.ts";
-import * as React from "react";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import { cva } from "class-variance-authority";
 import { CTA } from "../atoms/cta.tsx";
@@ -23,11 +19,6 @@ import {
   YextFields,
 } from "@yext/visual-editor";
 import { resolveLocalizedCtas } from "../../utils/resolveLocalizedCtas.ts";
-
-const footerLinksSchema = z.object({
-  data: z.object({ links: z.array(enhancedCtaSchema) }),
-  color: optionalSiteColorSchema,
-});
 
 export interface FooterLinksSlotProps {
   data: {
@@ -272,6 +263,10 @@ const footerLinksSlotFields: YextFields<FooterLinksSlotProps> = {
         label: msg("fields.links", "Links"),
         arrayFields: {
           linkType: {
+            generation: {
+              required: false,
+              instructions: "The type of the link for analytics",
+            },
             label: msg("fields.linkType", "Link Type"),
             type: "radio",
             options: [
@@ -296,6 +291,10 @@ const footerLinksSlotFields: YextFields<FooterLinksSlotProps> = {
             type: "translatableString",
           },
           normalizeLink: {
+            generation: {
+              required: false,
+              instructions: "Whether to standardize characters and casing",
+            },
             label: msg("fields.normalizeLink", "Normalize Link"),
             type: "radio",
             options: [
@@ -304,6 +303,10 @@ const footerLinksSlotFields: YextFields<FooterLinksSlotProps> = {
             ],
           },
           openInNewTab: {
+            generation: {
+              required: false,
+              instructions: "Whether to open in a new tab",
+            },
             label: msg("fields.openInNewTab", "Open in new tab"),
             type: "radio",
             options: [
@@ -323,11 +326,16 @@ const footerLinksSlotFields: YextFields<FooterLinksSlotProps> = {
     },
   },
   color: {
+    generation: {
+      instructions:
+        "Omit this property to use the default theme color. Set it only when the user explicitly requests a color override.",
+    },
     type: "basicSelector",
     label: msg("fields.color", "Color"),
     options: "SITE_COLOR",
   },
   variant: {
+    generation: { exclude: true },
     type: "radio",
     options: [
       { label: "Primary", value: "primary" },
@@ -336,6 +344,7 @@ const footerLinksSlotFields: YextFields<FooterLinksSlotProps> = {
     visible: false,
   },
   eventNamePrefix: {
+    generation: { exclude: true },
     type: "text",
     visible: false,
   },
@@ -345,7 +354,6 @@ export const FooterLinksSlot: YextComponentConfig<FooterLinksSlotProps> = {
   label: msg("components.footerLinksSlot", "Links"),
   fields: footerLinksSlotFields,
   layoutGenerationMetadata: {
-    props: footerLinksSchema,
     resolvedProps: ["/desktopContentAlignment", "/mobileContentAlignment"],
   },
   resolveFields: (data) =>

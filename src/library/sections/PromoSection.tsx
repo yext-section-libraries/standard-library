@@ -1,17 +1,3 @@
-import {
-  assetVideoSchema,
-  VideoProps,
-} from "../shared/sectionSupport/contentBlocks/Video.tsx";
-import { z } from "zod";
-import {
-  entityFieldSchema,
-  translatableStringSchema,
-  translatableRichTextSchema,
-  imageSchema,
-  enhancedCtaSchema,
-} from "../shared/zodSchemaHelpers/data.ts";
-import { backgroundColorSchema } from "../shared/zodSchemaHelpers/colors.ts";
-import { slotSchema } from "../shared/zodSchemaHelpers/slots.ts";
 import { setDeep, Slot } from "@puckeditor/core";
 import {
   PromoSectionType,
@@ -23,6 +9,7 @@ import {
   ComponentFields,
   YextEntityField,
   resolveYextEntityField,
+  i18nPageInstance,
   getDefaultRTF,
   themeManagerCn,
   useDocument,
@@ -32,13 +19,16 @@ import {
   YextComponentConfig,
   YextFields,
   SectionConfig,
-  i18nPageInstance,
 } from "@yext/visual-editor";
 import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
 import { BodyTextProps } from "./BodyText.tsx";
 import { CTAWrapperProps } from "./CTAWrapper.tsx";
 import { HeadingTextProps } from "./HeadingText.tsx";
 import { ImageWrapperProps } from "./ImageWrapper.tsx";
+import {
+  VideoProps,
+  assetVideoSchema,
+} from "../shared/sectionSupport/contentBlocks/Video.tsx";
 import {
   AnalyticsScopeProvider,
   ComplexImageType,
@@ -54,47 +44,22 @@ import { PromoEmptyState } from "../shared/sectionSupport/pageSections/PromoSect
 import {
   ComponentErrorBoundary,
   getRandomPlaceholderImageObject,
+  enhancedCtaZodSchema,
+  entityFieldZodSchema,
+  imageZodSchema,
+  translatableRichTextZodSchema,
+  translatableStringZodSchema,
 } from "@yext/visual-editor/section-library-support";
+import { z } from "zod";
 
-const promoSectionSchema = z.object({
-  data: z.object({
-    promo: entityFieldSchema(
-      z.object({
-        title: translatableStringSchema.optional(),
-        description: translatableRichTextSchema.optional(),
-        image: z.union([imageSchema, assetVideoSchema]).optional(),
-        cta: enhancedCtaSchema.optional(),
-      })
-    ).describe(
-      "Bind a promotional entity field, or enable constant values and author the content in the slots. An empty constantValue object is supported."
-    ),
-    media: z.enum(["image", "video"]),
-    backgroundImage: entityFieldSchema(imageSchema).describe(
-      "Background image for immersive and spotlight variants."
-    ),
-  }),
-  styles: z.object({
-    variant: z.enum(["classic", "immersive", "spotlight", "compact"]),
-    backgroundColor: backgroundColorSchema.optional(),
-    desktopImagePosition: z.enum(["left", "right"]),
-    mobileImagePosition: z.enum(["top", "bottom"]),
-    containerAlignment: z.enum(["left", "center", "right"]),
-    imageHeight: z.number().min(0),
-    showMedia: z.boolean(),
-    showHeading: z.boolean(),
-    showDescription: z.boolean(),
-    showCTA: z.boolean(),
-  }),
-  slots: z.object({
-    HeadingSlot: slotSchema(),
-    DescriptionSlot: slotSchema(),
-    VideoSlot: slotSchema(),
-    ImageSlot: slotSchema(),
-    CTASlot: slotSchema(),
-  }),
-  analytics: z.object({ scope: z.string().optional() }),
-  liveVisibility: z.boolean().optional(),
-});
+const promoContentSchema = entityFieldZodSchema(
+  z.object({
+    title: translatableStringZodSchema.optional(),
+    description: translatableRichTextZodSchema.optional(),
+    image: z.union([imageZodSchema, assetVideoSchema]).optional(),
+    cta: enhancedCtaZodSchema.optional(),
+  })
+);
 
 export interface PromoData {
   /**
@@ -226,6 +191,11 @@ const promoSectionFields: YextFields<PromoSectionProps> = {
     label: msg("fields.data", "Data"),
     objectFields: {
       promo: {
+        generation: {
+          schema: promoContentSchema,
+          instructions:
+            "Author manual promotional content in the slots. An empty constantValue object is supported.",
+        },
         type: "entityField",
         label: msg("fields.promo", "Promo"),
         filter: {
@@ -241,6 +211,10 @@ const promoSectionFields: YextFields<PromoSectionProps> = {
         ],
       },
       backgroundImage: {
+        generation: {
+          instructions:
+            "Background image for immersive and spotlight variants.",
+        },
         type: "entityField",
         label: msg("fields.image", "Image"),
         filter: {
@@ -273,6 +247,7 @@ const promoSectionFields: YextFields<PromoSectionProps> = {
         ],
       },
       backgroundColor: {
+        generation: { required: false },
         type: "basicSelector",
         label: msg("fields.backgroundColor", "Background Color"),
         options: "BACKGROUND_COLOR",
@@ -336,11 +311,41 @@ const promoSectionFields: YextFields<PromoSectionProps> = {
     type: "object",
     visible: false,
     objectFields: {
-      HeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
-      DescriptionSlot: { type: "slot", allow: ["BodyTextSlot"] },
-      ImageSlot: { type: "slot", allow: ["ImageSlot"] },
-      VideoSlot: { type: "slot", allow: ["VideoSlot"] },
-      CTASlot: { type: "slot", allow: ["CTASlot"] },
+      HeadingSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["HeadingTextSlot"],
+      },
+      DescriptionSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["BodyTextSlot"],
+      },
+      ImageSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["ImageSlot"],
+      },
+      VideoSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["VideoSlot"],
+      },
+      CTASlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["CTASlot"],
+      },
     },
   },
   analytics: {
@@ -349,12 +354,14 @@ const promoSectionFields: YextFields<PromoSectionProps> = {
     visible: false,
     objectFields: {
       scope: {
+        generation: { required: false },
         label: msg("fields.scope", "Scope"),
         type: "text",
       },
     },
   },
   liveVisibility: {
+    generation: { required: false },
     label: msg("fields.visibleOnLivePage", "Visible on Live Page"),
     type: "radio",
     options: [
@@ -365,7 +372,6 @@ const promoSectionFields: YextFields<PromoSectionProps> = {
 };
 
 export const PromoSection: YextComponentConfig<PromoSectionProps> = {
-  layoutGenerationMetadata: { props: promoSectionSchema },
   label: msg("components.promo", "Promo"),
   fields: promoSectionFields,
   defaultProps: {

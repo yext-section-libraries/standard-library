@@ -1,8 +1,6 @@
+import { resolveAllData } from "@puckeditor/core";
 import { describe, expect, it } from "vitest";
 import { z } from "zod";
-import { resolveAllData } from "@puckeditor/core";
-import { sharedComponentConfigs } from "../../library/shared/componentRegistry.ts";
-import { toPuckFields } from "@yext/visual-editor";
 import {
   EventCardsWrapper,
   eventCardsSource,
@@ -12,6 +10,10 @@ import {
   insightCardsSource,
 } from "../../library/shared/sectionSupport/pageSections/InsightSection/InsightCardsWrapper.tsx";
 import {
+  ProductCardsWrapper,
+  productCardsSource,
+} from "../../library/shared/sectionSupport/pageSections/ProductSection/ProductCardsWrapper.tsx";
+import {
   TeamCardsWrapper,
   teamCardsSource,
 } from "../../library/shared/sectionSupport/pageSections/TeamSection/TeamCardsWrapper.tsx";
@@ -20,42 +22,18 @@ import {
   testimonialCardsSource,
 } from "../../library/shared/sectionSupport/pageSections/TestimonialSection/TestimonialCardsWrapper.tsx";
 import {
-  ProductCardsWrapper,
-  productCardsSource,
-} from "../../library/shared/sectionSupport/pageSections/ProductSection/ProductCardsWrapper.tsx";
+  catalog,
+  components,
+  config,
+  generationSchema,
+  sections,
+} from "./generationTestUtils.ts";
 
-// Use the real registry so hidden child contracts are checked as well as sections.
-const modules = import.meta.glob("../../library/sections/*.tsx", {
-  eager: true,
-}) as Record<string, Record<string, any>>;
-const sections: Record<string, any> = Object.fromEntries(
-  Object.values(modules)
-    .filter((m) => m.config)
-    .map((m) => [
-      m.config.id,
-      m[Object.keys(m).find((key) => key !== "config" && m[key]?.fields)!],
-    ])
-);
-const components: Record<string, any> = {
-  ...sections,
-  ...sharedComponentConfigs,
-};
-const config = {
-  components: Object.fromEntries(
-    Object.entries(components).map(([name, component]) => [
-      name,
-      {
-        ...component,
-        fields: component.fields ? toPuckFields(component.fields) : undefined,
-      },
-    ])
-  ),
-};
 const copy = <T,>(value: T): T => structuredClone(value);
 const generationDefaults = (component: any) => {
   const props = copy(component.defaultProps);
   if (
-    component.layoutGenerationMetadata.slottedItemSource &&
+    component.layoutGenerationMetadata?.slottedItemSource &&
     props.data.mappings
   ) {
     // Native mapping defaults include constants; generation exposes only bindings.
@@ -143,25 +121,26 @@ describe("remaining generation contracts", () => {
 
   it.each(Object.entries(sections))(
     "%s declares expected generation support",
-    (name, component) => {
+    (name) => {
       // FormSection is not supported by layout generation.
-      expect(Boolean(component.layoutGenerationMetadata?.props)).toBe(
+      expect(Boolean(catalog.data.components[name].generation)).toBe(
         name !== "FormSection"
       );
     }
   );
 
   it.each(
-    Object.entries(components).filter(([, c]) => c.layoutGenerationMetadata)
+    Object.entries(components).filter(
+      ([name]) => catalog.data.components[name].generation
+    )
   )(
     "%s satisfies the generation schema and native slot contracts",
     (_name, component) => {
-      expect(
-        component.layoutGenerationMetadata.props.safeParse(
-          generationDefaults(component)
-        )
-      ).toMatchObject({ success: true });
-      const schema = component.layoutGenerationMetadata.props;
+      const parsed = generationSchema(_name).safeParse(
+        generationDefaults(component)
+      );
+      expect(parsed.success, JSON.stringify(parsed.error?.issues)).toBe(true);
+      const schema = generationSchema(_name);
       for (const key of [
         "id",
         "puck",
@@ -177,8 +156,8 @@ describe("remaining generation contracts", () => {
       }
       const slots = schema.shape.slots;
       if (slots instanceof z.ZodObject) {
-        const fields = component.fields.slots.objectFields;
-        const defaults = component.defaultProps.slots;
+        const fields = component.fields!.slots.objectFields;
+        const defaults = component.defaultProps!.slots;
         expect(Object.keys(slots.shape).sort()).toEqual(
           Object.keys(fields).sort()
         );
@@ -190,14 +169,14 @@ describe("remaining generation contracts", () => {
           const field = fields[name];
           expect(field.type, name).toBe("slot");
           // Slotted sources supply collection restrictions to the compiler.
-          const source = component.layoutGenerationMetadata.slottedItemSource;
+          const source = component.layoutGenerationMetadata?.slottedItemSource;
           const allowedTypes =
             name === "CardSlot" && source ? [source.cardType] : field.allow;
           expect(allowedTypes?.length, name).toBeGreaterThan(0);
           for (const child of children) {
             expect(allowedTypes, name).toContain(child.type);
             expect(
-              components[child.type]?.layoutGenerationMetadata,
+              catalog.data.components[child.type]?.generation,
               child.type
             ).toBeDefined();
           }
@@ -205,8 +184,17 @@ describe("remaining generation contracts", () => {
           // Determine cardinality independently of the schema under test.
           if (name === "CardSlot") continue;
           expect(children, name).toHaveLength(1);
+          expect(field.generation?.singleChild, name).toBe(true);
+          expect(field.generation?.schema, name).toBeUndefined();
           expect(field.allow, name).toEqual([children[0].type]);
+          const hiddenProps = generationDefaults(component);
+          for (const key of Object.keys(hiddenProps.styles ?? {})) {
+            if (key.startsWith("show")) hiddenProps.styles[key] = false;
+          }
+          expect(schema.safeParse(hiddenProps).success, name).toBe(true);
           for (const replacement of [[], [...children, ...children]]) {
+            hiddenProps.slots[name] = replacement;
+            expect(schema.safeParse(hiddenProps).success, name).toBe(false);
             expect(
               (slotSchema as z.ZodType).safeParse(replacement).success,
               name
@@ -214,9 +202,7 @@ describe("remaining generation contracts", () => {
           }
         }
       }
-      expect(() =>
-        z.toJSONSchema(component.layoutGenerationMetadata.props)
-      ).not.toThrow();
+      expect(() => z.toJSONSchema(generationSchema(_name))).not.toThrow();
     }
   );
 
@@ -227,7 +213,7 @@ describe("remaining generation contracts", () => {
         source.generationMetadata
       );
       expect(source.generationMetadata.cardType).toBe(`${name}Card`);
-      const authored = wrapper.layoutGenerationMetadata!.props.parse(
+      const authored = generationSchema(`${name}CardsWrapper`).parse(
         generationDefaults(wrapper)
       ) as any;
       expect(authored.data).not.toHaveProperty("constantValue");
@@ -236,13 +222,12 @@ describe("remaining generation contracts", () => {
       }
       expect(authored).not.toHaveProperty("manualSlots");
       expect(authored).not.toHaveProperty("conditionalRender");
-      const card = components[source.generationMetadata.cardType];
-      expect(card.layoutGenerationMetadata.props.shape).not.toHaveProperty(
-        "index"
-      );
-      expect(card.layoutGenerationMetadata.props.shape).not.toHaveProperty(
-        "id"
-      );
+      expect(
+        generationSchema(source.generationMetadata.cardType).shape
+      ).not.toHaveProperty("index");
+      expect(
+        generationSchema(source.generationMetadata.cardType).shape
+      ).not.toHaveProperty("id");
     }
   );
 

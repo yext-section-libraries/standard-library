@@ -42,7 +42,7 @@ import {
 } from "./directoryChildReference.tsx";
 import { FaInfoCircle } from "react-icons/fa";
 import type { DirectoryStyles } from "./Directory.tsx";
-import { directoryGridSchema } from "./directoryZodSchemas.ts";
+import { linkOverrideSchema } from "./directoryZodSchemas.ts";
 
 export type DirectoryGridProps = {
   data: typeof directoryCardsSource.value;
@@ -89,6 +89,7 @@ const DirectoryFieldTooltip = () => {
 const linkOverrideField: YextFieldDefinition<
   DirectoryCardProps["data"]["linkOverride"]
 > = {
+  generation: { schema: linkOverrideSchema.optional() },
   type: "custom",
   render: ({
     value,
@@ -323,6 +324,11 @@ export const DirectoryList = ({
 const directoryGridFields: YextFields<DirectoryGridProps> = {
   data: {
     ...directoryCardsSource.field,
+    generation: {
+      required: false,
+      instructions:
+        "Directory children only; omitted bindings use dm_directoryChildren. Manual cards are unsupported.",
+    },
     disableConstantValueToggle: true,
     fixedRepeatedField: "dm_directoryChildren",
     hideRequirementsTooltip: true,
@@ -332,6 +338,7 @@ const directoryGridFields: YextFields<DirectoryGridProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       backgroundColor: {
+        generation: { required: false },
         type: "basicSelector",
         label: msg("fields.backgroundColor", "Background Color"),
         options: "BACKGROUND_COLOR",
@@ -341,11 +348,19 @@ const directoryGridFields: YextFields<DirectoryGridProps> = {
   slots: {
     type: "object",
     objectFields: {
-      CardSlot: { type: "slot", allow: ["DirectoryCard"] },
+      CardSlot: {
+        generation: {
+          instructions:
+            "DirectoryCard children; membership and order follow sorted directory children.",
+        },
+        type: "slot",
+        allow: ["DirectoryCard"],
+      },
     },
     visible: false,
   },
   manualSlots: {
+    generation: { exclude: true },
     type: "object",
     objectFields: {
       CardSlot: { type: "slot", allow: [] },
@@ -384,7 +399,6 @@ const DirectoryGridWrapper: PuckComponent<DirectoryGridProps> = (props) => {
 export const DirectoryGrid: YextComponentConfig<DirectoryGridProps> = {
   label: msg("components.directoryGrid", "Directory Grid"),
   fields: directoryGridFields,
-  layoutGenerationMetadata: { props: directoryGridSchema },
   defaultProps: {
     ...directoryCardsSource.defaultWrapperProps,
     data: getNormalizedDirectoryGridData(directoryCardsSource.defaultValue),

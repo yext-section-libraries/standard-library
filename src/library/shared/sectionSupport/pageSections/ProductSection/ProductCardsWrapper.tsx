@@ -3,15 +3,6 @@ import {
   CardHeadingLevelProps,
 } from "../cardHeadingLevel.ts";
 import {
-  cardsWrapperSchema,
-  imageMapping,
-  richTextMapping,
-  textMapping,
-  ctaMapping,
-} from "../../../zodSchemaHelpers/mappedCardsZodSchemas.ts";
-import { entityFieldSchema } from "../../../zodSchemaHelpers/data.ts";
-import { z } from "zod";
-import {
   msg,
   ThemeOptions,
   ProductStruct,
@@ -31,33 +22,6 @@ import {
 import { ProductSectionVariant } from "../../../../sections/ProductSection.tsx";
 import { renderMappedEntityFieldEmptyState } from "../EntityFieldSectionEmptyState.tsx";
 import { MappedEntityFieldConditionalRender } from "../entityFieldSectionUtils.ts";
-
-const productCardsWrapperSchema = cardsWrapperSchema(
-  {
-    image: imageMapping,
-    category: richTextMapping,
-    name: textMapping,
-    price: entityFieldSchema(
-      z
-        .object({
-          value: z.number().optional(),
-          currencyCode: z.string().optional(),
-        })
-        .optional()
-    ),
-    description: richTextMapping,
-    cta: ctaMapping,
-  },
-  {
-    showImage: z.boolean(),
-    showBrow: z.boolean(),
-    showTitle: z.boolean(),
-    showPrice: z.boolean(),
-    showDescription: z.boolean(),
-    showCTA: z.boolean(),
-    // The parent ProductSection derives variant from its cardVariant setting.
-  }
-);
 
 export const productCardsSource = createSlottedItemSource<
   ProductStruct,
@@ -123,7 +87,13 @@ const productCardsWrapperFields: YextFields<ProductCardsWrapperProps> = {
   slots: {
     type: "object",
     objectFields: {
-      CardSlot: { type: "slot" },
+      CardSlot: {
+        generation: {
+          instructions:
+            "Ordered manual card children. An explicit [] means zero cards; $default selects library defaults.",
+        },
+        type: "slot",
+      },
     },
     visible: false,
   },
@@ -185,7 +155,6 @@ export const ProductCardsWrapper: YextComponentConfig<ProductCardsWrapperProps> 
     label: msg("slots.productCards", "Product Cards"),
     fields: productCardsWrapperFields,
     layoutGenerationMetadata: {
-      props: productCardsWrapperSchema,
       slottedItemSource: productCardsSource.generationMetadata,
     },
     defaultProps: {

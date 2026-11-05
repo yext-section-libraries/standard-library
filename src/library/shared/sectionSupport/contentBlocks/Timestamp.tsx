@@ -1,6 +1,3 @@
-import { z } from "zod";
-import { entityFieldSchema } from "../../zodSchemaHelpers/data.ts";
-import { optionalTextColorSchema } from "../../zodSchemaHelpers/colors.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import {
@@ -15,18 +12,6 @@ import {
   ThemeColor,
 } from "@yext/visual-editor";
 import { TimestampAtom, TimestampOption } from "../atoms/timestamp.tsx";
-
-const timestampSchema = z.object({
-  data: z.object({
-    date: entityFieldSchema(z.string()),
-    endDate: entityFieldSchema(z.string()),
-  }),
-  styles: z.object({
-    includeTime: z.boolean(),
-    includeRange: z.boolean(),
-    textColor: optionalTextColorSchema,
-  }),
-});
 
 export type TimestampProps = {
   /** The start and end date to display */
@@ -97,6 +82,10 @@ const timestampFields: YextFields<TimestampProps> = {
         ],
       },
       textColor: {
+        generation: {
+          instructions:
+            "Leave text color unset so the theme chooses it. A requested palette or background change does not by itself require a text color override. Do not infer a text color from imagery or surrounding content. Set a valid theme color when the user specifically requests a text color override.",
+        },
         type: "basicSelector",
         label: msg("fields.textColor", "Text Color"),
         options: "SITE_COLOR",
@@ -142,7 +131,6 @@ const TimestampComponent: PuckComponent<TimestampProps> = (props) => {
 export const Timestamp: YextComponentConfig<TimestampProps> = {
   label: msg("components.timestamp", "Timestamp"),
   fields: timestampFields,
-  layoutGenerationMetadata: { props: timestampSchema },
   defaultProps: {
     data: {
       date: {

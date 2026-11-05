@@ -1,9 +1,3 @@
-import { z } from "zod";
-import {
-  entityFieldSchema,
-  translatableStringSchema,
-} from "../shared/zodSchemaHelpers/data.ts";
-import { optionalTextColorSchema } from "../shared/zodSchemaHelpers/colors.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
@@ -25,16 +19,6 @@ import {
   getTextColorStyle,
 } from "@yext/visual-editor/section-library-support";
 
-export const textListSchema = z.object({
-  list: entityFieldSchema(z.array(translatableStringSchema)).describe(
-    "Text items, such as the entity's services."
-  ),
-  commaSeparated: z
-    .boolean()
-    .describe("Display items inline with commas instead of bullets."),
-  styles: z.object({ textColor: optionalTextColorSchema }).optional(),
-});
-
 export interface TextListProps {
   list: YextEntityField<TranslatableString[]>;
   commaSeparated: boolean;
@@ -46,6 +30,7 @@ export interface TextListProps {
 
 export const textListFields: YextFields<TextListProps> = {
   list: {
+    generation: { instructions: "Text items, such as the entity's services." },
     type: "entityField",
     label: msg("fields.values", "Values"),
     filter: {
@@ -54,6 +39,9 @@ export const textListFields: YextFields<TextListProps> = {
     },
   },
   commaSeparated: {
+    generation: {
+      instructions: "Display items inline with commas instead of bullets.",
+    },
     label: msg("fields.commaSeparated", "Comma Separated"),
     type: "radio",
     options: [
@@ -62,10 +50,15 @@ export const textListFields: YextFields<TextListProps> = {
     ],
   },
   styles: {
+    generation: { required: false },
     type: "object",
     label: msg("fields.styles", "Styles"),
     objectFields: {
       textColor: {
+        generation: {
+          instructions:
+            "Leave text color unset so the theme chooses it. A requested palette or background change does not by itself require a text color override. Do not infer a text color from imagery or surrounding content. Set a valid theme color when the user specifically requests a text color override.",
+        },
         type: "basicSelector",
         label: msg("fields.textColor", "Text Color"),
         options: "SITE_COLOR",
@@ -130,7 +123,6 @@ const TextListComponent: PuckComponent<TextListProps> = ({
 };
 
 export const TextList: YextComponentConfig<TextListProps> = {
-  layoutGenerationMetadata: { props: textListSchema },
   ...gridAtomPermissions,
   label: msg("components.textList", "Text List"),
   fields: textListFields,

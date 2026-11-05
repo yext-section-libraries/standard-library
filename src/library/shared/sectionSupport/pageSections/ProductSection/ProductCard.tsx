@@ -1,6 +1,3 @@
-import { z } from "zod";
-import { cardStyles } from "../../../zodSchemaHelpers/mappedCardsZodSchemas.ts";
-import { slotSchema } from "../../../zodSchemaHelpers/slots.ts";
 import * as React from "react";
 import {
   ThemeColor,
@@ -36,18 +33,6 @@ import {
 import { isCompleteProductPrice, isInvalidProductPrice } from "./utils.ts";
 import { TextProps } from "../../../../sections/Text.tsx";
 import { ProductSectionVariant } from "../../../../sections/ProductSection.tsx";
-
-const productCardSchema = z.object({
-  styles: cardStyles,
-  slots: z.object({
-    ImageSlot: slotSchema(),
-    BrowSlot: slotSchema(),
-    TitleSlot: slotSchema(),
-    PriceSlot: slotSchema(),
-    DescriptionSlot: slotSchema(),
-    CTASlot: slotSchema(),
-  }),
-});
 
 /**
  * Default product-shaped data used to keep placeholder content aligned with
@@ -295,6 +280,7 @@ const ProductCardFields: YextFields<ProductCardProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       backgroundColor: {
+        generation: { required: false },
         type: "basicSelector",
         label: msg("fields.backgroundColor", "Background Color"),
         options: "BACKGROUND_COLOR",
@@ -304,12 +290,48 @@ const ProductCardFields: YextFields<ProductCardProps> = {
   slots: {
     type: "object",
     objectFields: {
-      ImageSlot: { type: "slot", allow: ["ImageSlot"] },
-      BrowSlot: { type: "slot", allow: ["TextSlot"] },
-      TitleSlot: { type: "slot", allow: ["HeadingTextSlot"] },
-      PriceSlot: { type: "slot", allow: ["TextSlot"] },
-      DescriptionSlot: { type: "slot", allow: ["BodyTextSlot"] },
-      CTASlot: { type: "slot", allow: ["CTASlot"] },
+      ImageSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["ImageSlot"],
+      },
+      BrowSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["TextSlot"],
+      },
+      TitleSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["HeadingTextSlot"],
+      },
+      PriceSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["TextSlot"],
+      },
+      DescriptionSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["BodyTextSlot"],
+      },
+      CTASlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["CTASlot"],
+      },
     },
     visible: false,
   },
@@ -479,7 +501,6 @@ const ProductCardComponent: PuckComponent<ProductCardProps> = (props) => {
 export const ProductCard: YextComponentConfig<ProductCardProps> = {
   label: msg("slots.productCard", "Product Card"),
   fields: ProductCardFields,
-  layoutGenerationMetadata: { props: productCardSchema },
   inline: true,
   resolveData: (data, params) => {
     const locale = i18nPageInstance.language || "en";

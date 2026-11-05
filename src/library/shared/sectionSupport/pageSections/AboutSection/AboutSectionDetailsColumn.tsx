@@ -1,51 +1,3 @@
-import { z } from "zod";
-import {
-  entityFieldSchema,
-  translatableStringSchema,
-} from "../../../zodSchemaHelpers/data.ts";
-import {
-  hoursStatusSchema,
-  HoursStatus,
-  HoursStatusProps,
-  hoursStatusWrapperFields,
-} from "../../../../sections/HoursStatus.tsx";
-import {
-  hoursTableSchema,
-  HoursTableProps,
-  hoursTableFields,
-  HoursTable,
-} from "../../../../sections/HoursTable.tsx";
-import {
-  addressSchema,
-  addressFields,
-  Address,
-  AddressProps,
-  resolveAddressFields,
-} from "../../../../sections/Address.tsx";
-import {
-  phoneSchema,
-  Phone,
-  PhoneProps,
-  PhoneFields,
-} from "../../../../sections/Phone.tsx";
-import {
-  emailsSchema,
-  Emails,
-  EmailsProps,
-  EmailsFields,
-} from "../../../../sections/Emails.tsx";
-import {
-  textListSchema,
-  TextList,
-  TextListProps,
-  textListFields,
-} from "../../../../sections/TextList.tsx";
-import {
-  footerSocialLinksSchema,
-  FooterSocialLinksSlotProps,
-  FooterSocialLinksSlot,
-  FooterSocialLinksSlotFields,
-} from "../../footer/FooterSocialLinksSlot.tsx";
 import React from "react";
 import { FieldLabel, PuckComponent } from "@puckeditor/core";
 import { useTranslation } from "react-i18next";
@@ -68,33 +20,41 @@ import {
   YextFieldDefinition,
   YextFields,
 } from "@yext/visual-editor";
+import { FooterSocialLinksSlotProps } from "../../footer/FooterSocialLinksSlot.tsx";
 import { Heading } from "../../atoms/heading.tsx";
-
-export const aboutSectionDetailsColumnSchema = z.object({
-  sections: z.array(
-    z.object({
-      header: entityFieldSchema(translatableStringSchema),
-      content: z.discriminatedUnion("type", [
-        z.object({
-          type: z.literal("hoursStatus"),
-          hoursStatus: hoursStatusSchema,
-        }),
-        z.object({
-          type: z.literal("hoursTable"),
-          hoursTable: hoursTableSchema,
-        }),
-        z.object({ type: z.literal("address"), address: addressSchema }),
-        z.object({ type: z.literal("phone"), phone: phoneSchema }),
-        z.object({ type: z.literal("emails"), emails: emailsSchema }),
-        z.object({ type: z.literal("textList"), textList: textListSchema }),
-        z.object({
-          type: z.literal("socialMedia"),
-          socialMedia: footerSocialLinksSchema,
-        }),
-      ]),
-    })
-  ),
-});
+import {
+  HoursStatus,
+  HoursStatusProps,
+  hoursStatusWrapperFields,
+} from "../../../../sections/HoursStatus.tsx";
+import { Phone, PhoneProps, PhoneFields } from "../../../../sections/Phone.tsx";
+import {
+  Emails,
+  EmailsProps,
+  EmailsFields,
+} from "../../../../sections/Emails.tsx";
+import {
+  TextList,
+  TextListProps,
+  textListFields,
+} from "../../../../sections/TextList.tsx";
+import {
+  FooterSocialLinksSlot,
+  FooterSocialLinksSlotFields,
+} from "../../footer/FooterSocialLinksSlot.tsx";
+import {
+  addressFields,
+  Address,
+  AddressProps,
+  resolveAddressFields,
+} from "../../../../sections/Address.tsx";
+import {
+  HoursTableProps,
+  hoursTableFields,
+  HoursTable,
+} from "../../../../sections/HoursTable.tsx";
+import { z } from "zod";
+import { inferFieldZodSchema } from "@yext/visual-editor/section-library-support";
 
 export type AboutSectionDetailsColumnProps = {
   sections: DetailSection[];
@@ -230,24 +190,80 @@ export const defaultAboutSectionProps: Omit<DetailSection["content"], "type"> =
     },
   };
 
+const detailContentFields: Record<
+  DetailSection["content"]["type"],
+  YextFields
+> = {
+  hoursStatus: hoursStatusWrapperFields,
+  hoursTable: hoursTableFields,
+  address: addressFields,
+  phone: PhoneFields,
+  emails: EmailsFields,
+  textList: textListFields,
+  socialMedia: FooterSocialLinksSlotFields,
+};
+
 const typeToFields = (
   type: DetailSection["content"]["type"],
   data: DetailSection["content"]
 ) => {
-  const fields: Record<DetailSection["content"]["type"], YextFields> = {
-    hoursStatus: hoursStatusWrapperFields,
-    hoursTable: hoursTableFields,
-    address:
-      "address" in data && data.address
-        ? resolveAddressFields({ props: { id: "", ...data.address } })
-        : addressFields,
-    phone: PhoneFields,
-    emails: EmailsFields,
-    textList: textListFields,
-    socialMedia: FooterSocialLinksSlotFields,
-  };
-  return fields[type];
+  if (type === "address" && data.address) {
+    return resolveAddressFields({ props: { id: "", ...data.address } });
+  }
+  return detailContentFields[type];
 };
+
+export const detailContentSchema = z.discriminatedUnion("type", [
+  z.object({
+    type: z.literal("hoursStatus"),
+    hoursStatus: inferFieldZodSchema(
+      { type: "object", objectFields: detailContentFields.hoursStatus },
+      { defaultValue: defaultAboutSectionProps.hoursStatus }
+    ),
+  }),
+  z.object({
+    type: z.literal("hoursTable"),
+    hoursTable: inferFieldZodSchema(
+      { type: "object", objectFields: detailContentFields.hoursTable },
+      { defaultValue: defaultAboutSectionProps.hoursTable }
+    ),
+  }),
+  z.object({
+    type: z.literal("address"),
+    address: inferFieldZodSchema(
+      { type: "object", objectFields: detailContentFields.address },
+      { defaultValue: defaultAboutSectionProps.address }
+    ),
+  }),
+  z.object({
+    type: z.literal("phone"),
+    phone: inferFieldZodSchema(
+      { type: "object", objectFields: detailContentFields.phone },
+      { defaultValue: defaultAboutSectionProps.phone }
+    ),
+  }),
+  z.object({
+    type: z.literal("emails"),
+    emails: inferFieldZodSchema(
+      { type: "object", objectFields: detailContentFields.emails },
+      { defaultValue: defaultAboutSectionProps.emails }
+    ),
+  }),
+  z.object({
+    type: z.literal("textList"),
+    textList: inferFieldZodSchema(
+      { type: "object", objectFields: detailContentFields.textList },
+      { defaultValue: defaultAboutSectionProps.textList }
+    ),
+  }),
+  z.object({
+    type: z.literal("socialMedia"),
+    socialMedia: inferFieldZodSchema(
+      { type: "object", objectFields: detailContentFields.socialMedia },
+      { defaultValue: defaultAboutSectionProps.socialMedia }
+    ),
+  }),
+]);
 
 const aboutSectionDetailsColumnFields: YextFields<AboutSectionDetailsColumnProps> =
   {
@@ -263,6 +279,7 @@ const aboutSectionDetailsColumnFields: YextFields<AboutSectionDetailsColumnProps
           },
         },
         content: {
+          generation: { schema: detailContentSchema },
           type: "custom",
           label: msg("fields.content", "Content"),
           render: ({
@@ -572,7 +589,6 @@ export const AboutSectionDetailsColumn: YextComponentConfig<AboutSectionDetailsC
   {
     label: msg("components.aboutDetailsColumn", "Details Column"),
     fields: aboutSectionDetailsColumnFields,
-    layoutGenerationMetadata: { props: aboutSectionDetailsColumnSchema },
     defaultProps: {
       sections: [],
     },

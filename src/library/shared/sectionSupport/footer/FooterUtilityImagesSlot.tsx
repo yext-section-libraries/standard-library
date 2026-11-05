@@ -1,7 +1,3 @@
-import { z } from "zod";
-import { assetImageSchema } from "../../zodSchemaHelpers/data.ts";
-import { imageStylesSchema } from "./footerZodSchemas.ts";
-import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
 import { cva } from "class-variance-authority";
 import { MaybeLink } from "../atoms/maybeLink.tsx";
@@ -17,18 +13,6 @@ import {
   AssetImageType,
   ImageFillType,
 } from "@yext/visual-editor";
-
-const footerUtilityImagesSchema = z.object({
-  data: z.object({
-    utilityImages: z.array(
-      z.object({
-        image: assetImageSchema,
-        linkTarget: z.string().optional(),
-      })
-    ),
-  }),
-  styles: imageStylesSchema,
-});
 
 export interface FooterUtilityImagesSlotProps {
   data: {
@@ -168,7 +152,6 @@ export const FooterUtilityImagesSlot: YextComponentConfig<FooterUtilityImagesSlo
   {
     label: msg("components.footerUtilityImagesSlotLabel", "Utility Images"),
     layoutGenerationMetadata: {
-      props: footerUtilityImagesSchema,
       resolvedProps: ["/desktopContentAlignment", "/mobileContentAlignment"],
     },
     fields: {
@@ -181,6 +164,7 @@ export const FooterUtilityImagesSlot: YextComponentConfig<FooterUtilityImagesSlo
             label: msg("fields.utilityImages", "Utility Images"),
             arrayFields: {
               image: {
+                generation: { required: true },
                 type: "image",
                 label: msg("fields.image", "Image"),
               },
@@ -200,9 +184,18 @@ export const FooterUtilityImagesSlot: YextComponentConfig<FooterUtilityImagesSlo
         type: "object",
         label: msg("fields.styles", "Styles"),
         objectFields: {
-          imageFillType: ImageStylingFields.imageFillType,
-          width: ImageStylingFields.width,
-          aspectRatio: ImageStylingFields.aspectRatio,
+          imageFillType: {
+            ...ImageStylingFields.imageFillType,
+            generation: { required: false },
+          },
+          width: {
+            ...ImageStylingFields.width,
+            generation: { required: false },
+          },
+          aspectRatio: {
+            ...ImageStylingFields.aspectRatio,
+            generation: { required: false },
+          },
         },
       },
     },

@@ -1,6 +1,3 @@
-import { z } from "zod";
-import { cardStyles } from "../../../zodSchemaHelpers/mappedCardsZodSchemas.ts";
-import { slotSchema } from "../../../zodSchemaHelpers/slots.ts";
 import * as React from "react";
 import {
   ThemeColor,
@@ -30,18 +27,6 @@ import {
 } from "@yext/visual-editor/section-library-support";
 import { TextProps } from "../../../../sections/Text.tsx";
 import { PuckComponent, Slot } from "@puckeditor/core";
-
-const insightCardSchema = z.object({
-  styles: cardStyles,
-  slots: z.object({
-    ImageSlot: slotSchema(),
-    TitleSlot: slotSchema(),
-    CategorySlot: slotSchema(),
-    DescriptionSlot: slotSchema(),
-    PublishTimeSlot: slotSchema(),
-    CTASlot: slotSchema(),
-  }),
-});
 
 const defaultInsight = {
   image: {
@@ -279,6 +264,7 @@ const insightCardFields: YextFields<InsightCardProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       backgroundColor: {
+        generation: { required: false },
         type: "basicSelector",
         label: msg("fields.backgroundColor", "Background Color"),
         options: "BACKGROUND_COLOR",
@@ -288,12 +274,48 @@ const insightCardFields: YextFields<InsightCardProps> = {
   slots: {
     type: "object",
     objectFields: {
-      ImageSlot: { type: "slot", allow: ["ImageSlot"] },
-      TitleSlot: { type: "slot", allow: ["HeadingTextSlot"] },
-      CategorySlot: { type: "slot", allow: ["TextSlot"] },
-      DescriptionSlot: { type: "slot", allow: ["BodyTextSlot"] },
-      PublishTimeSlot: { type: "slot", allow: ["Timestamp"] },
-      CTASlot: { type: "slot", allow: ["CTASlot"] },
+      ImageSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["ImageSlot"],
+      },
+      TitleSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["HeadingTextSlot"],
+      },
+      CategorySlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["TextSlot"],
+      },
+      DescriptionSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["BodyTextSlot"],
+      },
+      PublishTimeSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["Timestamp"],
+      },
+      CTASlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["CTASlot"],
+      },
     },
     visible: false,
   },
@@ -456,7 +478,6 @@ const InsightCardComponent: PuckComponent<InsightCardProps> = (props) => {
 export const InsightCard: YextComponentConfig<InsightCardProps> = {
   label: msg("slots.insightCard", "Insight Card"),
   fields: insightCardFields,
-  layoutGenerationMetadata: { props: insightCardSchema },
   inline: true,
   defaultProps: {
     styles: {

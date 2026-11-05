@@ -1,15 +1,3 @@
-import { z } from "zod";
-import {
-  entityFieldSchema,
-  translatableStringSchema,
-} from "../../../zodSchemaHelpers/data.ts";
-import {
-  backgroundColorSchema,
-  siteColorSchema,
-  optionalTextColorSchema,
-} from "../../../zodSchemaHelpers/colors.ts";
-import { hoursStatusSchema } from "../../../../sections/HoursStatus.tsx";
-import { phoneListSchema } from "../../contentBlocks/PhoneList.tsx";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
@@ -45,46 +33,6 @@ import {
   EmptyStateMarker,
 } from "../emptyStateMarker.tsx";
 import { updateFields } from "../../../utils/updateFields.ts";
-
-const nearbyLocationCardsWrapperSchema = z.object({
-  data: z.object({
-    title: entityFieldSchema(translatableStringSchema).optional(),
-    radius: z.number().min(0),
-    limit: z.number().int().min(1).max(50),
-  }),
-  styles: z.object({
-    backgroundColor: backgroundColorSchema.optional(),
-    headingLevel: z
-      .union([
-        z.literal(1),
-        z.literal(2),
-        z.literal(3),
-        z.literal(4),
-        z.literal(5),
-        z.literal(6),
-      ])
-      .optional(),
-    color: siteColorSchema.optional(),
-    textColor: optionalTextColorSchema,
-    hours: hoursStatusSchema.shape.styles.pick({
-      showCurrentStatus: true,
-      timeFormat: true,
-      dayOfWeekFormat: true,
-      showDayNames: true,
-    }),
-    phone: z.object({
-      phoneNumberFormat: phoneListSchema.shape.styles.shape.phoneFormat,
-      phoneNumberLink: z.boolean(),
-      color: siteColorSchema.optional(),
-    }),
-    address: z
-      .object({ showRegion: z.boolean(), showCountry: z.boolean() })
-      .optional(),
-    showHours: z.boolean(),
-    showPhone: z.boolean(),
-    showAddress: z.boolean(),
-  }),
-});
 
 export type NearbyLocationCardsWrapperProps = {
   /** The search parameters for finding nearby locations. */
@@ -189,6 +137,7 @@ const nearbyLocationCardsWrapperFields: YextFields<NearbyLocationCardsWrapperPro
       label: msg("fields.data", "Data"),
       objectFields: {
         title: {
+          generation: { required: false },
           type: "entityField",
           label: msg("fields.name", "Name"),
           filter: { types: ["type.string"] },
@@ -199,6 +148,7 @@ const nearbyLocationCardsWrapperFields: YextFields<NearbyLocationCardsWrapperPro
           min: 0,
         },
         limit: {
+          generation: { integer: true },
           type: "number",
           label: msg("fields.limit", "Limit"),
           min: 1,
@@ -211,11 +161,13 @@ const nearbyLocationCardsWrapperFields: YextFields<NearbyLocationCardsWrapperPro
       label: msg("fields.styles", "Styles"),
       objectFields: {
         backgroundColor: {
+          generation: { required: false },
           type: "basicSelector",
           label: msg("fields.backgroundColor", "Background Color"),
           options: "BACKGROUND_COLOR",
         },
         headingLevel: {
+          generation: { required: false },
           type: "basicSelector",
           label: msg("fields.headingLevel", "Heading Level"),
           options: "HEADING_LEVEL",
@@ -226,6 +178,10 @@ const nearbyLocationCardsWrapperFields: YextFields<NearbyLocationCardsWrapperPro
           options: "SITE_COLOR",
         },
         textColor: {
+          generation: {
+            instructions:
+              "Leave text color unset so the theme chooses it. A requested palette or background change does not by itself require a text color override. Do not infer a text color from imagery or surrounding content. Set a valid theme color when the user specifically requests a text color override.",
+          },
           type: "basicSelector",
           label: msg("fields.textColor", "Text Color"),
           options: "SITE_COLOR",
@@ -235,6 +191,7 @@ const nearbyLocationCardsWrapperFields: YextFields<NearbyLocationCardsWrapperPro
           label: msg("fields.hours", "Hours"),
           objectFields: {
             showCurrentStatus: {
+              generation: { required: false },
               label: msg("fields.showCurrentStatus", "Show Current Status"),
               type: "radio",
               options: [
@@ -243,6 +200,7 @@ const nearbyLocationCardsWrapperFields: YextFields<NearbyLocationCardsWrapperPro
               ],
             },
             timeFormat: {
+              generation: { required: false },
               label: msg("fields.timeFormat", "Time Format"),
               type: "radio",
               options: [
@@ -257,6 +215,7 @@ const nearbyLocationCardsWrapperFields: YextFields<NearbyLocationCardsWrapperPro
               ],
             },
             showDayNames: {
+              generation: { required: false },
               label: msg("fields.showDayNames", "Show Day Names"),
               type: "radio",
               options: [
@@ -265,6 +224,7 @@ const nearbyLocationCardsWrapperFields: YextFields<NearbyLocationCardsWrapperPro
               ],
             },
             dayOfWeekFormat: {
+              generation: { required: false },
               label: msg("fields.dayOfWeekFormat", "Day of Week Format"),
               type: "radio",
               options: [
@@ -285,6 +245,7 @@ const nearbyLocationCardsWrapperFields: YextFields<NearbyLocationCardsWrapperPro
           label: msg("fields.phone", "Phone"),
           objectFields: {
             phoneNumberFormat: {
+              generation: { instructions: "how to format the phone numbers" },
               label: msg("fields.phoneNumberFormat", "Phone Number Format"),
               type: "radio",
               options: ThemeOptions.PHONE_OPTIONS,
@@ -308,6 +269,7 @@ const nearbyLocationCardsWrapperFields: YextFields<NearbyLocationCardsWrapperPro
           },
         },
         address: {
+          generation: { required: false },
           type: "object",
           label: msg("fields.address", "Address"),
           objectFields: {
@@ -470,7 +432,6 @@ export const NearbyLocationCardsWrapper: YextComponentConfig<NearbyLocationCards
   {
     label: msg("slots.nearbyLocationCards", "Nearby Location Cards"),
     fields: nearbyLocationCardsWrapperFields,
-    layoutGenerationMetadata: { props: nearbyLocationCardsWrapperSchema },
     defaultProps: defaultNearbyLocationsCardsProps,
     resolveFields: (data) => {
       let fields = nearbyLocationCardsWrapperFields;

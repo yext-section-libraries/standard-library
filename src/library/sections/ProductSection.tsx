@@ -1,8 +1,4 @@
 import {
-  mappedCardsSectionSchema,
-  sectionStyles,
-} from "../shared/zodSchemaHelpers/mappedCardsZodSchemas.ts";
-import {
   ThemeColor,
   backgroundColors,
   ThemeOptions,
@@ -29,13 +25,6 @@ import {
   MappedCardsSectionContent,
   MappedCardsSectionShell,
 } from "../shared/sectionSupport/pageSections/mappedCardsSectionUtils.tsx";
-import z from "zod";
-
-const productSectionSchema = mappedCardsSectionSchema.extend({
-  styles: sectionStyles.extend({
-    cardVariant: z.enum(["immersive", "classic", "minimal"]).optional(),
-  }),
-});
 
 export type ProductSectionVariant = "immersive" | "classic" | "minimal";
 export type ProductSectionImageConstrain = "fill" | "fixed";
@@ -91,11 +80,13 @@ const productSectionFields: YextFields<ProductSectionProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       backgroundColor: {
+        generation: { required: false },
         type: "basicSelector",
         label: msg("fields.backgroundColor", "Background Color"),
         options: "BACKGROUND_COLOR",
       },
       cardVariant: {
+        generation: { required: false },
         type: "basicSelector",
         label: msg("fields.cardVariant", "Card Variant"),
         options: [
@@ -117,8 +108,20 @@ const productSectionFields: YextFields<ProductSectionProps> = {
   slots: {
     type: "object",
     objectFields: {
-      SectionHeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
-      CardsWrapperSlot: { type: "slot", allow: ["ProductCardsWrapper"] },
+      SectionHeadingSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["HeadingTextSlot"],
+      },
+      CardsWrapperSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["ProductCardsWrapper"],
+      },
     },
     visible: false,
   },
@@ -128,6 +131,7 @@ const productSectionFields: YextFields<ProductSectionProps> = {
     visible: false,
     objectFields: {
       scope: {
+        generation: { required: false },
         label: msg("fields.scope", "Scope"),
         type: "text",
       },
@@ -146,7 +150,6 @@ const productSectionFields: YextFields<ProductSectionProps> = {
 export const ProductSection: YextComponentConfig<ProductSectionProps> = {
   label: msg("components.products", "Products"),
   fields: productSectionFields,
-  layoutGenerationMetadata: { props: productSectionSchema },
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background2.value,

@@ -15,7 +15,6 @@ import { BreadcrumbsSectionProps } from "../../../sections/BreadcrumbsSection.ts
 import { PuckComponent, setDeep, Slot } from "@puckeditor/core";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import { DirectoryList } from "./DirectoryWrapper.tsx";
-import { directorySchema } from "./directoryZodSchemas.ts";
 
 export interface DirectoryStyles {
   /**
@@ -70,11 +69,19 @@ const directoryFields: YextFields<DirectoryProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       backgroundColor: {
+        generation: {
+          instructions:
+            'Custom colors require selectedColor in [#XXXXXX] format, contrastingColor, and isDarkColor. For a light pink background use {"selectedColor":"[#FFBBC7]","contrastingColor":"black","isDarkColor":false}. Use white contrast with isDarkColor true for dark backgrounds.',
+        },
         type: "basicSelector",
         label: msg("fields.headingBackgroundColor", "Heading Background Color"),
         options: "BACKGROUND_COLOR",
       },
       listBackgroundColor: {
+        generation: {
+          instructions:
+            'Custom colors require selectedColor in [#XXXXXX] format, contrastingColor, and isDarkColor. For a light pink background use {"selectedColor":"[#FFBBC7]","contrastingColor":"black","isDarkColor":false}. Use white contrast with isDarkColor true for dark backgrounds.',
+        },
         type: "basicSelector",
         label: msg(
           "fields.directoryListBackgroundColor",
@@ -88,6 +95,7 @@ const directoryFields: YextFields<DirectoryProps> = {
         options: "SITE_COLOR",
       },
       textTransform: {
+        generation: { required: false },
         type: "select",
         label: msg("theme.textTransform.textTransform", "Text Transform"),
         options: [
@@ -112,10 +120,34 @@ const directoryFields: YextFields<DirectoryProps> = {
   slots: {
     type: "object",
     objectFields: {
-      TitleSlot: { type: "slot", allow: ["HeadingTextSlot"] },
-      SiteNameSlot: { type: "slot", allow: ["HeadingTextSlot"] },
-      BreadcrumbsSlot: { type: "slot", allow: ["BreadcrumbsSlot"] },
-      DirectoryGrid: { type: "slot", allow: ["DirectoryGrid"] },
+      TitleSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["HeadingTextSlot"],
+      },
+      SiteNameSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["HeadingTextSlot"],
+      },
+      BreadcrumbsSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["BreadcrumbsSlot"],
+      },
+      DirectoryGrid: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["DirectoryGrid"],
+      },
     },
     visible: false,
   },
@@ -125,6 +157,7 @@ const directoryFields: YextFields<DirectoryProps> = {
     visible: false,
     objectFields: {
       scope: {
+        generation: { required: false },
         label: msg("fields.scope", "Scope"),
         type: "text",
       },
@@ -177,7 +210,6 @@ const DirectoryComponent: PuckComponent<DirectoryProps> = ({
 export const Directory: YextComponentConfig<DirectoryProps> = {
   label: msg("components.directory", "Directory"),
   fields: directoryFields,
-  layoutGenerationMetadata: { props: directorySchema },
   resolveFields: (data, params) => {
     if (
       params.metadata?.streamDocument?.dm_directoryChildren &&

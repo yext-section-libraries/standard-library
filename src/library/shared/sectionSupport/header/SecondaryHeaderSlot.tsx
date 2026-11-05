@@ -1,6 +1,3 @@
-import { z } from "zod";
-import { backgroundColorSchema } from "../../zodSchemaHelpers/colors.ts";
-import { slotSchema } from "../../zodSchemaHelpers/slots.ts";
 import { PuckComponent, Slot } from "@puckeditor/core";
 import {
   msg,
@@ -23,15 +20,6 @@ import {
   useHeaderLinksDisplayMode,
 } from "./ExpandedHeaderMenuContext.tsx";
 import * as React from "react";
-
-const secondaryHeaderSchema = z.object({
-  data: z.object({
-    show: z.boolean().describe("Whether to display the secondary top bar."),
-    showLanguageDropdown: z.boolean(),
-  }),
-  styles: z.object({ backgroundColor: backgroundColorSchema.optional() }),
-  slots: z.object({ LinksSlot: slotSchema() }),
-});
 
 export interface SecondaryHeaderSlotProps {
   data: {
@@ -59,6 +47,9 @@ const secondaryHeaderSlotFields: YextFields<SecondaryHeaderSlotProps> = {
     label: msg("fields.data", "Data"),
     objectFields: {
       show: {
+        generation: {
+          instructions: "Whether to display the secondary top bar.",
+        },
         label: msg("fields.showSecondaryHeader", "Show Secondary Header"),
         type: "radio",
         options: [
@@ -81,6 +72,7 @@ const secondaryHeaderSlotFields: YextFields<SecondaryHeaderSlotProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       backgroundColor: {
+        generation: { required: false },
         type: "basicSelector",
         label: msg("fields.backgroundColor", "Background Color"),
         options: "BACKGROUND_COLOR",
@@ -90,7 +82,13 @@ const secondaryHeaderSlotFields: YextFields<SecondaryHeaderSlotProps> = {
   slots: {
     type: "object",
     objectFields: {
-      LinksSlot: { type: "slot", allow: ["HeaderLinks"] },
+      LinksSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["HeaderLinks"],
+      },
     },
     visible: false,
   },
@@ -236,7 +234,6 @@ export const defaultSecondaryHeaderProps: SecondaryHeaderSlotProps = {
 
 export const SecondaryHeaderSlot: YextComponentConfig<SecondaryHeaderSlotProps> =
   {
-    layoutGenerationMetadata: { props: secondaryHeaderSchema },
     label: msg("components.secondaryHeader", "Secondary Header"),
     fields: secondaryHeaderSlotFields,
     defaultProps: defaultSecondaryHeaderProps,

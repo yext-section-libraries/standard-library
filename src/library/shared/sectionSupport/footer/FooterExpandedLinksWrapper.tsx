@@ -1,9 +1,3 @@
-import { z } from "zod";
-import {
-  translatableStringSchema,
-  enhancedCtaSchema,
-} from "../../zodSchemaHelpers/data.ts";
-import { optionalSiteColorSchema } from "../../zodSchemaHelpers/colors.ts";
 import * as React from "react";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import { CTA } from "../atoms/cta.tsx";
@@ -34,18 +28,6 @@ import {
 } from "@yext/visual-editor";
 import { resolveLocalizedFooterLinkSection } from "./resolveLocalizedFooterLinkSection.ts";
 
-const footerExpandedLinksSchema = z.object({
-  data: z.object({
-    sections: z.array(
-      z.object({
-        label: translatableStringSchema,
-        links: z.array(enhancedCtaSchema),
-      })
-    ),
-  }),
-  styles: z.object({ color: optionalSiteColorSchema }).optional(),
-});
-
 const defaultSection = {
   label: { defaultValue: "Footer Label" },
   links: defaultLinks,
@@ -71,6 +53,10 @@ const footerExpandedLinksWrapperFields: YextFields<FooterExpandedLinksWrapperPro
               label: msg("fields.links", "Links"),
               arrayFields: {
                 linkType: {
+                  generation: {
+                    required: false,
+                    instructions: "The type of the link for analytics",
+                  },
                   label: msg("fields.linkType", "Link Type"),
                   type: "radio",
                   options: [
@@ -95,6 +81,11 @@ const footerExpandedLinksWrapperFields: YextFields<FooterExpandedLinksWrapperPro
                   type: "translatableString",
                 },
                 normalizeLink: {
+                  generation: {
+                    required: false,
+                    instructions:
+                      "Whether to standardize characters and casing",
+                  },
                   label: msg("fields.normalizeLink", "Normalize Link"),
                   type: "radio",
                   options: [
@@ -109,6 +100,10 @@ const footerExpandedLinksWrapperFields: YextFields<FooterExpandedLinksWrapperPro
                   ],
                 },
                 openInNewTab: {
+                  generation: {
+                    required: false,
+                    instructions: "Whether to open in a new tab",
+                  },
                   label: msg("fields.openInNewTab", "Open in new tab"),
                   type: "radio",
                   options: [
@@ -145,6 +140,10 @@ const footerExpandedLinksWrapperFields: YextFields<FooterExpandedLinksWrapperPro
       label: msg("fields.styles", "Styles"),
       objectFields: {
         color: {
+          generation: {
+            instructions:
+              "Omit this property to use the default theme color. Set it only when the user explicitly requests a color override.",
+          },
           type: "basicSelector",
           label: msg("fields.color", "Color"),
           options: "SITE_COLOR",
@@ -371,7 +370,6 @@ export const FooterExpandedLinksWrapper: YextComponentConfig<FooterExpandedLinks
     label: msg("components.expandedLinks", "Expanded Links"),
     fields: footerExpandedLinksWrapperFields,
     layoutGenerationMetadata: {
-      props: footerExpandedLinksSchema,
       resolvedProps: ["/desktopContentAlignment", "/mobileContentAlignment"],
     },
     resolveFields: (data) =>

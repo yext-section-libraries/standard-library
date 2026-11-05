@@ -1,10 +1,3 @@
-import { z } from "zod";
-import { entityFieldSchema } from "../shared/zodSchemaHelpers/data.ts";
-import {
-  optionalSiteColorSchema,
-  optionalTextColorSchema,
-  siteColorSchema,
-} from "../shared/zodSchemaHelpers/colors.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import {
@@ -40,43 +33,6 @@ import {
   CTAVariant,
   isCtaVariantWithColor,
 } from "../shared/sectionSupport/atoms/cta.tsx";
-
-// Match native authored values, including the empty configuration used by defaults.
-// Entity fields remain the source of business facts unless the user supplies constants.
-const addressValueSchema = z.object({
-  line1: z.string().optional(),
-  line2: z.string().optional(),
-  line3: z.string().optional(),
-  city: z.string().optional(),
-  region: z.string().optional(),
-  postalCode: z.string().optional(),
-  countryCode: z.string().optional(),
-  extraDescription: z.string().optional(),
-  sublocality: z.string().optional(),
-  localizedRegionName: z.string().optional(),
-  localizedCountryName: z.string().optional(),
-});
-
-export const addressSchema = z.object({
-  data: z.object({
-    address: entityFieldSchema(addressValueSchema),
-  }),
-  styles: z.object({
-    showRegion: z.boolean().optional(),
-    showCountry: z.boolean().optional(),
-    showGetDirectionsLink: z.boolean(),
-    ctaVariant: z.enum(["primary", "secondary", "link"]),
-    color: optionalSiteColorSchema.describe(
-      "Get Directions link color or button background color. Omit to use the default theme color; set only when the user explicitly requests an override."
-    ),
-    textColor: optionalTextColorSchema,
-    ctaTextColor: siteColorSchema
-      .optional()
-      .describe(
-        "Omit to use the default button text and icon colors. Set only when the user explicitly requests a Get Directions button text or icon color override, and use a valid theme color."
-      ),
-  }),
-});
 
 /** Props for the Address component */
 export interface AddressProps {
@@ -132,6 +88,7 @@ export const AddressDataField: YextFields<AddressProps["data"]> = {
 // Address style fields used in Address and CoreInfoSection
 export const AddressStyleFields: YextFields<AddressProps["styles"]> = {
   showRegion: {
+    generation: { required: false },
     label: msg("fields.showRegion", "Show Region"),
     type: "radio",
     options: [
@@ -140,6 +97,7 @@ export const AddressStyleFields: YextFields<AddressProps["styles"]> = {
     ],
   },
   showCountry: {
+    generation: { required: false },
     label: msg("fields.showCountry", "Show Country"),
     type: "radio",
     options: [
@@ -161,16 +119,29 @@ export const AddressStyleFields: YextFields<AddressProps["styles"]> = {
     options: ThemeOptions.CTA_VARIANT,
   },
   color: {
+    generation: {
+      required: false,
+      instructions:
+        "Get Directions link color or button background color. Omit to use the default theme color; set only when the user explicitly requests an override.",
+    },
     type: "basicSelector",
     label: msg("fields.linkColor", "Link Color"),
     options: "SITE_COLOR",
   },
   textColor: {
+    generation: {
+      instructions:
+        "Leave text color unset so the theme chooses it. A requested palette or background change does not by itself require a text color override. Do not infer a text color from imagery or surrounding content. Set a valid theme color when the user specifically requests a text color override.",
+    },
     type: "basicSelector",
     label: msg("fields.textColor", "Text Color"),
     options: "SITE_COLOR",
   },
   ctaTextColor: {
+    generation: {
+      instructions:
+        "Omit to use the default button text and icon colors. Set only when the user explicitly requests a Get Directions button text or icon color override, and use a valid theme color.",
+    },
     type: "basicSelector",
     label: msg("fields.textColor", "Text Color"),
     options: "SITE_COLOR",
@@ -302,7 +273,6 @@ export const resolveAddressFields = (
 };
 
 export const Address: YextComponentConfig<AddressProps> = {
-  layoutGenerationMetadata: { props: addressSchema },
   ...gridAtomPermissions,
   label: msg("components.address", "Address"),
   fields: addressFields,

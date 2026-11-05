@@ -1,27 +1,14 @@
+import { resolveAllData } from "@puckeditor/core";
 import { describe, expect, it } from "vitest";
-import { resolveAllData, type Config } from "@puckeditor/core";
-import { toPuckFields } from "@yext/visual-editor";
 import { Directory } from "../../library/sections/Directory.tsx";
 import { Locator } from "../../library/sections/Locator.tsx";
-import { DirectoryGrid } from "../../library/shared/sectionSupport/directory/DirectoryWrapper.tsx";
 import { DirectoryCard } from "../../library/shared/sectionSupport/directory/DirectoryCard.tsx";
+import { DirectoryGrid } from "../../library/shared/sectionSupport/directory/DirectoryWrapper.tsx";
 import { DEFAULT_LOCATOR_RESULT_CARD_PROPS } from "../../library/shared/sectionSupport/locator/LocatorResultCard.tsx";
-import { locatorSchema } from "../../library/shared/sectionSupport/locator/locatorZodSchemas.ts";
-import { sharedComponentConfigs } from "../../library/shared/componentRegistry.ts";
+import { config, generationSchema } from "./generationTestUtils.ts";
+const locatorSchema = generationSchema("Locator");
 
 const copy = <T,>(value: T): T => structuredClone(value);
-const components = { ...sharedComponentConfigs, Directory, Locator };
-const config = {
-  components: Object.fromEntries(
-    Object.entries(components).map(([name, component]) => [
-      name,
-      {
-        ...component,
-        fields: component.fields ? toPuckFields(component.fields) : undefined,
-      },
-    ])
-  ),
-} as Config;
 async function resolve(type: string, props: any, streamDocument: any = {}) {
   const result = await resolveAllData(
     {
@@ -55,11 +42,12 @@ const child = (id: string, name: string) => ({
 describe("locator and directory generation", () => {
   it("excludes derived directory card state", () => {
     expect(
-      DirectoryGrid.layoutGenerationMetadata!.slottedItemSource
+      DirectoryGrid.layoutGenerationMetadata?.slottedItemSource
     ).toBeUndefined();
-    expect(
-      Object.keys(DirectoryCard.layoutGenerationMetadata!.props.shape)
-    ).toEqual(["styles", "slots"]);
+    expect(Object.keys(generationSchema("DirectoryCard").shape)).toEqual([
+      "styles",
+      "slots",
+    ]);
   });
 
   it("rejects unsupported locator options and pin dimensions", () => {
@@ -147,8 +135,42 @@ describe("locator and directory generation", () => {
     }
   );
 
+  it("infers fixed directory sources with boolean and opaque mappings", () => {
+    const schema = generationSchema("DirectoryGrid");
+    const props = copy(DirectoryGrid.defaultProps!) as any;
+    props.data = {
+      field: "dm_directoryChildren",
+      constantValueEnabled: false,
+      mappings: {
+        cardTitle: { field: "name", constantValueEnabled: false },
+        linkOverride: {
+          enabled: true,
+          normalizeLink: false,
+          field: "",
+          constantValueEnabled: true,
+          constantValue: { defaultValue: "/custom", fr: "/personnalise" },
+        },
+        showAddress: false,
+        showHoursStatus: true,
+        showPhoneNumber: false,
+      },
+    };
+    expect(schema.parse(props).data).toEqual(props.data);
+    expect(
+      schema.safeParse({
+        ...props,
+        data: {
+          ...props.data,
+          mappings: { ...props.data.mappings, showAddress: "false" },
+        },
+      }).success
+    ).toBe(false);
+    delete props.data;
+    expect(schema.safeParse(props).success).toBe(true);
+  });
+
   it("normalizes directory bindings even for list pages and missing metadata", async () => {
-    const schema = DirectoryGrid.layoutGenerationMetadata!.props;
+    const schema = generationSchema("DirectoryGrid");
     const props = copy(DirectoryGrid.defaultProps!) as any;
     for (const data of [
       { ...props.data, field: "c_other" },
@@ -181,9 +203,7 @@ describe("locator and directory generation", () => {
     const result = await resolve("Directory", props);
     expect(result.slots.TitleSlot).toEqual([]);
     expect(result.slots.SiteNameSlot).toEqual([]);
-    expect(
-      Directory.layoutGenerationMetadata!.props.safeParse(result).success
-    ).toBe(false);
+    expect(generationSchema("Directory").safeParse(result).success).toBe(false);
   });
 
   it("preserves valid locator configuration ordering", async () => {
@@ -335,7 +355,7 @@ describe("locator and directory generation", () => {
     });
     expect(result.slots.CardSlot[0].props.slots).toEqual(slots);
     expect(
-      DirectoryCard.layoutGenerationMetadata!.props.safeParse(
+      generationSchema("DirectoryCard").safeParse(
         result.slots.CardSlot[0].props
       ).success
     ).toBe(false);

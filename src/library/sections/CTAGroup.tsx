@@ -1,9 +1,3 @@
-import { z } from "zod";
-import { getDirectionsSchema } from "./GetDirections.tsx";
-import {
-  ctaEntityFieldSchema,
-  presetImageSchema,
-} from "../shared/sectionSupport/atoms/ctaZodSchemas.ts";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { createUsePuck, PuckComponent, setDeep } from "@puckeditor/core";
 import {
@@ -19,27 +13,17 @@ import {
   YextFields,
   SectionConfig,
 } from "@yext/visual-editor";
-import { CTA, CTAVariant } from "../shared/sectionSupport/atoms/cta.tsx";
+import { CTA } from "../shared/sectionSupport/atoms/cta.tsx";
 import { useTranslation } from "react-i18next";
+import { CTAVariant } from "../shared/sectionSupport/atoms/cta.tsx";
 import { CTAWrapperProps } from "./CTAWrapper.tsx";
 import {
   isNonNormalizableLinkType,
   getCTAType,
   YextAutoField,
   YextCustomFieldRenderProps,
+  siteColorZodSchema,
 } from "@yext/visual-editor/section-library-support";
-
-const ctaGroupSchema = z.object({
-  buttons: z
-    .array(
-      getDirectionsSchema.extend({
-        entityField: ctaEntityFieldSchema,
-        normalizeLink: z.boolean(),
-        presetImage: presetImageSchema.optional(),
-      })
-    )
-    .max(9),
-});
 
 type BasicCTAProps = {
   /** The CTA entity field or static value */
@@ -140,6 +124,7 @@ const ctaGroupFields: YextFields<CTAGroupProps> = {
         options: ThemeOptions.CTA_VARIANT,
       },
       presetImage: {
+        generation: { required: false },
         type: "basicSelector",
         label: msg("fields.presetImage", "Preset Image"),
         options: "PRESET_IMAGE",
@@ -150,6 +135,11 @@ const ctaGroupFields: YextFields<CTAGroupProps> = {
         options: "SITE_COLOR",
       },
       textColor: {
+        generation: {
+          schema: siteColorZodSchema.optional(),
+          instructions:
+            "Leave text color unset so the theme chooses it. A requested palette or background change does not by itself require a text color override. Do not infer a text color from imagery or surrounding content. Set a valid theme color when the user specifically requests a text color override.",
+        },
         type: "custom",
         label: msg("fields.textColor", "Text Color"),
         render: (props: YextCustomFieldRenderProps<ThemeColor | undefined>) => (
@@ -231,7 +221,6 @@ export const CTAGroup: YextComponentConfig<CTAGroupProps> = {
   ...gridAtomPermissions,
   label: msg("components.ctaGroup", "CTA Group"),
   fields: ctaGroupFields,
-  layoutGenerationMetadata: { props: ctaGroupSchema },
   resolveFields: (data) => {
     let updatedFields = ctaGroupFields;
     // show normalize link field if any of the linkTypes are normalizable (not PHONE or EMAIL)

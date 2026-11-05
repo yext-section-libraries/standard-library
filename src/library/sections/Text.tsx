@@ -1,7 +1,4 @@
-import { bodyTextSchema } from "./BodyText.tsx";
-import { z } from "zod";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
-import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
 import { Body, BodyProps } from "../shared/sectionSupport/atoms/body.tsx";
 import {
@@ -22,12 +19,6 @@ import {
   SectionConfig,
 } from "@yext/visual-editor";
 import { useTranslation } from "react-i18next";
-
-const textSchema = bodyTextSchema.extend({
-  styles: bodyTextSchema.shape.styles.extend({
-    fontStyle: z.enum(["regular", "bold", "italic"]),
-  }),
-});
 
 export type TextProps = {
   data: {
@@ -75,11 +66,16 @@ const textFields: YextFields<TextProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       variant: {
+        generation: { nullable: true },
         label: msg("fields.textSize", "Text Size"),
         type: "radio",
         options: ThemeOptions.BODY_VARIANT,
       },
       color: {
+        generation: {
+          instructions:
+            "Leave text color unset so the theme chooses it. A requested palette or background change does not by itself require a text color override. Do not infer a text color from imagery or surrounding content. Set a valid theme color when the user specifically requests a text color override.",
+        },
         type: "basicSelector",
         label: msg("fields.color", "Color"),
         options: "SITE_COLOR",
@@ -146,7 +142,6 @@ export const Text: YextComponentConfig<TextProps> = {
   ...gridAtomPermissions,
   label: msg("components.text", "Text"),
   fields: textFields,
-  layoutGenerationMetadata: { props: textSchema },
   resolveFields: (data) => resolveDataFromParent(textFields, data),
   defaultProps: {
     data: {

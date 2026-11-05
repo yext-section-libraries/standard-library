@@ -1,6 +1,3 @@
-import { z } from "zod";
-import { enhancedCtaSchema } from "../../zodSchemaHelpers/data.ts";
-import { optionalTextColorSchema } from "../../zodSchemaHelpers/colors.ts";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { FieldLabel, PuckComponent, setDeep } from "@puckeditor/core";
@@ -28,6 +25,7 @@ import {
   useWindowWidth,
   isNonNormalizableLinkType,
   linkTypeOptions,
+  inferFieldZodSchema,
 } from "@yext/visual-editor/section-library-support";
 import {
   useExpandedHeaderMenu,
@@ -38,23 +36,6 @@ import {
   type ResolvedCTA,
   resolveLocalizedCtas,
 } from "../../utils/resolveLocalizedCtas.ts";
-
-const headerLinksSchema = z.object({
-  data: z.object({
-    links: z
-      .array(enhancedCtaSchema)
-      .describe("Navigation links displayed inline while space permits."),
-    collapsedLinks: z
-      .array(enhancedCtaSchema)
-      .describe("Navigation links displayed in the menu."),
-  }),
-  styles: z.object({
-    align: z.enum(["left", "center", "right"]).optional(),
-    variant: z.enum(["xs", "sm", "base", "lg"]).nullable().optional(),
-    color: optionalTextColorSchema,
-    weight: z.enum(["normal", "bold"]).optional(),
-  }),
-});
 
 export type HeaderLinksProps = {
   data: {
@@ -111,11 +92,19 @@ const linkFieldConfig: YextArrayField<TranslatableCTA[]> = {
       label: msg("fields.link", "Link"),
     },
     linkType: {
+      generation: {
+        required: false,
+        instructions: "The type of the link for analytics",
+      },
       type: "basicSelector",
       label: msg("fields.linkType", "Link Type"),
       options: linkTypeOptions(),
     },
     normalizeLink: {
+      generation: {
+        required: false,
+        instructions: "Whether to standardize characters and casing",
+      },
       label: msg("fields.normalizeLink", "Normalize Link"),
       type: "radio",
       options: [
@@ -124,6 +113,10 @@ const linkFieldConfig: YextArrayField<TranslatableCTA[]> = {
       ],
     },
     openInNewTab: {
+      generation: {
+        required: false,
+        instructions: "Whether to open in a new tab",
+      },
       label: msg("fields.openInNewTab", "Open in new tab"),
       type: "radio",
       options: [
@@ -147,6 +140,11 @@ const headerLinksFields: YextFields<HeaderLinksProps> = {
     label: msg("fields.data", "Data"),
     objectFields: {
       links: {
+        generation: {
+          schema: inferFieldZodSchema(linkFieldConfig, { defaultValue: [] }),
+          instructions:
+            "Navigation links displayed inline while space permits.",
+        },
         type: "custom",
         render: ({
           onChange,
@@ -175,6 +173,7 @@ const headerLinksFields: YextFields<HeaderLinksProps> = {
         },
       },
       collapsedLinks: {
+        generation: { instructions: "Navigation links displayed in the menu." },
         ...linkFieldConfig,
         label: msg("fields.collapsedLinks", "Collapsed Links"),
       },
@@ -185,21 +184,31 @@ const headerLinksFields: YextFields<HeaderLinksProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       align: {
+        generation: { required: false },
         label: msg("fields.align", "Align"),
         type: "radio",
         options: ThemeOptions.ALIGNMENT,
       },
       variant: {
+        generation: {
+          required: false,
+          nullable: true,
+        },
         label: msg("fields.variant", "Variant"),
         type: "radio",
         options: ThemeOptions.BODY_VARIANT,
       },
       color: {
+        generation: {
+          instructions:
+            "Leave text color unset so the theme chooses it. A requested palette or background change does not by itself require a text color override. Do not infer a text color from imagery or surrounding content. Set a valid theme color when the user specifically requests a text color override.",
+        },
         type: "basicSelector",
         label: msg("fields.color", "Color"),
         options: "SITE_COLOR",
       },
       weight: {
+        generation: { required: false },
         label: msg("fields.weight", "Weight"),
         type: "radio",
         options: [
@@ -391,7 +400,6 @@ export const defaultHeaderLinkProps: HeaderLinksProps = {
 };
 
 export const HeaderLinks: YextComponentConfig<HeaderLinksProps> = {
-  layoutGenerationMetadata: { props: headerLinksSchema },
   label: msg("components.headerLinks", "Header Links"),
   fields: headerLinksFields,
   resolveFields: (data, params) => {

@@ -1,6 +1,3 @@
-import { z } from "zod";
-import { cardStyles } from "../../../zodSchemaHelpers/mappedCardsZodSchemas.ts";
-import { slotSchema } from "../../../zodSchemaHelpers/slots.ts";
 import * as React from "react";
 import { PuckComponent, Slot, WithId, setDeep } from "@puckeditor/core";
 import {
@@ -31,17 +28,6 @@ import {
   getRandomPlaceholderImageObject,
   syncParentStyles,
 } from "@yext/visual-editor/section-library-support";
-
-const eventCardSchema = z.object({
-  styles: cardStyles.extend({ truncateDescription: z.boolean() }),
-  slots: z.object({
-    ImageSlot: slotSchema(),
-    TitleSlot: slotSchema(),
-    DateTimeSlot: slotSchema(),
-    DescriptionSlot: slotSchema(),
-    CTASlot: slotSchema(),
-  }),
-});
 
 const defaultEvent = {
   image: {
@@ -263,6 +249,7 @@ const eventCardFields: YextFields<EventCardProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       backgroundColor: {
+        generation: { required: false },
         type: "basicSelector",
         label: msg("fields.backgroundColor", "Background Color"),
         options: "BACKGROUND_COLOR",
@@ -280,11 +267,41 @@ const eventCardFields: YextFields<EventCardProps> = {
   slots: {
     type: "object",
     objectFields: {
-      ImageSlot: { type: "slot", allow: ["ImageSlot"] },
-      TitleSlot: { type: "slot", allow: ["HeadingTextSlot"] },
-      DateTimeSlot: { type: "slot", allow: ["Timestamp"] },
-      DescriptionSlot: { type: "slot", allow: ["BodyTextSlot"] },
-      CTASlot: { type: "slot", allow: ["CTASlot"] },
+      ImageSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["ImageSlot"],
+      },
+      TitleSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["HeadingTextSlot"],
+      },
+      DateTimeSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["Timestamp"],
+      },
+      DescriptionSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["BodyTextSlot"],
+      },
+      CTASlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["CTASlot"],
+      },
     },
     visible: false,
   },
@@ -442,7 +459,6 @@ const EventCardComponent: PuckComponent<EventCardProps> = (props) => {
 export const EventCard: YextComponentConfig<EventCardProps> = {
   label: msg("components.eventCard", "Event Card"),
   fields: eventCardFields,
-  layoutGenerationMetadata: { props: eventCardSchema },
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background1.value,

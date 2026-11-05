@@ -1,10 +1,3 @@
-import { mappedCardsSectionSchema } from "../shared/zodSchemaHelpers/mappedCardsZodSchemas.ts";
-import {
-  siteColorSchema,
-  optionalTextColorSchema,
-} from "../shared/zodSchemaHelpers/colors.ts";
-import { z } from "zod";
-import { slotSchema } from "../shared/zodSchemaHelpers/slots.ts";
 import { useTranslation } from "react-i18next";
 import { FaArrowLeft, FaArrowRight, FaChevronDown } from "react-icons/fa";
 import { PuckComponent, Slot } from "@puckeditor/core";
@@ -45,14 +38,6 @@ import {
   getTextColorClass,
   getTextColorStyle,
 } from "@yext/visual-editor/section-library-support";
-
-const reviewsSectionSchema = mappedCardsSectionSchema.extend({
-  styles: mappedCardsSectionSchema.shape.styles.extend({
-    accentColor: siteColorSchema.optional(),
-    textColor: optionalTextColorSchema,
-  }),
-  slots: z.object({ SectionHeadingSlot: slotSchema() }),
-});
 
 type Review = {
   authorName: string;
@@ -169,6 +154,7 @@ const reviewsFields: YextFields<ReviewsSectionProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       backgroundColor: {
+        generation: { required: false },
         type: "basicSelector",
         label: msg("fields.backgroundColor", "Background Color"),
         options: "BACKGROUND_COLOR",
@@ -179,6 +165,10 @@ const reviewsFields: YextFields<ReviewsSectionProps> = {
         options: "SITE_COLOR",
       },
       textColor: {
+        generation: {
+          instructions:
+            "Leave text color unset so the theme chooses it. A requested palette or background change does not by itself require a text color override. Do not infer a text color from imagery or surrounding content. Set a valid theme color when the user specifically requests a text color override.",
+        },
         type: "basicSelector",
         label: msg("fields.textColor", "Text Color"),
         options: "SITE_COLOR",
@@ -193,7 +183,13 @@ const reviewsFields: YextFields<ReviewsSectionProps> = {
   slots: {
     type: "object",
     objectFields: {
-      SectionHeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
+      SectionHeadingSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["HeadingTextSlot"],
+      },
     },
     visible: false,
   },
@@ -203,6 +199,7 @@ const reviewsFields: YextFields<ReviewsSectionProps> = {
     visible: false,
     objectFields: {
       scope: {
+        generation: { required: false },
         label: msg("fields.scope", "Scope"),
         type: "text",
       },
@@ -615,7 +612,6 @@ const ShowMoreButton: React.FC<{
 
 export const ReviewsSection: YextComponentConfig<ReviewsSectionProps> = {
   fields: reviewsFields,
-  layoutGenerationMetadata: { props: reviewsSectionSchema },
   label: msg("components.reviews", "Reviews"),
   defaultProps: {
     styles: {

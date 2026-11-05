@@ -1,4 +1,3 @@
-import { mappedCardsSectionSchema } from "../shared/zodSchemaHelpers/mappedCardsZodSchemas.ts";
 import { Slot } from "@puckeditor/core";
 import {
   ThemeColor,
@@ -72,6 +71,7 @@ const eventSectionFields: YextFields<EventSectionProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       backgroundColor: {
+        generation: { required: false },
         type: "basicSelector",
         label: msg("fields.backgroundColor", "Background Color"),
         options: "BACKGROUND_COLOR",
@@ -86,8 +86,20 @@ const eventSectionFields: YextFields<EventSectionProps> = {
   slots: {
     type: "object",
     objectFields: {
-      SectionHeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
-      CardsWrapperSlot: { type: "slot", allow: ["EventCardsWrapper"] },
+      SectionHeadingSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["HeadingTextSlot"],
+      },
+      CardsWrapperSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["EventCardsWrapper"],
+      },
     },
     visible: false,
   },
@@ -97,6 +109,7 @@ const eventSectionFields: YextFields<EventSectionProps> = {
     visible: false,
     objectFields: {
       scope: {
+        generation: { required: false },
         label: msg("fields.scope", "Scope"),
         type: "text",
       },
@@ -115,7 +128,6 @@ const eventSectionFields: YextFields<EventSectionProps> = {
 export const EventSection: YextComponentConfig<EventSectionProps> = {
   label: msg("components.events", "Events"),
   fields: eventSectionFields,
-  layoutGenerationMetadata: { props: mappedCardsSectionSchema },
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background3.value,

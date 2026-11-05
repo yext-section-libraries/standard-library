@@ -1,11 +1,3 @@
-import { z } from "zod";
-import {
-  phoneSchema,
-  defaultPhoneDataProps,
-  PhoneDataFields,
-  PhoneStyleFields,
-  PhoneProps,
-} from "../../../sections/Phone.tsx";
 import {
   backgroundColors,
   EntityField,
@@ -19,19 +11,14 @@ import {
   YextFields,
 } from "@yext/visual-editor";
 import { PhoneAtom } from "../atoms/phone.tsx";
+import {
+  defaultPhoneDataProps,
+  PhoneDataFields,
+  PhoneStyleFields,
+  PhoneProps,
+} from "../../../sections/Phone.tsx";
 import { PuckComponent } from "@puckeditor/core";
 import { useTranslation } from "react-i18next";
-
-export const phoneListSchema = z.object({
-  data: z.object({
-    phoneNumbers: z
-      .array(phoneSchema.shape.data)
-      .describe(
-        "Phone fields and their labels. Preserve existing constants; never invent a number."
-      ),
-  }),
-  styles: phoneSchema.shape.styles,
-});
 
 export interface PhoneListProps {
   data: {
@@ -58,6 +45,10 @@ export const phoneListFields: YextFields<PhoneListProps> = {
     label: msg("fields.data", "Data"),
     objectFields: {
       phoneNumbers: {
+        generation: {
+          instructions:
+            "Phone fields and their labels. Preserve existing constants; never invent a number.",
+        },
         type: "array",
         label: msg("fields.phoneNumbers", "Phone Numbers"),
         arrayFields: PhoneDataFields,
@@ -172,7 +163,6 @@ export const PhoneListComponent: PuckComponent<PhoneListProps> = (props) => {
 };
 
 export const PhoneList: YextComponentConfig<PhoneListProps> = {
-  layoutGenerationMetadata: { props: phoneListSchema },
   label: msg("components.phoneList", "Phone List"),
   fields: phoneListFields,
   resolveFields: (data) => resolveDataFromParent(phoneListFields, data),

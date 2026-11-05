@@ -1,4 +1,3 @@
-import { mappedCardsSectionSchema } from "../shared/zodSchemaHelpers/mappedCardsZodSchemas.ts";
 import { Slot } from "@puckeditor/core";
 import {
   ThemeColor,
@@ -73,6 +72,7 @@ const teamSectionFields: YextFields<TeamSectionProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       backgroundColor: {
+        generation: { required: false },
         type: "basicSelector",
         label: msg("fields.backgroundColor", "Background Color"),
         options: "BACKGROUND_COLOR",
@@ -87,8 +87,20 @@ const teamSectionFields: YextFields<TeamSectionProps> = {
   slots: {
     type: "object",
     objectFields: {
-      SectionHeadingSlot: { type: "slot", allow: ["HeadingTextSlot"] },
-      CardsWrapperSlot: { type: "slot", allow: ["TeamCardsWrapper"] },
+      SectionHeadingSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["HeadingTextSlot"],
+      },
+      CardsWrapperSlot: {
+        generation: {
+          singleChild: true,
+        },
+        type: "slot",
+        allow: ["TeamCardsWrapper"],
+      },
     },
     visible: false,
   },
@@ -98,6 +110,7 @@ const teamSectionFields: YextFields<TeamSectionProps> = {
     visible: false,
     objectFields: {
       scope: {
+        generation: { required: false },
         label: msg("fields.scope", "Scope"),
         type: "text",
       },
@@ -116,7 +129,6 @@ const teamSectionFields: YextFields<TeamSectionProps> = {
 export const TeamSection: YextComponentConfig<TeamSectionProps> = {
   label: msg("components.team", "Team"),
   fields: teamSectionFields,
-  layoutGenerationMetadata: { props: mappedCardsSectionSchema },
   defaultProps: {
     styles: {
       backgroundColor: backgroundColors.background3.value,
