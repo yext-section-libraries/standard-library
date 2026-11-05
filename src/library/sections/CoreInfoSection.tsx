@@ -154,7 +154,6 @@ const coreInfoSectionFields: YextFields<CoreInfoSectionProps> = {
       scope: {
         generation: {
           required: false,
-          instructions: "Analytics scope for this section.",
         },
         label: msg("fields.scope", "Scope"),
         type: "text",

@@ -136,10 +136,6 @@ const FAQCardFields: YextFields<FAQCardProps> = {
         options: ThemeOptions.BODY_VARIANT,
       },
       answerColor: {
-        generation: {
-          instructions:
-            "Omit to use the default theme color. Set only for an explicit answer color override.",
-        },
         type: "basicSelector",
         label: msg("fields.answerColor", "Answer Color"),
         options: "SITE_COLOR",

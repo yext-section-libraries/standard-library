@@ -91,10 +91,6 @@ export const FooterSocialLinksSlotFields: YextFields<FooterSocialLinksSlotProps>
       label: msg("fields.styles", "Styles"),
       objectFields: {
         iconColor: {
-          generation: {
-            instructions:
-              "Omit this property to use the default theme color. Set it only when the user explicitly requests a color override.",
-          },
           type: "basicSelector",
           label: msg("fields.iconColor", "Icon Color"),
           options: "SITE_COLOR",

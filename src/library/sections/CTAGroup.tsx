@@ -137,8 +137,6 @@ const ctaGroupFields: YextFields<CTAGroupProps> = {
       textColor: {
         generation: {
           schema: siteColorZodSchema.optional(),
-          instructions:
-            "Leave text color unset so the theme chooses it. A requested palette or background change does not by itself require a text color override. Do not infer a text color from imagery or surrounding content. Set a valid theme color when the user specifically requests a text color override.",
         },
         type: "custom",
         label: msg("fields.textColor", "Text Color"),

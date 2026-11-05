@@ -265,7 +265,6 @@ const footerLinksSlotFields: YextFields<FooterLinksSlotProps> = {
           linkType: {
             generation: {
               required: false,
-              instructions: "The type of the link for analytics",
             },
             label: msg("fields.linkType", "Link Type"),
             type: "radio",
@@ -293,7 +292,6 @@ const footerLinksSlotFields: YextFields<FooterLinksSlotProps> = {
           normalizeLink: {
             generation: {
               required: false,
-              instructions: "Whether to standardize characters and casing",
             },
             label: msg("fields.normalizeLink", "Normalize Link"),
             type: "radio",
@@ -305,7 +303,6 @@ const footerLinksSlotFields: YextFields<FooterLinksSlotProps> = {
           openInNewTab: {
             generation: {
               required: false,
-              instructions: "Whether to open in a new tab",
             },
             label: msg("fields.openInNewTab", "Open in new tab"),
             type: "radio",
@@ -326,10 +323,6 @@ const footerLinksSlotFields: YextFields<FooterLinksSlotProps> = {
     },
   },
   color: {
-    generation: {
-      instructions:
-        "Omit this property to use the default theme color. Set it only when the user explicitly requests a color override.",
-    },
     type: "basicSelector",
     label: msg("fields.color", "Color"),
     options: "SITE_COLOR",

@@ -2,6 +2,8 @@ import React from "react";
 import { FieldLabel, PuckComponent, Slot } from "@puckeditor/core";
 import {
   backgroundColors,
+  entityFieldZodSchema,
+  translatableStringZodSchema,
   ThemeColor,
   ThemeOptions,
   msg,
@@ -42,7 +44,7 @@ import {
 } from "./directoryChildReference.tsx";
 import { FaInfoCircle } from "react-icons/fa";
 import type { DirectoryStyles } from "./Directory.tsx";
-import { linkOverrideSchema } from "./directoryZodSchemas.ts";
+import { z } from "zod";
 
 export type DirectoryGridProps = {
   data: typeof directoryCardsSource.value;
@@ -85,6 +87,13 @@ const DirectoryFieldTooltip = () => {
     </TooltipProvider>
   );
 };
+
+const linkOverrideSchema = entityFieldZodSchema(
+  translatableStringZodSchema
+).extend({
+  enabled: z.boolean(),
+  normalizeLink: z.boolean(),
+});
 
 const linkOverrideField: YextFieldDefinition<
   DirectoryCardProps["data"]["linkOverride"]
@@ -326,8 +335,7 @@ const directoryGridFields: YextFields<DirectoryGridProps> = {
     ...directoryCardsSource.field,
     generation: {
       required: false,
-      instructions:
-        "Directory children only; omitted bindings use dm_directoryChildren. Manual cards are unsupported.",
+      instructions: "Omitted bindings use dm_directoryChildren.",
     },
     disableConstantValueToggle: true,
     fixedRepeatedField: "dm_directoryChildren",
@@ -351,7 +359,7 @@ const directoryGridFields: YextFields<DirectoryGridProps> = {
       CardSlot: {
         generation: {
           instructions:
-            "DirectoryCard children; membership and order follow sorted directory children.",
+            "Membership and order follow sorted directory children.",
         },
         type: "slot",
         allow: ["DirectoryCard"],

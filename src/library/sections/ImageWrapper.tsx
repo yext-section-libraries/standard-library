@@ -71,7 +71,6 @@ export const ImageWrapperFields: YextFields<ImageWrapperProps> = {
     label: msg("fields.data", "Data"),
     objectFields: {
       image: {
-        generation: { instructions: "The image content or entity field." },
         type: "entityField",
         label: msg("fields.options.image", "Image"),
         filter: {
@@ -86,7 +85,6 @@ export const ImageWrapperFields: YextFields<ImageWrapperProps> = {
     },
   },
   styles: {
-    generation: { instructions: "Image size and aspect ratio." },
     type: "object",
     label: msg("fields.styles", "Styles"),
     objectFields: {

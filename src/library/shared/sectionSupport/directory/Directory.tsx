@@ -69,19 +69,11 @@ const directoryFields: YextFields<DirectoryProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       backgroundColor: {
-        generation: {
-          instructions:
-            'Custom colors require selectedColor in [#XXXXXX] format, contrastingColor, and isDarkColor. For a light pink background use {"selectedColor":"[#FFBBC7]","contrastingColor":"black","isDarkColor":false}. Use white contrast with isDarkColor true for dark backgrounds.',
-        },
         type: "basicSelector",
         label: msg("fields.headingBackgroundColor", "Heading Background Color"),
         options: "BACKGROUND_COLOR",
       },
       listBackgroundColor: {
-        generation: {
-          instructions:
-            'Custom colors require selectedColor in [#XXXXXX] format, contrastingColor, and isDarkColor. For a light pink background use {"selectedColor":"[#FFBBC7]","contrastingColor":"black","isDarkColor":false}. Use white contrast with isDarkColor true for dark backgrounds.',
-        },
         type: "basicSelector",
         label: msg(
           "fields.directoryListBackgroundColor",

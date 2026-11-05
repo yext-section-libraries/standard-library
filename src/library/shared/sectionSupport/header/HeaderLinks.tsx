@@ -94,7 +94,6 @@ const linkFieldConfig: YextArrayField<TranslatableCTA[]> = {
     linkType: {
       generation: {
         required: false,
-        instructions: "The type of the link for analytics",
       },
       type: "basicSelector",
       label: msg("fields.linkType", "Link Type"),
@@ -103,7 +102,6 @@ const linkFieldConfig: YextArrayField<TranslatableCTA[]> = {
     normalizeLink: {
       generation: {
         required: false,
-        instructions: "Whether to standardize characters and casing",
       },
       label: msg("fields.normalizeLink", "Normalize Link"),
       type: "radio",
@@ -115,7 +113,6 @@ const linkFieldConfig: YextArrayField<TranslatableCTA[]> = {
     openInNewTab: {
       generation: {
         required: false,
-        instructions: "Whether to open in a new tab",
       },
       label: msg("fields.openInNewTab", "Open in new tab"),
       type: "radio",
@@ -199,10 +196,6 @@ const headerLinksFields: YextFields<HeaderLinksProps> = {
         options: ThemeOptions.BODY_VARIANT,
       },
       color: {
-        generation: {
-          instructions:
-            "Leave text color unset so the theme chooses it. A requested palette or background change does not by itself require a text color override. Do not infer a text color from imagery or surrounding content. Set a valid theme color when the user specifically requests a text color override.",
-        },
         type: "basicSelector",
         label: msg("fields.color", "Color"),
         options: "SITE_COLOR",

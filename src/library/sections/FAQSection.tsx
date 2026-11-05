@@ -98,8 +98,7 @@ const FAQsSectionFields: YextFields<FAQSectionProps> = {
   data: {
     ...faqCardsSource.field,
     generation: {
-      instructions:
-        "Use question/answer entity bindings for linked FAQs. Card references are assigned automatically.",
+      instructions: "Card references are assigned automatically.",
     },
   },
   styles: {
@@ -131,8 +130,7 @@ const FAQsSectionFields: YextFields<FAQSectionProps> = {
       },
       CardSlot: {
         generation: {
-          instructions:
-            "Ordered FAQCard children for manual FAQs, or select the default cards. Leave empty or select defaults in linked mode.",
+          instructions: "Leave empty or select defaults in linked mode.",
         },
         type: "slot",
         allow: [],

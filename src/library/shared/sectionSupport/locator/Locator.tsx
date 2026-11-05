@@ -16,6 +16,7 @@ import {
   LocatorEntityType,
 } from "@yext/visual-editor/section-library-support";
 import {
+  inferFieldZodSchema,
   toPuckFields,
   type YextCustomFieldRenderProps,
   YextComponentConfig,
@@ -34,13 +35,50 @@ import {
   DEFAULT_LOCATION_STYLE,
   DEFAULT_MAKI_ICON_NAME,
   DEFAULT_PIN_ICON_WIDTH,
+  LOCATOR_PIN_ICON_FIELD,
+  MAX_PIN_ICON_WIDTH,
+  makiIconOptions,
 } from "./Map";
-import { locatorPinIconFields } from "./locatorPinIconFields.ts";
+import { ImageStylingFields } from "../contentBlocks/image/styling.ts";
 import {
   locatorFacetFieldsSchema,
-  locatorPinIconSchema,
   locatorResultCardSchema,
 } from "./locatorZodSchemas.ts";
+const locatorPinIconFields = {
+  type: {
+    generation: { required: true },
+    type: "basicSelector",
+    label: msg("fields.pinIcon", "Pin Icon"),
+    options: [
+      { label: msg("fields.options.none", "None"), value: "none" },
+      { label: msg("fields.options.icon", "Icon"), value: "icon" },
+      {
+        label: msg("fields.options.customImage", "Custom image"),
+        value: "customImage",
+      },
+    ],
+  },
+  iconName: {
+    type: "basicSelector",
+    label: msg("fields.icon", "Icon"),
+    options: makiIconOptions,
+  },
+  image: LOCATOR_PIN_ICON_FIELD,
+  width: {
+    type: "number",
+    min: 1,
+    max: MAX_PIN_ICON_WIDTH,
+  },
+  aspectRatio: ImageStylingFields.aspectRatio,
+} satisfies YextFields<
+  NonNullable<LocatorProps["locationStyles"][number]["pinIcon"]>
+>;
+
+const locatorPinIconSchema = inferFieldZodSchema({
+  type: "object",
+  objectFields: locatorPinIconFields,
+});
+
 const DEFAULT_TITLE = "Find a Location";
 const DEFAULT_DISTANCE_DISPLAY = "distanceFromUser";
 

@@ -108,9 +108,6 @@ export const hoursTableFields: YextFields<HoursTableProps> = {
     objectFields: {
       ...HoursTableStyleFields,
       alignment: {
-        generation: {
-          instructions: "Left or center alignment of the hours table.",
-        },
         label: msg("fields.contentAlignment", "Content Alignment"),
         type: "radio",
         options: [
@@ -122,10 +119,6 @@ export const hoursTableFields: YextFields<HoursTableProps> = {
         ],
       },
       textColor: {
-        generation: {
-          instructions:
-            "Leave text color unset so the theme chooses it. A requested palette or background change does not by itself require a text color override. Do not infer a text color from imagery or surrounding content. Set a valid theme color when the user specifically requests a text color override.",
-        },
         type: "basicSelector",
         label: msg("fields.textColor", "Text Color"),
         options: "SITE_COLOR",

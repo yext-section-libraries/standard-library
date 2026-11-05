@@ -97,7 +97,7 @@ const heroImageFields = setDeep(
   "styles.objectFields.aspectRatio.generation",
   {
     instructions:
-      "HeroImage renders in classic and compact heroes. Use a supported image aspect ratio; wide background images for immersive/spotlight belong in the parent hero data.backgroundImage.",
+      "Renders in classic and compact heroes. Immersive/spotlight background images belong in the parent hero data.backgroundImage.",
   }
 );
 

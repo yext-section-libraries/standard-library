@@ -71,14 +71,12 @@ export const PhoneDataFields: YextFields<PhoneProps["data"]> = {
 // Phone style definitions used in Phone and CoreInfoSection
 export const PhoneStyleFields: YextFields<PhoneProps["styles"]> = {
   phoneFormat: {
-    generation: { instructions: "how to format the phone numbers" },
     label: msg("fields.phoneFormat", "Phone Format"),
     type: "radio",
     options: ThemeOptions.PHONE_OPTIONS,
   },
   // By adding `<boolean>`, we make the type explicit.
   includePhoneHyperlink: {
-    generation: { instructions: "whether the phone numbers are hyperlinked" },
     label: msg("fields.includePhoneHyperlink", "Include Phone Hyperlink"),
     type: "radio",
     options: [
@@ -89,7 +87,6 @@ export const PhoneStyleFields: YextFields<PhoneProps["styles"]> = {
   includeIcon: {
     generation: {
       required: false,
-      instructions: "whether to display a phone icon",
     },
     label: msg("fields.showIcon", "Show Icon"),
     type: "radio",
@@ -97,27 +94,18 @@ export const PhoneStyleFields: YextFields<PhoneProps["styles"]> = {
   },
   color: {
     generation: {
-      instructions:
-        "Phone link and icon background color. Omit to use default theme colors; set only when the user explicitly requests a phone color override.",
+      instructions: "Controls phone link and icon background colors.",
     },
     type: "basicSelector",
     label: msg("fields.color", "Color"),
     options: "SITE_COLOR",
   },
   labelColor: {
-    generation: {
-      instructions:
-        "Omit to use the default theme text color. Set only when the user explicitly requests a phone label color override, and use a valid theme color.",
-    },
     type: "basicSelector",
     label: msg("fields.labelColor", "Label Color"),
     options: "SITE_COLOR",
   },
   iconColor: {
-    generation: {
-      instructions:
-        "Omit to use the default icon color. Set only when the user explicitly requests a phone icon color override, and use a valid theme color.",
-    },
     type: "basicSelector",
     label: msg("fields.iconColor", "Icon Color"),
     options: "SITE_COLOR",

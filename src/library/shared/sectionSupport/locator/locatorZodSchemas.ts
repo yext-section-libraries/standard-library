@@ -6,17 +6,11 @@ import {
   locatorEntityTypeSchema,
 } from "./LocatorResultCard.tsx";
 import { getFacetFieldOptions } from "./Filters.tsx";
-import { locatorPinIconFields } from "./locatorPinIconFields.ts";
 
 export const locatorResultCardSchema = inferFieldZodSchema(
   LocatorResultCardFields,
   { defaultValue: DEFAULT_LOCATOR_RESULT_CARD_PROPS }
 );
-
-export const locatorPinIconSchema = inferFieldZodSchema({
-  type: "object",
-  objectFields: locatorPinIconFields,
-});
 
 export const locatorFacetFieldsSchema = z
   .object({

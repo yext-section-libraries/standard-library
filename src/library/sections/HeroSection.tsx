@@ -220,7 +220,6 @@ const heroSectionFields: YextFields<HeroSectionProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       variant: {
-        generation: { instructions: "The visual variant of the hero" },
         type: "basicSelector",
         label: msg("fields.variant", "Variant"),
         options: [
@@ -345,10 +344,6 @@ const heroSectionFields: YextFields<HeroSectionProps> = {
         options: ThemeOptions.SHOW_HIDE,
       },
       reviewStarsColor: {
-        generation: {
-          instructions:
-            "Omit to use the default review star color. Set only when the user explicitly requests a star color override.",
-        },
         type: "basicSelector",
         label: msg("fields.reviewStarsColor", "Review Stars Color"),
         options: "SITE_COLOR",

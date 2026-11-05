@@ -88,10 +88,6 @@ const productCardsWrapperFields: YextFields<ProductCardsWrapperProps> = {
     type: "object",
     objectFields: {
       CardSlot: {
-        generation: {
-          instructions:
-            "Ordered manual card children. An explicit [] means zero cards; $default selects library defaults.",
-        },
         type: "slot",
       },
     },

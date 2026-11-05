@@ -101,8 +101,6 @@ const ctaWrapperFields: YextFields<CTAWrapperProps> = {
       actionType: {
         generation: {
           schema: z.literal("link").optional(),
-          instructions:
-            "Generate navigation CTAs. Button actions require external behavior configured by the site author.",
         },
         label: msg("fields.actionType", "Action Type"),
         type: "radio",
@@ -112,16 +110,10 @@ const ctaWrapperFields: YextFields<CTAWrapperProps> = {
         ],
       },
       entityField: {
-        generation: {
-          instructions: "The call to action content or entity field.",
-        },
         type: "ctaSelector",
         label: msg("fields.cta", "CTA"),
       },
       normalizeLink: {
-        generation: {
-          instructions: "Whether to standardize casing and encoding",
-        },
         label: msg("fields.normalizeLink", "Normalize Link"),
         type: "radio",
         options: [
@@ -185,7 +177,6 @@ const ctaWrapperFields: YextFields<CTAWrapperProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       variant: {
-        generation: { instructions: "The visual style of the CTA" },
         label: msg("fields.variant", "Variant"),
         type: "radio",
         options: ThemeOptions.CTA_VARIANT,

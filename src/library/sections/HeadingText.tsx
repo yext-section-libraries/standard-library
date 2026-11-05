@@ -97,7 +97,6 @@ const HeadingTextWrapper: PuckComponent<HeadingTextProps> = (props) => {
 
 const headingTextFields: YextFields<HeadingTextProps> = {
   data: {
-    generation: { instructions: "The heading text or entity field." },
     label: msg("fields.data", "Data"),
     type: "object",
     objectFields: {
@@ -115,7 +114,6 @@ const headingTextFields: YextFields<HeadingTextProps> = {
     type: "object",
     objectFields: {
       level: {
-        generation: { instructions: "The h tag level" },
         type: "basicSelector",
         label: msg("fields.headingLevel", "Heading Level"),
         options: "HEADING_LEVEL",
@@ -126,10 +124,6 @@ const headingTextFields: YextFields<HeadingTextProps> = {
         options: ThemeOptions.ALIGNMENT,
       },
       color: {
-        generation: {
-          instructions:
-            "Leave text color unset so the theme chooses it. A requested palette or background change does not by itself require a text color override. Do not infer a text color from imagery or surrounding content. Set a valid theme color when the user specifically requests a text color override.",
-        },
         type: "basicSelector",
         label: msg("fields.color", "Color"),
         options: "SITE_COLOR",

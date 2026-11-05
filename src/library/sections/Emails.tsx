@@ -57,7 +57,6 @@ export const EmailsFields: YextFields<EmailsProps> = {
     label: msg("fields.data", "Data"),
     objectFields: {
       list: {
-        generation: { instructions: "Email addresses to display." },
         type: "entityField",
         label: msg("fields.emails", "Emails"),
         filter: {
@@ -95,8 +94,7 @@ export const EmailsFields: YextFields<EmailsProps> = {
       },
       color: {
         generation: {
-          instructions:
-            "Email link and icon background color. Omit to use the default theme colors; set only when the user explicitly requests an email color override.",
+          instructions: "Controls email link and icon background colors.",
         },
         type: "basicSelector",
         label: msg("fields.color", "Color"),
@@ -104,8 +102,7 @@ export const EmailsFields: YextFields<EmailsProps> = {
       },
       iconColor: {
         generation: {
-          instructions:
-            "Email icon glyph color. Omit to use the default icon color; set only when the user explicitly requests an icon color override.",
+          instructions: "Controls the email icon glyph color.",
         },
         type: "basicSelector",
         label: msg("fields.iconColor", "Icon Color"),

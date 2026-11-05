@@ -193,8 +193,7 @@ const promoSectionFields: YextFields<PromoSectionProps> = {
       promo: {
         generation: {
           schema: promoContentSchema,
-          instructions:
-            "Author manual promotional content in the slots. An empty constantValue object is supported.",
+          instructions: "Author manual promotional content in the slots.",
         },
         type: "entityField",
         label: msg("fields.promo", "Promo"),

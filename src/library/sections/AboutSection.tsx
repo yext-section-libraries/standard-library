@@ -80,10 +80,6 @@ const aboutSectionFields: YextFields<AboutSectionProps> = {
         options: "BACKGROUND_COLOR",
       },
       readMoreButtonColor: {
-        generation: {
-          instructions:
-            "Omit to use the default theme color. Set only when the user explicitly requests a read more button color override.",
-        },
         type: "basicSelector",
         label: msg("fields.readMoreButtonColor", "Read More Button Color"),
         options: "SITE_COLOR",

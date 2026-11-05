@@ -47,9 +47,6 @@ const secondaryHeaderSlotFields: YextFields<SecondaryHeaderSlotProps> = {
     label: msg("fields.data", "Data"),
     objectFields: {
       show: {
-        generation: {
-          instructions: "Whether to display the secondary top bar.",
-        },
         label: msg("fields.showSecondaryHeader", "Show Secondary Header"),
         type: "radio",
         options: [

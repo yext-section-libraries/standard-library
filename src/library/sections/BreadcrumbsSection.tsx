@@ -115,10 +115,6 @@ const breadcrumbsSectionFields: YextFields<BreadcrumbsSectionProps> = {
         options: "BACKGROUND_COLOR",
       },
       linkColor: {
-        generation: {
-          instructions:
-            "Omit to use the default theme color. Set only when the user explicitly requests a link color override.",
-        },
         type: "basicSelector",
         label: msg("fields.linkColor", "Link Color"),
         options: "SITE_COLOR",

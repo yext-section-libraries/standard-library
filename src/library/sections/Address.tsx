@@ -122,25 +122,20 @@ export const AddressStyleFields: YextFields<AddressProps["styles"]> = {
     generation: {
       required: false,
       instructions:
-        "Get Directions link color or button background color. Omit to use the default theme color; set only when the user explicitly requests an override.",
+        "Controls the Get Directions link color or button background color.",
     },
     type: "basicSelector",
     label: msg("fields.linkColor", "Link Color"),
     options: "SITE_COLOR",
   },
   textColor: {
-    generation: {
-      instructions:
-        "Leave text color unset so the theme chooses it. A requested palette or background change does not by itself require a text color override. Do not infer a text color from imagery or surrounding content. Set a valid theme color when the user specifically requests a text color override.",
-    },
     type: "basicSelector",
     label: msg("fields.textColor", "Text Color"),
     options: "SITE_COLOR",
   },
   ctaTextColor: {
     generation: {
-      instructions:
-        "Omit to use the default button text and icon colors. Set only when the user explicitly requests a Get Directions button text or icon color override, and use a valid theme color.",
+      instructions: "Controls the Get Directions button text and icon colors.",
     },
     type: "basicSelector",
     label: msg("fields.textColor", "Text Color"),
