@@ -2,7 +2,7 @@
   "root": {
     "props": {
       "version": 76,
-      "sectionLibraryMigrationVersion": 2,
+      "sectionLibraryMigrationVersion": 3,
       "title": {
         "field": "",
         "constantValue": { "defaultValue": "PLACEHOLDER" },

@@ -64,13 +64,10 @@ type ColumnAlignmentField = (typeof alignmentFields)[number];
 type ColumnAlignments = Partial<Record<ColumnAlignmentField, GridAlignment>>;
 
 const resolveColumnAlignments = (
-  props: ColumnAlignments & { align?: GridAlignment }
+  props: ColumnAlignments
 ): Record<ColumnAlignmentField, GridAlignment> =>
   Object.fromEntries(
-    alignmentFields.map((field) => [
-      field,
-      props[field] ?? props.align ?? "left",
-    ])
+    alignmentFields.map((field) => [field, props[field] ?? "left"])
   ) as Record<ColumnAlignmentField, GridAlignment>;
 
 export interface GridProps extends layoutProps, ColumnAlignments {
@@ -78,8 +75,6 @@ export interface GridProps extends layoutProps, ColumnAlignments {
   slots: { Column: Slot }[];
   liveVisibility: boolean;
   className?: string;
-  /** Alignment saved before each column had its own setting. */
-  align?: GridAlignment;
   /** @internal */
   analytics: {
     scope?: string;
@@ -96,8 +91,7 @@ const GridSection = React.forwardRef<
     <PageSection background={backgroundColor} className={className}>
       <div className={gridVariants({ columns })} ref={ref}>
         {slots.slice(0, columns).map(({ Column }, idx) => {
-          const resolvedAlign =
-            props[alignmentFields[idx]] ?? props.align ?? "left";
+          const resolvedAlign = props[alignmentFields[idx]] ?? "left";
           const alignmentClass =
             resolvedAlign === "left"
               ? columns === 1
