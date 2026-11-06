@@ -17,6 +17,7 @@ import {
   transformTests,
 } from "./componentTests.setup.ts";
 import { Grid } from "../library/sections/Grid.tsx";
+import { migrationRegistry as sectionLibraryMigrationRegistry } from "../library/migrations/registry.ts";
 import { Address } from "../library/sections/Address.tsx";
 import { BodyText } from "../library/sections/BodyText.tsx";
 import { CTAGroup } from "../library/sections/CTAGroup.tsx";
@@ -2364,7 +2365,8 @@ describe("Grid", async () => {
           content: [{ type: "Grid", props }],
         },
         document,
-        migrationRegistry
+        migrationRegistry,
+        sectionLibraryMigrationRegistry
       );
 
       const { container } = reactRender(

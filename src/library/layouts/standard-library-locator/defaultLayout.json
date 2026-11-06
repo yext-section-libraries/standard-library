@@ -2,7 +2,7 @@
   "root": {
     "props": {
       "version": 73,
-      "sectionLibraryMigrationVersion": 2,
+      "sectionLibraryMigrationVersion": 3,
       "title": {
         "field": "",
         "constantValue": { "defaultValue": "Find Locations" },

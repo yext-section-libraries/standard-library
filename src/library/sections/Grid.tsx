@@ -50,12 +50,31 @@ const gridVariants = cva("grid w-full gap-8 sm:grid-cols-1", {
   },
 });
 
-export interface GridProps extends layoutProps {
+const alignmentFields = [
+  "alignColumn1",
+  "alignColumn2",
+  "alignColumn3",
+  "alignColumn4",
+  "alignColumn5",
+  "alignColumn6",
+] as const;
+
+type GridAlignment = "left" | "center" | "right";
+type ColumnAlignmentField = (typeof alignmentFields)[number];
+type ColumnAlignments = Partial<Record<ColumnAlignmentField, GridAlignment>>;
+
+const resolveColumnAlignments = (
+  props: ColumnAlignments
+): Record<ColumnAlignmentField, GridAlignment> =>
+  Object.fromEntries(
+    alignmentFields.map((field) => [field, props[field] ?? "left"])
+  ) as Record<ColumnAlignmentField, GridAlignment>;
+
+export interface GridProps extends layoutProps, ColumnAlignments {
   columns: 1 | 2 | 3 | 4 | 5 | 6;
   slots: { Column: Slot }[];
   liveVisibility: boolean;
   className?: string;
-  align?: "left" | "center" | "right";
   /** @internal */
   analytics: {
     scope?: string;
@@ -65,34 +84,48 @@ export interface GridProps extends layoutProps {
 const GridSection = React.forwardRef<
   HTMLDivElement,
   Parameters<PuckComponent<GridProps>>[0]
->(({ className, columns = 2, backgroundColor, slots, align }, ref) => {
-  const resolvedAlign = align ?? "left";
+>((props, ref) => {
+  const { className, columns = 2, backgroundColor, slots } = props;
 
   return (
     <PageSection background={backgroundColor} className={className}>
       <div className={gridVariants({ columns })} ref={ref}>
-        {slots.slice(0, columns).map(({ Column }, idx) => (
-          <Column
-            key={idx}
-            className={themeManagerCn(
-              layoutVariants({ gap: "4" }),
-              `flex flex-col max-w-full overflow-hidden`,
-              columns === 1 &&
-                (resolvedAlign === "left"
-                  ? `md:items-start text-start`
-                  : resolvedAlign === "right"
-                    ? `md:items-end text-end`
-                    : `md:items-center text-center`)
-            )}
-            allow={gridAllowedComponents}
-          />
-        ))}
+        {slots.slice(0, columns).map(({ Column }, idx) => {
+          const resolvedAlign = props[alignmentFields[idx]] ?? "left";
+          const alignmentClass =
+            resolvedAlign === "left"
+              ? columns === 1
+                ? "md:items-start text-start"
+                : undefined
+              : resolvedAlign === "right"
+                ? "items-end text-end"
+                : "items-center text-center";
+
+          return (
+            <Column
+              key={idx}
+              className={themeManagerCn(
+                layoutVariants({ gap: "4" }),
+                `flex flex-col max-w-full overflow-hidden`,
+                resolvedAlign !== "left" && "[&>*]:max-w-full",
+                alignmentClass
+              )}
+              allow={gridAllowedComponents}
+            />
+          );
+        })}
       </div>
     </PageSection>
   );
 });
 
 GridSection.displayName = "GridSection";
+
+const alignmentField = (label: ReturnType<typeof msg>) => ({
+  label,
+  type: "radio" as const,
+  options: ThemeOptions.ALIGNMENT,
+});
 
 const gridSectionFields: YextFields<GridProps> = {
   columns: {
@@ -120,12 +153,24 @@ const gridSectionFields: YextFields<GridProps> = {
     label: msg("fields.backgroundColor", "Background Color"),
     options: "BACKGROUND_COLOR",
   },
-  align: {
-    generation: { required: false },
-    label: msg("fields.alignContent", "Align Content"),
-    type: "radio",
-    options: ThemeOptions.ALIGNMENT,
-  },
+  alignColumn1: alignmentField(
+    msg("fields.alignContentColumn1", "Align Content Column 1")
+  ),
+  alignColumn2: alignmentField(
+    msg("fields.alignContentColumn2", "Align Content Column 2")
+  ),
+  alignColumn3: alignmentField(
+    msg("fields.alignContentColumn3", "Align Content Column 3")
+  ),
+  alignColumn4: alignmentField(
+    msg("fields.alignContentColumn4", "Align Content Column 4")
+  ),
+  alignColumn5: alignmentField(
+    msg("fields.alignContentColumn5", "Align Content Column 5")
+  ),
+  alignColumn6: alignmentField(
+    msg("fields.alignContentColumn6", "Align Content Column 6")
+  ),
   analytics: {
     type: "object",
     label: msg("fields.analytics", "Analytics"),
@@ -162,17 +207,14 @@ export const Grid: YextComponentConfig<GridProps> = {
     analytics: {
       scope: "gridSection",
     },
-    align: "left",
+    ...resolveColumnAlignments({}),
   },
   resolveFields: (data) => {
-    if (data.props.columns === 1) {
-      return toPuckFields(gridSectionFields);
-    }
-
-    const rest = { ...gridSectionFields };
-    delete rest.align;
-
-    return toPuckFields(rest);
+    const fields = { ...gridSectionFields };
+    alignmentFields.slice(data.props.columns).forEach((field) => {
+      delete fields[field];
+    });
+    return toPuckFields(fields);
   },
   resolveData: (data) => {
     let slots = data.props.slots;
@@ -197,6 +239,7 @@ export const Grid: YextComponentConfig<GridProps> = {
       props: {
         ...data.props,
         slots,
+        ...resolveColumnAlignments(data.props),
       },
     };
   },
