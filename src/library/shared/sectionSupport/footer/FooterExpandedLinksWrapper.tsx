@@ -40,6 +40,10 @@ const footerExpandedLinksWrapperFields: YextFields<FooterExpandedLinksWrapperPro
       label: msg("fields.data", "Data"),
       objectFields: {
         sections: {
+          generation: {
+            instructions:
+              "Populate footer navigation groups relevant to the business using the provided content and site structure. Replace default groups with descriptive headings and relevant links instead of retaining placeholder sections.",
+          },
           type: "array",
           label: msg("fields.expandedFooterLinks", "Expanded Footer Links"),
           arrayFields: {
@@ -49,6 +53,10 @@ const footerExpandedLinksWrapperFields: YextFields<FooterExpandedLinksWrapperPro
               filter: { types: ["type.string"] },
             },
             links: {
+              generation: {
+                instructions:
+                  "Populate relevant links for this footer group using the provided content and site structure. Replace default link labels and # destinations with descriptive labels and matching URLs or page anchors. Keep links relevant to the group heading and do not invent destinations.",
+              },
               type: "array",
               label: msg("fields.links", "Links"),
               arrayFields: {

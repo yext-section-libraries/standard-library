@@ -81,7 +81,7 @@ const primaryHeaderSlotFields: YextFields<PrimaryHeaderSlotProps> = {
         generation: {
           singleChild: true,
           instructions:
-            "Primary header CTA. Visibility is controlled by the child CTA's data.show; enable it when authoring visible CTA content.",
+            "Primary header CTA. Populate a relevant primary action for the business and page, with a descriptive label and a matching destination supported by the provided content. Replace placeholder CTA text and # links rather than retaining defaults. Visibility is controlled by the child CTA's data.show; enable it when authoring visible CTA content.",
         },
         type: "slot",
         allow: ["CTASlot"],
@@ -90,7 +90,7 @@ const primaryHeaderSlotFields: YextFields<PrimaryHeaderSlotProps> = {
         generation: {
           singleChild: true,
           instructions:
-            "Optional second header CTA. Its child CTA owns the visibility control: data.show must be true when authoring visible secondary CTA content. There is no parent showSecondaryCTA switch on this header. If intentionally omitting this CTA, retain its hidden default instead of writing a new label and link that will never display.",
+            "Optional second header CTA. When included, populate a relevant action that complements the primary CTA, with a descriptive label and a matching destination supported by the provided content. Replace placeholder CTA text and # links rather than retaining defaults. Its child CTA owns the visibility control: data.show must be true when authoring visible secondary CTA content. There is no parent showSecondaryCTA switch on this header. If intentionally omitting this CTA, retain its hidden default instead of writing a new label and link that will never display.",
         },
         type: "slot",
         allow: ["CTASlot"],

@@ -2,7 +2,7 @@
   "root": {
     "props": {
       "version": 76,
-      "sectionLibraryMigrationVersion": 3,
+      "sectionLibraryMigrationVersion": 4,
       "title": {
         "field": "",
         "constantValue": { "defaultValue": "PLACEHOLDER" },
@@ -169,7 +169,7 @@
                     {
                       "type": "SecondaryHeaderSlot",
                       "props": {
-                        "id": "SecondaryHeaderSlot-8c8e4511-4f48-4fab-a1ac-bb0e94ba6761",
+                        "id": "SecondaryHeaderSlot-8c8e4511-4f48-4fab-a1ac-bb0e94ba6761-menu",
                         "data": {
                           "show": true,
                           "showLanguageDropdown": false
@@ -185,7 +185,7 @@
                             {
                               "type": "HeaderLinks",
                               "props": {
-                                "id": "HeaderLinks-b6a70e27-ca02-47b0-b115-8915020bc7a7",
+                                "id": "HeaderLinks-b6a70e27-ca02-47b0-b115-8915020bc7a7-menu",
                                 "data": {
                                   "links": [
                                     {

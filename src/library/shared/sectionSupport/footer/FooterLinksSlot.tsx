@@ -259,6 +259,10 @@ const footerLinksSlotFields: YextFields<FooterLinksSlotProps> = {
     label: msg("fields.data", "Data"),
     objectFields: {
       links: {
+        generation: {
+          instructions:
+            "Populate relevant footer navigation for the business and page, such as contact, company information, or legal pages when supported by the provided content and site structure. Replace default link labels and # destinations with descriptive labels and matching URLs or page anchors. Do not invent destinations or legal pages.",
+        },
         type: "array",
         label: msg("fields.links", "Links"),
         arrayFields: {
