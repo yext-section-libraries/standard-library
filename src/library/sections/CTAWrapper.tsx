@@ -184,7 +184,8 @@ const ctaWrapperFields: YextFields<CTAWrapperProps> = {
       presetImage: {
         generation: {
           required: false,
-          instructions: "Use with presetImage type",
+          instructions:
+            "Selects the preset artwork only. To display it, set data.actionType to link. For a manual CTA (data.entityField.constantValueEnabled true), set data.entityField.constantValue.ctaType to presetImage; for an entity-bound CTA, set data.entityField.selectedType to presetImage. Preserve the existing source and destination. Changing this field alone does not activate the icon.",
         },
         type: "basicSelector",
         label: msg("fields.presetImage", "Preset Image"),

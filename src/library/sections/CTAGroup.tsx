@@ -124,7 +124,11 @@ const ctaGroupFields: YextFields<CTAGroupProps> = {
         options: ThemeOptions.CTA_VARIANT,
       },
       presetImage: {
-        generation: { required: false },
+        generation: {
+          required: false,
+          instructions:
+            "Selects this button's preset artwork only. For a manual CTA (entityField.constantValueEnabled true), set entityField.constantValue.ctaType to presetImage; for an entity-bound CTA, set entityField.selectedType to presetImage. Preserve the existing source and destination. Changing this field alone does not activate the icon.",
+        },
         type: "basicSelector",
         label: msg("fields.presetImage", "Preset Image"),
         options: "PRESET_IMAGE",
