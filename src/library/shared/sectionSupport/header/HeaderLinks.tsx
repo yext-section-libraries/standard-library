@@ -140,7 +140,7 @@ const headerLinksFields: YextFields<HeaderLinksProps> = {
         generation: {
           schema: inferFieldZodSchema(linkFieldConfig, { defaultValue: [] }),
           instructions:
-            "Navigation links displayed inline while space permits.",
+            "Navigation links displayed inline while space permits. Populate these with relevant navigation for the business and page using the provided content and site structure. Replace default Header Link labels and # destinations with descriptive labels and their matching URLs or page anchors. Use supported destinations rather than inventing URLs.",
         },
         type: "custom",
         render: ({
@@ -170,7 +170,10 @@ const headerLinksFields: YextFields<HeaderLinksProps> = {
         },
       },
       collapsedLinks: {
-        generation: { instructions: "Navigation links displayed in the menu." },
+        generation: {
+          instructions:
+            "Navigation links displayed in the menu. Populate relevant additional navigation using the provided content and site structure, with descriptive labels and matching URLs or page anchors. Do not retain default Header Link labels or # destinations, invent URLs, or duplicate inline links unnecessarily.",
+        },
         ...linkFieldConfig,
         label: msg("fields.collapsedLinks", "Collapsed Links"),
       },
