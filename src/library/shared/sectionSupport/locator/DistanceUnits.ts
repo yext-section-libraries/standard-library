@@ -3,6 +3,20 @@ import { getPreferredDistanceUnit } from "@yext/visual-editor/section-library-su
 export type DistanceUnit = "mile" | "kilometer";
 export type DistanceUnitOption = "auto" | "locale" | DistanceUnit;
 
+const getBrowserCountryCode = (
+  browserLanguage: string | undefined
+): string | undefined => {
+  if (!browserLanguage) {
+    return undefined;
+  }
+
+  try {
+    return new Intl.Locale(browserLanguage.replaceAll("_", "-")).region;
+  } catch {
+    return undefined;
+  }
+};
+
 export const getDistanceUnit = (
   option: DistanceUnitOption | undefined,
   visitorCountryCode: string | undefined,
@@ -16,10 +30,8 @@ export const getDistanceUnit = (
     return getPreferredDistanceUnit(pageLanguage);
   }
 
-  const browserCountryCode = browserLanguage
-    ? new Intl.Locale(browserLanguage).region
-    : undefined;
-  const countryCode = visitorCountryCode ?? browserCountryCode;
+  const countryCode =
+    visitorCountryCode ?? getBrowserCountryCode(browserLanguage);
   if (countryCode?.toUpperCase() === "US") {
     return "mile";
   }

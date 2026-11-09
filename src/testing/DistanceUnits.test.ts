@@ -74,6 +74,28 @@ describe("locator distance units", () => {
       expected: "kilometer",
     },
     {
+      name: "normalizes underscores in the browser locale",
+      option: "auto",
+      browserLanguage: "en_US",
+      pageLanguage: "fr-CA",
+      expected: "mile",
+    },
+    {
+      name: "falls back to page language for an invalid browser locale",
+      option: "auto",
+      browserLanguage: "C",
+      pageLanguage: "en-GB",
+      expected: "mile",
+    },
+    {
+      name: "uses the visitor country despite an invalid browser locale",
+      option: "auto",
+      visitorCountryCode: "CA",
+      browserLanguage: "en_US",
+      pageLanguage: "en-GB",
+      expected: "kilometer",
+    },
+    {
       name: "falls back to the page language when the region is unknown",
       option: "auto",
       browserLanguage: "en",
