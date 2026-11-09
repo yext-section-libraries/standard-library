@@ -1070,8 +1070,16 @@ export const LocatorResultCard = React.memo(
                           props.address.showGetDirectionsLink && (
                             <a
                               href={getDirectionsLink}
-                              target={props.address.openInNewTab ? "_blank" : undefined}
-                              rel={props.address.openInNewTab ? "noopener noreferrer" : undefined}
+                              target={
+                                props.address.openInNewTab
+                                  ? "_blank"
+                                  : undefined
+                              }
+                              rel={
+                                props.address.openInNewTab
+                                  ? "noopener noreferrer"
+                                  : undefined
+                              }
                               onClick={handleGetDirectionsClick}
                               aria-label={t("getDirectionsForLocation", {
                                 address: location.address.line1,
