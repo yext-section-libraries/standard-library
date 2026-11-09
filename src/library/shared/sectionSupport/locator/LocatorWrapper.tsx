@@ -37,7 +37,6 @@ import {
   usePreviewWindow,
   getViewport,
   useWindowWidth,
-  getPreferredDistanceUnit,
   toMeters,
   toMiles,
   resolveComponentData,
@@ -58,6 +57,7 @@ import {
   LocatorResultCard,
 } from "./LocatorResultCard.tsx";
 import type { LocatorProps } from "./Locator.tsx";
+import { getDistanceUnit, getMapboxCountryCode } from "./DistanceUnits.ts";
 import {
   COUNTRY_CODE_FIELD,
   FilterModal,
@@ -169,6 +169,7 @@ const LocatorInternal = ({
   mapStartingZoom,
   resultCard: resultCardConfigs,
   distanceDisplay,
+  distanceUnit,
   pageHeading,
 }: LocatorProps) => {
   // Adds unified [enable|disable]YextAnalytics to the window for both Pages and Search
@@ -195,7 +196,13 @@ const LocatorInternal = ({
   const previewWindow = usePreviewWindow();
   const windowWidth = useWindowWidth(previewWindow);
   const { isMobile } = getViewport(windowWidth);
-  const preferredUnit = getPreferredDistanceUnit(i18n.language);
+  const [visitorCountryCode, setVisitorCountryCode] = React.useState<string>();
+  const preferredUnit = getDistanceUnit(
+    distanceUnit,
+    visitorCountryCode,
+    typeof navigator === "undefined" ? undefined : navigator.language,
+    i18n.language
+  );
   const streamDocument = useDocument();
   const entityTypeSourceMap = getLocatorEntityTypeSourceMap(streamDocument);
   const entityTypes =
@@ -238,6 +245,40 @@ const LocatorInternal = ({
     // If we are in the layout editor, use the non-URL-restricted Mapbox API key
     mapboxApiKey = streamDocument._env.YEXT_EDIT_LAYOUT_MODE_MAPBOX_API_KEY;
   }
+
+  const visitorLocationPromise = React.useRef<Promise<GeolocationPosition>>();
+  const getVisitorLocation = React.useCallback(() => {
+    visitorLocationPromise.current ??= getUserLocation();
+    return visitorLocationPromise.current;
+  }, []);
+
+  React.useEffect(() => {
+    if (distanceUnit !== "auto" || !mapboxApiKey) {
+      return;
+    }
+
+    let cancelled = false;
+    getVisitorLocation()
+      .then(async (location) => {
+        const { latitude, longitude } = location.coords;
+        const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${mapboxApiKey}&types=country&limit=1`;
+        const response = await fetch(url);
+        if (!response.ok) {
+          return;
+        }
+        const data = await response.json();
+        if (!cancelled) {
+          setVisitorCountryCode(getMapboxCountryCode(data));
+        }
+      })
+      .catch(() => {
+        // Browser region and page language remain available when location is denied.
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [distanceUnit, getVisitorLocation, mapboxApiKey]);
 
   const [showSearchAreaButton, setShowSearchAreaButton] = React.useState(false);
   const [mapCenter, setMapCenter] = React.useState<Coordinate | undefined>();
@@ -432,6 +473,30 @@ const LocatorInternal = ({
     }
   }, [searchLoading, searchState]);
 
+  const previousUnit = React.useRef(preferredUnit);
+  React.useEffect(() => {
+    if (previousUnit.current === preferredUnit) {
+      return;
+    }
+    previousUnit.current = preferredUnit;
+    if (selectedDistanceOption === null) {
+      return;
+    }
+
+    const updatedFilters = updateRadiusInNearFiltersOnLocationField(
+      searchFilters.static || [],
+      toMeters(selectedDistanceOption, preferredUnit)
+    );
+    searchActions.setStaticFilters(updatedFilters);
+    searchActions.setOffset(0);
+    executeSearch(searchActions);
+  }, [
+    preferredUnit,
+    searchActions,
+    searchFilters.static,
+    selectedDistanceOption,
+  ]);
+
   React.useEffect(() => {
     if (selectedDistanceOption === null) {
       setSelectedDistanceMeters(null);
@@ -527,12 +592,14 @@ const LocatorInternal = ({
           resultCardProps={resultCardProps}
           isSelected={result.result.index === selectedResultIndex}
           distanceDisplay={distanceDisplay}
+          distanceUnit={preferredUnit}
           searchLocationName={filterDisplayName}
         />
       );
     },
     [
       distanceDisplay,
+      preferredUnit,
       filterDisplayName,
       getResultCardProps,
       selectedResultIndex,
@@ -749,7 +816,7 @@ const LocatorInternal = ({
 
       try {
         // 2. Try to get user location via Geolocation API
-        const location = await getUserLocation();
+        const location = await getVisitorLocation();
         if (isCancelled) {
           return;
         }
@@ -1028,6 +1095,7 @@ const LocatorInternal = ({
                   searchState={searchState}
                   resultCount={resultCount}
                   selectedDistanceOption={selectedDistanceOption}
+                  distanceUnit={preferredUnit}
                   filterDisplayName={filterDisplayName}
                 />
                 {hasFilterModalToggle && (
@@ -1102,6 +1170,7 @@ const LocatorInternal = ({
               handleOpenNowClick={handleOpenNowClick}
               showDistanceOptions={showDistanceOptions}
               selectedDistanceOption={selectedDistanceOption}
+              distanceUnit={preferredUnit}
               handleDistanceClick={handleDistanceClick}
               handleClearFiltersClick={handleClearFiltersClick}
               accentColorCssValue={filterAccentColorCssVariable}

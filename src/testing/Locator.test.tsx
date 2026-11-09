@@ -21,6 +21,7 @@ import {
   backgroundColors,
 } from "@yext/visual-editor";
 import { Locator as LocatorComponent } from "../library/sections/Locator.tsx";
+import { migrationRegistry as sectionLibraryMigrationRegistry } from "../library/migrations/registry.ts";
 import {
   DEFAULT_LOCATOR_RESULT_CARD_PROPS,
   LocatorResultCard,
@@ -1334,6 +1335,42 @@ describe("Locator", async () => {
     },
   };
 
+  it.each([
+    {
+      name: "preserves the previous distance behavior for an existing Locator",
+      distanceUnit: undefined,
+      expected: "locale",
+    },
+    {
+      name: "preserves an explicit distance setting",
+      distanceUnit: "mile",
+      expected: "mile",
+    },
+  ])("$name", ({ distanceUnit, expected }) => {
+    const data = migrate(
+      puckConfig,
+      {
+        root: {
+          props: {
+            version: migrationRegistry.length,
+            sectionLibraryMigrationVersion: 4,
+          },
+        },
+        content: [
+          {
+            type: "Locator",
+            props: { id: "Locator-test", distanceUnit },
+          },
+        ],
+      },
+      {},
+      migrationRegistry,
+      sectionLibraryMigrationRegistry
+    );
+
+    expect(data.content[0].props.distanceUnit).toBe(expected);
+  });
+
   it("loads q before initialLocation and syncs selected locations with history", async () => {
     const originalUrl = window.location.href;
     const fixture = tests[1];
@@ -1533,6 +1570,7 @@ describe("Locator", async () => {
     const { container } = reactRender(
       <VisualEditorProvider templateProps={{ document: { locale: "en" } }}>
         <LocatorResultCard
+          distanceUnit="mile"
           result={
             {
               index: 1,
@@ -1596,6 +1634,34 @@ describe("Locator", async () => {
     logSuppressedWcagViolations(results);
     expect(results).toHaveNoViolations();
   });
+
+  it.each([
+    { distanceUnit: "mile" as const, expectedDistance: "1.0 mi" },
+    { distanceUnit: "kilometer" as const, expectedDistance: "1.6 km" },
+  ])(
+    "renders card distances in $distanceUnit",
+    ({ distanceUnit, expectedDistance }) => {
+      const fixtureResult = DEFAULT_LOCATOR_RESULTS[0];
+
+      reactRender(
+        <VisualEditorProvider templateProps={{ document: { locale: "en" } }}>
+          <LocatorResultCard
+            distanceUnit={distanceUnit}
+            result={
+              {
+                index: 1,
+                rawData: fixtureResult.data,
+                distance: fixtureResult.distance,
+              } as any
+            }
+            resultCardProps={DEFAULT_LOCATOR_RESULT_CARD_PROPS}
+          />
+        </VisualEditorProvider>
+      );
+
+      expect(screen.getAllByText(expectedDistance)).toHaveLength(2);
+    }
+  );
 
   it("flattens wrapped result card selector fields during migration", () => {
     const data = migrate(
