@@ -2628,6 +2628,559 @@ const tests: ComponentTest[] = [
     },
     version: 59,
   },
+  {
+    name: "version 83 with empty product cards hidden and partially populated cards visible",
+    document: { locale: "en" },
+    props: {
+      styles: {
+        backgroundColor: {
+          selectedColor: "palette-primary-light",
+          contrastingColor: "black",
+        },
+        cardVariant: "immersive",
+        showSectionHeading: true,
+      },
+      slots: {
+        SectionHeadingSlot: [
+          {
+            type: "HeadingTextSlot",
+            props: {
+              data: {
+                text: {
+                  field: "",
+                  constantValue: {
+                    defaultValue: "Featured Products",
+                  },
+                  constantValueEnabled: true,
+                },
+              },
+              styles: {
+                level: 2,
+                align: "left",
+              },
+            },
+          },
+        ],
+        CardsWrapperSlot: [
+          {
+            type: "ProductCardsWrapper",
+            props: {
+              data: {
+                field: "",
+                constantValueEnabled: true,
+                constantValue: [
+                  {
+                    id: "product-0",
+                  },
+                  {
+                    id: "product-1",
+                  },
+                  {
+                    id: "product-2",
+                  },
+                ],
+              },
+              styles: {
+                showImage: false,
+                showBrow: true,
+                showTitle: true,
+                showPrice: true,
+                showDescription: true,
+                showCTA: true,
+              },
+              slots: {
+                CardSlot: [
+                  {
+                    type: "ProductCard",
+                    props: {
+                      styles: {
+                        backgroundColor: {
+                          selectedColor: "white",
+                          contrastingColor: "black",
+                        },
+                      },
+                      slots: {
+                        ImageSlot: [
+                          {
+                            type: "ImageSlot",
+                            props: {
+                              data: {
+                                image: {
+                                  field: "",
+                                  constantValue: {
+                                    url: "https://images.unsplash.com/photo-1755745360285-0633c972b0fd?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&height=360&width=640&fit=max",
+                                    width: 640,
+                                    height: 360,
+                                  },
+                                  constantValueEnabled: true,
+                                },
+                              },
+                              styles: {
+                                aspectRatio: 1.78,
+                                width: 640,
+                                imageConstrain: "fill",
+                              },
+                            },
+                          },
+                        ],
+                        BrowSlot: [
+                          {
+                            type: "TextSlot",
+                            props: {
+                              data: {
+                                text: {
+                                  field: "",
+                                  constantValue: {
+                                    defaultValue: "Category",
+                                  },
+                                  constantValueEnabled: true,
+                                },
+                              },
+                              styles: {
+                                variant: "sm",
+                                fontStyle: "bold",
+                              },
+                            },
+                          },
+                        ],
+                        TitleSlot: [
+                          {
+                            type: "HeadingTextSlot",
+                            props: {
+                              data: {
+                                text: {
+                                  field: "",
+                                  constantValue: {
+                                    defaultValue: "Product Name",
+                                  },
+                                  constantValueEnabled: true,
+                                },
+                              },
+                              styles: {
+                                level: 3,
+                                align: "left",
+                              },
+                            },
+                          },
+                        ],
+                        PriceSlot: [
+                          {
+                            type: "TextSlot",
+                            props: {
+                              data: {
+                                text: {
+                                  field: "",
+                                  constantValue: {
+                                    defaultValue: "$123.00",
+                                  },
+                                  constantValueEnabled: true,
+                                },
+                              },
+                              styles: {
+                                variant: "base",
+                                fontStyle: "bold",
+                              },
+                            },
+                          },
+                        ],
+                        DescriptionSlot: [
+                          {
+                            type: "BodyTextSlot",
+                            props: {
+                              data: {
+                                text: {
+                                  field: "",
+                                  constantValue: {
+                                    defaultValue: {
+                                      json: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}',
+                                      html: '<p dir="ltr" style="font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p>',
+                                    },
+                                  },
+                                  constantValueEnabled: true,
+                                },
+                              },
+                              styles: {
+                                variant: "base",
+                              },
+                            },
+                          },
+                        ],
+                        CTASlot: [
+                          {
+                            type: "CTASlot",
+                            props: {
+                              data: {
+                                actionType: "link",
+                                normalizeLink: true,
+                                buttonText: {
+                                  defaultValue: "Button",
+                                },
+                                entityField: {
+                                  field: "",
+                                  constantValue: {
+                                    label: {
+                                      defaultValue: "Learn More",
+                                      en: "",
+                                      hasLocalizedValue: "true",
+                                    },
+                                    link: "#",
+                                    linkType: "URL",
+                                    ctaType: "textAndLink",
+                                  },
+                                  constantValueEnabled: true,
+                                },
+                              },
+                              styles: {
+                                variant: "secondary",
+                                presetImage: "app-store",
+                              },
+                            },
+                          },
+                        ],
+                      },
+                      id: "product-0",
+                    },
+                  },
+                  {
+                    type: "ProductCard",
+                    props: {
+                      styles: {
+                        backgroundColor: {
+                          selectedColor: "white",
+                          contrastingColor: "black",
+                        },
+                      },
+                      slots: {
+                        ImageSlot: [
+                          {
+                            type: "ImageSlot",
+                            props: {
+                              data: {
+                                image: {
+                                  field: "",
+                                  constantValue: {
+                                    en: {
+                                      url: "",
+                                      height: 0,
+                                      width: 0,
+                                    },
+                                    hasLocalizedValue: "true",
+                                  },
+                                  constantValueEnabled: true,
+                                },
+                              },
+                              styles: {
+                                aspectRatio: 1.78,
+                                width: 640,
+                                imageConstrain: "fill",
+                              },
+                            },
+                          },
+                        ],
+                        BrowSlot: [
+                          {
+                            type: "TextSlot",
+                            props: {
+                              data: {
+                                text: {
+                                  field: "",
+                                  constantValue: {
+                                    defaultValue: "Category",
+                                    en: {
+                                      html: "",
+                                    },
+                                    hasLocalizedValue: "true",
+                                  },
+                                  constantValueEnabled: true,
+                                },
+                              },
+                              styles: {
+                                variant: "sm",
+                                fontStyle: "bold",
+                              },
+                            },
+                          },
+                        ],
+                        TitleSlot: [
+                          {
+                            type: "HeadingTextSlot",
+                            props: {
+                              data: {
+                                text: {
+                                  field: "",
+                                  constantValue: {
+                                    defaultValue: "Product Name",
+                                    en: "",
+                                    hasLocalizedValue: "true",
+                                  },
+                                  constantValueEnabled: true,
+                                },
+                              },
+                              styles: {
+                                level: 3,
+                                align: "left",
+                              },
+                            },
+                          },
+                        ],
+                        PriceSlot: [
+                          {
+                            type: "TextSlot",
+                            props: {
+                              data: {
+                                text: {
+                                  field: "",
+                                  constantValue: {
+                                    defaultValue: "$123.00",
+                                    en: {
+                                      html: "",
+                                    },
+                                    hasLocalizedValue: "true",
+                                  },
+                                  constantValueEnabled: true,
+                                },
+                              },
+                              styles: {
+                                variant: "base",
+                                fontStyle: "bold",
+                              },
+                            },
+                          },
+                        ],
+                        DescriptionSlot: [
+                          {
+                            type: "BodyTextSlot",
+                            props: {
+                              data: {
+                                text: {
+                                  field: "",
+                                  constantValue: {
+                                    defaultValue: {
+                                      json: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}',
+                                      html: '<p dir="ltr" style="font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p>',
+                                    },
+                                    en: {
+                                      html: "",
+                                    },
+                                    hasLocalizedValue: "true",
+                                  },
+                                  constantValueEnabled: true,
+                                },
+                              },
+                              styles: {
+                                variant: "base",
+                              },
+                            },
+                          },
+                        ],
+                        CTASlot: [
+                          {
+                            type: "CTASlot",
+                            props: {
+                              data: {
+                                actionType: "link",
+                                normalizeLink: true,
+                                buttonText: {
+                                  defaultValue: "Button",
+                                },
+                                entityField: {
+                                  field: "",
+                                  constantValue: {
+                                    label: {
+                                      defaultValue: "Learn More",
+                                      en: "",
+                                      hasLocalizedValue: "true",
+                                    },
+                                    link: "#",
+                                    linkType: "URL",
+                                    ctaType: "textAndLink",
+                                  },
+                                  constantValueEnabled: true,
+                                },
+                              },
+                              styles: {
+                                variant: "secondary",
+                                presetImage: "app-store",
+                              },
+                            },
+                          },
+                        ],
+                      },
+                      id: "product-1",
+                      conditionalRender: {
+                        image: false,
+                        title: false,
+                        price: true,
+                        brow: false,
+                        description: true,
+                        cta: true,
+                      },
+                    },
+                  },
+                  {
+                    type: "ProductCard",
+                    props: {
+                      styles: {
+                        backgroundColor: {
+                          selectedColor: "white",
+                          contrastingColor: "black",
+                        },
+                      },
+                      slots: {
+                        ImageSlot: [
+                          {
+                            type: "ImageSlot",
+                            props: {
+                              data: {
+                                image: {
+                                  field: "",
+                                  constantValue: {
+                                    url: "https://images.unsplash.com/photo-1755745360285-0633c972b0fd?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&height=360&width=640&fit=max",
+                                    width: 640,
+                                    height: 360,
+                                  },
+                                  constantValueEnabled: true,
+                                },
+                              },
+                              styles: {
+                                aspectRatio: 1.78,
+                                width: 640,
+                                imageConstrain: "fill",
+                              },
+                            },
+                          },
+                        ],
+                        BrowSlot: [
+                          {
+                            type: "TextSlot",
+                            props: {
+                              data: {
+                                text: {
+                                  field: "",
+                                  constantValue: {
+                                    defaultValue: "Category",
+                                  },
+                                  constantValueEnabled: true,
+                                },
+                              },
+                              styles: {
+                                variant: "sm",
+                                fontStyle: "bold",
+                              },
+                            },
+                          },
+                        ],
+                        TitleSlot: [
+                          {
+                            type: "HeadingTextSlot",
+                            props: {
+                              data: {
+                                text: {
+                                  field: "",
+                                  constantValue: {
+                                    defaultValue: "Product Name",
+                                  },
+                                  constantValueEnabled: true,
+                                },
+                              },
+                              styles: {
+                                level: 3,
+                                align: "left",
+                              },
+                            },
+                          },
+                        ],
+                        PriceSlot: [
+                          {
+                            type: "TextSlot",
+                            props: {
+                              data: {
+                                text: {
+                                  field: "",
+                                  constantValue: {
+                                    defaultValue: "$123.00",
+                                  },
+                                  constantValueEnabled: true,
+                                },
+                              },
+                              styles: {
+                                variant: "base",
+                                fontStyle: "bold",
+                              },
+                            },
+                          },
+                        ],
+                        DescriptionSlot: [
+                          {
+                            type: "BodyTextSlot",
+                            props: {
+                              data: {
+                                text: {
+                                  field: "",
+                                  constantValue: {
+                                    defaultValue: {
+                                      json: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}',
+                                      html: '<p dir="ltr" style="font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p>',
+                                    },
+                                  },
+                                  constantValueEnabled: true,
+                                },
+                              },
+                              styles: {
+                                variant: "base",
+                              },
+                            },
+                          },
+                        ],
+                        CTASlot: [
+                          {
+                            type: "CTASlot",
+                            props: {
+                              data: {
+                                actionType: "link",
+                                normalizeLink: true,
+                                buttonText: {
+                                  defaultValue: "Button",
+                                },
+                                entityField: {
+                                  field: "",
+                                  constantValue: {
+                                    label: {
+                                      defaultValue: "Learn More",
+                                      en: "",
+                                      hasLocalizedValue: "true",
+                                    },
+                                    link: "#",
+                                    linkType: "URL",
+                                    ctaType: "textAndLink",
+                                  },
+                                  constantValueEnabled: true,
+                                },
+                              },
+                              styles: {
+                                variant: "secondary",
+                                presetImage: "app-store",
+                              },
+                            },
+                          },
+                        ],
+                      },
+                      id: "product-2",
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        ],
+      },
+      analytics: {
+        scope: "productsSection",
+      },
+      liveVisibility: true,
+    },
+    version: 83,
+  },
 ];
 
 describe("ProductSection", async () => {

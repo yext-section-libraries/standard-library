@@ -1,6 +1,8 @@
 import * as React from "react";
+import { useTranslation } from "react-i18next";
 import {
   ThemeColor,
+  TranslatableRichText,
   backgroundColors,
   YextEntityField,
   ProductStruct,
@@ -15,15 +17,20 @@ import {
   YextFields,
   formatCurrency,
   resolveComponentData,
+  useDocument,
 } from "@yext/visual-editor";
 import { Background } from "../../atoms/background.tsx";
 import { CTAWrapperProps } from "../../../../sections/CTAWrapper.tsx";
 import { BodyTextProps } from "../../../../sections/BodyText.tsx";
 import { HeadingTextProps } from "../../../../sections/HeadingText.tsx";
-import { ImageWrapperProps } from "../../../../sections/ImageWrapper.tsx";
+import {
+  getImageUrl,
+  ImageWrapperProps,
+} from "../../../../sections/ImageWrapper.tsx";
 import { ImgSizesByBreakpoint } from "../../atoms/image.tsx";
 import { PuckComponent, setDeep, Slot, WithId } from "@puckeditor/core";
 import {
+  getCTAType,
   useCardContext,
   useParentCardStyles,
   useGetCardSlots,
@@ -258,6 +265,8 @@ export type ProductCardProps = {
 
   /** @internal */
   conditionalRender?: {
+    image?: boolean;
+    title?: boolean;
     price?: boolean;
     brow?: boolean;
     description?: boolean;
@@ -337,8 +346,150 @@ const ProductCardFields: YextFields<ProductCardProps> = {
   },
 };
 
+// Resolves slot content to determine whether to hide individual slots or the entire card
+const resolveProductCardContent = (
+  props: ProductCardProps,
+  locale: string,
+  streamDocument?: Record<string, any>
+) => {
+  const field = props.field ?? "";
+  const isLinkedMode = Boolean(field);
+  const imageSlotProps = props.slots.ImageSlot?.[0]?.props as
+    | (WithId<ImageWrapperProps> & {
+        styles?: { aspectRatio?: number; width?: number };
+      })
+    | undefined;
+  const priceSlotProps = props.slots.PriceSlot?.[0]?.props as
+    WithId<TextProps> | undefined;
+  const priceEntityField = priceSlotProps?.data.text as
+    YextEntityField<ProductStruct["price"]> | undefined;
+  const entityPrice = isLinkedMode
+    ? props.price
+    : priceEntityField
+      ? resolveYextEntityField<ProductStruct["price"]>(
+          streamDocument,
+          priceEntityField,
+          locale
+        )
+      : undefined;
+
+  const resolvedPriceFromEntity = formatCurrency(
+    entityPrice?.value,
+    entityPrice?.currencyCode,
+    locale
+  );
+  const fallbackPriceCandidate =
+    !isLinkedMode && priceSlotProps
+      ? resolveYextEntityField(
+          streamDocument,
+          priceSlotProps?.data?.text,
+          locale
+        )
+      : undefined;
+  const resolvedFallbackPrice = !fallbackPriceCandidate
+    ? fallbackPriceCandidate
+    : isCompleteProductPrice(fallbackPriceCandidate, locale)
+      ? formatCurrency(
+          fallbackPriceCandidate.value,
+          fallbackPriceCandidate.currencyCode,
+          locale
+        )
+      : isInvalidProductPrice(fallbackPriceCandidate, locale)
+        ? undefined
+        : resolveComponentData(fallbackPriceCandidate, locale, streamDocument, {
+            output: "plainText",
+          });
+  const resolvedPrice = resolvedPriceFromEntity
+    ? resolvedPriceFromEntity
+    : resolvedFallbackPrice;
+  const hasText = (
+    value:
+      TranslatableRichText | YextEntityField<TranslatableRichText> | undefined
+  ) => {
+    const text = resolveComponentData(value, locale, streamDocument, {
+      output: "plainText",
+    });
+    return typeof text === "string" && text.trim().length > 0;
+  };
+  const showPrice = hasText(resolvedPrice);
+  const resolvedImage = isLinkedMode
+    ? props.image
+    : imageSlotProps
+      ? resolveComponentData(imageSlotProps.data.image, locale, streamDocument)
+      : undefined;
+  const showImage = Boolean(getImageUrl(resolvedImage, locale)?.trim());
+  const titleSlotProps = props.slots.TitleSlot?.[0]?.props as
+    WithId<HeadingTextProps> | undefined;
+  const showTitle = hasText(
+    isLinkedMode ? props.name : titleSlotProps?.data.text
+  );
+
+  const browSlotProps = props.slots.BrowSlot?.[0]?.props as
+    WithId<TextProps> | undefined;
+  const resolvedBrow = isLinkedMode
+    ? props.category
+    : browSlotProps
+      ? resolveYextEntityField(streamDocument, browSlotProps.data.text, locale)
+      : undefined;
+  const showBrow = hasText(resolvedBrow);
+
+  const descriptionSlotProps = props.slots.DescriptionSlot?.[0]?.props as
+    WithId<BodyTextProps> | undefined;
+
+  const resolvedDescription = isLinkedMode
+    ? props.description
+    : descriptionSlotProps
+      ? resolveYextEntityField(
+          streamDocument,
+          descriptionSlotProps.data.text,
+          locale
+        )
+      : undefined;
+  const showDescription = hasText(resolvedDescription);
+
+  const ctaSlotProps = props.slots.CTASlot?.[0]?.props as
+    WithId<CTAWrapperProps> | undefined;
+  const resolvedCTA = isLinkedMode
+    ? props.cta
+    : ctaSlotProps
+      ? resolveYextEntityField(
+          streamDocument,
+          ctaSlotProps.data.entityField,
+          locale
+        )
+      : undefined;
+  const ctaType = ctaSlotProps
+    ? getCTAType(ctaSlotProps.data.entityField).ctaType
+    : undefined;
+  const showCTA =
+    (ctaSlotProps?.data.show ?? true) &&
+    (ctaSlotProps?.data.actionType === "button"
+      ? hasText(ctaSlotProps.data.buttonText)
+      : Boolean(
+          resolvedCTA &&
+          (ctaType === "presetImage" ||
+            ctaType === "getDirections" ||
+            hasText(resolvedCTA.label))
+        ));
+
+  return {
+    imageSlotProps,
+    resolvedPriceFromEntity,
+    conditionalRender: {
+      image: showImage,
+      title: showTitle,
+      price: showPrice,
+      brow: showBrow,
+      description: showDescription,
+      cta: showCTA,
+    },
+  };
+};
+
 const ProductCardComponent: PuckComponent<ProductCardProps> = (props) => {
-  const { styles, puck, conditionalRender, slots } = props;
+  const { styles, puck, slots } = props;
+  const streamDocument = useDocument();
+  const { i18n } = useTranslation();
   const { sharedCardProps, setSharedCardProps } = useCardContext<{
     cardBackground: ThemeColor | undefined;
     slotStyles: Record<string, ProductCardProps["styles"]>;
@@ -352,6 +503,13 @@ const ProductCardComponent: PuckComponent<ProductCardProps> = (props) => {
   const { slotStyles, getPuck, slotProps } = useGetCardSlots<ProductCardProps>(
     props.id
   );
+  const conditionalRender = slotProps
+    ? resolveProductCardContent(
+        { ...props, slots: slotProps },
+        i18n.language || "en",
+        streamDocument
+      ).conditionalRender
+    : props.conditionalRender;
 
   // sharedCardProps useEffect
   // When the context changes, dispatch an update to sync the changes to puck
@@ -447,6 +605,18 @@ const ProductCardComponent: PuckComponent<ProductCardProps> = (props) => {
     parentStyles?.showBrow && (conditionalRender?.brow || puck.isEditing);
   const bottomPadding = hasCTA ? "pb-8" : "pb-4";
 
+  const hasVisibleContent =
+    (parentStyles?.showImage && conditionalRender?.image) ||
+    (parentStyles?.showTitle && conditionalRender?.title) ||
+    (parentStyles?.showBrow && conditionalRender?.brow) ||
+    (parentStyles?.showPrice && conditionalRender?.price) ||
+    (parentStyles?.showDescription && conditionalRender?.description) ||
+    (parentStyles?.showCTA && conditionalRender?.cta);
+
+  if (conditionalRender && !hasVisibleContent && !puck.isEditing) {
+    return <></>;
+  }
+
   return (
     <Background
       className={themeManagerCn(
@@ -506,109 +676,18 @@ export const ProductCard: YextComponentConfig<ProductCardProps> = {
     const locale = i18nPageInstance.language || "en";
     const field = data.props.field ?? "";
     const isLinkedMode = Boolean(field);
-    const imageSlotProps = data.props.slots.ImageSlot?.[0]?.props as
-      | (WithId<ImageWrapperProps> & {
-          styles?: { aspectRatio?: number; width?: number };
-        })
-      | undefined;
-    const priceSlotProps = data.props.slots.PriceSlot?.[0]?.props as
-      WithId<TextProps> | undefined;
-    const priceEntityField = priceSlotProps?.data.text as
-      YextEntityField<ProductStruct["price"]> | undefined;
-    const entityPrice = isLinkedMode
-      ? data.props.price
-      : priceEntityField
-        ? resolveYextEntityField<ProductStruct["price"]>(
-            params.metadata.streamDocument,
-            priceEntityField,
-            locale
-          )
-        : undefined;
-
-    const resolvedPriceFromEntity = formatCurrency(
-      entityPrice?.value,
-      entityPrice?.currencyCode,
-      locale
-    );
-    const fallbackPriceCandidate =
-      !isLinkedMode && priceSlotProps
-        ? resolveYextEntityField(
-            params.metadata.streamDocument,
-            priceSlotProps?.data?.text,
-            locale
-          )
-        : undefined;
-    const resolvedFallbackPrice = !fallbackPriceCandidate
-      ? fallbackPriceCandidate
-      : isCompleteProductPrice(fallbackPriceCandidate, locale)
-        ? formatCurrency(
-            fallbackPriceCandidate.value,
-            fallbackPriceCandidate.currencyCode,
-            locale
-          )
-        : isInvalidProductPrice(fallbackPriceCandidate, locale)
-          ? undefined
-          : resolveComponentData(
-              fallbackPriceCandidate,
-              locale,
-              params.metadata.streamDocument,
-              { output: "plainText" }
-            );
-    const resolvedPrice = resolvedPriceFromEntity
-      ? resolvedPriceFromEntity
-      : resolvedFallbackPrice;
-    const showPrice = Boolean(resolvedPrice);
-
-    const browSlotProps = data.props.slots.BrowSlot?.[0]?.props as
-      WithId<TextProps> | undefined;
-    const resolvedBrow = isLinkedMode
-      ? data.props.category
-      : browSlotProps
-        ? resolveYextEntityField(
-            params.metadata.streamDocument,
-            browSlotProps.data.text,
-            locale
-          )
-        : undefined;
-    const showBrow = Boolean(resolvedBrow);
-
-    const descriptionSlotProps = data.props.slots.DescriptionSlot?.[0]
-      ?.props as WithId<BodyTextProps> | undefined;
-
-    const resolvedDescription = isLinkedMode
-      ? data.props.description
-      : descriptionSlotProps
-        ? resolveYextEntityField(
-            params.metadata.streamDocument,
-            descriptionSlotProps.data.text,
-            locale
-          )
-        : undefined;
-    const showDescription = Boolean(resolvedDescription);
-
-    const ctaSlotProps = data.props.slots.CTASlot?.[0]?.props as
-      WithId<CTAWrapperProps> | undefined;
-    const resolvedCTA = isLinkedMode
-      ? data.props.cta
-      : ctaSlotProps
-        ? resolveYextEntityField(
-            params.metadata.streamDocument,
-            ctaSlotProps.data.entityField,
-            locale
-          )
-        : undefined;
-    const showCTA = Boolean(resolvedCTA);
+    const { imageSlotProps, resolvedPriceFromEntity, conditionalRender } =
+      resolveProductCardContent(
+        data.props,
+        locale,
+        params.metadata.streamDocument
+      );
 
     let updatedData = {
       ...data,
       props: {
         ...data.props,
-        conditionalRender: {
-          price: showPrice,
-          brow: showBrow,
-          description: showDescription,
-          cta: showCTA,
-        },
+        conditionalRender,
         imageStyles: {
           aspectRatio: imageSlotProps?.styles?.aspectRatio,
           width: imageSlotProps?.styles?.width,
