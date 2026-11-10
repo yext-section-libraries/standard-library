@@ -37,7 +37,6 @@ import {
   usePreviewWindow,
   getViewport,
   useWindowWidth,
-  getPreferredDistanceUnit,
   toMeters,
   fromMeters,
   resolveComponentData,
@@ -58,6 +57,7 @@ import {
   LocatorResultCard,
 } from "./LocatorResultCard.tsx";
 import type { LocatorProps } from "./Locator.tsx";
+import { getDistanceUnit, getMapboxCountryCode } from "./DistanceUnits.ts";
 import {
   COUNTRY_CODE_FIELD,
   FilterModal,
@@ -170,6 +170,7 @@ const LocatorInternal = ({
   defaultSearchRadius,
   resultCard: resultCardConfigs,
   distanceDisplay,
+  distanceUnit,
   pageHeading,
 }: LocatorProps) => {
   // Adds unified [enable|disable]YextAnalytics to the window for both Pages and Search
@@ -196,7 +197,15 @@ const LocatorInternal = ({
   const previewWindow = usePreviewWindow();
   const windowWidth = useWindowWidth(previewWindow);
   const { isMobile } = getViewport(windowWidth);
-  const preferredUnit = getPreferredDistanceUnit(i18n.language);
+  const [visitorCountryCode, setVisitorCountryCode] = React.useState<string>();
+  const preferredUnit = getDistanceUnit(
+    distanceUnit,
+    visitorCountryCode,
+    typeof navigator === "undefined" ? undefined : navigator.language,
+    i18n.language
+  );
+  const currentUnit = React.useRef(preferredUnit);
+  currentUnit.current = preferredUnit;
   // Puck emits 0 when its number field is cleared; only positive radii override Search.
   const configuredRadiusMeters =
     defaultSearchRadius?.value && defaultSearchRadius.value > 0
@@ -247,6 +256,40 @@ const LocatorInternal = ({
     mapboxApiKey = streamDocument._env.YEXT_EDIT_LAYOUT_MODE_MAPBOX_API_KEY;
   }
 
+  const visitorLocationPromise = React.useRef<Promise<GeolocationPosition>>();
+  const getVisitorLocation = React.useCallback(() => {
+    visitorLocationPromise.current ??= getUserLocation();
+    return visitorLocationPromise.current;
+  }, []);
+
+  React.useEffect(() => {
+    if (distanceUnit !== "auto" || !mapboxApiKey) {
+      return;
+    }
+
+    let cancelled = false;
+    getVisitorLocation()
+      .then(async (location) => {
+        const { latitude, longitude } = location.coords;
+        const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${mapboxApiKey}&types=country&limit=1`;
+        const response = await fetch(url);
+        if (!response.ok) {
+          return;
+        }
+        const data = await response.json();
+        if (!cancelled) {
+          setVisitorCountryCode(getMapboxCountryCode(data));
+        }
+      })
+      .catch(() => {
+        // Browser region and page language remain available when location is denied.
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [distanceUnit, getVisitorLocation, mapboxApiKey]);
+
   const [showSearchAreaButton, setShowSearchAreaButton] = React.useState(false);
   const [mapCenter, setMapCenter] = React.useState<Coordinate | undefined>();
   const [mapRadius, setMapRadius] = React.useState<number | undefined>();
@@ -257,8 +300,12 @@ const LocatorInternal = ({
   const [selectedDistanceOption, setSelectedDistanceOption] = React.useState<
     number | null
   >(null);
+  const currentDistanceOption = React.useRef(selectedDistanceOption);
+  currentDistanceOption.current = selectedDistanceOption;
   /** Radius of the current location filter before a distance option is applied */
   const baseFilterRadius = React.useRef<number | null>(null);
+  /** Whether the saved radius came from the locator's default distance */
+  const hasGeneratedRadius = React.useRef(false);
 
   const handleDrag: OnDragHandler = (center, bounds) => {
     setMapCenter({
@@ -308,6 +355,7 @@ const LocatorInternal = ({
       baseFilterRadius.current = mapRadius;
       setSelectedDistanceOption(null);
       setSelectedDistanceMeters(null);
+      hasGeneratedRadius.current = false;
       searchActions.setStaticFilters([locationFilter, openNowFilter]);
       searchActions.executeVerticalQuery();
       setSearchState("loading");
@@ -338,6 +386,7 @@ const LocatorInternal = ({
       radius,
       t("currentLocation", "Current Location")
     );
+    hasGeneratedRadius.current = false;
     const nonLocationFilters = (searchFilters.static || []).filter(
       (staticFilter) =>
         staticFilter.filter.kind !== "fieldValue" ||
@@ -385,6 +434,7 @@ const LocatorInternal = ({
         nearFilterValue = filter.value as NearFilterValue;
         baseFilterRadius.current =
           configuredRadiusMeters ?? nearFilterValue.radius;
+        hasGeneratedRadius.current = false;
         const radius =
           showDistanceOptions && selectedDistanceMeters
             ? selectedDistanceMeters
@@ -398,6 +448,7 @@ const LocatorInternal = ({
       }
       case Matcher.Equals: {
         baseFilterRadius.current = null;
+        hasGeneratedRadius.current = false;
         locationFilter = buildEqualsLocationFilter(filter, newDisplayName);
         break;
       }
@@ -450,6 +501,56 @@ const LocatorInternal = ({
       setSearchState("complete");
     }
   }, [searchLoading, searchState]);
+
+  const previousUnit = React.useRef(preferredUnit);
+  React.useEffect(() => {
+    if (previousUnit.current === preferredUnit) {
+      return;
+    }
+
+    const generatedRadius = hasGeneratedRadius.current
+      ? defaultRadiusMeters
+      : undefined;
+    if (generatedRadius !== undefined) {
+      baseFilterRadius.current = generatedRadius;
+    }
+    const nextRadius =
+      selectedDistanceOption === null
+        ? generatedRadius
+        : toMeters(selectedDistanceOption, preferredUnit);
+    if (nextRadius === undefined) {
+      previousUnit.current = preferredUnit;
+      return;
+    }
+
+    const nearFilter = searchFilters.static?.find(
+      (staticFilter) =>
+        staticFilter.filter.kind === "fieldValue" &&
+        staticFilter.filter.fieldId === LOCATION_FIELD &&
+        staticFilter.filter.matcher === Matcher.Near
+    );
+    if (!nearFilter || nearFilter.filter.kind !== "fieldValue") {
+      return;
+    }
+    previousUnit.current = preferredUnit;
+    if ((nearFilter.filter.value as NearFilterValue).radius === nextRadius) {
+      return;
+    }
+
+    const updatedFilters = updateRadiusInNearFiltersOnLocationField(
+      searchFilters.static || [],
+      nextRadius
+    );
+    searchActions.setStaticFilters(updatedFilters);
+    searchActions.setOffset(0);
+    executeSearch(searchActions);
+  }, [
+    preferredUnit,
+    defaultRadiusMeters,
+    searchActions,
+    searchFilters.static,
+    selectedDistanceOption,
+  ]);
 
   React.useEffect(() => {
     if (selectedDistanceOption === null) {
@@ -546,12 +647,14 @@ const LocatorInternal = ({
           resultCardProps={resultCardProps}
           isSelected={result.result.index === selectedResultIndex}
           distanceDisplay={distanceDisplay}
+          distanceUnit={preferredUnit}
           searchLocationName={filterDisplayName}
         />
       );
     },
     [
       distanceDisplay,
+      preferredUnit,
       filterDisplayName,
       getResultCardProps,
       selectedResultIndex,
@@ -638,6 +741,7 @@ const LocatorInternal = ({
       setCenterCoords(initialMapCenter);
       setMapCenter(initialMapCenter);
 
+      let isGeneratedRadius = true;
       const radius =
         showDistanceOptions && selectedDistanceMeters
           ? selectedDistanceMeters
@@ -653,6 +757,22 @@ const LocatorInternal = ({
         if (isCancelled) {
           return;
         }
+        hasGeneratedRadius.current = isGeneratedRadius;
+        if (isGeneratedRadius) {
+          const defaultRadius =
+            configuredRadiusMeters ??
+            toMeters(DEFAULT_RADIUS, currentUnit.current);
+          baseFilterRadius.current = defaultRadius;
+          const activeRadius =
+            showDistanceOptions && currentDistanceOption.current !== null
+              ? toMeters(currentDistanceOption.current, currentUnit.current)
+              : defaultRadius;
+          initialLocationFilter = updateRadiusInNearFiltersOnLocationField(
+            [initialLocationFilter],
+            activeRadius
+          )[0];
+        }
+        previousUnit.current = currentUnit.current;
         searchActions.setVerticalLimit(RESULTS_LIMIT);
         searchActions.setOffset(0);
         searchActions.setStaticFilters(
@@ -752,6 +872,7 @@ const LocatorInternal = ({
         baseFilterRadius.current = coordinates.radius;
         setSelectedDistanceOption(null);
         setSelectedDistanceMeters(null);
+        isGeneratedRadius = false;
         initialLocationFilter = buildNearLocationFilterFromCoords(
           coordinates.lat,
           coordinates.lng,
@@ -765,6 +886,7 @@ const LocatorInternal = ({
         initialLocationParam &&
         (await foundStartingLocationFromQueryParam(initialLocationParam))
       ) {
+        isGeneratedRadius = false;
         doSearch();
         return;
       }
@@ -775,7 +897,7 @@ const LocatorInternal = ({
 
       try {
         // 2. Try to get user location via Geolocation API
-        const location = await getUserLocation();
+        const location = await getVisitorLocation();
         if (isCancelled) {
           return;
         }
@@ -835,7 +957,6 @@ const LocatorInternal = ({
     initialMapCenter,
     searchActions,
     configuredRadiusMeters,
-    defaultRadiusMeters,
   ]);
 
   const handleOpenNowClick = (selected: boolean) => {
@@ -1057,6 +1178,7 @@ const LocatorInternal = ({
                   searchState={searchState}
                   resultCount={resultCount}
                   selectedDistanceOption={selectedDistanceOption}
+                  distanceUnit={preferredUnit}
                   filterDisplayName={filterDisplayName}
                 />
                 {hasFilterModalToggle && (
@@ -1131,6 +1253,7 @@ const LocatorInternal = ({
               handleOpenNowClick={handleOpenNowClick}
               showDistanceOptions={showDistanceOptions}
               selectedDistanceOption={selectedDistanceOption}
+              distanceUnit={preferredUnit}
               handleDistanceClick={handleDistanceClick}
               handleClearFiltersClick={handleClearFiltersClick}
               accentColorCssValue={filterAccentColorCssVariable}

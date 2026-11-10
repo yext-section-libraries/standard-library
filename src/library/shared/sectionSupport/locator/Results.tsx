@@ -6,13 +6,13 @@ import { useTranslation } from "react-i18next";
 import {
   LocatorConfig,
   getLocatorEntityTypeSourceMap,
-  getPreferredDistanceUnit,
   YextAutoField,
   useDocument,
   useTemplateMetadata,
 } from "@yext/visual-editor/section-library-support";
 import { Body } from "../atoms/body.tsx";
 import { Button } from "../atoms/button.tsx";
+import { type DistanceUnit } from "./DistanceUnits.ts";
 import {
   DEFAULT_LOCATOR_RESULT_CARD_PROPS,
   Location,
@@ -210,6 +210,7 @@ interface ResultsCountSummaryProps {
   searchState: SearchState;
   resultCount: number;
   selectedDistanceOption: number | null;
+  distanceUnit: DistanceUnit;
   filterDisplayName?: string;
 }
 
@@ -217,9 +218,10 @@ export const ResultsCountSummary = ({
   searchState,
   resultCount,
   selectedDistanceOption,
+  distanceUnit,
   filterDisplayName,
 }: ResultsCountSummaryProps) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   if (resultCount === 0) {
     if (searchState === "not started") {
@@ -246,7 +248,7 @@ export const ResultsCountSummary = ({
 
   if (filterDisplayName) {
     if (selectedDistanceOption) {
-      const unit = getPreferredDistanceUnit(i18n.language);
+      const unit = distanceUnit;
       return (
         <Body>
           {t("locationsWithinDistanceOf", {

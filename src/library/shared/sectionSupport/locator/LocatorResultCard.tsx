@@ -27,7 +27,6 @@ import {
   type ImageField,
   formatDistance,
   fromMeters,
-  getPreferredDistanceUnit,
   useTemplateMetadata,
   FieldTypeData,
   DEFAULT_ENTITY_TYPE,
@@ -42,6 +41,7 @@ import {
   LOCATOR_ENTITY_TYPES,
 } from "@yext/visual-editor/section-library-support";
 import { Body, BodyProps } from "../atoms/body.tsx";
+import { type DistanceUnit } from "./DistanceUnits.ts";
 import { CTA, CTAVariant } from "../atoms/cta.tsx";
 import { Heading } from "../atoms/heading.tsx";
 import { Image } from "../atoms/image.tsx";
@@ -866,12 +866,14 @@ export const LocatorResultCard = React.memo(
     result,
     resultCardProps: props,
     distanceDisplay = "distanceFromUser",
+    distanceUnit,
     searchLocationName,
     isSelected,
   }: {
     result: CardProps<Location>["result"];
     resultCardProps: LocatorResultCardProps;
     distanceDisplay?: DistanceDisplayOption;
+    distanceUnit: DistanceUnit;
     searchLocationName?: string;
     isSelected?: boolean;
   }): React.JSX.Element => {
@@ -889,22 +891,21 @@ export const LocatorResultCard = React.memo(
           ? result.distanceFromFilter
           : undefined;
 
-    const unit = getPreferredDistanceUnit(i18n.language);
-    const unitLabel = unit === "mile" ? "mi" : "km"; // Abbreviations do not need translation
+    const unitLabel = distanceUnit === "mile" ? "mi" : "km"; // Abbreviations do not need translation
     const displayDistance =
       typeof distance === "number"
-        ? `${formatDistance(fromMeters(distance, unit), i18n.language)} ${unitLabel}`
+        ? `${formatDistance(fromMeters(distance, distanceUnit), i18n.language)} ${unitLabel}`
         : undefined;
     const searchDistance =
       typeof result.distanceFromFilter === "number"
         ? `${formatDistance(
-            fromMeters(result.distanceFromFilter, unit),
+            fromMeters(result.distanceFromFilter, distanceUnit),
             i18n.language
           )} ${unitLabel}`
         : undefined;
     const userDistance =
       typeof result.distance === "number"
-        ? `${formatDistance(fromMeters(result.distance, unit), i18n.language)} ${unitLabel}`
+        ? `${formatDistance(fromMeters(result.distance, distanceUnit), i18n.language)} ${unitLabel}`
         : undefined;
     const displayDistanceContent =
       distanceDisplay === "bothDistances" ? (
