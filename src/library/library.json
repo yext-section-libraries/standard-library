@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "id": "yext_standard-library",
-  "displayName": "Standard Library",
+  "id": "standard-library-ai-kg-fields",
+  "displayName": "Standard Library Test AI KG Fields",
   "description": "The original Pages for Marketers sections.",
   "locales": [
     "cs",
