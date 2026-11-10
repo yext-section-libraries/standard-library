@@ -879,22 +879,21 @@ export const LocatorResultCard = React.memo(
           ? result.distanceFromFilter
           : undefined;
 
-    const unit = distanceUnit;
-    const unitLabel = unit === "mile" ? "mi" : "km"; // Abbreviations do not need translation
+    const unitLabel = distanceUnit === "mile" ? "mi" : "km"; // Abbreviations do not need translation
     const displayDistance =
       typeof distance === "number"
-        ? `${formatDistance(fromMeters(distance, unit), i18n.language)} ${unitLabel}`
+        ? `${formatDistance(fromMeters(distance, distanceUnit), i18n.language)} ${unitLabel}`
         : undefined;
     const searchDistance =
       typeof result.distanceFromFilter === "number"
         ? `${formatDistance(
-            fromMeters(result.distanceFromFilter, unit),
+            fromMeters(result.distanceFromFilter, distanceUnit),
             i18n.language
           )} ${unitLabel}`
         : undefined;
     const userDistance =
       typeof result.distance === "number"
-        ? `${formatDistance(fromMeters(result.distance, unit), i18n.language)} ${unitLabel}`
+        ? `${formatDistance(fromMeters(result.distance, distanceUnit), i18n.language)} ${unitLabel}`
         : undefined;
     const displayDistanceContent =
       distanceDisplay === "bothDistances" ? (

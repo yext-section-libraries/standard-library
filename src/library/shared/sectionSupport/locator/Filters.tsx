@@ -253,7 +253,14 @@ const DistanceFilter = ({
             <button
               className="inline-flex bg-white"
               onClick={() => onChange(distanceOption, distanceUnit)}
-              aria-label={`${t("selectDistanceLessThan", "Select distance less than")} ${distanceOption} ${translateDistanceUnit(t, distanceUnit, distanceOption)}`}
+              aria-label={t(
+                "selectDistanceLessThan",
+                "Select distance less than {{distance}} {{unit}}",
+                {
+                  distance: distanceOption,
+                  unit: translateDistanceUnit(t, distanceUnit, distanceOption),
+                }
+              )}
             >
               <div style={{ color: accentColorCssValue }}>
                 {selectedDistanceOption === distanceOption ? (
@@ -264,7 +271,10 @@ const DistanceFilter = ({
               </div>
             </button>
             <Body className="inline-flex">
-              {`< ${distanceOption} ${translateDistanceUnit(t, distanceUnit, distanceOption)}`}
+              {t("distanceLessThan", "< {{distance}} {{unit}}", {
+                distance: distanceOption,
+                unit: translateDistanceUnit(t, distanceUnit, distanceOption),
+              })}
             </Body>
           </div>
         ))}
