@@ -203,6 +203,8 @@ const LocatorInternal = ({
     typeof navigator === "undefined" ? undefined : navigator.language,
     i18n.language
   );
+  const currentUnit = React.useRef(preferredUnit);
+  currentUnit.current = preferredUnit;
   const streamDocument = useDocument();
   const entityTypeSourceMap = getLocatorEntityTypeSourceMap(streamDocument);
   const entityTypes =
@@ -290,8 +292,12 @@ const LocatorInternal = ({
   const [selectedDistanceOption, setSelectedDistanceOption] = React.useState<
     number | null
   >(null);
+  const currentDistanceOption = React.useRef(selectedDistanceOption);
+  currentDistanceOption.current = selectedDistanceOption;
   /** Radius of the current location filter before a distance option is applied */
   const apiFilterRadius = React.useRef<number | null>(null);
+  /** Whether the saved radius came from the locator's default distance */
+  const hasGeneratedRadius = React.useRef(false);
 
   const handleDrag: OnDragHandler = (center, bounds) => {
     setMapCenter({
@@ -339,6 +345,7 @@ const LocatorInternal = ({
         },
       };
       apiFilterRadius.current = mapRadius;
+      hasGeneratedRadius.current = false;
       searchActions.setStaticFilters([locationFilter, openNowFilter]);
       searchActions.executeVerticalQuery();
       setSearchState("loading");
@@ -364,6 +371,7 @@ const LocatorInternal = ({
       t("currentLocation", "Current Location")
     );
     apiFilterRadius.current = radius;
+    hasGeneratedRadius.current = false;
     const nonLocationFilters = (searchFilters.static || []).filter(
       (staticFilter) =>
         staticFilter.filter.kind !== "fieldValue" ||
@@ -410,6 +418,7 @@ const LocatorInternal = ({
       case Matcher.Near: {
         nearFilterValue = filter.value as NearFilterValue;
         apiFilterRadius.current = nearFilterValue.radius;
+        hasGeneratedRadius.current = false;
         // only overwrite radius from filter if display options are enabled
         const radius =
           showDistanceOptions && selectedDistanceMeters
@@ -424,6 +433,7 @@ const LocatorInternal = ({
       }
       case Matcher.Equals: {
         apiFilterRadius.current = null;
+        hasGeneratedRadius.current = false;
         locationFilter = buildEqualsLocationFilter(filter, newDisplayName);
         break;
       }
@@ -478,14 +488,39 @@ const LocatorInternal = ({
     if (previousUnit.current === preferredUnit) {
       return;
     }
+
+    const generatedRadius = hasGeneratedRadius.current
+      ? toMeters(DEFAULT_RADIUS, preferredUnit)
+      : undefined;
+    if (generatedRadius !== undefined) {
+      apiFilterRadius.current = generatedRadius;
+    }
+    const nextRadius =
+      selectedDistanceOption === null
+        ? generatedRadius
+        : toMeters(selectedDistanceOption, preferredUnit);
+    if (nextRadius === undefined) {
+      previousUnit.current = preferredUnit;
+      return;
+    }
+
+    const nearFilter = searchFilters.static?.find(
+      (staticFilter) =>
+        staticFilter.filter.kind === "fieldValue" &&
+        staticFilter.filter.fieldId === LOCATION_FIELD &&
+        staticFilter.filter.matcher === Matcher.Near
+    );
+    if (!nearFilter || nearFilter.filter.kind !== "fieldValue") {
+      return;
+    }
     previousUnit.current = preferredUnit;
-    if (selectedDistanceOption === null) {
+    if ((nearFilter.filter.value as NearFilterValue).radius === nextRadius) {
       return;
     }
 
     const updatedFilters = updateRadiusInNearFiltersOnLocationField(
       searchFilters.static || [],
-      toMeters(selectedDistanceOption, preferredUnit)
+      nextRadius
     );
     searchActions.setStaticFilters(updatedFilters);
     searchActions.setOffset(0);
@@ -686,6 +721,7 @@ const LocatorInternal = ({
       setCenterCoords(initialMapCenter);
       setMapCenter(initialMapCenter);
 
+      let isGeneratedRadius = true;
       const radius =
         showDistanceOptions && selectedDistanceMeters
           ? selectedDistanceMeters
@@ -700,6 +736,20 @@ const LocatorInternal = ({
         if (isCancelled) {
           return;
         }
+        hasGeneratedRadius.current = isGeneratedRadius;
+        if (isGeneratedRadius) {
+          const defaultRadius = toMeters(DEFAULT_RADIUS, currentUnit.current);
+          apiFilterRadius.current = defaultRadius;
+          const activeRadius =
+            showDistanceOptions && currentDistanceOption.current !== null
+              ? toMeters(currentDistanceOption.current, currentUnit.current)
+              : defaultRadius;
+          initialLocationFilter = updateRadiusInNearFiltersOnLocationField(
+            [initialLocationFilter],
+            activeRadius
+          )[0];
+        }
+        previousUnit.current = currentUnit.current;
         searchActions.setVerticalLimit(RESULTS_LIMIT);
         searchActions.setOffset(0);
         searchActions.setStaticFilters(
@@ -715,7 +765,9 @@ const LocatorInternal = ({
         ) {
           const filterValue = initialLocationFilter.filter
             .value as NearFilterValue;
-          apiFilterRadius.current = filterValue.radius;
+          if (!isGeneratedRadius) {
+            apiFilterRadius.current = filterValue.radius;
+          }
           const nextCenterCoords: Coordinate = {
             longitude: filterValue.lng,
             latitude: filterValue.lat,
@@ -793,6 +845,7 @@ const LocatorInternal = ({
         ? parseCoordinateQuery(initialLocationParam)
         : undefined;
       if (coordinates) {
+        isGeneratedRadius = false;
         initialLocationFilter = buildNearLocationFilterFromCoords(
           coordinates.lat,
           coordinates.lng,
@@ -806,6 +859,7 @@ const LocatorInternal = ({
         initialLocationParam &&
         (await foundStartingLocationFromQueryParam(initialLocationParam))
       ) {
+        isGeneratedRadius = false;
         doSearch();
         return;
       }
