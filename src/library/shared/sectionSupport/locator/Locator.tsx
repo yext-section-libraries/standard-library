@@ -35,6 +35,7 @@ import {
   DEFAULT_LOCATION_STYLE,
   DEFAULT_MAKI_ICON_NAME,
   DEFAULT_PIN_ICON_WIDTH,
+  DEFAULT_RADIUS,
   LOCATOR_PIN_ICON_FIELD,
   MAX_PIN_ICON_WIDTH,
   makiIconOptions,
@@ -137,6 +138,18 @@ export interface LocatorProps {
     facetFields?: MultiSelectorValue<string>;
     /** The optional display name for the Keywords facet. */
     keywordsDisplayName?: TranslatableString;
+  };
+
+  /**
+   * The default radius for nearby-location searches. Leave unset to use Search's
+   * suggested radius, or 25 in the locale's preferred unit for coordinate searches.
+   * Visitor-selected distances and explicit map/URL search areas take precedence.
+   * Geographic boundary filters are unaffected.
+   */
+  defaultSearchRadius?: {
+    /** A positive radius. Zero or a blank value uses the automatic radius. */
+    value?: number;
+    unit: "mile" | "kilometer";
   };
 
   /** The zoom for the initial results. Later searches auto-fit to their pins. */
@@ -362,6 +375,75 @@ const locatorFields: YextFields<LocatorProps> = {
         visible: false,
       },
     },
+  },
+  defaultSearchRadius: {
+    type: "custom",
+    label: msg("fields.defaultSearchRadius", "Default Search Radius"),
+    render: ({
+      value,
+      onChange,
+      readOnly,
+    }: YextCustomFieldRenderProps<LocatorProps["defaultSearchRadius"]>) => (
+      <div className="flex flex-col gap-3">
+        <YextAutoField
+          field={{
+            type: "basicSelector",
+            label: msg("fields.defaultSearchRadius", "Default Search Radius"),
+            options: [
+              {
+                label: msg("fields.options.automatic", "Automatic"),
+                value: "automatic",
+              },
+              {
+                label: msg("custom", "Custom"),
+                value: "custom",
+              },
+            ],
+          }}
+          value={value ? "custom" : "automatic"}
+          onChange={(mode) =>
+            onChange(
+              mode === "custom"
+                ? { value: DEFAULT_RADIUS, unit: "mile" }
+                : undefined
+            )
+          }
+        />
+        {value && (
+          <>
+            <YextAutoField
+              field={{
+                type: "number",
+                label: msg("fields.radius", "Radius"),
+                min: 0,
+                step: 1,
+              }}
+              readOnly={readOnly}
+              value={value.value}
+              onChange={(radius) => onChange({ ...value, value: radius })}
+            />
+            <YextAutoField
+              field={{
+                type: "basicSelector",
+                label: msg("fields.distanceUnit", "Distance Unit"),
+                options: [
+                  {
+                    label: pt("mile", { count: 2 }),
+                    value: "mile",
+                  },
+                  {
+                    label: pt("kilometer", { count: 2 }),
+                    value: "kilometer",
+                  },
+                ],
+              }}
+              value={value.unit}
+              onChange={(unit) => onChange({ ...value, unit })}
+            />
+          </>
+        )}
+      </div>
+    ),
   },
   mapStartingZoom: {
     type: "number",
