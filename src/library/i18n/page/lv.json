@@ -33,17 +33,17 @@
   "filter": "Filtrs",
   "findALocation": "Atrodiet atrašanās vietu",
   "form": {
-    "configurationError": "Šī veidlapa vēl nav gatava. Pārbaudiet tās laukus.",
+    "configurationError": "Šī veidlapa nav gatava. Pārbaudiet tās laukus.",
     "email": "E-pasts",
-    "error": "Jūsu ziņojumu neizdevās nosūtīt. Mēģiniet vēlreiz.",
+    "error": "Jūsu ziņojumu nevarēja nosūtīt. Mēģiniet vēlreiz.",
     "phone": "Tālrunis",
-    "previewSuccess": "Tikai priekšskatījums. Ziņojums netika nosūtīts.",
+    "previewSuccess": "Tikai priekšskatījums. Netika nosūtīta neviena ziņa.",
     "required": "Obligāti",
     "selectAtLeastOne": "Atlasiet vismaz vienu opciju.",
-    "selectOption": "Atlasiet opciju",
+    "selectOption": "Izvēlieties opciju",
     "sending": "Notiek sūtīšana...",
     "success": "Jūsu ziņojums tika nosūtīts.",
-    "verificationError": "Verifikāciju neizdevās ielādēt. Pārlādējiet lapu un mēģiniet vēlreiz."
+    "verificationError": "Verifikācija nevarēja ielādēt. Atkārtoti ielādējiet lapu un mēģiniet vēlreiz."
   },
   "friday": "Piektdiena",
   "getDirections": "Saņemt norādes",

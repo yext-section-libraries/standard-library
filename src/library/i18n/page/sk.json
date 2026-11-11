@@ -35,15 +35,15 @@
   "form": {
     "configurationError": "Tento formulár nie je pripravený. Skontrolujte jeho polia.",
     "email": "Email",
-    "error": "Vašu správu sa nepodarilo odoslať. Skúste to znova.",
+    "error": "Vašu správu nebolo možné odoslať. Skúste to znova.",
     "phone": "Telefón",
-    "previewSuccess": "Iba náhľad. Nebola odoslaná žiadna správa.",
+    "previewSuccess": "Iba ukážka. Nebola odoslaná žiadna správa.",
     "required": "Povinné",
     "selectAtLeastOne": "Vyberte aspoň jednu možnosť.",
     "selectOption": "Vyberte možnosť",
     "sending": "Odosiela sa...",
     "success": "Vaša správa bola odoslaná.",
-    "verificationError": "Overenie sa nepodarilo načítať. Obnovte stránku a skúste to znova."
+    "verificationError": "Overenie sa nepodarilo načítať. Znova načítajte stránku a skúste to znova."
   },
   "friday": "Piatok",
   "getDirections": "Získajte pokyny",

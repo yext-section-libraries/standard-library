@@ -33,17 +33,17 @@
   "filter": "筛选",
   "findALocation": "找到一个位置",
   "form": {
-    "configurationError": "此表单尚未就绪。请检查其字段。",
+    "configurationError": "此表单尚未准备好。请检查表单字段。",
     "email": "电子邮件",
-    "error": "您的消息无法发送。请重试。",
+    "error": "您的消息无法发送。再试一次。",
     "phone": "电话",
-    "previewSuccess": "仅供预览。未发送任何消息。",
+    "previewSuccess": "仅预览。没有发送消息。",
     "required": "必需的",
-    "selectAtLeastOne": "请至少选择一个选项。",
+    "selectAtLeastOne": "至少选择一个选项。",
     "selectOption": "选择一个选项",
     "sending": "正在发送...",
     "success": "您的消息已发送。",
-    "verificationError": "无法加载验证。请刷新页面后重试。"
+    "verificationError": "验证无法加载。重新加载页面并重试。"
   },
   "friday": "星期五",
   "getDirections": "获取指示",

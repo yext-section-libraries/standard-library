@@ -33,17 +33,17 @@
   "filter": "Filtro",
   "findALocation": "Encontre um local",
   "form": {
-    "configurationError": "Este formulário ainda não está pronto. Verifique os seus campos.",
+    "configurationError": "Este formulário não está pronto. Confira seus campos.",
     "email": "E-mail",
-    "error": "Não foi possível enviar a sua mensagem. Tente novamente.",
+    "error": "Não foi possível enviar sua mensagem. Tente novamente.",
     "phone": "Telefone",
-    "previewSuccess": "Apenas pré-visualização. Nenhuma mensagem foi enviada.",
+    "previewSuccess": "Apenas visualização. Nenhuma mensagem foi enviada.",
     "required": "Obrigatório",
     "selectAtLeastOne": "Selecione pelo menos uma opção.",
     "selectOption": "Selecione uma opção",
-    "sending": "A enviar...",
-    "success": "A sua mensagem foi enviada.",
-    "verificationError": "Não foi possível carregar a verificação. Recarregue a página e tente novamente."
+    "sending": "Enviando...",
+    "success": "Sua mensagem foi enviada.",
+    "verificationError": "A verificação não pôde ser carregada. Atualize a página e tente novamente."
   },
   "friday": "Sexta-feira",
   "getDirections": "Obtenha direções",

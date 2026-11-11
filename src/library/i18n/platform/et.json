@@ -449,7 +449,7 @@
     "description": "Kirjeldus",
     "email": "Meil",
     "emailOnly": "Ainult e-post",
-    "error": "Teie sõnumit ei õnnestunud saata. Proovige uuesti.",
+    "error": "Teie sõnumit ei saanud saata. Proovi uuesti.",
     "field": "Väli",
     "fieldLabel": "Silt",
     "fields": "Vormi väljad",
@@ -472,11 +472,11 @@
     "previewSuccess": "Ainult eelvaade. Sõnumit ei saadetud.",
     "required": "Nõutav",
     "selectAtLeastOne": "Valige vähemalt üks valik.",
-    "selectOption": "Valige valik",
+    "selectOption": "Valige suvand",
     "sending": "Saatmine...",
     "showPreferredContactMethod": "Näita eelistatud kontaktimeetodit",
-    "success": "Teie sõnum saadeti.",
-    "verificationError": "Kinnitust ei õnnestunud laadida. Värskendage lehte ja proovige uuesti."
+    "success": "Teie sõnum on saadetud.",
+    "verificationError": "Kinnitust ei saanud laadida. Laadige leht uuesti ja proovige uuesti."
   },
   "friday": "Reede",
   "getDirections": "Hankige juhiseid",

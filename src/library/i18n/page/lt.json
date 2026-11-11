@@ -33,17 +33,17 @@
   "filter": "Filtruoti",
   "findALocation": "Raskite vietą",
   "form": {
-    "configurationError": "Ši forma dar neparuošta. Patikrinkite jos laukus.",
+    "configurationError": "Ši forma nėra paruošta. Patikrinkite jos laukus.",
     "email": "El. paštas",
-    "error": "Nepavyko išsiųsti pranešimo. Bandykite dar kartą.",
+    "error": "Jūsų žinutės nepavyko išsiųsti. Bandykite dar kartą.",
     "phone": "Telefonas",
-    "previewSuccess": "Tik peržiūra. Pranešimas nebuvo išsiųstas.",
+    "previewSuccess": "Tik peržiūra. Jokia žinutė nebuvo išsiųsta.",
     "required": "Privaloma",
     "selectAtLeastOne": "Pasirinkite bent vieną parinktį.",
     "selectOption": "Pasirinkite parinktį",
     "sending": "Siunčiama...",
-    "success": "Jūsų pranešimas išsiųstas.",
-    "verificationError": "Nepavyko įkelti patvirtinimo. Įkelkite puslapį iš naujo ir bandykite dar kartą."
+    "success": "Jūsų žinutė išsiųsta.",
+    "verificationError": "Nepavyko įkelti patvirtinimo. Iš naujo įkelkite puslapį ir bandykite dar kartą."
   },
   "friday": "Penktadienis",
   "getDirections": "Gaukite nurodymus",

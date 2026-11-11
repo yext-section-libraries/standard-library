@@ -435,7 +435,7 @@
   "findALocation": "Find en placering",
   "form": {
     "buttonVariant": "Knap variant",
-    "configurationError": "Denne formular er ikke klar. Kontrollér dens felter.",
+    "configurationError": "Denne formular er ikke klar. Tjek dens felter.",
     "ctaColor": "CTA farve",
     "ctaLabel": "CTA-mærke",
     "ctaLabelColor": "CTA Label farve",
@@ -469,7 +469,7 @@
     "phoneOptIn": "Telefonopt-in",
     "preferredContactMethodTextColor": "Foretrukken kontaktmetode Tekstfarve",
     "preferredMethod": "Foretrukken kontaktmetode",
-    "previewSuccess": "Kun forhåndsvisning. Ingen besked blev sendt.",
+    "previewSuccess": "Kun forhåndsvisning. Der blev ikke sendt nogen besked.",
     "required": "Påkrævet",
     "selectAtLeastOne": "Vælg mindst én mulighed.",
     "selectOption": "Vælg en mulighed",

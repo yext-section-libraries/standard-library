@@ -33,7 +33,7 @@
   "filter": "Filter",
   "findALocation": "Finn et sted",
   "form": {
-    "configurationError": "Dette skjemaet er ikke klart. Kontroller feltene.",
+    "configurationError": "Dette skjemaet er ikke klart. Sjekk feltene.",
     "email": "E-post",
     "error": "Meldingen din kunne ikke sendes. Prøv igjen.",
     "phone": "Telefon",

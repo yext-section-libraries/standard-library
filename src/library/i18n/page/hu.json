@@ -33,17 +33,17 @@
   "filter": "Szűrő",
   "findALocation": "Keressen egy helyet",
   "form": {
-    "configurationError": "Ez az űrlap még nem használható. Ellenőrizze a mezőit.",
+    "configurationError": "Ez az űrlap még nincs kész. Ellenőrizze a mezőit.",
     "email": "Email",
-    "error": "Az üzenetet nem sikerült elküldeni. Próbálja újra.",
+    "error": "Az üzenetet nem sikerült elküldeni. Próbáld újra.",
     "phone": "Telefon",
-    "previewSuccess": "Csak előnézet. Nem küldtünk üzenetet.",
+    "previewSuccess": "Csak előnézet. Nem küldtek üzenetet.",
     "required": "Kívánt",
     "selectAtLeastOne": "Válasszon legalább egy lehetőséget.",
     "selectOption": "Válasszon egy lehetőséget",
     "sending": "Küldés...",
-    "success": "Az üzenetet elküldtük.",
-    "verificationError": "Az ellenőrzés nem tölthető be. Töltse újra az oldalt, és próbálja meg ismét."
+    "success": "Üzenetét elküldtük.",
+    "verificationError": "Az ellenőrzést nem sikerült betölteni. Töltse be újra az oldalt, és próbálja újra."
   },
   "friday": "péntek",
   "getDirections": "Szerezzen útmutatásokat",

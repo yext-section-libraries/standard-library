@@ -435,7 +435,7 @@
   "findALocation": "Hitta en plats",
   "form": {
     "buttonVariant": "Knappvariant",
-    "configurationError": "Det här formuläret är inte klart. Kontrollera fälten.",
+    "configurationError": "Det här formuläret är inte klart. Kontrollera dess fält.",
     "ctaColor": "CTA färg",
     "ctaLabel": "CTA-etikett",
     "ctaLabelColor": "CTA-etikettfärg",
@@ -449,7 +449,7 @@
     "description": "Beskrivning",
     "email": "E-post",
     "emailOnly": "Endast e-post",
-    "error": "Det gick inte att skicka ditt meddelande. Försök igen.",
+    "error": "Ditt meddelande kunde inte skickas. Försök igen.",
     "field": "Fält",
     "fieldLabel": "Märka",
     "fields": "Formulärfält",
@@ -473,10 +473,10 @@
     "required": "Nödvändig",
     "selectAtLeastOne": "Välj minst ett alternativ.",
     "selectOption": "Välj ett alternativ",
-    "sending": "Skickar...",
+    "sending": "Sändning...",
     "showPreferredContactMethod": "Visa önskad kontaktmetod",
     "success": "Ditt meddelande har skickats.",
-    "verificationError": "Verifieringen kunde inte läsas in. Läs in sidan på nytt och försök igen."
+    "verificationError": "Verifieringen kunde inte laddas. Ladda om sidan och försök igen."
   },
   "friday": "Fredag",
   "getDirections": "Få vägbeskrivning",

@@ -435,7 +435,7 @@
   "findALocation": "Finn et sted",
   "form": {
     "buttonVariant": "Knappvariant",
-    "configurationError": "Dette skjemaet er ikke klart. Kontroller feltene.",
+    "configurationError": "Dette skjemaet er ikke klart. Sjekk feltene.",
     "ctaColor": "CTA farge",
     "ctaLabel": "CTA-merke",
     "ctaLabelColor": "CTA-etikettfarge",

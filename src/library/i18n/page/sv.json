@@ -33,17 +33,17 @@
   "filter": "Filtrera",
   "findALocation": "Hitta en plats",
   "form": {
-    "configurationError": "Det här formuläret är inte klart. Kontrollera fälten.",
+    "configurationError": "Det här formuläret är inte klart. Kontrollera dess fält.",
     "email": "E-post",
-    "error": "Det gick inte att skicka ditt meddelande. Försök igen.",
+    "error": "Ditt meddelande kunde inte skickas. Försök igen.",
     "phone": "Telefon",
     "previewSuccess": "Endast förhandsgranskning. Inget meddelande skickades.",
     "required": "Nödvändig",
     "selectAtLeastOne": "Välj minst ett alternativ.",
     "selectOption": "Välj ett alternativ",
-    "sending": "Skickar...",
+    "sending": "Sändning...",
     "success": "Ditt meddelande har skickats.",
-    "verificationError": "Verifieringen kunde inte läsas in. Läs in sidan på nytt och försök igen."
+    "verificationError": "Verifieringen kunde inte laddas. Ladda om sidan och försök igen."
   },
   "friday": "Fredag",
   "getDirections": "Få vägbeskrivning",

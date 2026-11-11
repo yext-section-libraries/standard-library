@@ -449,7 +449,7 @@
     "description": "Kuvaus",
     "email": "Sähköposti",
     "emailOnly": "Vain sähköposti",
-    "error": "Viestiäsi ei voitu lähettää. Yritä uudelleen.",
+    "error": "Your message could not be sent. Yritä uudelleen.",
     "field": "Ala",
     "fieldLabel": "Label",
     "fields": "Lomakekentät",
