@@ -443,12 +443,10 @@
     "customCheckboxGroup": "自訂複選框組",
     "customDropdown": "自訂下拉式選單",
     "customFieldKey": "自訂欄位鍵",
-    "customPlugin": "自訂外掛程式",
     "customText": "自訂文字",
     "defaultContactMethod": "預設聯絡方式",
     "description": "描述",
     "email": "電子郵件",
-    "emailOnly": "僅電子郵件",
     "error": "您的訊息無法發送。再試一次。",
     "field": "場地",
     "fieldLabel": "標籤",
@@ -568,14 +566,6 @@
   "temporarilyClosed": "暫時關閉",
   "text": "文字",
   "textList": "文本列表",
-  "theme": {
-    "textTransform": {
-      "capitalize": "字首大寫",
-      "lowercase": "小寫",
-      "textTransform": "文字轉換",
-      "uppercase": "大寫"
-    }
-  },
   "thursday": "週四",
   "totalReviews_one": "{{count}} 條評論",
   "totalReviews_other": "{{count}} 條評論",

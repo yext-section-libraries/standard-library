@@ -443,12 +443,10 @@
     "customCheckboxGroup": "Benutzerdefinierte Kontrollkästchengruppe",
     "customDropdown": "Benutzerdefiniertes Dropdown",
     "customFieldKey": "Benutzerdefinierter Feldschlüssel",
-    "customPlugin": "Benutzerdefiniertes Plugin",
     "customText": "Benutzerdefinierter Text",
     "defaultContactMethod": "Standard-Kontaktmethode",
     "description": "Beschreibung",
     "email": "E-Mail",
-    "emailOnly": "Nur E-Mail",
     "error": "Ihre Nachricht konnte nicht gesendet werden. Versuchen Sie es erneut.",
     "field": "Feld",
     "fieldLabel": "Etikett",
@@ -568,14 +566,6 @@
   "temporarilyClosed": "Vorübergehend geschlossen",
   "text": "Text",
   "textList": "Textliste",
-  "theme": {
-    "textTransform": {
-      "capitalize": "Wörter mit Großbuchstaben beginnen",
-      "lowercase": "Kleinbuchstaben",
-      "textTransform": "Groß- und Kleinschreibung",
-      "uppercase": "Großbuchstaben"
-    }
-  },
   "thursday": "Donnerstag",
   "totalReviews_one": "{{count}} Bewertung",
   "totalReviews_other": "{{count}} Bewertungen",

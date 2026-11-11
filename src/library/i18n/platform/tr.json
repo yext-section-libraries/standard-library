@@ -443,12 +443,10 @@
     "customCheckboxGroup": "Özel Onay Kutusu Grubu",
     "customDropdown": "Özel Açılır Menü",
     "customFieldKey": "Özel Alan Anahtarı",
-    "customPlugin": "Özel eklenti",
     "customText": "Özel Metin",
     "defaultContactMethod": "Varsayılan İletişim Yöntemi",
     "description": "Tanım",
     "email": "E-posta",
-    "emailOnly": "Yalnızca e-posta",
     "error": "Mesajınız gönderilemedi. Tekrar deneyin.",
     "field": "Alan",
     "fieldLabel": "Etiket",
@@ -568,14 +566,6 @@
   "temporarilyClosed": "Geçici olarak kapalı",
   "text": "Metin",
   "textList": "Metin listesi",
-  "theme": {
-    "textTransform": {
-      "capitalize": "Baş Harfleri Büyüt",
-      "lowercase": "Küçük harf",
-      "textTransform": "Metin dönüştürme",
-      "uppercase": "Büyük harf"
-    }
-  },
   "thursday": "Perşembe",
   "totalReviews_one": "{{count}} inceleme",
   "totalReviews_other": "{{count}} inceleme",

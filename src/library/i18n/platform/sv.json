@@ -443,12 +443,10 @@
     "customCheckboxGroup": "Anpassad kryssrutagrupp",
     "customDropdown": "Anpassad rullgardinsmeny",
     "customFieldKey": "Anpassad fältnyckel",
-    "customPlugin": "Anpassat tillägg",
     "customText": "Anpassad text",
     "defaultContactMethod": "Standard kontaktmetod",
     "description": "Beskrivning",
     "email": "E-post",
-    "emailOnly": "Endast e-post",
     "error": "Ditt meddelande kunde inte skickas. Försök igen.",
     "field": "Fält",
     "fieldLabel": "Märka",
@@ -568,14 +566,6 @@
   "temporarilyClosed": "Tillfälligt stängd",
   "text": "Text",
   "textList": "Textlista",
-  "theme": {
-    "textTransform": {
-      "capitalize": "Stor begynnelsebokstav",
-      "lowercase": "Gemener",
-      "textTransform": "Textomvandling",
-      "uppercase": "Versaler"
-    }
-  },
   "thursday": "Torsdag",
   "totalReviews_one": "{{count}} recension",
   "totalReviews_other": "{{count}} recensioner",

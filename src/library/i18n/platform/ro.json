@@ -443,12 +443,10 @@
     "customCheckboxGroup": "Grup de casete de selectare personalizate",
     "customDropdown": "Meniu derulant personalizat",
     "customFieldKey": "Cheie de câmp personalizat",
-    "customPlugin": "Plugin personalizat",
     "customText": "Text personalizat",
     "defaultContactMethod": "Metoda de contact implicită",
     "description": "Descriere",
     "email": "E-mail",
-    "emailOnly": "Doar e-mail",
     "error": "Mesajul dvs. nu a putut fi trimis. Încearcă din nou.",
     "field": "Domeniu",
     "fieldLabel": "Eticheta",
@@ -573,14 +571,6 @@
   "temporarilyClosed": "Închis temporar",
   "text": "Text",
   "textList": "Lista de text",
-  "theme": {
-    "textTransform": {
-      "capitalize": "Inițiale majuscule",
-      "lowercase": "Litere mici",
-      "textTransform": "Transformare text",
-      "uppercase": "Litere mari"
-    }
-  },
   "thursday": "joi",
   "totalReviews_one": "{{count}} recenzie",
   "totalReviews_few": "{{count}} recenzii",

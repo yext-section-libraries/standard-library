@@ -443,12 +443,10 @@
     "customCheckboxGroup": "カスタムチェックボックスグループ",
     "customDropdown": "カスタムドロップダウン",
     "customFieldKey": "カスタムフィールドキー",
-    "customPlugin": "カスタムプラグイン",
     "customText": "カスタムテキスト",
     "defaultContactMethod": "デフォルトの連絡方法",
     "description": "説明",
     "email": "電子メール",
-    "emailOnly": "メールのみ",
     "error": "メッセージを送信できませんでした。もう一度やり直してください。",
     "field": "分野",
     "fieldLabel": "ラベル",
@@ -568,14 +566,6 @@
   "temporarilyClosed": "一時休業中",
   "text": "文章",
   "textList": "テキストリスト",
-  "theme": {
-    "textTransform": {
-      "capitalize": "語頭を大文字にする",
-      "lowercase": "小文字",
-      "textTransform": "テキストの変換",
-      "uppercase": "大文字"
-    }
-  },
   "thursday": "木曜日",
   "totalReviews_one": "{{count}} 件のレビュー",
   "totalReviews_other": "{{count}} 件のレビュー",

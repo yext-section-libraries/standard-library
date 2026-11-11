@@ -443,12 +443,10 @@
     "customCheckboxGroup": "Kohandatud märkeruutude rühm",
     "customDropdown": "Kohandatud rippmenüü",
     "customFieldKey": "Kohandatud väljavõti",
-    "customPlugin": "Kohandatud plugin",
     "customText": "Kohandatud tekst",
     "defaultContactMethod": "Vaikekontaktimeetod",
     "description": "Kirjeldus",
     "email": "Meil",
-    "emailOnly": "Ainult e-post",
     "error": "Teie sõnumit ei saanud saata. Proovi uuesti.",
     "field": "Väli",
     "fieldLabel": "Silt",
@@ -568,14 +566,6 @@
   "temporarilyClosed": "Ajutiselt suletud",
   "text": "Tekst",
   "textList": "Tekstiloend",
-  "theme": {
-    "textTransform": {
-      "capitalize": "Suurtäht sõna alguses",
-      "lowercase": "Väiketähed",
-      "textTransform": "Teksti tähesuuruse muutmine",
-      "uppercase": "Suurtähed"
-    }
-  },
   "thursday": "Neljapäev",
   "totalReviews_one": "{{count}} arvustus",
   "totalReviews_other": "{{count}} arvustust",

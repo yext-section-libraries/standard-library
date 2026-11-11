@@ -443,12 +443,10 @@
     "customCheckboxGroup": "Pielāgota izvēles rūtiņu grupa",
     "customDropdown": "Pielāgota nolaižamā izvēlne",
     "customFieldKey": "Pielāgota lauka atslēga",
-    "customPlugin": "Pielāgots spraudnis",
     "customText": "Pielāgots teksts",
     "defaultContactMethod": "Noklusējuma saziņas metode",
     "description": "Apraksts",
     "email": "E-pasts",
-    "emailOnly": "Tikai e-pasts",
     "error": "Jūsu ziņojumu nevarēja nosūtīt. Mēģiniet vēlreiz.",
     "field": "Lauks",
     "fieldLabel": "Etiķete",
@@ -571,14 +569,6 @@
   "temporarilyClosed": "Īslaicīgi slēgts",
   "text": "Teksts",
   "textList": "Teksta saraksts",
-  "theme": {
-    "textTransform": {
-      "capitalize": "Lielie sākumburti",
-      "lowercase": "Mazie burti",
-      "textTransform": "Teksta pārveidošana",
-      "uppercase": "Lielie burti"
-    }
-  },
   "thursday": "Ceturtdiena",
   "totalReviews_zero": "{{count}} atsauksmes",
   "totalReviews_one": "{{count}} atsauksme",

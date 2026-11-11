@@ -443,12 +443,10 @@
     "customCheckboxGroup": "Groupe de cases à cocher personnalisé",
     "customDropdown": "Liste déroulante personnalisée",
     "customFieldKey": "Clé de champ personnalisée",
-    "customPlugin": "Plugin personnalisé",
     "customText": "Texte personnalisé",
     "defaultContactMethod": "Méthode de contact par défaut",
     "description": "Description",
     "email": "E-mail",
-    "emailOnly": "E-mail uniquement",
     "error": "Votre message n'a pas pu être envoyé. Essayer à nouveau.",
     "field": "Champ",
     "fieldLabel": "Étiquette",
@@ -573,14 +571,6 @@
   "temporarilyClosed": "Temporairement fermé",
   "text": "Texte",
   "textList": "Liste de texte",
-  "theme": {
-    "textTransform": {
-      "capitalize": "Initiales en majuscules",
-      "lowercase": "Minuscules",
-      "textTransform": "Transformation du texte",
-      "uppercase": "Majuscules"
-    }
-  },
   "thursday": "Jeudi",
   "totalReviews_one": "{{count}} avis",
   "totalReviews_many": "{{count}} avis",

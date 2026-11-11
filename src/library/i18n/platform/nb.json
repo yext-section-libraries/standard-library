@@ -443,12 +443,10 @@
     "customCheckboxGroup": "Egendefinert avmerkingsboksgruppe",
     "customDropdown": "Tilpasset rullegardin",
     "customFieldKey": "Egendefinert feltnøkkel",
-    "customPlugin": "Egendefinert programtillegg",
     "customText": "Egendefinert tekst",
     "defaultContactMethod": "Standard kontaktmetode",
     "description": "Beskrivelse",
     "email": "E-post",
-    "emailOnly": "Kun e-post",
     "error": "Meldingen din kunne ikke sendes. Prøv igjen.",
     "field": "Felt",
     "fieldLabel": "Merkelapp",
@@ -568,14 +566,6 @@
   "temporarilyClosed": "Midlertidig stengt",
   "text": "Tekst",
   "textList": "Tekstliste",
-  "theme": {
-    "textTransform": {
-      "capitalize": "Stor forbokstav",
-      "lowercase": "Små bokstaver",
-      "textTransform": "Teksttransformasjon",
-      "uppercase": "Store bokstaver"
-    }
-  },
   "thursday": "torsdag",
   "totalReviews_one": "{{count}} anmeldelse",
   "totalReviews_other": "{{count}} anmeldelser",

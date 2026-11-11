@@ -443,12 +443,10 @@
     "customCheckboxGroup": "Custom Checkbox Group",
     "customDropdown": "Custom Dropdown",
     "customFieldKey": "Custom Field Key",
-    "customPlugin": "Custom Plugin",
     "customText": "Custom Text",
     "defaultContactMethod": "Default Contact Method",
     "description": "Description",
     "email": "Email",
-    "emailOnly": "Email Only",
     "error": "Your message could not be sent. Try again.",
     "field": "Field",
     "fieldLabel": "Label",
@@ -568,14 +566,6 @@
   "temporarilyClosed": "Temporarily Closed",
   "text": "Text",
   "textList": "Text List",
-  "theme": {
-    "textTransform": {
-      "capitalize": "Capitalize",
-      "lowercase": "Lowercase",
-      "textTransform": "Text Transform",
-      "uppercase": "Uppercase"
-    }
-  },
   "thursday": "Thursday",
   "totalReviews_one": "{{count}} review",
   "totalReviews_other": "{{count}} reviews",
