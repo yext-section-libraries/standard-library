@@ -102,7 +102,6 @@ const renderFilterModal = (
           isOpenNowSelected={false}
           showDistanceOptions={false}
           selectedDistanceOption={null}
-          distanceUnit="kilometer"
           handleOpenNowClick={vi.fn()}
           handleDistanceClick={vi.fn()}
           handleClearFiltersClick={vi.fn()}
