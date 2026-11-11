@@ -35,15 +35,15 @@
   "form": {
     "configurationError": "Tento formulář není připraven. Zkontrolujte jeho pole.",
     "email": "E-mail",
-    "error": "Vaši zprávu se nepodařilo odeslat. Zkuste to znovu.",
+    "error": "Vaši zprávu nebylo možné odeslat. Zkuste to znovu.",
     "phone": "Telefon",
-    "previewSuccess": "Pouze náhled. Žádná zpráva nebyla odeslána.",
+    "previewSuccess": "Pouze náhled. Nebyla odeslána žádná zpráva.",
     "required": "Požadovaný",
     "selectAtLeastOne": "Vyberte alespoň jednu možnost.",
     "selectOption": "Vyberte možnost",
     "sending": "Odesílání...",
     "success": "Vaše zpráva byla odeslána.",
-    "verificationError": "Ověření se nepodařilo načíst. Obnovte stránku a zkuste to znovu."
+    "verificationError": "Ověření se nepodařilo načíst. Znovu načtěte stránku a zkuste to znovu."
   },
   "friday": "pátek",
   "getDirections": "Získejte pokyny",

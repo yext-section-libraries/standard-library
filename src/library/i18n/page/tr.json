@@ -37,10 +37,10 @@
     "email": "E-posta",
     "error": "Mesajınız gönderilemedi. Tekrar deneyin.",
     "phone": "Telefon",
-    "previewSuccess": "Yalnızca önizleme. Mesaj gönderilmedi.",
+    "previewSuccess": "Yalnızca önizleme. Hiçbir mesaj gönderilmedi.",
     "required": "Gerekli",
-    "selectAtLeastOne": "En az bir seçenek belirleyin.",
-    "selectOption": "Bir seçenek belirleyin",
+    "selectAtLeastOne": "En az bir seçeneği seçin.",
+    "selectOption": "Bir seçenek seçin",
     "sending": "Gönderiliyor...",
     "success": "Mesajınız gönderildi.",
     "verificationError": "Doğrulama yüklenemedi. Sayfayı yeniden yükleyip tekrar deneyin."

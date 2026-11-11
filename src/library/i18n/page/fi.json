@@ -35,7 +35,7 @@
   "form": {
     "configurationError": "Tämä lomake ei ole valmis. Tarkista sen kentät.",
     "email": "Sähköposti",
-    "error": "Viestiäsi ei voitu lähettää. Yritä uudelleen.",
+    "error": "Your message could not be sent. Yritä uudelleen.",
     "phone": "Puhelin",
     "previewSuccess": "Vain esikatselu. Viestiä ei lähetetty.",
     "required": "Pakollinen",

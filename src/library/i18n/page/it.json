@@ -35,13 +35,13 @@
   "form": {
     "configurationError": "Questo modulo non è pronto. Controlla i suoi campi.",
     "email": "E-mail",
-    "error": "Impossibile inviare il messaggio. Riprova.",
+    "error": "Non è stato possibile inviare il tuo messaggio. Riprova.",
     "phone": "Telefono",
     "previewSuccess": "Solo anteprima. Nessun messaggio è stato inviato.",
     "required": "Necessario",
-    "selectAtLeastOne": "Seleziona almeno un’opzione.",
-    "selectOption": "Seleziona un’opzione",
-    "sending": "Invio in corso...",
+    "selectAtLeastOne": "Seleziona almeno un'opzione.",
+    "selectOption": "Seleziona un'opzione",
+    "sending": "Invio...",
     "success": "Il tuo messaggio è stato inviato.",
     "verificationError": "Impossibile caricare la verifica. Ricarica la pagina e riprova."
   },

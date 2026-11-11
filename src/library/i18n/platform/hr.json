@@ -453,7 +453,7 @@
     "description": "Opis",
     "email": "E-mail",
     "emailOnly": "Samo e-pošta",
-    "error": "Vašu poruku nije moguće poslati. Pokušajte ponovno.",
+    "error": "Vaša poruka nije mogla biti poslana. Pokušajte ponovno.",
     "field": "Polje",
     "fieldLabel": "Označiti",
     "fields": "Polja obrazaca",
@@ -479,8 +479,8 @@
     "selectOption": "Odaberite opciju",
     "sending": "Slanje...",
     "showPreferredContactMethod": "Prikaži željeni način kontakta",
-    "success": "Vaša je poruka poslana.",
-    "verificationError": "Provjeru nije moguće učitati. Ponovno učitajte stranicu i pokušajte ponovno."
+    "success": "Vaša poruka je poslana.",
+    "verificationError": "Potvrda se nije mogla učitati. Ponovno učitajte stranicu i pokušajte ponovno."
   },
   "friday": "petak",
   "getDirections": "Dobiti upute",

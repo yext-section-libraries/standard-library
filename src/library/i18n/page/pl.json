@@ -35,15 +35,15 @@
   "form": {
     "configurationError": "Ten formularz nie jest gotowy. Sprawdź jego pola.",
     "email": "E-mail",
-    "error": "Nie udało się wysłać wiadomości. Spróbuj ponownie.",
+    "error": "Twoja wiadomość nie mogła zostać wysłana. Spróbuj ponownie.",
     "phone": "Telefon",
-    "previewSuccess": "Tylko podgląd. Wiadomość nie została wysłana.",
+    "previewSuccess": "Tylko podgląd. Żadna wiadomość nie została wysłana.",
     "required": "Wymagany",
     "selectAtLeastOne": "Wybierz co najmniej jedną opcję.",
     "selectOption": "Wybierz opcję",
-    "sending": "Wysyłanie...",
+    "sending": "Przesyłka...",
     "success": "Twoja wiadomość została wysłana.",
-    "verificationError": "Nie udało się wczytać weryfikacji. Odśwież stronę i spróbuj ponownie."
+    "verificationError": "Nie udało się wczytać weryfikacji. Załaduj ponownie stronę i spróbuj ponownie."
   },
   "friday": "Piątek",
   "getDirections": "Uzyskaj wskazówki",

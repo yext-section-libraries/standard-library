@@ -439,7 +439,7 @@
   "findALocation": "Vind een locatie",
   "form": {
     "buttonVariant": "Knopvariant",
-    "configurationError": "Dit formulier is nog niet klaar. Controleer de velden.",
+    "configurationError": "Dit formulier is niet gereed. Controleer de velden.",
     "ctaColor": "CTA-kleur",
     "ctaLabel": "CTA-label",
     "ctaLabelColor": "CTA-labelkleur",
@@ -453,7 +453,7 @@
     "description": "Beschrijving",
     "email": "E-mail",
     "emailOnly": "Alleen e-mail",
-    "error": "Je bericht kon niet worden verzonden. Probeer het opnieuw.",
+    "error": "Uw bericht kon niet worden verzonden. Probeer het opnieuw.",
     "field": "Veld",
     "fieldLabel": "Label",
     "fields": "Formuliervelden",
@@ -480,7 +480,7 @@
     "sending": "Verzenden...",
     "showPreferredContactMethod": "Toon voorkeurscontactmethode",
     "success": "Je bericht is verzonden.",
-    "verificationError": "Verificatie kon niet worden geladen. Laad de pagina opnieuw en probeer het nog eens."
+    "verificationError": "Verificatie kan niet worden geladen. Laad de pagina opnieuw en probeer het opnieuw."
   },
   "friday": "Vrijdag",
   "getDirections": "Routebeschrijving",
