@@ -447,12 +447,10 @@
     "customCheckboxGroup": "Prilagođena grupa potvrdnih okvira",
     "customDropdown": "Prilagođeni padajući izbornik",
     "customFieldKey": "Ključ prilagođenog polja",
-    "customPlugin": "Prilagođeni dodatak",
     "customText": "Prilagođeni tekst",
     "defaultContactMethod": "Zadana metoda kontaktiranja",
     "description": "Opis",
     "email": "E-mail",
-    "emailOnly": "Samo e-pošta",
     "error": "Vaša poruka nije mogla biti poslana. Pokušajte ponovno.",
     "field": "Polje",
     "fieldLabel": "Označiti",
@@ -577,14 +575,6 @@
   "temporarilyClosed": "Privremeno zatvoren",
   "text": "Tekst",
   "textList": "Lista teksta",
-  "theme": {
-    "textTransform": {
-      "capitalize": "Početna velika slova",
-      "lowercase": "Mala slova",
-      "textTransform": "Promjena veličine slova",
-      "uppercase": "Velika slova"
-    }
-  },
   "thursday": "četvrtak",
   "totalReviews_one": "{{count}} pregled",
   "totalReviews_few": "{{count}} recenzije",

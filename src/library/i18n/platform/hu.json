@@ -447,12 +447,10 @@
     "customCheckboxGroup": "Egyéni jelölőnégyzet-csoport",
     "customDropdown": "Egyéni legördülő menü",
     "customFieldKey": "Egyéni mezőkulcs",
-    "customPlugin": "Egyéni bővítmény",
     "customText": "Egyedi szöveg",
     "defaultContactMethod": "Alapértelmezett kapcsolatfelvételi mód",
     "description": "Leírás",
     "email": "Email",
-    "emailOnly": "Csak e-mail",
     "error": "Az üzenetet nem sikerült elküldeni. Próbáld újra.",
     "field": "Mező",
     "fieldLabel": "Címke",
@@ -572,14 +570,6 @@
   "temporarilyClosed": "Ideiglenesen bezárt",
   "text": "Szöveg",
   "textList": "Szöveglista",
-  "theme": {
-    "textTransform": {
-      "capitalize": "Nagy kezdőbetűk",
-      "lowercase": "Kisbetűk",
-      "textTransform": "Szöveg átalakítása",
-      "uppercase": "Nagybetűk"
-    }
-  },
   "thursday": "csütörtök",
   "totalReviews_one": "{{count}} vélemény",
   "totalReviews_other": "{{count}} vélemény",

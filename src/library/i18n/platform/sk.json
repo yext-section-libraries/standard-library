@@ -447,12 +447,10 @@
     "customCheckboxGroup": "Vlastná skupina začiarkavacích políčok",
     "customDropdown": "Vlastná rozbaľovacia ponuka",
     "customFieldKey": "Kľúč vlastného poľa",
-    "customPlugin": "Vlastný plugin",
     "customText": "Vlastný text",
     "defaultContactMethod": "Predvolená metóda kontaktu",
     "description": "Popis",
     "email": "Email",
-    "emailOnly": "Iba e-mail",
     "error": "Vašu správu nebolo možné odoslať. Skúste to znova.",
     "field": "Pole",
     "fieldLabel": "Označenie",
@@ -582,14 +580,6 @@
   "temporarilyClosed": "Dočasne zatvorené",
   "text": "Text",
   "textList": "Textový zoznam",
-  "theme": {
-    "textTransform": {
-      "capitalize": "Veľké začiatočné písmená",
-      "lowercase": "Malé písmená",
-      "textTransform": "Zmena veľkosti písmen",
-      "uppercase": "Veľké písmená"
-    }
-  },
   "thursday": "Štvrtok",
   "totalReviews_one": "{{count}} recenzia",
   "totalReviews_few": "{{count}} recenzie",

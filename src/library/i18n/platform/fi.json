@@ -447,12 +447,10 @@
     "customCheckboxGroup": "Mukautettu valintaruuturyhmä",
     "customDropdown": "Mukautettu pudotusvalikko",
     "customFieldKey": "Mukautettu kenttäavain",
-    "customPlugin": "Mukautettu lisäosa",
     "customText": "Mukautettu teksti",
     "defaultContactMethod": "Oletusyhteystapa",
     "description": "Kuvaus",
     "email": "Sähköposti",
-    "emailOnly": "Vain sähköposti",
     "error": "Your message could not be sent. Yritä uudelleen.",
     "field": "Ala",
     "fieldLabel": "Label",
@@ -572,14 +570,6 @@
   "temporarilyClosed": "Väliaikaisesti suljettu",
   "text": "Teksti",
   "textList": "Tekstin luettelo",
-  "theme": {
-    "textTransform": {
-      "capitalize": "Isot alkukirjaimet",
-      "lowercase": "Pienet kirjaimet",
-      "textTransform": "Tekstin kirjainkoon muutos",
-      "uppercase": "Isot kirjaimet"
-    }
-  },
   "thursday": "torstai",
   "totalReviews_one": "{{count}} arvostelu",
   "totalReviews_other": "{{count}} arvostelua",

@@ -447,12 +447,10 @@
     "customCheckboxGroup": "自定义复选框组",
     "customDropdown": "自定义下拉菜单",
     "customFieldKey": "自定义字段键",
-    "customPlugin": "自定义插件",
     "customText": "自定义文本",
     "defaultContactMethod": "默认联系方式",
     "description": "描述",
     "email": "电子邮件",
-    "emailOnly": "仅电子邮件",
     "error": "您的消息无法发送。再试一次。",
     "field": "场地",
     "fieldLabel": "标签",
@@ -572,14 +570,6 @@
   "temporarilyClosed": "暂时关闭",
   "text": "文本",
   "textList": "文本列表",
-  "theme": {
-    "textTransform": {
-      "capitalize": "首字母大写",
-      "lowercase": "小写",
-      "textTransform": "文本转换",
-      "uppercase": "大写"
-    }
-  },
   "thursday": "周四",
   "totalReviews_one": "{{count}} 条评论",
   "totalReviews_other": "{{count}} 条评论",

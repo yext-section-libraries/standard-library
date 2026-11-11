@@ -447,12 +447,10 @@
     "customCheckboxGroup": "Grupo de caixas de seleção personalizadas",
     "customDropdown": "Lista suspensa personalizada",
     "customFieldKey": "Chave de campo personalizada",
-    "customPlugin": "Plugin personalizado",
     "customText": "Texto personalizado",
     "defaultContactMethod": "Método de contato padrão",
     "description": "Descrição",
     "email": "E-mail",
-    "emailOnly": "Apenas e-mail",
     "error": "Não foi possível enviar sua mensagem. Tente novamente.",
     "field": "Campo",
     "fieldLabel": "Rótulo",
@@ -577,14 +575,6 @@
   "temporarilyClosed": "Temporariamente fechado",
   "text": "Texto",
   "textList": "Lista de texto",
-  "theme": {
-    "textTransform": {
-      "capitalize": "Iniciais maiúsculas",
-      "lowercase": "Minúsculas",
-      "textTransform": "Transformação de texto",
-      "uppercase": "Maiúsculas"
-    }
-  },
   "thursday": "Quinta-feira",
   "totalReviews_one": "{{count}} comentário",
   "totalReviews_many": "{{count}} comentários",

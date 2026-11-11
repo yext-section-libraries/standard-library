@@ -447,12 +447,10 @@
     "customCheckboxGroup": "Pasirinktinė žymimųjų laukelių grupė",
     "customDropdown": "Pasirinktinis išskleidžiamasis meniu",
     "customFieldKey": "Pasirinktinis lauko raktas",
-    "customPlugin": "Pasirinktinis papildinys",
     "customText": "Pasirinktinis tekstas",
     "defaultContactMethod": "Numatytasis susisiekimo būdas",
     "description": "Aprašymas",
     "email": "El. paštas",
-    "emailOnly": "Tik el. paštas",
     "error": "Jūsų žinutės nepavyko išsiųsti. Bandykite dar kartą.",
     "field": "Laukas",
     "fieldLabel": "Etiketė",
@@ -582,14 +580,6 @@
   "temporarilyClosed": "Laikinai uždarytas",
   "text": "Tekstas",
   "textList": "Teksto sąrašas",
-  "theme": {
-    "textTransform": {
-      "capitalize": "Didžiosios pradinės raidės",
-      "lowercase": "Mažosios raidės",
-      "textTransform": "Teksto raidžių keitimas",
-      "uppercase": "Didžiosios raidės"
-    }
-  },
   "thursday": "Ketvirtadienis",
   "totalReviews_one": "{{count}} atsiliepimas",
   "totalReviews_few": "{{count}} atsiliepimai",

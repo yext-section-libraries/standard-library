@@ -447,12 +447,10 @@
     "customCheckboxGroup": "Brugerdefineret afkrydsningsfeltgruppe",
     "customDropdown": "Brugerdefineret dropdown",
     "customFieldKey": "Brugerdefineret feltnøgle",
-    "customPlugin": "Brugerdefineret plugin",
     "customText": "Brugerdefineret tekst",
     "defaultContactMethod": "Standard kontaktmetode",
     "description": "Beskrivelse",
     "email": "E-mail",
-    "emailOnly": "Kun e-mail",
     "error": "Din besked kunne ikke sendes. Prøv igen.",
     "field": "Felt",
     "fieldLabel": "Mærke",
@@ -572,14 +570,6 @@
   "temporarilyClosed": "Midlertidigt lukket",
   "text": "Tekst",
   "textList": "Tekstliste",
-  "theme": {
-    "textTransform": {
-      "capitalize": "Stort begyndelsesbogstav",
-      "lowercase": "Små bogstaver",
-      "textTransform": "Ændring af bogstaver",
-      "uppercase": "Store bogstaver"
-    }
-  },
   "thursday": "torsdag",
   "totalReviews_one": "{{count}} anmeldelse",
   "totalReviews_other": "{{count}} anmeldelser",
