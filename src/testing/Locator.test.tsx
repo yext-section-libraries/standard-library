@@ -29,7 +29,7 @@ import { Render, Config, resolveAllData } from "@puckeditor/core";
 import { page } from "@vitest/browser/context";
 import { getUserLocation } from "@yext/search-ui-react";
 import type { LocatorProps } from "../library/shared/sectionSupport/locator/Locator.tsx";
-import { YextAutoField } from "@yext/visual-editor/section-library-support";
+import { pt, YextAutoField } from "@yext/visual-editor/section-library-support";
 
 vi.mock("@yext/search-ui-react", async () => {
   const actual = await vi.importActual<typeof import("@yext/search-ui-react")>(
@@ -1387,32 +1387,94 @@ describe("Locator", async () => {
   };
 
   describe("default search radius", () => {
+    const renderRadiusEditor = (
+      initialRadius: LocatorProps["defaultSearchRadius"],
+      locale = "en"
+    ) => {
+      const onChange = vi.fn();
+      const RadiusEditor = () => {
+        const [radius, setRadius] =
+          React.useState<LocatorProps["defaultSearchRadius"]>(initialRadius);
+        return (
+          <YextAutoField
+            field={LocatorComponent.fields!.defaultSearchRadius}
+            value={radius}
+            onChange={(nextRadius) => {
+              setRadius(nextRadius);
+              onChange(nextRadius);
+            }}
+          />
+        );
+      };
+      reactRender(
+        <VisualEditorProvider templateProps={{ document: { locale } }}>
+          <RadiusEditor />
+        </VisualEditorProvider>
+      );
+      return onChange;
+    };
+
+    const selectRadiusMode = (mode: "Automatic" | "Custom") => {
+      fireEvent.click(screen.getAllByRole("combobox")[0]);
+      fireEvent.click(screen.getByText(mode));
+    };
+
+    it.each([
+      { locale: "en", unit: "mile" },
+      { locale: "en-GB", unit: "mile" },
+      { locale: "fr", unit: "kilometer" },
+      { locale: "de", unit: "kilometer" },
+    ])(
+      "initializes Custom using the $locale page locale",
+      ({ locale, unit }) => {
+        const onChange = renderRadiusEditor(undefined, locale);
+        expect(onChange).not.toHaveBeenCalled();
+        expect(screen.queryByRole("spinbutton")).not.toBeInTheDocument();
+
+        selectRadiusMode("Custom");
+
+        expect(onChange).toHaveBeenLastCalledWith({ value: 25, unit });
+        expect(screen.getByRole("spinbutton")).toHaveValue(25);
+      }
+    );
+
+    it.each([
+      { value: 50, unit: "kilometer" as const, editedValue: 42 },
+      { value: 5, unit: "mile" as const, editedValue: 84 },
+      { value: 0, unit: "kilometer" as const, editedValue: 0 },
+    ])(
+      "restores the edited custom radius after switching from $value $unit to Automatic and back",
+      ({ value, unit, editedValue }) => {
+        const onChange = renderRadiusEditor({ value, unit });
+        fireEvent.change(screen.getByRole("spinbutton"), {
+          target: { value: String(editedValue) },
+        });
+        const editedUnit = unit === "mile" ? "kilometer" : "mile";
+        fireEvent.click(screen.getAllByRole("combobox")[1]);
+        fireEvent.click(screen.getByText(pt(editedUnit, { count: 2 })));
+
+        for (let toggle = 0; toggle < 2; toggle++) {
+          selectRadiusMode("Automatic");
+          expect(onChange).toHaveBeenLastCalledWith(undefined);
+          expect(screen.queryByRole("spinbutton")).not.toBeInTheDocument();
+
+          selectRadiusMode("Custom");
+          expect(onChange).toHaveBeenLastCalledWith({
+            value: editedValue,
+            unit: editedUnit,
+          });
+          expect(screen.getByRole("spinbutton")).toHaveValue(editedValue);
+        }
+      }
+    );
+
     it.each([
       { value: 5, unit: "mile" as const },
       { value: 50, unit: "kilometer" as const },
     ])(
       "uses zero when clearing and allows replacing a custom radius in $unit",
       (initialRadius) => {
-        const onChange = vi.fn();
-        const RadiusEditor = () => {
-          const [radius, setRadius] =
-            React.useState<LocatorProps["defaultSearchRadius"]>(initialRadius);
-          return (
-            <YextAutoField
-              field={LocatorComponent.fields!.defaultSearchRadius}
-              value={radius}
-              onChange={(nextRadius) => {
-                setRadius(nextRadius);
-                onChange(nextRadius);
-              }}
-            />
-          );
-        };
-        reactRender(
-          <VisualEditorProvider templateProps={{ document: { locale: "en" } }}>
-            <RadiusEditor />
-          </VisualEditorProvider>
-        );
+        const onChange = renderRadiusEditor(initialRadius);
 
         const input = screen.getByRole("spinbutton");
         expect(input).toHaveValue(initialRadius.value);
