@@ -2,7 +2,7 @@
   "root": {
     "props": {
       "version": 73,
-      "sectionLibraryMigrationVersion": 5,
+      "sectionLibraryMigrationVersion": 4,
       "title": {
         "field": "",
         "constantValue": { "defaultValue": "Find Locations" },
@@ -35,8 +35,7 @@
                 "showDistanceOptions": false
               },
               "resultCard": [],
-              "distanceDisplay": "distanceFromUser",
-              "distanceUnit": "auto"
+              "distanceDisplay": "distanceFromUser"
             }
           }
         ]

@@ -30,7 +30,6 @@ import {
   locatorEntityTypeSchema,
 } from "./LocatorResultCard";
 import { ResultCardPropsField } from "./Results";
-import { type DistanceUnitOption } from "./DistanceUnits";
 import { LocatorWrapper } from "./LocatorWrapper";
 import {
   DEFAULT_LOCATION_STYLE,
@@ -143,7 +142,7 @@ export interface LocatorProps {
 
   /**
    * The default radius for nearby-location searches. Leave unset to use Search's
-   * suggested radius, or 25 in the configured distance unit for coordinate searches.
+   * suggested radius, or 25 in the locale's preferred unit for coordinate searches.
    * Visitor-selected distances and explicit map/URL search areas take precedence.
    * Geographic boundary filters are unaffected.
    */
@@ -187,8 +186,6 @@ export interface LocatorProps {
   }>;
   /** Controls which distance value to display on each locator result card. */
   distanceDisplay?: DistanceDisplayOption;
-  /** Controls the units used for distances and distance filters. */
-  distanceUnit?: DistanceUnitOption;
 }
 
 const locatorFields: YextFields<LocatorProps> = {
@@ -428,7 +425,7 @@ const locatorFields: YextFields<LocatorProps> = {
             <YextAutoField
               field={{
                 type: "basicSelector",
-                label: msg("fields.distanceUnit", "Distance Units"),
+                label: msg("fields.distanceUnit", "Distance Unit"),
                 options: [
                   {
                     label: pt("mile", { count: 2 }),
@@ -535,34 +532,6 @@ const locatorFields: YextFields<LocatorProps> = {
       },
     ],
   },
-  distanceUnit: {
-    type: "basicSelector",
-    label: msg("fields.distanceUnit", "Distance Units"),
-    options: [
-      {
-        label: msg(
-          "fields.options.distanceUnitAuto",
-          "Based on Visitor's Country"
-        ),
-        value: "auto",
-      },
-      {
-        label: msg("fields.options.distanceUnitMiles", "Miles"),
-        value: "mile",
-      },
-      {
-        label: msg("fields.options.distanceUnitKilometers", "Kilometers"),
-        value: "kilometer",
-      },
-      {
-        label: msg(
-          "fields.options.distanceUnitPageLanguage",
-          "Based on Page Language"
-        ),
-        value: "locale",
-      },
-    ],
-  },
 };
 
 /**
@@ -618,7 +587,6 @@ export const LocatorComponent: YextComponentConfig<LocatorProps> = {
       title: { defaultValue: DEFAULT_TITLE },
     },
     distanceDisplay: DEFAULT_DISTANCE_DISPLAY,
-    distanceUnit: "auto",
   },
   label: msg("components.locator", "Locator"),
   /**
