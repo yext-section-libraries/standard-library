@@ -35,15 +35,15 @@
   "form": {
     "configurationError": "Ten formularz nie jest gotowy. Sprawdź jego pola.",
     "email": "E-mail",
-    "error": "Twoja wiadomość nie mogła zostać wysłana. Spróbuj ponownie.",
+    "error": "Nie udało się wysłać wiadomości. Spróbuj ponownie.",
     "phone": "Telefon",
-    "previewSuccess": "Tylko podgląd. Żadna wiadomość nie została wysłana.",
+    "previewSuccess": "Tylko podgląd. Wiadomość nie została wysłana.",
     "required": "Wymagany",
     "selectAtLeastOne": "Wybierz co najmniej jedną opcję.",
     "selectOption": "Wybierz opcję",
-    "sending": "Przesyłka...",
+    "sending": "Wysyłanie...",
     "success": "Twoja wiadomość została wysłana.",
-    "verificationError": "Nie udało się wczytać weryfikacji. Załaduj ponownie stronę i spróbuj ponownie."
+    "verificationError": "Nie udało się wczytać weryfikacji. Odśwież stronę i spróbuj ponownie."
   },
   "friday": "Piątek",
   "getDirections": "Uzyskaj wskazówki",
@@ -75,6 +75,7 @@
   "logo": "Logo",
   "map": "Mapa",
   "mapRequiresOptIn": "Ta mapa może być wyświetlana tylko wtedy, gdy włączona jest obsługa plików cookie",
+  "mapRequiresWebGL": "Mapa jest niedostępna, ponieważ WebGL jest niedostępny.",
   "mile_few": "mile",
   "mile_many": "mil",
   "mile_one": "mila",

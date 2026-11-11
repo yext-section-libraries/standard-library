@@ -33,9 +33,9 @@
   "filter": "Filter",
   "findALocation": "Vind een locatie",
   "form": {
-    "configurationError": "Dit formulier is niet gereed. Controleer de velden.",
+    "configurationError": "Dit formulier is nog niet klaar. Controleer de velden.",
     "email": "E-mail",
-    "error": "Uw bericht kon niet worden verzonden. Probeer het opnieuw.",
+    "error": "Je bericht kon niet worden verzonden. Probeer het opnieuw.",
     "phone": "Telefoon",
     "previewSuccess": "Alleen voorbeeld. Er is geen bericht verzonden.",
     "required": "Vereist",
@@ -43,7 +43,7 @@
     "selectOption": "Selecteer een optie",
     "sending": "Verzenden...",
     "success": "Je bericht is verzonden.",
-    "verificationError": "Verificatie kan niet worden geladen. Laad de pagina opnieuw en probeer het opnieuw."
+    "verificationError": "Verificatie kon niet worden geladen. Laad de pagina opnieuw en probeer het nog eens."
   },
   "friday": "Vrijdag",
   "getDirections": "Routebeschrijving",
@@ -67,6 +67,7 @@
   "logo": "Logo",
   "map": "Kaart",
   "mapRequiresOptIn": "Deze kaart kan alleen worden weergegeven als cookies zijn ingeschakeld",
+  "mapRequiresWebGL": "De kaart is niet beschikbaar omdat WebGL niet beschikbaar is.",
   "mile_one": "mijl",
   "mile_other": "mijlen",
   "mile_zero": "mijl",
