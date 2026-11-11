@@ -1445,6 +1445,7 @@ describe("Locator", async () => {
   });
 
   it("switches result distances and an active distance filter between units", async () => {
+    const originalUrl = window.location.href;
     const fixture = tests[4];
     let data = migrate(
       puckConfig,
@@ -1466,67 +1467,72 @@ describe("Locator", async () => {
     const fetchMock = createLocatorFetchMock(fixture.document);
     vi.stubGlobal("fetch", fetchMock);
 
-    reactRender(
-      <VisualEditorProvider templateProps={{ document: fixture.document }}>
-        <Render config={puckConfig} data={data} />
-      </VisualEditorProvider>
-    );
+    try {
+      reactRender(
+        <VisualEditorProvider templateProps={{ document: fixture.document }}>
+          <Render config={puckConfig} data={data} />
+        </VisualEditorProvider>
+      );
 
-    await screen.findByRole("heading", { name: "Galaxy Grill" });
-    const milesButton = screen.getByRole("button", { name: "miles" });
-    const kilometersButton = screen.getByRole("button", {
-      name: "kilometers",
-    });
-    expect(milesButton).toHaveAttribute("aria-pressed", "true");
-    expect(screen.getAllByText(/\d(?:[.,]\d+)? mi\b/).length).toBeGreaterThan(
-      0
-    );
+      await screen.findByRole("heading", { name: "Galaxy Grill" });
+      const milesButton = screen.getByRole("button", { name: "miles" });
+      const kilometersButton = screen.getByRole("button", {
+        name: "kilometers",
+      });
+      expect(milesButton).toHaveAttribute("aria-pressed", "true");
+      expect(screen.getAllByText(/\d(?:[.,]\d+)? mi\b/).length).toBeGreaterThan(
+        0
+      );
 
-    fireEvent.click(kilometersButton);
-    expect(kilometersButton).toHaveAttribute("aria-pressed", "true");
-    expect(screen.getAllByText(/\d(?:[.,]\d+)? km\b/).length).toBeGreaterThan(
-      0
-    );
+      fireEvent.click(kilometersButton);
+      expect(kilometersButton).toHaveAttribute("aria-pressed", "true");
+      expect(screen.getAllByText(/\d(?:[.,]\d+)? km\b/).length).toBeGreaterThan(
+        0
+      );
 
-    fireEvent.click(milesButton);
-    expect(milesButton).toHaveAttribute("aria-pressed", "true");
-    expect(screen.getAllByText(/\d(?:[.,]\d+)? mi\b/).length).toBeGreaterThan(
-      0
-    );
+      fireEvent.click(milesButton);
+      expect(milesButton).toHaveAttribute("aria-pressed", "true");
+      expect(screen.getAllByText(/\d(?:[.,]\d+)? mi\b/).length).toBeGreaterThan(
+        0
+      );
 
-    const searchInput = screen.getByRole("combobox", {
-      name: "Find a Location",
-    });
-    fireEvent.change(searchInput, { target: { value: "Arlington" } });
-    const suggestion = await screen.findByRole("option", {
-      name: /Arlington, VA/,
-    });
-    await act(async () => suggestion.click());
+      const searchInput = screen.getByRole("combobox", {
+        name: "Find a Location",
+      });
+      fireEvent.change(searchInput, { target: { value: "Arlington" } });
+      const suggestion = await screen.findByRole("option", {
+        name: /Arlington, VA/,
+      });
+      await act(async () => suggestion.click());
 
-    fireEvent.click(screen.getByRole("button", { name: "Filter" }));
-    fireEvent.click(
-      screen.getByRole("button", {
-        name: /select distance less than 5 miles/i,
-      })
-    );
-    fireEvent.click(screen.getByRole("button", { name: "Close" }));
+      fireEvent.click(screen.getByRole("button", { name: "Filter" }));
+      fireEvent.click(
+        screen.getByRole("button", {
+          name: /select distance less than 5 miles/i,
+        })
+      );
+      fireEvent.click(screen.getByRole("button", { name: "Close" }));
 
-    const queryCount = () =>
-      fetchMock.mock.calls.filter(([input]) =>
-        String(input).includes("/search/vertical/query")
-      ).length;
-    const queriesBeforeSwitch = queryCount();
-    fireEvent.click(kilometersButton);
-    await waitFor(() =>
-      expect(queryCount()).toBeGreaterThan(queriesBeforeSwitch)
-    );
-    const lastQuery = fetchMock.mock.calls
-      .map(([input]) => String(input))
-      .filter((url) => url.includes("/search/vertical/query"))
-      .at(-1);
-    expect(decodeURIComponent(lastQuery ?? "")).toContain('"radius":5000');
-    fireEvent.click(screen.getByRole("button", { name: "Filter" }));
-    expect(screen.getByText("< 5 kilometers")).toBeInTheDocument();
+      const queryCount = () =>
+        fetchMock.mock.calls.filter(([input]) =>
+          String(input).includes("/search/vertical/query")
+        ).length;
+      const queriesBeforeSwitch = queryCount();
+      fireEvent.click(kilometersButton);
+      await waitFor(() =>
+        expect(queryCount()).toBeGreaterThan(queriesBeforeSwitch)
+      );
+      const lastQuery = fetchMock.mock.calls
+        .map(([input]) => String(input))
+        .filter((url) => url.includes("/search/vertical/query"))
+        .at(-1);
+      expect(decodeURIComponent(lastQuery ?? "")).toContain('"radius":5000');
+      fireEvent.click(screen.getByRole("button", { name: "Filter" }));
+      expect(screen.getByText("< 5 kilometers")).toBeInTheDocument();
+    } finally {
+      window.history.replaceState(window.history.state, "", originalUrl);
+    }
+    expect(window.location.href).toBe(originalUrl);
   });
 
   it("loads q before initialLocation and syncs selected locations with history", async () => {
@@ -1877,6 +1883,8 @@ describe("Locator", async () => {
       version,
       viewport: { width, height, name: viewportName },
     }) => {
+      expect(new URL(window.location.href).searchParams.has("q")).toBe(false);
+
       let data = migrate(
         puckConfig,
         {
