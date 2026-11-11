@@ -35,15 +35,15 @@
   "form": {
     "configurationError": "Ovaj obrazac nije spreman. Provjerite njegova polja.",
     "email": "E-mail",
-    "error": "Vaša poruka nije mogla biti poslana. Pokušajte ponovno.",
+    "error": "Vašu poruku nije moguće poslati. Pokušajte ponovno.",
     "phone": "Telefon",
     "previewSuccess": "Samo pregled. Poruka nije poslana.",
     "required": "Potreban",
     "selectAtLeastOne": "Odaberite barem jednu opciju.",
     "selectOption": "Odaberite opciju",
     "sending": "Slanje...",
-    "success": "Vaša poruka je poslana.",
-    "verificationError": "Potvrda se nije mogla učitati. Ponovno učitajte stranicu i pokušajte ponovno."
+    "success": "Vaša je poruka poslana.",
+    "verificationError": "Provjeru nije moguće učitati. Ponovno učitajte stranicu i pokušajte ponovno."
   },
   "friday": "petak",
   "getDirections": "Dobiti upute",
@@ -71,6 +71,7 @@
   "logo": "Logo",
   "map": "Karta",
   "mapRequiresOptIn": "Ova se karta može prikazati samo ako su omogućeni kolačići",
+  "mapRequiresWebGL": "Karta nije dostupna jer WebGL nije dostupan.",
   "mile_few": "milje",
   "mile_one": "milja",
   "mile_other": "milja",

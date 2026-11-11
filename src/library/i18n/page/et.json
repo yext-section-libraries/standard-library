@@ -35,15 +35,15 @@
   "form": {
     "configurationError": "See vorm pole valmis. Kontrollige selle välju.",
     "email": "Meil",
-    "error": "Teie sõnumit ei saanud saata. Proovi uuesti.",
+    "error": "Teie sõnumit ei õnnestunud saata. Proovige uuesti.",
     "phone": "Telefon",
     "previewSuccess": "Ainult eelvaade. Sõnumit ei saadetud.",
     "required": "Nõutav",
     "selectAtLeastOne": "Valige vähemalt üks valik.",
-    "selectOption": "Valige suvand",
+    "selectOption": "Valige valik",
     "sending": "Saatmine...",
-    "success": "Teie sõnum on saadetud.",
-    "verificationError": "Kinnitust ei saanud laadida. Laadige leht uuesti ja proovige uuesti."
+    "success": "Teie sõnum saadeti.",
+    "verificationError": "Kinnitust ei õnnestunud laadida. Värskendage lehte ja proovige uuesti."
   },
   "friday": "Reede",
   "getDirections": "Hankige juhiseid",
@@ -67,6 +67,7 @@
   "logo": "Logo",
   "map": "Kaart",
   "mapRequiresOptIn": "Seda kaarti saab kuvada ainult siis, kui küpsised on lubatud",
+  "mapRequiresWebGL": "Kaart pole saadaval, sest WebGL pole saadaval.",
   "mile_one": "miil",
   "mile_other": "miili",
   "mile_zero": "miil",
