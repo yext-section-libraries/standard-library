@@ -112,6 +112,7 @@
     "answerColor": "Vastus Värv",
     "answerVariant": "Vastuse variant",
     "ariaLabel": "Aria silt",
+    "autoSearchOnMapMove": "Otsige automaatselt kaardil liikumist",
     "backgroundColor": "Taustvärv",
     "bannerText": "Ribareklaam",
     "browText": "Kulmu tekst",

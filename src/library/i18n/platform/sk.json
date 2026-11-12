@@ -112,6 +112,7 @@
     "answerColor": "Farba odpovede",
     "answerVariant": "Odpoveď Variant",
     "ariaLabel": "Značka Aria",
+    "autoSearchOnMapMove": "Automaticky hľadať pri pohybe mapy",
     "backgroundColor": "Farba pozadia",
     "bannerText": "Text",
     "browText": "Text na obočie",
