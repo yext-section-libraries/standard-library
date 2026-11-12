@@ -112,6 +112,7 @@
     "answerColor": "Vastaus Väri",
     "answerVariant": "Vastausvariantti",
     "ariaLabel": "Aria-merkki",
+    "autoSearchOnMapMove": "Hae automaattisesti kartan liikkeestä",
     "backgroundColor": "Taustaväri",
     "bannerText": "Banneriteksti",
     "browText": "Kulmien teksti",

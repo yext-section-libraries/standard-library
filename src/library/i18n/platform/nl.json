@@ -112,6 +112,7 @@
     "answerColor": "Antwoord Kleur",
     "answerVariant": "Antwoordvariant",
     "ariaLabel": "Aria-label",
+    "autoSearchOnMapMove": "Automatisch zoeken op kaartbeweging",
     "backgroundColor": "Achtergrondkleur",
     "bannerText": "Banner Tekst",
     "browText": "Wenkbrauwtekst",
