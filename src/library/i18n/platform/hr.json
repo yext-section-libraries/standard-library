@@ -118,6 +118,7 @@
     "answerColor": "Boja odgovora",
     "answerVariant": "Varijanta odgovora",
     "ariaLabel": "Etiketa Aria",
+    "autoSearchOnMapMove": "Automatsko pretraživanje po kretanju karte",
     "backgroundColor": "Boja pozadine",
     "bannerText": "Tekst natpisa",
     "browText": "Tekst obrva",

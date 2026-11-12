@@ -118,6 +118,7 @@
     "answerColor": "答えの色",
     "answerVariant": "回答のバリエーション",
     "ariaLabel": "アリアレーベル",
+    "autoSearchOnMapMove": "地図移動時に自動検索",
     "backgroundColor": "背景色",
     "bannerText": "バナーテキスト",
     "browText": "眉テキスト",

@@ -118,6 +118,7 @@
     "answerColor": "Cor da resposta",
     "answerVariant": "Variante de resposta",
     "ariaLabel": "Etiqueta Ária",
+    "autoSearchOnMapMove": "Pesquisar automaticamente no movimento do mapa",
     "backgroundColor": "Cor de fundo",
     "bannerText": "Texto do banner",
     "browText": "Texto da sobrancelha",

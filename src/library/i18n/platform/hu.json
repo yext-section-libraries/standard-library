@@ -118,6 +118,7 @@
     "answerColor": "Válasz Szín",
     "answerVariant": "Válasz változat",
     "ariaLabel": "Aria címke",
+    "autoSearchOnMapMove": "Automatikus keresés a térképen, mozgás",
     "backgroundColor": "Háttérszín",
     "bannerText": "Szalaghirdetés",
     "browText": "Brow Text",

@@ -118,6 +118,7 @@
     "answerColor": "Cevap Rengi",
     "answerVariant": "Cevap Varyantı",
     "ariaLabel": "Arya Etiketi",
+    "autoSearchOnMapMove": "Harita Hareketinde Otomatik Arama",
     "backgroundColor": "Arka plan rengi",
     "bannerText": "Banner metni",
     "browText": "Kaş Metni",

@@ -118,6 +118,7 @@
     "answerColor": "Atbildes krāsa",
     "answerVariant": "Atbildes variants",
     "ariaLabel": "Ārijas etiķete",
+    "autoSearchOnMapMove": "Automātiski meklēt kartē kustību",
     "backgroundColor": "Fona krāsa",
     "bannerText": "Reklāmkarogu teksts",
     "browText": "Uzacu teksts",
