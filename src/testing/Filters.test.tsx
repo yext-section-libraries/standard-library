@@ -3,6 +3,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { describe, expect, it, vi } from "vitest";
 import { FilterModal } from "../library/shared/sectionSupport/locator/Filters.tsx";
+import { KILOMETER } from "../library/shared/sectionSupport/locator/distanceUnits.ts";
 import { VisualEditorProvider } from "./TestVisualEditorProvider.tsx";
 
 vi.mock("@yext/search-headless-react", async () => {
@@ -102,6 +103,7 @@ const renderFilterModal = (
           isOpenNowSelected={false}
           showDistanceOptions={false}
           selectedDistanceOption={null}
+          distanceUnit={KILOMETER}
           handleOpenNowClick={vi.fn()}
           handleDistanceClick={vi.fn()}
           handleClearFiltersClick={vi.fn()}

@@ -1752,6 +1752,95 @@ describe("Locator", async () => {
     });
   });
 
+  it("applies the configured unit and updates an active distance filter when switched", async () => {
+    const originalUrl = window.location.href;
+    const fixture = tests[4];
+    let data = migrate(
+      puckConfig,
+      {
+        root: { props: { version: fixture.version } },
+        content: [
+          {
+            type: "Locator",
+            props: {
+              ...fixture.props,
+              defaultDistanceUnit: "kilometer",
+              showDistanceUnitToggle: true,
+            },
+          },
+        ],
+      },
+      fixture.document,
+      migrationRegistry
+    );
+    data = await resolveAllData(data, puckConfig, {
+      streamDocument: fixture.document,
+    });
+    const fetchMock = createLocatorFetchMock(fixture.document);
+    vi.stubGlobal("fetch", fetchMock);
+
+    const { unmount } = reactRender(
+      <VisualEditorProvider templateProps={{ document: fixture.document }}>
+        <Render config={puckConfig} data={data} />
+      </VisualEditorProvider>
+    );
+
+    try {
+      await screen.findByRole("heading", { name: "Galaxy Grill" });
+      const kilometersButton = screen.getByRole("button", {
+        name: "kilometers",
+      });
+      const milesButton = screen.getByRole("button", { name: "miles" });
+      expect(kilometersButton).toHaveAttribute("aria-pressed", "true");
+      expect(screen.getAllByText(/\d(?:[.,]\d+)? km\b/).length).toBeGreaterThan(
+        0
+      );
+
+      fireEvent.change(
+        screen.getByRole("combobox", { name: "Find a Location" }),
+        {
+          target: { value: "Arlington" },
+        }
+      );
+      const suggestion = await screen.findByRole("option", {
+        name: /Arlington, VA/,
+      });
+      await act(async () => suggestion.click());
+
+      fireEvent.click(screen.getByRole("button", { name: "Filter" }));
+      fireEvent.click(
+        screen.getByRole("button", {
+          name: /select distance less than 5 kilometers/i,
+        })
+      );
+      fireEvent.click(screen.getByRole("button", { name: "Close" }));
+
+      const searchQueries = () =>
+        fetchMock.mock.calls
+          .map(([input]) => decodeURIComponent(String(input)))
+          .filter((url) => url.includes("/search/vertical/query"));
+      await waitFor(() =>
+        expect(searchQueries().at(-1)).toContain('"radius":5000')
+      );
+      const queriesBeforeSwitch = searchQueries().length;
+
+      fireEvent.click(milesButton);
+      expect(milesButton).toHaveAttribute("aria-pressed", "true");
+      expect(screen.getAllByText(/\d(?:[.,]\d+)? mi\b/).length).toBeGreaterThan(
+        0
+      );
+      await waitFor(() =>
+        expect(searchQueries().length).toBeGreaterThan(queriesBeforeSwitch)
+      );
+      expect(searchQueries().at(-1)).toContain('"radius":8046.72');
+      fireEvent.click(screen.getByRole("button", { name: "Filter" }));
+      expect(screen.getByText("< 5 miles")).toBeInTheDocument();
+    } finally {
+      unmount();
+      window.history.replaceState(window.history.state, "", originalUrl);
+    }
+  });
+
   it("loads q before initialLocation and syncs selected locations with history", async () => {
     const originalUrl = window.location.href;
     const fixture = tests[1];
@@ -2116,6 +2205,8 @@ describe("Locator", async () => {
       version,
       viewport: { width, height, name: viewportName },
     }) => {
+      expect(new URL(window.location.href).searchParams.has("q")).toBe(false);
+
       let data = migrate(
         puckConfig,
         {
