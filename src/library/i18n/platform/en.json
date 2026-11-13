@@ -112,6 +112,7 @@
     "answerColor": "Answer Color",
     "answerVariant": "Answer Variant",
     "ariaLabel": "Aria Label",
+    "autoSearchOnMapMove": "Automatically Search on Map Movement",
     "backgroundColor": "Background Color",
     "bannerText": "Banner Text",
     "browText": "Brow Text",

@@ -86,6 +86,13 @@ const DEFAULT_DISTANCE_DISPLAY = "distanceFromUser";
 
 export interface LocatorProps {
   /**
+   * Search the visible map area 500 ms after the user stops a pan or zoom.
+   * If enabled, hide the Search This Area button.
+   * @defaultValue false
+   */
+  autoSearchOnMapMove?: boolean;
+
+  /**
    * The visual theme for the map tiles, chosen from a predefined list of Mapbox styles.
    * @defaultValue 'mapbox://styles/mapbox/streets-v12'
    */
@@ -430,6 +437,17 @@ const locatorFields: YextFields<LocatorProps> = {
       },
     },
   },
+  autoSearchOnMapMove: {
+    type: "radio",
+    label: msg(
+      "fields.autoSearchOnMapMove",
+      "Automatically Search on Map Movement"
+    ),
+    options: [
+      { label: msg("fields.options.yes", "Yes"), value: true },
+      { label: msg("fields.options.no", "No"), value: false },
+    ],
+  },
   pageHeading: {
     generation: { required: false },
     type: "object",
@@ -540,6 +558,7 @@ export const LocatorComponent: YextComponentConfig<LocatorProps> = {
     return toPuckFields<LocatorProps>(updatedFields);
   },
   defaultProps: {
+    autoSearchOnMapMove: false,
     locationStyles: [],
     resultCard: [],
     filters: {

@@ -112,6 +112,7 @@
     "answerColor": "Svarsfärg",
     "answerVariant": "Svarsvariant",
     "ariaLabel": "Aria-etikett",
+    "autoSearchOnMapMove": "Sök automatiskt på kartrörelse",
     "backgroundColor": "Bakgrundsfärg",
     "bannerText": "Bannertext",
     "browText": "Brow Text",
