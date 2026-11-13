@@ -11,6 +11,7 @@ import {
 import {
   DEFAULT_ENTITY_TYPE,
   getEntityTypeLabel,
+  getPreferredDistanceUnit,
   getLocatorEntityTypeSourceMap,
   isLocatorEntityType,
   LocatorEntityType,
@@ -41,6 +42,7 @@ import {
   DEFAULT_LOCATION_STYLE,
   DEFAULT_MAKI_ICON_NAME,
   DEFAULT_PIN_ICON_WIDTH,
+  DEFAULT_RADIUS,
   LOCATOR_PIN_ICON_FIELD,
   MAX_PIN_ICON_WIDTH,
   makiIconOptions,
@@ -150,6 +152,18 @@ export interface LocatorProps {
     facetFields?: MultiSelectorValue<string>;
     /** The optional display name for the Keywords facet. */
     keywordsDisplayName?: TranslatableString;
+  };
+
+  /**
+   * The default radius for nearby-location searches. Leave unset to use Search's
+   * suggested radius, or 25 in the locale's preferred unit for coordinate searches.
+   * Visitor-selected distances and explicit map/URL search areas take precedence.
+   * Geographic boundary filters are unaffected.
+   */
+  defaultSearchRadius?: {
+    /** A positive radius. Zero or a blank value uses the automatic radius. */
+    value?: number;
+    unit: "mile" | "kilometer";
   };
 
   /** The zoom for the initial results. Later searches auto-fit to their pins. */
@@ -377,6 +391,37 @@ const locatorFields: YextFields<LocatorProps> = {
         label: msg("fields.keywordsDisplayName", "Keywords Display Name"),
         showFieldSelector: false,
         visible: false,
+      },
+    },
+  },
+  defaultSearchRadius: {
+    type: "optional",
+    label: msg("fields.defaultSearchRadius", "Default Search Radius"),
+    defaultCustomValue: ({ locale }) => ({
+      value: DEFAULT_RADIUS,
+      unit: getPreferredDistanceUnit(locale),
+    }),
+    field: {
+      type: "object",
+      objectFields: {
+        value: {
+          type: "number",
+          label: msg("fields.radius", "Radius"),
+          min: 0,
+          step: 1,
+        },
+        unit: {
+          type: "basicSelector",
+          generation: { required: true },
+          label: msg("fields.distanceUnit", "Distance Unit"),
+          options: [
+            { label: msg("mile", "mile", { count: 2 }), value: "mile" },
+            {
+              label: msg("kilometer", "kilometer", { count: 2 }),
+              value: "kilometer",
+            },
+          ],
+        },
       },
     },
   },
