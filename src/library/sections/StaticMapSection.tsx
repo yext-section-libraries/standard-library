@@ -1,6 +1,5 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import {
-  backgroundColors,
-  ThemeColor,
   msg,
   YextComponentConfig,
   YextFields,
@@ -17,8 +16,7 @@ export interface StaticMapStyles {
    * The background color of the section.
    * @defaultValue Background Color 1
    */
-  backgroundColor?: ThemeColor;
-
+  backgroundColor?: SurfaceValue;
   /**
    * The style of the map to be displayed.
    * @defaultValue Default (streets-v12)
@@ -55,9 +53,9 @@ const staticMapSectionFields: YextFields<StaticMapSectionProps> = {
     objectFields: {
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
+        allowInherit: false,
       },
       mapStyle: mapStyleField,
     },
@@ -96,7 +94,7 @@ export const StaticMapSection: YextComponentConfig<StaticMapSectionProps> = {
   defaultProps: {
     liveVisibility: true,
     styles: {
-      backgroundColor: backgroundColors.background1.value,
+      backgroundColor: "page",
       mapStyle: "streets-v12",
     },
   },

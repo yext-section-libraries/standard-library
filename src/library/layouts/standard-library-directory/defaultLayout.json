@@ -1,16 +1,20 @@
 {
   "root": {
     "props": {
-      "version": 76,
-      "sectionLibraryMigrationVersion": 4,
+      "version": 85,
+      "sectionLibraryMigrationVersion": 7,
       "title": {
         "field": "",
-        "constantValue": { "defaultValue": "PLACEHOLDER" },
+        "constantValue": {
+          "defaultValue": "PLACEHOLDER"
+        },
         "constantValueEnabled": true
       },
       "description": {
         "field": "",
-        "constantValue": { "defaultValue": "PLACEHOLDER" },
+        "constantValue": {
+          "defaultValue": "PLACEHOLDER"
+        },
         "constantValueEnabled": true
       }
     },
@@ -21,8 +25,8 @@
       "type": "ExpandedHeader",
       "props": {
         "styles": {
-          "maxWidth": "theme",
-          "headerPosition": "scrollsWithPage"
+          "headerPosition": "scrollsWithPage",
+          "maxWidth": "theme"
         },
         "slots": {
           "PrimaryHeaderSlot": [
@@ -31,10 +35,7 @@
               "props": {
                 "id": "PrimaryHeaderSlot-326efc21-4048-437b-844c-9fad6adf6b10",
                 "styles": {
-                  "backgroundColor": {
-                    "selectedColor": "white",
-                    "contrastingColor": "black"
-                  }
+                  "backgroundColor": "page"
                 },
                 "slots": {
                   "LogoSlot": [
@@ -71,21 +72,27 @@
                           "links": [
                             {
                               "linkType": "URL",
-                              "label": { "defaultValue": "Header Link" },
+                              "label": {
+                                "defaultValue": "Header Link"
+                              },
                               "link": "#",
                               "normalizeLink": true,
                               "openInNewTab": false
                             },
                             {
                               "linkType": "URL",
-                              "label": { "defaultValue": "Header Link" },
+                              "label": {
+                                "defaultValue": "Header Link"
+                              },
                               "link": "#",
                               "normalizeLink": true,
                               "openInNewTab": false
                             },
                             {
                               "linkType": "URL",
-                              "label": { "defaultValue": "Header Link" },
+                              "label": {
+                                "defaultValue": "Header Link"
+                              },
                               "link": "#",
                               "normalizeLink": true,
                               "openInNewTab": false
@@ -94,9 +101,7 @@
                           "collapsedLinks": []
                         },
                         "styles": {
-                          "align": "right",
-                          "variant": "sm",
-                          "weight": "normal"
+                          "align": "right"
                         },
                         "parentData": {
                           "type": "Primary"
@@ -113,12 +118,18 @@
                           "show": true,
                           "actionType": "link",
                           "normalizeLink": true,
-                          "buttonText": { "defaultValue": "Button" },
+                          "buttonText": {
+                            "defaultValue": "Button"
+                          },
                           "entityField": {
                             "field": "",
                             "constantValue": {
-                              "label": { "defaultValue": "Call to Action" },
-                              "link": { "defaultValue": "#" },
+                              "label": {
+                                "defaultValue": "Call to Action"
+                              },
+                              "link": {
+                                "defaultValue": "#"
+                              },
                               "linkType": "URL",
                               "ctaType": "textAndLink"
                             },
@@ -126,7 +137,7 @@
                           }
                         },
                         "styles": {
-                          "variant": "primary",
+                          "variant": "primary-button",
                           "presetImage": "app-store"
                         },
                         "eventName": "primaryCta"
@@ -142,12 +153,18 @@
                           "show": true,
                           "actionType": "link",
                           "normalizeLink": true,
-                          "buttonText": { "defaultValue": "Button" },
+                          "buttonText": {
+                            "defaultValue": "Button"
+                          },
                           "entityField": {
                             "field": "",
                             "constantValue": {
-                              "label": { "defaultValue": "Call to Action" },
-                              "link": { "defaultValue": "#" },
+                              "label": {
+                                "defaultValue": "Call to Action"
+                              },
+                              "link": {
+                                "defaultValue": "#"
+                              },
                               "linkType": "URL",
                               "ctaType": "textAndLink"
                             },
@@ -155,7 +172,7 @@
                           }
                         },
                         "styles": {
-                          "variant": "secondary",
+                          "variant": "secondary-button",
                           "presetImage": "app-store"
                         },
                         "eventName": "secondaryCta"
@@ -175,10 +192,7 @@
                           "showLanguageDropdown": false
                         },
                         "styles": {
-                          "backgroundColor": {
-                            "selectedColor": "palette-primary-light",
-                            "contrastingColor": "black"
-                          }
+                          "backgroundColor": "muted"
                         },
                         "slots": {
                           "LinksSlot": [
@@ -219,9 +233,7 @@
                                   "collapsedLinks": []
                                 },
                                 "styles": {
-                                  "align": "right",
-                                  "variant": "xs",
-                                  "weight": "normal"
+                                  "align": "right"
                                 },
                                 "parentData": {
                                   "type": "Secondary"
@@ -255,10 +267,7 @@
                   "showLanguageDropdown": false
                 },
                 "styles": {
-                  "backgroundColor": {
-                    "selectedColor": "palette-primary-light",
-                    "contrastingColor": "black"
-                  }
+                  "backgroundColor": "muted"
                 },
                 "slots": {
                   "LinksSlot": [
@@ -270,21 +279,27 @@
                           "links": [
                             {
                               "linkType": "URL",
-                              "label": { "defaultValue": "Header Link" },
+                              "label": {
+                                "defaultValue": "Header Link"
+                              },
                               "link": "#",
                               "normalizeLink": true,
                               "openInNewTab": false
                             },
                             {
                               "linkType": "URL",
-                              "label": { "defaultValue": "Header Link" },
+                              "label": {
+                                "defaultValue": "Header Link"
+                              },
                               "link": "#",
                               "normalizeLink": true,
                               "openInNewTab": false
                             },
                             {
                               "linkType": "URL",
-                              "label": { "defaultValue": "Header Link" },
+                              "label": {
+                                "defaultValue": "Header Link"
+                              },
                               "link": "#",
                               "normalizeLink": true,
                               "openInNewTab": false
@@ -293,9 +308,7 @@
                           "collapsedLinks": []
                         },
                         "styles": {
-                          "align": "right",
-                          "variant": "xs",
-                          "weight": "normal"
+                          "align": "right"
                         },
                         "parentData": {
                           "type": "Secondary"
@@ -327,14 +340,8 @@
             "type": "Directory",
             "props": {
               "styles": {
-                "backgroundColor": {
-                  "selectedColor": "white",
-                  "contrastingColor": "black"
-                },
-                "listBackgroundColor": {
-                  "selectedColor": "white",
-                  "contrastingColor": "black"
-                }
+                "backgroundColor": "page",
+                "listBackgroundColor": "page"
               },
               "slots": {
                 "TitleSlot": [
@@ -344,12 +351,21 @@
                       "id": "HeadingTextSlot-1a871989-a34d-426c-b24a-a1888c1a46ea",
                       "data": {
                         "text": {
-                          "constantValue": { "defaultValue": "" },
+                          "constantValue": {
+                            "defaultValue": ""
+                          },
                           "constantValueEnabled": false,
                           "field": "name"
                         }
                       },
-                      "styles": { "level": 2, "align": "center" }
+                      "styles": {
+                        "level": 1,
+                        "align": "center",
+                        "semanticLevelOverride": 1
+                      },
+                      "parentStyles": {
+                        "typographyRole": "headline"
+                      }
                     }
                   }
                 ],
@@ -360,12 +376,21 @@
                       "id": "HeadingTextSlot-9a120ff6-d494-4ec8-9ab8-e43017d77c03",
                       "data": {
                         "text": {
-                          "constantValue": { "defaultValue": "" },
+                          "constantValue": {
+                            "defaultValue": ""
+                          },
                           "constantValueEnabled": true,
                           "field": "name"
                         }
                       },
-                      "styles": { "level": 4, "align": "center" }
+                      "styles": {
+                        "level": 2,
+                        "align": "center",
+                        "semanticLevelOverride": "p"
+                      },
+                      "parentStyles": {
+                        "typographyRole": "eyebrow"
+                      }
                     }
                   }
                 ],
@@ -375,21 +400,24 @@
                     "props": {
                       "id": "BreadcrumbsSlot-13dba298-abd1-4f75-a7e9-b19779a4fc5b",
                       "data": {
-                        "directoryRoot": { "defaultValue": "Directory Root" },
+                        "directoryRoot": {
+                          "defaultValue": "Directory Root"
+                        },
                         "currentPage": {
-                          "constantValue": { "defaultValue": "[[name]]" },
+                          "constantValue": {
+                            "defaultValue": "[[name]]"
+                          },
                           "field": "name",
                           "constantValueEnabled": false
                         }
                       },
                       "styles": {
-                        "backgroundColor": {
-                          "selectedColor": "white",
-                          "contrastingColor": "black"
-                        },
-                        "showCurrentPage": true
+                        "showCurrentPage": true,
+                        "backgroundColor": "page"
                       },
-                      "analytics": { "scope": "directory" },
+                      "analytics": {
+                        "scope": "directory"
+                      },
                       "liveVisibility": true
                     }
                   }
@@ -400,17 +428,18 @@
                     "props": {
                       "id": "DirectoryGrid-dab8e202-600a-47da-b5c7-971df3f504fb",
                       "styles": {
-                        "backgroundColor": {
-                          "selectedColor": "white",
-                          "contrastingColor": "black"
-                        }
+                        "backgroundColor": "page"
                       },
-                      "slots": { "CardSlot": [] }
+                      "slots": {
+                        "CardSlot": []
+                      }
                     }
                   }
                 ]
               },
-              "analytics": { "scope": "directory" },
+              "analytics": {
+                "scope": "directory"
+              },
               "id": "Directory-d21d6943-0a81-4a8e-b76b-cecb5b157c14"
             }
           }
@@ -427,7 +456,9 @@
             "showSocialLinks": true,
             "showUtilityImages": true
           },
-          "secondaryFooter": { "show": true }
+          "secondaryFooter": {
+            "show": true
+          }
         },
         "slots": {
           "LogoSlot": [
@@ -442,12 +473,17 @@
                       "url": "https://a.mktgcdn.com/p/wa83C1O1lvtxHI9cGqEdP2HILyUzbD0jvtzwWpOAJfE/196x196.jpg",
                       "height": 100,
                       "width": 100,
-                      "alternateText": { "defaultValue": "Logo" }
+                      "alternateText": {
+                        "defaultValue": "Logo"
+                      }
                     },
                     "constantValueEnabled": true
                   }
                 },
-                "styles": { "width": 100, "aspectRatio": 1 }
+                "styles": {
+                  "width": 100,
+                  "aspectRatio": 1
+                }
               }
             }
           ],
@@ -473,8 +509,13 @@
               "type": "FooterUtilityImagesSlot",
               "props": {
                 "id": "FooterUtilityImagesSlot-d122386b-f2a9-4c12-8a56-1249566d7298",
-                "data": { "utilityImages": [] },
-                "styles": { "width": 0, "aspectRatio": 1 }
+                "data": {
+                  "utilityImages": []
+                },
+                "styles": {
+                  "width": 0,
+                  "aspectRatio": 1
+                }
               }
             }
           ],
@@ -487,35 +528,45 @@
                   "links": [
                     {
                       "linkType": "URL",
-                      "label": { "defaultValue": "Footer Link" },
+                      "label": {
+                        "defaultValue": "Footer Link"
+                      },
                       "link": "#",
                       "normalizeLink": true,
                       "openInNewTab": false
                     },
                     {
                       "linkType": "URL",
-                      "label": { "defaultValue": "Footer Link" },
+                      "label": {
+                        "defaultValue": "Footer Link"
+                      },
                       "link": "#",
                       "normalizeLink": true,
                       "openInNewTab": false
                     },
                     {
                       "linkType": "URL",
-                      "label": { "defaultValue": "Footer Link" },
+                      "label": {
+                        "defaultValue": "Footer Link"
+                      },
                       "link": "#",
                       "normalizeLink": true,
                       "openInNewTab": false
                     },
                     {
                       "linkType": "URL",
-                      "label": { "defaultValue": "Footer Link" },
+                      "label": {
+                        "defaultValue": "Footer Link"
+                      },
                       "link": "#",
                       "normalizeLink": true,
                       "openInNewTab": false
                     },
                     {
                       "linkType": "URL",
-                      "label": { "defaultValue": "Footer Link" },
+                      "label": {
+                        "defaultValue": "Footer Link"
+                      },
                       "link": "#",
                       "normalizeLink": true,
                       "openInNewTab": false
@@ -535,39 +586,51 @@
                 "data": {
                   "sections": [
                     {
-                      "label": { "defaultValue": "Footer Label" },
+                      "label": {
+                        "defaultValue": "Footer Label"
+                      },
                       "links": [
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true,
                           "openInNewTab": false
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true,
                           "openInNewTab": false
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true,
                           "openInNewTab": false
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true,
                           "openInNewTab": false
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true,
                           "openInNewTab": false
@@ -575,39 +638,51 @@
                       ]
                     },
                     {
-                      "label": { "defaultValue": "Footer Label" },
+                      "label": {
+                        "defaultValue": "Footer Label"
+                      },
                       "links": [
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true,
                           "openInNewTab": false
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true,
                           "openInNewTab": false
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true,
                           "openInNewTab": false
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true,
                           "openInNewTab": false
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true,
                           "openInNewTab": false
@@ -615,39 +690,51 @@
                       ]
                     },
                     {
-                      "label": { "defaultValue": "Footer Label" },
+                      "label": {
+                        "defaultValue": "Footer Label"
+                      },
                       "links": [
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true,
                           "openInNewTab": false
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true,
                           "openInNewTab": false
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true,
                           "openInNewTab": false
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true,
                           "openInNewTab": false
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true,
                           "openInNewTab": false
@@ -655,39 +742,51 @@
                       ]
                     },
                     {
-                      "label": { "defaultValue": "Footer Label" },
+                      "label": {
+                        "defaultValue": "Footer Label"
+                      },
                       "links": [
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true,
                           "openInNewTab": false
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true,
                           "openInNewTab": false
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true,
                           "openInNewTab": false
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true,
                           "openInNewTab": false
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true,
                           "openInNewTab": false
@@ -705,13 +804,10 @@
               "props": {
                 "id": "SecondaryFooterSlot-337d3a64-afe3-4f12-9026-e416d2c5d83c",
                 "styles": {
-                  "backgroundColor": {
-                    "selectedColor": "palette-primary-light",
-                    "contrastingColor": "black"
-                  },
                   "desktopContentAlignment": "left",
                   "mobileContentAlignment": "left",
-                  "showLinks": true
+                  "showLinks": true,
+                  "backgroundColor": "muted"
                 },
                 "maxWidth": "theme",
                 "slots": {
@@ -724,35 +820,45 @@
                           "links": [
                             {
                               "linkType": "URL",
-                              "label": { "defaultValue": "Footer Link" },
+                              "label": {
+                                "defaultValue": "Footer Link"
+                              },
                               "link": "#",
                               "normalizeLink": true,
                               "openInNewTab": false
                             },
                             {
                               "linkType": "URL",
-                              "label": { "defaultValue": "Footer Link" },
+                              "label": {
+                                "defaultValue": "Footer Link"
+                              },
                               "link": "#",
                               "normalizeLink": true,
                               "openInNewTab": false
                             },
                             {
                               "linkType": "URL",
-                              "label": { "defaultValue": "Footer Link" },
+                              "label": {
+                                "defaultValue": "Footer Link"
+                              },
                               "link": "#",
                               "normalizeLink": true,
                               "openInNewTab": false
                             },
                             {
                               "linkType": "URL",
-                              "label": { "defaultValue": "Footer Link" },
+                              "label": {
+                                "defaultValue": "Footer Link"
+                              },
                               "link": "#",
                               "normalizeLink": true,
                               "openInNewTab": false
                             },
                             {
                               "linkType": "URL",
-                              "label": { "defaultValue": "Footer Link" },
+                              "label": {
+                                "defaultValue": "Footer Link"
+                              },
                               "link": "#",
                               "normalizeLink": true,
                               "openInNewTab": false
@@ -771,7 +877,11 @@
                       "type": "CopyrightMessageSlot",
                       "props": {
                         "id": "CopyrightMessageSlot-65eda140-da7c-4ad5-9bb7-f017a433277b",
-                        "data": { "text": { "defaultValue": "" } },
+                        "data": {
+                          "text": {
+                            "defaultValue": ""
+                          }
+                        },
                         "desktopContentAlignment": "left",
                         "mobileContentAlignment": "left"
                       }
@@ -785,17 +895,16 @@
         },
         "styles": {
           "primaryFooter": {
-            "backgroundColor": {
-              "selectedColor": "palette-primary-dark",
-              "contrastingColor": "white"
-            },
             "linksPosition": "right",
             "desktopContentAlignment": "left",
-            "mobileContentAlignment": "left"
+            "mobileContentAlignment": "left",
+            "backgroundColor": "primary"
           },
           "maxWidth": "theme"
         },
-        "analytics": { "scope": "expandedFooter" },
+        "analytics": {
+          "scope": "expandedFooter"
+        },
         "id": "ExpandedFooter-ece16c93-758a-418d-a157-c8465918818d",
         "ignoreLocaleWarning": ["slots.ExpandedLinksWrapperSlot"]
       }

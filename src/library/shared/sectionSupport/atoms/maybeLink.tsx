@@ -1,6 +1,10 @@
 import * as React from "react";
 import { CTAVariant, CTA } from "./cta.tsx";
-import { ThemeColor } from "@yext/visual-editor";
+import {
+  ThemeColor,
+  type TypographyRole,
+  themeManagerCn,
+} from "@yext/visual-editor";
 
 export type MaybeLinkProps = {
   href?: string;
@@ -9,6 +13,7 @@ export type MaybeLinkProps = {
   eventName?: string;
   variant?: CTAVariant;
   color?: ThemeColor;
+  typographyRole?: TypographyRole;
   alwaysHideCaret?: boolean;
   ariaLabel?: string;
   disabled?: boolean;
@@ -23,6 +28,7 @@ export const MaybeLink = (props: MaybeLinkProps) => {
     alwaysHideCaret,
     variant = "link",
     color,
+    typographyRole,
     ariaLabel,
     disabled = false,
   } = props;
@@ -37,6 +43,7 @@ export const MaybeLink = (props: MaybeLinkProps) => {
         eventName={eventName}
         variant={variant}
         color={color}
+        typographyRole={typographyRole}
         className={className}
         alwaysHideCaret={alwaysHideCaret}
         ariaLabel={ariaLabel}
@@ -44,6 +51,15 @@ export const MaybeLink = (props: MaybeLinkProps) => {
       />
     );
   } else {
-    return <span className={className}>{props.children}</span>;
+    return (
+      <span
+        className={themeManagerCn(
+          typographyRole && `ve-theme-${typographyRole}`,
+          className
+        )}
+      >
+        {props.children}
+      </span>
+    );
   }
 };

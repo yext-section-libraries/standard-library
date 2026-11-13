@@ -1,3 +1,4 @@
+import { Background } from "./sectionSupport/atoms/background.tsx";
 import { DropZone, type Config } from "@puckeditor/core";
 import { resolveDirectoryRootProps } from "@yext/visual-editor/section-library-support";
 
@@ -12,11 +13,13 @@ export const rootAllowedComponents = [
 // The Puck Root configuration for entity page sets
 export const entityRootConfig: NonNullable<Config["root"]> = {
   render: () => (
-    <DropZone
-      zone="default-zone"
-      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-      allow={rootAllowedComponents}
-    />
+    <Background surface="page" className="ve-theme-body min-h-screen">
+      <DropZone
+        zone="default-zone"
+        style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+        allow={rootAllowedComponents}
+      />
+    </Background>
   ),
 };
 
@@ -30,21 +33,25 @@ export const directoryRootConfig: NonNullable<Config["root"]> = {
     ),
   }),
   render: () => (
-    <DropZone
-      zone="default-zone"
-      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-      allow={rootAllowedComponents}
-    />
+    <Background surface="page" className="ve-theme-body min-h-screen">
+      <DropZone
+        zone="default-zone"
+        style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+        allow={rootAllowedComponents}
+      />
+    </Background>
   ),
 };
 
 // The Puck Root configuration for locator page sets
 export const locatorRootConfig: NonNullable<Config["root"]> = {
   render: () => (
-    <DropZone
-      zone="default-zone"
-      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-      allow={rootAllowedComponents}
-    />
+    <Background surface="page" className="ve-theme-body min-h-screen">
+      <DropZone
+        zone="default-zone"
+        style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+        allow={rootAllowedComponents}
+      />
+    </Background>
   ),
 };

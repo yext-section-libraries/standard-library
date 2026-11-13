@@ -8,7 +8,10 @@ export type CardHeadingLevelProps = {
 
 export const forwardCardHeadingLevel = <
   T extends {
-    props: { slots: { SectionHeadingSlot: Slot; CardsWrapperSlot: Slot } };
+    props: {
+      styles?: { showSectionHeading?: boolean };
+      slots: { SectionHeadingSlot: Slot; CardsWrapperSlot: Slot };
+    };
   },
 >(
   data: T
@@ -17,14 +20,17 @@ export const forwardCardHeadingLevel = <
     return data;
   }
 
-  const sectionHeadingLevel = data.props.slots.SectionHeadingSlot?.[0]?.props
-    .styles?.level as HeadingLevel | undefined;
+  if (data.props.slots.SectionHeadingSlot?.[0]) {
+    data = setDeep(
+      data,
+      "props.slots.SectionHeadingSlot[0].props.styles.semanticLevelOverride",
+      2
+    );
+  }
   return setDeep(
     data,
     "props.slots.CardsWrapperSlot[0].props.cardHeadingLevel",
-    sectionHeadingLevel && sectionHeadingLevel < 6
-      ? sectionHeadingLevel + 1
-      : "span"
+    data.props.styles?.showSectionHeading === false ? 2 : 3
   );
 };
 

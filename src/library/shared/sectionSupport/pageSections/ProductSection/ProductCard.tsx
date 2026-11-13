@@ -1,9 +1,8 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import {
-  ThemeColor,
   TranslatableRichText,
-  backgroundColors,
   YextEntityField,
   ProductStruct,
   deepMerge,
@@ -18,6 +17,7 @@ import {
   formatCurrency,
   resolveComponentData,
   useDocument,
+  toPuckFields,
 } from "@yext/visual-editor";
 import { Background } from "../../atoms/background.tsx";
 import { CTAWrapperProps } from "../../../../sections/CTAWrapper.tsx";
@@ -77,7 +77,7 @@ const slotDefaultData = {
 export const defaultProductCardSlotData = (
   id?: string,
   index?: number,
-  backgroundColor?: ThemeColor,
+  backgroundColor?: SurfaceValue,
   sharedSlotStyles?: Record<string, any>
 ) => {
   const cardData = {
@@ -86,7 +86,8 @@ export const defaultProductCardSlotData = (
       ...(id && { id }),
       ...(index !== undefined && { index }),
       styles: {
-        backgroundColor: backgroundColor ?? backgroundColors.background1.value,
+        backgroundColor: "page",
+        ...(backgroundColor && { backgroundColor }),
       } satisfies ProductCardProps["styles"],
       slots: {
         ImageSlot: [
@@ -128,10 +129,8 @@ export const defaultProductCardSlotData = (
                   constantValueEnabled: true,
                 },
               },
-              styles: {
-                variant: "sm",
-                fontStyle: "bold",
-              },
+              parentStyles: { className: "", typographyRole: "body-small" },
+              styles: {},
             } satisfies TextProps,
           },
         ],
@@ -147,6 +146,7 @@ export const defaultProductCardSlotData = (
                   constantValueEnabled: true,
                 },
               },
+              parentStyles: { typographyRole: "card-title" },
               styles: {
                 level: 3,
                 align: "left",
@@ -166,10 +166,7 @@ export const defaultProductCardSlotData = (
                   constantValueEnabled: true,
                 },
               },
-              styles: {
-                variant: "base",
-                fontStyle: "bold",
-              },
+              styles: {},
             } satisfies TextProps,
           },
         ],
@@ -185,9 +182,7 @@ export const defaultProductCardSlotData = (
                   constantValueEnabled: true,
                 },
               },
-              styles: {
-                variant: "base",
-              },
+              styles: {},
             } satisfies BodyTextProps,
           },
         ],
@@ -207,7 +202,7 @@ export const defaultProductCardSlotData = (
                 },
               },
               styles: {
-                variant: "secondary",
+                variant: "secondary-button",
                 presetImage: "app-store",
               },
             } satisfies CTAWrapperProps,
@@ -239,7 +234,7 @@ export type ProductCardProps = {
     /** The background color of each individual card
      * @defaultValue Background Color 1
      */
-    backgroundColor?: ThemeColor;
+    backgroundColor?: SurfaceValue;
   };
 
   /** @internal */
@@ -290,9 +285,8 @@ const ProductCardFields: YextFields<ProductCardProps> = {
     objectFields: {
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
       },
     },
   },
@@ -491,7 +485,7 @@ const ProductCardComponent: PuckComponent<ProductCardProps> = (props) => {
   const streamDocument = useDocument();
   const { i18n } = useTranslation();
   const { sharedCardProps, setSharedCardProps } = useCardContext<{
-    cardBackground: ThemeColor | undefined;
+    cardStyles: ProductCardProps["styles"];
     slotStyles: Record<string, ProductCardProps["styles"]>;
   }>();
   const inheritedParentStyles =
@@ -519,8 +513,7 @@ const ProductCardComponent: PuckComponent<ProductCardProps> = (props) => {
     }
 
     if (
-      JSON.stringify(sharedCardProps?.cardBackground) ===
-        JSON.stringify(styles.backgroundColor) &&
+      JSON.stringify(sharedCardProps?.cardStyles) === JSON.stringify(styles) &&
       JSON.stringify(slotStyles) === JSON.stringify(sharedCardProps?.slotStyles)
     ) {
       return;
@@ -563,9 +556,7 @@ const ProductCardComponent: PuckComponent<ProductCardProps> = (props) => {
           ...otherProps,
           styles: {
             ...otherProps.styles,
-            backgroundColor:
-              sharedCardProps?.cardBackground ||
-              backgroundColors.background1.value,
+            ...sharedCardProps?.cardStyles,
           },
           slots: newSlotData,
         } satisfies ProductCardProps,
@@ -581,15 +572,14 @@ const ProductCardComponent: PuckComponent<ProductCardProps> = (props) => {
     }
 
     if (
-      JSON.stringify(sharedCardProps?.cardBackground) ===
-        JSON.stringify(styles.backgroundColor) &&
+      JSON.stringify(sharedCardProps?.cardStyles) === JSON.stringify(styles) &&
       JSON.stringify(sharedCardProps?.slotStyles) === JSON.stringify(slotStyles)
     ) {
       return;
     }
 
     setSharedCardProps({
-      cardBackground: styles.backgroundColor,
+      cardStyles: styles,
       slotStyles: slotStyles,
     });
   }, [styles, slotStyles]);
@@ -621,9 +611,9 @@ const ProductCardComponent: PuckComponent<ProductCardProps> = (props) => {
     <Background
       className={themeManagerCn(
         "flex flex-col h-full",
-        variant !== "minimal" && "rounded-lg overflow-hidden border"
+        variant !== "minimal" && "ve-theme-card overflow-hidden"
       )}
-      background={variant === "minimal" ? undefined : styles.backgroundColor}
+      background={variant === "minimal" ? "inherit" : styles.backgroundColor}
       ref={puck.dragRef}
     >
       {parentStyles?.showImage && (
@@ -653,7 +643,7 @@ const ProductCardComponent: PuckComponent<ProductCardProps> = (props) => {
             </div>
           )}
           {hasPrice && (
-            <div className="flex gap-4 border-l-2 border-primary-200 pl-4 items-center">
+            <div className="flex gap-4 ve-theme-border border-l-2 pl-4 items-center">
               <slots.PriceSlot style={{ height: "auto" }} allow={[]} />
             </div>
           )}
@@ -672,6 +662,14 @@ export const ProductCard: YextComponentConfig<ProductCardProps> = {
   label: msg("slots.productCard", "Product Card"),
   fields: ProductCardFields,
   inline: true,
+  resolveFields: (data) =>
+    toPuckFields(
+      setDeep(
+        ProductCardFields,
+        "styles.objectFields.backgroundColor.visible",
+        data.props.parentStyles?.variant !== "minimal"
+      )
+    ),
   resolveData: (data, params) => {
     const locale = i18nPageInstance.language || "en";
     const field = data.props.field ?? "";
@@ -704,6 +702,21 @@ export const ProductCard: YextComponentConfig<ProductCardProps> = {
       "showDescription",
       "showCTA",
     ]);
+
+    for (const [slot, role] of [
+      ["BrowSlot", "body-small"],
+      ["TitleSlot", "card-title"],
+      ["PriceSlot", "body"],
+      ["DescriptionSlot", "body"],
+    ] as const) {
+      if (updatedData.props.slots[slot]?.[0]) {
+        updatedData = setDeep(
+          updatedData,
+          `props.slots.${slot}[0].props.parentStyles.typographyRole`,
+          role
+        );
+      }
+    }
 
     // Apply image behavior after the wrapper has generated the final card slots.
     const isImmersive =
@@ -785,7 +798,7 @@ export const ProductCard: YextComponentConfig<ProductCardProps> = {
   },
   defaultProps: {
     styles: {
-      backgroundColor: backgroundColors.background1.value,
+      backgroundColor: "page",
     },
     slots: defaultProductCardSlotData().props.slots,
   },

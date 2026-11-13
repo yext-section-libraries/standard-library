@@ -1,12 +1,12 @@
 import { CircleSlash2 } from "lucide-react";
 import { PageSection } from "../../atoms/pageSection.tsx";
 import { Body } from "../../atoms/body.tsx";
-import { pt, ThemeColor } from "@yext/visual-editor";
+import { pt, SurfaceValue } from "@yext/visual-editor";
 import { useTemplateMetadata } from "@yext/visual-editor/section-library-support";
 
 export const PromoEmptyState: React.FC<{
   isEditing: boolean;
-  backgroundStyle: ThemeColor | undefined;
+  backgroundStyle: SurfaceValue | undefined;
 }> = (props) => {
   const { isEditing, backgroundStyle } = props;
 
@@ -25,7 +25,7 @@ export const PromoEmptyState: React.FC<{
       <div className="relative h-[300px] w-full bg-gray-100 rounded-lg border border-gray-200 flex flex-col items-center justify-center py-8 gap-2.5">
         <CircleSlash2 className="w-12 h-12 text-gray-400" />
         <div className="flex flex-col items-center gap-0">
-          <Body variant="base" className="text-gray-500 font-medium">
+          <Body typographyRole="body" className="text-gray-500 font-medium">
             {pt(
               "emptyStateSectionHidden",
               "Section hidden for this {{entityType}}",
@@ -36,7 +36,7 @@ export const PromoEmptyState: React.FC<{
               }
             )}
           </Body>
-          <Body variant="base" className="text-gray-500 font-normal">
+          <Body typographyRole="body" className="text-gray-500 font-normal">
             {pt(
               "emptyStateFieldEmpty",
               "{{entityType}}'s mapped field is empty",

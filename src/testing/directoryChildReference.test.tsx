@@ -165,7 +165,8 @@ describe("directoryChildReference", () => {
     seededCard.props.slots.PhoneSlot[0]!.props.styles.color =
       backgroundColors.color3.value;
     seededCard.props.slots.HoursSlot[0]!.props.styles.timeFormat = "24h";
-    seededCard.props.slots.HoursSlot[0]!.props.styles.bodyVariant = "sm";
+    seededCard.props.slots.HoursSlot[0]!.props.styles.typographyRole =
+      "body-small";
 
     const resolvedData = await resolveAllData(
       {
@@ -219,8 +220,8 @@ describe("directoryChildReference", () => {
         card?.props?.slots?.HoursSlot?.[0]?.props?.styles?.timeFormat
       ).toBe("24h");
       expect(
-        card?.props?.slots?.HoursSlot?.[0]?.props?.styles?.bodyVariant
-      ).toBe("sm");
+        card?.props?.slots?.HoursSlot?.[0]?.props?.styles?.typographyRole
+      ).toBe("body-small");
     }
   });
 });

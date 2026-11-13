@@ -1,6 +1,5 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import {
-  ThemeColor,
-  backgroundColors,
   ThemeOptions,
   msg,
   getAnalyticsScopeHash,
@@ -36,8 +35,7 @@ export interface InsightSectionProps {
      * The background color for the entire section.
      * @defaultValue Background Color 2
      */
-    backgroundColor?: ThemeColor;
-
+    backgroundColor?: SurfaceValue;
     /**
      * Whether to show the section heading.
      * @defaultValue true
@@ -72,9 +70,9 @@ const insightSectionFields: YextFields<InsightSectionProps> = {
     objectFields: {
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
+        allowInherit: false,
       },
       showSectionHeading: {
         label: msg("fields.showSectionHeading", "Show Section Heading"),
@@ -130,7 +128,7 @@ export const InsightSection: YextComponentConfig<InsightSectionProps> = {
   fields: insightSectionFields,
   defaultProps: {
     styles: {
-      backgroundColor: backgroundColors.background2.value,
+      backgroundColor: "muted",
       showSectionHeading: true,
     },
     slots: {

@@ -50,7 +50,7 @@ const HeroImageComponent: PuckComponent<HeroImageProps> = (props) => {
         fieldId={data.image.field}
         containerStyle={{ minHeight: "250px" }}
         containerClassName={
-          className || "max-w-full rounded-image-borderRadius w-full h-full"
+          className || "max-w-full ve-theme-image w-full h-full"
         }
         fullHeight={true}
         hasParentData={false}
@@ -71,7 +71,7 @@ const HeroImageComponent: PuckComponent<HeroImageProps> = (props) => {
         aspectRatio={styles.aspectRatio}
         imageFillType={styles.imageFillType}
         width={variant === "classic" ? styles.width : undefined}
-        className={className || "max-w-full rounded-image-borderRadius w-full"}
+        className={className || "max-w-full ve-theme-image w-full"}
         sizes={imgSizesHelper({
           base: "calc(100vw - 32px)",
           md: "calc(maxWidth / 2)",

@@ -1,12 +1,12 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import {
   PuckComponent,
+  setDeep,
   registerOverlayPortal,
   Slot,
   SlotComponent,
 } from "@puckeditor/core";
 import {
-  backgroundColors,
-  ThemeColor,
   msg,
   useOverflow,
   resolveComponentData,
@@ -36,7 +36,7 @@ const HAMBURGER_RESERVE_PX = 48;
 
 export interface PrimaryHeaderSlotProps {
   styles: {
-    backgroundColor?: ThemeColor;
+    backgroundColor?: SurfaceValue;
   };
 
   /** @internal values that come from the parent ExpandedHeader */
@@ -68,9 +68,9 @@ const primaryHeaderSlotFields: YextFields<PrimaryHeaderSlotProps> = {
     objectFields: {
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
+        allowInherit: false,
       },
     },
   },
@@ -271,8 +271,8 @@ const PrimaryHeaderSlotWrapper: PuckComponent<PrimaryHeaderSlotProps> = ({
     return (
       <>
         <PageSection
-          verticalPadding={"sm"}
           background={styles.backgroundColor}
+          verticalPadding={"sm"}
           maxWidth={parentValues?.maxWidth}
         >
           <HeaderLinksDisplayModeProvider value="menu">
@@ -293,8 +293,8 @@ const PrimaryHeaderSlotWrapper: PuckComponent<PrimaryHeaderSlotProps> = ({
 
         {showCTAs && showCtasInMenu && (
           <PageSection
-            verticalPadding={"sm"}
             background={styles.backgroundColor}
+            verticalPadding={"sm"}
             maxWidth={parentValues?.maxWidth}
           >
             <div className={`flex flex-col gap-4`}>
@@ -311,9 +311,9 @@ const PrimaryHeaderSlotWrapper: PuckComponent<PrimaryHeaderSlotProps> = ({
     <>
       <div className="flex flex-col" ref={headerRef}>
         <PageSection
+          background={styles.backgroundColor}
           maxWidth={parentValues?.maxWidth}
           verticalPadding={"header"}
-          background={styles.backgroundColor}
           className="flex flex-row justify-between w-full items-center gap-8"
         >
           <div className="block">{LogoSlot}</div>
@@ -361,7 +361,7 @@ const PrimaryHeaderSlotWrapper: PuckComponent<PrimaryHeaderSlotProps> = ({
                 }
                 aria-expanded={isMobileMenuOpen}
                 aria-controls="mobile-menu"
-                className={`text-xl z-10 ${showHamburger ? "md:block" : "md:hidden"} 
+                className={`ve-theme-navigation-link z-10 ${showHamburger ? "md:block" : "md:hidden"}
                 ${hasExtraMargin ? "ml-8" : ""}`}
               >
                 {isMobileMenuOpen ? (
@@ -409,7 +409,7 @@ const PrimaryHeaderSlotWrapper: PuckComponent<PrimaryHeaderSlotProps> = ({
 
 export const defaultPrimaryHeaderProps: PrimaryHeaderSlotProps = {
   styles: {
-    backgroundColor: backgroundColors.background1.value,
+    backgroundColor: "page",
   },
   slots: {
     LogoSlot: [
@@ -467,7 +467,7 @@ export const defaultPrimaryHeaderProps: PrimaryHeaderSlotProps = {
             },
           },
           styles: {
-            variant: "primary",
+            variant: "primary-button",
             presetImage: "app-store",
           },
           eventName: "primaryCta",
@@ -495,7 +495,7 @@ export const defaultPrimaryHeaderProps: PrimaryHeaderSlotProps = {
             },
           },
           styles: {
-            variant: "secondary",
+            variant: "secondary-button",
             presetImage: "app-store",
           },
           eventName: "secondaryCta",
@@ -509,6 +509,13 @@ export const PrimaryHeaderSlot: YextComponentConfig<PrimaryHeaderSlotProps> = {
   label: msg("components.primaryHeader", "Primary Header"),
   fields: primaryHeaderSlotFields,
   resolveData: (data, params) => {
+    if (data.props.slots.LogoSlot?.[0]) {
+      data = setDeep(
+        data,
+        "props.slots.LogoSlot[0].props.applyThemeRadius",
+        false
+      );
+    }
     const streamDocument = params.metadata.streamDocument;
     const locale = streamDocument?.locale ?? "en";
 

@@ -45,6 +45,7 @@ export const SpotlightHero: PuckComponent<HeroVariantProps> = (props) => {
       }}
     >
       <PageSection
+        surface="inherit"
         aria-label={t("heroBanner", "Hero Banner")}
         outerClassName="h-fit flex items-center"
         outerStyle={{
@@ -58,7 +59,7 @@ export const SpotlightHero: PuckComponent<HeroVariantProps> = (props) => {
       >
         <Background
           background={styles.backgroundColor}
-          className={`${heroContentParentCn(styles)} rounded shadow-lg p-6 md:p-10 max-w-[600px]`}
+          className={`${heroContentParentCn(styles)} ve-theme-card shadow-lg p-6 md:p-10 max-w-[600px]`}
         >
           <HeroContent {...props} />
         </Background>

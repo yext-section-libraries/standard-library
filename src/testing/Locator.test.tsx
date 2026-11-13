@@ -1,3 +1,4 @@
+import { migrationRegistry as sectionLibraryMigrationRegistry } from "../library/migrations/registry.ts";
 import * as React from "react";
 import { VisualEditorProvider } from "./TestVisualEditorProvider.tsx";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -1351,7 +1352,8 @@ describe("Locator", async () => {
           content: [{ type: "Locator", props: fixture.props }],
         },
         document,
-        migrationRegistry
+        migrationRegistry,
+        sectionLibraryMigrationRegistry
       );
       data = await resolveAllData(data, puckConfig, {
         streamDocument: document,
@@ -1425,7 +1427,8 @@ describe("Locator", async () => {
           content: [{ type: "Locator", props: fixture.props }],
         },
         fixture.document,
-        migrationRegistry
+        migrationRegistry,
+        sectionLibraryMigrationRegistry
       );
       data = await resolveAllData(data, puckConfig, {
         streamDocument: fixture.document,
@@ -1493,7 +1496,8 @@ describe("Locator", async () => {
           content: [{ type: "Locator", props: fixture.props }],
         },
         fixture.document,
-        migrationRegistry
+        migrationRegistry,
+        sectionLibraryMigrationRegistry
       );
       data = await resolveAllData(data, puckConfig, {
         streamDocument: fixture.document,
@@ -1602,7 +1606,8 @@ describe("Locator", async () => {
       puckConfig,
       wrappedSelectorValuesMigrationFixture.data as any,
       wrappedSelectorValuesMigrationFixture.document as any,
-      migrationRegistry
+      migrationRegistry,
+      sectionLibraryMigrationRegistry
     );
 
     const mainContent = data.content[0] as any;
@@ -1640,7 +1645,8 @@ describe("Locator", async () => {
           content: [{ type: "Locator", props: fixture.props }],
         },
         document,
-        migrationRegistry
+        migrationRegistry,
+        sectionLibraryMigrationRegistry
       );
       data = await resolveAllData(data, puckConfig, {
         streamDocument: document,
@@ -1694,7 +1700,8 @@ describe("Locator", async () => {
           ],
         },
         document,
-        migrationRegistry
+        migrationRegistry,
+        sectionLibraryMigrationRegistry
       );
 
       data = await resolveAllData(data, puckConfig, {

@@ -89,7 +89,7 @@ const TextListComponent: PuckComponent<TextListProps> = ({
     >
       {resolvedTextList && resolvedTextList.length > 0 ? (
         <ul
-          className={`components text-body-fontSize font-body-fontFamily font-body-fontWeight ${getTextColorClass(styles?.textColor) ?? ""} ${
+          className={`components ve-theme-body ${getTextColorClass(styles?.textColor) ?? ""} ${
             commaSeparated
               ? "flex flex-row flex-wrap list-none"
               : "list-disc list-inside"

@@ -1,8 +1,7 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import * as React from "react";
-import { PuckComponent, setDeep, Slot, WithId } from "@puckeditor/core";
+import { PuckComponent, setDeep, Slot } from "@puckeditor/core";
 import {
-  ThemeColor,
-  backgroundColors,
   ThemeOptions,
   msg,
   YextComponentConfig,
@@ -27,8 +26,7 @@ export interface NearbyLocationsSectionProps {
      * The background color for the entire section.
      * @defaultValue Background Color 1
      */
-    backgroundColor?: ThemeColor;
-
+    backgroundColor?: SurfaceValue;
     /**
      * Whether to show the section heading.
      * @defaultValue true
@@ -61,9 +59,9 @@ const nearbyLocationsSectionFields: YextFields<NearbyLocationsSectionProps> = {
     objectFields: {
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
+        allowInherit: false,
       },
       showSectionHeading: {
         label: msg("fields.showSectionHeading", "Show Section Heading"),
@@ -193,7 +191,7 @@ export const NearbyLocationsSection: YextComponentConfig<NearbyLocationsSectionP
     fields: nearbyLocationsSectionFields,
     defaultProps: {
       styles: {
-        backgroundColor: backgroundColors.background1.value,
+        backgroundColor: "page",
         showSectionHeading: true,
       },
       analytics: {
@@ -228,13 +226,17 @@ export const NearbyLocationsSection: YextComponentConfig<NearbyLocationsSectionP
       liveVisibility: true,
     },
     resolveData: (data) => {
-      const sectionHeadingProps = data.props.slots.SectionHeadingSlot?.[0]
-        ?.props as WithId<HeadingTextProps> | undefined;
-
+      if (data.props.slots.SectionHeadingSlot?.[0]) {
+        data = setDeep(
+          data,
+          "props.slots.SectionHeadingSlot[0].props.styles.semanticLevelOverride",
+          2
+        );
+      }
       return setDeep(
         data,
         "props.slots.CardsWrapperSlot[0].props.sectionHeadingLevel",
-        sectionHeadingProps?.styles?.level
+        data.props.styles.showSectionHeading ? 2 : undefined
       );
     },
     render: (props) => (

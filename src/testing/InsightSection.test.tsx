@@ -1,3 +1,4 @@
+import { migrationRegistry as sectionLibraryMigrationRegistry } from "../library/migrations/registry.ts";
 import * as React from "react";
 import { VisualEditorProvider } from "./TestVisualEditorProvider.tsx";
 import { describe, it, expect } from "vitest";
@@ -1487,7 +1488,8 @@ describe("InsightSection", async () => {
           ],
         },
         document,
-        migrationRegistry
+        migrationRegistry,
+        sectionLibraryMigrationRegistry
       );
 
       data = await resolveAllData(data, puckConfig, {

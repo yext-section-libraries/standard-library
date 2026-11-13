@@ -8,7 +8,7 @@ import "jest-axe/extend-expect";
 import { expect, vi, beforeEach } from "vitest";
 import { BrowserPage, commands, page } from "@vitest/browser/context";
 import { act } from "@testing-library/react";
-import { defaultThemeConfig, applyTheme } from "@yext/visual-editor";
+import { applyTheme } from "@yext/visual-editor";
 
 const TEST_CSS_OVERRIDE_TAG_ID = "screenshot-test-overrides";
 const TEST_HOVER_SHIELD_ID = "screenshot-hover-shield";
@@ -20,20 +20,16 @@ export const testSetup = (theme: Record<string, any>) => {
   // July 1, 2025 Noon (month is 0-indexed)
   vi.setSystemTime(new Date(2025, 6, 1, 12, 0, 0).valueOf());
 
-  const tag = document.createElement("style");
-  const themeTags = applyTheme(
-    { __: { theme: JSON.stringify(theme) } },
-    "./",
-    defaultThemeConfig
-  );
-
-  // don't load fonts
-  const matches = [...themeTags.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)];
-  if (matches.length > 0 && matches[1]?.length) {
-    const theme = matches[1][0];
-
-    document.head.appendChild(tag);
-    tag.outerHTML = theme;
+  const themeTags = applyTheme({ __: { theme: JSON.stringify(theme) } }, "./");
+  // Keep only the theme stylesheet: tests do not need remote font requests.
+  const template = document.createElement("template");
+  template.innerHTML = themeTags;
+  const themeTag = template.content.querySelector("style#visual-editor-theme");
+  document
+    .querySelectorAll("style#visual-editor-theme")
+    .forEach((tag) => tag.remove());
+  if (themeTag) {
+    document.head.appendChild(themeTag);
   } else {
     console.error("failed to apply theme");
   }

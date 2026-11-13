@@ -1,10 +1,9 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import { useTranslation } from "react-i18next";
 import { PuckComponent, Slot } from "@puckeditor/core";
 import { AddressType, AnalyticsScopeProvider } from "@yext/pages-components";
 import {
   YextEntityField,
-  ThemeColor,
-  backgroundColors,
   getAnalyticsScopeHash,
   msg,
   resolveComponentData,
@@ -31,7 +30,7 @@ export interface CoreInfoStyles {
    * The background color of the section.
    * @defaultValue `Background Color 1`
    */
-  backgroundColor?: ThemeColor;
+  backgroundColor?: SurfaceValue;
 }
 
 export interface CoreInfoSectionProps {
@@ -78,9 +77,9 @@ const coreInfoSectionFields: YextFields<CoreInfoSectionProps> = {
     objectFields: {
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
+        allowInherit: false,
       },
     },
   },
@@ -240,7 +239,7 @@ export const CoreInfoSection: YextComponentConfig<CoreInfoSectionProps> = {
   fields: coreInfoSectionFields,
   defaultProps: {
     styles: {
-      backgroundColor: backgroundColors.background1.value,
+      backgroundColor: "page",
     },
     slots: {
       CoreInfoHeadingSlot: [

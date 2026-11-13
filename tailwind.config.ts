@@ -1,8 +1,6 @@
 import type { Config } from "tailwindcss";
 import {
-  themeResolver,
   defaultThemeTailwindExtensions,
-  defaultThemeConfig,
   VisualEditorComponentsContentPath,
   VisualEditorThemeClassSafelist,
 } from "@yext/visual-editor";
@@ -16,7 +14,7 @@ export default {
   ],
   safelist: VisualEditorThemeClassSafelist,
   theme: {
-    extend: themeResolver(defaultThemeTailwindExtensions, defaultThemeConfig),
+    extend: defaultThemeTailwindExtensions,
   },
   plugins: [],
 } satisfies Config;

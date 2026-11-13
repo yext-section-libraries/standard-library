@@ -11,7 +11,6 @@ import {
   pt,
   ThemeColor,
   ThemeOptions,
-  backgroundColors,
   resolveDataFromParent,
   toPuckFields,
   YextComponentConfig,
@@ -149,7 +148,8 @@ const EmailsComponent: PuckComponent<EmailsProps> = (props) => {
           <li key={index} className="flex items-center gap-3 min-w-0">
             {showEmailIcon && (
               <Background
-                background={styles?.color ?? backgroundColors.background2.value}
+                surface="muted"
+                background={styles?.color}
                 className="h-10 w-10 shrink-0 flex justify-center rounded-full items-center"
               >
                 <FaRegEnvelope

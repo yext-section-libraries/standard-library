@@ -1,8 +1,7 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import { PuckComponent, Slot } from "@puckeditor/core";
 import {
   msg,
-  ThemeColor,
-  backgroundColors,
   useDocument,
   pt,
   useOverflow,
@@ -28,7 +27,7 @@ export interface SecondaryHeaderSlotProps {
   };
 
   styles: {
-    backgroundColor?: ThemeColor;
+    backgroundColor?: SurfaceValue;
   };
 
   parentStyles?: {
@@ -70,9 +69,9 @@ const secondaryHeaderSlotFields: YextFields<SecondaryHeaderSlotProps> = {
     objectFields: {
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
+        allowInherit: false,
       },
     },
   },
@@ -148,9 +147,9 @@ const SecondaryHeaderSlotWrapper: PuckComponent<SecondaryHeaderSlotProps> = ({
 
   return (
     <PageSection
+      background={styles.backgroundColor}
       maxWidth={parentStyles?.maxWidth}
       verticalPadding={hideSecondaryHeader ? "none" : "sm"}
-      background={styles.backgroundColor}
       className="w-full"
       outerStyle={
         hideSecondaryHeader
@@ -207,7 +206,7 @@ export const defaultSecondaryHeaderProps: SecondaryHeaderSlotProps = {
     showLanguageDropdown: false,
   },
   styles: {
-    backgroundColor: backgroundColors.background2.value,
+    backgroundColor: "muted",
   },
   slots: {
     LinksSlot: [
@@ -217,8 +216,6 @@ export const defaultSecondaryHeaderProps: SecondaryHeaderSlotProps = {
           ...defaultHeaderLinkProps,
           styles: {
             align: "right",
-            variant: "xs",
-            weight: "normal",
           },
           parentData: {
             type: "Secondary",

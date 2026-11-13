@@ -1,10 +1,6 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import { cva, VariantProps } from "class-variance-authority";
-import {
-  YextFields,
-  msg,
-  ThemeColor,
-  SpacingSelector,
-} from "@yext/visual-editor";
+import { YextFields, msg, SpacingSelector } from "@yext/visual-editor";
 
 export const layoutVariants = cva("components w-full", {
   variants: {
@@ -96,14 +92,14 @@ export const layoutVariants = cva("components w-full", {
 });
 
 export interface layoutProps extends VariantProps<typeof layoutVariants> {
-  backgroundColor?: ThemeColor;
+  backgroundColor?: SurfaceValue;
 }
 
 export const layoutFields: YextFields<layoutProps> = {
   backgroundColor: {
     label: msg("fields.backgroundColor", "Background Color"),
-    type: "basicSelector",
-    options: "BACKGROUND_COLOR",
+    type: "surface",
+    allowInherit: false,
   },
   gap: SpacingSelector<layoutProps["gap"]>("Gap", "gap", false),
   verticalPadding: SpacingSelector<layoutProps["verticalPadding"]>(

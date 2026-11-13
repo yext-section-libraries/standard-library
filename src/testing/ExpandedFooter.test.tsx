@@ -1,3 +1,4 @@
+import { migrationRegistry as sectionLibraryMigrationRegistry } from "../library/migrations/registry.ts";
 import { describe, it, expect } from "vitest";
 import { VisualEditorProvider } from "./TestVisualEditorProvider.tsx";
 import { axe, ComponentTest, transformTests } from "./componentTests.setup.ts";
@@ -2488,7 +2489,8 @@ describe("ExpandedFooter", async () => {
           ],
         },
         document,
-        migrationRegistry
+        migrationRegistry,
+        sectionLibraryMigrationRegistry
       );
 
       const { container } = reactRender(

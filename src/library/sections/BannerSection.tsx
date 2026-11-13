@@ -1,3 +1,5 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
+import { type TypographyRole } from "@yext/visual-editor";
 import { useTranslation } from "react-i18next";
 import "@yext/visual-editor/style.css";
 import {
@@ -9,7 +11,6 @@ import {
   msg,
   pt,
   getDefaultRTF,
-  backgroundColors,
   ThemeColor,
   ThemeOptions,
   resolveYextEntityField,
@@ -40,13 +41,15 @@ export interface BannerStyles {
    * The background color of the section.
    * @defaultValue Background Color 1
    */
-  backgroundColor?: ThemeColor;
-
+  /** Theme variant or custom background color. */
+  backgroundColor?: SurfaceValue;
   /**
    * Optional text color for the banner text.
    * If not set, it will default to a color that contrasts with the background color.
    */
+  /** Explicit foreground override. */
   textColor?: ThemeColor;
+  typographyRole?: TypographyRole;
 
   /**
    * The horizontal alignment of the text.
@@ -99,11 +102,13 @@ const bannerSectionFields: YextFields<BannerSectionProps> = {
     type: "object",
     label: msg("fields.styles", "Styles"),
     objectFields: {
+      typographyRole: { type: "typographyRole" },
+
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
+        allowInherit: false,
       },
       textColor: {
         type: "basicSelector",
@@ -160,6 +165,7 @@ const BannerComponent: PuckComponent<BannerSectionProps> = ({
 
   const resolvedText = resolveComponentData(data.text, locale, streamDocument, {
     color: styles.textColor,
+    typographyRole: styles.typographyRole ?? "body",
   });
 
   const justifyClass = {
@@ -181,14 +187,17 @@ const BannerComponent: PuckComponent<BannerSectionProps> = ({
 
       return (
         <PageSection
-          background={backgroundColors.background1.value}
+          surface="page"
           verticalPadding="sm"
           className="flex items-center justify-center"
         >
           <div className="relative h-20 w-full bg-gray-100 rounded-lg border border-gray-200 flex flex-row items-center justify-center gap-3 px-4">
             <CircleSlash2 className="w-10 h-10 text-gray-400 flex-shrink-0" />
             <div className="flex flex-col items-start gap-0">
-              <Body variant="sm" className="text-gray-500 font-medium">
+              <Body
+                typographyRole="body-small"
+                className="text-gray-500 font-medium"
+              >
                 {pt(
                   "emptyStateSectionHidden",
                   "Section hidden for this {{entityType}}",
@@ -199,7 +208,10 @@ const BannerComponent: PuckComponent<BannerSectionProps> = ({
                   }
                 )}
               </Body>
-              <Body variant="sm" className="text-gray-500 font-normal">
+              <Body
+                typographyRole="body-small"
+                className="text-gray-500 font-normal"
+              >
                 {pt(
                   "emptyStateFieldEmpty",
                   "{{entityType}}'s mapped field is empty",
@@ -226,6 +238,7 @@ const BannerComponent: PuckComponent<BannerSectionProps> = ({
   return (
     <PageSection
       background={styles.backgroundColor}
+      color={styles.textColor}
       verticalPadding="sm"
       className={`flex ${justifyClass} ${textAlignClass} items-center`}
     >
@@ -234,7 +247,16 @@ const BannerComponent: PuckComponent<BannerSectionProps> = ({
         fieldId={data.text.field}
         constantValueEnabled={data.text.constantValueEnabled}
       >
-        {resolvedText}
+        {typeof resolvedText === "string" ? (
+          <Body
+            color={styles.textColor}
+            typographyRole={styles.typographyRole ?? "body"}
+          >
+            {resolvedText}
+          </Body>
+        ) : (
+          resolvedText
+        )}
       </EntityField>
     </PageSection>
   );
@@ -249,7 +271,7 @@ export const defaultBannerProps: BannerSectionProps = {
     },
   },
   styles: {
-    backgroundColor: backgroundColors.background6.value,
+    backgroundColor: "primary",
     textAlignment: "center",
   },
   liveVisibility: true,

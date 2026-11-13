@@ -1,7 +1,6 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import { Slot } from "@puckeditor/core";
 import {
-  ThemeColor,
-  backgroundColors,
   ThemeOptions,
   YextComponentConfig,
   YextFields,
@@ -36,8 +35,7 @@ export interface TeamSectionProps {
      * The background color of the section.
      * @defaultValue Background Color 3
      */
-    backgroundColor?: ThemeColor;
-
+    backgroundColor?: SurfaceValue;
     /**
      * Whether to show the section heading.
      * @defaultValue true
@@ -73,9 +71,9 @@ const teamSectionFields: YextFields<TeamSectionProps> = {
     objectFields: {
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
+        allowInherit: false,
       },
       showSectionHeading: {
         label: msg("fields.showSectionHeading", "Show Section Heading"),
@@ -131,7 +129,7 @@ export const TeamSection: YextComponentConfig<TeamSectionProps> = {
   fields: teamSectionFields,
   defaultProps: {
     styles: {
-      backgroundColor: backgroundColors.background3.value,
+      backgroundColor: "muted",
       showSectionHeading: true,
     },
     slots: {

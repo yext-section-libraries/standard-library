@@ -603,7 +603,7 @@ describe("FormSection", () => {
     const { container } = await renderForm(getProps(), true);
 
     expect(container.querySelector("section")?.className).toContain(
-      "max-w-pageSection-contentWidth"
+      "ve-theme-content"
     );
     expect(container.querySelector(".max-w-xl")).toBeNull();
   });
@@ -773,12 +773,10 @@ describe("FormSection", () => {
   it("when the background is dark, then the contact method label uses the section text color", async () => {
     const props = getProps();
     props.styles.backgroundColor = backgroundColors.background6.value;
-    const { container } = await renderForm(props, true);
+    await renderForm(props, true);
     const legend = screen.getByText(/Preferred Communication Method/);
 
-    expect(
-      container.querySelector("section")?.parentElement?.className
-    ).toContain("text-white");
+    expect(getComputedStyle(legend).color).toBe("rgb(255, 255, 255)");
     expect(legend.className).not.toContain("text-palette-primary-dark");
     expect(legend.getAttribute("style")).toBeNull();
   });

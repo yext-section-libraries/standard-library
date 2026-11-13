@@ -65,7 +65,7 @@ const CopyrightMessageSlotInternal: PuckComponent<CopyrightMessageSlotProps> = (
 
   return resolvedText ? (
     <Body
-      variant="xs"
+      typographyRole="body-small"
       color={styles?.textColor}
       className={copyrightAlignment({
         desktopContentAlignment,

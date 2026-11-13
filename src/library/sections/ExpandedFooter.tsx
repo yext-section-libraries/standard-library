@@ -1,9 +1,8 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import { Slot, PuckComponent, setDeep } from "@puckeditor/core";
 import { cva } from "class-variance-authority";
 import {
-  backgroundColors,
-  ThemeColor,
   ThemeOptions,
   msg,
   themeManagerCn,
@@ -101,7 +100,7 @@ export interface ExpandedFooterData {
 export interface ExpandedFooterStyles {
   /** Styling for the primary footer bar. */
   primaryFooter: {
-    backgroundColor?: ThemeColor;
+    backgroundColor?: SurfaceValue;
     linksPosition: "left" | "right";
     desktopContentAlignment: "left" | "center" | "right";
     mobileContentAlignment: "left" | "center" | "right";
@@ -208,9 +207,9 @@ const expandedFooterSectionFields: YextFields<ExpandedFooterProps> = {
         objectFields: {
           backgroundColor: {
             generation: { required: false },
-            type: "basicSelector",
+            type: "surface",
             label: msg("fields.backgroundColor", "Background Color"),
-            options: "BACKGROUND_COLOR",
+            allowInherit: false,
           },
           linksPosition: {
             label: msg("fields.desktopLinkPosition", "Desktop Link Position"),
@@ -598,7 +597,7 @@ export const ExpandedFooter: YextComponentConfig<ExpandedFooterProps> = {
           type: "SecondaryFooterSlot",
           props: {
             styles: {
-              backgroundColor: backgroundColors.background2.value,
+              backgroundColor: "muted",
               desktopContentAlignment: "left",
               mobileContentAlignment: "left",
               showLinks: true,
@@ -632,7 +631,7 @@ export const ExpandedFooter: YextComponentConfig<ExpandedFooterProps> = {
     },
     styles: {
       primaryFooter: {
-        backgroundColor: backgroundColors.background6.value,
+        backgroundColor: "primary",
         linksPosition: "right",
         desktopContentAlignment: "left",
         mobileContentAlignment: "left",

@@ -172,7 +172,7 @@ describe("FAQ generation contracts", () => {
   });
 
   it("preserves generated manual question content, styling and order through the real resolver", async () => {
-    const first = defaultFAQCardData("first", 0, "lg");
+    const first = defaultFAQCardData("first", 0, "body-large");
     first.props.data.question.constantValue = {
       defaultValue: "Generated question",
     };
@@ -207,6 +207,8 @@ describe("FAQ generation contracts", () => {
     expect(
       resolvedCards[1].props.data.question.constantValue.defaultValue
     ).toBe("Generated question");
-    expect(resolvedCards[1].props.styles.questionVariant).toBe("lg");
+    expect(resolvedCards[1].props.styles.questionTypographyRole).toBe(
+      "body-large"
+    );
   });
 });

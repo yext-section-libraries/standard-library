@@ -1,11 +1,10 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import * as React from "react";
 import { PuckComponent, Slot, WithId, setDeep } from "@puckeditor/core";
 import {
-  ThemeColor,
   PersonStruct,
   msg,
   deepMerge,
-  backgroundColors,
   resolveComponentData,
   YextComponentConfig,
   YextFields,
@@ -51,7 +50,7 @@ const defaultPerson = {
 export const defaultTeamCardSlotData = (
   id?: string,
   index?: number,
-  backgroundColor?: ThemeColor,
+  backgroundColor?: SurfaceValue,
   sharedSlotStyles?: Record<string, any>
 ) => {
   const cardData = {
@@ -60,7 +59,7 @@ export const defaultTeamCardSlotData = (
       ...(id && { id }),
       ...(index !== undefined && { index }),
       styles: {
-        backgroundColor: backgroundColor ?? backgroundColors.background1.value,
+        backgroundColor: backgroundColor,
       } satisfies TeamCardProps["styles"],
       slots: {
         ImageSlot: [
@@ -115,8 +114,7 @@ export const defaultTeamCardSlotData = (
                 },
               },
               styles: {
-                variant: "base",
-                fontStyle: "regular",
+                typographyRole: "body",
               },
             } satisfies TextProps,
           },
@@ -181,7 +179,7 @@ export const defaultTeamCardSlotData = (
                 },
               },
               styles: {
-                variant: "primary",
+                variant: "primary-button",
                 presetImage: "app-store",
               },
               eventName: index !== undefined ? `card${index}-cta` : undefined,
@@ -213,7 +211,7 @@ export type TeamCardProps = {
   /** Styling for all the cards. */
   styles: {
     /** The background color of each team card */
-    backgroundColor?: ThemeColor;
+    backgroundColor?: SurfaceValue;
   };
 
   /** @internal */
@@ -256,9 +254,8 @@ const teamCardFields: YextFields<TeamCardProps> = {
     objectFields: {
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
       },
     },
   },
@@ -397,9 +394,7 @@ const TeamCardComponent: PuckComponent<TeamCardProps> = (props) => {
           ...otherProps,
           styles: {
             ...otherProps.styles,
-            backgroundColor:
-              sharedCardProps?.cardStyles.backgroundColor ||
-              backgroundColors.background1.value,
+            ...sharedCardProps?.cardStyles,
           },
           slots: newSlotData,
         } satisfies TeamCardProps,
@@ -430,7 +425,7 @@ const TeamCardComponent: PuckComponent<TeamCardProps> = (props) => {
   return (
     <div
       ref={puck.dragRef}
-      className="flex flex-col rounded-lg overflow-hidden border bg-white h-full"
+      className="flex flex-col ve-theme-card overflow-hidden h-full"
     >
       {showTopSection && (
         <Background
@@ -454,10 +449,7 @@ const TeamCardComponent: PuckComponent<TeamCardProps> = (props) => {
       )}
       {showTopSection && showBottomSection && <hr className="border" />}
       {showBottomSection && (
-        <Background
-          background={backgroundColors.background1.value}
-          className="flex flex-grow p-8"
-        >
+        <Background surface="page" className="flex flex-grow p-8">
           <div className="flex flex-col flex-grow gap-4">
             {showPhone && (
               <slots.PhoneSlot style={{ height: "auto" }} allow={[]} />
@@ -483,7 +475,7 @@ export const TeamCard: YextComponentConfig<TeamCardProps> = {
   inline: true,
   defaultProps: {
     styles: {
-      backgroundColor: backgroundColors.background1.value,
+      backgroundColor: "page",
     },
     slots: defaultTeamCardSlotData().props.slots,
   },

@@ -1,3 +1,4 @@
+import { migrationRegistry as sectionLibraryMigrationRegistry } from "../library/migrations/registry.ts";
 import * as React from "react";
 import { VisualEditorProvider } from "./TestVisualEditorProvider.tsx";
 import { describe, it, expect } from "vitest";
@@ -6,6 +7,7 @@ import { render as reactRender, waitFor } from "@testing-library/react";
 import {
   Render,
   Config,
+  resolveAllData,
   DefaultComponentProps,
   Data,
   DefaultRootProps,
@@ -296,41 +298,38 @@ describe("ThemeTest", async () => {
       ],
     },
     theme: {
-      "--fontFamily-link-fontFamily":
-        "'Courier Prime', 'Courier Prime Fallback', monospace",
-      "--fontSize-link-fontSize": "20px",
-      "--fontWeight-link-fontWeight": "400",
-      "--textTransform-link-textTransform": "none",
-      "--letterSpacing-link-letterSpacing": "0em",
-      "--display-link-caret": "none",
-      "--fontFamily-body-fontFamily":
+      linkFontFamily: "'Courier Prime', 'Courier Prime Fallback', monospace",
+      linkFontSize: 20,
+      linkMobileFontSize: 18,
+      linkDefaultFontWeight: "400",
+      bodyFontFamily: "'Are You Serious', 'Are You Serious Fallback', cursive",
+      bodyFontSize: 14,
+      bodyFontWeight: "400",
+      bodyTextTransform: "uppercase",
+      eyebrowFontFamily:
         "'Are You Serious', 'Are You Serious Fallback', cursive",
-      "--fontSize-body-fontSize": "14px",
-      "--fontWeight-body-fontWeight": "400",
-      "--textTransform-body-textTransform": "uppercase",
-      "--maxWidth-pageSection-contentWidth": "1024px",
-      "--padding-pageSection-verticalPadding": "48px",
-      "--fontFamily-button-fontFamily":
+      pageContentMaxWidth: 1024,
+      pageSectionVerticalSpacing: 48,
+      primaryButtonFontFamily:
         "'Are You Serious', 'Are You Serious Fallback', cursive",
-      "--fontSize-button-fontSize": "16px",
-      "--fontWeight-button-fontWeight": "700",
-      "--borderRadius-button-borderRadius": "9999px",
-      "--textTransform-button-textTransform": "lowercase",
-      "--letterSpacing-button-letterSpacing": "0.1em",
-      "--borderRadius-image-borderRadius": "24px",
-      "--colors-palette-primary": "#417505",
-      "--colors-palette-primary-contrast": "#FFFFFF",
-      "--colors-palette-secondary": "#dd86e9",
-      "--colors-palette-secondary-contrast": "#000000",
-      "--colors-palette-tertiary": "#000000",
-      "--colors-palette-tertiary-contrast": "#FFFFFF",
-      "--colors-palette-quaternary": "#ffffff",
-      "--colors-palette-quaternary-contrast": "#000000",
-      "--fontFamily-h1-fontFamily":
-        "'Roboto Serif', 'Roboto Serif Fallback', serif",
-      "--fontSize-h1-fontSize": "48px",
-      "--fontWeight-h1-fontWeight": "700",
-      "--textTransform-h1-textTransform": "none",
+      primaryButtonFontSize: 16,
+      primaryButtonDefaultFontWeight: "700",
+      primaryButtonBorderRadius: 9999,
+      primaryButtonTextTransform: "lowercase",
+      primaryButtonLetterSpacing: "0.1em",
+      imageBorderRadius: 24,
+      colorPrimary: "#417505",
+      colorPrimaryForeground: "#FFFFFF",
+      colorSecondary: "#DD86E9",
+      colorSecondaryForeground: "#000000",
+      colorAccent: "#000000",
+      colorAccentForeground: "#FFFFFF",
+      headlineFontFamily: "'Roboto Serif', 'Roboto Serif Fallback', serif",
+      headlineFontSize: 48,
+      headlineMobileFontSize: 32,
+      headlineFontWeight: "700",
+      primaryButtonDefaultBackgroundColor: "#417505",
+      primaryButtonDefaultTextColor: "#FFFFFF",
     },
   };
 
@@ -354,12 +353,16 @@ describe("ThemeTest", async () => {
         puckConfig,
         data,
         document,
-        migrationRegistry
+        migrationRegistry,
+        sectionLibraryMigrationRegistry
       );
 
+      const resolvedData = await resolveAllData(migratedData, puckConfig, {
+        streamDocument: document,
+      });
       const { container } = reactRender(
         <VisualEditorProvider templateProps={{ document }}>
-          <Render config={puckConfig} data={migratedData} />
+          <Render config={puckConfig} data={resolvedData} />
         </VisualEditorProvider>
       );
 

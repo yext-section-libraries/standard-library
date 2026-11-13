@@ -1,8 +1,6 @@
 @import "pure-react-carousel/dist/react-carousel.es.css";
 @import "@yext/pages-components/style.css";
 @import "./atoms/hours.css";
-@import "./atoms/maybeRTF.css";
-@import "./atoms/fontStyle.css";
 
 /* Keep locator announcements available to screen readers. */
 .ve-locator-filter-search .sr-only {

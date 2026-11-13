@@ -19,7 +19,6 @@ import {
   msg,
   pt,
   useDocument,
-  useBackground,
   ThemeColor,
   themeManagerCn,
   toPuckFields,
@@ -272,8 +271,6 @@ const FooterExpandedLinksWrapperInternal: PuckComponent<
   } = props;
   const streamDocument = useDocument();
   const { i18n } = useTranslation();
-  const background = useBackground();
-  const isDarkBackground = background?.isDarkColor ?? false;
 
   const resolvedSections = (data.sections || []).map((section) =>
     resolveLocalizedFooterLinkSection(section, i18n.language, streamDocument)
@@ -281,17 +278,8 @@ const FooterExpandedLinksWrapperInternal: PuckComponent<
   const sections = puck.isEditing
     ? resolvedSections
     : resolvedSections.filter((section) => section.links.length > 0);
-  const defaultLabelColor = isDarkBackground
-    ? ({ selectedColor: "white", contrastingColor: "black" } as ThemeColor)
-    : ({ selectedColor: "black", contrastingColor: "white" } as ThemeColor);
-  const defaultLinkColor = isDarkBackground
-    ? ({ selectedColor: "white", contrastingColor: "black" } as ThemeColor)
-    : ({
-        selectedColor: "palette-primary-dark",
-        contrastingColor: "white",
-      } as ThemeColor);
-  const resolvedLabelColor = styles?.color ?? defaultLabelColor;
-  const resolvedLinkColor = styles?.color ?? defaultLinkColor;
+  const resolvedLabelColor = styles?.color;
+  const resolvedLinkColor = styles?.color;
   const desktopSectionColumns = Math.max(1, Math.min(sections.length, 4));
 
   return (
@@ -324,7 +312,7 @@ const FooterExpandedLinksWrapperInternal: PuckComponent<
             >
               {section.label.trim() !== "" && (
                 <Body
-                  className="break-words font-link-fontWeight font-body-fontFamily font-body-fontWeight"
+                  className="break-words ve-theme-navigation-link ve-theme-body"
                   color={resolvedLabelColor}
                 >
                   {section.label}

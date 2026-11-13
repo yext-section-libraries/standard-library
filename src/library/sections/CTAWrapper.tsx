@@ -1,10 +1,6 @@
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { PuckComponent, setDeep } from "@puckeditor/core";
-import {
-  CTA,
-  CTAVariant,
-  isCtaVariantWithColor,
-} from "../shared/sectionSupport/atoms/cta.tsx";
+import { CTA, CTAVariant } from "../shared/sectionSupport/atoms/cta.tsx";
 import {
   EnhancedTranslatableCTA,
   PresetImageType,
@@ -15,7 +11,7 @@ import {
   resolveComponentData,
   resolveDataFromParent,
   ThemeColor,
-  ThemeOptions,
+  interactionRoleOptions,
   themeManagerCn,
   useDocument,
   type YextCTAField,
@@ -29,6 +25,10 @@ import {
   isNonNormalizableLinkType,
 } from "@yext/visual-editor/section-library-support";
 import { z } from "zod";
+
+const contentInteractionRoleOptions = interactionRoleOptions.filter(
+  ({ value }) => value !== "navigation-link"
+);
 
 export interface CTAWrapperProps {
   data: {
@@ -176,21 +176,6 @@ const ctaWrapperFields: YextFields<CTAWrapperProps> = {
     type: "object",
     label: msg("fields.styles", "Styles"),
     objectFields: {
-      variant: {
-        label: msg("fields.variant", "Variant"),
-        type: "radio",
-        options: ThemeOptions.CTA_VARIANT,
-      },
-      presetImage: {
-        generation: {
-          required: false,
-          instructions:
-            "Selects the preset artwork only. To display it, set data.actionType to link. For a manual CTA (data.entityField.constantValueEnabled true), set data.entityField.constantValue.ctaType to presetImage; for an entity-bound CTA, set data.entityField.selectedType to presetImage. Preserve the existing source and destination. Changing this field alone does not activate the icon.",
-        },
-        type: "basicSelector",
-        label: msg("fields.presetImage", "Preset Image"),
-        options: "PRESET_IMAGE",
-      },
       color: {
         generation: {
           instructions:
@@ -204,6 +189,21 @@ const ctaWrapperFields: YextFields<CTAWrapperProps> = {
         type: "basicSelector",
         label: msg("fields.textColor", "Text Color"),
         options: "SITE_COLOR",
+      },
+      variant: {
+        label: msg("fields.variant", "Variant"),
+        type: "radio",
+        options: contentInteractionRoleOptions,
+      },
+      presetImage: {
+        generation: {
+          required: false,
+          instructions:
+            "Selects the preset artwork only. To display it, set data.actionType to link. For a manual CTA (data.entityField.constantValueEnabled true), set data.entityField.constantValue.ctaType to presetImage; for an entity-bound CTA, set data.entityField.selectedType to presetImage. Preserve the existing source and destination. Changing this field alone does not activate the icon.",
+        },
+        type: "basicSelector",
+        label: msg("fields.presetImage", "Preset Image"),
+        options: "PRESET_IMAGE",
       },
     },
   },
@@ -315,6 +315,7 @@ const CTAWrapperComponent: PuckComponent<CTAWrapperProps> = (props) => {
   return showCTA ? (
     actionType === "link" ? (
       <EntityField
+        className="w-full sm:w-max max-w-full"
         displayName={pt("cta", "CTA")}
         fieldId={parentData ? parentData.field : data.entityField.field}
         constantValueEnabled={
@@ -357,13 +358,26 @@ export const CTAWrapper: YextComponentConfig<CTAWrapperProps> = {
       ariaLabel: { defaultValue: "Button" },
     },
     styles: {
-      variant: "primary",
+      variant: "primary-button",
       presetImage: "app-store",
     },
   },
-  resolveFields: (data) => {
+  resolveFields: (data, { parent }) => {
     let updatedFields = resolveDataFromParent(ctaWrapperFields, data);
-    const ctaVariant = data.props.styles.variant;
+    const isNavigation = [
+      "ExpandedHeader",
+      "PrimaryHeaderSlot",
+      "SecondaryHeaderSlot",
+      "ExpandedFooter",
+      "SecondaryFooterSlot",
+      "FooterExpandedLinksWrapper",
+      "FooterLinksSlot",
+    ].includes(parent?.type ?? "");
+    updatedFields = setDeep(
+      updatedFields,
+      "styles.objectFields.variant.options",
+      isNavigation ? interactionRoleOptions : contentInteractionRoleOptions
+    );
     const actionType = data.props.data.actionType ?? "link";
     const ctaType = getCTAType(data.props.data.entityField).ctaType;
     const constantLinkType = data.props.data.entityField.constantValueEnabled
@@ -412,19 +426,6 @@ export const CTAWrapper: YextComponentConfig<CTAWrapperProps> = {
         false
       );
     }
-
-    const showColor =
-      isCtaVariantWithColor(ctaVariant) && effectiveCtaType !== "presetImage";
-    updatedFields = setDeep(
-      updatedFields,
-      "styles.objectFields.color.visible",
-      showColor
-    );
-    updatedFields = setDeep(
-      updatedFields,
-      "styles.objectFields.textColor.visible",
-      ctaVariant === "primary" && effectiveCtaType !== "presetImage"
-    );
 
     if (data.props.parentData) {
       return updatedFields;

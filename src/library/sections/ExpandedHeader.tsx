@@ -1,3 +1,4 @@
+import { resolveCanonicalSelectorGroups } from "@yext/visual-editor/section-library-support";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import { PuckComponent, setDeep, Slot } from "@puckeditor/core";
 import {
@@ -11,7 +12,6 @@ import { cva } from "class-variance-authority";
 import { defaultPrimaryHeaderProps } from "../shared/sectionSupport/header/PrimaryHeaderSlot.tsx";
 import { defaultSecondaryHeaderProps } from "../shared/sectionSupport/header/SecondaryHeaderSlot.tsx";
 import { ExpandedHeaderMenuProvider } from "../shared/sectionSupport/header/ExpandedHeaderMenuContext.tsx";
-import { resolveCanonicalSelectorGroups } from "@yext/visual-editor/section-library-support";
 
 export const headerWrapper = cva("flex flex-col", {
   variants: {
@@ -28,7 +28,7 @@ export const headerWrapper = cva("flex flex-col", {
 
 export interface ExpandedHeaderStyles {
   /** The maximum width of the header */
-  maxWidth: PageSectionProps["maxWidth"];
+  maxWidth?: PageSectionProps["maxWidth"];
   /** Whether the header is fixed to the top of the page or not */
   headerPosition: "fixed" | "scrollsWithPage";
 }
@@ -209,24 +209,24 @@ export const ExpandedHeader: YextComponentConfig<ExpandedHeaderProps> = {
     if (
       data.props.slots.PrimaryHeaderSlot[0] &&
       data.props.slots.PrimaryHeaderSlot[0]?.props.parentValues?.maxWidth !==
-        data.props.styles.maxWidth
+        (data.props.styles.maxWidth ?? "theme")
     ) {
       data = setDeep(
         data,
         "props.slots.PrimaryHeaderSlot[0].props.parentValues.maxWidth",
-        data.props.styles.maxWidth
+        data.props.styles.maxWidth ?? "theme"
       );
     }
 
     if (
       data.props.slots.SecondaryHeaderSlot[0] &&
       data.props.slots.SecondaryHeaderSlot[0]?.props.parentStyles?.maxWidth !==
-        data.props.styles.maxWidth
+        (data.props.styles.maxWidth ?? "theme")
     ) {
       data = setDeep(
         data,
         "props.slots.SecondaryHeaderSlot[0].props.parentStyles.maxWidth",
-        data.props.styles.maxWidth
+        data.props.styles.maxWidth ?? "theme"
       );
     }
 

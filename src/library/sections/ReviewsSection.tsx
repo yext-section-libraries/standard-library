@@ -1,15 +1,14 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import { useTranslation } from "react-i18next";
 import { FaArrowLeft, FaArrowRight, FaChevronDown } from "react-icons/fa";
 import { PuckComponent, Slot } from "@puckeditor/core";
 import * as React from "react";
 import {
-  backgroundColors,
   type ThemeColor,
   ThemeOptions,
   getAnalyticsScopeHash,
   msg,
   pt,
-  useBackground,
   useDocument,
   StreamDocument,
   YextComponentConfig,
@@ -73,8 +72,7 @@ export interface ReviewsSectionProps {
      * The background color of the section.
      * @defaultValue Background Color 1
      */
-    backgroundColor?: ThemeColor;
-
+    backgroundColor?: SurfaceValue;
     /**
      * Accent color used for show more/show less and pagination controls.
      */
@@ -108,7 +106,7 @@ export interface ReviewsSectionProps {
 }
 
 /** @internal */
-const ReviewsEmptyState: React.FC<{ backgroundColor: ThemeColor }> = ({
+const ReviewsEmptyState: React.FC<{ backgroundColor?: SurfaceValue }> = ({
   backgroundColor,
 }) => {
   const templateMetadata = useTemplateMetadata();
@@ -119,7 +117,7 @@ const ReviewsEmptyState: React.FC<{ backgroundColor: ThemeColor }> = ({
       <div className="relative h-[300px] w-full bg-gray-100 rounded-lg border border-gray-200 flex flex-col items-center justify-center py-8 gap-2.5">
         <StarOff className="w-12 h-12 text-gray-400" />
         <div className="flex flex-col items-center gap-0">
-          <Body variant="base" className="text-gray-500 font-medium">
+          <Body typographyRole="body" className="text-gray-500 font-medium">
             {pt(
               "reviewsEmptyStateSectionHidden",
               "Section hidden for this {{entityType}}",
@@ -130,7 +128,7 @@ const ReviewsEmptyState: React.FC<{ backgroundColor: ThemeColor }> = ({
               }
             )}
           </Body>
-          <Body variant="base" className="text-gray-500 font-normal">
+          <Body typographyRole="body" className="text-gray-500 font-normal">
             {pt(
               "reviewsEmptyStateNoReviews",
               "{{entityType}} has no first party reviews",
@@ -155,9 +153,9 @@ const reviewsFields: YextFields<ReviewsSectionProps> = {
     objectFields: {
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
+        allowInherit: false,
       },
       accentColor: {
         type: "basicSelector",
@@ -223,13 +221,7 @@ const ReviewsSectionInternal: PuckComponent<ReviewsSectionProps> = (props) => {
 
   if (!reviews?.length) {
     if (puck?.isEditing) {
-      return (
-        <ReviewsEmptyState
-          backgroundColor={
-            styles?.backgroundColor ?? backgroundColors.background1.value
-          }
-        />
-      );
+      return <ReviewsEmptyState backgroundColor={styles?.backgroundColor} />;
     }
     return <></>;
   }
@@ -366,7 +358,7 @@ const AuthorWithDate: React.FC<AuthorWithDateProps> = ({ author, date }) => {
   const streamDocument = useDocument<StreamDocumentWithReviews>();
   return (
     <div className="flex flex-col gap-2">
-      <Body variant={"lg"} className="font-bold">
+      <Body typographyRole="body-large" className="font-bold">
         {author}
       </Body>
       <TimestampAtom
@@ -506,7 +498,6 @@ const PageScroller: React.FC<PageScrollerProps> = ({
   accentColor,
 }) => {
   const analytics = useAnalytics();
-  const background = useBackground();
   const numPages = Math.ceil(numberOfReviews / REVIEWS_PER_PAGE);
 
   if (numPages <= 1) {
@@ -514,7 +505,7 @@ const PageScroller: React.FC<PageScrollerProps> = ({
   }
 
   const accentColorValue = getThemeColorCssValue(accentColor?.selectedColor);
-  const selectableButtonClasses = `cursor-pointer ${accentColorValue ? "" : background?.isDarkColor ? "text-white" : "text-palette-primary-dark"}`;
+  const selectableButtonClasses = "cursor-pointer ve-theme-link";
   const disabledButtonClasses = "opacity-50 cursor-default";
   const selectableButtonStyle = accentColorValue
     ? { color: accentColorValue }
@@ -569,7 +560,7 @@ const ShowMoreButton: React.FC<{
     : undefined;
   return (
     <Button
-      className="font-body-fontFamily text-body-fontSize underline cursor-pointer inline-flex items-center gap-2"
+      className="ve-theme-body underline cursor-pointer inline-flex items-center gap-2"
       style={accentColorStyle}
       onClick={() => {
         expanded // the existing state before toggling
@@ -611,7 +602,7 @@ export const ReviewsSection: YextComponentConfig<ReviewsSectionProps> = {
   label: msg("components.reviews", "Reviews"),
   defaultProps: {
     styles: {
-      backgroundColor: backgroundColors.background1.value,
+      backgroundColor: "page",
       showSectionHeading: true,
     },
     slots: {

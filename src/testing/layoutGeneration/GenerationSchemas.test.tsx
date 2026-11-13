@@ -47,7 +47,7 @@ describe("generation schema constraints", () => {
     }
   );
 
-  it.each(["ExpandedHeader", "ExpandedFooter"])(
+  it.each(["ExpandedFooter"])(
     "accepts saved widths without a mounted theme for %s",
     (name) => {
       const schema = generationSchema(name);

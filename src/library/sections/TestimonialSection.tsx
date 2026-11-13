@@ -1,7 +1,6 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import { Slot } from "@puckeditor/core";
 import {
-  ThemeColor,
-  backgroundColors,
   ThemeOptions,
   msg,
   getAnalyticsScopeHash,
@@ -36,8 +35,7 @@ export interface TestimonialSectionProps {
      * The background color of the section.
      * @defaultValue Background Color 2
      */
-    backgroundColor?: ThemeColor;
-
+    backgroundColor?: SurfaceValue;
     /**
      * Whether to show the section heading.
      * @defaultValue true
@@ -73,9 +71,9 @@ const testimonialSectionFields: YextFields<TestimonialSectionProps> = {
     objectFields: {
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
+        allowInherit: false,
       },
       showSectionHeading: {
         label: msg("fields.showSectionHeading", "Show Section Heading"),
@@ -132,7 +130,7 @@ export const TestimonialSection: YextComponentConfig<TestimonialSectionProps> =
     fields: testimonialSectionFields,
     defaultProps: {
       styles: {
-        backgroundColor: backgroundColors.background2.value,
+        backgroundColor: "muted",
         showSectionHeading: true,
       },
       slots: {

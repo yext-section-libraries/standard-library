@@ -553,11 +553,11 @@ const AboutSectionDetailsColumnComponent: PuckComponent<
                   {...section.content[section.content.type]}
                   puck={puck}
                   id={`${id}-${section.content.type}-${i}`}
-                  // Override bodyVariant to "base" for HoursStatus
+                  // Use the body typography role for the hours status.
                   {...(section.content.type === "hoursStatus" && {
                     styles: {
                       ...section.content.hoursStatus?.styles,
-                      bodyVariant: "base",
+                      typographyRole: "body",
                     },
                   })}
                 />
@@ -569,7 +569,7 @@ const AboutSectionDetailsColumnComponent: PuckComponent<
                     displayName={pt("hoursText", "Hours Text")}
                     fieldId="additionalHoursText"
                   >
-                    <Body variant="sm" className="mt-4">
+                    <Body typographyRole="body-small" className="mt-4">
                       {streamDocument.additionalHoursText}
                     </Body>
                   </EntityField>

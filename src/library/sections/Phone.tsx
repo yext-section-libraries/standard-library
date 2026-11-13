@@ -10,7 +10,7 @@ import {
   TranslatableString,
   ThemeColor,
   ThemeOptions,
-  backgroundColors,
+  SurfaceValue,
   resolveDataFromParent,
   YextComponentConfig,
   YextFields,
@@ -36,6 +36,7 @@ export interface PhoneProps {
     includeIcon?: boolean;
     /** The color applied to both the phone icon background and the phone link. */
     color?: ThemeColor;
+    backgroundColor?: SurfaceValue;
     /** The color of the phone label. */
     labelColor?: ThemeColor;
     /** The color of the phone icon. */
@@ -70,6 +71,25 @@ export const PhoneDataFields: YextFields<PhoneProps["data"]> = {
 
 // Phone style definitions used in Phone and CoreInfoSection
 export const PhoneStyleFields: YextFields<PhoneProps["styles"]> = {
+  backgroundColor: { type: "surface" },
+  color: {
+    generation: {
+      instructions: "Controls the phone link color.",
+    },
+    type: "basicSelector",
+    label: msg("fields.linkColor", "Link Color"),
+    options: "SITE_COLOR",
+  },
+  labelColor: {
+    type: "basicSelector",
+    label: msg("fields.labelColor", "Label Color"),
+    options: "SITE_COLOR",
+  },
+  iconColor: {
+    type: "basicSelector",
+    label: msg("fields.iconColor", "Icon Color"),
+    options: "SITE_COLOR",
+  },
   phoneFormat: {
     label: msg("fields.phoneFormat", "Phone Format"),
     type: "radio",
@@ -91,24 +111,6 @@ export const PhoneStyleFields: YextFields<PhoneProps["styles"]> = {
     label: msg("fields.showIcon", "Show Icon"),
     type: "radio",
     options: ThemeOptions.SHOW_HIDE,
-  },
-  color: {
-    generation: {
-      instructions: "Controls phone link and icon background colors.",
-    },
-    type: "basicSelector",
-    label: msg("fields.color", "Color"),
-    options: "SITE_COLOR",
-  },
-  labelColor: {
-    type: "basicSelector",
-    label: msg("fields.labelColor", "Label Color"),
-    options: "SITE_COLOR",
-  },
-  iconColor: {
-    type: "basicSelector",
-    label: msg("fields.iconColor", "Icon Color"),
-    options: "SITE_COLOR",
   },
 };
 
@@ -153,16 +155,16 @@ const PhoneComponent = ({ data, styles, parentData }: PhoneProps) => {
       constantValueEnabled={!parentData && data.number.constantValueEnabled}
     >
       <PhoneAtom
-        backgroundColor={styles.color ?? backgroundColors.background2.value}
+        backgroundColor={styles.backgroundColor ?? styles.color}
+        linkColor={styles.color}
+        labelColor={styles.labelColor}
+        iconColor={styles.iconColor}
         eventName={`phone`}
         format={styles.phoneFormat}
         label={resolveComponentData(data.label, i18n.language, streamDocument)}
         phoneNumber={resolvedPhone}
         includeHyperlink={styles.includePhoneHyperlink}
         includeIcon={styles.includeIcon ?? true}
-        linkColor={styles.color}
-        labelColor={styles.labelColor}
-        iconColor={styles.iconColor}
       />
     </EntityField>
   );
@@ -175,6 +177,7 @@ export const Phone: YextComponentConfig<PhoneProps> = {
   defaultProps: {
     data: defaultPhoneDataProps,
     styles: {
+      backgroundColor: "muted",
       phoneFormat: "domestic",
       includePhoneHyperlink: true,
       includeIcon: true,

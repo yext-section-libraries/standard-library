@@ -2,7 +2,6 @@ import * as React from "react";
 import { PuckComponent, Slot } from "@puckeditor/core";
 import { cva } from "class-variance-authority";
 import {
-  backgroundColors,
   ThemeOptions,
   getAnalyticsScopeHash,
   msg,
@@ -147,11 +146,13 @@ const gridSectionFields: YextFields<GridProps> = {
     },
     visible: false,
   },
+
   backgroundColor: {
     generation: { required: false },
-    type: "basicSelector",
+    type: "surface",
     label: msg("fields.backgroundColor", "Background Color"),
-    options: "BACKGROUND_COLOR",
+
+    allowInherit: false,
   },
   alignColumn1: alignmentField(
     msg("fields.alignContentColumn1", "Align Content Column 1")
@@ -202,7 +203,7 @@ export const Grid: YextComponentConfig<GridProps> = {
   defaultProps: {
     columns: 2,
     slots: [{ Column: [] }, { Column: [] }],
-    backgroundColor: backgroundColors.background1.value,
+    backgroundColor: "page",
     liveVisibility: true,
     analytics: {
       scope: "gridSection",

@@ -1,10 +1,6 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import { PuckComponent, Slot, SlotComponent } from "@puckeditor/core";
-import {
-  backgroundColors,
-  SectionConfig,
-  ThemeColor,
-  ThemeOptions,
-} from "@yext/visual-editor";
+import { SectionConfig, ThemeOptions } from "@yext/visual-editor";
 import { PageSection } from "../shared/sectionSupport/atoms/pageSection.tsx";
 import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
 import {
@@ -33,8 +29,7 @@ export interface FAQStyles {
    * The background color of the section.
    * @defaultValue Background Color 3
    */
-  backgroundColor?: ThemeColor;
-
+  backgroundColor?: SurfaceValue;
   /**
    * Whether to show the section heading.
    * @defaultValue true
@@ -107,9 +102,9 @@ const FAQsSectionFields: YextFields<FAQSectionProps> = {
     objectFields: {
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
+        allowInherit: false,
       },
       showSectionHeading: {
         label: msg("fields.showSectionHeading", "Show Section Heading"),
@@ -221,7 +216,7 @@ export const FAQSection: YextComponentConfig<FAQSectionProps> = {
       CardSlot: faqCardsSource.defaultWrapperProps.slots.CardSlot,
     },
     styles: {
-      backgroundColor: backgroundColors.background2.value,
+      backgroundColor: "muted",
       showSectionHeading: true,
     },
     liveVisibility: true,

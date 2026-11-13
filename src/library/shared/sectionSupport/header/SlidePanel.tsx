@@ -66,7 +66,7 @@ export const SlidePanel = ({
         aria-hidden={!isOpen}
         {...(!isOpen && { inert: "" })}
         tabIndex={-1}
-        className={`fixed right-0 z-50 bg-white transition-transform duration-600 ease-in-out ${
+        className={`fixed right-0 z-50 ve-theme-page transition-transform duration-600 ease-in-out ${
           isOpen ? "translate-x-0 overflow-y-auto" : "translate-x-full"
         }`}
         style={{ top, height, width: "80vw", maxWidth: "80vw" }}

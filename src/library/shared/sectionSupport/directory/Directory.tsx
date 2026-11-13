@@ -1,5 +1,5 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import {
-  backgroundColors,
   ThemeColor,
   msg,
   useTemplateProps,
@@ -21,13 +21,12 @@ export interface DirectoryStyles {
    * The background color for the directory page heading area.
    * @defaultValue Background Color 1
    */
-  backgroundColor: ThemeColor;
-
+  backgroundColor?: SurfaceValue;
   /**
    * The background color for the directory list area.
    * @defaultValue Background Color 1
    */
-  listBackgroundColor: ThemeColor;
+  listBackgroundColor?: SurfaceValue;
 
   /**
    * The color of links in the directory list layout.
@@ -69,17 +68,18 @@ const directoryFields: YextFields<DirectoryProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       backgroundColor: {
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.headingBackgroundColor", "Heading Background Color"),
-        options: "BACKGROUND_COLOR",
+        allowInherit: false,
       },
+
       listBackgroundColor: {
-        type: "basicSelector",
+        type: "surface",
         label: msg(
           "fields.directoryListBackgroundColor",
           "Directory List Background Color"
         ),
-        options: "BACKGROUND_COLOR",
+        allowInherit: false,
       },
       linkColor: {
         type: "basicSelector",
@@ -166,7 +166,10 @@ const DirectoryComponent: PuckComponent<DirectoryProps> = ({
   return (
     <Background background={styles.backgroundColor}>
       <slots.BreadcrumbsSlot style={{ height: "auto" }} allow={[]} />
-      <PageSection className="flex flex-col items-center gap-2">
+      <PageSection
+        surface="inherit"
+        className="flex flex-col items-center gap-2"
+      >
         <slots.SiteNameSlot
           style={{ height: "auto", width: "100%" }}
           allow={[]}
@@ -202,6 +205,26 @@ const DirectoryComponent: PuckComponent<DirectoryProps> = ({
 export const Directory: YextComponentConfig<DirectoryProps> = {
   label: msg("components.directory", "Directory"),
   fields: directoryFields,
+  resolveData: (data) => {
+    for (const [slot, tag, role] of [
+      ["TitleSlot", 1, "headline"],
+      ["SiteNameSlot", "p", "eyebrow"],
+    ] as const) {
+      if (data.props.slots[slot]?.[0]) {
+        data = setDeep(
+          data,
+          `props.slots.${slot}[0].props.styles.semanticLevelOverride`,
+          tag
+        );
+        data = setDeep(
+          data,
+          `props.slots.${slot}[0].props.parentStyles.typographyRole`,
+          role
+        );
+      }
+    }
+    return data;
+  },
   resolveFields: (data, params) => {
     if (
       params.metadata?.streamDocument?.dm_directoryChildren &&
@@ -229,8 +252,8 @@ export const Directory: YextComponentConfig<DirectoryProps> = {
   },
   defaultProps: {
     styles: {
-      backgroundColor: backgroundColors.background1.value,
-      listBackgroundColor: backgroundColors.background1.value,
+      backgroundColor: "page",
+      listBackgroundColor: "page",
       textTransform: "default",
     },
     slots: {
@@ -245,7 +268,7 @@ export const Directory: YextComponentConfig<DirectoryProps> = {
                 field: "name",
               },
             },
-            styles: { level: 2, align: "center" },
+            styles: { level: 1, align: "center" },
           } satisfies HeadingTextProps,
         },
       ],
@@ -260,7 +283,8 @@ export const Directory: YextComponentConfig<DirectoryProps> = {
                 field: "name",
               },
             },
-            styles: { level: 4, align: "center" },
+            styles: { level: 2, semanticLevelOverride: "p", align: "center" },
+            parentStyles: { typographyRole: "eyebrow" },
           } satisfies HeadingTextProps,
         },
       ],
@@ -277,7 +301,7 @@ export const Directory: YextComponentConfig<DirectoryProps> = {
               },
             },
             styles: {
-              backgroundColor: backgroundColors.background1.value,
+              backgroundColor: "page",
               showCurrentPage: true,
             },
             analytics: {
@@ -304,7 +328,7 @@ export const Directory: YextComponentConfig<DirectoryProps> = {
               },
             },
             styles: {
-              backgroundColor: backgroundColors.background1.value,
+              backgroundColor: "page",
             },
             slots: {
               CardSlot: [],

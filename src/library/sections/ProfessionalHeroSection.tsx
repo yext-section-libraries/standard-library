@@ -1,6 +1,6 @@
-import { Slot, PuckComponent } from "@puckeditor/core";
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
+import { setDeep, Slot, PuckComponent } from "@puckeditor/core";
 import {
-  backgroundColors,
   ThemeColor,
   ThemeOptions,
   msg,
@@ -36,8 +36,7 @@ export interface ProfessionalHeroStyles {
    * The background color for the section.
    * @defaultValue Background Color 1
    */
-  backgroundColor?: ThemeColor;
-
+  backgroundColor?: SurfaceValue;
   /**
    * If 'true', displays the entity's average review rating.
    * @defaultValue true
@@ -316,9 +315,9 @@ const professionalHeroSectionFields: YextFields<ProfessionalHeroSectionProps> =
       objectFields: {
         backgroundColor: {
           generation: { required: false },
-          type: "basicSelector",
+          type: "surface",
           label: msg("fields.backgroundColor", "Background Color"),
-          options: "BACKGROUND_COLOR",
+          allowInherit: false,
         },
         showImage: {
           label: msg("fields.showImage", "Show Image"),
@@ -551,7 +550,7 @@ export const ProfessionalHeroSection: YextComponentConfig<ProfessionalHeroSectio
     fields: professionalHeroSectionFields,
     defaultProps: {
       styles: {
-        backgroundColor: backgroundColors.background1.value,
+        backgroundColor: "page",
         showImage: true,
         desktopImagePosition: "left",
         mobileImagePosition: "top",
@@ -605,9 +604,8 @@ export const ProfessionalHeroSection: YextComponentConfig<ProfessionalHeroSectio
                   constantValueEnabled: true,
                 },
               },
-              styles: {
-                variant: "lg",
-              },
+              styles: {},
+              parentStyles: { className: "", typographyRole: "eyebrow" },
             } satisfies BodyTextProps,
           },
         ],
@@ -675,7 +673,7 @@ export const ProfessionalHeroSection: YextComponentConfig<ProfessionalHeroSectio
                 },
               },
               styles: {
-                variant: "base",
+                typographyRole: "body",
               },
             } satisfies BodyTextProps,
           },
@@ -722,7 +720,7 @@ export const ProfessionalHeroSection: YextComponentConfig<ProfessionalHeroSectio
               },
               eventName: "primaryCta",
               styles: {
-                variant: "primary",
+                variant: "primary-button",
               },
             } satisfies CTAWrapperProps,
           },
@@ -747,7 +745,7 @@ export const ProfessionalHeroSection: YextComponentConfig<ProfessionalHeroSectio
               },
               eventName: "secondaryCta",
               styles: {
-                variant: "secondary",
+                variant: "secondary-button",
               },
             } satisfies CTAWrapperProps,
           },
@@ -797,6 +795,27 @@ export const ProfessionalHeroSection: YextComponentConfig<ProfessionalHeroSectio
       liveVisibility: true,
     },
     resolveData: (data, params) => {
+      for (const [slot, tag, role] of [
+        ["BusinessNameSlot", "p", "eyebrow"],
+        ["ProfessionalNameSlot", 1, "headline"],
+        ["CredentialsSlot", "p", "eyebrow"],
+        ["ProfessionalTitleSlot", "p", "eyebrow"],
+      ] as const) {
+        const child = data.props.slots[slot]?.[0];
+        if (child) {
+          if (child.type === "HeadingTextSlot")
+            data = setDeep(
+              data,
+              `props.slots.${slot}[0].props.styles.semanticLevelOverride`,
+              tag
+            );
+          data = setDeep(
+            data,
+            `props.slots.${slot}[0].props.parentStyles.typographyRole`,
+            role
+          );
+        }
+      }
       const streamDocument = params.metadata?.streamDocument;
       const locale = streamDocument?.locale;
       if (!locale || !streamDocument) {

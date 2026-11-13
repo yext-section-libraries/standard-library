@@ -1,6 +1,5 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import {
-  ThemeColor,
-  backgroundColors,
   ThemeOptions,
   msg,
   getAnalyticsScopeHash,
@@ -18,7 +17,6 @@ import {
   productCardsSource,
 } from "../shared/sectionSupport/pageSections/ProductSection/ProductCardsWrapper.tsx";
 import { ComponentErrorBoundary } from "@yext/visual-editor/section-library-support";
-import { forwardCardHeadingLevel } from "../shared/sectionSupport/pageSections/cardHeadingLevel.ts";
 import {
   getMappedCardsSectionConditionalRender,
   MappedCardsSectionConditionalRender,
@@ -39,8 +37,8 @@ export interface ProductSectionProps {
      * The background color for the entire section.
      * @defaultValue Background Color 2
      */
-    backgroundColor?: ThemeColor;
-
+    /** Theme variant or custom background color. */
+    backgroundColor?: SurfaceValue;
     /**
      * The variant of the product cards.
      * @defaultValue Immersive
@@ -81,9 +79,9 @@ const productSectionFields: YextFields<ProductSectionProps> = {
     objectFields: {
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
+        allowInherit: false,
       },
       cardVariant: {
         generation: { required: false },
@@ -152,7 +150,7 @@ export const ProductSection: YextComponentConfig<ProductSectionProps> = {
   fields: productSectionFields,
   defaultProps: {
     styles: {
-      backgroundColor: backgroundColors.background2.value,
+      backgroundColor: "muted",
       cardVariant: "immersive",
       showSectionHeading: true,
     },
@@ -209,7 +207,29 @@ export const ProductSection: YextComponentConfig<ProductSectionProps> = {
     liveVisibility: true,
   },
   resolveData: (data, params) => {
-    let updatedData = forwardCardHeadingLevel(data);
+    let updatedData = data;
+    if (updatedData.props.slots.SectionHeadingSlot?.[0]) {
+      updatedData = setDeep(
+        updatedData,
+        "props.slots.SectionHeadingSlot[0].props.styles.level",
+        2
+      );
+      updatedData = setDeep(
+        updatedData,
+        "props.slots.SectionHeadingSlot[0].props.styles.semanticLevelOverride",
+        2
+      );
+      updatedData = setDeep(
+        updatedData,
+        "props.slots.SectionHeadingSlot[0].props.parentStyles.typographyRole",
+        "section-title"
+      );
+    }
+    updatedData = setDeep(
+      updatedData,
+      "props.slots.CardsWrapperSlot[0].props.cardHeadingLevel",
+      data.props.styles.showSectionHeading ? 3 : 2
+    );
 
     if (
       data.props.slots.CardsWrapperSlot?.[0]?.props.styles?.variant !==
@@ -255,7 +275,7 @@ export const ProductSection: YextComponentConfig<ProductSectionProps> = {
           >
             {(setCardsWrapperRef) => (
               <MappedCardsSectionContent
-                backgroundColor={props.styles?.backgroundColor}
+                backgroundColor={props.styles.backgroundColor}
                 showSectionHeading={props.styles.showSectionHeading}
                 SectionHeadingSlot={props.slots.SectionHeadingSlot}
                 CardsWrapperSlot={props.slots.CardsWrapperSlot}

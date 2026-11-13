@@ -5,7 +5,6 @@ import {
 import {
   EntityField,
   themeManagerCn,
-  useBackground,
   useDocument,
   msg,
   pt,
@@ -162,8 +161,6 @@ const DynamicChildColors = ({
   category,
   accentColor,
 }: DynamicChildColorsProps) => {
-  const background = useBackground();
-  const hasDarkBackground = background?.isDarkColor;
   const accentColorValue = getThemeColorCssValue(accentColor?.selectedColor);
 
   const dynamicClasses = accentColorValue
@@ -171,12 +168,8 @@ const DynamicChildColors = ({
       ? "enabled:bg-[var(--accent-color)] disabled:bg-gray-400"
       : "enabled:text-[var(--accent-color)] disabled:text-gray-400"
     : category === "slide"
-      ? hasDarkBackground
-        ? "bg-white disabled:bg-gray-400"
-        : "bg-palette-primary-dark disabled:bg-gray-400"
-      : hasDarkBackground
-        ? "text-white disabled:text-gray-400"
-        : "text-palette-primary-dark disabled:text-gray-400";
+      ? "ve-theme-secondary-button"
+      : "ve-theme-link";
 
   const dynamicStyle = accentColorValue
     ? ({
@@ -206,7 +199,7 @@ const EmptyImage = ({ imageData }: { imageData: ResolvedGalleryImage }) => {
   return (
     <div
       className={themeManagerCn(
-        "w-full md:w-auto rounded-image-borderRadius border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50 hover:bg-gray-100 transition-colors overflow-hidden relative"
+        "w-full md:w-auto ve-theme-image border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50 hover:bg-gray-100 transition-colors overflow-hidden relative"
       )}
       style={{
         aspectRatio: imageData.aspectRatio,
@@ -254,7 +247,7 @@ const DesktopImageItem = ({
       aspectRatio={imageData.aspectRatio}
       width={imageData.width}
       className={themeManagerCn(
-        "rounded-image-borderRadius max-w-full",
+        "ve-theme-image max-w-full",
         constrainToParent && "w-full h-auto object-contain"
       )}
       sizes={sizes}

@@ -1,7 +1,7 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import React from "react";
 import { FieldLabel, PuckComponent, Slot } from "@puckeditor/core";
 import {
-  backgroundColors,
   entityFieldZodSchema,
   translatableStringZodSchema,
   ThemeColor,
@@ -13,7 +13,7 @@ import {
   sortAlphabetically,
   StreamDocument,
   resolveDirectoryListChildren,
-  getThemeValue,
+  useThemeValue,
   useDocument,
   useTemplateMetadata,
   Tooltip,
@@ -49,7 +49,7 @@ import { z } from "zod";
 export type DirectoryGridProps = {
   data: typeof directoryCardsSource.value;
   styles: {
-    backgroundColor?: ThemeColor;
+    backgroundColor?: SurfaceValue;
   };
   /** @internal */
   manualSlots?: {
@@ -261,7 +261,7 @@ export const DirectoryList = ({
     dm_addressRegionDisplayName?: string;
   }[];
   relativePrefixToRoot: string;
-  backgroundColor: ThemeColor;
+  backgroundColor?: SurfaceValue;
   linkColor?: ThemeColor;
   textTransform?: DirectoryStyles["textTransform"];
 }) => {
@@ -269,8 +269,25 @@ export const DirectoryList = ({
     [...directoryChildren],
     "name"
   );
+  const semanticTextTransform = useThemeValue(
+    "--ve-link-text-transform",
+    streamDocument
+  );
+  // Preserve explicitly saved casing from the old theme editor. A new semantic
+  // setting supersedes the old theme key when both are present.
+  let legacyTextTransform: string | undefined;
+  try {
+    const savedTheme = JSON.parse(streamDocument.__?.theme ?? "{}");
+    if (savedTheme.linkTextTransform === undefined) {
+      legacyTextTransform = savedTheme["--textTransform-link-textTransform"];
+    }
+  } catch {
+    // Malformed legacy theme data follows the active semantic theme.
+  }
   const linkTextTransformValue = (
-    getThemeValue("--textTransform-link-textTransform", streamDocument) ?? ""
+    legacyTextTransform ??
+    semanticTextTransform ??
+    ""
   ).toLowerCase();
   const resolvedTextTransform =
     textTransform === "default"
@@ -278,7 +295,7 @@ export const DirectoryList = ({
         linkTextTransformValue === "none" ||
         linkTextTransformValue === "normal"
         ? "capitalize"
-        : "var(--textTransform-link-textTransform)"
+        : linkTextTransformValue
       : textTransform;
 
   return (
@@ -347,9 +364,9 @@ const directoryGridFields: YextFields<DirectoryGridProps> = {
     objectFields: {
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
+        allowInherit: false,
       },
     },
   },
@@ -411,7 +428,7 @@ export const DirectoryGrid: YextComponentConfig<DirectoryGridProps> = {
     ...directoryCardsSource.defaultWrapperProps,
     data: getNormalizedDirectoryGridData(directoryCardsSource.defaultValue),
     styles: {
-      backgroundColor: backgroundColors.background1.value,
+      backgroundColor: "page",
     },
   },
   resolveData: (data, params) => {

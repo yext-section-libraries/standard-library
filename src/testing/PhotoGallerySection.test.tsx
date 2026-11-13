@@ -1,3 +1,4 @@
+import { migrationRegistry as sectionLibraryMigrationRegistry } from "../library/migrations/registry.ts";
 import React from "react";
 import { VisualEditorProvider } from "./TestVisualEditorProvider.tsx";
 import { describe, it, expect } from "vitest";
@@ -924,7 +925,8 @@ describe("PhotoGallerySection", async () => {
           ],
         },
         document,
-        migrationRegistry
+        migrationRegistry,
+        sectionLibraryMigrationRegistry
       );
 
       const { container } = reactRender(
@@ -1291,14 +1293,16 @@ describe("PhotoGallerySection", async () => {
           ],
         },
         streamDocument,
-        migrationRegistry
+        migrationRegistry,
+        sectionLibraryMigrationRegistry
       );
       const savedData = JSON.parse(JSON.stringify(migratedData));
       const reloadedData = migrate(
         puckConfig,
         savedData,
         streamDocument,
-        migrationRegistry
+        migrationRegistry,
+        sectionLibraryMigrationRegistry
       );
       expect(reloadedData).toEqual(savedData);
       expect(reloadedData.root.props).toMatchObject({

@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { makeLayout, authored, resolve } from "./generationTestUtils.ts";
 
 describe("header ownership and active context", () => {
-  it("inherits width and menu copy and retains primary/secondary contextual defaults", async () => {
+  it("preserves width overrides and inherits menu copy and retains primary/secondary contextual defaults", async () => {
     const layout = makeLayout("ExpandedHeader");
     layout.content[0].props.styles.maxWidth = "1280px";
     const resolved = await resolve(layout, { locale: "en" });
@@ -43,8 +43,8 @@ describe("header ownership and active context", () => {
     expect(secondary.slots.LinksSlot[0].props.parentData.type).toBe(
       "Secondary"
     );
-    expect(primary.slots.LinksSlot[0].props.styles.variant).toBe("sm");
-    expect(secondary.slots.LinksSlot[0].props.styles.variant).toBe("xs");
+    expect(primary.styles.surface).toBe("page");
+    expect(secondary.styles.surface).toBe("muted");
     expect(authored(resolved)).toEqual(authored(layout));
   });
 });
