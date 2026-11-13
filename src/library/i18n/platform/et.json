@@ -89,7 +89,6 @@
   "coreInfo": "Põhiteave",
   "cta": "CTA",
   "currentLocation": "Praegune asukoht",
-  "custom": "Kohandatud",
   "customSearchArea": "Kohandatud otsinguala",
   "dataAttribute": "Atribuut",
   "distance": "Kaugus",
@@ -219,7 +218,6 @@
     "options": {
       "address": "Aadress",
       "aspectRatio": "Kuvasuhe",
-      "automatic": "Automaatne",
       "bold": "Paks",
       "bothDistances": "Mõlemad vahemaad",
       "button": "Nupp",

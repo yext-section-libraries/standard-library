@@ -89,7 +89,6 @@
   "coreInfo": "Core Info",
   "cta": "CTA",
   "currentLocation": "Huidige locatie",
-  "custom": "Aangepast",
   "customSearchArea": "Aangepast zoekgebied",
   "dataAttribute": "Attribuut",
   "distance": "Afstand",
@@ -219,7 +218,6 @@
     "options": {
       "address": "Adres",
       "aspectRatio": "Beeldverhouding",
-      "automatic": "Automatisch",
       "bold": "Vetgedrukt",
       "bothDistances": "Beide afstanden",
       "button": "Knop",

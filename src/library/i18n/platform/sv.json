@@ -89,7 +89,6 @@
   "coreInfo": "Kärninfo",
   "cta": "Cta",
   "currentLocation": "Nuvarande plats",
-  "custom": "Anpassad",
   "customSearchArea": "Anpassad sökområde",
   "dataAttribute": "Attribut",
   "distance": "Avstånd",
@@ -219,7 +218,6 @@
     "options": {
       "address": "Adress",
       "aspectRatio": "Bildförhållande",
-      "automatic": "Automatisk",
       "bold": "Djärv",
       "bothDistances": "Båda avstånden",
       "button": "Knapp",

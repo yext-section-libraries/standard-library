@@ -89,7 +89,6 @@
   "coreInfo": "Informacje podstawowe",
   "cta": "CTA",
   "currentLocation": "Bieżąca lokalizacja",
-  "custom": "Niestandardowy",
   "customSearchArea": "Niestandardowy obszar wyszukiwania",
   "dataAttribute": "Atrybut",
   "distance": "Dystans",
@@ -219,7 +218,6 @@
     "options": {
       "address": "Adres",
       "aspectRatio": "Współczynnik kształtu",
-      "automatic": "Automatyczny",
       "bold": "Pogrubiony",
       "bothDistances": "Obydwa dystanse",
       "button": "Przycisk",

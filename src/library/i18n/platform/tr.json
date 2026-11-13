@@ -89,7 +89,6 @@
   "coreInfo": "Çekirdek Bilgi",
   "cta": "CTA",
   "currentLocation": "Mevcut konum",
-  "custom": "Özel",
   "customSearchArea": "Özel arama alanı",
   "dataAttribute": "Veri Niteliği",
   "distance": "Mesafe",
@@ -219,7 +218,6 @@
     "options": {
       "address": "Adres",
       "aspectRatio": "En boy oranı",
-      "automatic": "Otomatik",
       "bold": "Gözü pek",
       "bothDistances": "Her İki Mesafe",
       "button": "Düğme",

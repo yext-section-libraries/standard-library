@@ -89,7 +89,6 @@
   "coreInfo": "Informații de bază",
   "cta": "CTA",
   "currentLocation": "Locația curentă",
-  "custom": "Personalizat",
   "customSearchArea": "Zona de căutare personalizată",
   "dataAttribute": "Atribut de date",
   "distance": "Distanţă",
@@ -219,7 +218,6 @@
     "options": {
       "address": "Adresa",
       "aspectRatio": "Raport de aspect",
-      "automatic": "Automat",
       "bold": "Îndrăzneţ",
       "bothDistances": "Ambele distante",
       "button": "Buton",

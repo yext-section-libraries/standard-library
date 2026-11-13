@@ -89,7 +89,6 @@
   "coreInfo": "Pagrindinė informacija",
   "cta": "CTA",
   "currentLocation": "Dabartinė vieta",
-  "custom": "Pasirinktinis",
   "customSearchArea": "Pasirinktinė paieškos sritis",
   "dataAttribute": "Atributas",
   "distance": "Atstumas",
@@ -219,7 +218,6 @@
     "options": {
       "address": "Adresas",
       "aspectRatio": "Kraštinių santykis",
-      "automatic": "Automatinis",
       "bold": "Paryškintas",
       "bothDistances": "Abu atstumai",
       "button": "Mygtukas",

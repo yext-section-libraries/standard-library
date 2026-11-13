@@ -89,7 +89,6 @@
   "coreInfo": "Ydintiedot",
   "cta": "CTA",
   "currentLocation": "Nykyinen sijainti",
-  "custom": "Mukautettu",
   "customSearchArea": "Mukautettu hakualue",
   "dataAttribute": "Attribuutti",
   "distance": "Etäisyys",
@@ -219,7 +218,6 @@
     "options": {
       "address": "Osoite",
       "aspectRatio": "Kuvasuhde",
-      "automatic": "Automaattinen",
       "bold": "Lihavoitu",
       "bothDistances": "Molemmat etäisyydet",
       "button": "Painike",

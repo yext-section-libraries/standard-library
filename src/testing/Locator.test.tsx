@@ -1582,6 +1582,97 @@ describe("Locator", async () => {
       }
     });
 
+    it.each<{
+      radius?: LocatorProps["defaultSearchRadius"];
+      locale: string;
+      accuracy: number;
+      expectedRadius: number;
+    }>([
+      {
+        radius: { value: 50, unit: "kilometer" },
+        locale: "en",
+        accuracy: 10,
+        expectedRadius: 50000,
+      },
+      {
+        radius: { value: 50, unit: "kilometer" },
+        locale: "en",
+        accuracy: 100000,
+        expectedRadius: 100000,
+      },
+      {
+        radius: { value: 50, unit: "mile" },
+        locale: "en",
+        accuracy: 100000,
+        expectedRadius: 100000,
+      },
+      { locale: "en", accuracy: 100000, expectedRadius: 100000 },
+      { locale: "fr", accuracy: 10, expectedRadius: 25000 },
+      { locale: "fr", accuracy: 100000, expectedRadius: 100000 },
+    ])(
+      "respects initial geolocation accuracy $accuracy with radius $radius in $locale and restores it after clearing filters",
+      async ({ radius, locale, accuracy, expectedRadius }) => {
+        const originalUrl = window.location.href;
+        const startingUrl = new URL(originalUrl);
+        startingUrl.search = "";
+        window.history.replaceState(window.history.state, "", startingUrl);
+        const document = { ...tests[1].document, locale };
+        const fetchMock = createLocatorFetchMock(document);
+        vi.stubGlobal("fetch", fetchMock);
+        vi.mocked(getUserLocation).mockResolvedValue({
+          coords: { latitude: 38.895546, longitude: -77.069915, accuracy },
+        } as GeolocationPosition);
+        const expectRadius = async (expected: number) =>
+          waitFor(() =>
+            expect(
+              getLastLocationFilter(fetchMock)?.["builtin.location"]?.$near
+                .radius
+            ).toBeCloseTo(expected)
+          );
+        try {
+          await renderLocator(
+            {
+              defaultSearchRadius: radius,
+              filters: { openNowButton: false, showDistanceOptions: true },
+            },
+            document
+          );
+          await expectRadius(expectedRadius);
+          await act(async () =>
+            screen
+              .getByRole("button", {
+                name: locale === "en" ? "Filter" : "Filtre",
+              })
+              .click()
+          );
+          await act(async () =>
+            screen
+              .getByRole("button", {
+                name:
+                  locale === "en"
+                    ? "Select distance less than 5 miles"
+                    : "Sélectionnez une distance inférieure à 5 kilomètres",
+              })
+              .click()
+          );
+          await expectRadius(locale === "en" ? 8046.72 : 5000);
+          await act(async () =>
+            screen
+              .getByRole("button", {
+                name: locale === "en" ? "Clear All" : "Tout effacer",
+              })
+              .click()
+          );
+          await expectRadius(expectedRadius);
+        } finally {
+          vi.mocked(getUserLocation).mockRejectedValue(
+            new Error("Locator screenshot tests use fixture search data.")
+          );
+          window.history.replaceState(window.history.state, "", originalUrl);
+        }
+      }
+    );
+
     it.each([
       { name: "region", filter: { "builtin.region": { $eq: "VA" } } },
       { name: "country", filter: { "address.countryCode": { $eq: "US" } } },

@@ -89,7 +89,6 @@
   "coreInfo": "Základné informácie",
   "cta": "CTA",
   "currentLocation": "Aktuálna poloha",
-  "custom": "Vlastné",
   "customSearchArea": "Oblasť vyhľadávania",
   "dataAttribute": "Atribút",
   "distance": "Vzdialenosť",
@@ -219,7 +218,6 @@
     "options": {
       "address": "Adresa",
       "aspectRatio": "Miera strán",
-      "automatic": "Automatický",
       "bold": "Tučné",
       "bothDistances": "Obe vzdialenosti",
       "button": "Tlačidlo",

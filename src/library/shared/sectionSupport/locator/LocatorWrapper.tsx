@@ -781,6 +781,10 @@ const LocatorInternal = ({
         }
         const lat = location.coords.latitude;
         const lng = location.coords.longitude;
+        baseFilterRadius.current = Math.max(
+          location.coords.accuracy,
+          defaultRadiusMeters
+        );
         setShowCurrentLocationButton(true);
 
         // Try to reverse-geocode the coordinates to a human-readable place name using Mapbox
@@ -810,7 +814,7 @@ const LocatorInternal = ({
           initialLocationFilter = buildNearLocationFilterFromCoords(
             lat,
             lng,
-            radius,
+            Math.max(location.coords.accuracy, radius),
             displayName
           );
         }

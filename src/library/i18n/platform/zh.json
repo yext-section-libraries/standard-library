@@ -89,7 +89,6 @@
   "coreInfo": "核心信息",
   "cta": "CTA",
   "currentLocation": "当前位置",
-  "custom": "自定义",
   "customSearchArea": "自定义搜索区域",
   "dataAttribute": "属性",
   "distance": "距离",
@@ -219,7 +218,6 @@
     "options": {
       "address": "地址",
       "aspectRatio": "纵横比",
-      "automatic": "自动",
       "bold": "大胆",
       "bothDistances": "两个距离",
       "button": "按钮",

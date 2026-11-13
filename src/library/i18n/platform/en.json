@@ -89,7 +89,6 @@
   "coreInfo": "Core Info",
   "cta": "CTA",
   "currentLocation": "Current Location",
-  "custom": "Custom",
   "customSearchArea": "Custom Search Area",
   "dataAttribute": "Attribute",
   "distance": "Distance",
@@ -219,7 +218,6 @@
     "options": {
       "address": "Address",
       "aspectRatio": "Aspect Ratio",
-      "automatic": "Automatic",
       "bold": "Bold",
       "bothDistances": "Both Distances",
       "button": "Button",

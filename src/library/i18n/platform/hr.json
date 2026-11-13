@@ -89,7 +89,6 @@
   "coreInfo": "Osnovne informacije",
   "cta": "CTA",
   "currentLocation": "Trenutačna lokacija",
-  "custom": "Prilagođeno",
   "customSearchArea": "Područje prilagođenog pretraživanja",
   "dataAttribute": "Atribut",
   "distance": "Udaljenost",
@@ -219,7 +218,6 @@
     "options": {
       "address": "Adresa",
       "aspectRatio": "Omjer slike",
-      "automatic": "Automatski",
       "bold": "Podebljano",
       "bothDistances": "Obje udaljenosti",
       "button": "Gumb",

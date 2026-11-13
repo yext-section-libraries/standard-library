@@ -1,5 +1,3 @@
-import * as React from "react";
-import { useTranslation } from "react-i18next";
 import { FieldLabel, setDeep } from "@puckeditor/core";
 import { type MultiSelectorValue } from "@yext/visual-editor/section-library-support";
 import { YextAutoField } from "@yext/visual-editor/section-library-support";
@@ -380,84 +378,34 @@ const locatorFields: YextFields<LocatorProps> = {
     },
   },
   defaultSearchRadius: {
-    type: "custom",
+    type: "optional",
     label: msg("fields.defaultSearchRadius", "Default Search Radius"),
-    render: function DefaultSearchRadiusField({
-      value,
-      onChange,
-      readOnly,
-    }: YextCustomFieldRenderProps<LocatorProps["defaultSearchRadius"]>) {
-      const { i18n } = useTranslation();
-      const [lastCustomRadius, setLastCustomRadius] = React.useState(value);
-
-      return (
-        <div className="flex flex-col gap-3">
-          <YextAutoField
-            field={{
-              type: "basicSelector",
-              label: msg("fields.defaultSearchRadius", "Default Search Radius"),
-              options: [
-                {
-                  label: msg("fields.options.automatic", "Automatic"),
-                  value: "automatic",
-                },
-                {
-                  label: msg("custom", "Custom"),
-                  value: "custom",
-                },
-              ],
-            }}
-            value={value ? "custom" : "automatic"}
-            onChange={(mode) => {
-              if (mode === "custom") {
-                onChange(
-                  value ??
-                    lastCustomRadius ?? {
-                      value: DEFAULT_RADIUS,
-                      unit: getPreferredDistanceUnit(i18n.language),
-                    }
-                );
-              } else {
-                if (value) setLastCustomRadius(value);
-                onChange(undefined);
-              }
-            }}
-          />
-          {value && (
-            <>
-              <YextAutoField
-                field={{
-                  type: "number",
-                  label: msg("fields.radius", "Radius"),
-                  min: 0,
-                  step: 1,
-                }}
-                readOnly={readOnly}
-                value={value.value}
-                onChange={(radius) => onChange({ ...value, value: radius })}
-              />
-              <YextAutoField
-                field={{
-                  type: "basicSelector",
-                  label: msg("fields.distanceUnit", "Distance Unit"),
-                  options: [
-                    {
-                      label: pt("mile", { count: 2 }),
-                      value: "mile",
-                    },
-                    {
-                      label: pt("kilometer", { count: 2 }),
-                      value: "kilometer",
-                    },
-                  ],
-                }}
-                value={value.unit}
-                onChange={(unit) => onChange({ ...value, unit })}
-              />
-            </>
-          )}
-        </div>
-      );
+    defaultCustomValue: ({ locale }) => ({
+      value: DEFAULT_RADIUS,
+      unit: getPreferredDistanceUnit(locale),
+    }),
+    field: {
+      type: "object",
+      objectFields: {
+        value: {
+          type: "number",
+          label: msg("fields.radius", "Radius"),
+          min: 0,
+          step: 1,
+        },
+        unit: {
+          type: "basicSelector",
+          generation: { required: true },
+          label: msg("fields.distanceUnit", "Distance Unit"),
+          options: [
+            { label: msg("mile", "mile", { count: 2 }), value: "mile" },
+            {
+              label: msg("kilometer", "kilometer", { count: 2 }),
+              value: "kilometer",
+            },
+          ],
+        },
+      },
     },
   },
   mapStartingZoom: {

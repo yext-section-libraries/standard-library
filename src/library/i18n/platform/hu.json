@@ -89,7 +89,6 @@
   "coreInfo": "Alapvető információ",
   "cta": "CTA",
   "currentLocation": "Jelenlegi hely",
-  "custom": "Egyéni",
   "customSearchArea": "Egyedi keresési terület",
   "dataAttribute": "Adatattribútum",
   "distance": "Távolság",
@@ -219,7 +218,6 @@
     "options": {
       "address": "Cím",
       "aspectRatio": "Oldal arány",
-      "automatic": "Automatikus",
       "bold": "Merész",
       "bothDistances": "Mindkét távolság",
       "button": "Gomb",

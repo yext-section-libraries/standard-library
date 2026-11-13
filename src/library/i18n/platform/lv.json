@@ -89,7 +89,6 @@
   "coreInfo": "Pamatinformācija",
   "cta": "CTA",
   "currentLocation": "Pašreizējā atrašanās vieta",
-  "custom": "Pielāgots",
   "customSearchArea": "Pielāgota meklēšanas zona",
   "dataAttribute": "Atribūts",
   "distance": "Attālums",
@@ -219,7 +218,6 @@
     "options": {
       "address": "Adrese",
       "aspectRatio": "Malu attiecība",
-      "automatic": "Automātisks",
       "bold": "Treknrakstā",
       "bothDistances": "Abi attālumi",
       "button": "Poga",

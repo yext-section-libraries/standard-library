@@ -89,7 +89,6 @@
   "coreInfo": "Kjerneinfo",
   "cta": "CTA",
   "currentLocation": "Nåværende posisjon",
-  "custom": "Egendefinert",
   "customSearchArea": "Tilpasset søkeområde",
   "dataAttribute": "Dataattributt",
   "distance": "Avstand",
@@ -219,7 +218,6 @@
     "options": {
       "address": "Adresse",
       "aspectRatio": "Aspektforhold",
-      "automatic": "Automatisk",
       "bold": "Fet",
       "bothDistances": "Begge avstander",
       "button": "Knapp",
