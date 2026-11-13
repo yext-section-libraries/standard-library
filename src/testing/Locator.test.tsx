@@ -28,6 +28,8 @@ import {
 import { Render, Config, resolveAllData } from "@puckeditor/core";
 import { page } from "@vitest/browser/context";
 import { getUserLocation } from "@yext/search-ui-react";
+import type { LocatorProps } from "../library/shared/sectionSupport/locator/Locator.tsx";
+import { pt, YextAutoField } from "@yext/visual-editor/section-library-support";
 
 vi.mock("@yext/search-ui-react", async () => {
   const actual = await vi.importActual<typeof import("@yext/search-ui-react")>(
@@ -247,7 +249,19 @@ const createLocatorVerticalSearchResponse = (results: any[]) => ({
   },
 });
 
-const createLocatorFilterSearchResponse = () => ({
+const DEFAULT_LOCATION_FILTER = {
+  "builtin.location": {
+    $near: {
+      lat: 38.895546,
+      lng: -77.069915,
+      radius: 40233,
+    },
+  },
+};
+
+const createLocatorFilterSearchResponse = (
+  filter: Record<string, unknown>
+) => ({
   meta: {
     uuid: "locator-filter-fixture-uuid",
     errors: [],
@@ -263,15 +277,7 @@ const createLocatorFilterSearchResponse = () => ({
             value: "Arlington, VA",
             key: "arlington-va",
             matchedSubstrings: [],
-            filter: {
-              "builtin.location": {
-                $near: {
-                  lat: 38.895546,
-                  lng: -77.069915,
-                  radius: 40233,
-                },
-              },
-            },
+            filter,
           },
         ],
       },
@@ -284,7 +290,10 @@ const getLocatorFixtureResults = (document: Record<string, any>) =>
     ? MULTI_PAGESET_LOCATOR_RESULTS
     : DEFAULT_LOCATOR_RESULTS;
 
-const createLocatorFetchMock = (document: Record<string, any>) => {
+const createLocatorFetchMock = (
+  document: Record<string, any>,
+  locationFilter: Record<string, unknown> = DEFAULT_LOCATION_FILTER
+) => {
   const results = getLocatorFixtureResults(document);
 
   return vi.fn(async (input: string | URL | Request) => {
@@ -317,9 +326,12 @@ const createLocatorFetchMock = (document: Record<string, any>) => {
     }
 
     if (url.includes("/search/filtersearch")) {
-      return new Response(JSON.stringify(createLocatorFilterSearchResponse()), {
-        status: 200,
-      });
+      return new Response(
+        JSON.stringify(createLocatorFilterSearchResponse(locationFilter)),
+        {
+          status: 200,
+        }
+      );
     }
 
     throw new Error(`Unexpected fetch in Locator test: ${url}`);
@@ -1334,6 +1346,412 @@ describe("Locator", async () => {
     },
   };
 
+  const getLastLocationFilter = (
+    fetchMock: ReturnType<typeof createLocatorFetchMock>
+  ) => {
+    const query = fetchMock.mock.calls
+      .map(([input]) => new URL(String(input)))
+      .filter((url) => url.pathname.includes("/search/vertical/query"))
+      .at(-1);
+    if (!query) return;
+    const filters = JSON.parse(query.searchParams.get("filters") || "{}");
+    return filters.$and
+      ? filters.$and.find((filter: Record<string, unknown>) =>
+          Object.keys(filter).some(
+            (key) => key.startsWith("builtin.") || key === "address.countryCode"
+          )
+        )
+      : filters;
+  };
+
+  const renderLocator = async (
+    props: Partial<LocatorProps>,
+    document = tests[1].document
+  ) => {
+    const fixture = tests[1];
+    let data = migrate(
+      puckConfig,
+      {
+        root: { props: { version: fixture.version } },
+        content: [{ type: "Locator", props: { ...fixture.props, ...props } }],
+      },
+      document,
+      migrationRegistry
+    );
+    data = await resolveAllData(data, puckConfig, { streamDocument: document });
+    return reactRender(
+      <VisualEditorProvider templateProps={{ document }}>
+        <Render config={puckConfig} data={data} />
+      </VisualEditorProvider>
+    );
+  };
+
+  describe("default search radius", () => {
+    const renderRadiusEditor = (
+      initialRadius: LocatorProps["defaultSearchRadius"],
+      locale = "en"
+    ) => {
+      const onChange = vi.fn();
+      const RadiusEditor = () => {
+        const [radius, setRadius] =
+          React.useState<LocatorProps["defaultSearchRadius"]>(initialRadius);
+        return (
+          <YextAutoField
+            field={LocatorComponent.fields!.defaultSearchRadius}
+            value={radius}
+            onChange={(nextRadius) => {
+              setRadius(nextRadius);
+              onChange(nextRadius);
+            }}
+          />
+        );
+      };
+      reactRender(
+        <VisualEditorProvider templateProps={{ document: { locale } }}>
+          <RadiusEditor />
+        </VisualEditorProvider>
+      );
+      return onChange;
+    };
+
+    const selectRadiusMode = (mode: "Automatic" | "Custom") => {
+      fireEvent.click(screen.getAllByRole("combobox")[0]);
+      fireEvent.click(screen.getByText(mode));
+    };
+
+    it.each([
+      { locale: "en", unit: "mile" },
+      { locale: "en-GB", unit: "mile" },
+      { locale: "fr", unit: "kilometer" },
+      { locale: "de", unit: "kilometer" },
+    ])(
+      "initializes Custom using the $locale page locale",
+      ({ locale, unit }) => {
+        const onChange = renderRadiusEditor(undefined, locale);
+        expect(onChange).not.toHaveBeenCalled();
+        expect(screen.queryByRole("spinbutton")).not.toBeInTheDocument();
+
+        selectRadiusMode("Custom");
+
+        expect(onChange).toHaveBeenLastCalledWith({ value: 25, unit });
+        expect(screen.getByRole("spinbutton")).toHaveValue(25);
+      }
+    );
+
+    it.each([
+      { value: 50, unit: "kilometer" as const, editedValue: 42 },
+      { value: 5, unit: "mile" as const, editedValue: 84 },
+      { value: 0, unit: "kilometer" as const, editedValue: 0 },
+    ])(
+      "restores the edited custom radius after switching from $value $unit to Automatic and back",
+      ({ value, unit, editedValue }) => {
+        const onChange = renderRadiusEditor({ value, unit });
+        fireEvent.change(screen.getByRole("spinbutton"), {
+          target: { value: String(editedValue) },
+        });
+        const editedUnit = unit === "mile" ? "kilometer" : "mile";
+        fireEvent.click(screen.getAllByRole("combobox")[1]);
+        fireEvent.click(screen.getByText(pt(editedUnit, { count: 2 })));
+
+        for (let toggle = 0; toggle < 2; toggle++) {
+          selectRadiusMode("Automatic");
+          expect(onChange).toHaveBeenLastCalledWith(undefined);
+          expect(screen.queryByRole("spinbutton")).not.toBeInTheDocument();
+
+          selectRadiusMode("Custom");
+          expect(onChange).toHaveBeenLastCalledWith({
+            value: editedValue,
+            unit: editedUnit,
+          });
+          expect(screen.getByRole("spinbutton")).toHaveValue(editedValue);
+        }
+      }
+    );
+
+    it.each([
+      { value: 5, unit: "mile" as const },
+      { value: 50, unit: "kilometer" as const },
+    ])(
+      "uses zero when clearing and allows replacing a custom radius in $unit",
+      (initialRadius) => {
+        const onChange = renderRadiusEditor(initialRadius);
+
+        const input = screen.getByRole("spinbutton");
+        expect(input).toHaveValue(initialRadius.value);
+        fireEvent.change(input, { target: { value: "" } });
+        expect(input).toHaveValue(0);
+        expect(onChange).toHaveBeenLastCalledWith({
+          value: 0,
+          unit: initialRadius.unit,
+        });
+        fireEvent.blur(input);
+        expect(input).toHaveValue(0);
+        fireEvent.change(input, { target: { value: "42" } });
+        expect(input).toHaveValue(42);
+        expect(onChange).toHaveBeenLastCalledWith({
+          value: 42,
+          unit: initialRadius.unit,
+        });
+        expect(input).toHaveAttribute("min", "0");
+        expect(input).toHaveAttribute("step", "1");
+      }
+    );
+
+    const cases: {
+      name: string;
+      query: string;
+      radius?: LocatorProps["defaultSearchRadius"];
+      expectedRadius: number;
+    }[] = [
+      {
+        name: "keeps the API radius when unset",
+        query: "?q=Arlington",
+        expectedRadius: 40233,
+      },
+      {
+        name: "overrides named URL searches in miles",
+        query: "?q=Arlington",
+        radius: { value: 50, unit: "mile" },
+        expectedRadius: 80467.2,
+      },
+      {
+        name: "overrides legacy initialLocation searches",
+        query: "?initialLocation=Arlington",
+        radius: { value: 60, unit: "kilometer" },
+        expectedRadius: 60000,
+      },
+      {
+        name: "uses the configured initial coordinate radius",
+        query: "",
+        radius: { value: 50, unit: "mile" },
+        expectedRadius: 80467.2,
+      },
+      {
+        name: "converts kilometers independently of locale",
+        query: "?q=Arlington",
+        radius: { value: 50, unit: "kilometer" },
+        expectedRadius: 50000,
+      },
+      {
+        name: "preserves an explicit URL radius",
+        query: "?q=38.895546,-77.069915,9000",
+        radius: { value: 50, unit: "mile" },
+        expectedRadius: 9000,
+      },
+      {
+        name: "keeps the automatic initial radius",
+        query: "",
+        expectedRadius: 40233.6,
+      },
+      {
+        name: "uses automatic radius when the field is cleared",
+        query: "?q=Arlington",
+        radius: { unit: "mile" },
+        expectedRadius: 40233,
+      },
+      {
+        name: "uses the API radius for a cleared numeric value",
+        query: "?q=Arlington",
+        radius: { value: 0, unit: "mile" },
+        expectedRadius: 40233,
+      },
+      {
+        name: "uses the automatic initial radius for a cleared numeric value",
+        query: "",
+        radius: { value: 0, unit: "kilometer" },
+        expectedRadius: 40233.6,
+      },
+    ];
+
+    it.each(cases)("$name", async ({ query, radius, expectedRadius }) => {
+      const originalUrl = window.location.href;
+      const startingUrl = new URL(originalUrl);
+      startingUrl.search = query;
+      window.history.replaceState(window.history.state, "", startingUrl);
+      const fetchMock = createLocatorFetchMock(tests[1].document);
+      vi.stubGlobal("fetch", fetchMock);
+      try {
+        await renderLocator({ defaultSearchRadius: radius });
+        await waitFor(() =>
+          expect(
+            getLastLocationFilter(fetchMock)?.["builtin.location"]?.$near.radius
+          ).toBeCloseTo(expectedRadius)
+        );
+      } finally {
+        window.history.replaceState(window.history.state, "", originalUrl);
+      }
+    });
+
+    it.each<{
+      radius?: LocatorProps["defaultSearchRadius"];
+      locale: string;
+      accuracy: number;
+      expectedRadius: number;
+    }>([
+      {
+        radius: { value: 50, unit: "kilometer" },
+        locale: "en",
+        accuracy: 10,
+        expectedRadius: 50000,
+      },
+      {
+        radius: { value: 50, unit: "kilometer" },
+        locale: "en",
+        accuracy: 100000,
+        expectedRadius: 100000,
+      },
+      {
+        radius: { value: 50, unit: "mile" },
+        locale: "en",
+        accuracy: 100000,
+        expectedRadius: 100000,
+      },
+      { locale: "en", accuracy: 100000, expectedRadius: 100000 },
+      { locale: "fr", accuracy: 10, expectedRadius: 25000 },
+      { locale: "fr", accuracy: 100000, expectedRadius: 100000 },
+    ])(
+      "respects initial geolocation accuracy $accuracy with radius $radius in $locale and restores it after clearing filters",
+      async ({ radius, locale, accuracy, expectedRadius }) => {
+        const originalUrl = window.location.href;
+        const startingUrl = new URL(originalUrl);
+        startingUrl.search = "";
+        window.history.replaceState(window.history.state, "", startingUrl);
+        const document = { ...tests[1].document, locale };
+        const fetchMock = createLocatorFetchMock(document);
+        vi.stubGlobal("fetch", fetchMock);
+        vi.mocked(getUserLocation).mockResolvedValue({
+          coords: { latitude: 38.895546, longitude: -77.069915, accuracy },
+        } as GeolocationPosition);
+        const expectRadius = async (expected: number) =>
+          waitFor(() =>
+            expect(
+              getLastLocationFilter(fetchMock)?.["builtin.location"]?.$near
+                .radius
+            ).toBeCloseTo(expected)
+          );
+        try {
+          await renderLocator(
+            {
+              defaultSearchRadius: radius,
+              filters: { openNowButton: false, showDistanceOptions: true },
+            },
+            document
+          );
+          await expectRadius(expectedRadius);
+          await act(async () =>
+            screen
+              .getByRole("button", {
+                name: locale === "en" ? "Filter" : "Filtre",
+              })
+              .click()
+          );
+          await act(async () =>
+            screen
+              .getByRole("button", {
+                name:
+                  locale === "en"
+                    ? "Select distance less than 5 miles"
+                    : "Sélectionnez une distance inférieure à 5 kilomètres",
+              })
+              .click()
+          );
+          await expectRadius(locale === "en" ? 8046.72 : 5000);
+          await act(async () =>
+            screen
+              .getByRole("button", {
+                name: locale === "en" ? "Clear All" : "Tout effacer",
+              })
+              .click()
+          );
+          await expectRadius(expectedRadius);
+        } finally {
+          vi.mocked(getUserLocation).mockRejectedValue(
+            new Error("Locator screenshot tests use fixture search data.")
+          );
+          window.history.replaceState(window.history.state, "", originalUrl);
+        }
+      }
+    );
+
+    it.each([
+      { name: "region", filter: { "builtin.region": { $eq: "VA" } } },
+      { name: "country", filter: { "address.countryCode": { $eq: "US" } } },
+    ])("preserves $name boundary filters", async ({ filter }) => {
+      const originalUrl = window.location.href;
+      const startingUrl = new URL(originalUrl);
+      startingUrl.search = "?q=Arlington";
+      window.history.replaceState(window.history.state, "", startingUrl);
+      const fetchMock = createLocatorFetchMock(tests[1].document, filter);
+      vi.stubGlobal("fetch", fetchMock);
+      try {
+        await renderLocator({
+          defaultSearchRadius: { value: 50, unit: "mile" },
+        });
+        await waitFor(() =>
+          expect(getLastLocationFilter(fetchMock)).toEqual(filter)
+        );
+        const input = screen.getByRole("combobox", { name: "Find a Location" });
+        fireEvent.change(input, { target: { value: "Arlington" } });
+        const suggestion = await screen.findByRole("option", {
+          name: /Arlington, VA/,
+        });
+        const callsBefore = fetchMock.mock.calls.length;
+        await act(async () => suggestion.click());
+        await waitFor(() =>
+          expect(fetchMock.mock.calls.length).toBeGreaterThan(callsBefore)
+        );
+        expect(getLastLocationFilter(fetchMock)).toEqual(filter);
+      } finally {
+        window.history.replaceState(window.history.state, "", originalUrl);
+      }
+    });
+
+    it("applies the radius to suggestions and restores it after distance overrides", async () => {
+      const fetchMock = createLocatorFetchMock(tests[1].document);
+      vi.stubGlobal("fetch", fetchMock);
+      const originalUrl = window.location.href;
+      try {
+        await renderLocator({
+          defaultSearchRadius: { value: 50, unit: "mile" },
+          filters: { openNowButton: false, showDistanceOptions: true },
+        });
+        const expectRadius = async (radius: number) =>
+          waitFor(() =>
+            expect(
+              getLastLocationFilter(fetchMock)?.["builtin.location"]?.$near
+                .radius
+            ).toBeCloseTo(radius)
+          );
+        await expectRadius(80467.2);
+        const input = screen.getByRole("combobox", { name: "Find a Location" });
+        fireEvent.change(input, { target: { value: "Arlington" } });
+        const suggestion = await screen.findByRole("option", {
+          name: /Arlington, VA/,
+        });
+        await act(async () => suggestion.click());
+        await expectRadius(80467.2);
+        await act(async () =>
+          screen.getByRole("button", { name: "Filter" }).click()
+        );
+        const distance = screen.getByRole("button", {
+          name: "Select distance less than 5 miles",
+        });
+        await act(async () => distance.click());
+        await expectRadius(8046.72);
+        await act(async () => distance.click());
+        await expectRadius(80467.2);
+        await act(async () => distance.click());
+        await expectRadius(8046.72);
+        await act(async () =>
+          screen.getByRole("button", { name: "Clear All" }).click()
+        );
+        await expectRadius(80467.2);
+      } finally {
+        window.history.replaceState(window.history.state, "", originalUrl);
+      }
+    });
+  });
+
   it("loads q before initialLocation and syncs selected locations with history", async () => {
     const originalUrl = window.location.href;
     const fixture = tests[1];
@@ -1455,77 +1873,97 @@ describe("Locator", async () => {
     }
   });
 
-  it("writes current-location coordinates to q without another lookup", async () => {
-    const originalUrl = window.location.href;
-    const fixture = tests[1];
-    const startingUrl = new URL(originalUrl);
-    startingUrl.search = "?ref=campaign";
-    window.history.replaceState(window.history.state, "", startingUrl);
-    const position = {
-      coords: { latitude: 38.895546, longitude: -77.069915, accuracy: 10 },
-    } as GeolocationPosition;
-    vi.mocked(getUserLocation).mockResolvedValue(position);
-    const getCurrentPosition = vi
-      .spyOn(navigator.geolocation, "getCurrentPosition")
-      .mockImplementation((success) => success(position));
-    const fetchMock = createLocatorFetchMock(fixture.document);
-    const mapboxFetch = vi.fn(
-      async () =>
-        new Response(
-          JSON.stringify({ features: [{ place_name: "Arlington, VA" }] }),
-          { status: 200 }
-        )
-    );
-    vi.stubGlobal(
-      "fetch",
-      vi.fn((input: string | URL | Request) =>
-        String(input).includes("api.mapbox.com/geocoding")
-          ? mapboxFetch()
-          : fetchMock(input)
-      )
-    );
-
-    try {
-      let data = migrate(
-        puckConfig,
-        {
-          root: { props: { version: fixture.version } },
-          content: [{ type: "Locator", props: fixture.props }],
-        },
-        fixture.document,
-        migrationRegistry
+  it.each<{
+    radius?: LocatorProps["defaultSearchRadius"];
+    expectedRadius: number;
+  }>([
+    { expectedRadius: 40233.6 },
+    { radius: { value: 50, unit: "mile" }, expectedRadius: 80467.2 },
+    { radius: { value: 50, unit: "kilometer" }, expectedRadius: 50000 },
+  ])(
+    "writes current-location coordinates with radius $expectedRadius to q without another lookup",
+    async ({ radius, expectedRadius }) => {
+      const originalUrl = window.location.href;
+      const fixture = tests[1];
+      const startingUrl = new URL(originalUrl);
+      startingUrl.search = "?ref=campaign";
+      window.history.replaceState(window.history.state, "", startingUrl);
+      const position = {
+        coords: { latitude: 38.895546, longitude: -77.069915, accuracy: 10 },
+      } as GeolocationPosition;
+      vi.mocked(getUserLocation).mockResolvedValue(position);
+      const getCurrentPosition = vi
+        .spyOn(navigator.geolocation, "getCurrentPosition")
+        .mockImplementation((success) => success(position));
+      const fetchMock = createLocatorFetchMock(fixture.document);
+      const mapboxFetch = vi.fn(
+        async () =>
+          new Response(
+            JSON.stringify({ features: [{ place_name: "Arlington, VA" }] }),
+            { status: 200 }
+          )
       );
-      data = await resolveAllData(data, puckConfig, {
-        streamDocument: fixture.document,
-      });
-      reactRender(
-        <VisualEditorProvider templateProps={{ document: fixture.document }}>
-          <Render config={puckConfig} data={data} />
-        </VisualEditorProvider>
-      );
-
-      const currentLocationButton = await screen.findByRole("button", {
-        name: "Use Current Location",
-      });
-      const lookupsBeforeClick = mapboxFetch.mock.calls.length;
-      await act(async () => currentLocationButton.click());
-      await waitFor(() =>
-        expect(new URL(window.location.href).searchParams.get("q")).toBe(
-          "38.895546,-77.069915,40233.6"
+      vi.stubGlobal(
+        "fetch",
+        vi.fn((input: string | URL | Request) =>
+          String(input).includes("api.mapbox.com/geocoding")
+            ? mapboxFetch()
+            : fetchMock(input)
         )
       );
-      expect(mapboxFetch.mock.calls.length).toBe(lookupsBeforeClick);
-      expect(new URL(window.location.href).searchParams.get("ref")).toBe(
-        "campaign"
-      );
-    } finally {
-      getCurrentPosition.mockRestore();
-      vi.mocked(getUserLocation).mockRejectedValue(
-        new Error("Locator screenshot tests use fixture search data.")
-      );
-      window.history.replaceState(window.history.state, "", originalUrl);
+
+      try {
+        let data = migrate(
+          puckConfig,
+          {
+            root: { props: { version: fixture.version } },
+            content: [
+              {
+                type: "Locator",
+                props: { ...fixture.props, defaultSearchRadius: radius },
+              },
+            ],
+          },
+          fixture.document,
+          migrationRegistry
+        );
+        data = await resolveAllData(data, puckConfig, {
+          streamDocument: fixture.document,
+        });
+        reactRender(
+          <VisualEditorProvider templateProps={{ document: fixture.document }}>
+            <Render config={puckConfig} data={data} />
+          </VisualEditorProvider>
+        );
+
+        await waitFor(() =>
+          expect(
+            getLastLocationFilter(fetchMock)?.["builtin.location"]?.$near.radius
+          ).toBeCloseTo(expectedRadius)
+        );
+        const currentLocationButton = await screen.findByRole("button", {
+          name: "Use Current Location",
+        });
+        const lookupsBeforeClick = mapboxFetch.mock.calls.length;
+        await act(async () => currentLocationButton.click());
+        await waitFor(() =>
+          expect(new URL(window.location.href).searchParams.get("q")).toBe(
+            `38.895546,-77.069915,${expectedRadius}`
+          )
+        );
+        expect(mapboxFetch.mock.calls.length).toBe(lookupsBeforeClick);
+        expect(new URL(window.location.href).searchParams.get("ref")).toBe(
+          "campaign"
+        );
+      } finally {
+        getCurrentPosition.mockRestore();
+        vi.mocked(getUserLocation).mockRejectedValue(
+          new Error("Locator screenshot tests use fixture search data.")
+        );
+        window.history.replaceState(window.history.state, "", originalUrl);
+      }
     }
-  });
+  );
 
   it("provides accessible result card controls and icons", async () => {
     const fixtureResult = DEFAULT_LOCATOR_RESULTS[0];

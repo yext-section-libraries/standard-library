@@ -39,7 +39,7 @@ import {
   useWindowWidth,
   getPreferredDistanceUnit,
   toMeters,
-  toMiles,
+  fromMeters,
   resolveComponentData,
   createSearchAnalyticsConfig,
   createSearchHeadlessConfig,
@@ -168,6 +168,7 @@ const LocatorInternal = ({
   },
   mapStartingLocation,
   mapStartingZoom,
+  defaultSearchRadius,
   resultCard: resultCardConfigs,
   distanceDisplay,
   pageHeading,
@@ -197,6 +198,13 @@ const LocatorInternal = ({
   const windowWidth = useWindowWidth(previewWindow);
   const { isMobile } = getViewport(windowWidth);
   const preferredUnit = getPreferredDistanceUnit(i18n.language);
+  // Puck emits 0 when its number field is cleared; only positive radii override Search.
+  const configuredRadiusMeters =
+    defaultSearchRadius?.value && defaultSearchRadius.value > 0
+      ? toMeters(defaultSearchRadius.value, defaultSearchRadius.unit)
+      : undefined;
+  const defaultRadiusMeters =
+    configuredRadiusMeters ?? toMeters(DEFAULT_RADIUS, preferredUnit);
   const streamDocument = useDocument();
   const entityTypeSourceMap = getLocatorEntityTypeSourceMap(streamDocument);
   const entityTypes =
@@ -256,7 +264,7 @@ const LocatorInternal = ({
     number | null
   >(null);
   /** Radius of the current location filter before a distance option is applied */
-  const apiFilterRadius = React.useRef<number | null>(null);
+  const baseFilterRadius = React.useRef<number | null>(null);
 
   const handleDrag: OnDragHandler = (center, bounds) => {
     setMapCenter({
@@ -311,7 +319,9 @@ const LocatorInternal = ({
           matcher: Matcher.Near,
         },
       };
-      apiFilterRadius.current = mapRadius;
+      baseFilterRadius.current = mapRadius;
+      setSelectedDistanceOption(null);
+      setSelectedDistanceMeters(null);
       searchActions.setStaticFilters([locationFilter, openNowFilter]);
       searchActions.executeVerticalQuery();
       setSearchState("loading");
@@ -337,14 +347,19 @@ const LocatorInternal = ({
     cancelMapSearch();
     setShowSearchAreaButton(false);
     const { latitude, longitude, accuracy } = position.coords;
-    const radius = Math.max(accuracy, toMeters(DEFAULT_RADIUS, preferredUnit));
+    baseFilterRadius.current = Math.max(accuracy, defaultRadiusMeters);
+    const radius = Math.max(
+      accuracy,
+      showDistanceOptions && selectedDistanceMeters
+        ? selectedDistanceMeters
+        : defaultRadiusMeters
+    );
     const locationFilter = buildNearLocationFilterFromCoords(
       latitude,
       longitude,
       radius,
       t("currentLocation", "Current Location")
     );
-    apiFilterRadius.current = radius;
     const nonLocationFilters = (searchFilters.static || []).filter(
       (staticFilter) =>
         staticFilter.filter.kind !== "fieldValue" ||
@@ -392,12 +407,12 @@ const LocatorInternal = ({
     switch (filter.matcher) {
       case Matcher.Near: {
         nearFilterValue = filter.value as NearFilterValue;
-        apiFilterRadius.current = nearFilterValue.radius;
-        // only overwrite radius from filter if display options are enabled
+        baseFilterRadius.current =
+          configuredRadiusMeters ?? nearFilterValue.radius;
         const radius =
           showDistanceOptions && selectedDistanceMeters
             ? selectedDistanceMeters
-            : nearFilterValue.radius;
+            : baseFilterRadius.current;
         locationFilter = buildNearLocationFilterFromPrevious(
           nearFilterValue,
           newDisplayName,
@@ -406,7 +421,7 @@ const LocatorInternal = ({
         break;
       }
       case Matcher.Equals: {
-        apiFilterRadius.current = null;
+        baseFilterRadius.current = null;
         locationFilter = buildEqualsLocationFilter(filter, newDisplayName);
         break;
       }
@@ -430,7 +445,11 @@ const LocatorInternal = ({
         latitude: nearFilterValue.lat,
         longitude: nearFilterValue.lng,
       });
-      setMapRadius(nearFilterValue.radius);
+      setMapRadius(
+        showDistanceOptions && selectedDistanceMeters
+          ? selectedDistanceMeters
+          : (baseFilterRadius.current ?? nearFilterValue.radius)
+      );
     }
   };
 
@@ -646,7 +665,8 @@ const LocatorInternal = ({
       const radius =
         showDistanceOptions && selectedDistanceMeters
           ? selectedDistanceMeters
-          : toMeters(DEFAULT_RADIUS, preferredUnit);
+          : defaultRadiusMeters;
+      baseFilterRadius.current = defaultRadiusMeters;
       // default location filter to configured starting location or NYC
       let initialLocationFilter = buildNearLocationFilterFromCoords(
         initialMapCenter.latitude,
@@ -672,7 +692,6 @@ const LocatorInternal = ({
         ) {
           const filterValue = initialLocationFilter.filter
             .value as NearFilterValue;
-          apiFilterRadius.current = filterValue.radius;
           const nextCenterCoords: Coordinate = {
             longitude: filterValue.lng,
             latitude: filterValue.lat,
@@ -718,11 +737,15 @@ const LocatorInternal = ({
             switch (resultFilter.matcher) {
               case Matcher.Near: {
                 const filterFromResult = resultFilter.value as NearFilterValue;
+                baseFilterRadius.current =
+                  configuredRadiusMeters ?? filterFromResult.radius;
                 initialLocationFilter = buildNearLocationFilterFromPrevious(
                   filterFromResult,
-                  firstResult.value
+                  firstResult.value,
+                  showDistanceOptions && selectedDistanceMeters
+                    ? selectedDistanceMeters
+                    : baseFilterRadius.current
                 );
-                apiFilterRadius.current = filterFromResult.radius;
                 return true;
               }
               case Matcher.Equals: {
@@ -730,7 +753,7 @@ const LocatorInternal = ({
                   resultFilter,
                   firstResult.value
                 );
-                apiFilterRadius.current = null;
+                baseFilterRadius.current = null;
                 return true;
               }
               default: {
@@ -750,6 +773,9 @@ const LocatorInternal = ({
         ? parseCoordinateQuery(initialLocationParam)
         : undefined;
       if (coordinates) {
+        baseFilterRadius.current = coordinates.radius;
+        setSelectedDistanceOption(null);
+        setSelectedDistanceMeters(null);
         initialLocationFilter = buildNearLocationFilterFromCoords(
           coordinates.lat,
           coordinates.lng,
@@ -779,6 +805,10 @@ const LocatorInternal = ({
         }
         const lat = location.coords.latitude;
         const lng = location.coords.longitude;
+        baseFilterRadius.current = Math.max(
+          location.coords.accuracy,
+          defaultRadiusMeters
+        );
         setShowCurrentLocationButton(true);
 
         // Try to reverse-geocode the coordinates to a human-readable place name using Mapbox
@@ -808,7 +838,7 @@ const LocatorInternal = ({
           initialLocationFilter = buildNearLocationFilterFromCoords(
             lat,
             lng,
-            radius,
+            Math.max(location.coords.accuracy, radius),
             displayName
           );
         }
@@ -828,7 +858,13 @@ const LocatorInternal = ({
     return () => {
       isCancelled = true;
     };
-  }, [urlNavigationVersion, initialMapCenter, searchActions]);
+  }, [
+    urlNavigationVersion,
+    initialMapCenter,
+    searchActions,
+    configuredRadiusMeters,
+    defaultRadiusMeters,
+  ]);
 
   const handleOpenNowClick = (selected: boolean) => {
     if (selected === isOpenNowSelected) {
@@ -913,10 +949,10 @@ const LocatorInternal = ({
     if (selectedDistanceOption === distance) {
       setSelectedDistanceMeters(null);
       setSelectedDistanceOption(null);
-      // revert to API radius (or default if none was found) if user clicks the same distance again
+      // Restore the current location's base radius when deselecting a distance.
       updatedFilters = updateRadiusInNearFiltersOnLocationField(
         existingFilters,
-        apiFilterRadius.current ?? toMeters(DEFAULT_RADIUS, preferredUnit)
+        baseFilterRadius.current ?? defaultRadiusMeters
       );
     } else {
       setSelectedDistanceOption(distance);
@@ -932,10 +968,10 @@ const LocatorInternal = ({
 
   const handleClearFiltersClick = () => {
     const existingFilters = searchFilters.static || [];
-    // revert to API radius (or default if none was found)
+    // Restore the current location's base radius.
     const partiallyUpdatedFilters = updateRadiusInNearFiltersOnLocationField(
       existingFilters,
-      apiFilterRadius.current ?? toMeters(DEFAULT_RADIUS, preferredUnit)
+      baseFilterRadius.current ?? defaultRadiusMeters
     );
     const updatedFilters = deselectOpenNowFilters(partiallyUpdatedFilters);
 
@@ -1044,10 +1080,7 @@ const LocatorInternal = ({
               showCurrentLocationButton={showCurrentLocationButton}
               geolocationProps={{
                 handleClick: handleCurrentLocationClick,
-                radius:
-                  preferredUnit === "mile"
-                    ? DEFAULT_RADIUS
-                    : toMiles(DEFAULT_RADIUS), // this component uses miles, not meters
+                radius: fromMeters(defaultRadiusMeters, "mile"),
               }}
             />
           </div>
