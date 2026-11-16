@@ -271,7 +271,15 @@ const FAQCardComponent: PuckComponent<FAQCardProps> = (props) => {
       <AccordionTrigger>
         <Body variant={styles.questionVariant}>{resolvedQuestion}</Body>
       </AccordionTrigger>
-      <AccordionContent>{resolvedAnswer}</AccordionContent>
+      <AccordionContent>
+        {typeof resolvedAnswer === "string" ? (
+          <Body variant={styles.answerVariant} color={styles.answerColor}>
+            {resolvedAnswer}
+          </Body>
+        ) : (
+          resolvedAnswer
+        )}
+      </AccordionContent>
     </AccordionItem>
   );
 };
