@@ -234,7 +234,11 @@ const BannerComponent: PuckComponent<BannerSectionProps> = ({
         fieldId={data.text.field}
         constantValueEnabled={data.text.constantValueEnabled}
       >
-        {resolvedText}
+        {typeof resolvedText === "string" ? (
+          <Body color={styles.textColor}>{resolvedText}</Body>
+        ) : (
+          resolvedText
+        )}
       </EntityField>
     </PageSection>
   );
