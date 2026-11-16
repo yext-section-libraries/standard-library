@@ -677,6 +677,11 @@ const LocatorInternal = ({
 
   React.useEffect(() => {
     let isCancelled = false;
+    // Keep visitor unit switches out of the initialization dependencies.
+    // handleDistanceUnitChange updates active filters without a location lookup.
+    const initialRadiusMeters =
+      configuredRadiusMeters ??
+      toMeters(DEFAULT_RADIUS, configuredDistanceUnit);
     const queryParams = new URLSearchParams(window.location.search);
     const initialLocationParam = queryParams.has(LOCATION_QUERY_KEY)
       ? queryParams.get(LOCATION_QUERY_KEY)
@@ -690,8 +695,8 @@ const LocatorInternal = ({
       const radius =
         showDistanceOptions && selectedDistanceMeters
           ? selectedDistanceMeters
-          : defaultRadiusMeters;
-      baseFilterRadius.current = defaultRadiusMeters;
+          : initialRadiusMeters;
+      baseFilterRadius.current = initialRadiusMeters;
       // default location filter to configured starting location or NYC
       let initialLocationFilter = buildNearLocationFilterFromCoords(
         initialMapCenter.latitude,
@@ -833,7 +838,7 @@ const LocatorInternal = ({
         const lng = location.coords.longitude;
         baseFilterRadius.current = Math.max(
           location.coords.accuracy,
-          defaultRadiusMeters
+          initialRadiusMeters
         );
         setShowCurrentLocationButton(true);
 
@@ -889,7 +894,7 @@ const LocatorInternal = ({
     initialMapCenter,
     searchActions,
     configuredRadiusMeters,
-    defaultRadiusMeters,
+    configuredDistanceUnit,
   ]);
 
   const handleOpenNowClick = (selected: boolean) => {
