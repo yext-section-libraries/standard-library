@@ -1,3 +1,4 @@
+import { withDesign } from "../shared/design/withDesign.tsx";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
@@ -180,7 +181,7 @@ const EmailsComponent: PuckComponent<EmailsProps> = (props) => {
   );
 };
 
-export const Emails: YextComponentConfig<EmailsProps> = {
+const EmailsBase: YextComponentConfig<EmailsProps> = {
   ...gridAtomPermissions,
   label: msg("components.emails", "Emails"),
   fields: EmailsFields,
@@ -219,5 +220,7 @@ export const config: SectionConfig = {
   displayName: "Emails",
   description: "Displays a list of emails.",
   pageSetTypes: ["ENTITY"],
-  category: "Core Information",
+  category: "Yext data",
 };
+
+export const Emails = withDesign(EmailsBase);

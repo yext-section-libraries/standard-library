@@ -1,6 +1,9 @@
 import type { Config } from "@puckeditor/core";
+import type { YextComponentConfig } from "@yext/visual-editor";
+import { withCardLayout } from "./design/cardLayout.tsx";
+import { withDesign } from "./design/withDesign.tsx";
 import { HeadingText as SharedComponent0 } from "../sections/HeadingText";
-import { BreadcrumbsSection as SharedComponent1 } from "../sections/BreadcrumbsSection";
+import { BreadcrumbsSectionBody as SharedComponent1 } from "../sections/BreadcrumbsSection";
 import { DirectoryGrid as SharedComponent2 } from "./sectionSupport/directory/DirectoryWrapper";
 import { DirectoryCard as SharedComponent3 } from "./sectionSupport/directory/DirectoryCard";
 import { Address as SharedComponent4 } from "../sections/Address";
@@ -165,8 +168,29 @@ export const sharedComponentConfigs: Record<
 // to keep the controls for sections used in Grid. Remove the Grid permission
 // resolver so it cannot enable structural changes for a fixed slot component.
 for (const [id, component] of Object.entries(sharedComponentConfigs)) {
+  // Puck's registry erases authored Yext prop types. The selected entries were
+  // all authored as Yext configs and retain their field definitions at runtime.
+  const yextComponent = component as unknown as YextComponentConfig<any>;
+  const configurable = [
+    "ProductCardsWrapper",
+    "TeamCardsWrapper",
+    "TestimonialCardsWrapper",
+    "InsightCardsWrapper",
+    "EventCardsWrapper",
+  ].includes(id)
+    ? withCardLayout(yextComponent, id === "EventCardsWrapper")
+    : [
+          "ProductCard",
+          "TeamCard",
+          "TestimonialCard",
+          "InsightCard",
+          "EventCard",
+          "FAQCard",
+        ].includes(id)
+      ? withDesign(yextComponent)
+      : component;
   sharedComponentConfigs[id] = {
-    ...component,
+    ...configurable,
     permissions: {
       delete: false,
       drag: false,

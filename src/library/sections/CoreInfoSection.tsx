@@ -1,3 +1,4 @@
+import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
 import { useTranslation } from "react-i18next";
 import { PuckComponent, Slot } from "@puckeditor/core";
 import { AddressType, AnalyticsScopeProvider } from "@yext/pages-components";
@@ -235,7 +236,7 @@ const CoreInfoSectionWrapper: PuckComponent<CoreInfoSectionProps> = (props) => {
   );
 };
 
-export const CoreInfoSection: YextComponentConfig<CoreInfoSectionProps> = {
+export const CoreInfoSectionBody: YextComponentConfig<CoreInfoSectionProps> = {
   label: msg("components.coreInfo", "Core Info"),
   fields: coreInfoSectionFields,
   defaultProps: {
@@ -488,3 +489,9 @@ export const config: SectionConfig = {
   pageSetTypes: ["ENTITY"],
   category: "Page Sections",
 };
+
+export const CoreInfoSection = createSectionPreset("CoreInfoSection", {
+  label: CoreInfoSectionBody.label,
+  defaultProps: CoreInfoSectionBody.defaultProps,
+  layoutGenerationMetadata: CoreInfoSectionBody.layoutGenerationMetadata,
+});

@@ -138,10 +138,11 @@ const ProductCardsWrapperComponent: PuckComponent<ProductCardsWrapperProps> = (
 
   return (
     <CardContextProvider parentStyles={props.styles}>
-      <slots.CardSlot
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 align-stretch"
-        allow={[]}
-      />
+      {slots.CardSlot({
+        className:
+          "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 align-stretch",
+        allow: [],
+      })}
     </CardContextProvider>
   );
 };

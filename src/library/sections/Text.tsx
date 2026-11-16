@@ -1,3 +1,4 @@
+import { withDesign } from "../shared/design/withDesign.tsx";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { PuckComponent } from "@puckeditor/core";
 import { Body, BodyProps } from "../shared/sectionSupport/atoms/body.tsx";
@@ -134,7 +135,7 @@ const TextComponent: PuckComponent<TextProps> = (props) => {
   );
 };
 
-export const Text: YextComponentConfig<TextProps> = {
+const TextBase: YextComponentConfig<TextProps> = {
   ...gridAtomPermissions,
   label: msg("components.text", "Text"),
   fields: textFields,
@@ -160,5 +161,7 @@ export const config: SectionConfig = {
   displayName: "Text",
   description: "Renders body plain text.",
   pageSetTypes: ["ENTITY"],
-  category: "Core Information",
+  category: "Legacy blocks",
 };
+
+export const Text = withDesign(TextBase);

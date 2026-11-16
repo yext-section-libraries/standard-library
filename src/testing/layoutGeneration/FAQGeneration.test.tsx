@@ -3,7 +3,7 @@ import { cleanup, render } from "@testing-library/react";
 import { getDefaultRTF, resolveComponentData } from "@yext/visual-editor";
 import { describe, expect, it } from "vitest";
 import {
-  FAQSection,
+  FAQSectionBody as FAQSection,
   faqCardsSource,
 } from "../../library/sections/FAQSection.tsx";
 import { HeadingText } from "../../library/sections/HeadingText.tsx";
@@ -19,7 +19,7 @@ const config = {
 const copy = <T,>(value: T): T => structuredClone(value);
 
 const faqCardSchema = generationSchema("FAQCard");
-const faqSectionSchema = generationSchema("FAQSection");
+const faqSectionSchema = generationSchema("FAQCollection");
 
 describe("FAQ generation contracts", () => {
   it.each(["question", "answer"])(

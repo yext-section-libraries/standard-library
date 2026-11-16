@@ -1,3 +1,4 @@
+import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
 import {
   ThemeColor,
   backgroundColors,
@@ -125,7 +126,7 @@ const insightSectionFields: YextFields<InsightSectionProps> = {
   },
 };
 
-export const InsightSection: YextComponentConfig<InsightSectionProps> = {
+export const InsightSectionBody: YextComponentConfig<InsightSectionProps> = {
   label: msg("components.insights", "Insights"),
   fields: insightSectionFields,
   defaultProps: {
@@ -242,3 +243,9 @@ export const config: SectionConfig = {
   pageSetTypes: ["ENTITY"],
   category: "Page Sections",
 };
+
+export const InsightSection = createSectionPreset("InsightSection", {
+  label: InsightSectionBody.label,
+  defaultProps: InsightSectionBody.defaultProps,
+  layoutGenerationMetadata: InsightSectionBody.layoutGenerationMetadata,
+});

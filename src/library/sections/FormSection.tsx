@@ -1,3 +1,4 @@
+import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
 import React from "react";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import { useTranslation } from "react-i18next";
@@ -1152,7 +1153,7 @@ const formSectionFields: YextFields<FormSectionProps> = {
 };
 
 /** Configure the Form editor fields, defaults, and live section. */
-export const FormSection: YextComponentConfig<FormSectionProps> = {
+export const FormSectionBody: YextComponentConfig<FormSectionProps> = {
   label: msg("components.form", "Form"),
   fields: formSectionFields,
   // Puck uses one array field map for all rows, so this hides Options only
@@ -1252,3 +1253,9 @@ export const config: SectionConfig = {
   pageSetTypes: ["ENTITY"],
   category: "Page Sections",
 };
+
+export const FormSection = createSectionPreset("FormSection", {
+  label: FormSectionBody.label,
+  defaultProps: FormSectionBody.defaultProps,
+  layoutGenerationMetadata: FormSectionBody.layoutGenerationMetadata,
+});

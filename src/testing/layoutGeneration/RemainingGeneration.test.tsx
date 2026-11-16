@@ -124,7 +124,7 @@ describe("remaining generation contracts", () => {
     (name) => {
       // FormSection is not supported by layout generation.
       expect(Boolean(catalog.data.components[name].generation)).toBe(
-        name !== "FormSection"
+        !components[name].layoutGenerationMetadata?.exclude
       );
     }
   );
@@ -180,7 +180,12 @@ describe("remaining generation contracts", () => {
               child.type
             ).toBeDefined();
           }
-          // CardSlot is a collection; all other object slots are fixed children.
+          // Optional slots can be empty when their content lives outside a pattern.
+          if (field.generation?.required === false) {
+            expect((slotSchema as z.ZodType).safeParse([]).success).toBe(true);
+            continue;
+          }
+          // CardSlot is a collection; remaining object slots are fixed children.
           // Determine cardinality independently of the schema under test.
           if (name === "CardSlot") continue;
           expect(children, name).toHaveLength(1);

@@ -1,3 +1,4 @@
+import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
 import { useTranslation } from "react-i18next";
 import "@yext/visual-editor/style.css";
 import {
@@ -256,7 +257,7 @@ export const defaultBannerProps: BannerSectionProps = {
   ignoreLocaleWarning: ["data.text"],
 };
 
-export const BannerSection: YextComponentConfig<BannerSectionProps> = {
+export const BannerSectionBody: YextComponentConfig<BannerSectionProps> = {
   label: msg("components.banner", "Banner"),
   fields: bannerSectionFields,
   defaultProps: defaultBannerProps,
@@ -284,3 +285,9 @@ export const config: SectionConfig = {
   pageSetTypes: ["ENTITY", "DIRECTORY", "LOCATOR"],
   category: "Page Sections",
 };
+
+export const BannerSection = createSectionPreset("BannerSection", {
+  label: BannerSectionBody.label,
+  defaultProps: BannerSectionBody.defaultProps,
+  layoutGenerationMetadata: BannerSectionBody.layoutGenerationMetadata,
+});

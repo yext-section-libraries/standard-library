@@ -1,3 +1,4 @@
+import { withDesign } from "../shared/design/withDesign.tsx";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
@@ -117,7 +118,7 @@ const TextListComponent: PuckComponent<TextListProps> = ({
   );
 };
 
-export const TextList: YextComponentConfig<TextListProps> = {
+const TextListBase: YextComponentConfig<TextListProps> = {
   ...gridAtomPermissions,
   label: msg("components.textList", "Text List"),
   fields: textListFields,
@@ -137,5 +138,7 @@ export const config: SectionConfig = {
   displayName: "Text List",
   description: "Renders a text list.",
   pageSetTypes: ["ENTITY"],
-  category: "Core Information",
+  category: "Yext data",
 };
+
+export const TextList = withDesign(TextListBase);

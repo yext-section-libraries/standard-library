@@ -1,3 +1,4 @@
+import { withDesign } from "../shared/design/withDesign.tsx";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { Coordinate } from "@yext/pages-components";
@@ -202,7 +203,7 @@ export const MapboxStaticMapComponent: PuckComponent<MapboxStaticProps> = ({
   );
 };
 
-export const MapboxStaticMap: YextComponentConfig<MapboxStaticProps> = {
+const MapboxStaticMapBase: YextComponentConfig<MapboxStaticProps> = {
   ...gridAtomPermissions,
   label: msg("components.mapboxStaticMap", "Mapbox Static Map"),
   fields: mapboxFields,
@@ -224,5 +225,7 @@ export const config: SectionConfig = {
   displayName: "Mapbox Static Map",
   description: "Renders a mapbox static map.",
   pageSetTypes: ["ENTITY"],
-  category: "Core Information",
+  category: "Yext data",
 };
+
+export const MapboxStaticMap = withDesign(MapboxStaticMapBase);

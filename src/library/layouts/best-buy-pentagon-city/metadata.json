@@ -1,0 +1,11 @@
+{
+  "id": "best-buy-pentagon-city",
+  "displayName": "Best Buy Pentagon City",
+  "pageSetType": "ENTITY",
+  "vertical": [
+    "RETAIL"
+  ],
+  "purpose": [
+    "LOCATION"
+  ]
+}

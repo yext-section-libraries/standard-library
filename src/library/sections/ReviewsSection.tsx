@@ -1,3 +1,4 @@
+import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
 import { useTranslation } from "react-i18next";
 import { FaArrowLeft, FaArrowRight, FaChevronDown } from "react-icons/fa";
 import { PuckComponent, Slot } from "@puckeditor/core";
@@ -606,7 +607,7 @@ const ShowMoreButton: React.FC<{
   );
 };
 
-export const ReviewsSection: YextComponentConfig<ReviewsSectionProps> = {
+export const ReviewsSectionBody: YextComponentConfig<ReviewsSectionProps> = {
   fields: reviewsFields,
   label: msg("components.reviews", "Reviews"),
   defaultProps: {
@@ -690,3 +691,9 @@ export const config: SectionConfig = {
   pageSetTypes: ["ENTITY"],
   category: "Page Sections",
 };
+
+export const ReviewsSection = createSectionPreset("ReviewsSection", {
+  label: ReviewsSectionBody.label,
+  defaultProps: ReviewsSectionBody.defaultProps,
+  layoutGenerationMetadata: ReviewsSectionBody.layoutGenerationMetadata,
+});

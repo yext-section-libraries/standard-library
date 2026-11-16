@@ -1,3 +1,4 @@
+import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
 import { Slot } from "@puckeditor/core";
 import {
   ThemeColor,
@@ -125,7 +126,7 @@ const eventSectionFields: YextFields<EventSectionProps> = {
   },
 };
 
-export const EventSection: YextComponentConfig<EventSectionProps> = {
+export const EventSectionBody: YextComponentConfig<EventSectionProps> = {
   label: msg("components.events", "Events"),
   fields: eventSectionFields,
   defaultProps: {
@@ -237,3 +238,9 @@ export const config: SectionConfig = {
   pageSetTypes: ["ENTITY"],
   category: "Page Sections",
 };
+
+export const EventSection = createSectionPreset("EventSection", {
+  label: EventSectionBody.label,
+  defaultProps: EventSectionBody.defaultProps,
+  layoutGenerationMetadata: EventSectionBody.layoutGenerationMetadata,
+});

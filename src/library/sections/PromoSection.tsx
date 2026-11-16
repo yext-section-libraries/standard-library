@@ -1,3 +1,4 @@
+import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
 import { setDeep, Slot } from "@puckeditor/core";
 import {
   PromoSectionType,
@@ -370,7 +371,7 @@ const promoSectionFields: YextFields<PromoSectionProps> = {
   },
 };
 
-export const PromoSection: YextComponentConfig<PromoSectionProps> = {
+export const PromoSectionBody: YextComponentConfig<PromoSectionProps> = {
   label: msg("components.promo", "Promo"),
   fields: promoSectionFields,
   defaultProps: {
@@ -748,3 +749,9 @@ export const config: SectionConfig = {
   pageSetTypes: ["ENTITY"],
   category: "Page Sections",
 };
+
+export const PromoSection = createSectionPreset("PromoSection", {
+  label: PromoSectionBody.label,
+  defaultProps: PromoSectionBody.defaultProps,
+  layoutGenerationMetadata: PromoSectionBody.layoutGenerationMetadata,
+});

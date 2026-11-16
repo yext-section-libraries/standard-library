@@ -1,3 +1,4 @@
+import { withDesign } from "../shared/design/withDesign.tsx";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
@@ -156,7 +157,7 @@ const HoursStatusWrapper: PuckComponent<HoursStatusProps> = ({
   );
 };
 
-export const HoursStatus: YextComponentConfig<HoursStatusProps> = {
+const HoursStatusBase: YextComponentConfig<HoursStatusProps> = {
   ...gridAtomPermissions,
   label: msg("components.hoursStatus", "Hours Status"),
   fields: hoursStatusWrapperFields,
@@ -185,5 +186,7 @@ export const config: SectionConfig = {
   displayName: "Hours Status",
   description: "Displays the current status of the business.",
   pageSetTypes: ["ENTITY"],
-  category: "Core Information",
+  category: "Yext data",
 };
+
+export const HoursStatus = withDesign(HoursStatusBase);

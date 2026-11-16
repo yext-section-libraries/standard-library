@@ -1,3 +1,4 @@
+import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
 import { PuckComponent, Slot, SlotComponent } from "@puckeditor/core";
 import {
   backgroundColors,
@@ -194,7 +195,7 @@ const FAQsSectionComponent: PuckComponent<FAQSectionProps> = ({
   slots,
 }) => <FAQsSectionLayout styles={styles} slots={slots} />;
 
-export const FAQSection: YextComponentConfig<FAQSectionProps> = {
+export const FAQSectionBody: YextComponentConfig<FAQSectionProps> = {
   label: msg("components.faqs", "FAQs"),
   fields: FAQsSectionFields,
   layoutGenerationMetadata: {
@@ -270,3 +271,9 @@ export const config: SectionConfig = {
   pageSetTypes: ["ENTITY"],
   category: "Page Sections",
 };
+
+export const FAQSection = createSectionPreset("FAQSection", {
+  label: FAQSectionBody.label,
+  defaultProps: FAQSectionBody.defaultProps,
+  layoutGenerationMetadata: FAQSectionBody.layoutGenerationMetadata,
+});

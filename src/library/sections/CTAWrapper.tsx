@@ -1,3 +1,4 @@
+import { withDesign } from "../shared/design/withDesign.tsx";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import {
@@ -333,7 +334,7 @@ const CTAWrapperComponent: PuckComponent<CTAWrapperProps> = (props) => {
   );
 };
 
-export const CTAWrapper: YextComponentConfig<CTAWrapperProps> = {
+const CTAWrapperBase: YextComponentConfig<CTAWrapperProps> = {
   ...gridAtomPermissions,
   label: msg("components.callToAction", "Call to Action"),
   fields: ctaWrapperFields,
@@ -476,5 +477,7 @@ export const config: SectionConfig = {
   displayName: "Call to Action",
   description: "Displays a single call to action.",
   pageSetTypes: ["ENTITY"],
-  category: "Core Information",
+  category: "Legacy blocks",
 };
+
+export const CTAWrapper = withDesign(CTAWrapperBase);

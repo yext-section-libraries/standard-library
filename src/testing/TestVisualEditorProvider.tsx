@@ -11,6 +11,9 @@ type TemplateProps = {
 type VisualEditorProviderProps = {
   templateProps: TemplateProps;
   children: React.ReactNode;
+  entityFields?: Parameters<
+    typeof SectionLibraryVisualEditorProvider
+  >[0]["entityFields"];
 };
 
 const pageTranslations = new Map<string, TranslationDictionary>();
@@ -55,6 +58,7 @@ const normalizeLocale = (locale: unknown): string => {
 export const VisualEditorProvider = ({
   templateProps,
   children,
+  entityFields,
 }: VisualEditorProviderProps) => {
   const document = {
     locale: "en",
@@ -72,6 +76,7 @@ export const VisualEditorProvider = ({
         translations,
       }}
       translationLoaders={translationLoaders}
+      entityFields={entityFields}
     >
       {children}
     </SectionLibraryVisualEditorProvider>

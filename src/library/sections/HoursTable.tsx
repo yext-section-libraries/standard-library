@@ -1,3 +1,4 @@
+import { withDesign } from "../shared/design/withDesign.tsx";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
@@ -173,7 +174,7 @@ const VisualEditorHoursTable: PuckComponent<HoursTableProps> = (props) => {
   );
 };
 
-export const HoursTable: YextComponentConfig<HoursTableProps> = {
+const HoursTableBase: YextComponentConfig<HoursTableProps> = {
   ...gridAtomPermissions,
   fields: hoursTableFields,
   defaultProps: {
@@ -199,5 +200,7 @@ export const config: SectionConfig = {
   displayName: "Hours Table",
   description: "Displays the hours of the business.",
   pageSetTypes: ["ENTITY"],
-  category: "Core Information",
+  category: "Yext data",
 };
+
+export const HoursTable = withDesign(HoursTableBase);

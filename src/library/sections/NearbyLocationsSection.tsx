@@ -1,3 +1,4 @@
+import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
 import * as React from "react";
 import { PuckComponent, setDeep, Slot, WithId } from "@puckeditor/core";
 import {
@@ -187,7 +188,7 @@ const NearbyLocationsComponent: PuckComponent<NearbyLocationsSectionProps> = (
   );
 };
 
-export const NearbyLocationsSection: YextComponentConfig<NearbyLocationsSectionProps> =
+export const NearbyLocationsSectionBody: YextComponentConfig<NearbyLocationsSectionProps> =
   {
     label: msg("components.nearbyLocations", "Nearby Locations"),
     fields: nearbyLocationsSectionFields,
@@ -264,3 +265,13 @@ export const config: SectionConfig = {
   pageSetTypes: ["ENTITY"],
   category: "Page Sections",
 };
+
+export const NearbyLocationsSection = createSectionPreset(
+  "NearbyLocationsSection",
+  {
+    label: NearbyLocationsSectionBody.label,
+    defaultProps: NearbyLocationsSectionBody.defaultProps,
+    layoutGenerationMetadata:
+      NearbyLocationsSectionBody.layoutGenerationMetadata,
+  }
+);

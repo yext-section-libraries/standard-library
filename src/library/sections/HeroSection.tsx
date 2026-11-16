@@ -1,3 +1,4 @@
+import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
 import { setDeep, Slot } from "@puckeditor/core";
 import {
   AnalyticsScopeProvider,
@@ -457,7 +458,7 @@ const heroSectionFields: YextFields<HeroSectionProps> = {
   },
 };
 
-export const HeroSection: YextComponentConfig<HeroSectionProps> = {
+export const HeroSectionBody: YextComponentConfig<HeroSectionProps> = {
   label: msg("components.hero", "Hero"),
   fields: heroSectionFields,
   defaultProps: {
@@ -838,3 +839,9 @@ export const config: SectionConfig = {
   pageSetTypes: ["ENTITY"],
   category: "Page Sections",
 };
+
+export const HeroSection = createSectionPreset("HeroSection", {
+  label: HeroSectionBody.label,
+  defaultProps: HeroSectionBody.defaultProps,
+  layoutGenerationMetadata: HeroSectionBody.layoutGenerationMetadata,
+});

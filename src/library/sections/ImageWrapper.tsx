@@ -1,3 +1,4 @@
+import { withDesign } from "../shared/design/withDesign.tsx";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import { ComplexImageType, ImageType } from "@yext/pages-components";
@@ -250,7 +251,7 @@ export const imageDefaultProps = {
   allowWidthProp: true,
 };
 
-export const ImageWrapper: YextComponentConfig<ImageWrapperProps> = {
+const ImageWrapperBase: YextComponentConfig<ImageWrapperProps> = {
   ...gridAtomPermissions,
   label: msg("components.image", "Image"),
   inline: true,
@@ -284,5 +285,7 @@ export const config: SectionConfig = {
   displayName: "Image",
   description: "Renders an image.",
   pageSetTypes: ["ENTITY"],
-  category: "Core Information",
+  category: "Legacy blocks",
 };
+
+export const ImageWrapper = withDesign(ImageWrapperBase);

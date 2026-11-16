@@ -1,3 +1,4 @@
+import { withDesign } from "../shared/design/withDesign.tsx";
 import * as React from "react";
 import { PuckComponent, Slot } from "@puckeditor/core";
 import { cva } from "class-variance-authority";
@@ -21,6 +22,25 @@ import {
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 
 export const gridAllowedComponents = [
+  "Box",
+  "Stack",
+  "Flex",
+  "Columns",
+  "Card",
+  "List",
+  "Icon",
+  "Image",
+  "Heading",
+  "Paragraph",
+  "RichText",
+  "Button",
+  "Divider",
+  "Spacer",
+  "Collection",
+  "Gallery",
+  "Disclosure",
+  "PhoneList",
+  "Video",
   "Address",
   "BodyText",
   "CTAGroup",
@@ -196,7 +216,7 @@ const gridSectionFields: YextFields<GridProps> = {
 /**
  * The Grid Section component presents a series of columns into which a variety of smaller content blocks may be dragged, allowing for a higher degree of customization.
  */
-export const Grid: YextComponentConfig<GridProps> = {
+const GridBase: YextComponentConfig<GridProps> = {
   label: msg("components.grid", "Grid"),
   fields: gridSectionFields,
   defaultProps: {
@@ -263,5 +283,7 @@ export const config: SectionConfig = {
   displayName: "Grid",
   description: "Renders a grid for other Core Information atoms.",
   pageSetTypes: ["ENTITY"],
-  category: "Core Information",
+  category: "Legacy blocks",
 };
+
+export const Grid = withDesign(GridBase);

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { StaticMapSection } from "../../library/sections/StaticMapSection.tsx";
+import { StaticMapSectionBody as StaticMapSection } from "../../library/sections/StaticMapSection.tsx";
 import { defaultAboutSectionProps } from "../../library/shared/sectionSupport/pageSections/AboutSection/AboutSectionDetailsColumn.tsx";
 import { assetVideoSchema } from "../../library/shared/sectionSupport/contentBlocks/Video.tsx";
 import { components, generationSchema } from "./generationTestUtils.ts";

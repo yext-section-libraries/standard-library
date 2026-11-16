@@ -14,7 +14,7 @@ import {
   fireEvent,
   act,
 } from "@testing-library/react";
-import { PhotoGallerySection } from "../library/sections/PhotoGallerySection.tsx";
+import { PhotoGallerySectionBody as PhotoGallerySection } from "../library/sections/PhotoGallerySection.tsx";
 import {
   migrate,
   MainContent,

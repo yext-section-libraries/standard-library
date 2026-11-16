@@ -5,15 +5,12 @@ type PermissionContext = Pick<
   "parent" | "permissions"
 >;
 
-/** Grid atoms are movable and removable only while they belong to a Grid. */
+/** Public atoms can be composed freely. Fixed internal aliases set their own permissions. */
 export const gridAtomPermissions = {
-  permissions: { drag: false, delete: false, duplicate: false },
-  resolvePermissions: (
-    _data: unknown,
-    { parent, permissions }: PermissionContext
-  ) => ({
+  permissions: { drag: true, delete: true, duplicate: true },
+  resolvePermissions: (_data: unknown, { permissions }: PermissionContext) => ({
     ...permissions,
-    drag: parent?.type === "Grid",
-    delete: parent?.type === "Grid",
+    drag: true,
+    delete: true,
   }),
 } satisfies Pick<YextComponentConfig, "permissions" | "resolvePermissions">;

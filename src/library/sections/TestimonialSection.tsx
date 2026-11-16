@@ -1,3 +1,4 @@
+import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
 import { Slot } from "@puckeditor/core";
 import {
   ThemeColor,
@@ -126,7 +127,7 @@ const testimonialSectionFields: YextFields<TestimonialSectionProps> = {
   },
 };
 
-export const TestimonialSection: YextComponentConfig<TestimonialSectionProps> =
+export const TestimonialSectionBody: YextComponentConfig<TestimonialSectionProps> =
   {
     label: msg("components.testimonials", "Testimonials"),
     fields: testimonialSectionFields,
@@ -237,3 +238,9 @@ export const config: SectionConfig = {
   pageSetTypes: ["ENTITY"],
   category: "Page Sections",
 };
+
+export const TestimonialSection = createSectionPreset("TestimonialSection", {
+  label: TestimonialSectionBody.label,
+  defaultProps: TestimonialSectionBody.defaultProps,
+  layoutGenerationMetadata: TestimonialSectionBody.layoutGenerationMetadata,
+});

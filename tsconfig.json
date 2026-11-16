@@ -16,5 +16,11 @@
       "@yext/pages": ["./node_modules/@yext/pages/dist/types/src/index.d.ts"]
     }
   },
-  "include": ["src", "global.d.ts", "theme.config.ts"]
+  "include": ["src", "global.d.ts", "theme.config.ts"],
+  "exclude": [
+    "src/library/.generated",
+    "src/templates/local-editor*.tsx",
+    "src/templates/edit-*.tsx",
+    "src/templates/yext-standard-library*.tsx"
+  ]
 }

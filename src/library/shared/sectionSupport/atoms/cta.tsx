@@ -28,6 +28,7 @@ const BUTTON_TEXT_TRANSFORM_CSS_VAR =
   "var(--textTransform-button-textTransform)" as React.CSSProperties["textTransform"];
 
 export type CTAProps = {
+  dragRef?: ((element: Element | null) => void) | null;
   // Core props
   label: React.ReactNode;
   ctaType?: "textAndLink" | "getDirections" | "presetImage";
@@ -370,6 +371,7 @@ export const CTA = (props: CTAProps) => {
   if (disabled) {
     return (
       <Button
+        ref={props.dragRef}
         type="button"
         className={buttonClassName}
         variant={buttonVariant}
@@ -412,6 +414,7 @@ export const CTA = (props: CTAProps) => {
   if (isButton) {
     return (
       <Button
+        ref={props.dragRef}
         id={id}
         type="button"
         style={{
@@ -435,6 +438,7 @@ export const CTA = (props: CTAProps) => {
 
   return (
     <Button
+      ref={props.dragRef}
       style={{
         ...(ctaType !== "presetImage" ? dynamicStyle : undefined),
         ...style,

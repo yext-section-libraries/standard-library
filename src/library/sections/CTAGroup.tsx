@@ -1,3 +1,4 @@
+import { withDesign } from "../shared/design/withDesign.tsx";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { createUsePuck, PuckComponent, setDeep } from "@puckeditor/core";
 import {
@@ -219,7 +220,7 @@ const CTAGroupComponent: PuckComponent<CTAGroupProps> = ({ buttons }) => {
   );
 };
 
-export const CTAGroup: YextComponentConfig<CTAGroupProps> = {
+const CTAGroupBase: YextComponentConfig<CTAGroupProps> = {
   ...gridAtomPermissions,
   label: msg("components.ctaGroup", "CTA Group"),
   fields: ctaGroupFields,
@@ -255,5 +256,7 @@ export const config: SectionConfig = {
   displayName: "CTA Group",
   description: "Displays a grid of call to actions.",
   pageSetTypes: ["ENTITY"],
-  category: "Core Information",
+  category: "Legacy blocks",
 };
+
+export const CTAGroup = withDesign(CTAGroupBase);

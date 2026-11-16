@@ -1,3 +1,4 @@
+import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
 import { Slot, PuckComponent } from "@puckeditor/core";
 import {
   backgroundColors,
@@ -545,7 +546,7 @@ const professionalHeroSectionFields: YextFields<ProfessionalHeroSectionProps> =
     },
   };
 
-export const ProfessionalHeroSection: YextComponentConfig<ProfessionalHeroSectionProps> =
+export const ProfessionalHeroSectionBody: YextComponentConfig<ProfessionalHeroSectionProps> =
   {
     label: msg("components.professionalHero", "Professional Hero"),
     fields: professionalHeroSectionFields,
@@ -865,3 +866,13 @@ export const config: SectionConfig = {
   pageSetTypes: ["ENTITY"],
   category: "Page Sections",
 };
+
+export const ProfessionalHeroSection = createSectionPreset(
+  "ProfessionalHeroSection",
+  {
+    label: ProfessionalHeroSectionBody.label,
+    defaultProps: ProfessionalHeroSectionBody.defaultProps,
+    layoutGenerationMetadata:
+      ProfessionalHeroSectionBody.layoutGenerationMetadata,
+  }
+);

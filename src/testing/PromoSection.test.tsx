@@ -9,7 +9,7 @@ import {
   transformTests,
 } from "./componentTests.setup.ts";
 import { render as reactRender, waitFor } from "@testing-library/react";
-import { PromoSection } from "../library/sections/PromoSection.tsx";
+import { PromoSectionBody as PromoSection } from "../library/sections/PromoSection.tsx";
 import { migrate, MainContent, migrationRegistry } from "@yext/visual-editor";
 import { sharedComponentConfigs } from "../library/shared/componentRegistry.ts";
 import { Render, Config, resolveAllData } from "@puckeditor/core";

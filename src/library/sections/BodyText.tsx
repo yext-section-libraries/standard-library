@@ -1,3 +1,4 @@
+import { withDesign } from "../shared/design/withDesign.tsx";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import * as React from "react";
@@ -120,7 +121,7 @@ const BodyTextComponent: PuckComponent<BodyTextProps> = (props) => {
   );
 };
 
-export const BodyText: YextComponentConfig<BodyTextProps> = {
+const BodyTextBase: YextComponentConfig<BodyTextProps> = {
   ...gridAtomPermissions,
   label: msg("components.richText", "Rich Text"),
   fields: bodyTextFields,
@@ -145,5 +146,7 @@ export const config: SectionConfig = {
   displayName: "Rich Text",
   description: "Displays rich text.",
   pageSetTypes: ["ENTITY"],
-  category: "Core Information",
+  category: "Legacy blocks",
 };
+
+export const BodyText = withDesign(BodyTextBase);

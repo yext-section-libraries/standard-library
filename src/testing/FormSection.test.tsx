@@ -18,7 +18,7 @@ import {
 } from "@testing-library/react";
 import {
   config,
-  FormSection,
+  FormSectionBody as FormSection,
   FormSectionProps,
 } from "../library/sections/FormSection.tsx";
 import {

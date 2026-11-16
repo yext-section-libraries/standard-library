@@ -1,6 +1,43 @@
 # Standard Section Library
 
-This repo contains the original Visual Editor "out-of-the-box" sections.
+This repo provides editable section presets, layout and content atoms, and Yext data blocks for Visual Editor.
+
+## Composable building blocks
+
+Every `*Section` is a draggable preset containing ordinary Puck slots. Insert a preset, then move, remove, or replace its children. Start with Box, Stack, Flex, or Columns for a custom layout. Card, Disclosure, Collection, and Gallery provide reusable patterns. Heading, Paragraph, RichText, Image, Button, Icon, Divider, and Spacer provide content. Address, Hours, phone, directions, maps, reviews, and contact forms retain their Yext behavior. Older content blocks remain under **Legacy blocks** for existing layouts.
+
+Page-level content starts with a Section or a layout container such as Box, Stack, Flex, Columns, Card, or List. Directory and Locator remain page-level tools. Text, images, buttons, and individual Yext data blocks belong inside a suitable container. A Heading can sit directly inside a Section or Card. Lists accept List items, and each List item can contain ordinary content.
+
+The explicit page-area capabilities in `src/library/shared/design/pageStructure.ts` drive the page root, MainContent slots, and generation contracts through root metadata. Nesting permissions do not depend on component-name suffixes.
+
+The field panel uses Puck 0.24 tabs:
+
+- **Content** selects constants, Yext fields, and collection data.
+- **Design** uses arrangement diagrams, column previews, alignment buttons, color swatches, and spacing presets. Every option includes a diagram or visual sample and a text label. The selected choice is always marked. **Default** clears the local setting and uses normal element styling; **Parent** inherits surrounding text; **Use Design** clears a responsive exception. These choices do not undo previous edits. Toolbar Undo/Redo reverses edits while keeping the current component selected if it still exists. Open groups and custom inputs stay open across edits and history navigation. Custom sizes use a number and unit picker; CSS formulas and theme tokens have a separate input mode. Optional controls sit under **Fine-tune**, grouped into small fieldsets such as Grid details, Size limits, and Reading comfort, with explanations and space between controls. Arrange content is the single control for normal flow, rows, stacks, and grids; Fine-tune does not repeat it.
+- **Responsive** contains only tablet (768–1023px) and mobile (below 768px) exceptions. Design supplies the defaults at every size. Tablet has no preset exceptions. Mobile column layouts stack by default. Clearing an exception restores Design.
+- **Accessibility** controls semantic elements, anchor IDs, accessible names, image descriptions, and image purpose.
+
+Style controls follow the selected component and its parent. Flex and Columns arrange their direct children. Grow, shrink, self-alignment, and grid placement appear only when the parent supports them. Image fit appears on Image, and image/divider/spacer blocks do not expose text styling. Alignment needs spare space; a child's own width or self-alignment can limit stretching.
+
+Paragraphs inherit text styles by default. Text defaults on a container apply to children that inherit, while headings, buttons, and explicitly styled text can keep their own appearance. Choose **Parent** on a text control or **Use parent text style** to inherit deliberately. Native atoms attach Puck dragging to their actual HTML elements so item sizing and placement match the published page.
+
+Style inputs offer visual presets, an explicit Custom option, and `var(--token, fallback)` expressions. They use the existing theme variables for fonts, brand colors, content width, and page padding. Optional variables such as `--space-6`, `--color-text`, `--color-surface`, and `--radius-card` can be defined by a future token system. Their fallbacks keep the library usable today. No token editor or token storage is introduced here.
+
+Collection repeats one editable template over manual items or a mapped Yext list. Map its normalized title, body, image, CTA, eyebrow, and supporting text fields in Content. Inside the template, select a Collection item field as an atom's content source. The editor shows one preview item; the published page renders every item. Template edits apply to all items. Anchor IDs inside a template receive an item suffix. For example, choose Offers in Items, map Title to the offer's title and Body to its description, and keep the default Card template. Its Heading and RichText already use those item fields. Unmapped optional images and links are omitted from published output; the editor keeps selectable placeholders. Add or remove atoms inside the Card to change the template for every offer.
+
+Heading tags are independent of font size. Buttons render links for navigation and native buttons for form actions. Image supports descriptions, decorative images, loading priority, dimensions, and source-provided responsive thumbnails. Lists render `ul`/`ol` with `li` children. Disclosure uses native `details` and `summary`. Mapped-empty sections disappear from server HTML unless their visibility setting says to keep them.
+
+Migration 5 converts saved Sections to editable compositions and retains their field bindings. Migration 6 moves desktop defaults into Design, removes the old automatic tablet column exception, preserves custom tablet settings, and retains mobile layouts. It also normalizes saved heading and paragraph constants for direct plain-text editing. Migration 7 moves the old automatic paragraph font defaults to Sections while retaining authored paragraph overrides. Migration 8 groups adjacent loose page-level blocks into editable Boxes, preserving their IDs, authored styles, and data mappings. Content already inside a Section or container is unchanged. Bundled layouts already use the new format. Saved data must pass through the migration registry before rendering; presets use a single composition renderer. The historical section renderers remain as functional adapters and are covered by the original fixtures; `Composition.test.tsx` exercises the public presets, atom styling, mappings, and editor controls.
+
+### Local development across both repos
+
+Use Node 22.18 or newer within the supported Node 22 release line. With `../visual-editor/packages/visual-editor` present, Vite uses its runtime source during development and browser tests. Saving editor source refreshes the library without packing or installing a tarball. React, Puck, translation, and Pages context packages are deduplicated across the repos.
+
+Set `VISUAL_EDITOR_SOURCE` to another package directory, or set `VISUAL_EDITOR_SOURCE=off` to use the installed package. Production builds use the installed package. Build-tool changes in visual-editor still require rebuilding its plugin; the runtime source connection covers editor and component changes.
+
+Run `npm run dev`, then open `/design-system.html` for an interactive example or `/design-system.html?preview` for the page alone. The example runs locally and does not publish anything. It includes sample entity data and field metadata for trying Yext mappings. The platform supplies metadata from the selected entity.
+
+Run `npm run test:design`, `npm run typecheck`, and `npm run validate` for the composable system. Run `npm run design:css` after changing the shared style schema. `npm run layouts:redesign` converts old bundled layout files and can be run again safely. TypeScript excludes plugin-generated templates and configs; Pages verifies those during its build.
 
 The "components" from the `@yext/visual-editor` library (page sections and content blocks) are now considered
 "sections" and have `SectionConfig`s in `src/library/sections`. Slot-only components are in `src/library/shared/sectionSupport`

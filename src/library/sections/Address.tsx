@@ -1,3 +1,4 @@
+import { withDesign } from "../shared/design/withDesign.tsx";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import {
@@ -267,7 +268,7 @@ export const resolveAddressFields = (
   return updatedFields;
 };
 
-export const Address: YextComponentConfig<AddressProps> = {
+const AddressBase: YextComponentConfig<AddressProps> = {
   ...gridAtomPermissions,
   label: msg("components.address", "Address"),
   fields: addressFields,
@@ -301,5 +302,7 @@ export const config: SectionConfig = {
   displayName: "Address",
   description: "Displays an entity's address.",
   pageSetTypes: ["ENTITY"],
-  category: "Core Information",
+  category: "Yext data",
 };
+
+export const Address = withDesign(AddressBase, "address");

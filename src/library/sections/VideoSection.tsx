@@ -1,3 +1,4 @@
+import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
 import { PuckComponent, Slot } from "@puckeditor/core";
 import {
   backgroundColors,
@@ -90,7 +91,7 @@ const VideoSectionComponent: PuckComponent<VideoSectionProps> = (props) => {
   );
 };
 
-export const VideoSection: YextComponentConfig<VideoSectionProps> = {
+export const VideoSectionBody: YextComponentConfig<VideoSectionProps> = {
   label: msg("components.video", "Video"),
   fields: videoSectionFields,
   defaultProps: {
@@ -148,3 +149,9 @@ export const config: SectionConfig = {
   pageSetTypes: ["ENTITY"],
   category: "Page Sections",
 };
+
+export const VideoSection = createSectionPreset("VideoSection", {
+  label: VideoSectionBody.label,
+  defaultProps: VideoSectionBody.defaultProps,
+  layoutGenerationMetadata: VideoSectionBody.layoutGenerationMetadata,
+});

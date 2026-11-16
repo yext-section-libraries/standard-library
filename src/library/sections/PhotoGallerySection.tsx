@@ -1,3 +1,4 @@
+import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
 import {
   type SectionConfig,
   backgroundColors,
@@ -167,7 +168,7 @@ const PhotoGallerySectionComponent: PuckComponent<PhotoGallerySectionProps> = ({
  * Shows images with an optional heading. Uses a grid or a carousel.
  * Available on Location templates.
  */
-export const PhotoGallerySection: YextComponentConfig<PhotoGallerySectionProps> =
+export const PhotoGallerySectionBody: YextComponentConfig<PhotoGallerySectionProps> =
   {
     label: msg("components.photoGallery", "Photo Gallery"),
     fields: photoGallerySectionFields,
@@ -286,3 +287,9 @@ export const config: SectionConfig = {
   pageSetTypes: ["ENTITY"],
   category: "Page Sections",
 };
+
+export const PhotoGallerySection = createSectionPreset("PhotoGallerySection", {
+  label: PhotoGallerySectionBody.label,
+  defaultProps: PhotoGallerySectionBody.defaultProps,
+  layoutGenerationMetadata: PhotoGallerySectionBody.layoutGenerationMetadata,
+});

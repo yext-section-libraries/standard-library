@@ -1,3 +1,4 @@
+import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
 import {
   backgroundColors,
   ThemeColor,
@@ -90,30 +91,31 @@ const StaticMapSectionWrapper: PuckComponent<StaticMapSectionProps> = ({
   );
 };
 
-export const StaticMapSection: YextComponentConfig<StaticMapSectionProps> = {
-  label: msg("components.staticMap", "Static Map"),
-  fields: staticMapSectionFields,
-  defaultProps: {
-    liveVisibility: true,
-    styles: {
-      backgroundColor: backgroundColors.background1.value,
-      mapStyle: "streets-v12",
+export const StaticMapSectionBody: YextComponentConfig<StaticMapSectionProps> =
+  {
+    label: msg("components.staticMap", "Static Map"),
+    fields: staticMapSectionFields,
+    defaultProps: {
+      liveVisibility: true,
+      styles: {
+        backgroundColor: backgroundColors.background1.value,
+        mapStyle: "streets-v12",
+      },
     },
-  },
-  render: (props) => (
-    <ComponentErrorBoundary
-      isEditing={props.puck.isEditing}
-      resetKeys={[props]}
-    >
-      <VisibilityWrapper
-        liveVisibility={props.liveVisibility}
+    render: (props) => (
+      <ComponentErrorBoundary
         isEditing={props.puck.isEditing}
+        resetKeys={[props]}
       >
-        <StaticMapSectionWrapper {...props} />
-      </VisibilityWrapper>
-    </ComponentErrorBoundary>
-  ),
-};
+        <VisibilityWrapper
+          liveVisibility={props.liveVisibility}
+          isEditing={props.puck.isEditing}
+        >
+          <StaticMapSectionWrapper {...props} />
+        </VisibilityWrapper>
+      </ComponentErrorBoundary>
+    ),
+  };
 
 export const config: SectionConfig = {
   id: "StaticMapSection",
@@ -123,3 +125,9 @@ export const config: SectionConfig = {
   pageSetTypes: ["ENTITY"],
   category: "Page Sections",
 };
+
+export const StaticMapSection = createSectionPreset("StaticMapSection", {
+  label: StaticMapSectionBody.label,
+  defaultProps: StaticMapSectionBody.defaultProps,
+  layoutGenerationMetadata: StaticMapSectionBody.layoutGenerationMetadata,
+});

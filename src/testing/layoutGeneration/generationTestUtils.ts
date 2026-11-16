@@ -12,10 +12,7 @@ export const sections: Record<
 > = Object.fromEntries(
   Object.values(modules)
     .filter((m) => m.config)
-    .map((m) => [
-      m.config.id,
-      m[Object.keys(m).find((key) => key !== "config" && m[key]?.fields)!],
-    ])
+    .map((m) => [m.config.id, m[m.config.id]])
 );
 export const components = { ...sections, ...sharedComponentConfigs } as Record<
   string,
@@ -46,13 +43,17 @@ export const sectionNames = [
 // Build serialized native instances, including identities for every authored child.
 export const makeLayout = (type: string): Data => {
   let nextId = 0;
-  const instance = (type: string, props: any): any => {
-    props.id = `${type}-${nextId++}`;
-    for (const items of Object.values(props.slots ?? {}) as any[][]) {
-      for (const child of items) instance(child.type, child.props);
-    }
-    return { type, props };
+  const visit = (value: any): any => {
+    if (Array.isArray(value)) return value.map(visit);
+    if (!value || typeof value !== "object") return value;
+    const result = Object.fromEntries(
+      Object.entries(value).map(([key, child]) => [key, visit(child)])
+    ) as any;
+    if (value.type && value.props)
+      result.props.id = `${value.type}-${nextId++}`;
+    return result;
   };
+  const instance = (type: string, props: any) => visit({ type, props });
   return {
     root: { props: {} },
     content: [
@@ -64,9 +65,15 @@ export const authored = (layout: Data) => {
   const project = (item: any): any => {
     const schema = generationSchema(item.type);
     const props = schema.parse(item.props) as Record<string, any>;
-    for (const [slotName, items] of Object.entries(props.slots ?? {})) {
-      props.slots[slotName] = (items as any[]).map(project);
-    }
+    const visit = (value: any): any => {
+      if (Array.isArray(value)) return value.map(visit);
+      if (!value || typeof value !== "object") return value;
+      if (value.type && value.props) return project(value);
+      return Object.fromEntries(
+        Object.entries(value).map(([key, child]) => [key, visit(child)])
+      );
+    };
+    for (const key of Object.keys(props)) props[key] = visit(props[key]);
     return { type: item.type, props };
   };
   return layout.content.map(project);

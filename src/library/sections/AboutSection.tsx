@@ -1,3 +1,4 @@
+import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
 import React from "react";
 import { PuckComponent, Slot, WithId } from "@puckeditor/core";
 import {
@@ -207,7 +208,7 @@ const AboutComponent: PuckComponent<AboutSectionProps> = (props) => {
   );
 };
 
-export const AboutSection: YextComponentConfig<AboutSectionProps> = {
+export const AboutSectionBody: YextComponentConfig<AboutSectionProps> = {
   label: msg("components.about", "About"),
   fields: aboutSectionFields,
   defaultProps: {
@@ -348,3 +349,9 @@ export const config: SectionConfig = {
   pageSetTypes: ["ENTITY"],
   category: "Page Sections",
 };
+
+export const AboutSection = createSectionPreset("AboutSection", {
+  label: AboutSectionBody.label,
+  defaultProps: AboutSectionBody.defaultProps,
+  layoutGenerationMetadata: AboutSectionBody.layoutGenerationMetadata,
+});

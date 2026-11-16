@@ -9,7 +9,7 @@ import {
   transformTests,
 } from "./componentTests.setup.ts";
 import { render as reactRender, waitFor } from "@testing-library/react";
-import { NearbyLocationsSection } from "../library/sections/NearbyLocationsSection.tsx";
+import { NearbyLocationsSectionBody as NearbyLocationsSection } from "../library/sections/NearbyLocationsSection.tsx";
 import { sharedComponentConfigs } from "../library/shared/componentRegistry.ts";
 import {
   migrate,

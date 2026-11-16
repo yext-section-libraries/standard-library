@@ -8,7 +8,7 @@ import {
   transformTests,
 } from "./componentTests.setup.ts";
 import { render as reactRender } from "@testing-library/react";
-import { CoreInfoSection } from "../library/sections/CoreInfoSection.tsx";
+import { CoreInfoSectionBody as CoreInfoSection } from "../library/sections/CoreInfoSection.tsx";
 import { migrate, MainContent, migrationRegistry } from "@yext/visual-editor";
 import { Render, Config, resolveAllData } from "@puckeditor/core";
 import { page } from "@vitest/browser/context";

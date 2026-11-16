@@ -8,7 +8,7 @@ import {
   transformTests,
 } from "./componentTests.setup.ts";
 import { render as reactRender } from "@testing-library/react";
-import { VideoSection } from "../library/sections/VideoSection.tsx";
+import { VideoSectionBody as VideoSection } from "../library/sections/VideoSection.tsx";
 import { migrate, MainContent, migrationRegistry } from "@yext/visual-editor";
 import { sharedComponentConfigs } from "../library/shared/componentRegistry.ts";
 import { Render, Config } from "@puckeditor/core";

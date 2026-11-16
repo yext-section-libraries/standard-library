@@ -1,3 +1,4 @@
+import { withDesign } from "../shared/design/withDesign.tsx";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import {
@@ -168,7 +169,7 @@ const PhoneComponent = ({ data, styles, parentData }: PhoneProps) => {
   );
 };
 
-export const Phone: YextComponentConfig<PhoneProps> = {
+const PhoneBase: YextComponentConfig<PhoneProps> = {
   ...gridAtomPermissions,
   label: msg("components.phone", "Phone"),
   fields: PhoneFields,
@@ -189,5 +190,7 @@ export const config: SectionConfig = {
   displayName: "Phone",
   description: "Renders a phone number.",
   pageSetTypes: ["ENTITY"],
-  category: "Core Information",
+  category: "Yext data",
 };
+
+export const Phone = withDesign(PhoneBase);

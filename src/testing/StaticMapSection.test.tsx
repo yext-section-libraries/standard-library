@@ -6,7 +6,7 @@ import { render as reactRender } from "@testing-library/react";
 import { migrate, MainContent, migrationRegistry } from "@yext/visual-editor";
 import { Render, Config } from "@puckeditor/core";
 import { page } from "@vitest/browser/context";
-import { StaticMapSection } from "../library/sections/StaticMapSection.tsx";
+import { StaticMapSectionBody as StaticMapSection } from "../library/sections/StaticMapSection.tsx";
 
 const tests: ComponentTest[] = [
   {

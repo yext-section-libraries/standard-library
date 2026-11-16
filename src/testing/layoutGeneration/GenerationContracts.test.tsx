@@ -1,4 +1,21 @@
 import { describe, expect, it } from "vitest";
+import { createPuckGenerationCatalog } from "@yext/visual-editor/section-library-support";
+import { PromoSectionBody } from "../../library/sections/PromoSection.tsx";
+const legacyPromoSchema = createPuckGenerationCatalog({
+  Promo: {
+    ...PromoSectionBody,
+    defaultProps: { ...PromoSectionBody.defaultProps! },
+  },
+}).data.components.Promo.generation!.props;
+const findNode = (value: any, type: string): any => {
+  if (Array.isArray(value))
+    return value.map((child) => findNode(child, type)).find(Boolean);
+  if (!value || typeof value !== "object") return undefined;
+  if (value.type === type && value.props) return value;
+  return Object.values(value)
+    .map((child) => findNode(child, type))
+    .find(Boolean);
+};
 import directoryLayout from "../../library/layouts/standard-library-directory/defaultLayout.json";
 import locatorLayout from "../../library/layouts/standard-library-locator/defaultLayout.json";
 import defaultLayout from "../../library/layouts/standard-library/defaultLayout.json";
@@ -56,23 +73,27 @@ describe("component-owned generation contracts", () => {
       fr: { html: "<p>Offre</p>" },
       hasLocalizedValue: "true",
     };
-    props.slots.DescriptionSlot[0].props.data.text.constantValue = richText;
-    props.slots.HeadingSlot[0].props.data.text = {
+    findNode(props.content, "RichText").props.data.text.constantValue =
+      richText;
+    findNode(props.content, "Heading").props.data.text = {
       field: "name",
       constantValue: { defaultValue: "Name", fr: "Nom" },
       constantValueEnabled: false,
     };
-    props.slots.ImageSlot[0].props.data.image.constantValue.alternateText = {
+    findNode(
+      props.content,
+      "Image"
+    ).props.data.image.constantValue.alternateText = {
       defaultValue: "Image",
       fr: "Illustration",
     };
-    const description = props.slots.DescriptionSlot[0];
+    const description = findNode(props.content, "RichText");
     expect(
       generationSchema(description.type).parse(description.props)
     ).toMatchObject({
       data: { text: { constantValue: richText } },
     });
-    const image = props.slots.ImageSlot[0];
+    const image = findNode(props.content, "Image");
     expect(generationSchema(image.type).safeParse(image.props).success).toBe(
       true
     );
@@ -83,23 +104,17 @@ describe("component-owned generation contracts", () => {
   });
 
   it("keeps bracketed custom color and scalar constraints", () => {
-    const props = makeLayout("PromoSection").content[0].props;
+    const props = structuredClone(PromoSectionBody.defaultProps!);
     props.styles.backgroundColor = {
       selectedColor: "[#FFBBC7]",
       contrastingColor: "black",
       isDarkColor: false,
     };
-    expect(generationSchema("PromoSection").safeParse(props).success).toBe(
-      true
-    );
+    expect(legacyPromoSchema.safeParse(props).success).toBe(true);
     props.styles.backgroundColor.selectedColor = "#FFBBC7";
-    expect(generationSchema("PromoSection").safeParse(props).success).toBe(
-      false
-    );
+    expect(legacyPromoSchema.safeParse(props).success).toBe(false);
     props.styles.backgroundColor.selectedColor = "[#FFBBC7]";
     props.styles.imageHeight = -1;
-    expect(generationSchema("PromoSection").safeParse(props).success).toBe(
-      false
-    );
+    expect(legacyPromoSchema.safeParse(props).success).toBe(false);
   });
 });

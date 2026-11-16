@@ -22,7 +22,10 @@
     "validate": "yextve validate",
     "deploy": "yextve deploy",
     "convert-template": "yextve convert-template --apply --delete-source",
-    "add-directory-locator": "yextve add-directory-locator"
+    "add-directory-locator": "yextve add-directory-locator",
+    "design:css": "node --import tsx scripts/generate-design-css.ts",
+    "test:design": "SECTION_LIBRARY_REVISION_ID=local vitest run src/testing/Composition.test.tsx src/testing/designStyles.test.ts",
+    "layouts:redesign": "node scripts/redesign-layouts.mjs"
   },
   "engines": {
     "node": "^22.18.0"

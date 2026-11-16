@@ -1,3 +1,4 @@
+import { withDesign } from "../shared/design/withDesign.tsx";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { PuckComponent } from "@puckeditor/core";
 import {
@@ -132,7 +133,7 @@ const headingTextFields: YextFields<HeadingTextProps> = {
   },
 };
 
-export const HeadingText: YextComponentConfig<HeadingTextProps> = {
+const HeadingTextBase: YextComponentConfig<HeadingTextProps> = {
   ...gridAtomPermissions,
   label: msg("components.headingText", "Heading Text"),
   fields: headingTextFields,
@@ -158,5 +159,7 @@ export const config: SectionConfig = {
   displayName: "Heading Text",
   description: "Renders heading plain text.",
   pageSetTypes: ["ENTITY"],
-  category: "Core Information",
+  category: "Legacy blocks",
 };
+
+export const HeadingText = withDesign(HeadingTextBase);

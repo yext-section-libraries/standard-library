@@ -1,3 +1,4 @@
+import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
 import { useTranslation } from "react-i18next";
 import {
   useTemplateProps,
@@ -220,6 +221,7 @@ export const BreadcrumbsComponent = ({
               <wbr />
 
               <MaybeLink
+                aria-current={isCurrentPage ? "page" : undefined}
                 eventName={`link${index}`}
                 href={isCurrentPage ? "" : href}
                 className="inline text-body-sm-fontSize font-link-fontWeight font-link-fontFamily whitespace-normal break-words"
@@ -236,7 +238,7 @@ export const BreadcrumbsComponent = ({
   );
 };
 
-export const BreadcrumbsSection: YextComponentConfig<BreadcrumbsSectionProps> =
+export const BreadcrumbsSectionBody: YextComponentConfig<BreadcrumbsSectionProps> =
   {
     label: msg("components.breadcrumbs", "Breadcrumbs"),
     fields: breadcrumbsSectionFields,
@@ -302,3 +304,9 @@ export const config: SectionConfig = {
   pageSetTypes: ["ENTITY"],
   category: "Page Sections",
 };
+
+export const BreadcrumbsSection = createSectionPreset("BreadcrumbsSection", {
+  label: BreadcrumbsSectionBody.label,
+  defaultProps: BreadcrumbsSectionBody.defaultProps,
+  layoutGenerationMetadata: BreadcrumbsSectionBody.layoutGenerationMetadata,
+});

@@ -1,3 +1,4 @@
+import { withDesign } from "../shared/design/withDesign.tsx";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { setDeep } from "@puckeditor/core";
 import "@yext/pages-components/style.css";
@@ -65,7 +66,7 @@ const GetDirectionsComponent = ({
   );
 };
 
-export const GetDirections: YextComponentConfig<GetDirectionsProps> = {
+const GetDirectionsBase: YextComponentConfig<GetDirectionsProps> = {
   ...gridAtomPermissions,
   label: msg("components.getDirections", "Get Directions"),
   fields: getDirectionsFields,
@@ -92,5 +93,7 @@ export const config: SectionConfig = {
   displayName: "Get Directions",
   description: "Displays a get directions call to action.",
   pageSetTypes: ["ENTITY"],
-  category: "Core Information",
+  category: "Yext data",
 };
+
+export const GetDirections = withDesign(GetDirectionsBase);

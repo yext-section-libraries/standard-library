@@ -8,7 +8,7 @@ import {
   transformTests,
 } from "./componentTests.setup.ts";
 import { render as reactRender, act } from "@testing-library/react";
-import { FAQSection } from "../library/sections/FAQSection.tsx";
+import { FAQSectionBody as FAQSection } from "../library/sections/FAQSection.tsx";
 import {
   getDefaultRTF,
   migrate,

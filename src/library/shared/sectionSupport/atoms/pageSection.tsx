@@ -2,6 +2,7 @@ import * as React from "react";
 import { themeManagerCn, ThemeColor } from "@yext/visual-editor";
 import { Background } from "./background.tsx";
 import { cva, VariantProps } from "class-variance-authority";
+import { FunctionalBlockContext } from "../../design/FunctionalBlockContext.ts";
 
 const pageSectionVariants = cva("px-4 md:px-6", {
   variants: {
@@ -61,13 +62,15 @@ export const PageSection = React.forwardRef<HTMLDivElement, PageSectionProps>(
     },
     ref
   ) => {
-    const InnerComponent = as ?? "section";
+    const isFunctionalBlock = React.useContext(FunctionalBlockContext);
+    const InnerComponent = as ?? (isFunctionalBlock ? "div" : "section");
 
     return (
       <Background
         className={themeManagerCn(
-          "components w-full px-4",
-          pageSectionVariants({ verticalPadding }),
+          "components w-full",
+          !isFunctionalBlock && "px-4",
+          !isFunctionalBlock && pageSectionVariants({ verticalPadding }),
           outerClassName
         )}
         style={outerStyle}
@@ -75,7 +78,10 @@ export const PageSection = React.forwardRef<HTMLDivElement, PageSectionProps>(
         ref={ref}
       >
         <InnerComponent
-          className={themeManagerCn(maxWidthVariants({ maxWidth }), className)}
+          className={themeManagerCn(
+            !isFunctionalBlock && maxWidthVariants({ maxWidth }),
+            className
+          )}
           {...props}
         >
           {props.children}

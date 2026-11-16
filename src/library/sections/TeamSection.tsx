@@ -1,3 +1,4 @@
+import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
 import { Slot } from "@puckeditor/core";
 import {
   ThemeColor,
@@ -126,7 +127,7 @@ const teamSectionFields: YextFields<TeamSectionProps> = {
   },
 };
 
-export const TeamSection: YextComponentConfig<TeamSectionProps> = {
+export const TeamSectionBody: YextComponentConfig<TeamSectionProps> = {
   label: msg("components.team", "Team"),
   fields: teamSectionFields,
   defaultProps: {
@@ -239,3 +240,9 @@ export const config: SectionConfig = {
   pageSetTypes: ["ENTITY"],
   category: "Page Sections",
 };
+
+export const TeamSection = createSectionPreset("TeamSection", {
+  label: TeamSectionBody.label,
+  defaultProps: TeamSectionBody.defaultProps,
+  layoutGenerationMetadata: TeamSectionBody.layoutGenerationMetadata,
+});

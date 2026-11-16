@@ -9,7 +9,7 @@ import {
 } from "./componentTests.setup.ts";
 import { act, render as reactRender } from "@testing-library/react";
 import { migrate, MainContent, migrationRegistry } from "@yext/visual-editor";
-import { ReviewsSection } from "../library/sections/ReviewsSection.tsx";
+import { ReviewsSectionBody as ReviewsSection } from "../library/sections/ReviewsSection.tsx";
 import { sharedComponentConfigs } from "../library/shared/componentRegistry.ts";
 import { Render, Config, resolveAllData } from "@puckeditor/core";
 import { page } from "@vitest/browser/context";

@@ -14,7 +14,7 @@ describe("field inference coverage", () => {
     expect(catalog.data.components.FormSection.generation).toBeUndefined();
     for (const [name, component] of Object.entries(components)) {
       expect(component.layoutGenerationMetadata?.props, name).toBeUndefined();
-      if (name !== "FormSection")
+      if (!component.layoutGenerationMetadata?.exclude)
         expect(catalog.data.components[name].generation, name).toBeDefined();
     }
   });
@@ -95,7 +95,7 @@ describe("custom authoring constraints", () => {
 
 describe("inferred slotted sources", () => {
   const sourceNames = [
-    "FAQSection",
+    "FAQCollection",
     "EventCardsWrapper",
     "InsightCardsWrapper",
     "ProductCardsWrapper",

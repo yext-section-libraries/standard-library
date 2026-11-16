@@ -1,3 +1,4 @@
+import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
 import {
   ThemeColor,
   backgroundColors,
@@ -147,7 +148,7 @@ const productSectionFields: YextFields<ProductSectionProps> = {
   },
 };
 
-export const ProductSection: YextComponentConfig<ProductSectionProps> = {
+export const ProductSectionBody: YextComponentConfig<ProductSectionProps> = {
   label: msg("components.products", "Products"),
   fields: productSectionFields,
   defaultProps: {
@@ -277,3 +278,9 @@ export const config: SectionConfig = {
   pageSetTypes: ["ENTITY"],
   category: "Page Sections",
 };
+
+export const ProductSection = createSectionPreset("ProductSection", {
+  label: ProductSectionBody.label,
+  defaultProps: ProductSectionBody.defaultProps,
+  layoutGenerationMetadata: ProductSectionBody.layoutGenerationMetadata,
+});
