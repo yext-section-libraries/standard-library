@@ -128,7 +128,11 @@ describe("FormSection", () => {
         { label: "Building savings", value: "savings" },
       ],
     });
-    await renderForm(props);
+    await renderForm(props, false, undefined, {
+      id: "location-1",
+      locale: "en",
+      __: { name: "contact-pages" },
+    });
     await waitFor(() =>
       expect(
         (
@@ -165,6 +169,7 @@ describe("FormSection", () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         entity_id: "location-1",
+        pages_feature_id: "contact-pages",
         token: "test-token-1",
         type: "HS_CONTACT",
         data: {

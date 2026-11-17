@@ -780,6 +780,7 @@ const FormSectionComponent: PuckComponent<FormSectionProps> = ({
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             entity_id: String(streamDocument.id),
+            pages_feature_id: streamDocument.__?.name,
             token,
             type: data.formType,
             data: submissionData,
