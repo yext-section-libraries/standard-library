@@ -1,7 +1,6 @@
 import React from "react";
 import { PuckComponent, Slot, WithId } from "@puckeditor/core";
 import {
-  backgroundColors,
   ThemeColor,
   HeadingLevel,
   ThemeOptions,
@@ -27,7 +26,7 @@ import { ComponentErrorBoundary } from "@yext/visual-editor/section-library-supp
 const placeholderText = {
   defaultValue: {
     json: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.","type":"text","version":1},{"type":"linebreak","version":1},{"type":"linebreak","version":1},{"detail":0,"format":0,"mode":"normal","style":"","text":"Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.","type":"text","version":1},{"type":"linebreak","version":1},{"type":"linebreak","version":1},{"detail":0,"format":0,"mode":"normal","style":"","text":"In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.","type":"text","version":1},{"type":"linebreak","version":1},{"type":"linebreak","version":1},{"detail":0,"format":0,"mode":"normal","style":"","text":"Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}',
-    html: '<p dir="ltr" style="font-size: 14.67px; font-weight: 400; line-height: 18.67px; color: rgb(0, 0, 0); margin: 0; padding: 3px 2px 3px 2px; position: relative;"><span>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</span><br/><br/><span>Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</span><br/><br/><span>In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</span><br/><br/><span>Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</span></p>',
+    html: '<p dir="ltr" style="font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;"><span>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</span><br/><br/><span>Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</span><br/><br/><span>In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</span><br/><br/><span>Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</span></p>',
   },
 };
 
@@ -39,13 +38,13 @@ export type AboutSectionProps = {
   styles: {
     /**
      * The background color of the section.
-     * @defaultValue Background Color 2
      */
     backgroundColor?: ThemeColor;
 
     /**
      * The read more/read less button color.
      */
+    readMoreActionId?: string;
     readMoreButtonColor?: ThemeColor;
 
     /**
@@ -78,6 +77,12 @@ const aboutSectionFields: YextFields<AboutSectionProps> = {
         type: "basicSelector",
         label: msg("fields.backgroundColor", "Background Color"),
         options: "BACKGROUND_COLOR",
+      },
+      readMoreActionId: {
+        generation: { required: false },
+        type: "themeCollection",
+        collection: "actions",
+        label: "Read more action",
       },
       readMoreButtonColor: {
         type: "basicSelector",
@@ -136,7 +141,8 @@ const AboutComponent: PuckComponent<AboutSectionProps> = (props) => {
     React.useState(false);
   const descriptionSlotRef = React.useRef<HTMLDivElement>(null);
   const readMoreButtonColor = getThemeColorCssValue(
-    styles?.readMoreButtonColor?.selectedColor
+    styles?.readMoreButtonColor,
+    true
   );
   // Only show expand/collapse button if the description content is truncated
   React.useLayoutEffect(() => {
@@ -181,8 +187,8 @@ const AboutComponent: PuckComponent<AboutSectionProps> = (props) => {
         </div>
         {(isDescriptionOverflown || expanded) && (
           <Button
-            variant="link"
-            className="visible lg:hidden font-body-fontFamily font-bold text-body-fontSize no-underline cursor-pointer inline-flex items-center gap-2"
+            actionId={styles.readMoreActionId}
+            className="visible lg:hidden font-bold no-underline cursor-pointer inline-flex items-center gap-2"
             style={
               readMoreButtonColor ? { color: readMoreButtonColor } : undefined
             }
@@ -212,7 +218,6 @@ export const AboutSection: YextComponentConfig<AboutSectionProps> = {
   fields: aboutSectionFields,
   defaultProps: {
     styles: {
-      backgroundColor: backgroundColors.background2.value,
       showDetailsColumn: true,
     },
     slots: {
@@ -227,7 +232,10 @@ export const AboutSection: YextComponentConfig<AboutSectionProps> = {
                 field: "",
               },
             },
-            styles: { level: 2, align: "left" },
+            styles: {
+              level: 2,
+              align: "left",
+            },
           } satisfies HeadingTextProps,
         },
       ],
@@ -242,9 +250,7 @@ export const AboutSection: YextComponentConfig<AboutSectionProps> = {
                 constantValueEnabled: true,
               },
             },
-            styles: {
-              variant: "base",
-            },
+            styles: {},
             parentStyles: {
               className: "",
             },

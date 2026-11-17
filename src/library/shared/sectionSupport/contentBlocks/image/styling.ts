@@ -4,6 +4,7 @@ import { msg } from "@yext/visual-editor/section-library-support";
 
 /** Props for displaying an image */
 export interface ImageStylingProps {
+  actionId?: string;
   /** The aspect ratio of the image */
   aspectRatio: number;
   width?: number;

@@ -2,7 +2,6 @@ import * as React from "react";
 import { PuckComponent, setDeep, Slot, WithId } from "@puckeditor/core";
 import {
   ThemeColor,
-  backgroundColors,
   ThemeOptions,
   msg,
   YextComponentConfig,
@@ -25,7 +24,6 @@ export interface NearbyLocationsSectionProps {
   styles: {
     /**
      * The background color for the entire section.
-     * @defaultValue Background Color 1
      */
     backgroundColor?: ThemeColor;
 
@@ -193,7 +191,6 @@ export const NearbyLocationsSection: YextComponentConfig<NearbyLocationsSectionP
     fields: nearbyLocationsSectionFields,
     defaultProps: {
       styles: {
-        backgroundColor: backgroundColors.background1.value,
         showSectionHeading: true,
       },
       analytics: {

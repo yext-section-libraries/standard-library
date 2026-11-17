@@ -5,7 +5,6 @@ import {
   ImageType,
 } from "@yext/pages-components";
 import {
-  backgroundColors,
   ThemeColor,
   HeadingLevel,
   ThemeOptions,
@@ -22,7 +21,6 @@ import {
   SectionConfig,
 } from "@yext/visual-editor";
 import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
-import { CTAVariant } from "../shared/sectionSupport/atoms/cta.tsx";
 import { HeadingTextProps } from "./HeadingText.tsx";
 import { HoursStatusProps } from "./HoursStatus.tsx";
 import {
@@ -57,7 +55,6 @@ export interface HeroStyles {
   /**
    * The background color for the entire section (classic and compact variants).
    * The background color for the featured content (spotlight variant).
-   * @defaultValue Background Color 1
    */
   backgroundColor?: ThemeColor;
 
@@ -474,7 +471,6 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
     },
     styles: {
       variant: "classic",
-      backgroundColor: backgroundColors.background1.value,
       imageHeight: 500,
       desktopImagePosition: "right",
       desktopContainerPosition: "left",
@@ -501,7 +497,10 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
                 field: "",
               },
             },
-            styles: { level: 3, align: "left" },
+            styles: {
+              level: 3,
+              align: "left",
+            },
           } satisfies HeadingTextProps,
         },
       ],
@@ -516,7 +515,10 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
                 field: "",
               },
             },
-            styles: { level: 1, align: "left" },
+            styles: {
+              level: 1,
+              align: "left",
+            },
           } satisfies HeadingTextProps,
         },
       ],
@@ -605,7 +607,6 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
             },
             eventName: "primaryCta",
             styles: {
-              variant: "primary",
               presetImage: "app-store",
             },
           } satisfies CTAWrapperProps,
@@ -631,7 +632,6 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
               },
             },
             styles: {
-              variant: "secondary",
               presetImage: "app-store",
             },
             eventName: "secondaryCta",
@@ -651,8 +651,8 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
       data.props.styles.variant
     );
 
-    const ctaClassNameFn = (variant: CTAVariant): string => {
-      switch (variant) {
+    const ctaClassNameFn = (presentation: "button" | "link"): string => {
+      switch (presentation) {
         case "link":
           return (
             "py-3 border-2 border-transparent w-fit " +
@@ -702,7 +702,7 @@ export const HeroSection: YextComponentConfig<HeroSectionProps> = {
         data = setDeep(
           data,
           "props.slots.ImageSlot[0].props.className",
-          "mx-auto max-w-full md:max-w-[350px] lg:max-w-[calc(min(calc(100vw-1.5rem),var(--maxWidth-pageSection-contentWidth))-350px)] rounded-image-borderRadius"
+          "mx-auto max-w-full md:max-w-[350px] lg:max-w-[calc(min(calc(100vw-1.5rem),var(--ve-page-content-max-width))-350px)] rounded-[var(--ve-image-border-radius)]"
         );
         break;
     }

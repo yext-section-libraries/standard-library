@@ -1,7 +1,6 @@
 import { Slot } from "@puckeditor/core";
 import {
   ThemeColor,
-  backgroundColors,
   ThemeOptions,
   msg,
   getAnalyticsScopeHash,
@@ -34,7 +33,6 @@ export interface TestimonialSectionProps {
   styles: {
     /**
      * The background color of the section.
-     * @defaultValue Background Color 2
      */
     backgroundColor?: ThemeColor;
 
@@ -132,7 +130,6 @@ export const TestimonialSection: YextComponentConfig<TestimonialSectionProps> =
     fields: testimonialSectionFields,
     defaultProps: {
       styles: {
-        backgroundColor: backgroundColors.background2.value,
         showSectionHeading: true,
       },
       slots: {
@@ -147,7 +144,10 @@ export const TestimonialSection: YextComponentConfig<TestimonialSectionProps> =
                   field: "",
                 },
               },
-              styles: { level: 2, align: "left" },
+              styles: {
+                level: 2,
+                align: "left",
+              },
             } satisfies HeadingTextProps,
           },
         ],

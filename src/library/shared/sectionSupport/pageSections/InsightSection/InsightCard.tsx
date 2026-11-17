@@ -1,7 +1,6 @@
 import * as React from "react";
 import {
   ThemeColor,
-  backgroundColors,
   msg,
   InsightStruct,
   TranslatableRichText,
@@ -61,7 +60,7 @@ export const defaultInsightCardSlotData = (
     props: {
       ...(id && { id }),
       styles: {
-        backgroundColor: backgroundColor ?? backgroundColors.background1.value,
+        backgroundColor: backgroundColor ?? undefined,
       } satisfies InsightCardProps["styles"],
       conditionalRender: {
         hasCategory: true,
@@ -130,7 +129,6 @@ export const defaultInsightCardSlotData = (
                 },
               },
               styles: {
-                variant: "base",
                 fontStyle: "regular",
               },
             } satisfies TextProps,
@@ -148,9 +146,7 @@ export const defaultInsightCardSlotData = (
                   constantValueEnabled: true,
                 },
               },
-              styles: {
-                variant: "base",
-              },
+              styles: {},
             } satisfies BodyTextProps,
           },
         ],
@@ -194,7 +190,6 @@ export const defaultInsightCardSlotData = (
                 },
               },
               styles: {
-                variant: "primary",
                 presetImage: "app-store",
               },
               eventName: index !== undefined ? `cta${index}` : undefined,
@@ -480,9 +475,7 @@ export const InsightCard: YextComponentConfig<InsightCardProps> = {
   fields: insightCardFields,
   inline: true,
   defaultProps: {
-    styles: {
-      backgroundColor: backgroundColors.background1.value,
-    },
+    styles: {},
     slots: defaultInsightCardSlotData().props.slots,
   },
   resolveData: (data, params) => {

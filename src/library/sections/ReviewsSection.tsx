@@ -3,13 +3,11 @@ import { FaArrowLeft, FaArrowRight, FaChevronDown } from "react-icons/fa";
 import { PuckComponent, Slot } from "@puckeditor/core";
 import * as React from "react";
 import {
-  backgroundColors,
   type ThemeColor,
   ThemeOptions,
   getAnalyticsScopeHash,
   msg,
   pt,
-  useBackground,
   useDocument,
   StreamDocument,
   YextComponentConfig,
@@ -71,13 +69,13 @@ export interface ReviewsSectionProps {
   styles: {
     /**
      * The background color of the section.
-     * @defaultValue Background Color 1
      */
     backgroundColor?: ThemeColor;
 
     /**
      * Accent color used for show more/show less and pagination controls.
      */
+    readMoreActionId?: string;
     accentColor?: ThemeColor;
 
     /** The color of review body text. */
@@ -108,7 +106,7 @@ export interface ReviewsSectionProps {
 }
 
 /** @internal */
-const ReviewsEmptyState: React.FC<{ backgroundColor: ThemeColor }> = ({
+const ReviewsEmptyState: React.FC<{ backgroundColor?: ThemeColor }> = ({
   backgroundColor,
 }) => {
   const templateMetadata = useTemplateMetadata();
@@ -158,6 +156,12 @@ const reviewsFields: YextFields<ReviewsSectionProps> = {
         type: "basicSelector",
         label: msg("fields.backgroundColor", "Background Color"),
         options: "BACKGROUND_COLOR",
+      },
+      readMoreActionId: {
+        generation: { required: false },
+        type: "themeCollection",
+        collection: "actions",
+        label: "Read more action",
       },
       accentColor: {
         type: "basicSelector",
@@ -225,9 +229,7 @@ const ReviewsSectionInternal: PuckComponent<ReviewsSectionProps> = (props) => {
     if (puck?.isEditing) {
       return (
         <ReviewsEmptyState
-          backgroundColor={
-            styles?.backgroundColor ?? backgroundColors.background1.value
-          }
+          backgroundColor={styles?.backgroundColor ?? undefined}
         />
       );
     }
@@ -506,15 +508,14 @@ const PageScroller: React.FC<PageScrollerProps> = ({
   accentColor,
 }) => {
   const analytics = useAnalytics();
-  const background = useBackground();
   const numPages = Math.ceil(numberOfReviews / REVIEWS_PER_PAGE);
 
   if (numPages <= 1) {
     return <></>;
   }
 
-  const accentColorValue = getThemeColorCssValue(accentColor?.selectedColor);
-  const selectableButtonClasses = `cursor-pointer ${accentColorValue ? "" : background?.isDarkColor ? "text-white" : "text-palette-primary-dark"}`;
+  const accentColorValue = getThemeColorCssValue(accentColor, true);
+  const selectableButtonClasses = `cursor-pointer ${accentColorValue ? "" : "text-current"}`;
   const disabledButtonClasses = "opacity-50 cursor-default";
   const selectableButtonStyle = accentColorValue
     ? { color: accentColorValue }
@@ -555,6 +556,10 @@ const PageScroller: React.FC<PageScrollerProps> = ({
   );
 };
 
+const ReadMoreActionContext = React.createContext<string | undefined>(
+  undefined
+);
+
 const ShowMoreButton: React.FC<{
   expanded: boolean;
   setExpanded: (expanded: boolean) => void;
@@ -563,13 +568,14 @@ const ShowMoreButton: React.FC<{
 }> = ({ expanded, setExpanded, analyticsName, accentColor }) => {
   const { t } = useTranslation();
   const analytics = useAnalytics();
-  const accentColorValue = getThemeColorCssValue(accentColor?.selectedColor);
+  const accentColorValue = getThemeColorCssValue(accentColor, true);
   const accentColorStyle = accentColorValue
     ? { color: accentColorValue }
     : undefined;
   return (
     <Button
-      className="font-body-fontFamily text-body-fontSize underline cursor-pointer inline-flex items-center gap-2"
+      actionId={React.useContext(ReadMoreActionContext)}
+      className="underline cursor-pointer inline-flex items-center gap-2"
       style={accentColorStyle}
       onClick={() => {
         expanded // the existing state before toggling
@@ -583,7 +589,6 @@ const ShowMoreButton: React.FC<{
             });
         setExpanded(!expanded);
       }}
-      variant={"link"}
       data-ya-action={
         analytics?.getDebugEnabled()
           ? expanded
@@ -611,7 +616,6 @@ export const ReviewsSection: YextComponentConfig<ReviewsSectionProps> = {
   label: msg("components.reviews", "Reviews"),
   defaultProps: {
     styles: {
-      backgroundColor: backgroundColors.background1.value,
       showSectionHeading: true,
     },
     slots: {
@@ -653,7 +657,10 @@ export const ReviewsSection: YextComponentConfig<ReviewsSectionProps> = {
                 field: "",
               },
             },
-            styles: { level: 3, align: "center" },
+            styles: {
+              level: 3,
+              align: "center",
+            },
           } satisfies HeadingTextProps,
         },
       ],
@@ -675,7 +682,11 @@ export const ReviewsSection: YextComponentConfig<ReviewsSectionProps> = {
           liveVisibility={props.liveVisibility}
           isEditing={props.puck.isEditing}
         >
-          <ReviewsSectionInternal {...props} />
+          <ReadMoreActionContext.Provider
+            value={props.styles?.readMoreActionId}
+          >
+            <ReviewsSectionInternal {...props} />
+          </ReadMoreActionContext.Provider>
         </VisibilityWrapper>
       </AnalyticsScopeProvider>
     </ComponentErrorBoundary>

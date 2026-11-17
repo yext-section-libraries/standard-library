@@ -1,3 +1,6 @@
-@tailwind base;
+/* Element resets must stay below generated theme rules and component classes. */
+@layer preflight {
+  @tailwind base;
+}
 @tailwind components;
 @tailwind utilities;

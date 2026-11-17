@@ -1,5 +1,5 @@
 import React from "react";
-import { FieldLabel, PuckComponent } from "@puckeditor/core";
+import { FieldLabel, PuckComponent, setDeep } from "@puckeditor/core";
 import { useTranslation } from "react-i18next";
 import { Body } from "../../atoms/body.tsx";
 import {
@@ -20,6 +20,7 @@ import {
   YextFieldDefinition,
   YextFields,
 } from "@yext/visual-editor";
+import { toPuckFields } from "@yext/visual-editor/section-library-support";
 import { FooterSocialLinksSlotProps } from "../../footer/FooterSocialLinksSlot.tsx";
 import { Heading } from "../../atoms/heading.tsx";
 import {
@@ -54,11 +55,11 @@ import {
   HoursTable,
 } from "../../../../sections/HoursTable.tsx";
 import { z } from "zod";
-import { inferFieldZodSchema } from "@yext/visual-editor/section-library-support";
 
 export type AboutSectionDetailsColumnProps = {
   sections: DetailSection[];
   headingLevelOverride?: HeadingLevel | "span";
+  headingTypographyId?: string;
 };
 
 type DetailSection = {
@@ -134,7 +135,6 @@ export const defaultAboutSectionProps: Omit<DetailSection["content"], "type"> =
       },
       styles: {
         showGetDirectionsLink: false,
-        ctaVariant: "link",
       },
     },
     phone: {
@@ -213,60 +213,14 @@ const typeToFields = (
   return detailContentFields[type];
 };
 
-export const detailContentSchema = z.discriminatedUnion("type", [
-  z.object({
-    type: z.literal("hoursStatus"),
-    hoursStatus: inferFieldZodSchema(
-      { type: "object", objectFields: detailContentFields.hoursStatus },
-      { defaultValue: defaultAboutSectionProps.hoursStatus }
-    ),
-  }),
-  z.object({
-    type: z.literal("hoursTable"),
-    hoursTable: inferFieldZodSchema(
-      { type: "object", objectFields: detailContentFields.hoursTable },
-      { defaultValue: defaultAboutSectionProps.hoursTable }
-    ),
-  }),
-  z.object({
-    type: z.literal("address"),
-    address: inferFieldZodSchema(
-      { type: "object", objectFields: detailContentFields.address },
-      { defaultValue: defaultAboutSectionProps.address }
-    ),
-  }),
-  z.object({
-    type: z.literal("phone"),
-    phone: inferFieldZodSchema(
-      { type: "object", objectFields: detailContentFields.phone },
-      { defaultValue: defaultAboutSectionProps.phone }
-    ),
-  }),
-  z.object({
-    type: z.literal("emails"),
-    emails: inferFieldZodSchema(
-      { type: "object", objectFields: detailContentFields.emails },
-      { defaultValue: defaultAboutSectionProps.emails }
-    ),
-  }),
-  z.object({
-    type: z.literal("textList"),
-    textList: inferFieldZodSchema(
-      { type: "object", objectFields: detailContentFields.textList },
-      { defaultValue: defaultAboutSectionProps.textList }
-    ),
-  }),
-  z.object({
-    type: z.literal("socialMedia"),
-    socialMedia: inferFieldZodSchema(
-      { type: "object", objectFields: detailContentFields.socialMedia },
-      { defaultValue: defaultAboutSectionProps.socialMedia }
-    ),
-  }),
-]);
-
 const aboutSectionDetailsColumnFields: YextFields<AboutSectionDetailsColumnProps> =
   {
+    headingTypographyId: {
+      generation: { required: false },
+      type: "themeCollection",
+      collection: "typography",
+      label: "Heading typography",
+    },
     sections: {
       type: "array",
       label: msg("fields.sections", "Sections"),
@@ -279,8 +233,42 @@ const aboutSectionDetailsColumnFields: YextFields<AboutSectionDetailsColumnProps
           },
         },
         content: {
-          generation: { schema: detailContentSchema },
-          type: "custom",
+          type: "object",
+          objectFields: {
+            type: {
+              type: "select",
+              options: Object.keys(detailContentFields).map((value) => ({
+                label: value,
+                value,
+              })),
+            },
+            ...Object.fromEntries(
+              Object.entries(detailContentFields).map(([key, objectFields]) => [
+                key,
+                {
+                  type: "object",
+                  objectFields,
+                  generation: { required: false },
+                },
+              ])
+            ),
+          },
+          generation: {
+            schema: (inferred) => {
+              const shape = (inferred as z.ZodObject).shape;
+              const entry = (key: keyof typeof detailContentFields) =>
+                z.object({ type: z.literal(key), [key]: shape[key].unwrap() });
+              return z.discriminatedUnion("type", [
+                entry("hoursStatus"),
+                entry("hoursTable"),
+                entry("address"),
+                entry("phone"),
+                entry("emails"),
+                entry("textList"),
+                entry("socialMedia"),
+              ]);
+            },
+          },
           label: msg("fields.content", "Content"),
           render: ({
             value,
@@ -512,7 +500,8 @@ const filterEmptySections = (
 const AboutSectionDetailsColumnComponent: PuckComponent<
   AboutSectionDetailsColumnProps
 > = (props) => {
-  const { sections, headingLevelOverride, puck, id } = props;
+  const { sections, headingLevelOverride, headingTypographyId, puck, id } =
+    props;
   const { i18n } = useTranslation();
   const streamDocument = useDocument();
 
@@ -539,7 +528,11 @@ const AboutSectionDetailsColumnComponent: PuckComponent<
               displayName={pt("fields.sectionHeader", "Section Header")}
               constantValueEnabled={section.header.constantValueEnabled}
             >
-              <Heading level={5} semanticLevelOverride={headingLevelOverride}>
+              <Heading
+                level={5}
+                typographyId={headingTypographyId}
+                semanticLevelOverride={headingLevelOverride}
+              >
                 {resolveComponentData(
                   section.header,
                   i18n.language,
@@ -589,6 +582,12 @@ export const AboutSectionDetailsColumn: YextComponentConfig<AboutSectionDetailsC
   {
     label: msg("components.aboutDetailsColumn", "Details Column"),
     fields: aboutSectionDetailsColumnFields,
+    resolveFields: () =>
+      setDeep(
+        toPuckFields(aboutSectionDetailsColumnFields),
+        "sections.arrayFields.content.type",
+        "custom"
+      ),
     defaultProps: {
       sections: [],
     },

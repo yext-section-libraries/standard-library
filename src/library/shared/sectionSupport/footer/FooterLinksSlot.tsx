@@ -24,6 +24,7 @@ export interface FooterLinksSlotProps {
   data: {
     links: TranslatableCTA[];
   };
+  actionId?: string;
   color?: ThemeColor;
   /** @internal */
   variant?: "primary" | "secondary";
@@ -162,6 +163,7 @@ const FooterLinksSlotInternal: PuckComponent<FooterLinksSlotProps> = (
   const {
     data,
     color,
+    actionId,
     variant = "primary",
     eventNamePrefix = "footer",
     desktopContentAlignment = "left",
@@ -187,11 +189,7 @@ const FooterLinksSlotInternal: PuckComponent<FooterLinksSlotProps> = (
         link={linkData.link}
         label={linkData.label}
         linkType={linkData.linkType}
-        variant={
-          variant === "primary"
-            ? "headerFooterMainLink"
-            : "headerFooterSecondaryLink"
-        }
+        actionId={actionId}
         openInNewTab={linkData.openInNewTab}
         normalizeLink={
           isNonNormalizableLinkType(linkData.linkType)
@@ -248,6 +246,7 @@ const defaultFooterLinkProps: FooterLinksSlotProps = {
   data: {
     links: defaultLinks,
   },
+
   variant: "primary",
   desktopContentAlignment: "left",
   mobileContentAlignment: "left",
@@ -325,6 +324,12 @@ const footerLinksSlotFields: YextFields<FooterLinksSlotProps> = {
         },
       },
     },
+  },
+  actionId: {
+    generation: { required: false },
+    type: "themeCollection",
+    collection: "actions",
+    label: "Action preset",
   },
   color: {
     type: "basicSelector",

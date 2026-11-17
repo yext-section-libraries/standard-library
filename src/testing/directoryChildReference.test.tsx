@@ -4,7 +4,6 @@ import { Config, resolveAllData } from "@puckeditor/core";
 import { Directory } from "../library/sections/Directory.tsx";
 import { sharedComponentConfigs } from "../library/shared/componentRegistry.ts";
 import { defaultDirectoryCardSlotData } from "../library/shared/sectionSupport/directory/DirectoryCard.tsx";
-import { backgroundColors } from "@yext/visual-editor";
 
 const cityDocument = {
   locale: "en",
@@ -158,12 +157,18 @@ describe("directoryChildReference", () => {
       },
     };
     const seededCard = defaultDirectoryCardSlotData("DirectoryCard-seeded", 0);
-    seededCard.props.slots.HeadingSlot[0]!.props.styles.color =
-      backgroundColors.color1.value;
-    seededCard.props.slots.AddressSlot[0]!.props.styles.color =
-      backgroundColors.color2.value;
-    seededCard.props.slots.PhoneSlot[0]!.props.styles.color =
-      backgroundColors.color3.value;
+    seededCard.props.slots.HeadingSlot[0]!.props.styles.color = {
+      selectedColor: "palette-primary",
+      contrastingColor: "palette-primary-contrast",
+    };
+    seededCard.props.slots.AddressSlot[0]!.props.styles.color = {
+      selectedColor: "palette-secondary",
+      contrastingColor: "palette-secondary-contrast",
+    };
+    seededCard.props.slots.PhoneSlot[0]!.props.styles.color = {
+      selectedColor: "palette-tertiary",
+      contrastingColor: "palette-tertiary-contrast",
+    };
     seededCard.props.slots.HoursSlot[0]!.props.styles.timeFormat = "24h";
     seededCard.props.slots.HoursSlot[0]!.props.styles.bodyVariant = "sm";
 
@@ -208,13 +213,20 @@ describe("directoryChildReference", () => {
     for (const card of cards) {
       expect(
         card?.props?.slots?.HeadingSlot?.[0]?.props?.styles?.color
-      ).toEqual(backgroundColors.color1.value);
+      ).toEqual({
+        selectedColor: "palette-primary",
+        contrastingColor: "palette-primary-contrast",
+      });
       expect(
         card?.props?.slots?.AddressSlot?.[0]?.props?.styles?.color
-      ).toEqual(backgroundColors.color2.value);
-      expect(card?.props?.slots?.PhoneSlot?.[0]?.props?.styles?.color).toEqual(
-        backgroundColors.color3.value
-      );
+      ).toEqual({
+        selectedColor: "palette-secondary",
+        contrastingColor: "palette-secondary-contrast",
+      });
+      expect(card?.props?.slots?.PhoneSlot?.[0]?.props?.styles?.color).toEqual({
+        selectedColor: "palette-tertiary",
+        contrastingColor: "palette-tertiary-contrast",
+      });
       expect(
         card?.props?.slots?.HoursSlot?.[0]?.props?.styles?.timeFormat
       ).toBe("24h");

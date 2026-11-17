@@ -1,6 +1,6 @@
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
-import { Body, BodyProps } from "../../atoms/body.tsx";
+import { Body } from "../../atoms/body.tsx";
 import {
   FAQStruct,
   TranslatableRichText,
@@ -9,11 +9,9 @@ import {
   msg,
   resolveComponentData,
   resolveDataFromParent,
-  useBackground,
   useDocument,
   YextEntityField,
   ThemeColor,
-  ThemeOptions,
   YextComponentConfig,
   YextFields,
 } from "@yext/visual-editor";
@@ -25,6 +23,8 @@ import {
 import { useAnalytics } from "@yext/pages-components";
 import { useTranslation } from "react-i18next";
 import {
+  useThemeData,
+  resolveThemeEntry,
   useCardContext,
   useGetCardSlots,
 } from "@yext/visual-editor/section-library-support";
@@ -41,8 +41,8 @@ const defaultFAQ = {
 export const defaultFAQCardData = (
   id?: string,
   index?: number,
-  questionVariant?: BodyProps["variant"],
-  answerVariant?: BodyProps["variant"],
+  questionTypographyId?: string,
+  answerTypographyId?: string,
   answerColor?: ThemeColor
 ) => ({
   type: "FAQCard",
@@ -62,8 +62,8 @@ export const defaultFAQCardData = (
       },
     },
     styles: {
-      questionVariant: questionVariant || "base",
-      answerVariant: answerVariant || "base",
+      questionTypographyId: questionTypographyId,
+      answerTypographyId: answerTypographyId,
       answerColor: answerColor,
     },
     slots: {},
@@ -89,8 +89,8 @@ export type FAQCardProps = {
 
   /** Styling for all the FAQ cards. */
   styles: {
-    questionVariant: BodyProps["variant"];
-    answerVariant: BodyProps["variant"];
+    questionTypographyId?: string;
+    answerTypographyId?: string;
     answerColor?: ThemeColor;
   };
 
@@ -123,17 +123,17 @@ const FAQCardFields: YextFields<FAQCardProps> = {
     type: "object",
     label: msg("fields.styles", "Styles"),
     objectFields: {
-      questionVariant: {
-        generation: { nullable: true },
-        label: msg("fields.questionVariant", "Question Variant"),
-        type: "radio",
-        options: ThemeOptions.BODY_VARIANT,
+      questionTypographyId: {
+        generation: { required: false, nullable: true },
+        label: msg("fields.questionTypographyId", "Question Variant"),
+        type: "themeCollection",
+        collection: "typography",
       },
-      answerVariant: {
-        generation: { nullable: true },
-        label: msg("fields.answerVariant", "Answer Variant"),
-        type: "radio",
-        options: ThemeOptions.BODY_VARIANT,
+      answerTypographyId: {
+        generation: { required: false, nullable: true },
+        label: msg("fields.answerTypographyId", "Answer Variant"),
+        type: "themeCollection",
+        collection: "typography",
       },
       answerColor: {
         type: "basicSelector",
@@ -154,11 +154,10 @@ const FAQCardComponent: PuckComponent<FAQCardProps> = (props) => {
   const analytics = useAnalytics();
   const { i18n } = useTranslation();
   const streamDocument = useDocument();
-  const background = useBackground();
 
   const { sharedCardProps, setSharedCardProps } = useCardContext<{
-    questionVariant: BodyProps["variant"];
-    answerVariant: BodyProps["variant"];
+    questionTypographyId?: string;
+    answerTypographyId?: string;
     answerColor?: ThemeColor;
   }>();
 
@@ -171,8 +170,8 @@ const FAQCardComponent: PuckComponent<FAQCardProps> = (props) => {
     }
 
     if (
-      sharedCardProps.questionVariant === styles.questionVariant &&
-      sharedCardProps.answerVariant === styles.answerVariant &&
+      sharedCardProps.questionTypographyId === styles.questionTypographyId &&
+      sharedCardProps.answerTypographyId === styles.answerTypographyId &&
       sharedCardProps.answerColor?.selectedColor ===
         styles.answerColor?.selectedColor
     ) {
@@ -196,16 +195,16 @@ const FAQCardComponent: PuckComponent<FAQCardProps> = (props) => {
         props: {
           ...otherProps,
           styles: {
-            questionVariant: sharedCardProps.questionVariant,
-            answerVariant: sharedCardProps.answerVariant,
+            questionTypographyId: sharedCardProps.questionTypographyId,
+            answerTypographyId: sharedCardProps.answerTypographyId,
             answerColor: sharedCardProps.answerColor,
           },
         } satisfies FAQCardProps,
       },
     });
   }, [
-    sharedCardProps?.answerVariant,
-    sharedCardProps?.questionVariant,
+    sharedCardProps?.answerTypographyId,
+    sharedCardProps?.questionTypographyId,
     sharedCardProps?.answerColor?.selectedColor,
   ]);
 
@@ -216,8 +215,8 @@ const FAQCardComponent: PuckComponent<FAQCardProps> = (props) => {
     }
 
     if (
-      sharedCardProps?.questionVariant === styles.questionVariant &&
-      sharedCardProps?.answerVariant === styles.answerVariant &&
+      sharedCardProps?.questionTypographyId === styles.questionTypographyId &&
+      sharedCardProps?.answerTypographyId === styles.answerTypographyId &&
       sharedCardProps?.answerColor?.selectedColor ===
         styles.answerColor?.selectedColor
     ) {
@@ -225,8 +224,8 @@ const FAQCardComponent: PuckComponent<FAQCardProps> = (props) => {
     }
 
     setSharedCardProps({
-      questionVariant: styles.questionVariant,
-      answerVariant: styles.answerVariant,
+      questionTypographyId: styles.questionTypographyId,
+      answerTypographyId: styles.answerTypographyId,
       answerColor: styles.answerColor,
     });
   }, [styles]);
@@ -238,11 +237,14 @@ const FAQCardComponent: PuckComponent<FAQCardProps> = (props) => {
       })
     : "";
 
+  const theme = useThemeData();
+  const answerTypography = resolveThemeEntry(
+    theme.typography,
+    styles.answerTypographyId
+  );
   const sourceAnswer = props.answer ?? data.answer;
   const resolvedAnswer = sourceAnswer
     ? resolveComponentData(sourceAnswer, i18n.language, streamDocument, {
-        variant: styles.answerVariant,
-        isDarkBackground: background?.isDarkColor,
         color: styles.answerColor,
       })
     : undefined;
@@ -269,15 +271,22 @@ const FAQCardComponent: PuckComponent<FAQCardProps> = (props) => {
       }
     >
       <AccordionTrigger>
-        <Body variant={styles.questionVariant}>{resolvedQuestion}</Body>
+        <Body typographyId={styles.questionTypographyId}>
+          {resolvedQuestion}
+        </Body>
       </AccordionTrigger>
       <AccordionContent>
         {typeof resolvedAnswer === "string" ? (
-          <Body variant={styles.answerVariant} color={styles.answerColor}>
+          <Body
+            typographyId={styles.answerTypographyId}
+            color={styles.answerColor}
+          >
             {resolvedAnswer}
           </Body>
         ) : (
-          resolvedAnswer
+          <div className="components" data-ve-typography={answerTypography.id}>
+            {resolvedAnswer}
+          </div>
         )}
       </AccordionContent>
     </AccordionItem>

@@ -1,5 +1,4 @@
 import {
-  backgroundColors,
   ThemeColor,
   msg,
   YextComponentConfig,
@@ -15,7 +14,6 @@ import { ComponentErrorBoundary } from "@yext/visual-editor/section-library-supp
 export interface StaticMapStyles {
   /**
    * The background color of the section.
-   * @defaultValue Background Color 1
    */
   backgroundColor?: ThemeColor;
 
@@ -96,7 +94,6 @@ export const StaticMapSection: YextComponentConfig<StaticMapSectionProps> = {
   defaultProps: {
     liveVisibility: true,
     styles: {
-      backgroundColor: backgroundColors.background1.value,
       mapStyle: "streets-v12",
     },
   },

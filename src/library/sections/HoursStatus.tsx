@@ -39,6 +39,7 @@ export interface HoursStatusProps {
     /** Additional class names to apply to the underlying component */
     className?: string;
     /** The body size variant */
+    typographyId?: string;
     bodyVariant?: "lg" | "base" | "sm";
     /** The color of the hours status text. */
     textColor?: ThemeColor;
@@ -71,6 +72,12 @@ export const hoursStatusWrapperFields: YextFields<HoursStatusProps> = {
     type: "object",
     label: msg("fields.styles", "Styles"),
     objectFields: {
+      typographyId: {
+        generation: { required: false },
+        type: "themeCollection",
+        collection: "typography",
+        label: "Typography",
+      },
       showCurrentStatus: {
         generation: { required: false },
         label: msg("fields.showCurrentStatus", "Show Current Status"),
@@ -137,6 +144,7 @@ const HoursStatusWrapper: PuckComponent<HoursStatusProps> = ({
       constantValueEnabled={!parentData && data.hours.constantValueEnabled}
     >
       <HoursStatusAtom
+        typographyId={styles.typographyId}
         hours={hours ?? {}}
         comingSoon={comingSoon}
         timezone={timezone}

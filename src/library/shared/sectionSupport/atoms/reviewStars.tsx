@@ -1,9 +1,8 @@
 import * as React from "react";
-import { FaRegStar, FaStar, FaStarHalf, FaStarHalfAlt } from "react-icons/fa";
+import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { Body } from "./body.tsx";
 import {
   themeManagerCn,
-  useBackground,
   ThemeColor,
   getThemeColorCssValue,
 } from "@yext/visual-editor";
@@ -23,14 +22,10 @@ export type ReviewStarsProps = {
 
 export const ReviewStars = (props: ReviewStarsProps) => {
   const { averageRating, reviewCount, className, color } = props;
-  const background = useBackground();
-  const hasDarkBackground = background?.isDarkColor;
   const roundedAverageRating = Math.round(averageRating * 10) / 10;
-  const HalfStar = hasDarkBackground ? FaStarHalf : FaStarHalfAlt;
-  const starColorValue = getThemeColorCssValue(color?.selectedColor);
-  const starColor = hasDarkBackground
-    ? "text-white"
-    : "text-palette-primary-dark";
+  const HalfStar = FaStarHalfAlt;
+  const starColorValue = getThemeColorCssValue(color, true);
+  const starColor = "text-current";
   const { t } = useTranslation();
 
   return (
@@ -48,10 +43,7 @@ export const ReviewStars = (props: ReviewStarsProps) => {
             ) : averageRating - i >= 0.25 ? (
               <HalfStar key={i} />
             ) : (
-              <FaRegStar
-                key={i}
-                style={hasDarkBackground ? { display: "none" } : undefined}
-              />
+              <FaRegStar key={i} />
             )
           )}
       </div>

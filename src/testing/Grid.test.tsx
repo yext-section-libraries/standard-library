@@ -2,12 +2,7 @@ import { Config, Render } from "@puckeditor/core";
 import { VisualEditorProvider } from "./TestVisualEditorProvider.tsx";
 import { render as reactRender, waitFor } from "@testing-library/react";
 import { page } from "@vitest/browser/context";
-import {
-  backgroundColors,
-  migrate,
-  MainContent,
-  migrationRegistry,
-} from "@yext/visual-editor";
+import { migrate, MainContent, migrationRegistry } from "@yext/visual-editor";
 import { describe, expect, it } from "vitest";
 import {
   axe,
@@ -891,7 +886,10 @@ const tests: ComponentTest[] = [
                 styles: {
                   variant: "primary",
                   presetImage: "app-store",
-                  color: backgroundColors.color2.value,
+                  color: {
+                    selectedColor: "palette-secondary",
+                    contrastingColor: "palette-secondary-contrast",
+                  },
                 },
                 id: "CTAWrapper-25d9b02a-ad1e-4d87-abff-c5e540517b80",
               },
@@ -934,7 +932,10 @@ const tests: ComponentTest[] = [
                 styles: {
                   variant: "primary",
                   presetImage: "google-play",
-                  color: backgroundColors.color1.value,
+                  color: {
+                    selectedColor: "palette-primary",
+                    contrastingColor: "palette-primary-contrast",
+                  },
                 },
                 id: "CTAWrapper-a48f6b5a-a2c0-470f-b425-79c4a37f4898",
               },
@@ -961,7 +962,10 @@ const tests: ComponentTest[] = [
                 styles: {
                   variant: "link",
                   presetImage: "app-store",
-                  color: backgroundColors.color1.value,
+                  color: {
+                    selectedColor: "palette-primary",
+                    contrastingColor: "palette-primary-contrast",
+                  },
                 },
                 id: "CTAWrapper-dafb4772-bdd5-4fa3-9c4f-317bd5ee7a0b",
               },
@@ -985,7 +989,10 @@ const tests: ComponentTest[] = [
                 styles: {
                   variant: "primary",
                   presetImage: "app-store",
-                  color: backgroundColors.color2.value,
+                  color: {
+                    selectedColor: "palette-secondary",
+                    contrastingColor: "palette-secondary-contrast",
+                  },
                 },
                 id: "CTAWrapper-4c986d7d-07be-472c-a615-4277bd78edae",
               },
@@ -1008,7 +1015,10 @@ const tests: ComponentTest[] = [
                 styles: {
                   variant: "secondary",
                   presetImage: "app-store",
-                  color: backgroundColors.color3.value,
+                  color: {
+                    selectedColor: "palette-tertiary",
+                    contrastingColor: "palette-tertiary-contrast",
+                  },
                 },
                 id: "CTAWrapper-265d7a64-33ef-4061-8e26-13c6fca3eed8",
               },
@@ -1034,7 +1044,10 @@ const tests: ComponentTest[] = [
                     },
                     variant: "primary",
                     presetImage: "app-store",
-                    color: backgroundColors.color3.value,
+                    color: {
+                      selectedColor: "palette-tertiary",
+                      contrastingColor: "palette-tertiary-contrast",
+                    },
                   },
                   {
                     entityField: {
@@ -1049,7 +1062,10 @@ const tests: ComponentTest[] = [
                     },
                     variant: "secondary",
                     presetImage: "app-store",
-                    color: backgroundColors.color2.value,
+                    color: {
+                      selectedColor: "palette-secondary",
+                      contrastingColor: "palette-secondary-contrast",
+                    },
                   },
                   {
                     entityField: {
@@ -1064,7 +1080,10 @@ const tests: ComponentTest[] = [
                     },
                     variant: "primary",
                     presetImage: "uber-eats",
-                    color: backgroundColors.color2.value,
+                    color: {
+                      selectedColor: "palette-secondary",
+                      contrastingColor: "palette-secondary-contrast",
+                    },
                   },
                   {
                     entityField: {
@@ -1082,7 +1101,10 @@ const tests: ComponentTest[] = [
                     },
                     variant: "link",
                     presetImage: "app-store",
-                    color: backgroundColors.color1.value,
+                    color: {
+                      selectedColor: "palette-primary",
+                      contrastingColor: "palette-primary-contrast",
+                    },
                   },
                   {
                     entityField: {
@@ -1099,7 +1121,10 @@ const tests: ComponentTest[] = [
                     },
                     variant: "primary",
                     presetImage: "app-store",
-                    color: backgroundColors.color2.value,
+                    color: {
+                      selectedColor: "palette-secondary",
+                      contrastingColor: "palette-secondary-contrast",
+                    },
                   },
                   {
                     entityField: {
@@ -1114,7 +1139,10 @@ const tests: ComponentTest[] = [
                     },
                     variant: "primary",
                     presetImage: "galaxy-store",
-                    color: backgroundColors.color3.value,
+                    color: {
+                      selectedColor: "palette-tertiary",
+                      contrastingColor: "palette-tertiary-contrast",
+                    },
                   },
                 ],
                 id: "CTAGroup-5dd9fff9-96db-4de6-a195-8c52c86b2dd2",
@@ -1166,7 +1194,10 @@ const tests: ComponentTest[] = [
                 styles: {
                   variant: "primary",
                   presetImage: "app-store",
-                  color: backgroundColors.color2.value,
+                  color: {
+                    selectedColor: "palette-secondary",
+                    contrastingColor: "palette-secondary-contrast",
+                  },
                 },
                 id: "CTAWrapper-25d9b02a-ad1e-4d87-abff-c5e540517b80",
               },
@@ -1209,7 +1240,10 @@ const tests: ComponentTest[] = [
                 styles: {
                   variant: "primary",
                   presetImage: "google-play",
-                  color: backgroundColors.color1.value,
+                  color: {
+                    selectedColor: "palette-primary",
+                    contrastingColor: "palette-primary-contrast",
+                  },
                 },
                 id: "CTAWrapper-a48f6b5a-a2c0-470f-b425-79c4a37f4898",
               },
@@ -1236,7 +1270,10 @@ const tests: ComponentTest[] = [
                 styles: {
                   variant: "link",
                   presetImage: "app-store",
-                  color: backgroundColors.color1.value,
+                  color: {
+                    selectedColor: "palette-primary",
+                    contrastingColor: "palette-primary-contrast",
+                  },
                 },
                 id: "CTAWrapper-dafb4772-bdd5-4fa3-9c4f-317bd5ee7a0b",
               },
@@ -1260,7 +1297,10 @@ const tests: ComponentTest[] = [
                 styles: {
                   variant: "primary",
                   presetImage: "app-store",
-                  color: backgroundColors.color2.value,
+                  color: {
+                    selectedColor: "palette-secondary",
+                    contrastingColor: "palette-secondary-contrast",
+                  },
                 },
                 id: "CTAWrapper-4c986d7d-07be-472c-a615-4277bd78edae",
               },
@@ -1283,7 +1323,10 @@ const tests: ComponentTest[] = [
                 styles: {
                   variant: "secondary",
                   presetImage: "app-store",
-                  color: backgroundColors.color3.value,
+                  color: {
+                    selectedColor: "palette-tertiary",
+                    contrastingColor: "palette-tertiary-contrast",
+                  },
                 },
                 id: "CTAWrapper-265d7a64-33ef-4061-8e26-13c6fca3eed8",
               },
@@ -1309,7 +1352,10 @@ const tests: ComponentTest[] = [
                     },
                     variant: "primary",
                     presetImage: "app-store",
-                    color: backgroundColors.color3.value,
+                    color: {
+                      selectedColor: "palette-tertiary",
+                      contrastingColor: "palette-tertiary-contrast",
+                    },
                   },
                   {
                     entityField: {
@@ -1324,7 +1370,10 @@ const tests: ComponentTest[] = [
                     },
                     variant: "secondary",
                     presetImage: "app-store",
-                    color: backgroundColors.color2.value,
+                    color: {
+                      selectedColor: "palette-secondary",
+                      contrastingColor: "palette-secondary-contrast",
+                    },
                   },
                   {
                     entityField: {
@@ -1339,7 +1388,10 @@ const tests: ComponentTest[] = [
                     },
                     variant: "primary",
                     presetImage: "uber-eats",
-                    color: backgroundColors.color2.value,
+                    color: {
+                      selectedColor: "palette-secondary",
+                      contrastingColor: "palette-secondary-contrast",
+                    },
                   },
                   {
                     entityField: {
@@ -1357,7 +1409,10 @@ const tests: ComponentTest[] = [
                     },
                     variant: "link",
                     presetImage: "app-store",
-                    color: backgroundColors.color1.value,
+                    color: {
+                      selectedColor: "palette-primary",
+                      contrastingColor: "palette-primary-contrast",
+                    },
                   },
                   {
                     entityField: {
@@ -1374,7 +1429,10 @@ const tests: ComponentTest[] = [
                     },
                     variant: "primary",
                     presetImage: "app-store",
-                    color: backgroundColors.color2.value,
+                    color: {
+                      selectedColor: "palette-secondary",
+                      contrastingColor: "palette-secondary-contrast",
+                    },
                   },
                   {
                     entityField: {
@@ -1389,7 +1447,10 @@ const tests: ComponentTest[] = [
                     },
                     variant: "primary",
                     presetImage: "galaxy-store",
-                    color: backgroundColors.color3.value,
+                    color: {
+                      selectedColor: "palette-tertiary",
+                      contrastingColor: "palette-tertiary-contrast",
+                    },
                   },
                 ],
                 id: "CTAGroup-5dd9fff9-96db-4de6-a195-8c52c86b2dd2",
@@ -1399,7 +1460,10 @@ const tests: ComponentTest[] = [
         },
         { Column: [] },
       ],
-      backgroundColor: backgroundColors.color4.value,
+      backgroundColor: {
+        selectedColor: "palette-quaternary",
+        contrastingColor: "palette-quaternary-contrast",
+      },
       liveVisibility: true,
       analytics: { scope: "gridSection" },
     },
@@ -1576,7 +1640,10 @@ const tests: ComponentTest[] = [
                 styles: {
                   level: 3,
                   align: "left",
-                  color: backgroundColors.color1.value,
+                  color: {
+                    selectedColor: "palette-primary",
+                    contrastingColor: "palette-primary-contrast",
+                  },
                 },
                 id: "HeadingText-dark-bg-color1",
               },
@@ -1597,7 +1664,10 @@ const tests: ComponentTest[] = [
                 styles: {
                   level: 2,
                   align: "left",
-                  color: backgroundColors.color2.value,
+                  color: {
+                    selectedColor: "palette-secondary",
+                    contrastingColor: "palette-secondary-contrast",
+                  },
                 },
                 id: "HeadingText-dark-bg-color2",
               },
@@ -1618,7 +1688,10 @@ const tests: ComponentTest[] = [
                 styles: {
                   level: 4,
                   align: "left",
-                  color: backgroundColors.color3.value,
+                  color: {
+                    selectedColor: "palette-tertiary",
+                    contrastingColor: "palette-tertiary-contrast",
+                  },
                 },
                 id: "HeadingText-dark-bg-color3",
               },
@@ -1639,7 +1712,10 @@ const tests: ComponentTest[] = [
                 styles: {
                   level: 5,
                   align: "left",
-                  color: backgroundColors.color4.value,
+                  color: {
+                    selectedColor: "palette-quaternary",
+                    contrastingColor: "palette-quaternary-contrast",
+                  },
                 },
                 id: "HeadingText-dark-bg-color4",
               },
@@ -1669,7 +1745,10 @@ const tests: ComponentTest[] = [
         { Column: [] },
         { Column: [] },
       ],
-      backgroundColor: backgroundColors.color4.value,
+      backgroundColor: {
+        selectedColor: "palette-quaternary",
+        contrastingColor: "palette-quaternary-contrast",
+      },
       liveVisibility: true,
       analytics: { scope: "gridSection" },
     },
@@ -1699,7 +1778,10 @@ const tests: ComponentTest[] = [
                 styles: {
                   level: 3,
                   align: "left",
-                  color: backgroundColors.color1.value,
+                  color: {
+                    selectedColor: "palette-primary",
+                    contrastingColor: "palette-primary-contrast",
+                  },
                 },
                 id: "HeadingText-light-bg-color1",
               },
@@ -1720,7 +1802,10 @@ const tests: ComponentTest[] = [
                 styles: {
                   level: 2,
                   align: "left",
-                  color: backgroundColors.color2.value,
+                  color: {
+                    selectedColor: "palette-secondary",
+                    contrastingColor: "palette-secondary-contrast",
+                  },
                 },
                 id: "HeadingText-light-bg-color2",
               },
@@ -1741,7 +1826,10 @@ const tests: ComponentTest[] = [
                 styles: {
                   level: 4,
                   align: "left",
-                  color: backgroundColors.color3.value,
+                  color: {
+                    selectedColor: "palette-tertiary",
+                    contrastingColor: "palette-tertiary-contrast",
+                  },
                 },
                 id: "HeadingText-light-bg-color3",
               },
@@ -1762,7 +1850,10 @@ const tests: ComponentTest[] = [
                 styles: {
                   level: 5,
                   align: "left",
-                  color: backgroundColors.color4.value,
+                  color: {
+                    selectedColor: "palette-quaternary",
+                    contrastingColor: "palette-quaternary-contrast",
+                  },
                 },
                 id: "HeadingText-light-bg-color4",
               },
@@ -1792,7 +1883,7 @@ const tests: ComponentTest[] = [
         { Column: [] },
         { Column: [] },
       ],
-      backgroundColor: backgroundColors.background1.value,
+      backgroundColor: { selectedColor: "white", contrastingColor: "black" },
       liveVisibility: true,
       analytics: { scope: "gridSection" },
     },
@@ -2074,7 +2165,7 @@ const tests: ComponentTest[] = [
           ],
         },
       ],
-      backgroundColor: backgroundColors.background1.value,
+      backgroundColor: { selectedColor: "white", contrastingColor: "black" },
       liveVisibility: true,
       analytics: { scope: "gridSection" },
     },
@@ -2332,7 +2423,7 @@ const tests: ComponentTest[] = [
         },
         { Column: [] },
       ],
-      backgroundColor: backgroundColors.background1.value,
+      backgroundColor: { selectedColor: "white", contrastingColor: "black" },
       liveVisibility: true,
       analytics: { scope: "gridSection" },
     },

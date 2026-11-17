@@ -1,5 +1,4 @@
 import {
-  backgroundColors,
   resolveYextEntityField,
   useDocument,
   isLocalizedAssetImage,
@@ -48,7 +47,7 @@ export const ImmersiveHero: PuckComponent<HeroVariantProps> = (props) => {
                 contrastingColor: "white",
                 isDarkColor: true,
               }
-            : backgroundColors.background1.value
+            : undefined
         }
         aria-label={t("heroBanner", "Hero Banner")}
         className="z-10 flex items-center h-full w-full"

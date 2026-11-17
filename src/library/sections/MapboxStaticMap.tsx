@@ -1,6 +1,4 @@
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
-import { useTranslation } from "react-i18next";
-import { Coordinate } from "@yext/pages-components";
 import {
   EntityField,
   resolveComponentData,
@@ -10,19 +8,19 @@ import {
   msg,
   pt,
   themeManagerCn,
-  StreamDocument,
   YextComponentConfig,
   YextFields,
   SectionConfig,
+  getThemeColorHexValue,
 } from "@yext/visual-editor";
+import { useThemeData } from "@yext/visual-editor/section-library-support";
+import { useTranslation } from "react-i18next";
+import { Coordinate } from "@yext/pages-components";
 import { Body } from "../shared/sectionSupport/atoms/body.tsx";
 import { PuckComponent } from "@puckeditor/core";
 import mapboxLogo from "../assets/mapbox-logo-black.svg";
 import { Map } from "lucide-react";
-import {
-  getThemeValue,
-  MsgString,
-} from "@yext/visual-editor/section-library-support";
+import { MsgString } from "@yext/visual-editor/section-library-support";
 
 export type MapboxStaticProps = {
   coordinate: YextEntityField<Coordinate>;
@@ -67,14 +65,6 @@ const mapboxFields: YextFields<MapboxStaticProps> = {
   mapStyle: mapStyleField,
 };
 
-const getPrimaryColor = (streamDocument: StreamDocument) => {
-  return (
-    getThemeValue("--colors-palette-primary", streamDocument)
-      ?.replace("#", "")
-      ?.trim() ?? "000000"
-  );
-};
-
 export const MapboxStaticMapComponent: PuckComponent<MapboxStaticProps> = ({
   coordinate: coordinateField,
   height = "300px",
@@ -84,6 +74,7 @@ export const MapboxStaticMapComponent: PuckComponent<MapboxStaticProps> = ({
 }) => {
   const { t, i18n } = useTranslation();
   const streamDocument = useDocument<any>();
+  const theme = useThemeData();
 
   const coordinate = resolveComponentData<Coordinate>(
     coordinateField,
@@ -140,7 +131,7 @@ export const MapboxStaticMapComponent: PuckComponent<MapboxStaticProps> = ({
     return <></>;
   }
 
-  const marker = `pin-l+${getPrimaryColor(streamDocument)}(${coordinate.longitude},${coordinate.latitude})`;
+  const marker = `pin-l+${(getThemeColorHexValue({ colorId: theme.colors[0].id, channel: "foreground" }, streamDocument) ?? "#000000").slice(1)}(${coordinate.longitude},${coordinate.latitude})`;
 
   const staticImageSizes = {
     large: "1280x720",

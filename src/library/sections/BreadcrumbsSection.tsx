@@ -4,7 +4,6 @@ import {
   msg,
   TranslatableString,
   ThemeColor,
-  backgroundColors,
   ThemeOptions,
   resolveComponentData,
   ComponentErrorBoundary,
@@ -36,9 +35,9 @@ export interface BreadcrumbsData {
 }
 
 export interface BreadcrumbsStyles {
+  actionId?: string;
   /**
    * The background color of the section.
-   * @defaultValue Background Color 1
    */
   backgroundColor?: ThemeColor;
 
@@ -108,6 +107,12 @@ const breadcrumbsSectionFields: YextFields<BreadcrumbsSectionProps> = {
     type: "object",
     label: msg("fields.styles", "Styles"),
     objectFields: {
+      actionId: {
+        generation: { required: false },
+        type: "themeCollection",
+        collection: "actions",
+        label: "Action preset",
+      },
       backgroundColor: {
         generation: { required: false },
         type: "basicSelector",
@@ -220,9 +225,10 @@ export const BreadcrumbsComponent = ({
               <wbr />
 
               <MaybeLink
+                actionId={styles.actionId}
                 eventName={`link${index}`}
                 href={isCurrentPage ? "" : href}
-                className="inline text-body-sm-fontSize font-link-fontWeight font-link-fontFamily whitespace-normal break-words"
+                className="inline text-sm whitespace-normal break-words"
                 color={styles?.linkColor}
                 alwaysHideCaret
               >
@@ -264,7 +270,6 @@ export const BreadcrumbsSection: YextComponentConfig<BreadcrumbsSectionProps> =
         },
       },
       styles: {
-        backgroundColor: backgroundColors.background1.value,
         showCurrentPage: true,
       },
       analytics: {

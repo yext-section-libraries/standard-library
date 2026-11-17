@@ -2,7 +2,6 @@ import * as React from "react";
 import { PuckComponent, Slot, WithId } from "@puckeditor/core";
 import {
   ThemeColor,
-  backgroundColors,
   TestimonialStruct,
   deepMerge,
   getDefaultRTF,
@@ -47,7 +46,7 @@ export const defaultTestimonialCardSlotData = (
       ...(id && { id }),
       ...(index !== undefined && { index }),
       styles: {
-        backgroundColor: backgroundColor ?? backgroundColors.background1.value,
+        backgroundColor: backgroundColor ?? undefined,
       } satisfies TestimonialCardProps["styles"],
       slots: {
         DescriptionSlot: [
@@ -62,9 +61,7 @@ export const defaultTestimonialCardSlotData = (
                   constantValueEnabled: true,
                 },
               },
-              styles: {
-                variant: "base",
-              },
+              styles: {},
             } satisfies BodyTextProps,
           },
         ],
@@ -277,8 +274,7 @@ const TestimonialCardComponent: PuckComponent<TestimonialCardProps> = (
           styles: {
             ...otherProps.styles,
             backgroundColor:
-              sharedCardProps?.cardStyles.backgroundColor ||
-              backgroundColors.background1.value,
+              sharedCardProps?.cardStyles.backgroundColor || undefined,
           },
           slots: newSlotData,
         } satisfies TestimonialCardProps,
@@ -311,10 +307,7 @@ const TestimonialCardComponent: PuckComponent<TestimonialCardProps> = (
       ref={puck.dragRef}
       className="flex flex-col rounded-lg overflow-hidden border bg-white h-full"
     >
-      <Background
-        background={backgroundColors.background1.value}
-        className="p-8 grow"
-      >
+      <Background background={undefined} className="p-8 grow">
         {showDescription && (
           <slots.DescriptionSlot style={{ height: "auto" }} allow={[]} />
         )}
@@ -346,9 +339,7 @@ export const TestimonialCard: YextComponentConfig<TestimonialCardProps> = {
   fields: testimonialCardFields,
   inline: true,
   defaultProps: {
-    styles: {
-      backgroundColor: backgroundColors.background1.value,
-    },
+    styles: {},
     slots: defaultTestimonialCardSlotData().props.slots,
   },
   resolveData: (data, params) => {

@@ -1,10 +1,10 @@
+import {
+  useThemeData,
+  resolveThemeEntry,
+} from "@yext/visual-editor/section-library-support";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { PuckComponent, setDeep } from "@puckeditor/core";
-import {
-  CTA,
-  CTAVariant,
-  isCtaVariantWithColor,
-} from "../shared/sectionSupport/atoms/cta.tsx";
+import { CTA } from "../shared/sectionSupport/atoms/cta.tsx";
 import {
   EnhancedTranslatableCTA,
   PresetImageType,
@@ -15,7 +15,6 @@ import {
   resolveComponentData,
   resolveDataFromParent,
   ThemeColor,
-  ThemeOptions,
   themeManagerCn,
   useDocument,
   type YextCTAField,
@@ -54,7 +53,7 @@ export interface CTAWrapperProps {
 
   styles: {
     /** The visual style of the CTA. */
-    variant: CTAVariant;
+    actionId?: string;
     /** The image to use if the CTA is set to preset image */
     presetImage?: PresetImageType;
     color?: ThemeColor;
@@ -73,7 +72,7 @@ export interface CTAWrapperProps {
 
   /** @internal Controlled style from the parent section */
   parentStyles?: {
-    classNameFn?: (variant: CTAVariant) => string;
+    classNameFn?: (presentation: "button" | "link") => string;
   };
 
   /** @internal Event name to be used for click analytics */
@@ -176,10 +175,11 @@ const ctaWrapperFields: YextFields<CTAWrapperProps> = {
     type: "object",
     label: msg("fields.styles", "Styles"),
     objectFields: {
-      variant: {
-        label: msg("fields.variant", "Variant"),
-        type: "radio",
-        options: ThemeOptions.CTA_VARIANT,
+      actionId: {
+        generation: { required: false },
+        label: "Action preset",
+        type: "themeCollection",
+        collection: "actions",
       },
       presetImage: {
         generation: {
@@ -227,10 +227,15 @@ const CTAWrapperComponent: PuckComponent<CTAWrapperProps> = (props) => {
       ? getCTAType(data.entityField)
       : { ctaType: undefined };
 
+  const theme = useThemeData();
+  const presentation = resolveThemeEntry(
+    theme.actions,
+    styles.actionId
+  ).presentation;
   let combinedClassName = className;
   if (parentStyles?.classNameFn) {
     combinedClassName = themeManagerCn(
-      parentStyles.classNameFn(styles.variant),
+      parentStyles.classNameFn(presentation),
       className
     );
   }
@@ -298,7 +303,7 @@ const CTAWrapperComponent: PuckComponent<CTAWrapperProps> = (props) => {
       linkType={actionType === "link" && cta ? cta.linkType : undefined}
       ctaType={actionType === "button" ? "textAndLink" : ctaType}
       presetImageType={actionType === "link" ? styles.presetImage : undefined}
-      variant={styles.variant}
+      actionId={styles.actionId}
       className={
         actionType === "button" ? resolvedButtonClassName : combinedClassName
       }
@@ -357,13 +362,11 @@ export const CTAWrapper: YextComponentConfig<CTAWrapperProps> = {
       ariaLabel: { defaultValue: "Button" },
     },
     styles: {
-      variant: "primary",
       presetImage: "app-store",
     },
   },
   resolveFields: (data) => {
     let updatedFields = resolveDataFromParent(ctaWrapperFields, data);
-    const ctaVariant = data.props.styles.variant;
     const actionType = data.props.data.actionType ?? "link";
     const ctaType = getCTAType(data.props.data.entityField).ctaType;
     const constantLinkType = data.props.data.entityField.constantValueEnabled
@@ -377,7 +380,7 @@ export const CTAWrapper: YextComponentConfig<CTAWrapperProps> = {
     if (effectiveCtaType === "presetImage") {
       updatedFields = setDeep(
         updatedFields,
-        "styles.objectFields.variant.visible",
+        "styles.objectFields.actionId.visible",
         false
       );
       updatedFields = setDeep(
@@ -388,7 +391,7 @@ export const CTAWrapper: YextComponentConfig<CTAWrapperProps> = {
     } else {
       updatedFields = setDeep(
         updatedFields,
-        "styles.objectFields.variant.visible",
+        "styles.objectFields.actionId.visible",
         true
       );
       updatedFields = setDeep(
@@ -413,8 +416,7 @@ export const CTAWrapper: YextComponentConfig<CTAWrapperProps> = {
       );
     }
 
-    const showColor =
-      isCtaVariantWithColor(ctaVariant) && effectiveCtaType !== "presetImage";
+    const showColor = effectiveCtaType !== "presetImage";
     updatedFields = setDeep(
       updatedFields,
       "styles.objectFields.color.visible",
@@ -423,7 +425,7 @@ export const CTAWrapper: YextComponentConfig<CTAWrapperProps> = {
     updatedFields = setDeep(
       updatedFields,
       "styles.objectFields.textColor.visible",
-      ctaVariant === "primary" && effectiveCtaType !== "presetImage"
+      effectiveCtaType !== "presetImage"
     );
 
     if (data.props.parentData) {

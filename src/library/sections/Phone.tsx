@@ -10,7 +10,6 @@ import {
   TranslatableString,
   ThemeColor,
   ThemeOptions,
-  backgroundColors,
   resolveDataFromParent,
   YextComponentConfig,
   YextFields,
@@ -28,6 +27,8 @@ export interface PhoneProps {
   };
 
   styles: {
+    actionId?: string;
+    iconBackgroundColor?: ThemeColor;
     /** Whether to format the phone number like a domestic or international number */
     phoneFormat: "domestic" | "international";
     /** Whether to make the phone number a clickable link */
@@ -70,6 +71,17 @@ export const PhoneDataFields: YextFields<PhoneProps["data"]> = {
 
 // Phone style definitions used in Phone and CoreInfoSection
 export const PhoneStyleFields: YextFields<PhoneProps["styles"]> = {
+  iconBackgroundColor: {
+    type: "basicSelector",
+    options: "BACKGROUND_COLOR",
+    label: "Icon background",
+  },
+  actionId: {
+    generation: { required: false },
+    type: "themeCollection",
+    collection: "actions",
+    label: "Action preset",
+  },
   phoneFormat: {
     label: msg("fields.phoneFormat", "Phone Format"),
     type: "radio",
@@ -153,7 +165,8 @@ const PhoneComponent = ({ data, styles, parentData }: PhoneProps) => {
       constantValueEnabled={!parentData && data.number.constantValueEnabled}
     >
       <PhoneAtom
-        backgroundColor={styles.color ?? backgroundColors.background2.value}
+        actionId={styles.actionId}
+        backgroundColor={styles.iconBackgroundColor ?? styles.color}
         eventName={`phone`}
         format={styles.phoneFormat}
         label={resolveComponentData(data.label, i18n.language, streamDocument)}

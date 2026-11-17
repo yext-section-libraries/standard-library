@@ -4,7 +4,6 @@ import { AddressType, AnalyticsScopeProvider } from "@yext/pages-components";
 import {
   YextEntityField,
   ThemeColor,
-  backgroundColors,
   getAnalyticsScopeHash,
   msg,
   resolveComponentData,
@@ -29,7 +28,6 @@ import { ComponentErrorBoundary } from "@yext/visual-editor/section-library-supp
 export interface CoreInfoStyles {
   /**
    * The background color of the section.
-   * @defaultValue `Background Color 1`
    */
   backgroundColor?: ThemeColor;
 }
@@ -239,9 +237,7 @@ export const CoreInfoSection: YextComponentConfig<CoreInfoSectionProps> = {
   label: msg("components.coreInfo", "Core Info"),
   fields: coreInfoSectionFields,
   defaultProps: {
-    styles: {
-      backgroundColor: backgroundColors.background1.value,
-    },
+    styles: {},
     slots: {
       CoreInfoHeadingSlot: [
         {
@@ -254,7 +250,10 @@ export const CoreInfoSection: YextComponentConfig<CoreInfoSectionProps> = {
                 field: "",
               },
             },
-            styles: { level: 3, align: "left" },
+            styles: {
+              level: 3,
+              align: "left",
+            },
           } satisfies HeadingTextProps,
         },
       ],
@@ -275,7 +274,6 @@ export const CoreInfoSection: YextComponentConfig<CoreInfoSectionProps> = {
             },
             styles: {
               showGetDirectionsLink: true,
-              ctaVariant: "link",
             },
           } satisfies AddressProps,
         },
@@ -329,7 +327,10 @@ export const CoreInfoSection: YextComponentConfig<CoreInfoSectionProps> = {
                 field: "",
               },
             },
-            styles: { level: 3, align: "left" },
+            styles: {
+              level: 3,
+              align: "left",
+            },
           } satisfies HeadingTextProps,
         },
       ],
@@ -363,7 +364,10 @@ export const CoreInfoSection: YextComponentConfig<CoreInfoSectionProps> = {
                 field: "",
               },
             },
-            styles: { level: 3, align: "left" },
+            styles: {
+              level: 3,
+              align: "left",
+            },
           } satisfies HeadingTextProps,
         },
       ],

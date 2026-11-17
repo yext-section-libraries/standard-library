@@ -1,34 +1,29 @@
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
-import { setDeep } from "@puckeditor/core";
 import "@yext/pages-components/style.css";
 import {
   ThemeColor,
-  ThemeOptions,
   msg,
   resolveDataFromParent,
   YextComponentConfig,
   YextFields,
   SectionConfig,
 } from "@yext/visual-editor";
-import {
-  CTA,
-  CTAVariant,
-  isCtaVariantWithColor,
-} from "../shared/sectionSupport/atoms/cta.tsx";
+import { CTA } from "../shared/sectionSupport/atoms/cta.tsx";
 import { useTranslation } from "react-i18next";
 
 export type GetDirectionsProps = {
-  variant: CTAVariant;
+  actionId?: string;
   color?: ThemeColor;
   /** The text and icon color for the primary variant. */
   textColor?: ThemeColor;
 };
 
 const getDirectionsFields: YextFields<GetDirectionsProps> = {
-  variant: {
-    label: msg("fields.variant", "Variant"),
-    type: "radio",
-    options: ThemeOptions.CTA_VARIANT,
+  actionId: {
+    generation: { required: false },
+    label: "Action preset",
+    type: "themeCollection",
+    collection: "actions",
   },
   color: {
     type: "basicSelector",
@@ -43,7 +38,7 @@ const getDirectionsFields: YextFields<GetDirectionsProps> = {
 };
 
 const GetDirectionsComponent = ({
-  variant,
+  actionId,
   color,
   textColor,
 }: GetDirectionsProps) => {
@@ -58,7 +53,7 @@ const GetDirectionsComponent = ({
       linkType={"DRIVING_DIRECTIONS"}
       normalizeLink={false}
       target="_blank"
-      variant={variant}
+      actionId={actionId}
       color={color}
       textColor={textColor}
     />
@@ -69,19 +64,9 @@ export const GetDirections: YextComponentConfig<GetDirectionsProps> = {
   ...gridAtomPermissions,
   label: msg("components.getDirections", "Get Directions"),
   fields: getDirectionsFields,
-  defaultProps: {
-    variant: "primary",
-  },
+  defaultProps: {},
   resolveFields: (data) => {
     let updatedFields = resolveDataFromParent(getDirectionsFields, data);
-    const ctaVariant = data.props.variant;
-    const showColor = isCtaVariantWithColor(ctaVariant);
-    updatedFields = setDeep(updatedFields, "color.visible", showColor);
-    updatedFields = setDeep(
-      updatedFields,
-      "textColor.visible",
-      ctaVariant === "primary"
-    );
     return updatedFields;
   },
   render: (props) => <GetDirectionsComponent {...props} />,

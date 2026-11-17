@@ -1,7 +1,6 @@
 import { setDeep, Slot } from "@puckeditor/core";
 import {
   PromoSectionType,
-  backgroundColors,
   ThemeColor,
   ThemeOptions,
   msg,
@@ -92,7 +91,6 @@ export interface PromoStyles {
 
   /**
    * The background color for the entire section.
-   * @defaultValue Background Color 1
    */
   backgroundColor?: ThemeColor;
 
@@ -393,7 +391,6 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
     },
     styles: {
       variant: "classic",
-      backgroundColor: backgroundColors.background1.value,
       desktopImagePosition: "left",
       mobileImagePosition: "top",
       containerAlignment: "left",
@@ -415,7 +412,10 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
                 constantValueEnabled: true,
               },
             },
-            styles: { level: 2, align: "left" },
+            styles: {
+              level: 2,
+              align: "left",
+            },
           } satisfies HeadingTextProps,
         },
       ],
@@ -434,7 +434,7 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
                 constantValueEnabled: true,
               },
             },
-            styles: { variant: "base" },
+            styles: {},
           } satisfies BodyTextProps,
         },
       ],
@@ -497,7 +497,9 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
                 selectedType: "textAndLink",
               },
             },
-            styles: { variant: "primary", presetImage: "app-store" },
+            styles: {
+              presetImage: "app-store",
+            },
             eventName: "cta",
           } satisfies CTAWrapperProps,
         },
@@ -594,7 +596,7 @@ export const PromoSection: YextComponentConfig<PromoSectionProps> = {
       updatedData = setDeep(
         updatedData,
         "props.slots.ImageSlot[0].props.className",
-        "min-w-full lg:min-w-none max-w-full lg:max-w-none rounded-image-borderRadius"
+        "min-w-full lg:min-w-none max-w-full lg:max-w-none rounded-[var(--ve-image-border-radius)]"
       );
     }
 

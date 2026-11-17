@@ -1,8 +1,8 @@
 {
   "root": {
     "props": {
-      "version": 83,
-      "sectionLibraryMigrationVersion": 5,
+      "version": 84,
+      "sectionLibraryMigrationVersion": 7,
       "title": {
         "field": "name",
         "constantValue": "",
@@ -31,8 +31,8 @@
                 "id": "PrimaryHeaderSlot-326efc21-4048-437b-844c-9fad6adf6b10",
                 "styles": {
                   "backgroundColor": {
-                    "selectedColor": "white",
-                    "contrastingColor": "black"
+                    "colorId": "main-white",
+                    "channel": "background"
                   }
                 },
                 "slots": {
@@ -57,7 +57,8 @@
                         "styles": {
                           "aspectRatio": 1,
                           "width": 100,
-                          "imageFillType": "fill"
+                          "imageFillType": "fill",
+                          "actionId": "main-link"
                         }
                       }
                     }
@@ -71,21 +72,27 @@
                           "links": [
                             {
                               "linkType": "URL",
-                              "label": { "defaultValue": "Header Link" },
+                              "label": {
+                                "defaultValue": "Header Link"
+                              },
                               "link": "#",
                               "normalizeLink": true,
                               "openInNewTab": false
                             },
                             {
                               "linkType": "URL",
-                              "label": { "defaultValue": "Header Link" },
+                              "label": {
+                                "defaultValue": "Header Link"
+                              },
                               "link": "#",
                               "normalizeLink": true,
                               "openInNewTab": false
                             },
                             {
                               "linkType": "URL",
-                              "label": { "defaultValue": "Header Link" },
+                              "label": {
+                                "defaultValue": "Header Link"
+                              },
                               "link": "#",
                               "normalizeLink": true,
                               "openInNewTab": false
@@ -96,7 +103,9 @@
                         "styles": {
                           "align": "right",
                           "variant": "sm",
-                          "weight": "normal"
+                          "weight": "normal",
+                          "typographyId": "main-body-sm",
+                          "actionId": "main-headerFooterMainLink"
                         },
                         "parentData": {
                           "type": "Primary"
@@ -113,12 +122,18 @@
                           "show": true,
                           "actionType": "link",
                           "normalizeLink": true,
-                          "buttonText": { "defaultValue": "Button" },
+                          "buttonText": {
+                            "defaultValue": "Button"
+                          },
                           "entityField": {
                             "field": "",
                             "constantValue": {
-                              "label": { "defaultValue": "Call to Action" },
-                              "link": { "defaultValue": "#" },
+                              "label": {
+                                "defaultValue": "Call to Action"
+                              },
+                              "link": {
+                                "defaultValue": "#"
+                              },
                               "linkType": "URL",
                               "ctaType": "textAndLink"
                             },
@@ -126,8 +141,8 @@
                           }
                         },
                         "styles": {
-                          "variant": "primary",
-                          "presetImage": "app-store"
+                          "presetImage": "app-store",
+                          "actionId": "main-primary"
                         },
                         "eventName": "primaryCta"
                       }
@@ -142,12 +157,18 @@
                           "show": true,
                           "actionType": "link",
                           "normalizeLink": true,
-                          "buttonText": { "defaultValue": "Button" },
+                          "buttonText": {
+                            "defaultValue": "Button"
+                          },
                           "entityField": {
                             "field": "",
                             "constantValue": {
-                              "label": { "defaultValue": "Call to Action" },
-                              "link": { "defaultValue": "#" },
+                              "label": {
+                                "defaultValue": "Call to Action"
+                              },
+                              "link": {
+                                "defaultValue": "#"
+                              },
                               "linkType": "URL",
                               "ctaType": "textAndLink"
                             },
@@ -155,8 +176,8 @@
                           }
                         },
                         "styles": {
-                          "variant": "secondary",
-                          "presetImage": "app-store"
+                          "presetImage": "app-store",
+                          "actionId": "main-secondary"
                         },
                         "eventName": "secondaryCta"
                       }
@@ -176,8 +197,8 @@
                         },
                         "styles": {
                           "backgroundColor": {
-                            "selectedColor": "palette-primary-light",
-                            "contrastingColor": "black"
+                            "colorId": "main-primary-light",
+                            "channel": "background"
                           }
                         },
                         "slots": {
@@ -221,7 +242,9 @@
                                 "styles": {
                                   "align": "right",
                                   "variant": "xs",
-                                  "weight": "normal"
+                                  "weight": "normal",
+                                  "typographyId": "main-body-xs",
+                                  "actionId": "main-headerFooterSecondaryLink"
                                 },
                                 "parentData": {
                                   "type": "Secondary"
@@ -256,8 +279,8 @@
                 },
                 "styles": {
                   "backgroundColor": {
-                    "selectedColor": "palette-primary-light",
-                    "contrastingColor": "black"
+                    "colorId": "main-primary-light",
+                    "channel": "background"
                   }
                 },
                 "slots": {
@@ -270,21 +293,27 @@
                           "links": [
                             {
                               "linkType": "URL",
-                              "label": { "defaultValue": "Header Link" },
+                              "label": {
+                                "defaultValue": "Header Link"
+                              },
                               "link": "#",
                               "normalizeLink": true,
                               "openInNewTab": false
                             },
                             {
                               "linkType": "URL",
-                              "label": { "defaultValue": "Header Link" },
+                              "label": {
+                                "defaultValue": "Header Link"
+                              },
                               "link": "#",
                               "normalizeLink": true,
                               "openInNewTab": false
                             },
                             {
                               "linkType": "URL",
-                              "label": { "defaultValue": "Header Link" },
+                              "label": {
+                                "defaultValue": "Header Link"
+                              },
                               "link": "#",
                               "normalizeLink": true,
                               "openInNewTab": false
@@ -295,7 +324,9 @@
                         "styles": {
                           "align": "right",
                           "variant": "xs",
-                          "weight": "normal"
+                          "weight": "normal",
+                          "typographyId": "main-body-xs",
+                          "actionId": "main-headerFooterSecondaryLink"
                         },
                         "parentData": {
                           "type": "Secondary"
@@ -332,7 +363,7 @@
                   "constantValue": {
                     "defaultValue": {
                       "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Banner Text\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
-                      "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; color: rgb(0, 0, 0); margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Banner Text</span></p>"
+                      "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Banner Text</span></p>"
                     }
                   },
                   "constantValueEnabled": true
@@ -340,13 +371,15 @@
               },
               "styles": {
                 "backgroundColor": {
-                  "selectedColor": "palette-primary-dark",
-                  "contrastingColor": "white"
+                  "colorId": "main-primary-dark",
+                  "channel": "background"
                 },
                 "textAlignment": "center"
               },
               "liveVisibility": true,
-              "ignoreLocaleWarning": ["data.text"],
+              "ignoreLocaleWarning": [
+                "data.text"
+              ],
               "id": "BannerSection-85b90f9c-f8a3-4796-9dc4-18160b9972b6"
             }
           },
@@ -354,19 +387,24 @@
             "type": "BreadcrumbsSection",
             "props": {
               "data": {
-                "directoryRoot": { "defaultValue": "Directory Root" },
+                "directoryRoot": {
+                  "defaultValue": "Directory Root"
+                },
                 "currentPage": {
-                  "constantValue": { "defaultValue": "[[name]]" },
+                  "constantValue": {
+                    "defaultValue": "[[name]]"
+                  },
                   "field": "name",
                   "constantValueEnabled": false
                 }
               },
               "styles": {
                 "backgroundColor": {
-                  "selectedColor": "white",
-                  "contrastingColor": "black"
+                  "colorId": "main-white",
+                  "channel": "background"
                 },
-                "showCurrentPage": true
+                "showCurrentPage": true,
+                "actionId": "main-link"
               },
               "analytics": {
                 "scope": "breadcrumbs"
@@ -394,8 +432,8 @@
               "styles": {
                 "variant": "classic",
                 "backgroundColor": {
-                  "selectedColor": "white",
-                  "contrastingColor": "black"
+                  "colorId": "main-white",
+                  "channel": "background"
                 },
                 "showAverageReview": true,
                 "showImage": true,
@@ -409,7 +447,11 @@
                 "desktopContainerPosition": "left",
                 "mobileContentAlignment": "left",
                 "mobileImagePosition": "bottom",
-                "showPhone": false
+                "showPhone": false,
+                "reviewStarsColor": {
+                  "colorId": "main-primary-dark",
+                  "channel": "background"
+                }
               },
               "slots": {
                 "BusinessNameSlot": [
@@ -419,7 +461,9 @@
                       "id": "HeadingTextSlot-bb2ccf6e-ab98-4fb4-9e9b-fdcd5c6834e6",
                       "data": {
                         "text": {
-                          "constantValue": { "defaultValue": "Business Name" },
+                          "constantValue": {
+                            "defaultValue": "Business Name"
+                          },
                           "constantValueEnabled": true,
                           "field": ""
                         }
@@ -427,7 +471,8 @@
                       "styles": {
                         "level": 3,
                         "align": "left",
-                        "semanticLevelOverride": 2
+                        "semanticLevelOverride": 2,
+                        "typographyId": "main-h3"
                       }
                     }
                   }
@@ -439,14 +484,17 @@
                       "id": "HeadingTextSlot-8905a32e-da1c-42a6-b1b4-98630e328236",
                       "data": {
                         "text": {
-                          "constantValue": { "defaultValue": "Geomodifier" },
+                          "constantValue": {
+                            "defaultValue": "Geomodifier"
+                          },
                           "constantValueEnabled": true,
                           "field": ""
                         }
                       },
                       "styles": {
                         "level": 1,
-                        "align": "left"
+                        "align": "left",
+                        "typographyId": "main-h1"
                       }
                     }
                   }
@@ -493,7 +541,7 @@
                         "width": 490
                       },
                       "variant": "classic",
-                      "className": "mx-auto max-w-full md:max-w-[350px] lg:max-w-[calc(min(calc(100vw-1.5rem),var(--maxWidth-pageSection-contentWidth))-350px)] rounded-image-borderRadius"
+                      "className": "mx-auto max-w-full md:max-w-[350px] lg:max-w-[calc(min(calc(100vw-1.5rem),var(--ve-page-content-max-width))-350px)] rounded-[var(--ve-image-border-radius)]"
                     }
                   }
                 ],
@@ -505,16 +553,24 @@
                       "data": {
                         "actionType": "link",
                         "normalizeLink": true,
-                        "buttonText": { "defaultValue": "Button" },
+                        "buttonText": {
+                          "defaultValue": "Button"
+                        },
                         "customId": "",
                         "customClass": "",
                         "dataAttributes": [],
-                        "ariaLabel": { "defaultValue": "Button" },
+                        "ariaLabel": {
+                          "defaultValue": "Button"
+                        },
                         "entityField": {
                           "field": "",
                           "constantValue": {
-                            "label": { "defaultValue": "Call To Action" },
-                            "link": { "defaultValue": "#" },
+                            "label": {
+                              "defaultValue": "Call To Action"
+                            },
+                            "link": {
+                              "defaultValue": "#"
+                            },
                             "linkType": "URL",
                             "ctaType": "textAndLink"
                           }
@@ -522,8 +578,8 @@
                       },
                       "eventName": "primaryCta",
                       "styles": {
-                        "variant": "primary",
-                        "presetImage": "app-store"
+                        "presetImage": "app-store",
+                        "actionId": "main-primary"
                       },
                       "parentStyles": {}
                     }
@@ -537,16 +593,24 @@
                       "data": {
                         "actionType": "link",
                         "normalizeLink": true,
-                        "buttonText": { "defaultValue": "Button" },
+                        "buttonText": {
+                          "defaultValue": "Button"
+                        },
                         "customId": "",
                         "customClass": "",
                         "dataAttributes": [],
-                        "ariaLabel": { "defaultValue": "Button" },
+                        "ariaLabel": {
+                          "defaultValue": "Button"
+                        },
                         "entityField": {
                           "field": "",
                           "constantValue": {
-                            "label": { "defaultValue": "Learn More" },
-                            "link": { "defaultValue": "#" },
+                            "label": {
+                              "defaultValue": "Learn More"
+                            },
+                            "link": {
+                              "defaultValue": "#"
+                            },
                             "linkType": "URL",
                             "ctaType": "textAndLink"
                           },
@@ -554,8 +618,8 @@
                         }
                       },
                       "styles": {
-                        "variant": "secondary",
-                        "presetImage": "app-store"
+                        "presetImage": "app-store",
+                        "actionId": "main-secondary"
                       },
                       "eventName": "secondaryCta",
                       "parentStyles": {}
@@ -603,8 +667,8 @@
             "props": {
               "styles": {
                 "backgroundColor": {
-                  "selectedColor": "white",
-                  "contrastingColor": "black"
+                  "colorId": "main-white",
+                  "channel": "background"
                 }
               },
               "slots": {
@@ -615,14 +679,17 @@
                       "id": "HeadingTextSlot-53d6582f-3f69-4224-b172-31f7ecac6824",
                       "data": {
                         "text": {
-                          "constantValue": { "defaultValue": "Information" },
+                          "constantValue": {
+                            "defaultValue": "Information"
+                          },
                           "constantValueEnabled": true,
                           "field": ""
                         }
                       },
                       "styles": {
                         "level": 3,
-                        "align": "left"
+                        "align": "left",
+                        "typographyId": "main-h3"
                       }
                     }
                   }
@@ -647,7 +714,7 @@
                         "showRegion": true,
                         "showCountry": false,
                         "showGetDirectionsLink": true,
-                        "ctaVariant": "link"
+                        "actionId": "main-link"
                       }
                     }
                   }
@@ -664,7 +731,9 @@
                               "field": "mainPhone",
                               "constantValue": ""
                             },
-                            "label": { "defaultValue": "Phone" }
+                            "label": {
+                              "defaultValue": "Phone"
+                            }
                           }
                         ]
                       },
@@ -687,7 +756,8 @@
                         }
                       },
                       "styles": {
-                        "listLength": 1
+                        "listLength": 1,
+                        "actionId": "main-link"
                       }
                     }
                   }
@@ -699,14 +769,17 @@
                       "id": "HeadingTextSlot-05556e7b-c4ef-4251-8d94-1f57cbebb8be",
                       "data": {
                         "text": {
-                          "constantValue": { "defaultValue": "Hours" },
+                          "constantValue": {
+                            "defaultValue": "Hours"
+                          },
                           "constantValueEnabled": true,
                           "field": ""
                         }
                       },
                       "styles": {
                         "level": 3,
-                        "align": "left"
+                        "align": "left",
+                        "typographyId": "main-h3"
                       }
                     }
                   }
@@ -738,14 +811,17 @@
                       "id": "HeadingTextSlot-febfb175-cce0-4d5c-8d79-f58784bf0277",
                       "data": {
                         "text": {
-                          "constantValue": { "defaultValue": "Services" },
+                          "constantValue": {
+                            "defaultValue": "Services"
+                          },
                           "constantValueEnabled": true,
                           "field": ""
                         }
                       },
                       "styles": {
                         "level": 3,
-                        "align": "left"
+                        "align": "left",
+                        "typographyId": "main-h3"
                       }
                     }
                   }
@@ -800,8 +876,8 @@
               },
               "styles": {
                 "backgroundColor": {
-                  "selectedColor": "white",
-                  "contrastingColor": "black"
+                  "colorId": "main-white",
+                  "channel": "background"
                 },
                 "variant": "classic",
                 "desktopImagePosition": "left",
@@ -830,7 +906,8 @@
                       },
                       "styles": {
                         "level": 2,
-                        "align": "left"
+                        "align": "left",
+                        "typographyId": "main-h2"
                       }
                     }
                   }
@@ -846,14 +923,15 @@
                           "constantValue": {
                             "defaultValue": {
                               "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. 100 characters\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
-                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; color: rgb(0, 0, 0); margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. 100 characters</span></p>"
+                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. 100 characters</span></p>"
                             }
                           },
                           "constantValueEnabled": true
                         }
                       },
                       "styles": {
-                        "variant": "base"
+                        "variant": "base",
+                        "typographyId": "main-body"
                       }
                     }
                   }
@@ -888,14 +966,15 @@
                       "styles": {
                         "aspectRatio": 1.78,
                         "width": 640,
-                        "imageFillType": "fill"
+                        "imageFillType": "fill",
+                        "actionId": "main-link"
                       },
                       "sizes": {
                         "base": "calc(100vw - 32px)",
                         "md": "min(width, 450px)",
                         "lg": "width"
                       },
-                      "className": "max-w-full sm:max-w-initial md:max-w-[450px] lg:max-w-none rounded-image-borderRadius w-full"
+                      "className": "max-w-full sm:max-w-initial md:max-w-[450px] lg:max-w-none rounded-[var(--ve-image-border-radius)] w-full"
                     }
                   }
                 ],
@@ -907,16 +986,24 @@
                       "data": {
                         "actionType": "link",
                         "normalizeLink": true,
-                        "buttonText": { "defaultValue": "Button" },
+                        "buttonText": {
+                          "defaultValue": "Button"
+                        },
                         "customId": "",
                         "customClass": "",
                         "dataAttributes": [],
-                        "ariaLabel": { "defaultValue": "Button" },
+                        "ariaLabel": {
+                          "defaultValue": "Button"
+                        },
                         "entityField": {
                           "field": "",
                           "constantValue": {
-                            "label": { "defaultValue": "Learn More" },
-                            "link": { "defaultValue": "#" },
+                            "label": {
+                              "defaultValue": "Learn More"
+                            },
+                            "link": {
+                              "defaultValue": "#"
+                            },
                             "linkType": "URL",
                             "ctaType": "textAndLink"
                           },
@@ -924,8 +1011,8 @@
                         }
                       },
                       "styles": {
-                        "variant": "primary",
-                        "presetImage": "app-store"
+                        "presetImage": "app-store",
+                        "actionId": "main-primary"
                       },
                       "eventName": "cta"
                     }
@@ -947,8 +1034,8 @@
             "props": {
               "styles": {
                 "backgroundColor": {
-                  "selectedColor": "palette-primary-light",
-                  "contrastingColor": "black"
+                  "colorId": "main-primary-light",
+                  "channel": "background"
                 },
                 "cardVariant": "immersive",
                 "showSectionHeading": true
@@ -970,7 +1057,8 @@
                       },
                       "styles": {
                         "level": 2,
-                        "align": "left"
+                        "align": "left",
+                        "typographyId": "main-h2"
                       }
                     }
                   }
@@ -1038,8 +1126,8 @@
                               "index": 0,
                               "styles": {
                                 "backgroundColor": {
-                                  "selectedColor": "white",
-                                  "contrastingColor": "black"
+                                  "colorId": "main-white",
+                                  "channel": "background"
                                 }
                               },
                               "slots": {
@@ -1065,7 +1153,8 @@
                                         "aspectRatio": 1.78,
                                         "width": 640,
                                         "imageConstrain": "fill",
-                                        "imageFillType": "fill"
+                                        "imageFillType": "fill",
+                                        "actionId": "main-link"
                                       },
                                       "sizes": {
                                         "base": "calc(100vw - 32px)",
@@ -1091,7 +1180,8 @@
                                       },
                                       "styles": {
                                         "level": 3,
-                                        "align": "left"
+                                        "align": "left",
+                                        "typographyId": "main-h3"
                                       }
                                     }
                                   }
@@ -1107,14 +1197,15 @@
                                           "constantValue": {
                                             "defaultValue": {
                                               "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
-                                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; color: rgb(0, 0, 0); margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p>"
+                                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p>"
                                             }
                                           },
                                           "constantValueEnabled": true
                                         }
                                       },
                                       "styles": {
-                                        "variant": "base"
+                                        "variant": "base",
+                                        "typographyId": "main-body"
                                       }
                                     }
                                   }
@@ -1140,7 +1231,9 @@
                                           "field": "",
                                           "constantValue": {
                                             "label": "Learn More",
-                                            "link": { "defaultValue": "#" },
+                                            "link": {
+                                              "defaultValue": "#"
+                                            },
                                             "linkType": "URL",
                                             "ctaType": "textAndLink"
                                           },
@@ -1148,8 +1241,8 @@
                                         }
                                       },
                                       "styles": {
-                                        "variant": "primary",
-                                        "presetImage": "app-store"
+                                        "presetImage": "app-store",
+                                        "actionId": "main-primary"
                                       },
                                       "eventName": "cta0"
                                     }
@@ -1171,7 +1264,8 @@
                                       },
                                       "styles": {
                                         "variant": "base",
-                                        "fontStyle": "bold"
+                                        "fontStyle": "bold",
+                                        "typographyId": "main-body"
                                       }
                                     }
                                   }
@@ -1192,7 +1286,8 @@
                                       },
                                       "styles": {
                                         "variant": "base",
-                                        "fontStyle": "bold"
+                                        "fontStyle": "bold",
+                                        "typographyId": "main-body"
                                       }
                                     }
                                   }
@@ -1217,8 +1312,8 @@
                               "index": 1,
                               "styles": {
                                 "backgroundColor": {
-                                  "selectedColor": "white",
-                                  "contrastingColor": "black"
+                                  "colorId": "main-white",
+                                  "channel": "background"
                                 }
                               },
                               "slots": {
@@ -1244,7 +1339,8 @@
                                         "aspectRatio": 1.78,
                                         "width": 640,
                                         "imageConstrain": "fill",
-                                        "imageFillType": "fill"
+                                        "imageFillType": "fill",
+                                        "actionId": "main-link"
                                       },
                                       "sizes": {
                                         "base": "calc(100vw - 32px)",
@@ -1270,7 +1366,8 @@
                                       },
                                       "styles": {
                                         "level": 3,
-                                        "align": "left"
+                                        "align": "left",
+                                        "typographyId": "main-h3"
                                       }
                                     }
                                   }
@@ -1286,14 +1383,15 @@
                                           "constantValue": {
                                             "defaultValue": {
                                               "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
-                                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; color: rgb(0, 0, 0); margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p>"
+                                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p>"
                                             }
                                           },
                                           "constantValueEnabled": true
                                         }
                                       },
                                       "styles": {
-                                        "variant": "base"
+                                        "variant": "base",
+                                        "typographyId": "main-body"
                                       }
                                     }
                                   }
@@ -1319,7 +1417,9 @@
                                           "field": "",
                                           "constantValue": {
                                             "label": "Learn More",
-                                            "link": { "defaultValue": "#" },
+                                            "link": {
+                                              "defaultValue": "#"
+                                            },
                                             "linkType": "URL",
                                             "ctaType": "textAndLink"
                                           },
@@ -1327,8 +1427,8 @@
                                         }
                                       },
                                       "styles": {
-                                        "variant": "primary",
-                                        "presetImage": "app-store"
+                                        "presetImage": "app-store",
+                                        "actionId": "main-primary"
                                       },
                                       "eventName": "cta1"
                                     }
@@ -1350,7 +1450,8 @@
                                       },
                                       "styles": {
                                         "variant": "base",
-                                        "fontStyle": "bold"
+                                        "fontStyle": "bold",
+                                        "typographyId": "main-body"
                                       }
                                     }
                                   }
@@ -1371,7 +1472,8 @@
                                       },
                                       "styles": {
                                         "variant": "base",
-                                        "fontStyle": "bold"
+                                        "fontStyle": "bold",
+                                        "typographyId": "main-body"
                                       }
                                     }
                                   }
@@ -1396,8 +1498,8 @@
                               "index": 2,
                               "styles": {
                                 "backgroundColor": {
-                                  "selectedColor": "white",
-                                  "contrastingColor": "black"
+                                  "colorId": "main-white",
+                                  "channel": "background"
                                 }
                               },
                               "slots": {
@@ -1423,7 +1525,8 @@
                                         "aspectRatio": 1.78,
                                         "width": 640,
                                         "imageConstrain": "fill",
-                                        "imageFillType": "fill"
+                                        "imageFillType": "fill",
+                                        "actionId": "main-link"
                                       },
                                       "sizes": {
                                         "base": "calc(100vw - 32px)",
@@ -1449,7 +1552,8 @@
                                       },
                                       "styles": {
                                         "level": 3,
-                                        "align": "left"
+                                        "align": "left",
+                                        "typographyId": "main-h3"
                                       }
                                     }
                                   }
@@ -1465,14 +1569,15 @@
                                           "constantValue": {
                                             "defaultValue": {
                                               "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
-                                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; color: rgb(0, 0, 0); margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p>"
+                                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p>"
                                             }
                                           },
                                           "constantValueEnabled": true
                                         }
                                       },
                                       "styles": {
-                                        "variant": "base"
+                                        "variant": "base",
+                                        "typographyId": "main-body"
                                       }
                                     }
                                   }
@@ -1498,7 +1603,9 @@
                                           "field": "",
                                           "constantValue": {
                                             "label": "Learn More",
-                                            "link": { "defaultValue": "#" },
+                                            "link": {
+                                              "defaultValue": "#"
+                                            },
                                             "linkType": "URL",
                                             "ctaType": "textAndLink"
                                           },
@@ -1506,8 +1613,8 @@
                                         }
                                       },
                                       "styles": {
-                                        "variant": "primary",
-                                        "presetImage": "app-store"
+                                        "presetImage": "app-store",
+                                        "actionId": "main-primary"
                                       },
                                       "eventName": "cta2"
                                     }
@@ -1529,7 +1636,8 @@
                                       },
                                       "styles": {
                                         "variant": "base",
-                                        "fontStyle": "bold"
+                                        "fontStyle": "bold",
+                                        "typographyId": "main-body"
                                       }
                                     }
                                   }
@@ -1550,7 +1658,8 @@
                                       },
                                       "styles": {
                                         "variant": "base",
-                                        "fontStyle": "bold"
+                                        "fontStyle": "bold",
+                                        "typographyId": "main-body"
                                       }
                                     }
                                   }
@@ -1589,8 +1698,8 @@
             "props": {
               "styles": {
                 "backgroundColor": {
-                  "selectedColor": "palette-primary-light",
-                  "contrastingColor": "black"
+                  "colorId": "main-primary-light",
+                  "channel": "background"
                 },
                 "showSectionHeading": true
               },
@@ -1611,7 +1720,8 @@
                       },
                       "styles": {
                         "level": 2,
-                        "align": "left"
+                        "align": "left",
+                        "typographyId": "main-h2"
                       }
                     }
                   }
@@ -1663,8 +1773,8 @@
                               "index": 0,
                               "styles": {
                                 "backgroundColor": {
-                                  "selectedColor": "white",
-                                  "contrastingColor": "black"
+                                  "colorId": "main-white",
+                                  "channel": "background"
                                 }
                               },
                               "slots": {
@@ -1683,7 +1793,8 @@
                                         }
                                       },
                                       "styles": {
-                                        "variant": "base"
+                                        "variant": "base",
+                                        "typographyId": "main-body"
                                       }
                                     }
                                   }
@@ -1705,7 +1816,8 @@
                                       "styles": {
                                         "level": 3,
                                         "align": "left",
-                                        "semanticLevelOverride": 3
+                                        "semanticLevelOverride": 3,
+                                        "typographyId": "main-h3"
                                       }
                                     }
                                   }
@@ -1749,8 +1861,8 @@
                               "index": 1,
                               "styles": {
                                 "backgroundColor": {
-                                  "selectedColor": "white",
-                                  "contrastingColor": "black"
+                                  "colorId": "main-white",
+                                  "channel": "background"
                                 }
                               },
                               "slots": {
@@ -1769,7 +1881,8 @@
                                         }
                                       },
                                       "styles": {
-                                        "variant": "base"
+                                        "variant": "base",
+                                        "typographyId": "main-body"
                                       }
                                     }
                                   }
@@ -1791,7 +1904,8 @@
                                       "styles": {
                                         "level": 3,
                                         "align": "left",
-                                        "semanticLevelOverride": 3
+                                        "semanticLevelOverride": 3,
+                                        "typographyId": "main-h3"
                                       }
                                     }
                                   }
@@ -1835,8 +1949,8 @@
                               "index": 2,
                               "styles": {
                                 "backgroundColor": {
-                                  "selectedColor": "white",
-                                  "contrastingColor": "black"
+                                  "colorId": "main-white",
+                                  "channel": "background"
                                 }
                               },
                               "slots": {
@@ -1855,7 +1969,8 @@
                                         }
                                       },
                                       "styles": {
-                                        "variant": "base"
+                                        "variant": "base",
+                                        "typographyId": "main-body"
                                       }
                                     }
                                   }
@@ -1877,7 +1992,8 @@
                                       "styles": {
                                         "level": 3,
                                         "align": "left",
-                                        "semanticLevelOverride": 3
+                                        "semanticLevelOverride": 3,
+                                        "typographyId": "main-h3"
                                       }
                                     }
                                   }
@@ -1940,8 +2056,8 @@
               "liveVisibility": true,
               "styles": {
                 "backgroundColor": {
-                  "selectedColor": "palette-primary-light",
-                  "contrastingColor": "black"
+                  "colorId": "main-primary-light",
+                  "channel": "background"
                 },
                 "showSectionHeading": true
               },
@@ -1987,7 +2103,8 @@
                       },
                       "styles": {
                         "level": 2,
-                        "align": "left"
+                        "align": "left",
+                        "typographyId": "main-h2"
                       }
                     }
                   }
@@ -2012,15 +2129,15 @@
                           "constantValue": {
                             "defaultValue": {
                               "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
-                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; color: rgb(0, 0, 0); margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p>"
+                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p>"
                             }
                           },
                           "field": ""
                         }
                       },
                       "styles": {
-                        "questionVariant": "base",
-                        "answerVariant": "base"
+                        "questionTypographyId": "main-body",
+                        "answerTypographyId": "main-body"
                       }
                     }
                   },
@@ -2043,15 +2160,15 @@
                           "constantValue": {
                             "defaultValue": {
                               "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
-                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; color: rgb(0, 0, 0); margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p>"
+                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p>"
                             }
                           },
                           "field": ""
                         }
                       },
                       "styles": {
-                        "questionVariant": "base",
-                        "answerVariant": "base"
+                        "questionTypographyId": "main-body",
+                        "answerTypographyId": "main-body"
                       }
                     }
                   },
@@ -2074,15 +2191,15 @@
                           "constantValue": {
                             "defaultValue": {
                               "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
-                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; color: rgb(0, 0, 0); margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p>"
+                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p>"
                             }
                           },
                           "field": ""
                         }
                       },
                       "styles": {
-                        "questionVariant": "base",
-                        "answerVariant": "base"
+                        "questionTypographyId": "main-body",
+                        "answerTypographyId": "main-body"
                       }
                     }
                   }
@@ -2098,8 +2215,8 @@
             "props": {
               "styles": {
                 "backgroundColor": {
-                  "selectedColor": "palette-secondary-light",
-                  "contrastingColor": "black"
+                  "colorId": "main-secondary-light",
+                  "channel": "background"
                 },
                 "showSectionHeading": true
               },
@@ -2111,14 +2228,17 @@
                       "id": "HeadingTextSlot-a976e584-6a55-40c4-9ce7-6193135a059d",
                       "data": {
                         "text": {
-                          "constantValue": { "defaultValue": "Meet Our Team" },
+                          "constantValue": {
+                            "defaultValue": "Meet Our Team"
+                          },
                           "constantValueEnabled": true,
                           "field": ""
                         }
                       },
                       "styles": {
                         "level": 2,
-                        "align": "left"
+                        "align": "left",
+                        "typographyId": "main-h2"
                       }
                     }
                   }
@@ -2185,8 +2305,8 @@
                               "index": 0,
                               "styles": {
                                 "backgroundColor": {
-                                  "selectedColor": "white",
-                                  "contrastingColor": "black"
+                                  "colorId": "main-white",
+                                  "channel": "background"
                                 }
                               },
                               "slots": {
@@ -2211,7 +2331,8 @@
                                       "styles": {
                                         "aspectRatio": 1,
                                         "width": 200,
-                                        "imageFillType": "fill"
+                                        "imageFillType": "fill",
+                                        "actionId": "main-link"
                                       },
                                       "hideWidthProp": true,
                                       "className": "max-w-full h-full object-cover",
@@ -2238,7 +2359,8 @@
                                       },
                                       "styles": {
                                         "level": 3,
-                                        "align": "left"
+                                        "align": "left",
+                                        "typographyId": "main-h3"
                                       }
                                     }
                                   }
@@ -2260,7 +2382,8 @@
                                       "styles": {
                                         "variant": "base",
                                         "semanticLevelOverride": 3,
-                                        "fontStyle": "regular"
+                                        "fontStyle": "regular",
+                                        "typographyId": "main-body"
                                       }
                                     }
                                   }
@@ -2278,7 +2401,9 @@
                                               "constantValue": "+12027706619",
                                               "constantValueEnabled": true
                                             },
-                                            "label": { "defaultValue": "" }
+                                            "label": {
+                                              "defaultValue": ""
+                                            }
                                           }
                                         ]
                                       },
@@ -2305,7 +2430,8 @@
                                         }
                                       },
                                       "styles": {
-                                        "listLength": 1
+                                        "listLength": 1,
+                                        "actionId": "main-link"
                                       },
                                       "eventName": "card0-email"
                                     }
@@ -2334,7 +2460,9 @@
                                             "label": {
                                               "defaultValue": "Visit Profile"
                                             },
-                                            "link": { "defaultValue": "#" },
+                                            "link": {
+                                              "defaultValue": "#"
+                                            },
                                             "linkType": "URL",
                                             "ctaType": "textAndLink"
                                           },
@@ -2342,8 +2470,8 @@
                                         }
                                       },
                                       "styles": {
-                                        "variant": "primary",
-                                        "presetImage": "app-store"
+                                        "presetImage": "app-store",
+                                        "actionId": "main-primary"
                                       },
                                       "eventName": "card0-cta"
                                     }
@@ -2367,8 +2495,8 @@
                               "index": 1,
                               "styles": {
                                 "backgroundColor": {
-                                  "selectedColor": "white",
-                                  "contrastingColor": "black"
+                                  "colorId": "main-white",
+                                  "channel": "background"
                                 }
                               },
                               "slots": {
@@ -2393,7 +2521,8 @@
                                       "styles": {
                                         "aspectRatio": 1,
                                         "width": 200,
-                                        "imageFillType": "fill"
+                                        "imageFillType": "fill",
+                                        "actionId": "main-link"
                                       },
                                       "hideWidthProp": true,
                                       "className": "max-w-full h-full object-cover",
@@ -2420,7 +2549,8 @@
                                       },
                                       "styles": {
                                         "level": 3,
-                                        "align": "left"
+                                        "align": "left",
+                                        "typographyId": "main-h3"
                                       }
                                     }
                                   }
@@ -2442,7 +2572,8 @@
                                       "styles": {
                                         "variant": "base",
                                         "semanticLevelOverride": 3,
-                                        "fontStyle": "regular"
+                                        "fontStyle": "regular",
+                                        "typographyId": "main-body"
                                       }
                                     }
                                   }
@@ -2460,7 +2591,9 @@
                                               "constantValue": "+12027706619",
                                               "constantValueEnabled": true
                                             },
-                                            "label": { "defaultValue": "" }
+                                            "label": {
+                                              "defaultValue": ""
+                                            }
                                           }
                                         ]
                                       },
@@ -2487,7 +2620,8 @@
                                         }
                                       },
                                       "styles": {
-                                        "listLength": 1
+                                        "listLength": 1,
+                                        "actionId": "main-link"
                                       },
                                       "eventName": "card1-email"
                                     }
@@ -2516,7 +2650,9 @@
                                             "label": {
                                               "defaultValue": "Visit Profile"
                                             },
-                                            "link": { "defaultValue": "#" },
+                                            "link": {
+                                              "defaultValue": "#"
+                                            },
                                             "linkType": "URL",
                                             "ctaType": "textAndLink"
                                           },
@@ -2524,8 +2660,8 @@
                                         }
                                       },
                                       "styles": {
-                                        "variant": "primary",
-                                        "presetImage": "app-store"
+                                        "presetImage": "app-store",
+                                        "actionId": "main-primary"
                                       },
                                       "eventName": "card1-cta"
                                     }
@@ -2549,8 +2685,8 @@
                               "index": 2,
                               "styles": {
                                 "backgroundColor": {
-                                  "selectedColor": "white",
-                                  "contrastingColor": "black"
+                                  "colorId": "main-white",
+                                  "channel": "background"
                                 }
                               },
                               "slots": {
@@ -2575,7 +2711,8 @@
                                       "styles": {
                                         "aspectRatio": 1,
                                         "width": 200,
-                                        "imageFillType": "fill"
+                                        "imageFillType": "fill",
+                                        "actionId": "main-link"
                                       },
                                       "hideWidthProp": true,
                                       "className": "max-w-full h-full object-cover",
@@ -2602,7 +2739,8 @@
                                       },
                                       "styles": {
                                         "level": 3,
-                                        "align": "left"
+                                        "align": "left",
+                                        "typographyId": "main-h3"
                                       }
                                     }
                                   }
@@ -2624,7 +2762,8 @@
                                       "styles": {
                                         "variant": "base",
                                         "semanticLevelOverride": 3,
-                                        "fontStyle": "regular"
+                                        "fontStyle": "regular",
+                                        "typographyId": "main-body"
                                       }
                                     }
                                   }
@@ -2642,7 +2781,9 @@
                                               "constantValue": "+12027706619",
                                               "constantValueEnabled": true
                                             },
-                                            "label": { "defaultValue": "" }
+                                            "label": {
+                                              "defaultValue": ""
+                                            }
                                           }
                                         ]
                                       },
@@ -2669,7 +2810,8 @@
                                         }
                                       },
                                       "styles": {
-                                        "listLength": 1
+                                        "listLength": 1,
+                                        "actionId": "main-link"
                                       },
                                       "eventName": "card2-email"
                                     }
@@ -2698,7 +2840,9 @@
                                             "label": {
                                               "defaultValue": "Visit Profile"
                                             },
-                                            "link": { "defaultValue": "#" },
+                                            "link": {
+                                              "defaultValue": "#"
+                                            },
                                             "linkType": "URL",
                                             "ctaType": "textAndLink"
                                           },
@@ -2706,8 +2850,8 @@
                                         }
                                       },
                                       "styles": {
-                                        "variant": "primary",
-                                        "presetImage": "app-store"
+                                        "presetImage": "app-store",
+                                        "actionId": "main-primary"
                                       },
                                       "eventName": "card2-cta"
                                     }
@@ -2745,8 +2889,8 @@
             "props": {
               "styles": {
                 "backgroundColor": {
-                  "selectedColor": "palette-primary-light",
-                  "contrastingColor": "black"
+                  "colorId": "main-primary-light",
+                  "channel": "background"
                 },
                 "showSectionHeading": true
               },
@@ -2759,13 +2903,16 @@
                       "data": {
                         "text": {
                           "field": "",
-                          "constantValue": { "defaultValue": "Insights" },
+                          "constantValue": {
+                            "defaultValue": "Insights"
+                          },
                           "constantValueEnabled": true
                         }
                       },
                       "styles": {
                         "level": 3,
-                        "align": "left"
+                        "align": "left",
+                        "typographyId": "main-h3"
                       }
                     }
                   }
@@ -2831,8 +2978,8 @@
                               "id": "InsightCard-1",
                               "styles": {
                                 "backgroundColor": {
-                                  "selectedColor": "white",
-                                  "contrastingColor": "black"
+                                  "colorId": "main-white",
+                                  "channel": "background"
                                 }
                               },
                               "conditionalRender": {
@@ -2861,7 +3008,8 @@
                                       "styles": {
                                         "aspectRatio": 1.78,
                                         "width": 640,
-                                        "imageFillType": "fill"
+                                        "imageFillType": "fill",
+                                        "actionId": "main-link"
                                       },
                                       "sizes": {
                                         "base": "calc(100vw - 32px)",
@@ -2887,7 +3035,8 @@
                                       },
                                       "styles": {
                                         "level": 4,
-                                        "align": "left"
+                                        "align": "left",
+                                        "typographyId": "main-h4"
                                       }
                                     }
                                   }
@@ -2908,7 +3057,8 @@
                                       },
                                       "styles": {
                                         "variant": "base",
-                                        "fontStyle": "regular"
+                                        "fontStyle": "regular",
+                                        "typographyId": "main-body"
                                       }
                                     }
                                   }
@@ -2924,14 +3074,15 @@
                                           "constantValue": {
                                             "defaultValue": {
                                               "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo.Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. 300 characters\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
-                                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; color: rgb(0, 0, 0); margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo.Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. 300 characters</span></p>"
+                                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo.Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. 300 characters</span></p>"
                                             }
                                           },
                                           "constantValueEnabled": true
                                         }
                                       },
                                       "styles": {
-                                        "variant": "base"
+                                        "variant": "base",
+                                        "typographyId": "main-body"
                                       }
                                     }
                                   }
@@ -2983,7 +3134,9 @@
                                             "label": {
                                               "defaultValue": "Read More"
                                             },
-                                            "link": { "defaultValue": "#" },
+                                            "link": {
+                                              "defaultValue": "#"
+                                            },
                                             "linkType": "URL",
                                             "ctaType": "textAndLink"
                                           },
@@ -2991,8 +3144,8 @@
                                         }
                                       },
                                       "styles": {
-                                        "variant": "primary",
-                                        "presetImage": "app-store"
+                                        "presetImage": "app-store",
+                                        "actionId": "main-primary"
                                       },
                                       "eventName": "cta0"
                                     }
@@ -3007,8 +3160,8 @@
                               "id": "InsightCard-2",
                               "styles": {
                                 "backgroundColor": {
-                                  "selectedColor": "white",
-                                  "contrastingColor": "black"
+                                  "colorId": "main-white",
+                                  "channel": "background"
                                 }
                               },
                               "conditionalRender": {
@@ -3037,7 +3190,8 @@
                                       "styles": {
                                         "aspectRatio": 1.78,
                                         "width": 640,
-                                        "imageFillType": "fill"
+                                        "imageFillType": "fill",
+                                        "actionId": "main-link"
                                       },
                                       "sizes": {
                                         "base": "calc(100vw - 32px)",
@@ -3063,7 +3217,8 @@
                                       },
                                       "styles": {
                                         "level": 4,
-                                        "align": "left"
+                                        "align": "left",
+                                        "typographyId": "main-h4"
                                       }
                                     }
                                   }
@@ -3084,7 +3239,8 @@
                                       },
                                       "styles": {
                                         "variant": "base",
-                                        "fontStyle": "regular"
+                                        "fontStyle": "regular",
+                                        "typographyId": "main-body"
                                       }
                                     }
                                   }
@@ -3100,14 +3256,15 @@
                                           "constantValue": {
                                             "defaultValue": {
                                               "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo.Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. 300 characters\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
-                                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; color: rgb(0, 0, 0); margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo.Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. 300 characters</span></p>"
+                                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo.Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. 300 characters</span></p>"
                                             }
                                           },
                                           "constantValueEnabled": true
                                         }
                                       },
                                       "styles": {
-                                        "variant": "base"
+                                        "variant": "base",
+                                        "typographyId": "main-body"
                                       }
                                     }
                                   }
@@ -3159,7 +3316,9 @@
                                             "label": {
                                               "defaultValue": "Read More"
                                             },
-                                            "link": { "defaultValue": "#" },
+                                            "link": {
+                                              "defaultValue": "#"
+                                            },
                                             "linkType": "URL",
                                             "ctaType": "textAndLink"
                                           },
@@ -3167,8 +3326,8 @@
                                         }
                                       },
                                       "styles": {
-                                        "variant": "primary",
-                                        "presetImage": "app-store"
+                                        "presetImage": "app-store",
+                                        "actionId": "main-primary"
                                       },
                                       "eventName": "cta1"
                                     }
@@ -3183,8 +3342,8 @@
                               "id": "InsightCard-3",
                               "styles": {
                                 "backgroundColor": {
-                                  "selectedColor": "white",
-                                  "contrastingColor": "black"
+                                  "colorId": "main-white",
+                                  "channel": "background"
                                 }
                               },
                               "conditionalRender": {
@@ -3213,7 +3372,8 @@
                                       "styles": {
                                         "aspectRatio": 1.78,
                                         "width": 640,
-                                        "imageFillType": "fill"
+                                        "imageFillType": "fill",
+                                        "actionId": "main-link"
                                       },
                                       "sizes": {
                                         "base": "calc(100vw - 32px)",
@@ -3239,7 +3399,8 @@
                                       },
                                       "styles": {
                                         "level": 4,
-                                        "align": "left"
+                                        "align": "left",
+                                        "typographyId": "main-h4"
                                       }
                                     }
                                   }
@@ -3260,7 +3421,8 @@
                                       },
                                       "styles": {
                                         "variant": "base",
-                                        "fontStyle": "regular"
+                                        "fontStyle": "regular",
+                                        "typographyId": "main-body"
                                       }
                                     }
                                   }
@@ -3276,14 +3438,15 @@
                                           "constantValue": {
                                             "defaultValue": {
                                               "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo.Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. 300 characters\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
-                                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; color: rgb(0, 0, 0); margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo.Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. 300 characters</span></p>"
+                                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo.Lorem ipsum dolor sit amet, consectetur adipiscing. Maecenas finibus placerat justo. 300 characters</span></p>"
                                             }
                                           },
                                           "constantValueEnabled": true
                                         }
                                       },
                                       "styles": {
-                                        "variant": "base"
+                                        "variant": "base",
+                                        "typographyId": "main-body"
                                       }
                                     }
                                   }
@@ -3335,7 +3498,9 @@
                                             "label": {
                                               "defaultValue": "Read More"
                                             },
-                                            "link": { "defaultValue": "#" },
+                                            "link": {
+                                              "defaultValue": "#"
+                                            },
                                             "linkType": "URL",
                                             "ctaType": "textAndLink"
                                           },
@@ -3343,8 +3508,8 @@
                                         }
                                       },
                                       "styles": {
-                                        "variant": "primary",
-                                        "presetImage": "app-store"
+                                        "presetImage": "app-store",
+                                        "actionId": "main-primary"
                                       },
                                       "eventName": "cta2"
                                     }
@@ -3375,8 +3540,8 @@
               "styles": {
                 "variant": "gallery",
                 "backgroundColor": {
-                  "selectedColor": "white",
-                  "contrastingColor": "black"
+                  "colorId": "main-white",
+                  "channel": "background"
                 },
                 "showSectionHeading": true
               },
@@ -3389,13 +3554,16 @@
                       "data": {
                         "text": {
                           "field": "",
-                          "constantValue": { "defaultValue": "Gallery" },
+                          "constantValue": {
+                            "defaultValue": "Gallery"
+                          },
                           "constantValueEnabled": true
                         }
                       },
                       "styles": {
                         "level": 2,
-                        "align": "left"
+                        "align": "left",
+                        "typographyId": "main-h2"
                       }
                     }
                   }
@@ -3491,7 +3659,11 @@
                         "image": {
                           "aspectRatio": 1.78
                         },
-                        "carouselImageCount": 1
+                        "carouselImageCount": 1,
+                        "accentColor": {
+                          "colorId": "main-primary-dark",
+                          "channel": "background"
+                        }
                       },
                       "parentData": {
                         "variant": "gallery"
@@ -3509,8 +3681,8 @@
             "props": {
               "styles": {
                 "backgroundColor": {
-                  "selectedColor": "palette-secondary-light",
-                  "contrastingColor": "black"
+                  "colorId": "main-secondary-light",
+                  "channel": "background"
                 },
                 "showSectionHeading": true
               },
@@ -3531,7 +3703,8 @@
                       },
                       "styles": {
                         "level": 2,
-                        "align": "left"
+                        "align": "left",
+                        "typographyId": "main-h2"
                       }
                     }
                   }
@@ -3593,8 +3766,8 @@
                               "index": 0,
                               "styles": {
                                 "backgroundColor": {
-                                  "selectedColor": "white",
-                                  "contrastingColor": "black"
+                                  "colorId": "main-white",
+                                  "channel": "background"
                                 },
                                 "truncateDescription": true
                               },
@@ -3621,7 +3794,8 @@
                                       "styles": {
                                         "aspectRatio": 1.78,
                                         "width": 640,
-                                        "imageFillType": "fill"
+                                        "imageFillType": "fill",
+                                        "actionId": "main-link"
                                       },
                                       "hideWidthProp": true,
                                       "className": "max-w-full h-full object-cover",
@@ -3648,7 +3822,8 @@
                                       },
                                       "styles": {
                                         "level": 3,
-                                        "align": "left"
+                                        "align": "left",
+                                        "typographyId": "main-h3"
                                       }
                                     }
                                   }
@@ -3688,14 +3863,15 @@
                                           "constantValue": {
                                             "defaultValue": {
                                               "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
-                                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; color: rgb(0, 0, 0); margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p>"
+                                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p>"
                                             }
                                           },
                                           "constantValueEnabled": true
                                         }
                                       },
                                       "styles": {
-                                        "variant": "base"
+                                        "variant": "base",
+                                        "typographyId": "main-body"
                                       },
                                       "parentStyles": {
                                         "className": "md:line-clamp-2"
@@ -3726,7 +3902,9 @@
                                             "label": {
                                               "defaultValue": "Learn More"
                                             },
-                                            "link": { "defaultValue": "#" },
+                                            "link": {
+                                              "defaultValue": "#"
+                                            },
                                             "linkType": "URL",
                                             "ctaType": "textAndLink"
                                           },
@@ -3734,8 +3912,8 @@
                                         }
                                       },
                                       "styles": {
-                                        "variant": "primary",
-                                        "presetImage": "app-store"
+                                        "presetImage": "app-store",
+                                        "actionId": "main-primary"
                                       },
                                       "eventName": "cta0"
                                     }
@@ -3758,8 +3936,8 @@
                               "index": 1,
                               "styles": {
                                 "backgroundColor": {
-                                  "selectedColor": "white",
-                                  "contrastingColor": "black"
+                                  "colorId": "main-white",
+                                  "channel": "background"
                                 },
                                 "truncateDescription": true
                               },
@@ -3786,7 +3964,8 @@
                                       "styles": {
                                         "aspectRatio": 1.78,
                                         "width": 640,
-                                        "imageFillType": "fill"
+                                        "imageFillType": "fill",
+                                        "actionId": "main-link"
                                       },
                                       "hideWidthProp": true,
                                       "className": "max-w-full h-full object-cover",
@@ -3813,7 +3992,8 @@
                                       },
                                       "styles": {
                                         "level": 3,
-                                        "align": "left"
+                                        "align": "left",
+                                        "typographyId": "main-h3"
                                       }
                                     }
                                   }
@@ -3853,14 +4033,15 @@
                                           "constantValue": {
                                             "defaultValue": {
                                               "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
-                                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; color: rgb(0, 0, 0); margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p>"
+                                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p>"
                                             }
                                           },
                                           "constantValueEnabled": true
                                         }
                                       },
                                       "styles": {
-                                        "variant": "base"
+                                        "variant": "base",
+                                        "typographyId": "main-body"
                                       },
                                       "parentStyles": {
                                         "className": "md:line-clamp-2"
@@ -3891,7 +4072,9 @@
                                             "label": {
                                               "defaultValue": "Learn More"
                                             },
-                                            "link": { "defaultValue": "#" },
+                                            "link": {
+                                              "defaultValue": "#"
+                                            },
                                             "linkType": "URL",
                                             "ctaType": "textAndLink"
                                           },
@@ -3899,8 +4082,8 @@
                                         }
                                       },
                                       "styles": {
-                                        "variant": "primary",
-                                        "presetImage": "app-store"
+                                        "presetImage": "app-store",
+                                        "actionId": "main-primary"
                                       },
                                       "eventName": "cta1"
                                     }
@@ -3923,8 +4106,8 @@
                               "index": 2,
                               "styles": {
                                 "backgroundColor": {
-                                  "selectedColor": "white",
-                                  "contrastingColor": "black"
+                                  "colorId": "main-white",
+                                  "channel": "background"
                                 },
                                 "truncateDescription": true
                               },
@@ -3951,7 +4134,8 @@
                                       "styles": {
                                         "aspectRatio": 1.78,
                                         "width": 640,
-                                        "imageFillType": "fill"
+                                        "imageFillType": "fill",
+                                        "actionId": "main-link"
                                       },
                                       "hideWidthProp": true,
                                       "className": "max-w-full h-full object-cover",
@@ -3978,7 +4162,8 @@
                                       },
                                       "styles": {
                                         "level": 3,
-                                        "align": "left"
+                                        "align": "left",
+                                        "typographyId": "main-h3"
                                       }
                                     }
                                   }
@@ -4018,14 +4203,15 @@
                                           "constantValue": {
                                             "defaultValue": {
                                               "json": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
-                                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; color: rgb(0, 0, 0); margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p>"
+                                              "html": "<p dir=\"ltr\" style=\"font-size: 14.67px; font-weight: 400; line-height: 18.67px; margin: 0; padding: 3px 2px 3px 2px; position: relative;\"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p>"
                                             }
                                           },
                                           "constantValueEnabled": true
                                         }
                                       },
                                       "styles": {
-                                        "variant": "base"
+                                        "variant": "base",
+                                        "typographyId": "main-body"
                                       },
                                       "parentStyles": {
                                         "className": "md:line-clamp-2"
@@ -4056,7 +4242,9 @@
                                             "label": {
                                               "defaultValue": "Learn More"
                                             },
-                                            "link": { "defaultValue": "#" },
+                                            "link": {
+                                              "defaultValue": "#"
+                                            },
                                             "linkType": "URL",
                                             "ctaType": "textAndLink"
                                           },
@@ -4064,8 +4252,8 @@
                                         }
                                       },
                                       "styles": {
-                                        "variant": "primary",
-                                        "presetImage": "app-store"
+                                        "presetImage": "app-store",
+                                        "actionId": "main-primary"
                                       },
                                       "eventName": "cta2"
                                     }
@@ -4102,8 +4290,8 @@
             "props": {
               "styles": {
                 "backgroundColor": {
-                  "selectedColor": "white",
-                  "contrastingColor": "black"
+                  "colorId": "main-white",
+                  "channel": "background"
                 },
                 "showSectionHeading": true
               },
@@ -4127,7 +4315,8 @@
                       },
                       "styles": {
                         "level": 2,
-                        "align": "left"
+                        "align": "left",
+                        "typographyId": "main-h2"
                       }
                     }
                   }
@@ -4143,8 +4332,8 @@
                       },
                       "styles": {
                         "backgroundColor": {
-                          "selectedColor": "white",
-                          "contrastingColor": "black"
+                          "colorId": "main-white",
+                          "channel": "background"
                         },
                         "headingLevel": 3,
                         "hours": {
@@ -4155,7 +4344,8 @@
                         },
                         "phone": {
                           "phoneNumberFormat": "domestic",
-                          "phoneNumberLink": true
+                          "phoneNumberLink": true,
+                          "actionId": "main-link"
                         },
                         "address": {
                           "showRegion": true,
@@ -4163,7 +4353,9 @@
                         },
                         "showHours": true,
                         "showPhone": true,
-                        "showAddress": true
+                        "showAddress": true,
+                        "typographyId": "main-h3",
+                        "actionId": "main-link"
                       }
                     }
                   }
@@ -4204,7 +4396,9 @@
                         "url": "https://a.mktgcdn.com/p/wa83C1O1lvtxHI9cGqEdP2HILyUzbD0jvtzwWpOAJfE/196x196.jpg",
                         "height": 100,
                         "width": 100,
-                        "alternateText": { "defaultValue": "Logo" }
+                        "alternateText": {
+                          "defaultValue": "Logo"
+                        }
                       }
                     },
                     "constantValueEnabled": true
@@ -4231,6 +4425,9 @@
                   "pinterestLink": "",
                   "tiktokLink": "",
                   "youtubeLink": ""
+                },
+                "styles": {
+                  "actionId": "main-link"
                 }
               }
             }
@@ -4260,38 +4457,49 @@
                   "links": [
                     {
                       "linkType": "URL",
-                      "label": { "defaultValue": "Footer Link" },
+                      "label": {
+                        "defaultValue": "Footer Link"
+                      },
                       "link": "#",
                       "normalizeLink": true
                     },
                     {
                       "linkType": "URL",
-                      "label": { "defaultValue": "Footer Link" },
+                      "label": {
+                        "defaultValue": "Footer Link"
+                      },
                       "link": "#",
                       "normalizeLink": true
                     },
                     {
                       "linkType": "URL",
-                      "label": { "defaultValue": "Footer Link" },
+                      "label": {
+                        "defaultValue": "Footer Link"
+                      },
                       "link": "#",
                       "normalizeLink": true
                     },
                     {
                       "linkType": "URL",
-                      "label": { "defaultValue": "Footer Link" },
+                      "label": {
+                        "defaultValue": "Footer Link"
+                      },
                       "link": "#",
                       "normalizeLink": true
                     },
                     {
                       "linkType": "URL",
-                      "label": { "defaultValue": "Footer Link" },
+                      "label": {
+                        "defaultValue": "Footer Link"
+                      },
                       "link": "#",
                       "normalizeLink": true
                     }
                   ]
                 },
-                "variant": "primary",
-                "eventNamePrefix": "primary"
+                "eventNamePrefix": "primary",
+                "actionId": "main-headerFooterMainLink",
+                "variant": "primary"
               }
             }
           ],
@@ -4303,146 +4511,197 @@
                 "data": {
                   "sections": [
                     {
-                      "label": { "defaultValue": "Footer Label" },
+                      "label": {
+                        "defaultValue": "Footer Label"
+                      },
                       "links": [
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true
                         }
                       ]
                     },
                     {
-                      "label": { "defaultValue": "Footer Label" },
+                      "label": {
+                        "defaultValue": "Footer Label"
+                      },
                       "links": [
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true
                         }
                       ]
                     },
                     {
-                      "label": { "defaultValue": "Footer Label" },
+                      "label": {
+                        "defaultValue": "Footer Label"
+                      },
                       "links": [
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true
                         }
                       ]
                     },
                     {
-                      "label": { "defaultValue": "Footer Label" },
+                      "label": {
+                        "defaultValue": "Footer Label"
+                      },
                       "links": [
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true
                         },
                         {
                           "linkType": "URL",
-                          "label": { "defaultValue": "Footer Link" },
+                          "label": {
+                            "defaultValue": "Footer Link"
+                          },
                           "link": "#",
                           "normalizeLink": true
                         }
                       ]
                     }
                   ]
+                },
+                "styles": {
+                  "actionId": "main-link"
                 }
               }
             }
@@ -4463,40 +4722,51 @@
                           "links": [
                             {
                               "linkType": "URL",
-                              "label": { "defaultValue": "Footer Link" },
+                              "label": {
+                                "defaultValue": "Footer Link"
+                              },
                               "link": "#",
                               "normalizeLink": true
                             },
                             {
                               "linkType": "URL",
-                              "label": { "defaultValue": "Footer Link" },
+                              "label": {
+                                "defaultValue": "Footer Link"
+                              },
                               "link": "#",
                               "normalizeLink": true
                             },
                             {
                               "linkType": "URL",
-                              "label": { "defaultValue": "Footer Link" },
+                              "label": {
+                                "defaultValue": "Footer Link"
+                              },
                               "link": "#",
                               "normalizeLink": true
                             },
                             {
                               "linkType": "URL",
-                              "label": { "defaultValue": "Footer Link" },
+                              "label": {
+                                "defaultValue": "Footer Link"
+                              },
                               "link": "#",
                               "normalizeLink": true
                             },
                             {
                               "linkType": "URL",
-                              "label": { "defaultValue": "Footer Link" },
+                              "label": {
+                                "defaultValue": "Footer Link"
+                              },
                               "link": "#",
                               "normalizeLink": true
                             }
                           ]
                         },
-                        "variant": "secondary",
                         "eventNamePrefix": "secondary",
                         "desktopContentAlignment": "left",
-                        "mobileContentAlignment": "left"
+                        "mobileContentAlignment": "left",
+                        "actionId": "main-headerFooterSecondaryLink",
+                        "variant": "secondary"
                       }
                     }
                   ],
@@ -4506,7 +4776,9 @@
                       "props": {
                         "id": "CopyrightMessageSlot-e0142469-df41-4ed7-9213-6a1ae84433e0",
                         "data": {
-                          "text": { "defaultValue": "" }
+                          "text": {
+                            "defaultValue": ""
+                          }
                         },
                         "desktopContentAlignment": "left",
                         "mobileContentAlignment": "left"
@@ -4517,8 +4789,8 @@
                 "ignoreLocaleWarning": [],
                 "styles": {
                   "backgroundColor": {
-                    "selectedColor": "palette-primary-light",
-                    "contrastingColor": "black"
+                    "colorId": "main-primary-light",
+                    "channel": "background"
                   },
                   "desktopContentAlignment": "left",
                   "mobileContentAlignment": "left",
@@ -4532,12 +4804,14 @@
           "scope": "expandedFooter"
         },
         "id": "ExpandedFooter-2c5d3c6c-615b-4d94-9b0b-16220bd840a0",
-        "ignoreLocaleWarning": ["slots.ExpandedLinksWrapperSlot"],
+        "ignoreLocaleWarning": [
+          "slots.ExpandedLinksWrapperSlot"
+        ],
         "styles": {
           "primaryFooter": {
             "backgroundColor": {
-              "selectedColor": "palette-primary-dark",
-              "contrastingColor": "white"
+              "colorId": "main-primary-dark",
+              "channel": "background"
             },
             "linksPosition": "right",
             "desktopContentAlignment": "left",

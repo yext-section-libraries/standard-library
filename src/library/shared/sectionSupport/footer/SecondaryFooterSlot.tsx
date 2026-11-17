@@ -147,10 +147,12 @@ export const SecondaryFooterSlot: YextComponentConfig<SecondaryFooterSlotProps> 
           {
             type: "FooterLinksSlot",
             props: {
+              variant: "secondary",
+
               data: {
                 links: defaultLinks,
               },
-              variant: "secondary",
+
               eventNamePrefix: "secondary",
               desktopContentAlignment: "left",
               mobileContentAlignment: "left",

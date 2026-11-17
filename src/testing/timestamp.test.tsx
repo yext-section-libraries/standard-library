@@ -104,18 +104,20 @@ describe("timestampFormatter", () => {
 });
 
 describe("TimestampAtom", () => {
-  it("applies a palette text color", () => {
+  it("applies a shared theme color channel", () => {
     const { container } = render(
       <TimestampAtom
         date="2024-01-01T00:00:00"
         textColor={{
-          selectedColor: "palette-primary",
-          contrastingColor: "palette-primary-contrast",
+          colorId: "custom-brand",
+          channel: "foreground",
         }}
       />
     );
 
-    expect(container.firstElementChild).toHaveClass("text-palette-primary");
+    expect(container.firstElementChild?.getAttribute("style")).toContain(
+      "--ve-colors-12-custom-brand-foreground-solid"
+    );
   });
 
   it("applies a custom text color", () => {

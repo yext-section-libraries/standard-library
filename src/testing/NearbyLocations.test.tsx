@@ -11,12 +11,7 @@ import {
 import { render as reactRender, waitFor } from "@testing-library/react";
 import { NearbyLocationsSection } from "../library/sections/NearbyLocationsSection.tsx";
 import { sharedComponentConfigs } from "../library/shared/componentRegistry.ts";
-import {
-  migrate,
-  MainContent,
-  migrationRegistry,
-  backgroundColors,
-} from "@yext/visual-editor";
+import { migrate, MainContent, migrationRegistry } from "@yext/visual-editor";
 import { Render, Config } from "@puckeditor/core";
 import { page } from "@vitest/browser/context";
 
@@ -457,7 +452,10 @@ const tests: ComponentTest[] = [
                   bgColor: "bg-palette-primary-light",
                   textColor: "text-black",
                 },
-                color: backgroundColors.color3.value,
+                color: {
+                  selectedColor: "palette-tertiary",
+                  contrastingColor: "palette-tertiary-contrast",
+                },
                 headingLevel: 4,
                 hours: {
                   showCurrentStatus: true,

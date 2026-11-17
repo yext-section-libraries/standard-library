@@ -9,7 +9,6 @@ import {
   msg,
   pt,
   getDefaultRTF,
-  backgroundColors,
   ThemeColor,
   ThemeOptions,
   resolveYextEntityField,
@@ -37,8 +36,7 @@ export interface BannerData {
 
 export interface BannerStyles {
   /**
-   * The background color of the section.
-   * @defaultValue Background Color 1
+   * The background color of the section. If not set, uses the theme's default background.
    */
   backgroundColor?: ThemeColor;
 
@@ -181,7 +179,7 @@ const BannerComponent: PuckComponent<BannerSectionProps> = ({
 
       return (
         <PageSection
-          background={backgroundColors.background1.value}
+          background={undefined}
           verticalPadding="sm"
           className="flex items-center justify-center"
         >
@@ -253,7 +251,6 @@ export const defaultBannerProps: BannerSectionProps = {
     },
   },
   styles: {
-    backgroundColor: backgroundColors.background6.value,
     textAlignment: "center",
   },
   liveVisibility: true,

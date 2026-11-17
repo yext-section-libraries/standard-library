@@ -1,3 +1,5 @@
+import { legacyRichTextColor } from "./0007_legacy_rich_text_color.ts";
+import { dynamicThemeSelections } from "./0006_dynamic_theme.ts";
 import { addLocatorAutoSearch } from "./0005_locator_auto_search.ts";
 import type { MigrationRegistry } from "@yext/visual-editor";
 import { photoGalleryColumns } from "./0001_photo_gallery_columns.ts";
@@ -11,4 +13,6 @@ export const migrationRegistry: MigrationRegistry = [
   gridColumnAlignment,
   headerMenuIds,
   addLocatorAutoSearch,
+  dynamicThemeSelections,
+  legacyRichTextColor,
 ];

@@ -19,8 +19,6 @@ import {
   msg,
   resolveComponentData,
   ThemeColor,
-  ThemeOptions,
-  backgroundColors,
   resolveDataFromParent,
   YextComponentConfig,
   YextFields,
@@ -28,11 +26,7 @@ import {
   getTextColorStyle,
 } from "@yext/visual-editor/section-library-support";
 import { SectionConfig } from "@yext/visual-editor";
-import {
-  CTA,
-  CTAVariant,
-  isCtaVariantWithColor,
-} from "../shared/sectionSupport/atoms/cta.tsx";
+import { CTA } from "../shared/sectionSupport/atoms/cta.tsx";
 
 /** Props for the Address component */
 export interface AddressProps {
@@ -57,8 +51,8 @@ export interface AddressProps {
     /** Whether to include a "Get Directions" CTA to Google Maps */
     showGetDirectionsLink: boolean;
 
-    /** The variant of the get directions button */
-    ctaVariant: CTAVariant;
+    /** The action preset for the get directions link. */
+    actionId?: string;
 
     color?: ThemeColor;
 
@@ -113,10 +107,11 @@ export const AddressStyleFields: YextFields<AddressProps["styles"]> = {
       { label: msg("fields.options.no", "No"), value: false },
     ],
   },
-  ctaVariant: {
-    label: msg("fields.ctaVariant", "CTA Variant"),
-    type: "radio",
-    options: ThemeOptions.CTA_VARIANT,
+  actionId: {
+    generation: { required: false },
+    label: "Action preset",
+    type: "themeCollection",
+    collection: "actions",
   },
   color: {
     generation: {
@@ -200,7 +195,7 @@ const AddressComponent: PuckComponent<AddressProps> = (props) => {
 
   return showAddress ? (
     <div
-      className={`flex flex-col gap-2 text-body-fontSize font-body-fontWeight font-body-fontFamily ${getTextColorClass(styles.textColor) ?? ""}`}
+      className={`flex flex-col gap-2    ${getTextColorClass(styles.textColor) ?? ""}`}
       style={getTextColorStyle(styles.textColor)}
     >
       <EntityField
@@ -225,7 +220,7 @@ const AddressComponent: PuckComponent<AddressProps> = (props) => {
             linkType="DRIVING_DIRECTIONS"
             normalizeLink={false}
             target="_blank"
-            variant={styles.ctaVariant}
+            actionId={styles.actionId}
             color={resolvedColor}
             textColor={styles.ctaTextColor}
           />
@@ -248,20 +243,18 @@ export const resolveAddressFields = (
   const showGetDirectionsLink = data.props.styles.showGetDirectionsLink;
   updatedFields = setDeep(
     updatedFields,
-    "styles.objectFields.ctaVariant.visible",
+    "styles.objectFields.actionId.visible",
     showGetDirectionsLink
   );
-  const ctaVariant = data.props.styles.ctaVariant;
-  const showColor = isCtaVariantWithColor(ctaVariant);
   updatedFields = setDeep(
     updatedFields,
     "styles.objectFields.color.visible",
-    showGetDirectionsLink && showColor
+    showGetDirectionsLink
   );
   updatedFields = setDeep(
     updatedFields,
     "styles.objectFields.ctaTextColor.visible",
-    showGetDirectionsLink && ctaVariant === "primary"
+    showGetDirectionsLink
   );
 
   return updatedFields;
@@ -288,8 +281,6 @@ export const Address: YextComponentConfig<AddressProps> = {
       showRegion: true,
       showCountry: false,
       showGetDirectionsLink: true,
-      ctaVariant: "link",
-      color: backgroundColors.color1.value,
     },
   },
   resolveFields: resolveAddressFields,

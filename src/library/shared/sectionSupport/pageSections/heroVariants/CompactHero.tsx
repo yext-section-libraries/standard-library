@@ -40,8 +40,8 @@ export const CompactHero: PuckComponent<HeroVariantProps> = (props) => {
         className={themeManagerCn(
           "w-full max-w-[1440px] flex flex-col sm:flex-row justify-between",
           styles.desktopImagePosition === "left"
-            ? "2xl:mr-[max(calc((100vw-var(--maxWidth-pageSection-contentWidth))/2),1.5rem)] ml-auto"
-            : "2xl:ml-[max(calc((100vw-var(--maxWidth-pageSection-contentWidth))/2),1.5rem)] mr-auto"
+            ? "2xl:mr-[max(calc((100vw-var(--ve-page-content-max-width))/2),1.5rem)] ml-auto"
+            : "2xl:ml-[max(calc((100vw-var(--ve-page-content-max-width))/2),1.5rem)] mr-auto"
         )}
       >
         {/* Desktop left image / Mobile top image */}
@@ -76,8 +76,8 @@ export const CompactHero: PuckComponent<HeroVariantProps> = (props) => {
               ? "sm:pl-8 lg:pl-16 sm:pr-0"
               : "sm:pr-8 lg:pr-16 sm:pl-0",
             styles.desktopImagePosition === "left"
-              ? "mr-[max(calc((100vw-var(--maxWidth-pageSection-contentWidth))/2),1.5rem)] 2xl:mr-0 "
-              : "ml-[max(calc((100vw-var(--maxWidth-pageSection-contentWidth))/2),1.5rem)] 2xl:ml-0"
+              ? "mr-[max(calc((100vw-var(--ve-page-content-max-width))/2),1.5rem)] 2xl:mr-0 "
+              : "ml-[max(calc((100vw-var(--ve-page-content-max-width))/2),1.5rem)] 2xl:ml-0"
           )}
         >
           <HeroContent {...props} />

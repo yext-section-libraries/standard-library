@@ -11,7 +11,6 @@ import {
   pt,
   ThemeColor,
   ThemeOptions,
-  backgroundColors,
   resolveDataFromParent,
   toPuckFields,
   YextComponentConfig,
@@ -35,6 +34,7 @@ export interface EmailsProps {
     listLength?: number;
     showIcon?: boolean;
     /** The color applied to both the email icon background and the email link. */
+    actionId?: string;
     color?: ThemeColor;
     /** The color of the email icon. */
     iconColor?: ThemeColor;
@@ -91,6 +91,12 @@ export const EmailsFields: YextFields<EmailsProps> = {
         label: msg("fields.showIcon", "Show Icon"),
         type: "radio",
         options: ThemeOptions.SHOW_HIDE,
+      },
+      actionId: {
+        generation: { required: false },
+        type: "themeCollection",
+        collection: "actions",
+        label: "Action preset",
       },
       color: {
         generation: {
@@ -149,7 +155,7 @@ const EmailsComponent: PuckComponent<EmailsProps> = (props) => {
           <li key={index} className="flex items-center gap-3 min-w-0">
             {showEmailIcon && (
               <Background
-                background={styles?.color ?? backgroundColors.background2.value}
+                background={styles?.color ?? undefined}
                 className="h-10 w-10 shrink-0 flex justify-center rounded-full items-center"
               >
                 <FaRegEnvelope
@@ -159,12 +165,12 @@ const EmailsComponent: PuckComponent<EmailsProps> = (props) => {
               </Background>
             )}
             <CTA
+              actionId={styles?.actionId}
               eventName={`${eventName || "email"}${index}`}
               link={email}
               label={email}
               linkType="EMAIL"
               normalizeLink={false}
-              variant="link"
               color={styles?.color}
               alwaysHideCaret={true}
               className="min-w-0 w-full justify-start whitespace-normal break-all text-left"

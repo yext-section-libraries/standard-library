@@ -1,6 +1,6 @@
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { PuckComponent } from "@puckeditor/core";
-import { Body, BodyProps } from "../shared/sectionSupport/atoms/body.tsx";
+import { Body } from "../shared/sectionSupport/atoms/body.tsx";
 import {
   useDocument,
   resolveComponentData,
@@ -12,7 +12,6 @@ import {
   TranslatableString,
   resolveDataFromParent,
   ThemeColor,
-  ThemeOptions,
   themeManagerCn,
   YextComponentConfig,
   YextFields,
@@ -28,7 +27,7 @@ export type TextProps = {
 
   styles: {
     /** The size of the text. */
-    variant: BodyProps["variant"];
+    typographyId?: string;
     /** Optional text color override. */
     color?: ThemeColor;
     /** Optional font style override. */
@@ -65,11 +64,11 @@ const textFields: YextFields<TextProps> = {
     type: "object",
     label: msg("fields.styles", "Styles"),
     objectFields: {
-      variant: {
-        generation: { nullable: true },
-        label: msg("fields.textSize", "Text Size"),
-        type: "radio",
-        options: ThemeOptions.BODY_VARIANT,
+      typographyId: {
+        generation: { required: false, nullable: true },
+        label: "Typography",
+        type: "themeCollection",
+        collection: "typography",
       },
       color: {
         type: "basicSelector",
@@ -117,7 +116,7 @@ const TextComponent: PuckComponent<TextProps> = (props) => {
       constantValueEnabled={!parentData && data.text.constantValueEnabled}
     >
       <Body
-        variant={styles.variant}
+        typographyId={styles.typographyId}
         color={styles.color}
         className={themeManagerCn(
           fontStyleToClassName[styles.fontStyle],
@@ -148,7 +147,6 @@ export const Text: YextComponentConfig<TextProps> = {
       },
     },
     styles: {
-      variant: "base",
       fontStyle: "regular",
     },
   },

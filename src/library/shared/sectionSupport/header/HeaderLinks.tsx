@@ -1,3 +1,7 @@
+import {
+  useThemeData,
+  resolveThemeEntry,
+} from "@yext/visual-editor/section-library-support";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { FieldLabel, PuckComponent, setDeep } from "@puckeditor/core";
@@ -31,7 +35,6 @@ import {
   useExpandedHeaderMenu,
   useHeaderLinksDisplayMode,
 } from "./ExpandedHeaderMenuContext.tsx";
-import { BodyProps } from "../atoms/body.tsx";
 import {
   type ResolvedCTA,
   resolveLocalizedCtas,
@@ -52,7 +55,9 @@ export type HeaderLinksProps = {
     /**
      * The variant of the header links
      */
-    variant?: BodyProps["variant"];
+    actionId?: string;
+    /** Optional local text-size override, independent of the action preset. */
+    typographyId?: string;
 
     /**
      * The color of the header links
@@ -189,14 +194,17 @@ const headerLinksFields: YextFields<HeaderLinksProps> = {
         type: "radio",
         options: ThemeOptions.ALIGNMENT,
       },
-      variant: {
-        generation: {
-          required: false,
-          nullable: true,
-        },
-        label: msg("fields.variant", "Variant"),
-        type: "radio",
-        options: ThemeOptions.BODY_VARIANT,
+      typographyId: {
+        generation: { required: false },
+        type: "themeCollection",
+        collection: "typography",
+        label: "Text size preset",
+      },
+      actionId: {
+        generation: { required: false },
+        label: "Action preset",
+        type: "themeCollection",
+        collection: "actions",
       },
       color: {
         type: "basicSelector",
@@ -232,6 +240,10 @@ const HeaderLinksComponent: PuckComponent<HeaderLinksProps> = ({
   const menuContext = useExpandedHeaderMenu();
 
   const windowWidth = useWindowWidth(previewWindow);
+  const theme = useThemeData();
+  const textSize = styles?.typographyId
+    ? resolveThemeEntry(theme.typography, styles.typographyId)
+    : undefined;
   const { isMobile, isDesktop } = getViewport(windowWidth);
   const isOverflow = useOverflow(navRef, measureContainerRef, 0);
 
@@ -276,15 +288,13 @@ const HeaderLinksComponent: PuckComponent<HeaderLinksProps> = ({
     };
     return alignmentMap[styles?.align || "right"];
   }, [displayMode, isDesktop, styles?.align]);
-  const weightClass = styles?.weight === "bold" ? "font-bold" : "font-normal";
-  const sizeClass = styles?.variant
-    ? {
-        xs: "text-body-xs-fontSize",
-        sm: "text-body-sm-fontSize",
-        base: "text-body-fontSize",
-        lg: "text-body-lg-fontSize",
-      }[styles.variant]
-    : "text-body-fontSize";
+  const weightClass =
+    styles?.weight === "bold"
+      ? "font-bold"
+      : styles?.weight === "normal"
+        ? "font-normal"
+        : "";
+  const sizeClass = "";
 
   const linksToRender = React.useMemo(() => {
     if (displayMode !== "menu" || isSecondary) {
@@ -316,10 +326,18 @@ const HeaderLinksComponent: PuckComponent<HeaderLinksProps> = ({
 
   const renderLink = (item: ResolvedCTA, index: number) => (
     <CTA
-      variant={
-        !isSecondary ? "headerFooterMainLink" : "headerFooterSecondaryLink"
-      }
+      actionId={styles?.actionId}
       color={styles?.color}
+      style={
+        textSize
+          ? {
+              fontSize:
+                windowWidth !== undefined && windowWidth < 640
+                  ? textSize.mobileFontSize
+                  : textSize.fontSize,
+            }
+          : undefined
+      }
       openInNewTab={item.openInNewTab}
       eventName={`cta.${type.toLowerCase()}.${index}`}
       label={item.label}
@@ -390,7 +408,7 @@ export const defaultHeaderLinkProps: HeaderLinksProps = {
   },
   styles: {
     align: "right",
-    variant: "sm",
+
     weight: "normal",
   },
 };

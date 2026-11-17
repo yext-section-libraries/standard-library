@@ -80,6 +80,7 @@ export const NearbyLocationCard: React.FC<NearbyLocationCardProps> = (
       as="section"
     >
       <MaybeLink
+        actionId={styles.actionId}
         eventName={`link${cardNumber}`}
         alwaysHideCaret={true}
         className="mb-2 line-clamp-2 text-wrap break-words w-full"
@@ -88,6 +89,7 @@ export const NearbyLocationCard: React.FC<NearbyLocationCardProps> = (
         <Heading
           color={styles?.color}
           level={styles.headingLevel ?? 4}
+          typographyId={styles.typographyId}
           semanticLevelOverride={
             sectionHeadingLevel
               ? sectionHeadingLevel < 6
@@ -101,7 +103,7 @@ export const NearbyLocationCard: React.FC<NearbyLocationCardProps> = (
       </MaybeLink>
       {styles.showHours && (hours || comingSoon) && (
         <div
-          className={`font-semibold font-body-fontFamily text-body-fontSize ${showPhone || showAddress ? "mb-2" : ""}`}
+          className={`font-semibold   ${showPhone || showAddress ? "mb-2" : ""}`}
         >
           <HoursStatusAtom
             hours={hours ?? {}}
@@ -117,6 +119,7 @@ export const NearbyLocationCard: React.FC<NearbyLocationCardProps> = (
       )}
       {showPhone && (
         <PhoneAtom
+          actionId={styles.phone.actionId}
           eventName={`phone${cardNumber}`}
           phoneNumber={mainPhone}
           format={styles?.phone?.phoneNumberFormat}
@@ -126,7 +129,7 @@ export const NearbyLocationCard: React.FC<NearbyLocationCardProps> = (
         />
       )}
       {showAddress && (
-        <div className="font-body-fontFamily font-body-fontWeight text-body-fontSize">
+        <div>
           <Address
             address={address}
             showRegion={styles.address?.showRegion ?? true}

@@ -1,6 +1,5 @@
 import {
   ThemeColor,
-  backgroundColors,
   ThemeOptions,
   msg,
   getAnalyticsScopeHash,
@@ -37,7 +36,6 @@ export interface ProductSectionProps {
   styles: {
     /**
      * The background color for the entire section.
-     * @defaultValue Background Color 2
      */
     backgroundColor?: ThemeColor;
 
@@ -152,7 +150,6 @@ export const ProductSection: YextComponentConfig<ProductSectionProps> = {
   fields: productSectionFields,
   defaultProps: {
     styles: {
-      backgroundColor: backgroundColors.background2.value,
       cardVariant: "immersive",
       showSectionHeading: true,
     },

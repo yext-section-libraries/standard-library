@@ -1,6 +1,5 @@
 import { PuckComponent, Slot } from "@puckeditor/core";
 import {
-  backgroundColors,
   ThemeColor,
   YextComponentConfig,
   YextFields,
@@ -19,7 +18,6 @@ export interface VideoSectionProps {
   styles: {
     /**
      * The background color for the entire section, selected from the theme.
-     * @defaultValue Background Color 1
      */
     backgroundColor?: ThemeColor;
   };
@@ -94,9 +92,7 @@ export const VideoSection: YextComponentConfig<VideoSectionProps> = {
   label: msg("components.video", "Video"),
   fields: videoSectionFields,
   defaultProps: {
-    styles: {
-      backgroundColor: backgroundColors.background1.value,
-    },
+    styles: {},
     slots: {
       SectionHeadingSlot: [
         {
@@ -109,7 +105,10 @@ export const VideoSection: YextComponentConfig<VideoSectionProps> = {
                 field: "",
               },
             },
-            styles: { level: 2, align: "left" },
+            styles: {
+              level: 2,
+              align: "left",
+            },
           },
         },
       ],

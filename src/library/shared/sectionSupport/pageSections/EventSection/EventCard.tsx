@@ -2,7 +2,6 @@ import * as React from "react";
 import { PuckComponent, Slot, WithId, setDeep } from "@puckeditor/core";
 import {
   ThemeColor,
-  backgroundColors,
   EventStruct,
   msg,
   deepMerge,
@@ -63,7 +62,7 @@ export const defaultEventCardSlotData = (
       ...(id && { id }),
       ...(index !== undefined && { index }),
       styles: {
-        backgroundColor: backgroundColor ?? backgroundColors.background1.value,
+        backgroundColor: backgroundColor ?? undefined,
         truncateDescription: truncateDescription ?? true,
       } satisfies EventCardProps["styles"],
       slots: {
@@ -150,9 +149,7 @@ export const defaultEventCardSlotData = (
                   constantValueEnabled: true,
                 },
               },
-              styles: {
-                variant: "base",
-              },
+              styles: {},
               parentStyles: {
                 className: "md:line-clamp-2",
               },
@@ -175,7 +172,6 @@ export const defaultEventCardSlotData = (
                 },
               },
               styles: {
-                variant: "primary",
                 presetImage: "app-store",
               },
               eventName: index !== undefined ? `cta${index}` : undefined,
@@ -393,8 +389,7 @@ const EventCardComponent: PuckComponent<EventCardProps> = (props) => {
           styles: {
             ...otherProps.styles,
             backgroundColor:
-              sharedCardProps?.cardStyles.backgroundColor ||
-              backgroundColors.background1.value,
+              sharedCardProps?.cardStyles.backgroundColor || undefined,
             truncateDescription:
               sharedCardProps?.cardStyles.truncateDescription,
           },
@@ -461,7 +456,6 @@ export const EventCard: YextComponentConfig<EventCardProps> = {
   fields: eventCardFields,
   defaultProps: {
     styles: {
-      backgroundColor: backgroundColors.background1.value,
       truncateDescription: true,
     },
     slots: defaultEventCardSlotData().props.slots,

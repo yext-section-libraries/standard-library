@@ -146,12 +146,12 @@ export const ResultCardPropsField = ({
     fields = setDeep(
       fields,
       "objectFields.primaryCTA.objectFields.textColor.visible",
-      value.primaryCTA?.variant === "primary"
+      true
     );
     fields = setDeep(
       fields,
       "objectFields.secondaryCTA.objectFields.textColor.visible",
-      value.secondaryCTA?.variant === "primary"
+      true
     );
 
     return fields;

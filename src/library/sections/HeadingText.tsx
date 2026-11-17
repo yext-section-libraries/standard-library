@@ -32,6 +32,7 @@ export type HeadingTextProps = {
   styles: {
     /** The h tag level of the section heading */
     level: HeadingProps["level"];
+    typographyId?: string;
     /** Alignment of the event section heading */
     align: "left" | "center" | "right";
     /** Optional override to render a different HTML tag instead of the one based on the level */
@@ -80,6 +81,7 @@ const HeadingTextWrapper: PuckComponent<HeadingTextProps> = (props) => {
       >
         <Heading
           level={styles.level}
+          typographyId={styles.typographyId}
           className={alignClass}
           semanticLevelOverride={styles.semanticLevelOverride}
           color={styles.color}
@@ -113,6 +115,12 @@ const headingTextFields: YextFields<HeadingTextProps> = {
     label: msg("fields.styles", "Styles"),
     type: "object",
     objectFields: {
+      typographyId: {
+        generation: { required: false },
+        type: "themeCollection",
+        collection: "typography",
+        label: "Typography",
+      },
       level: {
         type: "basicSelector",
         label: msg("fields.headingLevel", "Heading Level"),

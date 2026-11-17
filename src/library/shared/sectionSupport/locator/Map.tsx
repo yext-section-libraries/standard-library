@@ -10,7 +10,6 @@ import mapboxgl from "mapbox-gl";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import {
-  backgroundColors,
   ThemeColor,
   StreamDocument,
   msg,
@@ -30,7 +29,7 @@ export const DEFAULT_RADIUS = 25;
 export const DEFAULT_PIN_ICON_WIDTH = 14;
 export const DEFAULT_LOCATION_STYLE = {
   pinIcon: { type: "none" },
-  pinColor: backgroundColors.background6.value,
+  pinColor: undefined,
 };
 export const MAX_PIN_ICON_WIDTH = 27;
 const PIN_ICON_MAX_FILE_SIZE_BYTES = 128 * 1024;

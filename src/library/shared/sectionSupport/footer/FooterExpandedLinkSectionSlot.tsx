@@ -5,7 +5,6 @@ import {
   TranslatableString,
   TranslatableCTA,
   YextEntityField,
-  useBackground,
   ThemeColor,
   toPuckFields,
   YextComponentConfig,
@@ -30,6 +29,7 @@ export interface FooterExpandedLinkSectionSlotProps {
   };
   styles?: {
     /** Color applied to section label and links. */
+    actionId?: string;
     color?: ThemeColor;
   };
   /** @internal */
@@ -42,8 +42,6 @@ const FooterExpandedLinkSectionSlotInternal: PuckComponent<
   const { data, styles, puck } = props;
   const streamDocument = useDocument();
   const { i18n } = useTranslation();
-  const background = useBackground();
-  const isDarkBackground = background?.isDarkColor ?? false;
 
   const { label, links } = resolveLocalizedFooterLinkSection(
     data,
@@ -51,10 +49,7 @@ const FooterExpandedLinkSectionSlotInternal: PuckComponent<
     streamDocument
   );
 
-  const defaultColor: ThemeColor = isDarkBackground
-    ? { selectedColor: "white", contrastingColor: "black" }
-    : { selectedColor: "palette-primary-dark", contrastingColor: "white" };
-  const resolvedColor = styles?.color ?? defaultColor;
+  const resolvedColor = styles?.color;
 
   if (links.length === 0 && !puck.isEditing) {
     return <></>;
@@ -71,9 +66,9 @@ const FooterExpandedLinkSectionSlotInternal: PuckComponent<
         {links.length > 0
           ? links.map((linkData, index) => (
               <CTA
+                actionId={styles?.actionId}
                 openInNewTab={linkData.openInNewTab}
                 key={index}
-                variant="headerFooterMainLink"
                 eventName={`cta.expandedFooter.${index}-Link-${index + 1}`}
                 label={linkData.label}
                 linkType={linkData.linkType}
@@ -187,6 +182,12 @@ const footerExpandedLinkSectionSlotFields: YextFields<FooterExpandedLinkSectionS
       type: "object",
       label: msg("fields.styles", "Styles"),
       objectFields: {
+        actionId: {
+          generation: { required: false },
+          type: "themeCollection",
+          collection: "actions",
+          label: "Action preset",
+        },
         color: {
           type: "basicSelector",
           label: msg("fields.color", "Color"),

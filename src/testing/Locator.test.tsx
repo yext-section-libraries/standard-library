@@ -6,6 +6,7 @@ import {
   ComponentTest,
   logSuppressedWcagViolations,
   transformTests,
+  testSetup,
 } from "./componentTests.setup.ts";
 import {
   act,
@@ -18,7 +19,7 @@ import {
   migrate,
   MainContent,
   migrationRegistry,
-  backgroundColors,
+  defaultThemeData,
 } from "@yext/visual-editor";
 import { Locator as LocatorComponent } from "../library/sections/Locator.tsx";
 import {
@@ -514,7 +515,11 @@ const tests: ComponentTest[] = [
           pinIcon: {
             type: "none",
           },
-          pinColor: backgroundColors.background6.value,
+          pinColor: {
+            selectedColor: "palette-primary-dark",
+            contrastingColor: "white",
+            isDarkColor: true,
+          },
         },
       ],
       distanceDisplay: "bothDistances",
@@ -826,7 +831,10 @@ const tests: ComponentTest[] = [
       },
       pageHeading: {
         title: { en: "Custom Heading", hasLocalizedValue: "true" },
-        color: backgroundColors.color2.value,
+        color: {
+          selectedColor: "palette-secondary",
+          contrastingColor: "palette-secondary-contrast",
+        },
       },
       resultCard: {
         primaryHeading: {
@@ -927,7 +935,10 @@ const tests: ComponentTest[] = [
         primaryHeading: {
           field: "name",
           headingLevel: 3,
-          color: backgroundColors.color3.value,
+          color: {
+            selectedColor: "palette-tertiary",
+            contrastingColor: "palette-tertiary-contrast",
+          },
         },
         secondaryHeading: {
           field: "name",
@@ -2053,6 +2064,54 @@ describe("Locator", async () => {
       }
     }
   );
+
+  it("pairs selected locator card surfaces with a readable foreground", () => {
+    const theme = structuredClone(defaultThemeData);
+    theme.colors[0].background = "#102030";
+    theme.colors[0].foreground = "#FFDD00";
+    testSetup(theme);
+    const fixtureResult = DEFAULT_LOCATOR_RESULTS[0];
+    const view = (
+      isSelected: boolean,
+      textColor?: { selectedColor: string; contrastingColor: string }
+    ) => (
+      <VisualEditorProvider
+        templateProps={{
+          document: { locale: "en", __: { theme: JSON.stringify(theme) } },
+        }}
+      >
+        <LocatorResultCard
+          result={{ index: 1, rawData: fixtureResult.data } as any}
+          resultCardProps={{
+            ...DEFAULT_LOCATOR_RESULT_CARD_PROPS,
+            textColor,
+            secondaryCTA: {
+              ...DEFAULT_LOCATOR_RESULT_CARD_PROPS.secondaryCTA,
+              liveVisibility: true,
+            },
+          }}
+          isSelected={isSelected}
+        />
+      </VisualEditorProvider>
+    );
+    const result = reactRender(view(false));
+    const heading = () =>
+      result.getByRole("heading", { level: 2, name: "Galaxy Grill" });
+    const secondary = () =>
+      result.getByRole("link", { name: "Call to Action" });
+    expect(getComputedStyle(heading()).color).toBe("rgb(255, 221, 0)");
+    result.rerender(view(true));
+    expect(getComputedStyle(heading()).color).toBe("rgb(0, 0, 0)");
+    expect(getComputedStyle(secondary()).color).toBe("rgb(0, 0, 0)");
+    expect(getComputedStyle(secondary()).borderTopColor).toBe("rgb(0, 0, 0)");
+    result.rerender(
+      view(true, { selectedColor: "[#009955]", contrastingColor: "white" })
+    );
+    expect(getComputedStyle(heading()).color).toBe("rgb(0, 153, 85)");
+    result.rerender(view(false));
+    expect(getComputedStyle(heading()).color).toBe("rgb(255, 221, 0)");
+    expect(getComputedStyle(secondary()).color).toBe("rgb(255, 221, 0)");
+  });
 
   it("provides accessible result card controls and icons", async () => {
     const fixtureResult = DEFAULT_LOCATOR_RESULTS[0];

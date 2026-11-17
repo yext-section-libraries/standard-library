@@ -1,7 +1,6 @@
 import { Slot } from "@puckeditor/core";
 import {
   ThemeColor,
-  backgroundColors,
   ThemeOptions,
   msg,
   getAnalyticsScopeHash,
@@ -33,7 +32,6 @@ export interface EventSectionProps {
   styles: {
     /**
      * The background color of the section.
-     * @defaultValue Background Color 3
      */
     backgroundColor?: ThemeColor;
 
@@ -130,7 +128,6 @@ export const EventSection: YextComponentConfig<EventSectionProps> = {
   fields: eventSectionFields,
   defaultProps: {
     styles: {
-      backgroundColor: backgroundColors.background3.value,
       showSectionHeading: true,
     },
     slots: {
@@ -145,7 +142,10 @@ export const EventSection: YextComponentConfig<EventSectionProps> = {
                 field: "",
               },
             },
-            styles: { level: 2, align: "left" },
+            styles: {
+              level: 2,
+              align: "left",
+            },
           },
         },
       ],

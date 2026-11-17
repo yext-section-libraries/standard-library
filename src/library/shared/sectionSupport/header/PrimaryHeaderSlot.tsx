@@ -5,7 +5,6 @@ import {
   SlotComponent,
 } from "@puckeditor/core";
 import {
-  backgroundColors,
   ThemeColor,
   msg,
   useOverflow,
@@ -408,9 +407,7 @@ const PrimaryHeaderSlotWrapper: PuckComponent<PrimaryHeaderSlotProps> = ({
 };
 
 export const defaultPrimaryHeaderProps: PrimaryHeaderSlotProps = {
-  styles: {
-    backgroundColor: backgroundColors.background1.value,
-  },
+  styles: {},
   slots: {
     LogoSlot: [
       {
@@ -467,7 +464,6 @@ export const defaultPrimaryHeaderProps: PrimaryHeaderSlotProps = {
             },
           },
           styles: {
-            variant: "primary",
             presetImage: "app-store",
           },
           eventName: "primaryCta",
@@ -495,7 +491,6 @@ export const defaultPrimaryHeaderProps: PrimaryHeaderSlotProps = {
             },
           },
           styles: {
-            variant: "secondary",
             presetImage: "app-store",
           },
           eventName: "secondaryCta",

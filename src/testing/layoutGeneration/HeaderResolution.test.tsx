@@ -5,6 +5,10 @@ describe("header ownership and active context", () => {
   it("inherits width and menu copy and retains primary/secondary contextual defaults", async () => {
     const layout = makeLayout("ExpandedHeader");
     layout.content[0].props.styles.maxWidth = "1280px";
+    layout.content[0].props.slots.PrimaryHeaderSlot[0].props.slots.LinksSlot[0].props.styles.actionId =
+      "main-headerFooterMainLink";
+    layout.content[0].props.slots.SecondaryHeaderSlot[0].props.slots.LinksSlot[0].props.styles.actionId =
+      "main-headerFooterSecondaryLink";
     const resolved = await resolve(layout, { locale: "en" });
     const props = resolved.content[0].props;
     const primary = props.slots.PrimaryHeaderSlot[0].props;
@@ -43,8 +47,12 @@ describe("header ownership and active context", () => {
     expect(secondary.slots.LinksSlot[0].props.parentData.type).toBe(
       "Secondary"
     );
-    expect(primary.slots.LinksSlot[0].props.styles.variant).toBe("sm");
-    expect(secondary.slots.LinksSlot[0].props.styles.variant).toBe("xs");
+    expect(primary.slots.LinksSlot[0].props.styles.actionId).toBe(
+      "main-headerFooterMainLink"
+    );
+    expect(secondary.slots.LinksSlot[0].props.styles.actionId).toBe(
+      "main-headerFooterSecondaryLink"
+    );
     expect(authored(resolved)).toEqual(authored(layout));
   });
 });

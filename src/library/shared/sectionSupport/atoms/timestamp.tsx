@@ -153,7 +153,7 @@ export const TimestampAtom = ({
 
   return (
     <div
-      className={`components font-body-fontFamily font-body-fontWeight text-body-fontSize inline-block ${getTextColorClass(textColor) ?? ""}`}
+      className={`components    inline-block ${getTextColorClass(textColor) ?? ""}`}
       style={getTextColorStyle(textColor)}
     >
       {formattedTimestamp}

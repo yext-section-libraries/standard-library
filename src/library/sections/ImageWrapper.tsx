@@ -89,6 +89,12 @@ export const ImageWrapperFields: YextFields<ImageWrapperProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       ...ImageStylingFields,
+      actionId: {
+        generation: { required: false },
+        type: "themeCollection",
+        collection: "actions",
+        label: "Action preset",
+      },
     },
   },
   showImageConstrain: {
@@ -182,7 +188,8 @@ const ImageWrapperComponent: PuckComponent<ImageWrapperProps> = (props) => {
           ...(styles.aspectRatio ? { aspectRatio: styles.aspectRatio } : {}),
         }}
         containerClassName={
-          className || "max-w-full rounded-image-borderRadius w-full h-full"
+          className ||
+          "max-w-full rounded-[var(--ve-image-border-radius)] w-full h-full"
         }
         fullHeight
         dragRef={puck.dragRef ?? undefined}
@@ -203,6 +210,7 @@ const ImageWrapperComponent: PuckComponent<ImageWrapperProps> = (props) => {
     >
       <div className={parentData ? "w-full" : ""}>
         <MaybeLink
+          actionId={styles.actionId}
           className="w-auto"
           eventName="logoLink"
           href={resolvedLink}
@@ -219,7 +227,8 @@ const ImageWrapperComponent: PuckComponent<ImageWrapperProps> = (props) => {
                 : styles.width
             }
             className={
-              className || "max-w-full rounded-image-borderRadius w-full"
+              className ||
+              "max-w-full rounded-[var(--ve-image-border-radius)] w-full"
             }
             sizes={transformedSizes}
           />

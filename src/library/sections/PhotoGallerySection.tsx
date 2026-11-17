@@ -1,6 +1,5 @@
 import {
   type SectionConfig,
-  backgroundColors,
   ThemeColor,
   ThemeOptions,
   msg,
@@ -27,7 +26,6 @@ import { useMappedEntitySectionEmptyState } from "../shared/sectionSupport/pageS
 export interface PhotoGalleryStyles {
   /**
    * The background color for the entire section, selected from the theme.
-   * @defaultValue Background Color 1
    */
   backgroundColor?: ThemeColor;
 
@@ -177,7 +175,6 @@ export const PhotoGallerySection: YextComponentConfig<PhotoGallerySectionProps> 
     defaultProps: {
       styles: {
         variant: "gallery",
-        backgroundColor: backgroundColors.background1.value,
         showSectionHeading: true,
       },
       slots: {

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Brand to Theme"
+  short_description: "Turn a brand guide into Visual Editor theme JSON"
+  default_prompt: "Use $brand-to-theme with the brand-guide file at <path> to create {brand-name}-visual-editor-theme.json in this repository using the actual brand name."

@@ -2,7 +2,6 @@ import { PuckComponent, Slot } from "@puckeditor/core";
 import {
   msg,
   ThemeColor,
-  backgroundColors,
   useDocument,
   pt,
   useOverflow,
@@ -206,9 +205,7 @@ export const defaultSecondaryHeaderProps: SecondaryHeaderSlotProps = {
     show: true,
     showLanguageDropdown: false,
   },
-  styles: {
-    backgroundColor: backgroundColors.background2.value,
-  },
+  styles: {},
   slots: {
     LinksSlot: [
       {
@@ -217,7 +214,7 @@ export const defaultSecondaryHeaderProps: SecondaryHeaderSlotProps = {
           ...defaultHeaderLinkProps,
           styles: {
             align: "right",
-            variant: "xs",
+
             weight: "normal",
           },
           parentData: {

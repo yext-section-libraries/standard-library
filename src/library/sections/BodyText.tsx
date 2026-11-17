@@ -2,7 +2,7 @@ import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
-import { BodyProps, Body } from "../shared/sectionSupport/atoms/body.tsx";
+import { Body } from "../shared/sectionSupport/atoms/body.tsx";
 import {
   useDocument,
   resolveComponentData,
@@ -11,14 +11,16 @@ import {
   pt,
   msg,
   TranslatableRichText,
-  useBackground,
   resolveDataFromParent,
   ThemeColor,
-  ThemeOptions,
   YextComponentConfig,
   YextFields,
   SectionConfig,
 } from "@yext/visual-editor";
+import {
+  useThemeData,
+  resolveThemeEntry,
+} from "@yext/visual-editor/section-library-support";
 
 export type BodyTextProps = {
   data: {
@@ -28,7 +30,7 @@ export type BodyTextProps = {
 
   styles: {
     /** The size of the body text. */
-    variant: BodyProps["variant"];
+    typographyId?: string;
 
     /** The color of the body text. */
     color?: ThemeColor;
@@ -66,11 +68,11 @@ const bodyTextFields: YextFields<BodyTextProps> = {
     type: "object",
     label: msg("fields.styles", "Styles"),
     objectFields: {
-      variant: {
-        generation: { nullable: true },
-        label: msg("fields.variant", "Variant"),
-        type: "radio",
-        options: ThemeOptions.BODY_VARIANT,
+      typographyId: {
+        generation: { required: false, nullable: true },
+        label: "Typography",
+        type: "themeCollection",
+        collection: "typography",
       },
       color: {
         type: "basicSelector",
@@ -85,14 +87,13 @@ const BodyTextComponent: PuckComponent<BodyTextProps> = (props) => {
   const { data, styles, puck, parentData } = props;
   const { i18n } = useTranslation();
   const streamDocument = useDocument();
-  const background = useBackground();
+  const theme = useThemeData();
+  const typography = resolveThemeEntry(theme.typography, styles.typographyId);
 
   const sourceData = parentData ? parentData?.richText : data.text;
 
   const resolvedData = sourceData
     ? resolveComponentData(sourceData, i18n.language, streamDocument, {
-        variant: styles.variant,
-        isDarkBackground: background?.isDarkColor,
         className: props.parentStyles?.className,
         color: styles.color,
       })
@@ -106,11 +107,13 @@ const BodyTextComponent: PuckComponent<BodyTextProps> = (props) => {
       constantValueEnabled={data.text.constantValueEnabled}
     >
       {typeof resolvedData === "string" ? (
-        <Body variant={styles.variant} color={styles.color}>
+        <Body typographyId={styles.typographyId} color={styles.color}>
           {resolvedData}
         </Body>
       ) : (
-        resolvedData
+        <div className="components" data-ve-typography={typography.id}>
+          {resolvedData}
+        </div>
       )}
     </EntityField>
   ) : puck.isEditing ? (
@@ -133,9 +136,7 @@ export const BodyText: YextComponentConfig<BodyTextProps> = {
         constantValueEnabled: true,
       },
     },
-    styles: {
-      variant: "base",
-    },
+    styles: {},
   },
   render: (props) => <BodyTextComponent {...props} />,
 };

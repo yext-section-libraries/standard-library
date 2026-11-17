@@ -1,3 +1,4 @@
+import { Background } from "../atoms/background.tsx";
 import * as React from "react";
 import { PuckComponent } from "@puckeditor/core";
 import { CTA } from "../atoms/cta.tsx";
@@ -17,7 +18,6 @@ import {
   YextFields,
   getThemeColorCssValue,
   ThemeColor,
-  useBackground,
   msg,
 } from "@yext/visual-editor";
 
@@ -32,6 +32,8 @@ export interface FooterSocialLinksSlotProps {
     youtubeLink: string;
   };
   styles?: {
+    backgroundColor?: ThemeColor;
+    actionId?: string;
     filledBackground?: boolean;
     mobileAlignment?: "left" | "center";
     iconColor?: ThemeColor;
@@ -90,6 +92,17 @@ export const FooterSocialLinksSlotFields: YextFields<FooterSocialLinksSlotProps>
       type: "object",
       label: msg("fields.styles", "Styles"),
       objectFields: {
+        actionId: {
+          generation: { required: false },
+          type: "themeCollection",
+          collection: "actions",
+          label: "Action preset",
+        },
+        backgroundColor: {
+          type: "basicSelector",
+          options: "BACKGROUND_COLOR",
+          label: "Icon background",
+        },
         iconColor: {
           type: "basicSelector",
           label: msg("fields.iconColor", "Icon Color"),
@@ -104,7 +117,6 @@ const FooterSocialLinksSlotInternal: PuckComponent<
 > = (props) => {
   const { data, styles, puck } = props;
   const { t } = useTranslation();
-  const background = useBackground();
 
   const links: socialLink[] = [
     {
@@ -173,27 +185,26 @@ const FooterSocialLinksSlotInternal: PuckComponent<
     >
       {validLinks.map((link, index) => {
         const Icon = link.icon;
-        const filledIconColor = getThemeColorCssValue(
-          styles?.iconColor?.selectedColor
-        );
+        const filledIconColor = getThemeColorCssValue(styles?.iconColor, true);
         const iconElement = styles?.filledBackground ? (
-          <div
-            className={`flex h-12 w-12 items-center justify-center rounded-full ${background?.isDarkColor ? "bg-white text-palette-primary-dark" : "bg-palette-primary-dark text-white"}`}
+          <Background
+            background={styles.backgroundColor}
+            className="flex h-12 w-12 items-center justify-center rounded-full"
             style={filledIconColor ? { color: filledIconColor } : undefined}
           >
             <Icon className="h-6 w-6" />
-          </div>
+          </Background>
         ) : (
           <Icon className="h-6 w-6 md:h-5 md:w-5" />
         );
         return (
           <CTA
+            actionId={styles?.actionId}
             key={index}
             label={iconElement}
             link={link.url}
             linkType="URL"
             normalizeLink={false}
-            variant="link"
             eventName={`socialLink.${link.label.toLowerCase()}`}
             ariaLabel={link.ariaLabel}
             alwaysHideCaret
@@ -211,6 +222,8 @@ export const FooterSocialLinksSlot: YextComponentConfig<FooterSocialLinksSlotPro
     label: msg("components.footerSocialLinksSlot", "Social Links"),
     fields: FooterSocialLinksSlotFields,
     defaultProps: {
+      styles: {},
+
       data: {
         xLink: "",
         facebookLink: "",

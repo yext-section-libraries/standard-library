@@ -11,6 +11,7 @@ import {
 } from "@yext/visual-editor/section-library-support";
 
 export type PhoneAtomProps = {
+  actionId?: string;
   phoneNumber: string;
   label?: string;
   eventName?: string;
@@ -69,7 +70,7 @@ export const PhoneAtom = (props: PhoneAtomProps) => {
           label={formattedPhoneNumber}
           linkType="PHONE"
           normalizeLink={false}
-          variant="link"
+          actionId={props.actionId}
           eventName={props.eventName}
           color={props.linkColor}
           onClick={props.onClick}

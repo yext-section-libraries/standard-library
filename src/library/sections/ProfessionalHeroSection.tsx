@@ -1,6 +1,5 @@
 import { Slot, PuckComponent } from "@puckeditor/core";
 import {
-  backgroundColors,
   ThemeColor,
   ThemeOptions,
   msg,
@@ -34,7 +33,6 @@ import {
 export interface ProfessionalHeroStyles {
   /**
    * The background color for the section.
-   * @defaultValue Background Color 1
    */
   backgroundColor?: ThemeColor;
 
@@ -551,7 +549,6 @@ export const ProfessionalHeroSection: YextComponentConfig<ProfessionalHeroSectio
     fields: professionalHeroSectionFields,
     defaultProps: {
       styles: {
-        backgroundColor: backgroundColors.background1.value,
         showImage: true,
         desktopImagePosition: "left",
         mobileImagePosition: "top",
@@ -605,9 +602,7 @@ export const ProfessionalHeroSection: YextComponentConfig<ProfessionalHeroSectio
                   constantValueEnabled: true,
                 },
               },
-              styles: {
-                variant: "lg",
-              },
+              styles: {},
             } satisfies BodyTextProps,
           },
         ],
@@ -640,7 +635,10 @@ export const ProfessionalHeroSection: YextComponentConfig<ProfessionalHeroSectio
                   field: "name",
                 },
               },
-              styles: { level: 2, align: "left" },
+              styles: {
+                level: 2,
+                align: "left",
+              },
             } satisfies HeadingTextProps,
           },
         ],
@@ -674,9 +672,7 @@ export const ProfessionalHeroSection: YextComponentConfig<ProfessionalHeroSectio
                   field: "",
                 },
               },
-              styles: {
-                variant: "base",
-              },
+              styles: {},
             } satisfies BodyTextProps,
           },
         ],
@@ -697,7 +693,6 @@ export const ProfessionalHeroSection: YextComponentConfig<ProfessionalHeroSectio
               },
               styles: {
                 showGetDirectionsLink: true,
-                ctaVariant: "link",
               },
             } satisfies AddressProps,
           },
@@ -721,9 +716,7 @@ export const ProfessionalHeroSection: YextComponentConfig<ProfessionalHeroSectio
                 },
               },
               eventName: "primaryCta",
-              styles: {
-                variant: "primary",
-              },
+              styles: {},
             } satisfies CTAWrapperProps,
           },
         ],
@@ -746,9 +739,7 @@ export const ProfessionalHeroSection: YextComponentConfig<ProfessionalHeroSectio
                 },
               },
               eventName: "secondaryCta",
-              styles: {
-                variant: "secondary",
-              },
+              styles: {},
             } satisfies CTAWrapperProps,
           },
         ],

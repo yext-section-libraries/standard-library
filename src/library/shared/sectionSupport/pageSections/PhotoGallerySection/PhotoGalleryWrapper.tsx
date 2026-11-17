@@ -5,7 +5,6 @@ import {
 import {
   EntityField,
   themeManagerCn,
-  useBackground,
   useDocument,
   msg,
   pt,
@@ -162,21 +161,15 @@ const DynamicChildColors = ({
   category,
   accentColor,
 }: DynamicChildColorsProps) => {
-  const background = useBackground();
-  const hasDarkBackground = background?.isDarkColor;
-  const accentColorValue = getThemeColorCssValue(accentColor?.selectedColor);
+  const accentColorValue = getThemeColorCssValue(accentColor, true);
 
   const dynamicClasses = accentColorValue
     ? category === "slide"
       ? "enabled:bg-[var(--accent-color)] disabled:bg-gray-400"
       : "enabled:text-[var(--accent-color)] disabled:text-gray-400"
     : category === "slide"
-      ? hasDarkBackground
-        ? "bg-white disabled:bg-gray-400"
-        : "bg-palette-primary-dark disabled:bg-gray-400"
-      : hasDarkBackground
-        ? "text-white disabled:text-gray-400"
-        : "text-palette-primary-dark disabled:text-gray-400";
+      ? "bg-current disabled:bg-gray-400"
+      : "text-current disabled:text-gray-400";
 
   const dynamicStyle = accentColorValue
     ? ({
@@ -206,7 +199,7 @@ const EmptyImage = ({ imageData }: { imageData: ResolvedGalleryImage }) => {
   return (
     <div
       className={themeManagerCn(
-        "w-full md:w-auto rounded-image-borderRadius border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50 hover:bg-gray-100 transition-colors overflow-hidden relative"
+        "w-full md:w-auto rounded-[var(--ve-image-border-radius)] border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50 hover:bg-gray-100 transition-colors overflow-hidden relative"
       )}
       style={{
         aspectRatio: imageData.aspectRatio,
@@ -254,7 +247,7 @@ const DesktopImageItem = ({
       aspectRatio={imageData.aspectRatio}
       width={imageData.width}
       className={themeManagerCn(
-        "rounded-image-borderRadius max-w-full",
+        "rounded-[var(--ve-image-border-radius)] max-w-full",
         constrainToParent && "w-full h-auto object-contain"
       )}
       sizes={sizes}
@@ -269,7 +262,6 @@ const DesktopImageItem = ({
         linkType={imageData.linkType}
         ariaLabel={imageData.ariaLabel}
         normalizeLink={false}
-        variant="link"
         label={imageElement}
         className="block max-w-full"
         alwaysHideCaret
@@ -330,7 +322,6 @@ const MobileImageItem = ({
           linkType={imageData.linkType}
           ariaLabel={imageData.ariaLabel}
           normalizeLink={false}
-          variant="link"
           label={imageElement}
           className="block w-full"
           alwaysHideCaret

@@ -1,7 +1,6 @@
 import React from "react";
 import { FieldLabel, PuckComponent, Slot } from "@puckeditor/core";
 import {
-  backgroundColors,
   entityFieldZodSchema,
   translatableStringZodSchema,
   ThemeColor,
@@ -13,7 +12,6 @@ import {
   sortAlphabetically,
   StreamDocument,
   resolveDirectoryListChildren,
-  getThemeValue,
   useDocument,
   useTemplateMetadata,
   Tooltip,
@@ -245,6 +243,7 @@ export const DirectoryList = ({
   relativePrefixToRoot,
   backgroundColor,
   linkColor,
+  actionId,
   textTransform = "default",
 }: {
   streamDocument: StreamDocument;
@@ -261,25 +260,17 @@ export const DirectoryList = ({
     dm_addressRegionDisplayName?: string;
   }[];
   relativePrefixToRoot: string;
-  backgroundColor: ThemeColor;
+  backgroundColor?: ThemeColor;
   linkColor?: ThemeColor;
+  actionId?: string;
   textTransform?: DirectoryStyles["textTransform"];
 }) => {
   const sortedDirectoryChildren = sortAlphabetically(
     [...directoryChildren],
     "name"
   );
-  const linkTextTransformValue = (
-    getThemeValue("--textTransform-link-textTransform", streamDocument) ?? ""
-  ).toLowerCase();
   const resolvedTextTransform =
-    textTransform === "default"
-      ? !linkTextTransformValue ||
-        linkTextTransformValue === "none" ||
-        linkTextTransformValue === "normal"
-        ? "capitalize"
-        : "var(--textTransform-link-textTransform)"
-      : textTransform;
+    textTransform === "default" ? undefined : textTransform;
 
   return (
     <PageSection verticalPadding="sm" background={backgroundColor}>
@@ -304,8 +295,8 @@ export const DirectoryList = ({
           return (
             <li key={idx}>
               <MaybeLink
+                actionId={actionId}
                 eventName={`child${idx}`}
-                variant="directoryLink"
                 color={linkColor}
                 href={
                   relativePrefixToRoot
@@ -410,9 +401,7 @@ export const DirectoryGrid: YextComponentConfig<DirectoryGridProps> = {
   defaultProps: {
     ...directoryCardsSource.defaultWrapperProps,
     data: getNormalizedDirectoryGridData(directoryCardsSource.defaultValue),
-    styles: {
-      backgroundColor: backgroundColors.background1.value,
-    },
+    styles: {},
   },
   resolveData: (data, params) => {
     const streamDocument = params.metadata?.streamDocument;

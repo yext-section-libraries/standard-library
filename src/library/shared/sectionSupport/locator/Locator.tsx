@@ -1,13 +1,12 @@
+import { i18nPageInstance } from "@yext/visual-editor";
+import { z } from "zod";
 import { FieldLabel, setDeep } from "@puckeditor/core";
 import { type MultiSelectorValue } from "@yext/visual-editor/section-library-support";
 import { YextAutoField } from "@yext/visual-editor/section-library-support";
 import { TranslatableString } from "@yext/visual-editor/section-library-support";
 import { msg, pt } from "@yext/visual-editor/section-library-support";
 import { TranslatableAssetImage } from "@yext/visual-editor/section-library-support";
-import {
-  backgroundColors,
-  ThemeColor,
-} from "@yext/visual-editor/section-library-support";
+import { ThemeColor } from "@yext/visual-editor/section-library-support";
 import {
   DEFAULT_ENTITY_TYPE,
   getEntityTypeLabel,
@@ -28,6 +27,7 @@ import {
   DEFAULT_LOCATOR_RESULT_CARD_PROPS,
   DistanceDisplayOption,
   LocatorResultCardProps,
+  LocatorResultCardFields,
   locatorEntityTypeSchema,
 } from "./LocatorResultCard";
 import { ResultCardPropsField } from "./Results";
@@ -48,10 +48,7 @@ import {
   makiIconOptions,
 } from "./Map";
 import { ImageStylingFields } from "../contentBlocks/image/styling.ts";
-import {
-  locatorFacetFieldsSchema,
-  locatorResultCardSchema,
-} from "./locatorZodSchemas.ts";
+import { locatorFacetFieldsSchema } from "./locatorZodSchemas.ts";
 const locatorPinIconFields = {
   type: {
     generation: { required: true },
@@ -181,6 +178,7 @@ export interface LocatorProps {
    * Allows customizing the title text and its color.
    */
   pageHeading?: {
+    typographyId?: string;
     /** The title displayed at the top of the locator page. */
     title: TranslatableString;
     /**
@@ -337,7 +335,7 @@ const locatorFields: YextFields<LocatorProps> = {
     defaultItemProps: {
       entityType: DEFAULT_ENTITY_TYPE,
       pinIcon: { type: "none" },
-      pinColor: backgroundColors.background6.value,
+      pinColor: undefined,
     },
   },
   filters: {
@@ -395,35 +393,72 @@ const locatorFields: YextFields<LocatorProps> = {
     },
   },
   defaultSearchRadius: {
-    type: "optional",
+    type: "custom",
     label: msg("fields.defaultSearchRadius", "Default Search Radius"),
-    defaultCustomValue: ({ locale }) => ({
-      value: DEFAULT_RADIUS,
-      unit: getPreferredDistanceUnit(locale),
-    }),
-    field: {
-      type: "object",
-      objectFields: {
-        value: {
-          type: "number",
-          label: msg("fields.radius", "Radius"),
-          min: 0,
-          step: 1,
-        },
-        unit: {
-          type: "basicSelector",
-          generation: { required: true },
-          label: msg("fields.distanceUnit", "Distance Unit"),
-          options: [
-            { label: msg("mile", "mile", { count: 2 }), value: "mile" },
-            {
-              label: msg("kilometer", "kilometer", { count: 2 }),
-              value: "kilometer",
-            },
-          ],
-        },
-      },
+    generation: {
+      schema: z
+        .object({
+          value: z.number().min(0).optional(),
+          unit: z.enum(["mile", "kilometer"]),
+        })
+        .optional(),
     },
+    render: ({
+      value,
+      onChange,
+      readOnly,
+    }: YextCustomFieldRenderProps<LocatorProps["defaultSearchRadius"]>) => (
+      <div>
+        <label>
+          <input
+            type="checkbox"
+            checked={value !== undefined}
+            disabled={readOnly}
+            onChange={(event) =>
+              onChange(
+                event.target.checked
+                  ? {
+                      value: DEFAULT_RADIUS,
+                      unit: getPreferredDistanceUnit(i18nPageInstance.language),
+                    }
+                  : undefined
+              )
+            }
+          />{" "}
+          Custom search radius
+        </label>
+        {value !== undefined && (
+          <YextAutoField
+            value={value}
+            onChange={onChange}
+            readOnly={readOnly}
+            field={{
+              type: "object",
+              objectFields: {
+                value: {
+                  type: "number",
+                  label: msg("fields.radius", "Radius"),
+                  min: 0,
+                  step: 1,
+                },
+                unit: {
+                  type: "basicSelector",
+                  generation: { required: true },
+                  label: msg("fields.distanceUnit", "Distance Unit"),
+                  options: [
+                    { label: msg("mile", "mile", { count: 2 }), value: "mile" },
+                    {
+                      label: msg("kilometer", "kilometer", { count: 2 }),
+                      value: "kilometer",
+                    },
+                  ],
+                },
+              },
+            }}
+          />
+        )}
+      </div>
+    ),
   },
   mapStartingZoom: {
     type: "number",
@@ -463,6 +498,12 @@ const locatorFields: YextFields<LocatorProps> = {
     type: "object",
     label: msg("fields.pageHeading", "Page Heading"),
     objectFields: {
+      typographyId: {
+        generation: { required: false },
+        type: "themeCollection",
+        collection: "typography",
+        label: "Typography",
+      },
       title: {
         type: "translatableString",
         label: msg("fields.title", "Title"),
@@ -486,14 +527,8 @@ const locatorFields: YextFields<LocatorProps> = {
       getEntityTypeLabel(item.props.entityType),
     arrayFields: {
       props: {
-        generation: { schema: locatorResultCardSchema },
-        type: "custom",
-        render: ({
-          value,
-          onChange,
-        }: YextCustomFieldRenderProps<
-          LocatorProps["resultCard"][number]["props"]
-        >) => <ResultCardPropsField value={value} onChange={onChange} />,
+        ...LocatorResultCardFields,
+        type: "object",
       },
     },
     defaultItemProps: {
@@ -592,6 +627,15 @@ export const LocatorComponent: YextComponentConfig<LocatorProps> = {
       ) ?? false
     );
 
+    updatedFields = setDeep(updatedFields, "resultCard.arrayFields.props", {
+      type: "custom",
+      render: ({
+        value,
+        onChange,
+      }: YextCustomFieldRenderProps<LocatorResultCardProps>) => (
+        <ResultCardPropsField value={value} onChange={onChange} />
+      ),
+    });
     return toPuckFields<LocatorProps>(updatedFields);
   },
   defaultProps: {

@@ -1,5 +1,4 @@
 import {
-  backgroundColors,
   EntityField,
   i18nPageInstance,
   msg,
@@ -135,10 +134,9 @@ export const PhoneListComponent: PuckComponent<PhoneListProps> = (props) => {
               <div className="flex items-center gap-3">
                 <div className="flex gap-2 items-center">
                   <PhoneAtom
+                    actionId={styles.actionId}
                     eventName={`${props.eventName || "phone"}${idx}`}
-                    backgroundColor={
-                      styles.color ?? backgroundColors.background2.value
-                    }
+                    backgroundColor={styles.iconBackgroundColor ?? styles.color}
                     label={phone.label}
                     phoneNumber={phone.number}
                     format={styles.phoneFormat}

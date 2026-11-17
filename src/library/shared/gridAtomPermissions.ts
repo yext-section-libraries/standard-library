@@ -1,4 +1,4 @@
-import type { YextComponentConfig } from "@yext/visual-editor";
+import { type YextComponentConfig } from "@yext/visual-editor";
 
 type PermissionContext = Pick<
   Parameters<NonNullable<YextComponentConfig["resolvePermissions"]>>[1],

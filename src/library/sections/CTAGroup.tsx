@@ -1,8 +1,7 @@
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
-import { createUsePuck, PuckComponent, setDeep } from "@puckeditor/core";
+import { PuckComponent, setDeep } from "@puckeditor/core";
 import {
   ThemeColor,
-  ThemeOptions,
   PresetImageType,
   msg,
   pt,
@@ -15,14 +14,12 @@ import {
 } from "@yext/visual-editor";
 import { CTA } from "../shared/sectionSupport/atoms/cta.tsx";
 import { useTranslation } from "react-i18next";
-import { CTAVariant } from "../shared/sectionSupport/atoms/cta.tsx";
 import { CTAWrapperProps } from "./CTAWrapper.tsx";
 import {
   isNonNormalizableLinkType,
+  useThemeData,
+  resolveThemeEntry,
   getCTAType,
-  YextAutoField,
-  YextCustomFieldRenderProps,
-  siteColorZodSchema,
 } from "@yext/visual-editor/section-library-support";
 
 type BasicCTAProps = {
@@ -31,7 +28,7 @@ type BasicCTAProps = {
   /** Whether CTA links should be normalized before rendering */
   normalizeLink: boolean;
   /** The visual style of the CTA. */
-  variant: CTAVariant;
+  actionId?: string;
   /** The image to use if the CTA is set to preset image */
   presetImage?: PresetImageType;
   color?: ThemeColor;
@@ -50,54 +47,13 @@ const defaultButton: BasicCTAProps = {
     },
   },
   normalizeLink: true,
-  variant: "primary",
+
   presetImage: "app-store",
 };
 
 export interface CTAGroupProps {
   buttons: BasicCTAProps[];
 }
-
-const usePuck = createUsePuck();
-
-const CTAGroupTextColorField = ({
-  name,
-  value,
-  onChange,
-  readOnly,
-}: YextCustomFieldRenderProps<ThemeColor | undefined>): JSX.Element | null => {
-  const button = usePuck((state) => {
-    const itemSelector = state.appState.ui.itemSelector;
-    const buttonIndex = /^buttons\[(\d+)\]\.textColor$/.exec(name)?.[1];
-    const buttons = itemSelector
-      ? state.getItemBySelector(itemSelector)?.props.buttons
-      : undefined;
-
-    return buttonIndex !== undefined && Array.isArray(buttons)
-      ? (buttons[Number(buttonIndex)] as BasicCTAProps)
-      : undefined;
-  });
-
-  if (
-    button?.variant !== "primary" ||
-    getCTAType(button.entityField).ctaType === "presetImage"
-  ) {
-    return null;
-  }
-
-  return (
-    <YextAutoField
-      field={{
-        type: "basicSelector",
-        label: msg("fields.textColor", "Text Color"),
-        options: "SITE_COLOR",
-      }}
-      value={value}
-      onChange={onChange}
-      readOnly={readOnly}
-    />
-  );
-};
 
 const ctaGroupFields: YextFields<CTAGroupProps> = {
   buttons: {
@@ -118,10 +74,11 @@ const ctaGroupFields: YextFields<CTAGroupProps> = {
           { label: msg("fields.options.no", "No"), value: false },
         ],
       },
-      variant: {
-        label: msg("fields.variant", "Variant"),
-        type: "radio",
-        options: ThemeOptions.CTA_VARIANT,
+      actionId: {
+        generation: { required: false },
+        label: "Action preset",
+        type: "themeCollection",
+        collection: "actions",
       },
       presetImage: {
         generation: {
@@ -139,14 +96,9 @@ const ctaGroupFields: YextFields<CTAGroupProps> = {
         options: "SITE_COLOR",
       },
       textColor: {
-        generation: {
-          schema: siteColorZodSchema.optional(),
-        },
-        type: "custom",
+        type: "basicSelector",
         label: msg("fields.textColor", "Text Color"),
-        render: (props: YextCustomFieldRenderProps<ThemeColor | undefined>) => (
-          <CTAGroupTextColorField {...props} />
-        ),
+        options: "SITE_COLOR",
       },
     },
     getItemSummary: (_: BasicCTAProps, i?: number) =>
@@ -156,6 +108,7 @@ const ctaGroupFields: YextFields<CTAGroupProps> = {
 
 const CTAGroupComponent: PuckComponent<CTAGroupProps> = ({ buttons }) => {
   const streamDocument = useDocument();
+  const theme = useThemeData();
   const { t, i18n } = useTranslation();
   const locale = i18n.language;
 
@@ -191,7 +144,10 @@ const CTAGroupComponent: PuckComponent<CTAGroupProps> = ({ buttons }) => {
             <div
               key={idx}
               className={
-                button.variant === "link" ? "w-fit" : "w-full sm:w-auto"
+                resolveThemeEntry(theme.actions, button.actionId)
+                  .presentation === "link"
+                  ? "w-fit"
+                  : "w-full sm:w-auto"
               }
             >
               <CTA
@@ -204,7 +160,7 @@ const CTAGroupComponent: PuckComponent<CTAGroupProps> = ({ buttons }) => {
                 }
                 linkType={cta.linkType}
                 normalizeLink={button.normalizeLink}
-                variant={button.variant}
+                actionId={button.actionId}
                 ctaType={ctaType}
                 presetImageType={button.presetImage}
                 className="truncate w-full"

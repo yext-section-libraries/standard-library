@@ -1,7 +1,6 @@
 import { Slot } from "@puckeditor/core";
 import {
   ThemeColor,
-  backgroundColors,
   ThemeOptions,
   YextComponentConfig,
   YextFields,
@@ -34,7 +33,6 @@ export interface TeamSectionProps {
   styles: {
     /**
      * The background color of the section.
-     * @defaultValue Background Color 3
      */
     backgroundColor?: ThemeColor;
 
@@ -131,7 +129,6 @@ export const TeamSection: YextComponentConfig<TeamSectionProps> = {
   fields: teamSectionFields,
   defaultProps: {
     styles: {
-      backgroundColor: backgroundColors.background3.value,
       showSectionHeading: true,
     },
     slots: {
@@ -146,7 +143,10 @@ export const TeamSection: YextComponentConfig<TeamSectionProps> = {
                 field: "",
               },
             },
-            styles: { level: 2, align: "left" },
+            styles: {
+              level: 2,
+              align: "left",
+            },
           } satisfies HeadingTextProps,
         },
       ],

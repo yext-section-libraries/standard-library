@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import {
   ThemeColor,
   TranslatableRichText,
-  backgroundColors,
   YextEntityField,
   ProductStruct,
   deepMerge,
@@ -86,7 +85,7 @@ export const defaultProductCardSlotData = (
       ...(id && { id }),
       ...(index !== undefined && { index }),
       styles: {
-        backgroundColor: backgroundColor ?? backgroundColors.background1.value,
+        backgroundColor: backgroundColor ?? undefined,
       } satisfies ProductCardProps["styles"],
       slots: {
         ImageSlot: [
@@ -129,7 +128,6 @@ export const defaultProductCardSlotData = (
                 },
               },
               styles: {
-                variant: "sm",
                 fontStyle: "bold",
               },
             } satisfies TextProps,
@@ -167,7 +165,6 @@ export const defaultProductCardSlotData = (
                 },
               },
               styles: {
-                variant: "base",
                 fontStyle: "bold",
               },
             } satisfies TextProps,
@@ -185,9 +182,7 @@ export const defaultProductCardSlotData = (
                   constantValueEnabled: true,
                 },
               },
-              styles: {
-                variant: "base",
-              },
+              styles: {},
             } satisfies BodyTextProps,
           },
         ],
@@ -207,7 +202,6 @@ export const defaultProductCardSlotData = (
                 },
               },
               styles: {
-                variant: "secondary",
                 presetImage: "app-store",
               },
             } satisfies CTAWrapperProps,
@@ -237,7 +231,6 @@ export type ProductCardProps = {
   cta?: ProductStruct["cta"];
   styles: {
     /** The background color of each individual card
-     * @defaultValue Background Color 1
      */
     backgroundColor?: ThemeColor;
   };
@@ -563,9 +556,7 @@ const ProductCardComponent: PuckComponent<ProductCardProps> = (props) => {
           ...otherProps,
           styles: {
             ...otherProps.styles,
-            backgroundColor:
-              sharedCardProps?.cardBackground ||
-              backgroundColors.background1.value,
+            backgroundColor: sharedCardProps?.cardBackground || undefined,
           },
           slots: newSlotData,
         } satisfies ProductCardProps,
@@ -784,9 +775,7 @@ export const ProductCard: YextComponentConfig<ProductCardProps> = {
     });
   },
   defaultProps: {
-    styles: {
-      backgroundColor: backgroundColors.background1.value,
-    },
+    styles: {},
     slots: defaultProductCardSlotData().props.slots,
   },
   render: (props) => <ProductCardComponent {...props} />,

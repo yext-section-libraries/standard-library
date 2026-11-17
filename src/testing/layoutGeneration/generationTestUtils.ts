@@ -1,5 +1,9 @@
 import { resolveAllData, type Config, type Data } from "@puckeditor/core";
-import { toPuckFields, type YextComponentConfig } from "@yext/visual-editor";
+import {
+  defaultThemeData,
+  toPuckFields,
+  type YextComponentConfig,
+} from "@yext/visual-editor";
 import { createPuckGenerationCatalog } from "@yext/visual-editor/section-library-support";
 import { sharedComponentConfigs } from "../../library/shared/componentRegistry.ts";
 
@@ -21,7 +25,9 @@ export const components = { ...sections, ...sharedComponentConfigs } as Record<
   string,
   YextComponentConfig<any>
 >;
-export const catalog = createPuckGenerationCatalog(components);
+export const catalog = createPuckGenerationCatalog(components, {
+  themeData: defaultThemeData,
+});
 export const generationSchema = (name: string) =>
   catalog.data.components[name].generation!.props;
 export const config = {

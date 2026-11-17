@@ -25,11 +25,7 @@ import {
   sharedComponentConfigs,
   sharedComponentMetadata,
 } from "../library/shared/componentRegistry.ts";
-import {
-  backgroundColors,
-  VisualEditorProvider,
-  type StreamDocument,
-} from "@yext/visual-editor";
+import { VisualEditorProvider, type StreamDocument } from "@yext/visual-editor";
 
 const renderForm = async (
   props: FormSectionProps,
@@ -772,7 +768,11 @@ describe("FormSection", () => {
 
   it("when the background is dark, then the contact method label uses the section text color", async () => {
     const props = getProps();
-    props.styles.backgroundColor = backgroundColors.background6.value;
+    props.styles.backgroundColor = {
+      selectedColor: "palette-primary-dark",
+      contrastingColor: "white",
+      isDarkColor: true,
+    };
     const { container } = await renderForm(props, true);
     const legend = screen.getByText(/Preferred Communication Method/);
 

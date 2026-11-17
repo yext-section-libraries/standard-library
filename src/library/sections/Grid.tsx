@@ -2,7 +2,6 @@ import * as React from "react";
 import { PuckComponent, Slot } from "@puckeditor/core";
 import { cva } from "class-variance-authority";
 import {
-  backgroundColors,
   ThemeOptions,
   getAnalyticsScopeHash,
   msg,
@@ -202,7 +201,6 @@ export const Grid: YextComponentConfig<GridProps> = {
   defaultProps: {
     columns: 2,
     slots: [{ Column: [] }, { Column: [] }],
-    backgroundColor: backgroundColors.background1.value,
     liveVisibility: true,
     analytics: {
       scope: "gridSection",

@@ -5,7 +5,6 @@ import {
   PersonStruct,
   msg,
   deepMerge,
-  backgroundColors,
   resolveComponentData,
   YextComponentConfig,
   YextFields,
@@ -60,7 +59,7 @@ export const defaultTeamCardSlotData = (
       ...(id && { id }),
       ...(index !== undefined && { index }),
       styles: {
-        backgroundColor: backgroundColor ?? backgroundColors.background1.value,
+        backgroundColor: backgroundColor ?? undefined,
       } satisfies TeamCardProps["styles"],
       slots: {
         ImageSlot: [
@@ -115,7 +114,6 @@ export const defaultTeamCardSlotData = (
                 },
               },
               styles: {
-                variant: "base",
                 fontStyle: "regular",
               },
             } satisfies TextProps,
@@ -181,7 +179,6 @@ export const defaultTeamCardSlotData = (
                 },
               },
               styles: {
-                variant: "primary",
                 presetImage: "app-store",
               },
               eventName: index !== undefined ? `card${index}-cta` : undefined,
@@ -398,8 +395,7 @@ const TeamCardComponent: PuckComponent<TeamCardProps> = (props) => {
           styles: {
             ...otherProps.styles,
             backgroundColor:
-              sharedCardProps?.cardStyles.backgroundColor ||
-              backgroundColors.background1.value,
+              sharedCardProps?.cardStyles.backgroundColor || undefined,
           },
           slots: newSlotData,
         } satisfies TeamCardProps,
@@ -454,10 +450,7 @@ const TeamCardComponent: PuckComponent<TeamCardProps> = (props) => {
       )}
       {showTopSection && showBottomSection && <hr className="border" />}
       {showBottomSection && (
-        <Background
-          background={backgroundColors.background1.value}
-          className="flex flex-grow p-8"
-        >
+        <Background background={undefined} className="flex flex-grow p-8">
           <div className="flex flex-col flex-grow gap-4">
             {showPhone && (
               <slots.PhoneSlot style={{ height: "auto" }} allow={[]} />
@@ -482,9 +475,7 @@ export const TeamCard: YextComponentConfig<TeamCardProps> = {
   fields: teamCardFields,
   inline: true,
   defaultProps: {
-    styles: {
-      backgroundColor: backgroundColors.background1.value,
-    },
+    styles: {},
     slots: defaultTeamCardSlotData().props.slots,
   },
   resolveData: (data, params) => {

@@ -1,6 +1,5 @@
 import {
   ThemeColor,
-  backgroundColors,
   ThemeOptions,
   msg,
   getAnalyticsScopeHash,
@@ -34,7 +33,6 @@ export interface InsightSectionProps {
   styles: {
     /**
      * The background color for the entire section.
-     * @defaultValue Background Color 2
      */
     backgroundColor?: ThemeColor;
 
@@ -130,7 +128,6 @@ export const InsightSection: YextComponentConfig<InsightSectionProps> = {
   fields: insightSectionFields,
   defaultProps: {
     styles: {
-      backgroundColor: backgroundColors.background2.value,
       showSectionHeading: true,
     },
     slots: {

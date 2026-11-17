@@ -19,7 +19,6 @@ import {
   msg,
   pt,
   useDocument,
-  useBackground,
   ThemeColor,
   themeManagerCn,
   toPuckFields,
@@ -143,6 +142,12 @@ const footerExpandedLinksWrapperFields: YextFields<FooterExpandedLinksWrapperPro
       type: "object",
       label: msg("fields.styles", "Styles"),
       objectFields: {
+        actionId: {
+          generation: { required: false },
+          type: "themeCollection",
+          collection: "actions",
+          label: "Action preset",
+        },
         color: {
           type: "basicSelector",
           label: msg("fields.color", "Color"),
@@ -160,6 +165,7 @@ export interface FooterExpandedLinksWrapperProps {
     }[];
   };
   styles?: {
+    actionId?: string;
     color?: ThemeColor;
   };
   /** @internal */
@@ -272,8 +278,6 @@ const FooterExpandedLinksWrapperInternal: PuckComponent<
   } = props;
   const streamDocument = useDocument();
   const { i18n } = useTranslation();
-  const background = useBackground();
-  const isDarkBackground = background?.isDarkColor ?? false;
 
   const resolvedSections = (data.sections || []).map((section) =>
     resolveLocalizedFooterLinkSection(section, i18n.language, streamDocument)
@@ -281,17 +285,8 @@ const FooterExpandedLinksWrapperInternal: PuckComponent<
   const sections = puck.isEditing
     ? resolvedSections
     : resolvedSections.filter((section) => section.links.length > 0);
-  const defaultLabelColor = isDarkBackground
-    ? ({ selectedColor: "white", contrastingColor: "black" } as ThemeColor)
-    : ({ selectedColor: "black", contrastingColor: "white" } as ThemeColor);
-  const defaultLinkColor = isDarkBackground
-    ? ({ selectedColor: "white", contrastingColor: "black" } as ThemeColor)
-    : ({
-        selectedColor: "palette-primary-dark",
-        contrastingColor: "white",
-      } as ThemeColor);
-  const resolvedLabelColor = styles?.color ?? defaultLabelColor;
-  const resolvedLinkColor = styles?.color ?? defaultLinkColor;
+  const resolvedLabelColor = styles?.color;
+  const resolvedLinkColor = styles?.color;
   const desktopSectionColumns = Math.max(1, Math.min(sections.length, 4));
 
   return (
@@ -323,10 +318,7 @@ const FooterExpandedLinksWrapperInternal: PuckComponent<
               })}
             >
               {section.label.trim() !== "" && (
-                <Body
-                  className="break-words font-link-fontWeight font-body-fontFamily font-body-fontWeight"
-                  color={resolvedLabelColor}
-                >
+                <Body className="break-words" color={resolvedLabelColor}>
                   {section.label}
                 </Body>
               )}
@@ -334,9 +326,9 @@ const FooterExpandedLinksWrapperInternal: PuckComponent<
                 {section.links.length > 0
                   ? section.links.map((linkData, linkIndex) => (
                       <CTA
+                        actionId={styles?.actionId}
                         openInNewTab={linkData.openInNewTab}
                         key={linkIndex}
-                        variant="headerFooterMainLink"
                         eventName={`cta.expandedFooter.${sectionIndex}-Link-${linkIndex + 1}`}
                         label={linkData.label}
                         linkType={linkData.linkType}
@@ -381,6 +373,8 @@ export const FooterExpandedLinksWrapper: YextComponentConfig<FooterExpandedLinks
         )
       ),
     defaultProps: {
+      styles: {},
+
       data: {
         sections: [
           { ...defaultSection },

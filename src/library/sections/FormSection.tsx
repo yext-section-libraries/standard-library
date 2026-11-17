@@ -1,8 +1,13 @@
+import {
+  useThemeData,
+  resolveThemeEntry,
+  resolveThemeColor,
+  getDefaultForegroundColor,
+} from "@yext/visual-editor/section-library-support";
 import React from "react";
 import { PuckComponent, setDeep } from "@puckeditor/core";
 import { useTranslation } from "react-i18next";
 import {
-  backgroundColors,
   CustomCodeSection,
   EntityField,
   getDefaultRTF,
@@ -53,13 +58,14 @@ export interface FormSectionProps {
   };
   /** Colors for the section and the contact method label. */
   styles: {
+    headingTypographyId?: string;
     backgroundColor?: ThemeColor;
     textColor?: ThemeColor;
     preferredContactMethodTextColor?: ThemeColor;
   };
   /** Button variant and optional site colors for the submit CTA. */
   ctaStyles: {
-    buttonVariant: "primary" | "secondary" | "link";
+    actionId?: string;
     color?: ThemeColor;
     labelColor?: ThemeColor;
   };
@@ -112,7 +118,7 @@ const turnstileConfigurationErrors = new Set([
   "400070",
 ]);
 const inputClassName =
-  "w-full rounded-button-borderRadius border border-current/30 bg-transparent px-3 py-3 font-body-fontFamily text-body-fontSize placeholder:text-current/60 focus-visible:outline-2 focus-visible:outline-palette-primary";
+  "w-full rounded border border-current/30 bg-transparent px-3 py-3   placeholder:text-current/60 focus-visible:outline-2 focus-visible:outline-current";
 
 /**
  * Load Turnstile in the document that contains the form, including a preview iframe.
@@ -233,10 +239,7 @@ const ContactMethodField = ({
   return (
     <fieldset className="col-span-full mb-2">
       <legend
-        className={themeManagerCn(
-          "mb-4 font-body-fontFamily font-body-fontWeight",
-          getTextColorClass(textColor)
-        )}
+        className={themeManagerCn("mb-4  ", getTextColorClass(textColor))}
         style={getTextColorStyle(textColor)}
       >
         {label}
@@ -244,17 +247,14 @@ const ContactMethodField = ({
       </legend>
       <div className="flex flex-col gap-2">
         {(["PHONE", "EMAIL"] as const).map((method) => (
-          <label
-            key={method}
-            className="flex items-center gap-3 font-body-fontFamily text-body-fontSize"
-          >
+          <label key={method} className="flex items-center gap-3">
             <input
               type="radio"
               name="preferred_contact_method"
               value={method}
               checked={contactMethod === method}
               onChange={() => onContactMethodChange(method)}
-              className="accent-palette-primary"
+              className="accent-current"
             />
             {t(method === "PHONE" ? "form.phone" : "form.email", {
               defaultValue: method === "PHONE" ? "Phone" : "Email",
@@ -319,10 +319,7 @@ const FormInputField = ({
           : "min-w-0"
       }
     >
-      <label
-        htmlFor={id}
-        className="mb-2 block font-body-fontFamily text-body-sm-fontSize"
-      >
+      <label htmlFor={id} className="mb-2 block">
         {label}
         {showRequiredMarker ? " *" : ""}
       </label>
@@ -461,17 +458,20 @@ const FormFields = ({
             fieldId={phoneOptInText.field}
             constantValueEnabled={phoneOptInText.constantValueEnabled}
           >
-            <label className="flex items-start gap-3 font-body-fontFamily text-body-sm-fontSize">
+            <label className="flex items-start gap-3">
               <input
                 type="checkbox"
                 name="relate_opt_in"
                 required={field.required}
-                className="mt-1 accent-palette-primary"
+                className="mt-1 accent-current"
               />
               <div>
-                {resolveComponentData(phoneOptInText, locale, streamDocument, {
-                  variant: "sm",
-                })}
+                {resolveComponentData(
+                  phoneOptInText,
+                  locale,
+                  streamDocument,
+                  {}
+                )}
                 {field.required ? " *" : ""}
               </div>
             </label>
@@ -500,21 +500,18 @@ const FormFields = ({
             }
           }}
         >
-          <legend className="mb-2 font-body-fontFamily text-body-fontSize">
+          <legend className="mb-2">
             {label}
             {field.required ? " *" : ""}
           </legend>
           <div className="flex flex-col gap-2">
             {field.options?.map((option, optionIndex) => (
-              <label
-                key={optionIndex}
-                className="flex items-center gap-3 font-body-fontFamily text-body-fontSize"
-              >
+              <label key={optionIndex} className="flex items-center gap-3">
                 <input
                   type="checkbox"
                   name={name}
                   value={option.value}
-                  className="accent-palette-primary"
+                  className="accent-current"
                 />
                 {resolveComponentData(option.label, locale, streamDocument)}
               </label>
@@ -617,6 +614,16 @@ const FormSectionComponent: PuckComponent<FormSectionProps> = ({
   id,
 }) => {
   const streamDocument = useDocument();
+  const theme = useThemeData();
+  const submitAction = resolveThemeEntry(theme.actions, ctaStyles.actionId);
+  const submitBackground =
+    submitAction.presentation === "button"
+      ? resolveThemeColor(theme, submitAction.default.backgroundColor)
+      : undefined;
+  const filledSubmitButton =
+    submitBackground !== undefined &&
+    submitBackground !== "transparent" &&
+    !/^#[0-9a-f]{6}00$/i.test(submitBackground);
   const { i18n, t } = useTranslation();
   const locale = i18n.language;
   const [contactMethod, setContactMethod] = React.useState(
@@ -829,7 +836,7 @@ const FormSectionComponent: PuckComponent<FormSectionProps> = ({
           fieldId={data.heading.field}
           constantValueEnabled={data.heading.constantValueEnabled}
         >
-          <Heading level={2}>
+          <Heading level={2} typographyId={styles.headingTypographyId}>
             {resolveComponentData(data.heading, locale, streamDocument)}
           </Heading>
         </EntityField>
@@ -910,22 +917,22 @@ const FormSectionComponent: PuckComponent<FormSectionProps> = ({
             >
               <Button
                 type="submit"
-                variant={ctaStyles.buttonVariant}
+                actionId={ctaStyles.actionId}
                 disabled={isSubmitDisabled}
                 style={{
-                  backgroundColor:
-                    ctaStyles.buttonVariant === "primary"
-                      ? getThemeColorCssValue(ctaStyles.color?.selectedColor)
-                      : undefined,
+                  background: filledSubmitButton
+                    ? getThemeColorCssValue(ctaStyles.color)
+                    : undefined,
                   borderColor:
-                    ctaStyles.buttonVariant !== "link"
-                      ? getThemeColorCssValue(ctaStyles.color?.selectedColor)
+                    submitAction.presentation === "button"
+                      ? getThemeColorCssValue(ctaStyles.color, true)
                       : undefined,
                   color: getThemeColorCssValue(
-                    ctaStyles.labelColor?.selectedColor ??
-                      (ctaStyles.buttonVariant === "primary"
-                        ? ctaStyles.color?.contrastingColor
-                        : ctaStyles.color?.selectedColor)
+                    ctaStyles.labelColor ??
+                      (filledSubmitButton
+                        ? getDefaultForegroundColor(ctaStyles.color)
+                        : ctaStyles.color),
+                    true
                   ),
                 }}
               >
@@ -939,9 +946,7 @@ const FormSectionComponent: PuckComponent<FormSectionProps> = ({
               </Button>
             </EntityField>
           </div>
-          <p className="font-body-fontFamily text-body-sm-fontSize">
-            * {t("form.required", { defaultValue: "Required" })}
-          </p>
+          <p>* {t("form.required", { defaultValue: "Required" })}</p>
         </form>
       </div>
     </PageSection>
@@ -1100,6 +1105,12 @@ const formSectionFields: YextFields<FormSectionProps> = {
     type: "object",
     label: msg("fields.styles", "Styles"),
     objectFields: {
+      headingTypographyId: {
+        generation: { required: false },
+        type: "themeCollection",
+        collection: "typography",
+        label: "Heading typography",
+      },
       backgroundColor: {
         type: "basicSelector",
         label: msg("fields.backgroundColor", "Background Color"),
@@ -1124,10 +1135,11 @@ const formSectionFields: YextFields<FormSectionProps> = {
     type: "object",
     label: msg("form.ctaStyles", "CTA Styles"),
     objectFields: {
-      buttonVariant: {
-        type: "radio",
-        label: msg("form.buttonVariant", "Button Variant"),
-        options: ThemeOptions.CTA_VARIANT,
+      actionId: {
+        generation: { required: false },
+        type: "themeCollection",
+        label: "Action preset",
+        collection: "actions",
       },
       color: {
         type: "basicSelector",
@@ -1225,13 +1237,8 @@ export const FormSection: YextComponentConfig<FormSectionProps> = {
         },
       ],
     },
-    styles: {
-      backgroundColor: backgroundColors.background1.value,
-      preferredContactMethodTextColor: undefined,
-    },
-    ctaStyles: {
-      buttonVariant: "primary",
-    },
+    styles: {},
+    ctaStyles: {},
     liveVisibility: true,
   },
   render: (props) => (

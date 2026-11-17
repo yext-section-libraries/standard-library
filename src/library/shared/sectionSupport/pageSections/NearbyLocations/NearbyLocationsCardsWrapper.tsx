@@ -2,7 +2,6 @@ import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
 import {
-  backgroundColors,
   ThemeColor,
   HeadingLevel,
   ThemeOptions,
@@ -60,6 +59,8 @@ export type NearbyLocationCardsWrapperProps = {
 
     /** The heading level for the card title. */
     headingLevel?: HeadingLevel;
+    typographyId?: string;
+    actionId?: string;
     /**
      * The color applied to the card title
      * @defaultValue inherited from theme
@@ -80,6 +81,7 @@ export type NearbyLocationCardsWrapperProps = {
 
     /** Styling for the phone display on each card. */
     phone: {
+      actionId?: string;
       /**
        * The display format for phone numbers on the cards.
        * @defaultValue 'domestic'
@@ -166,6 +168,18 @@ const nearbyLocationCardsWrapperFields: YextFields<NearbyLocationCardsWrapperPro
           label: msg("fields.backgroundColor", "Background Color"),
           options: "BACKGROUND_COLOR",
         },
+        actionId: {
+          type: "themeCollection",
+          collection: "actions",
+          label: "Title action",
+          generation: { required: false },
+        },
+        typographyId: {
+          generation: { required: false },
+          type: "themeCollection",
+          collection: "typography",
+          label: "Heading typography",
+        },
         headingLevel: {
           generation: { required: false },
           type: "basicSelector",
@@ -240,6 +254,12 @@ const nearbyLocationCardsWrapperFields: YextFields<NearbyLocationCardsWrapperPro
           type: "object",
           label: msg("fields.phone", "Phone"),
           objectFields: {
+            actionId: {
+              type: "themeCollection",
+              collection: "actions",
+              label: "Phone action",
+              generation: { required: false },
+            },
             phoneNumberFormat: {
               label: msg("fields.phoneNumberFormat", "Phone Number Format"),
               type: "radio",
@@ -401,7 +421,6 @@ export const defaultNearbyLocationsCardsProps: NearbyLocationCardsWrapperProps =
       limit: 3,
     },
     styles: {
-      backgroundColor: backgroundColors.background1.value,
       headingLevel: 3,
       hours: {
         showCurrentStatus: true,

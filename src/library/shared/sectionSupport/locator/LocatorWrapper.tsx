@@ -512,7 +512,9 @@ const LocatorInternal = ({
   >(null);
 
   const setResultsRef = React.useCallback((index: number) => {
-    if (!resultsRef?.current) return null;
+    if (!resultsRef?.current) {
+      return null;
+    }
     return (result: HTMLDivElement) => (resultsRef.current[index] = result);
   }, []);
 
@@ -605,7 +607,9 @@ const LocatorInternal = ({
     const config: LocationStyleConfig = {};
     (locationStyles ?? []).forEach((locationStyle) => {
       const entityType = locationStyle.entityType;
-      if (!entityType) return;
+      if (!entityType) {
+        return;
+      }
       const iconValue =
         locationStyle.pinIcon?.type === "icon"
           ? locationStyle.pinIcon.iconName
@@ -1047,8 +1051,7 @@ const LocatorInternal = ({
   const hasFilterModalToggle =
     openNowButton || showDistanceOptions || hasFacetOptions;
   const filterAccentColorCssVariable =
-    getThemeColorCssValue(accentColor?.selectedColor) ??
-    "var(--colors-palette-primary-dark)";
+    getThemeColorCssValue(accentColor, true) ?? "currentColor";
   const resolvedHeading =
     (pageHeading?.title &&
       resolveComponentData(pageHeading.title, i18n.language, streamDocument)) ||
@@ -1088,7 +1091,11 @@ const LocatorInternal = ({
           id="locatorLeftDiv"
         >
           <div className="px-8 py-6 gap-4 flex flex-col">
-            <Heading level={1} color={pageHeading?.color}>
+            <Heading
+              level={1}
+              typographyId={pageHeading?.typographyId}
+              color={pageHeading?.color}
+            >
               {resolvedHeading}
             </Heading>
             <FilterSearch
@@ -1102,16 +1109,13 @@ const LocatorInternal = ({
               placeholder={t("searchHere", "Search here...")}
               ariaLabel={t("findALocation", "Find a Location")}
               customCssClasses={{
-                filterSearchContainer:
-                  "font-body-fontFamily ve-locator-filter-search",
+                filterSearchContainer: " ve-locator-filter-search",
                 focusedOption: "bg-gray-200 hover:bg-gray-200 block",
                 option: "hover:bg-gray-100 px-4 py-3",
                 inputElement:
-                  "rounded-md p-4 h-11 font-body-fontFamily font-body-fontWeight text-body-fontSize placeholder:text-gray-700",
-                currentLocationButton:
-                  "h-7 w-7 font-body-fontFamily font-body-fontWeight text-body-fontSize text-palette-primary-dark",
-                label:
-                  "font-body-fontFamily font-body-fontWeight text-body-fontSize text-palette-primary-dark",
+                  "rounded-md p-4 h-11    placeholder:text-gray-700",
+                currentLocationButton: "h-7 w-7    text-current",
+                label: "   text-current",
               }}
               showCurrentLocationButton={showCurrentLocationButton}
               geolocationProps={{
@@ -1120,7 +1124,7 @@ const LocatorInternal = ({
               }}
             />
             {showDistanceUnitToggle && (
-              <div className="flex items-center justify-end gap-3 font-body-fontFamily text-body-sm-fontSize">
+              <div className="flex items-center justify-end gap-3">
                 <span>{t("distance", "Distance")}</span>
                 <div
                   role="group"
@@ -1136,8 +1140,8 @@ const LocatorInternal = ({
                       onClick={() => handleDistanceUnitChange(unit)}
                       className={`px-3 py-1 font-bold ${
                         distanceUnit === unit
-                          ? "bg-palette-primary text-palette-primary-contrast"
-                          : "bg-white text-palette-primary-dark"
+                          ? "bg-transparent text-current"
+                          : "bg-white text-current"
                       }`}
                     >
                       {unit === MILE ? "mi" : "km"}
@@ -1148,7 +1152,7 @@ const LocatorInternal = ({
             )}
           </div>
           <div className="relative flex-1 flex flex-col min-h-0">
-            <div className="px-8 py-4 text-body-fontSize border-y border-gray-300 inline-block">
+            <div className="px-8 py-4 border-y border-gray-300 inline-block">
               <div
                 className="flex flex-row justify-between"
                 id="levelWithModal"
@@ -1163,7 +1167,7 @@ const LocatorInternal = ({
                 {hasFilterModalToggle && (
                   <Dialog.Trigger asChild>
                     <button
-                      className="inline-flex justify-between items-center gap-2 bg-white font-bold font-body-fontFamily text-body-sm-fontSize"
+                      className="inline-flex justify-between items-center gap-2 bg-white font-bold text-sm"
                       style={{ color: filterAccentColorCssVariable }}
                     >
                       {t("filter", "Filter")}
@@ -1176,8 +1180,7 @@ const LocatorInternal = ({
                 <AppliedFilters
                   hiddenFields={[LOCATION_FIELD, COUNTRY_CODE_FIELD]}
                   customCssClasses={{
-                    removableFilter:
-                      "text-md font-normal mt-2 mb-0 font-body-fontFamily",
+                    removableFilter: "text-md font-normal mt-2 mb-0 ",
                     clearAllButton: "hidden",
                     appliedFiltersContainer: "mt-0 mb-0",
                   }}
@@ -1220,8 +1223,7 @@ const LocatorInternal = ({
               <div className="border-t border-gray-300 pt-4">
                 <Pagination
                   customCssClasses={{
-                    selectedLabel:
-                      "bg-palette-primary text-palette-primary-contrast border-palette-primary",
+                    selectedLabel: "bg-transparent text-current border-current",
                   }}
                 />
               </div>

@@ -13,7 +13,7 @@ const sectionLibraryI18nModule = "virtual:section-library-i18n";
 
 /**
  * A custom plugin to stub out CSS/SCSS imports during Vitest runs,
- * except for componentTests.css and style.css. This ensures that
+ * except for componentTests.css, style.css, and editor.css. This ensures that
  * the css applied during tests is the same css applied the page templates.
  */
 const cssStubPlugin = {
@@ -23,7 +23,8 @@ const cssStubPlugin = {
     if (
       (id.endsWith(".css") || id.endsWith(".scss")) &&
       !id.endsWith("componentTests.css") &&
-      !id.endsWith("style.css")
+      !id.endsWith("style.css") &&
+      !id.endsWith("editor.css")
     ) {
       return id;
     }
@@ -32,7 +33,8 @@ const cssStubPlugin = {
     if (
       (id.endsWith(".css") || id.endsWith(".scss")) &&
       !id.endsWith("componentTests.css") &&
-      !id.endsWith("style.css")
+      !id.endsWith("style.css") &&
+      !id.endsWith("editor.css")
     ) {
       return "export default {}";
     }

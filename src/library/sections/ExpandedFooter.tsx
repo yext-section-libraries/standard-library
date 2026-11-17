@@ -2,7 +2,6 @@ import { AnalyticsScopeProvider } from "@yext/pages-components";
 import { Slot, PuckComponent, setDeep } from "@puckeditor/core";
 import { cva } from "class-variance-authority";
 import {
-  backgroundColors,
   ThemeColor,
   ThemeOptions,
   msg,
@@ -554,10 +553,12 @@ export const ExpandedFooter: YextComponentConfig<ExpandedFooterProps> = {
         {
           type: "FooterLinksSlot",
           props: {
+            variant: "primary",
+
             data: {
               links: defaultLinks,
             },
-            variant: "primary",
+
             eventNamePrefix: "primary",
             desktopContentAlignment: "left",
             mobileContentAlignment: "left",
@@ -598,7 +599,6 @@ export const ExpandedFooter: YextComponentConfig<ExpandedFooterProps> = {
           type: "SecondaryFooterSlot",
           props: {
             styles: {
-              backgroundColor: backgroundColors.background2.value,
               desktopContentAlignment: "left",
               mobileContentAlignment: "left",
               showLinks: true,
@@ -609,10 +609,12 @@ export const ExpandedFooter: YextComponentConfig<ExpandedFooterProps> = {
                 {
                   type: "FooterLinksSlot",
                   props: {
+                    variant: "secondary",
+
                     data: {
                       links: defaultLinks,
                     },
-                    variant: "secondary",
+
                     eventNamePrefix: "secondary",
                     desktopContentAlignment: "left",
                     mobileContentAlignment: "left",
@@ -632,7 +634,6 @@ export const ExpandedFooter: YextComponentConfig<ExpandedFooterProps> = {
     },
     styles: {
       primaryFooter: {
-        backgroundColor: backgroundColors.background6.value,
         linksPosition: "right",
         desktopContentAlignment: "left",
         mobileContentAlignment: "left",

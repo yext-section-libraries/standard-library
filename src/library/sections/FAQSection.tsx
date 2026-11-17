@@ -1,13 +1,8 @@
 import { PuckComponent, Slot, SlotComponent } from "@puckeditor/core";
 import {
-  backgroundColors,
   SectionConfig,
   ThemeColor,
   ThemeOptions,
-} from "@yext/visual-editor";
-import { PageSection } from "../shared/sectionSupport/atoms/pageSection.tsx";
-import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
-import {
   msg,
   getAnalyticsScopeHash,
   FAQStruct,
@@ -15,6 +10,8 @@ import {
   YextFields,
   createSlottedItemSource,
 } from "@yext/visual-editor";
+import { PageSection } from "../shared/sectionSupport/atoms/pageSection.tsx";
+import { VisibilityWrapper } from "../shared/sectionSupport/atoms/visibilityWrapper.tsx";
 import { HeadingTextProps } from "./HeadingText.tsx";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
 import {
@@ -31,7 +28,6 @@ import { MappedEntityFieldConditionalRender } from "../shared/sectionSupport/pag
 export interface FAQStyles {
   /**
    * The background color of the section.
-   * @defaultValue Background Color 3
    */
   backgroundColor?: ThemeColor;
 
@@ -214,14 +210,16 @@ export const FAQSection: YextComponentConfig<FAQSectionProps> = {
                 field: "",
               },
             },
-            styles: { level: 2, align: "left" },
+            styles: {
+              level: 2,
+              align: "left",
+            },
           } satisfies HeadingTextProps,
         },
       ],
       CardSlot: faqCardsSource.defaultWrapperProps.slots.CardSlot,
     },
     styles: {
-      backgroundColor: backgroundColors.background2.value,
       showSectionHeading: true,
     },
     liveVisibility: true,
