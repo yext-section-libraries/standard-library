@@ -1,8 +1,7 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import * as React from "react";
 import { PuckComponent, Slot, WithId, setDeep } from "@puckeditor/core";
 import {
-  ThemeColor,
-  backgroundColors,
   EventStruct,
   msg,
   deepMerge,
@@ -53,7 +52,7 @@ const defaultEvent = {
 export const defaultEventCardSlotData = (
   id?: string,
   index?: number,
-  backgroundColor?: ThemeColor,
+  backgroundColor?: SurfaceValue,
   truncateDescription?: boolean,
   sharedSlotStyles?: Record<string, any>
 ) => {
@@ -63,7 +62,7 @@ export const defaultEventCardSlotData = (
       ...(id && { id }),
       ...(index !== undefined && { index }),
       styles: {
-        backgroundColor: backgroundColor ?? backgroundColors.background1.value,
+        backgroundColor: backgroundColor,
         truncateDescription: truncateDescription ?? true,
       } satisfies EventCardProps["styles"],
       slots: {
@@ -151,7 +150,7 @@ export const defaultEventCardSlotData = (
                 },
               },
               styles: {
-                variant: "base",
+                typographyRole: "body",
               },
               parentStyles: {
                 className: "md:line-clamp-2",
@@ -175,7 +174,7 @@ export const defaultEventCardSlotData = (
                 },
               },
               styles: {
-                variant: "primary",
+                variant: "primary-button",
                 presetImage: "app-store",
               },
               eventName: index !== undefined ? `cta${index}` : undefined,
@@ -208,7 +207,7 @@ export type EventCardProps = {
   /** Styling for all the cards. */
   styles: {
     /** The background color of each event card */
-    backgroundColor?: ThemeColor;
+    backgroundColor?: SurfaceValue;
     /** Whether to truncate the event description text */
     truncateDescription: boolean;
   };
@@ -250,9 +249,8 @@ const eventCardFields: YextFields<EventCardProps> = {
     objectFields: {
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
       },
       truncateDescription: {
         label: msg("fields.truncateDescription", "Truncate Description"),
@@ -392,9 +390,7 @@ const EventCardComponent: PuckComponent<EventCardProps> = (props) => {
           ...otherProps,
           styles: {
             ...otherProps.styles,
-            backgroundColor:
-              sharedCardProps?.cardStyles.backgroundColor ||
-              backgroundColors.background1.value,
+            ...sharedCardProps?.cardStyles,
             truncateDescription:
               sharedCardProps?.cardStyles.truncateDescription,
           },
@@ -461,7 +457,7 @@ export const EventCard: YextComponentConfig<EventCardProps> = {
   fields: eventCardFields,
   defaultProps: {
     styles: {
-      backgroundColor: backgroundColors.background1.value,
+      backgroundColor: "page",
       truncateDescription: true,
     },
     slots: defaultEventCardSlotData().props.slots,

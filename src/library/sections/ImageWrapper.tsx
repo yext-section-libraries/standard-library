@@ -58,6 +58,9 @@ export interface ImageWrapperProps {
   /** Additional CSS classes to apply to the image. */
   className?: string;
 
+  /** @internal Header logos retain their original corners. */
+  applyThemeRadius?: boolean;
+
   sizes?: ImgSizesByBreakpoint;
 
   hideWidthProp?: boolean;
@@ -182,9 +185,7 @@ const ImageWrapperComponent: PuckComponent<ImageWrapperProps> = (props) => {
               : {}),
           ...(styles.aspectRatio ? { aspectRatio: styles.aspectRatio } : {}),
         }}
-        containerClassName={
-          className || "max-w-full rounded-image-borderRadius w-full h-full"
-        }
+        containerClassName={className || "max-w-full w-full h-full"}
         fullHeight
         dragRef={puck.dragRef ?? undefined}
         hasParentData={!!parentData}
@@ -211,6 +212,7 @@ const ImageWrapperComponent: PuckComponent<ImageWrapperProps> = (props) => {
         >
           <Image
             image={resolvedImage}
+            applyThemeRadius={props.applyThemeRadius}
             aspectRatio={styles.aspectRatio}
             imageFillType={styles.imageFillType}
             width={
@@ -219,9 +221,7 @@ const ImageWrapperComponent: PuckComponent<ImageWrapperProps> = (props) => {
                 ? undefined
                 : styles.width
             }
-            className={
-              className || "max-w-full rounded-image-borderRadius w-full"
-            }
+            className={className || "max-w-full w-full"}
             sizes={transformedSizes}
           />
         </MaybeLink>

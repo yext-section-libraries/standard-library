@@ -31,7 +31,7 @@ export const dividerConfig: YextComponentConfig<DesignProps> = {
     surface: {
       borderWidth: "1px 0 0",
       borderStyle: "solid",
-      borderColor: "var(--color-border, #dce2e8)",
+      borderColor: "var(--ve-color-border)",
     },
   },
   render: ({ puck, ...design }) => (
@@ -98,7 +98,7 @@ export const iconConfig: YextComponentConfig<IconProps> = {
     icon: "CheckCircle",
     decorative: true,
     layout: { width: "1.5rem", height: "1.5rem", display: "inline-flex" },
-    typography: { color: "var(--colors-palette-primary, #1d4ed8)" },
+    typography: { color: "var(--ve-color-primary-solid)" },
   },
   render: ({ icon, decorative, puck, ...design }) => {
     const Icon = icons[icon] ?? icons.CheckCircle;
@@ -158,7 +158,7 @@ export const disclosureConfig: YextComponentConfig<DisclosureProps> = {
     surface: {
       borderWidth: "0 0 1px",
       borderStyle: "solid",
-      borderColor: "var(--color-border, #dce2e8)",
+      borderColor: "var(--ve-color-border)",
     },
   },
   render: function Disclosure({

@@ -133,7 +133,13 @@ export const designFields: YextFields<DesignProps> = {
   },
 };
 
-const appearanceKeys = new Set(["styles", "ctaStyles"]);
+const appearanceKeys = new Set([
+  "styles",
+  "ctaStyles",
+  "surfaceRole",
+  "typographyRole",
+  "interactionRole",
+]);
 const accessibilityKeys = new Set(["as", "decorative", "altText", "loading"]);
 const designKeys = new Set(Object.keys(designFields));
 

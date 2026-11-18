@@ -1,5 +1,4 @@
-import { bodyTextDefaults } from "./textInheritance.ts";
-import { getThemeColorCssValue } from "@yext/visual-editor";
+import { surfaceRoles } from "./theme.ts";
 import { sectionContent } from "./recipes.ts";
 
 export const composableSectionNames = [
@@ -50,6 +49,7 @@ export function compositionData(
 ) {
   const compact = name === "BannerSection" || name === "BreadcrumbsSection";
   const content = sectionContent(name, props);
+  const background = props.styles?.backgroundColor;
   return {
     content: assignIds
       ? assignCompositionIds(content, `${props.id ?? name}-composition`)
@@ -58,28 +58,16 @@ export function compositionData(
     liveVisibility: props.liveVisibility ?? true,
     hideWhenMappedContentEmpty: true,
     analytics: props.analytics,
-    typography: {
-      ...bodyTextDefaults,
-      color:
-        getThemeColorCssValue(props.styles?.textColor?.selectedColor) ??
-        (props.styles?.backgroundColor?.contrastingColor === "white"
-          ? "var(--color-on-dark, white)"
-          : "var(--color-text, #172033)"),
-    },
+    surfaceRole: surfaceRoles.includes(background) ? background : "page",
     spacing: {
       paddingBlockStart: compact
         ? "1rem"
-        : "var(--padding-pageSection-verticalPadding, 4rem)",
+        : "var(--ve-page-section-vertical-spacing)",
       paddingBlockEnd: compact
         ? "1rem"
-        : "var(--padding-pageSection-verticalPadding, 4rem)",
+        : "var(--ve-page-section-vertical-spacing)",
       paddingInlineStart: "var(--space-6, 1.5rem)",
       paddingInlineEnd: "var(--space-6, 1.5rem)",
-    },
-    surface: {
-      backgroundColor:
-        getThemeColorCssValue(props.styles?.backgroundColor?.selectedColor) ??
-        "var(--color-surface, #fff)",
     },
   };
 }

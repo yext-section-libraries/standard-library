@@ -1,7 +1,6 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import * as React from "react";
 import {
-  ThemeColor,
-  backgroundColors,
   msg,
   InsightStruct,
   TranslatableRichText,
@@ -53,7 +52,7 @@ const defaultInsight = {
 export const defaultInsightCardSlotData = (
   id?: string,
   index?: number,
-  backgroundColor?: ThemeColor,
+  backgroundColor?: SurfaceValue,
   sharedSlotStyles?: Record<string, any>
 ) => {
   const cardData = {
@@ -61,7 +60,7 @@ export const defaultInsightCardSlotData = (
     props: {
       ...(id && { id }),
       styles: {
-        backgroundColor: backgroundColor ?? backgroundColors.background1.value,
+        backgroundColor: backgroundColor,
       } satisfies InsightCardProps["styles"],
       conditionalRender: {
         hasCategory: true,
@@ -130,8 +129,7 @@ export const defaultInsightCardSlotData = (
                 },
               },
               styles: {
-                variant: "base",
-                fontStyle: "regular",
+                typographyRole: "body",
               },
             } satisfies TextProps,
           },
@@ -149,7 +147,7 @@ export const defaultInsightCardSlotData = (
                 },
               },
               styles: {
-                variant: "base",
+                typographyRole: "body",
               },
             } satisfies BodyTextProps,
           },
@@ -194,7 +192,7 @@ export const defaultInsightCardSlotData = (
                 },
               },
               styles: {
-                variant: "primary",
+                variant: "primary-button",
                 presetImage: "app-store",
               },
               eventName: index !== undefined ? `cta${index}` : undefined,
@@ -226,7 +224,7 @@ export type InsightCardProps = {
   /** Styling for all the cards. */
   styles: {
     /** The background color of each insight card */
-    backgroundColor?: ThemeColor;
+    backgroundColor?: SurfaceValue;
   };
 
   /** @internal */
@@ -265,9 +263,8 @@ const insightCardFields: YextFields<InsightCardProps> = {
     objectFields: {
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
       },
     },
   },
@@ -324,7 +321,7 @@ const insightCardFields: YextFields<InsightCardProps> = {
 const InsightCardComponent: PuckComponent<InsightCardProps> = (props) => {
   const { styles, slots, puck, conditionalRender } = props;
   const { sharedCardProps, setSharedCardProps } = useCardContext<{
-    cardBackground: ThemeColor | undefined;
+    cardStyles: InsightCardProps["styles"];
     slotStyles: Record<string, InsightCardProps["styles"]>;
   }>();
   const parentStyles =
@@ -343,8 +340,7 @@ const InsightCardComponent: PuckComponent<InsightCardProps> = (props) => {
     }
 
     if (
-      JSON.stringify(sharedCardProps?.cardBackground) ===
-        JSON.stringify(styles.backgroundColor) &&
+      JSON.stringify(sharedCardProps?.cardStyles) === JSON.stringify(styles) &&
       JSON.stringify(slotStyles) === JSON.stringify(sharedCardProps?.slotStyles)
     ) {
       return;
@@ -386,8 +382,7 @@ const InsightCardComponent: PuckComponent<InsightCardProps> = (props) => {
         props: {
           ...otherProps,
           styles: {
-            backgroundColor:
-              sharedCardProps.cardBackground || styles.backgroundColor,
+            ...sharedCardProps.cardStyles,
           },
           slots: newSlotData,
         },
@@ -402,23 +397,19 @@ const InsightCardComponent: PuckComponent<InsightCardProps> = (props) => {
     }
 
     if (
-      JSON.stringify(sharedCardProps?.cardBackground) ===
-        JSON.stringify(styles.backgroundColor) &&
+      JSON.stringify(sharedCardProps?.cardStyles) === JSON.stringify(styles) &&
       JSON.stringify(sharedCardProps?.slotStyles) === JSON.stringify(slotStyles)
     ) {
       return;
     }
 
     setSharedCardProps({
-      cardBackground: styles.backgroundColor,
+      cardStyles: styles,
       slotStyles: slotStyles,
     });
   }, [styles, slotStyles, puck.isEditing]);
 
-  const mergedStyles = deepMerge(
-    { backgroundColor: sharedCardProps?.cardBackground },
-    styles
-  );
+  const mergedStyles = deepMerge(sharedCardProps?.cardStyles ?? {}, styles);
 
   const isInEditor = puck.isEditing;
 
@@ -431,7 +422,7 @@ const InsightCardComponent: PuckComponent<InsightCardProps> = (props) => {
 
   return (
     <Background
-      className="rounded flex flex-col"
+      className="ve-theme-card overflow-hidden flex flex-col"
       background={mergedStyles.backgroundColor}
       ref={puck.dragRef}
     >
@@ -481,7 +472,7 @@ export const InsightCard: YextComponentConfig<InsightCardProps> = {
   inline: true,
   defaultProps: {
     styles: {
-      backgroundColor: backgroundColors.background1.value,
+      backgroundColor: "page",
     },
     slots: defaultInsightCardSlotData().props.slots,
   },

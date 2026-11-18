@@ -1,7 +1,6 @@
 import { PageSection } from "../../atoms/pageSection.tsx";
 import {
   useDocument,
-  backgroundColors,
   resolveYextEntityField,
   isLocalizedAssetImage,
   resolveLocalizedAssetImage,
@@ -41,14 +40,16 @@ export const ImmersivePromo: PuckComponent<PromoVariantProps> = (props) => {
       className="bg-no-repeat bg-center bg-cover"
     >
       <PageSection
+        surface={localizedImage?.url ? "inherit" : "page"}
         background={
-          localizedImage?.url
+          styles.backgroundColor ??
+          (localizedImage?.url
             ? {
                 selectedColor: "[#00000099]", // keep in sync with VisualEditorThemeClassSafelist
                 contrastingColor: "white",
                 isDarkColor: true,
               }
-            : backgroundColors.background1.value
+            : undefined)
         }
         aria-label={t("promoBanner", "Promo Banner")}
         className="z-10 flex items-center h-full w-full"

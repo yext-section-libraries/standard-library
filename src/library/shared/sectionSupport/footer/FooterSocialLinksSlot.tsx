@@ -17,7 +17,6 @@ import {
   YextFields,
   getThemeColorCssValue,
   ThemeColor,
-  useBackground,
   msg,
 } from "@yext/visual-editor";
 
@@ -104,7 +103,6 @@ const FooterSocialLinksSlotInternal: PuckComponent<
 > = (props) => {
   const { data, styles, puck } = props;
   const { t } = useTranslation();
-  const background = useBackground();
 
   const links: socialLink[] = [
     {
@@ -178,7 +176,7 @@ const FooterSocialLinksSlotInternal: PuckComponent<
         );
         const iconElement = styles?.filledBackground ? (
           <div
-            className={`flex h-12 w-12 items-center justify-center rounded-full ${background?.isDarkColor ? "bg-white text-palette-primary-dark" : "bg-palette-primary-dark text-white"}`}
+            className={`flex h-12 w-12 items-center justify-center rounded-full ve-theme-secondary-button`}
             style={filledIconColor ? { color: filledIconColor } : undefined}
           >
             <Icon className="h-6 w-6" />

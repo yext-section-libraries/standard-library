@@ -1,6 +1,6 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import * as React from "react";
 import { SlotComponent } from "@puckeditor/core";
-import { ThemeColor } from "@yext/visual-editor";
 import { PageSection } from "../atoms/pageSection.tsx";
 import {
   isMappedEntityFieldCollectionEmpty,
@@ -47,7 +47,7 @@ export const MappedCardsSectionContent = ({
   CardsWrapperSlot,
   setCardsWrapperRef,
 }: {
-  backgroundColor?: ThemeColor;
+  backgroundColor?: SurfaceValue;
   showSectionHeading: boolean;
   SectionHeadingSlot: SlotComponent;
   CardsWrapperSlot: SlotComponent;

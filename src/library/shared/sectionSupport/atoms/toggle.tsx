@@ -9,17 +9,8 @@ function Toggle({
   return (
     <TogglePrimitive.Root
       data-slot="toggle"
-      style={{
-        // @ts-ignore: the css variable here resolves to a valid enum value
-        textTransform: "var(--textTransform-button-textTransform)",
-      }}
       className={themeManagerCn(
-        "inline-flex items-center justify-center gap-2 rounded-full text-black " +
-          "bg-gray-100 ",
-        "whitespace-nowrap text-black hover:underline " +
-          "font-button-fontFamily text-button-fontSize font-button-fontWeight tracking-button-letterSpacing ",
-        "data-[state=on]:bg-palette-secondary data-[state=on]:text-palette-secondary-dark " +
-          "self-start w-auto",
+        "ve-theme-control inline-flex items-center justify-center gap-2 rounded-full whitespace-nowrap self-start w-auto data-[state=on]:bg-[var(--ve-color-muted)]",
         className
       )}
       {...props}

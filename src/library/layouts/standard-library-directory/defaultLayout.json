@@ -1,7 +1,7 @@
 {
   "root": {
     "props": {
-      "version": 76,
+      "version": 86,
       "sectionLibraryMigrationVersion": 8,
       "title": {
         "field": "",
@@ -25,8 +25,8 @@
       "type": "ExpandedHeader",
       "props": {
         "styles": {
-          "maxWidth": "theme",
-          "headerPosition": "scrollsWithPage"
+          "headerPosition": "scrollsWithPage",
+          "maxWidth": "theme"
         },
         "slots": {
           "PrimaryHeaderSlot": [
@@ -35,10 +35,7 @@
               "props": {
                 "id": "PrimaryHeaderSlot-326efc21-4048-437b-844c-9fad6adf6b10",
                 "styles": {
-                  "backgroundColor": {
-                    "selectedColor": "white",
-                    "contrastingColor": "black"
-                  }
+                  "backgroundColor": "page"
                 },
                 "slots": {
                   "LogoSlot": [
@@ -104,9 +101,7 @@
                           "collapsedLinks": []
                         },
                         "styles": {
-                          "align": "right",
-                          "variant": "sm",
-                          "weight": "normal"
+                          "align": "right"
                         },
                         "parentData": {
                           "type": "Primary"
@@ -142,7 +137,7 @@
                           }
                         },
                         "styles": {
-                          "variant": "primary",
+                          "variant": "primary-button",
                           "presetImage": "app-store"
                         },
                         "eventName": "primaryCta"
@@ -177,7 +172,7 @@
                           }
                         },
                         "styles": {
-                          "variant": "secondary",
+                          "variant": "secondary-button",
                           "presetImage": "app-store"
                         },
                         "eventName": "secondaryCta"
@@ -197,10 +192,7 @@
                           "showLanguageDropdown": false
                         },
                         "styles": {
-                          "backgroundColor": {
-                            "selectedColor": "palette-primary-light",
-                            "contrastingColor": "black"
-                          }
+                          "backgroundColor": "muted"
                         },
                         "slots": {
                           "LinksSlot": [
@@ -241,9 +233,7 @@
                                   "collapsedLinks": []
                                 },
                                 "styles": {
-                                  "align": "right",
-                                  "variant": "xs",
-                                  "weight": "normal"
+                                  "align": "right"
                                 },
                                 "parentData": {
                                   "type": "Secondary"
@@ -277,10 +267,7 @@
                   "showLanguageDropdown": false
                 },
                 "styles": {
-                  "backgroundColor": {
-                    "selectedColor": "palette-primary-light",
-                    "contrastingColor": "black"
-                  }
+                  "backgroundColor": "muted"
                 },
                 "slots": {
                   "LinksSlot": [
@@ -321,9 +308,7 @@
                           "collapsedLinks": []
                         },
                         "styles": {
-                          "align": "right",
-                          "variant": "xs",
-                          "weight": "normal"
+                          "align": "right"
                         },
                         "parentData": {
                           "type": "Secondary"
@@ -355,14 +340,8 @@
             "type": "Directory",
             "props": {
               "styles": {
-                "backgroundColor": {
-                  "selectedColor": "white",
-                  "contrastingColor": "black"
-                },
-                "listBackgroundColor": {
-                  "selectedColor": "white",
-                  "contrastingColor": "black"
-                }
+                "backgroundColor": "page",
+                "listBackgroundColor": "page"
               },
               "slots": {
                 "TitleSlot": [
@@ -380,8 +359,12 @@
                         }
                       },
                       "styles": {
-                        "level": 2,
-                        "align": "center"
+                        "level": 1,
+                        "align": "center",
+                        "semanticLevelOverride": 1
+                      },
+                      "parentStyles": {
+                        "typographyRole": "headline"
                       }
                     }
                   }
@@ -401,8 +384,12 @@
                         }
                       },
                       "styles": {
-                        "level": 4,
-                        "align": "center"
+                        "level": 2,
+                        "align": "center",
+                        "semanticLevelOverride": "p"
+                      },
+                      "parentStyles": {
+                        "typographyRole": "eyebrow"
                       }
                     }
                   }
@@ -425,11 +412,8 @@
                         }
                       },
                       "styles": {
-                        "backgroundColor": {
-                          "selectedColor": "white",
-                          "contrastingColor": "black"
-                        },
-                        "showCurrentPage": true
+                        "showCurrentPage": true,
+                        "backgroundColor": "page"
                       },
                       "analytics": {
                         "scope": "directory"
@@ -444,10 +428,7 @@
                     "props": {
                       "id": "DirectoryGrid-dab8e202-600a-47da-b5c7-971df3f504fb",
                       "styles": {
-                        "backgroundColor": {
-                          "selectedColor": "white",
-                          "contrastingColor": "black"
-                        }
+                        "backgroundColor": "page"
                       },
                       "slots": {
                         "CardSlot": []
@@ -823,13 +804,10 @@
               "props": {
                 "id": "SecondaryFooterSlot-337d3a64-afe3-4f12-9026-e416d2c5d83c",
                 "styles": {
-                  "backgroundColor": {
-                    "selectedColor": "palette-primary-light",
-                    "contrastingColor": "black"
-                  },
                   "desktopContentAlignment": "left",
                   "mobileContentAlignment": "left",
-                  "showLinks": true
+                  "showLinks": true,
+                  "backgroundColor": "muted"
                 },
                 "maxWidth": "theme",
                 "slots": {
@@ -917,13 +895,10 @@
         },
         "styles": {
           "primaryFooter": {
-            "backgroundColor": {
-              "selectedColor": "palette-primary-dark",
-              "contrastingColor": "white"
-            },
             "linksPosition": "right",
             "desktopContentAlignment": "left",
-            "mobileContentAlignment": "left"
+            "mobileContentAlignment": "left",
+            "backgroundColor": "primary"
           },
           "maxWidth": "theme"
         },

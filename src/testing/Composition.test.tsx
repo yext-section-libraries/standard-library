@@ -22,6 +22,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { page } from "@vitest/browser/context";
 import { axe } from "jest-axe";
 import { toPuckFields } from "@yext/visual-editor";
+import { testSetup } from "./componentTests.setup.ts";
 import { VisualEditorProvider } from "./TestVisualEditorProvider.tsx";
 import { sharedComponentConfigs } from "../library/shared/componentRegistry.ts";
 import { recipeNode } from "../library/shared/design/recipes.ts";
@@ -57,7 +58,7 @@ const config: Config = {
   ),
 };
 const presetNames = Object.keys(publicComponents).filter((name) =>
-  name.endsWith("Section")
+  composableSectionNames.some((section) => section === name)
 );
 
 function withIds(value: any, prefix = "test"): any {
@@ -556,7 +557,43 @@ describe("responsive styles and accessibility", () => {
     expect(getComputedStyle(stack).columnGap).toBe("32px");
   });
 
+  it("uses surface and interaction roles while preserving explicit responsive typography", async () => {
+    testSetup({
+      colorPrimary: "#000000",
+      colorPrimaryForeground: "#ffffff",
+      primaryButtonDefaultTextColor: "#112233",
+      primaryButtonDefaultTextColorOnDark: "#ffeedd",
+      headlineFontSize: 48,
+      headlineMobileFontSize: 32,
+    });
+    const node = recipeNode("Box", { surfaceRole: "primary" }, [
+      recipeNode("Heading", { as: "h2", typographyRole: "headline" }),
+      recipeNode("Heading", {
+        as: "h2",
+        typographyRole: "headline",
+        attributes: { htmlId: "custom-heading" },
+        responsive: { mobile: { typography: { fontSize: "20px" } } },
+      }),
+      recipeNode("Button"),
+    ]);
+    const { container, getByText, getAllByRole } = render(
+      provider(<Render config={config} data={data([node])} />)
+    );
+    const surface = container.querySelector(".sl-surface-primary")!;
+    const [heading, customHeading] = getAllByRole("heading", { level: 2 });
+    const button = getByText("Learn more");
+    expect(getComputedStyle(surface).backgroundColor).toBe("rgb(0, 0, 0)");
+    expect(getComputedStyle(button).color).toBe("rgb(255, 238, 221)");
+    await page.viewport(1280, 800);
+    expect(getComputedStyle(heading).fontSize).toBe("48px");
+    expect(getComputedStyle(customHeading).fontSize).toBe("48px");
+    await page.viewport(375, 800);
+    expect(getComputedStyle(heading).fontSize).toBe("32px");
+    expect(getComputedStyle(customHeading).fontSize).toBe("20px");
+  });
+
   it("preserves a dark banner's contrasting text", () => {
+    testSetup({ colorPrimary: "#000000", colorPrimaryForeground: "#ffffff" });
     const props = publicComponents.BannerSection.defaultProps;
     const view = render(
       provider(

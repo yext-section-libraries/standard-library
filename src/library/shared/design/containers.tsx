@@ -1,15 +1,20 @@
 import * as React from "react";
 import type { Slot } from "@puckeditor/core";
-import type { YextComponentConfig } from "@yext/visual-editor";
+import type { SurfaceRole, YextComponentConfig } from "@yext/visual-editor";
 import { designFields, renderDesignFields } from "./fields.tsx";
 import { designStyle, designAttributes } from "./styles.ts";
 import { semanticTagField, type SemanticTag } from "./DesignElement.tsx";
 import type { DesignProps } from "./styleSchema.ts";
 import "./design.css";
 import { useScopedAttributes } from "./CollectionScope.tsx";
+import { surfaceRoles } from "./theme.ts";
 import { headingConfig, paragraphConfig } from "./content.tsx";
 
-export type ContainerProps = DesignProps & { as: SemanticTag; content: Slot };
+export type ContainerProps = DesignProps & {
+  as: SemanticTag;
+  content: Slot;
+  surfaceRole?: SurfaceRole | "";
+};
 
 /** Structural editor objects may not become children of a content container. */
 export const structuralComponents = [
@@ -43,12 +48,27 @@ export function createContainer(
             options: allowedTags.map((value) => ({ label: value, value })),
           }
         : semanticTagField,
+      surfaceRole: {
+        type: "select",
+        label: "Theme surface",
+        generation: { required: false },
+        options: [
+          { label: "Inherit", value: "" },
+          ...surfaceRoles.map((role) => ({ label: role, value: role })),
+        ],
+      },
       ...designFields,
     },
     renderFields: renderDesignFields,
     inline: true,
     defaultProps: { as: "div", content: [], ...defaults },
-    render: ({ content: Content, as = "div", puck, ...design }) => {
+    render: ({
+      content: Content,
+      as = "div",
+      surfaceRole,
+      puck,
+      ...design
+    }) => {
       const attributes = useScopedAttributes(design.attributes);
       const tag =
         allowedTags && !allowedTags.includes(as) ? allowedTags[0] : as;
@@ -59,7 +79,7 @@ export function createContainer(
           {Content({
             as: tag,
             ref: puck.dragRef,
-            className: `components sl-atom ${puck.isEditing ? "sl-editing" : ""}`,
+            className: `components sl-atom ${puck.isEditing ? "sl-editing" : ""} ${surfaceRole ? `ve-theme-${surfaceRole} sl-surface-${surfaceRole}` : ""}`,
             ...designAttributes(attributes),
             style: designStyle(design, puck.isEditing),
             disallow:
@@ -101,6 +121,7 @@ export const columnsConfig = createContainer("Columns", {
 });
 export const cardConfig = createContainer("Card", {
   as: "article",
+  surfaceRole: "page",
   content: [
     { type: "Heading", props: { ...headingConfig.defaultProps, as: "h3" } },
     { type: "Paragraph", props: { ...paragraphConfig.defaultProps } },
@@ -117,10 +138,9 @@ export const cardConfig = createContainer("Card", {
     paddingInlineEnd: "var(--space-6, 1.5rem)",
   },
   surface: {
-    backgroundColor: "var(--color-surface, #fff)",
-    borderRadius: "var(--radius-card, 1rem)",
-    borderColor: "var(--color-border, #dce2e8)",
-    borderWidth: "1px",
+    borderRadius: "var(--ve-card-border-radius)",
+    borderColor: "var(--ve-color-border)",
+    borderWidth: "var(--ve-card-border-width)",
     borderStyle: "solid",
   },
 });

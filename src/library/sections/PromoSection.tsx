@@ -1,9 +1,8 @@
 import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import { setDeep, Slot } from "@puckeditor/core";
 import {
   PromoSectionType,
-  backgroundColors,
-  ThemeColor,
   ThemeOptions,
   msg,
   getAnalyticsScopeHash,
@@ -95,8 +94,7 @@ export interface PromoStyles {
    * The background color for the entire section.
    * @defaultValue Background Color 1
    */
-  backgroundColor?: ThemeColor;
-
+  backgroundColor?: SurfaceValue;
   /**
    * Positions the media to the left or right of the promo content on desktop (classic and compact variants).
    * @defaultValue right
@@ -246,11 +244,12 @@ const promoSectionFields: YextFields<PromoSectionProps> = {
           },
         ],
       },
+
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
+        allowInherit: false,
       },
       desktopImagePosition: {
         label: msg("fields.desktopMediaPosition", "Desktop Media Position"),
@@ -394,7 +393,7 @@ export const PromoSectionBody: YextComponentConfig<PromoSectionProps> = {
     },
     styles: {
       variant: "classic",
-      backgroundColor: backgroundColors.background1.value,
+      backgroundColor: "page",
       desktopImagePosition: "left",
       mobileImagePosition: "top",
       containerAlignment: "left",
@@ -435,7 +434,7 @@ export const PromoSectionBody: YextComponentConfig<PromoSectionProps> = {
                 constantValueEnabled: true,
               },
             },
-            styles: { variant: "base" },
+            styles: { typographyRole: "body" },
           } satisfies BodyTextProps,
         },
       ],
@@ -498,7 +497,7 @@ export const PromoSectionBody: YextComponentConfig<PromoSectionProps> = {
                 selectedType: "textAndLink",
               },
             },
-            styles: { variant: "primary", presetImage: "app-store" },
+            styles: { variant: "primary-button", presetImage: "app-store" },
             eventName: "cta",
           } satisfies CTAWrapperProps,
         },
@@ -595,7 +594,7 @@ export const PromoSectionBody: YextComponentConfig<PromoSectionProps> = {
       updatedData = setDeep(
         updatedData,
         "props.slots.ImageSlot[0].props.className",
-        "min-w-full lg:min-w-none max-w-full lg:max-w-none rounded-image-borderRadius"
+        "min-w-full lg:min-w-none max-w-full lg:max-w-none ve-theme-image"
       );
     }
 

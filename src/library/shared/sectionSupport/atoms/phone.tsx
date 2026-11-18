@@ -1,20 +1,22 @@
+import { Background } from "./background.tsx";
 import { FaPhone } from "react-icons/fa";
 import { CTA } from "./cta.tsx";
 import { Body } from "./body.tsx";
 import { parsePhoneNumber } from "awesome-phonenumber";
-import { ThemeColor } from "@yext/visual-editor";
 import {
-  getBackgroundColorClasses,
-  getBackgroundColorStyle,
-  getTextColorClass,
-  getTextColorStyle,
-} from "@yext/visual-editor/section-library-support";
-
+  ThemeColor,
+  SurfaceValue,
+  TypographyRole,
+  InteractionRole,
+} from "@yext/visual-editor";
 export type PhoneAtomProps = {
   phoneNumber: string;
+  typographyRole?: TypographyRole;
+  interactionRole?: InteractionRole;
   label?: string;
   eventName?: string;
-  backgroundColor?: ThemeColor;
+  backgroundColor?: SurfaceValue;
+  surface?: SurfaceValue;
   format: "domestic" | "international" | undefined;
   includeHyperlink: boolean;
   includeIcon: boolean;
@@ -39,27 +41,22 @@ export const PhoneAtom = (props: PhoneAtomProps) => {
 
   return (
     <div className={"components flex gap-2 items-center"}>
-      {props.includeIcon &&
-        (props.backgroundColor ? (
-          <div
-            className={`h-10 w-10 flex justify-center rounded-full items-center ${getBackgroundColorClasses(
-              props.backgroundColor
-            )}`}
-            style={getBackgroundColorStyle(props.backgroundColor)}
-          >
-            <FaPhone
-              className={`w-4 h-4 ${getTextColorClass(props.iconColor) ?? ""}`}
-              style={getTextColorStyle(props.iconColor)}
-            />
-          </div>
-        ) : (
-          <FaPhone
-            className={`w-4 h-4 ${getTextColorClass(props.iconColor) ?? ""}`}
-            style={getTextColorStyle(props.iconColor)}
-          />
-        ))}
+      {props.includeIcon && (
+        <Background
+          surface="muted"
+          background={props.backgroundColor ?? props.surface}
+          color={props.iconColor}
+          className="h-10 w-10 flex justify-center rounded-full items-center"
+        >
+          <FaPhone className="w-4 h-4" />
+        </Background>
+      )}
       {props.label && (
-        <Body className="font-bold" color={props.labelColor}>
+        <Body
+          typographyRole={props.typographyRole}
+          color={props.labelColor}
+          className="font-bold"
+        >
           {props.label}
         </Body>
       )}
@@ -70,13 +67,17 @@ export const PhoneAtom = (props: PhoneAtomProps) => {
           linkType="PHONE"
           normalizeLink={false}
           variant="link"
-          eventName={props.eventName}
+          typographyRole={props.typographyRole}
+          interactionRole={props.interactionRole}
           color={props.linkColor}
+          eventName={props.eventName}
           onClick={props.onClick}
           alwaysHideCaret={true}
         />
       ) : (
-        <Body color={props.linkColor}>{formattedPhoneNumber}</Body>
+        <Body typographyRole={props.typographyRole} color={props.linkColor}>
+          {formattedPhoneNumber}
+        </Body>
       )}
     </div>
   );

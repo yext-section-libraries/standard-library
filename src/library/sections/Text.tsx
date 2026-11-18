@@ -1,7 +1,7 @@
 import { withDesign } from "../shared/design/withDesign.tsx";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { PuckComponent } from "@puckeditor/core";
-import { Body, BodyProps } from "../shared/sectionSupport/atoms/body.tsx";
+import { Body } from "../shared/sectionSupport/atoms/body.tsx";
 import {
   useDocument,
   resolveComponentData,
@@ -13,7 +13,7 @@ import {
   TranslatableString,
   resolveDataFromParent,
   ThemeColor,
-  ThemeOptions,
+  TypographyRole,
   themeManagerCn,
   YextComponentConfig,
   YextFields,
@@ -28,12 +28,11 @@ export type TextProps = {
   };
 
   styles: {
-    /** The size of the text. */
-    variant: BodyProps["variant"];
     /** Optional text color override. */
     color?: ThemeColor;
     /** Optional font style override. */
-    fontStyle: "regular" | "bold" | "italic";
+    fontStyle?: "regular" | "bold" | "italic";
+    typographyRole?: TypographyRole;
   };
 
   /** @internal Controlled data from the parent section. */
@@ -45,6 +44,7 @@ export type TextProps = {
   /** @internal Controlled style from the parent section */
   parentStyles?: {
     className: string;
+    typographyRole?: TypographyRole;
   };
 };
 
@@ -66,12 +66,6 @@ const textFields: YextFields<TextProps> = {
     type: "object",
     label: msg("fields.styles", "Styles"),
     objectFields: {
-      variant: {
-        generation: { nullable: true },
-        label: msg("fields.textSize", "Text Size"),
-        type: "radio",
-        options: ThemeOptions.BODY_VARIANT,
-      },
       color: {
         type: "basicSelector",
         label: msg("fields.color", "Color"),
@@ -81,22 +75,18 @@ const textFields: YextFields<TextProps> = {
         label: msg("fields.fontStyle", "Font Style"),
         type: "radio",
         options: [
+          {
+            label: msg("fields.defaultForPlacement", "Default for Placement"),
+            value: undefined,
+          },
           { label: msg("fields.options.regular", "Regular"), value: "regular" },
           { label: msg("fields.options.bold", "Bold"), value: "bold" },
           { label: msg("fields.options.italic", "Italic"), value: "italic" },
         ],
       },
+      typographyRole: { type: "typographyRole" },
     },
   },
-};
-
-const fontStyleToClassName: Record<
-  NonNullable<TextProps["styles"]["fontStyle"]>,
-  string
-> = {
-  regular: "",
-  bold: "font-bold",
-  italic: "italic",
 };
 
 const TextComponent: PuckComponent<TextProps> = (props) => {
@@ -118,12 +108,20 @@ const TextComponent: PuckComponent<TextProps> = (props) => {
       constantValueEnabled={!parentData && data.text.constantValueEnabled}
     >
       <Body
-        variant={styles.variant}
         color={styles.color}
-        className={themeManagerCn(
-          fontStyleToClassName[styles.fontStyle],
-          parentStyles?.className
-        )}
+        typographyRole={
+          styles.typographyRole ?? parentStyles?.typographyRole ?? "body"
+        }
+        style={{
+          fontWeight:
+            styles.fontStyle === "bold"
+              ? 700
+              : styles.fontStyle === "regular"
+                ? 400
+                : undefined,
+          fontStyle: styles.fontStyle === "italic" ? "italic" : undefined,
+        }}
+        className={themeManagerCn(parentStyles?.className)}
       >
         {resolvedData}
       </Body>
@@ -148,10 +146,7 @@ const TextBase: YextComponentConfig<TextProps> = {
         constantValueEnabled: true,
       },
     },
-    styles: {
-      variant: "base",
-      fontStyle: "regular",
-    },
+    styles: {},
   },
   render: (props) => <TextComponent {...props} />,
 };

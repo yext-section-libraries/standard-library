@@ -1,8 +1,9 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
+import { type TypographyRole } from "@yext/visual-editor/section-library-support";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
 import {
-  backgroundColors,
   ThemeColor,
   HeadingLevel,
   ThemeOptions,
@@ -56,10 +57,10 @@ export type NearbyLocationCardsWrapperProps = {
   /** Styling for the individual location cards. */
   styles: {
     /** The card background color. */
-    backgroundColor?: ThemeColor;
-
+    backgroundColor?: SurfaceValue;
     /** The heading level for the card title. */
     headingLevel?: HeadingLevel;
+    typographyRole?: TypographyRole;
     /**
      * The color applied to the card title
      * @defaultValue inherited from theme
@@ -162,16 +163,10 @@ const nearbyLocationCardsWrapperFields: YextFields<NearbyLocationCardsWrapperPro
       objectFields: {
         backgroundColor: {
           generation: { required: false },
-          type: "basicSelector",
+          type: "surface",
           label: msg("fields.backgroundColor", "Background Color"),
-          options: "BACKGROUND_COLOR",
         },
-        headingLevel: {
-          generation: { required: false },
-          type: "basicSelector",
-          label: msg("fields.headingLevel", "Heading Level"),
-          options: "HEADING_LEVEL",
-        },
+        typographyRole: { type: "typographyRole" },
         color: {
           type: "basicSelector",
           label: msg("fields.cardTitleColor", "Card Title Color"),
@@ -401,8 +396,8 @@ export const defaultNearbyLocationsCardsProps: NearbyLocationCardsWrapperProps =
       limit: 3,
     },
     styles: {
-      backgroundColor: backgroundColors.background1.value,
-      headingLevel: 3,
+      backgroundColor: "page",
+
       hours: {
         showCurrentStatus: true,
         timeFormat: "12h",
@@ -472,7 +467,7 @@ const NearbyLocationsEmptyState: React.FC<{
     >
       <MapPinOff className="w-12 h-12 text-gray-400" />
       <div className="flex flex-col items-center gap-0">
-        <Body variant="base" className="text-gray-500 font-medium">
+        <Body typographyRole="body" className="text-gray-500 font-medium">
           {pt(
             "nearbyLocationsEmptyStateSectionHidden",
             "Section hidden for this {{entityType}}",
@@ -483,7 +478,7 @@ const NearbyLocationsEmptyState: React.FC<{
             }
           )}
         </Body>
-        <Body variant="base" className="text-gray-500 font-normal">
+        <Body typographyRole="body" className="text-gray-500 font-normal">
           {pt("nearbyLocationsEmptyState", {
             entityType: entityTypeDisplayName
               ? entityTypeDisplayName

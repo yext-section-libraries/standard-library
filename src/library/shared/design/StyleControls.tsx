@@ -760,7 +760,7 @@ export function StyleGroupEditor({
         [
           ["No limit", "none"],
           ["Reading width", "65ch"],
-          ["Page width", "var(--maxWidth-pageSection-contentWidth, 80rem)"],
+          ["Page width", "var(--ve-page-content-max-width)"],
         ],
         "Maximum width"
       )
@@ -1204,6 +1204,9 @@ export function DesignPanel({
     <>
       {fields.styles}
       {fields.ctaStyles}
+      {fields.surfaceRole}
+      {fields.typographyRole}
+      {fields.interactionRole}
       {order.map((key) => (
         <React.Fragment key={key}>{fields[key]}</React.Fragment>
       ))}

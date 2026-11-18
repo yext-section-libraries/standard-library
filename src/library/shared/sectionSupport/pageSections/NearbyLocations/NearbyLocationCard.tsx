@@ -87,21 +87,15 @@ export const NearbyLocationCard: React.FC<NearbyLocationCardProps> = (
       >
         <Heading
           color={styles?.color}
-          level={styles.headingLevel ?? 4}
-          semanticLevelOverride={
-            sectionHeadingLevel
-              ? sectionHeadingLevel < 6
-                ? ((sectionHeadingLevel + 1) as HeadingLevel)
-                : "span"
-              : undefined
-          }
+          level={sectionHeadingLevel ? 3 : 2}
+          typographyRole={styles.typographyRole ?? "card-title"}
         >
           {cardTitle}
         </Heading>
       </MaybeLink>
       {styles.showHours && (hours || comingSoon) && (
         <div
-          className={`font-semibold font-body-fontFamily text-body-fontSize ${showPhone || showAddress ? "mb-2" : ""}`}
+          className={`font-semibold ve-theme-body ${showPhone || showAddress ? "mb-2" : ""}`}
         >
           <HoursStatusAtom
             hours={hours ?? {}}
@@ -126,7 +120,7 @@ export const NearbyLocationCard: React.FC<NearbyLocationCardProps> = (
         />
       )}
       {showAddress && (
-        <div className="font-body-fontFamily font-body-fontWeight text-body-fontSize">
+        <div className="ve-theme-body">
           <Address
             address={address}
             showRegion={styles.address?.showRegion ?? true}

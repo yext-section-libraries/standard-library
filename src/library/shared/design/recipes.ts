@@ -1,5 +1,6 @@
 import { styleSchema } from "./styleSchema.ts";
 import { cardGridDefaults, cardListDefaults } from "./cardLayout.tsx";
+import { headingRole, interactionRoleForVariant } from "./theme.ts";
 import type { Slot } from "@puckeditor/core";
 import {
   boxConfig,
@@ -87,6 +88,7 @@ export function editableNodes(nodes: Slot = []): Slot {
     const props = structuredClone(node.props);
     // Authored IDs are assigned by Puck when the preset is inserted.
     delete props.id;
+    const parentStyles = props.parentStyles;
     delete props.parentStyles;
     const parentData = props.parentData;
     delete props.parentData;
@@ -99,11 +101,12 @@ export function editableNodes(nodes: Slot = []): Slot {
         return recipeNode(isHeading ? "Heading" : "Paragraph", {
           data: props.data,
           as: tag,
+          typographyRole:
+            props.styles?.typographyRole ??
+            parentStyles?.typographyRole ??
+            (isHeading ? headingRole(tag) : "eyebrow"),
           typography: {
             ...headingConfig.defaultProps?.typography,
-            fontFamily: `var(--fontFamily-h${level}-fontFamily, sans-serif)`,
-            fontWeight: `var(--fontWeight-h${level}-fontWeight, 600)`,
-            fontSize: `var(--fontSize-h${level}-fontSize, ${level === 1 ? "clamp(2.5rem, 5vw, 4.5rem)" : level === 2 ? "2rem" : "1.375rem"})`,
             textAlign:
               props.styles?.align === "right"
                 ? "end"
@@ -116,6 +119,7 @@ export function editableNodes(nodes: Slot = []): Slot {
       case "TextSlot":
         return recipeNode("Paragraph", {
           data: props.data,
+          typographyRole: props.styles?.typographyRole,
           typography: {
             ...paragraphConfig.defaultProps?.typography,
             ...(props.styles?.fontStyle === "bold"
@@ -127,7 +131,10 @@ export function editableNodes(nodes: Slot = []): Slot {
           },
         });
       case "BodyTextSlot":
-        return recipeNode("RichText", { data: props.data });
+        return recipeNode("RichText", {
+          data: props.data,
+          typographyRole: props.styles?.typographyRole,
+        });
       case "ImageSlot":
       case "HeroImageSlot":
         return recipeNode("Image", {
@@ -143,6 +150,7 @@ export function editableNodes(nodes: Slot = []): Slot {
       case "CTASlot":
         return recipeNode("Button", {
           eventName: props.eventName ?? "cta",
+          interactionRole: interactionRoleForVariant(props.styles?.variant),
           presetImage: props.styles?.presetImage ?? "app-store",
           ...(props.data.actionType === "button"
             ? { action: "button", attributes: { htmlId: props.data.customId } }
@@ -163,21 +171,6 @@ export function editableNodes(nodes: Slot = []): Slot {
                 }
               : {}),
           },
-          ...(props.styles?.variant !== "primary"
-            ? {
-                typography: {
-                  ...buttonConfig.defaultProps?.typography,
-                  color: "var(--colors-palette-primary, #1d4ed8)",
-                },
-                surface: {
-                  backgroundColor: "transparent",
-                  borderStyle: "solid",
-                  borderWidth: "1px",
-                  borderColor: "currentColor",
-                  borderRadius: "var(--radius-button, 0.5rem)",
-                },
-              }
-            : {}),
         });
       case "AddressSlot":
         return recipeNode("Address", props);
@@ -244,15 +237,18 @@ export function sectionRecipe(name: string, props: Props): Slot {
         columns([
           stack(
             [
-              ...slot(props, "GeomodifierSlot"),
+              ...slot(props, "GeomodifierSlot").map((node) =>
+                recipeNode("Heading", {
+                  ...node.props,
+                  as: "h1",
+                  typographyRole: "headline",
+                })
+              ),
               ...slot(props, "BusinessNameSlot").map((node) =>
                 recipeNode("Paragraph", {
                   ...node.props,
                   as: "p",
-                  typography: {
-                    ...paragraphConfig.defaultProps?.typography,
-                    fontSize: "1.25rem",
-                  },
+                  typographyRole: "eyebrow",
                 })
               ),
               ...slot(props, "HoursStatusSlot", "PhoneSlot"),
@@ -423,7 +419,8 @@ export function sectionRecipe(name: string, props: Props): Slot {
       return [
         recipeNode("RichText", {
           data: props.data,
-          typography: { textAlign: "center", lineHeight: "1.5" },
+          typographyRole: props.styles?.typographyRole,
+          typography: { textAlign: props.styles?.textAlignment ?? "center" },
         }),
       ];
     case "FormSection":
@@ -444,7 +441,7 @@ export function sectionContent(name: string, props: Props): Slot {
       {
         layout: {
           ...stackConfig.defaultProps?.layout,
-          maxWidth: "var(--maxWidth-pageSection-contentWidth, 80rem)",
+          maxWidth: "var(--ve-page-content-max-width)",
           width: "100%",
           gap: "var(--space-8, 2rem)",
         },

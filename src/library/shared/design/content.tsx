@@ -14,6 +14,8 @@ import {
   type YextCTAField,
   type PresetImageType,
   type YextFieldDefinition,
+  type InteractionRole,
+  type TypographyRole,
   isLocalizedAssetImage,
   resolveLocalizedAssetImage,
 } from "@yext/visual-editor";
@@ -38,6 +40,7 @@ import {
   type ImageWrapperProps,
 } from "../../sections/ImageWrapper.tsx";
 import { getImageAltText } from "../sectionSupport/atoms/image.tsx";
+import { headingRole, interactionRoles } from "./theme.ts";
 import { designIcons } from "./icons.ts";
 
 export const constantText = (
@@ -50,6 +53,7 @@ export const constantText = (
 
 export type TextContentProps = DesignProps & {
   binding?: ItemBinding;
+  typographyRole?: TypographyRole;
   data: { text: YextEntityField<TranslatableString | TranslatableRichText> };
   as: "p" | "span" | "div" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 };
@@ -78,6 +82,7 @@ export const headingConfig: YextComponentConfig<TextContentProps> = {
   fields: {
     binding: itemBindingField(["title", "eyebrow", "value"]),
     data: textDataField(),
+    typographyRole: { type: "typographyRole", generation: { required: false } },
     as: {
       type: "select",
       label: "Heading level",
@@ -94,15 +99,18 @@ export const headingConfig: YextComponentConfig<TextContentProps> = {
     data: { text: constantText("Your heading") },
     as: "h2",
     typography: {
-      fontFamily: "var(--fontFamily-h2-fontFamily, sans-serif)",
-      fontWeight: "var(--fontWeight-h2-fontWeight, 600)",
-      fontSize: "var(--fontSize-h2-fontSize, 2rem)",
-      lineHeight: "1.15",
       textWrap: "balance",
     },
     spacing: { marginBlockStart: "0", marginBlockEnd: "0" },
   },
-  render: function Heading({ data, binding, as, puck, ...design }) {
+  render: function Heading({
+    data,
+    binding,
+    as,
+    typographyRole,
+    puck,
+    ...design
+  }) {
     const document = useDocument();
     const { i18n } = useTranslation();
     const text = resolveComponentData(
@@ -112,11 +120,13 @@ export const headingConfig: YextComponentConfig<TextContentProps> = {
       { output: "plainText" }
     );
     if (!text && !puck.isEditing) return <></>;
+    const tag = /^h[1-6]$/.test(as) ? as : "h2";
     return (
       <>
         <DesignElement
           elementRef={puck.dragRef}
-          as={/^h[1-6]$/.test(as) ? as : "h2"}
+          as={tag}
+          className={`sl-type-${typographyRole ?? headingRole(tag)}`}
           design={design}
           isEditing={puck.isEditing}
         >
@@ -134,6 +144,7 @@ export const paragraphConfig: YextComponentConfig<TextContentProps> = {
     ...designFields,
     binding: itemBindingField(["title", "eyebrow", "value"]),
     data: textDataField(),
+    typographyRole: { type: "typographyRole", generation: { required: false } },
     as: {
       type: "select",
       label: "HTML element",
@@ -146,7 +157,14 @@ export const paragraphConfig: YextComponentConfig<TextContentProps> = {
     data: { text: constantText("Add your text here.") },
     typography: {},
   },
-  render: function Paragraph({ data, binding, as, puck, ...design }) {
+  render: function Paragraph({
+    data,
+    binding,
+    as,
+    typographyRole,
+    puck,
+    ...design
+  }) {
     const document = useDocument();
     const { i18n } = useTranslation();
     const text = resolveComponentData(
@@ -161,6 +179,7 @@ export const paragraphConfig: YextComponentConfig<TextContentProps> = {
         <DesignElement
           elementRef={puck.dragRef}
           as={["p", "span", "div"].includes(as) ? as : "p"}
+          className={typographyRole ? `sl-type-${typographyRole}` : undefined}
           design={design}
           isEditing={puck.isEditing}
         >
@@ -177,6 +196,10 @@ export const richTextConfig: YextComponentConfig<Omit<TextContentProps, "as">> =
     fields: {
       binding: itemBindingField(["body", "title"]),
       data: textDataField(true),
+      typographyRole: {
+        type: "typographyRole",
+        generation: { required: false },
+      },
       ...designFields,
     },
     renderFields: renderDesignFields,
@@ -191,15 +214,21 @@ export const richTextConfig: YextComponentConfig<Omit<TextContentProps, "as">> =
           },
         },
       },
-      typography: { lineHeight: "1.6" },
     },
-    render: function RichText({ data, binding, puck, ...design }) {
+    render: function RichText({
+      data,
+      binding,
+      typographyRole = "body",
+      puck,
+      ...design
+    }) {
       const document = useDocument();
       const { i18n } = useTranslation();
       const content = resolveComponentData(
         useItemValue(binding, data.text),
         i18n.language,
-        document
+        document,
+        { typographyRole }
       );
       if (!content && !puck.isEditing) return <></>;
       return (
@@ -208,7 +237,7 @@ export const richTextConfig: YextComponentConfig<Omit<TextContentProps, "as">> =
             elementRef={puck.dragRef}
             design={design}
             isEditing={puck.isEditing}
-            className="sl-rich-text"
+            className={`sl-rich-text sl-type-${typographyRole}`}
           >
             {content || "Add rich text"}
           </DesignElement>
@@ -286,7 +315,7 @@ export const imageConfig: YextComponentConfig<PictureProps> = {
     layout: { width: "100%", height: "auto", display: "block" },
     surface: {
       objectFit: "cover",
-      borderRadius: "var(--radius-image, 0.75rem)",
+      borderRadius: "var(--ve-image-border-radius)",
     },
   },
   render: function Picture({
@@ -436,6 +465,7 @@ export type ButtonProps = DesignProps & {
   binding?: ItemBinding;
   cta: YextCTAField;
   action: "link" | "button" | "submit" | "reset";
+  interactionRole?: InteractionRole;
   openInNewTab: boolean | "data";
   presetImage?: PresetImageType;
   eventName?: string;
@@ -448,6 +478,15 @@ export const buttonConfig: YextComponentConfig<ButtonProps> = {
   fields: {
     binding: itemBindingField(["cta"]),
     cta: { type: "ctaSelector", transform: true, label: "Link and label" },
+    interactionRole: {
+      type: "select",
+      label: "Theme interaction style",
+      generation: { required: false },
+      options: interactionRoles.map((value) => ({
+        value,
+        label: value.replace(/-/g, " "),
+      })),
+    },
     action: {
       type: "select",
       label: "Action",
@@ -511,6 +550,7 @@ export const buttonConfig: YextComponentConfig<ButtonProps> = {
       },
     },
     action: "link",
+    interactionRole: "primary-button",
     openInNewTab: "data",
     presetImage: "app-store",
     eventName: "cta",
@@ -528,26 +568,6 @@ export const buttonConfig: YextComponentConfig<ButtonProps> = {
       paddingInlineStart: "1.5rem",
       paddingInlineEnd: "1.5rem",
     },
-    typography: {
-      fontFamily: "var(--fontFamily-button-fontFamily, sans-serif)",
-      fontWeight: "var(--fontWeight-button-fontWeight, 600)",
-      textDecoration: "none",
-      color:
-        "var(--color-on-brand, var(--colors-palette-primary-contrast, #fff))",
-    },
-    surface: {
-      backgroundColor: "var(--colors-palette-primary, #1d4ed8)",
-      borderRadius: "var(--radius-button, 0.5rem)",
-    },
-    states: {
-      hover: { surface: { opacity: "0.88" } },
-      focusVisible: {
-        surface: {
-          boxShadow:
-            "0 0 0 3px var(--color-surface, #fff), 0 0 0 6px var(--colors-palette-primary, #1d4ed8)",
-        },
-      },
-    },
   },
   render: function Button({
     cta,
@@ -558,6 +578,7 @@ export const buttonConfig: YextComponentConfig<ButtonProps> = {
     eventName = "cta",
     icon,
     iconPosition = "after",
+    interactionRole = "primary-button",
     puck,
     ...design
   }) {
@@ -606,7 +627,7 @@ export const buttonConfig: YextComponentConfig<ButtonProps> = {
           elementRef={puck.dragRef}
           design={design}
           isEditing
-          className="sl-button"
+          className={`sl-button sl-interaction-${interactionRole}`}
           aria-disabled="true"
           title="Choose a link destination"
         >
@@ -617,9 +638,8 @@ export const buttonConfig: YextComponentConfig<ButtonProps> = {
       );
     }
     if (ctaType === "presetImage" && action === "link") {
-      return (
+      const imageLink = (
         <CTA
-          dragRef={puck.dragRef}
           ctaType="presetImage"
           variant="link"
           label=""
@@ -635,6 +655,16 @@ export const buttonConfig: YextComponentConfig<ButtonProps> = {
           ariaLabel={design.attributes?.ariaLabel}
           id={design.attributes?.htmlId}
         />
+      );
+      return puck.isEditing ? (
+        <span
+          style={{ display: "contents" }}
+          ref={(element) => puck.dragRef?.(element?.firstElementChild ?? null)}
+        >
+          {imageLink}
+        </span>
+      ) : (
+        imageLink
       );
     }
     if (!label) return <></>;
@@ -655,7 +685,7 @@ export const buttonConfig: YextComponentConfig<ButtonProps> = {
           as={action === "link" ? Link : "button"}
           design={design}
           isEditing={puck.isEditing}
-          className="sl-button"
+          className={`sl-button sl-interaction-${interactionRole}`}
           {...(action === "link"
             ? {
                 href,

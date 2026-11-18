@@ -5,7 +5,6 @@ import {
   TranslatableString,
   TranslatableCTA,
   YextEntityField,
-  useBackground,
   ThemeColor,
   toPuckFields,
   YextComponentConfig,
@@ -42,8 +41,6 @@ const FooterExpandedLinkSectionSlotInternal: PuckComponent<
   const { data, styles, puck } = props;
   const streamDocument = useDocument();
   const { i18n } = useTranslation();
-  const background = useBackground();
-  const isDarkBackground = background?.isDarkColor ?? false;
 
   const { label, links } = resolveLocalizedFooterLinkSection(
     data,
@@ -51,10 +48,7 @@ const FooterExpandedLinkSectionSlotInternal: PuckComponent<
     streamDocument
   );
 
-  const defaultColor: ThemeColor = isDarkBackground
-    ? { selectedColor: "white", contrastingColor: "black" }
-    : { selectedColor: "palette-primary-dark", contrastingColor: "white" };
-  const resolvedColor = styles?.color ?? defaultColor;
+  const resolvedColor = styles?.color;
 
   if (links.length === 0 && !puck.isEditing) {
     return <></>;
@@ -63,7 +57,11 @@ const FooterExpandedLinkSectionSlotInternal: PuckComponent<
   return (
     <div className="flex flex-col gap-6">
       {label.trim() !== "" && (
-        <Body className="break-words" color={resolvedColor}>
+        <Body
+          typographyRole="card-title"
+          className="break-words"
+          color={resolvedColor}
+        >
           {label}
         </Body>
       )}

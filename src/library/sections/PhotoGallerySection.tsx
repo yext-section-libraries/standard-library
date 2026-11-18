@@ -1,8 +1,7 @@
 import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import {
   type SectionConfig,
-  backgroundColors,
-  ThemeColor,
   ThemeOptions,
   msg,
   YextComponentConfig,
@@ -30,8 +29,7 @@ export interface PhotoGalleryStyles {
    * The background color for the entire section, selected from the theme.
    * @defaultValue Background Color 1
    */
-  backgroundColor?: ThemeColor;
-
+  backgroundColor?: SurfaceValue;
   /**
    * The layout style for displaying images in the gallery.
    * @defaultValue "gallery"
@@ -75,9 +73,9 @@ const photoGallerySectionFields: YextFields<PhotoGallerySectionProps> = {
     objectFields: {
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
+        allowInherit: false,
       },
       variant: {
         type: "basicSelector",
@@ -178,7 +176,7 @@ export const PhotoGallerySectionBody: YextComponentConfig<PhotoGallerySectionPro
     defaultProps: {
       styles: {
         variant: "gallery",
-        backgroundColor: backgroundColors.background1.value,
+        backgroundColor: "page",
         showSectionHeading: true,
       },
       slots: {

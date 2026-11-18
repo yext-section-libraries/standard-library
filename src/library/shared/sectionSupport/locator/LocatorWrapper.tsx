@@ -952,7 +952,7 @@ const LocatorInternal = ({
     openNowButton || showDistanceOptions || hasFacetOptions;
   const filterAccentColorCssVariable =
     getThemeColorCssValue(accentColor?.selectedColor) ??
-    "var(--colors-palette-primary-dark)";
+    "var(--ve-color-primary)";
   const resolvedHeading =
     (pageHeading?.title &&
       resolveComponentData(pageHeading.title, i18n.language, streamDocument)) ||
@@ -983,7 +983,11 @@ const LocatorInternal = ({
           id="locatorLeftDiv"
         >
           <div className="px-8 py-6 gap-4 flex flex-col">
-            <Heading level={1} color={pageHeading?.color}>
+            <Heading
+              level={1}
+              typographyRole={pageHeading?.typographyRole ?? "headline"}
+              color={pageHeading?.color}
+            >
               {resolvedHeading}
             </Heading>
             <FilterSearch
@@ -997,16 +1001,15 @@ const LocatorInternal = ({
               placeholder={t("searchHere", "Search here...")}
               ariaLabel={t("findALocation", "Find a Location")}
               customCssClasses={{
-                filterSearchContainer:
-                  "font-body-fontFamily ve-locator-filter-search",
-                focusedOption: "bg-gray-200 hover:bg-gray-200 block",
-                option: "hover:bg-gray-100 px-4 py-3",
+                filterSearchContainer: "ve-theme-body ve-locator-filter-search",
+                focusedOption:
+                  "ve-theme-muted hover:bg-[var(--ve-color-muted)] block",
+                option: "hover:bg-[var(--ve-color-muted)] px-4 py-3",
                 inputElement:
-                  "rounded-md p-4 h-11 font-body-fontFamily font-body-fontWeight text-body-fontSize placeholder:text-gray-700",
+                  "ve-theme-input rounded-md p-4 h-11 ve-theme-body",
                 currentLocationButton:
-                  "h-7 w-7 font-body-fontFamily font-body-fontWeight text-body-fontSize text-palette-primary-dark",
-                label:
-                  "font-body-fontFamily font-body-fontWeight text-body-fontSize text-palette-primary-dark",
+                  "ve-theme-check h-7 w-7 ve-theme-body ve-theme-link",
+                label: "ve-theme-body ve-theme-link",
               }}
               showCurrentLocationButton={showCurrentLocationButton}
               geolocationProps={{
@@ -1019,7 +1022,7 @@ const LocatorInternal = ({
             />
           </div>
           <div className="relative flex-1 flex flex-col min-h-0">
-            <div className="px-8 py-4 text-body-fontSize border-y border-gray-300 inline-block">
+            <div className="px-8 py-4 ve-theme-body border-y ve-theme-border inline-block">
               <div
                 className="flex flex-row justify-between"
                 id="levelWithModal"
@@ -1033,7 +1036,7 @@ const LocatorInternal = ({
                 {hasFilterModalToggle && (
                   <Dialog.Trigger asChild>
                     <button
-                      className="inline-flex justify-between items-center gap-2 bg-white font-bold font-body-fontFamily text-body-sm-fontSize"
+                      className="inline-flex justify-between items-center gap-2 ve-theme-page font-bold ve-theme-body-small"
                       style={{ color: filterAccentColorCssVariable }}
                     >
                       {t("filter", "Filter")}
@@ -1047,7 +1050,7 @@ const LocatorInternal = ({
                   hiddenFields={[LOCATION_FIELD, COUNTRY_CODE_FIELD]}
                   customCssClasses={{
                     removableFilter:
-                      "text-md font-normal mt-2 mb-0 font-body-fontFamily",
+                      "text-md font-normal mt-2 mb-0 ve-theme-body",
                     clearAllButton: "hidden",
                     appliedFiltersContainer: "mt-0 mb-0",
                   }}
@@ -1087,11 +1090,10 @@ const LocatorInternal = ({
               </div>
             )}
             {!isMobile && resultCount > RESULTS_LIMIT && (
-              <div className="border-t border-gray-300 pt-4">
+              <div className="border-t ve-theme-border pt-4">
                 <Pagination
                   customCssClasses={{
-                    selectedLabel:
-                      "bg-palette-primary text-palette-primary-contrast border-palette-primary",
+                    selectedLabel: "ve-theme-primary-button",
                   }}
                 />
               </div>
@@ -1120,11 +1122,11 @@ const LocatorInternal = ({
           <LoadingMapPlaceholder />
         )}
         {!mapEnabled && (
-          <div className="flex items-center justify-center w-full h-full bg-gray-100">
+          <div className="flex items-center justify-center w-full h-full ve-theme-muted">
             <div className="p-6">
               <Body
-                className="text-gray-700 font-bold text-center"
-                variant="lg"
+                className=" font-bold text-center"
+                typographyRole="body-large"
               >
                 {t(
                   "mapRequiresOptIn",

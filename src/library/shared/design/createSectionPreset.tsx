@@ -5,6 +5,7 @@ import {
   getAnalyticsScopeHash,
   type YextComponentConfig,
   type YextFields,
+  type SurfaceRole,
 } from "@yext/visual-editor";
 import { designFields, renderDesignFields } from "./fields.tsx";
 import type { DesignProps } from "./styleSchema.ts";
@@ -14,11 +15,13 @@ import { semanticTagField, type SemanticTag } from "./DesignElement.tsx";
 import { structuralComponents } from "./containers.tsx";
 import { VisibilityWrapper } from "../sectionSupport/atoms/visibilityWrapper.tsx";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
+import { surfaceRoles } from "./theme.ts";
 import { mappedSourcesAreEmpty } from "./sourceVisibility.ts";
 
 export type CompositionProps = DesignProps & {
   content: Slot;
   as: SemanticTag;
+  surfaceRole?: SurfaceRole;
   liveVisibility: boolean;
   analytics?: { scope?: string };
   hideWhenMappedContentEmpty?: boolean;
@@ -36,6 +39,12 @@ export function createSectionPreset<Props extends Record<string, any>>(
   const fields = {
     content: { type: "slot", visible: false, disallow: structuralComponents },
     as: semanticTagField,
+    surfaceRole: {
+      type: "select",
+      label: "Theme surface",
+      generation: { required: false },
+      options: surfaceRoles.map((role) => ({ label: role, value: role })),
+    },
     liveVisibility: {
       type: "radio",
       label: "Visible on live page",
@@ -89,6 +98,7 @@ export function createSectionPreset<Props extends Record<string, any>>(
         puck,
         as = "section",
         liveVisibility = true,
+        surfaceRole = "page",
       } = props;
       if (!Content) return <></>;
       if (props.mappedContentEmpty && !puck.isEditing) return <></>;
@@ -103,7 +113,7 @@ export function createSectionPreset<Props extends Record<string, any>>(
             {Content({
               as,
               ref: puck.dragRef,
-              className: "components sl-atom",
+              className: `components sl-atom ve-theme-${surfaceRole} sl-surface-${surfaceRole}`,
               ...designAttributes(props.attributes),
               style: designStyle(props as DesignProps, puck.isEditing),
               disallow: structuralComponents,

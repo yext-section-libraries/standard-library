@@ -21,7 +21,6 @@ import {
   resolveComponentData,
   ThemeColor,
   ThemeOptions,
-  backgroundColors,
   resolveDataFromParent,
   YextComponentConfig,
   YextFields,
@@ -201,7 +200,7 @@ const AddressComponent: PuckComponent<AddressProps> = (props) => {
 
   return showAddress ? (
     <div
-      className={`flex flex-col gap-2 text-body-fontSize font-body-fontWeight font-body-fontFamily ${getTextColorClass(styles.textColor) ?? ""}`}
+      className={`flex flex-col gap-2 ve-theme-body ${getTextColorClass(styles.textColor) ?? ""}`}
       style={getTextColorStyle(styles.textColor)}
     >
       <EntityField
@@ -290,7 +289,6 @@ const AddressBase: YextComponentConfig<AddressProps> = {
       showCountry: false,
       showGetDirectionsLink: true,
       ctaVariant: "link",
-      color: backgroundColors.color1.value,
     },
   },
   resolveFields: resolveAddressFields,

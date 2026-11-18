@@ -1,3 +1,4 @@
+import { Background } from "./sectionSupport/atoms/background.tsx";
 import {
   pageRootComponentIds,
   pageStructureMetadata,
@@ -11,11 +12,13 @@ export const rootAllowedComponents = pageRootComponentIds;
 export const entityRootConfig: NonNullable<Config["root"]> = {
   metadata: pageStructureMetadata,
   render: () => (
-    <DropZone
-      zone="default-zone"
-      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-      allow={rootAllowedComponents}
-    />
+    <Background surface="page" className="ve-theme-body min-h-screen">
+      <DropZone
+        zone="default-zone"
+        style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+        allow={rootAllowedComponents}
+      />
+    </Background>
   ),
 };
 
@@ -30,11 +33,13 @@ export const directoryRootConfig: NonNullable<Config["root"]> = {
     ),
   }),
   render: () => (
-    <DropZone
-      zone="default-zone"
-      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-      allow={rootAllowedComponents}
-    />
+    <Background surface="page" className="ve-theme-body min-h-screen">
+      <DropZone
+        zone="default-zone"
+        style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+        allow={rootAllowedComponents}
+      />
+    </Background>
   ),
 };
 
@@ -42,10 +47,12 @@ export const directoryRootConfig: NonNullable<Config["root"]> = {
 export const locatorRootConfig: NonNullable<Config["root"]> = {
   metadata: pageStructureMetadata,
   render: () => (
-    <DropZone
-      zone="default-zone"
-      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-      allow={rootAllowedComponents}
-    />
+    <Background surface="page" className="ve-theme-body min-h-screen">
+      <DropZone
+        zone="default-zone"
+        style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+        allow={rootAllowedComponents}
+      />
+    </Background>
   ),
 };

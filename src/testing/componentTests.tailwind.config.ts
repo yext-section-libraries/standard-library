@@ -1,6 +1,4 @@
 import {
-  themeResolver,
-  defaultThemeConfig,
   defaultThemeTailwindExtensions,
   VisualEditorThemeClassSafelist,
   VisualEditorComponentsContentPath,
@@ -14,7 +12,7 @@ export default {
     VisualEditorComponentsContentPath,
   ],
   theme: {
-    extend: themeResolver(defaultThemeTailwindExtensions, defaultThemeConfig),
+    extend: defaultThemeTailwindExtensions,
   },
   safelist: VisualEditorThemeClassSafelist,
   plugins: [],

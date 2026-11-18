@@ -1,10 +1,10 @@
 import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
+import { setDeep } from "@puckeditor/core";
 import React from "react";
-import { PuckComponent, Slot, WithId } from "@puckeditor/core";
+import { PuckComponent, Slot } from "@puckeditor/core";
 import {
-  backgroundColors,
   ThemeColor,
-  HeadingLevel,
   ThemeOptions,
   getThemeColorCssValue,
   msg,
@@ -42,8 +42,7 @@ export type AboutSectionProps = {
      * The background color of the section.
      * @defaultValue Background Color 2
      */
-    backgroundColor?: ThemeColor;
-
+    backgroundColor?: SurfaceValue;
     /**
      * The read more/read less button color.
      */
@@ -76,9 +75,9 @@ const aboutSectionFields: YextFields<AboutSectionProps> = {
     objectFields: {
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
+        allowInherit: false,
       },
       readMoreButtonColor: {
         type: "basicSelector",
@@ -183,7 +182,7 @@ const AboutComponent: PuckComponent<AboutSectionProps> = (props) => {
         {(isDescriptionOverflown || expanded) && (
           <Button
             variant="link"
-            className="visible lg:hidden font-body-fontFamily font-bold text-body-fontSize no-underline cursor-pointer inline-flex items-center gap-2"
+            className="visible lg:hidden ve-theme-body font-bold ve-theme-body no-underline cursor-pointer inline-flex items-center gap-2"
             style={
               readMoreButtonColor ? { color: readMoreButtonColor } : undefined
             }
@@ -213,7 +212,7 @@ export const AboutSectionBody: YextComponentConfig<AboutSectionProps> = {
   fields: aboutSectionFields,
   defaultProps: {
     styles: {
-      backgroundColor: backgroundColors.background2.value,
+      backgroundColor: "muted",
       showDetailsColumn: true,
     },
     slots: {
@@ -244,7 +243,7 @@ export const AboutSectionBody: YextComponentConfig<AboutSectionProps> = {
               },
             },
             styles: {
-              variant: "base",
+              typographyRole: "body",
             },
             parentStyles: {
               className: "",
@@ -304,24 +303,19 @@ export const AboutSectionBody: YextComponentConfig<AboutSectionProps> = {
     liveVisibility: true,
   },
   resolveData: (data) => {
-    const sectionHeadingLevel = (
-      data.props.slots.SectionHeadingSlot?.[0]?.props as
-        WithId<HeadingTextProps> | undefined
-    )?.styles?.level;
-
-    if (
-      data.props.slots.SectionHeadingSlot?.[0]?.props &&
-      data.props.slots.SidebarSlot?.[0]?.props &&
-      sectionHeadingLevel
-    ) {
-      const semanticOverride =
-        typeof sectionHeadingLevel === "number" && sectionHeadingLevel < 6
-          ? ((sectionHeadingLevel + 1) as HeadingLevel)
-          : "span";
-      (
-        data.props.slots.SidebarSlot[0]
-          .props as WithId<AboutSectionDetailsColumnProps>
-      ).headingLevelOverride = semanticOverride;
+    if (data.props.slots.SectionHeadingSlot?.[0]?.props) {
+      data = setDeep(
+        data,
+        "props.slots.SectionHeadingSlot[0].props.styles.semanticLevelOverride",
+        2
+      );
+    }
+    if (data.props.slots.SidebarSlot?.[0]?.props) {
+      data = setDeep(
+        data,
+        "props.slots.SidebarSlot[0].props.headingLevelOverride",
+        3
+      );
     }
 
     return data;

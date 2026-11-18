@@ -43,6 +43,13 @@ it("translates resolved Header Links labels and native radio options in the prev
     0
   );
   expect(view.container.textContent).not.toContain('"key":"fields.');
-  for (const label of ["Data", "Styles", "Align", "Right", "Small", "Weight"])
+  for (const label of [
+    "Data",
+    "Styles",
+    "Align",
+    "Right",
+    "Typography Style",
+    "Weight",
+  ])
     expect(view.getAllByText(label, { exact: true })).not.toHaveLength(0);
 });

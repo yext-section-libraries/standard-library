@@ -40,7 +40,7 @@ export const EntityFieldSectionEmptyStateBox = ({
     >
       <CircleSlash2 className="w-12 h-12 text-gray-400" />
       <div className="flex flex-col items-center gap-0">
-        <Body variant="base" className="text-gray-500 font-medium">
+        <Body typographyRole="body" className="text-gray-500 font-medium">
           {pt(
             "emptyStateSectionHidden",
             "Section hidden for this {{entityType}}",
@@ -51,7 +51,7 @@ export const EntityFieldSectionEmptyStateBox = ({
             }
           )}
         </Body>
-        <Body variant="base" className="text-gray-500 font-normal">
+        <Body typographyRole="body" className="text-gray-500 font-normal">
           {pt(
             "emptyStateFieldEmpty",
             "{{entityType}}'s mapped field is empty",

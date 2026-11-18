@@ -161,7 +161,7 @@ const VisualEditorHoursTable: PuckComponent<HoursTableProps> = (props) => {
           displayName={pt("hoursText", "Hours Text")}
           fieldId="additionalHoursText"
         >
-          <Body variant="sm" className="mt-4">
+          <Body typographyRole="body-small" className="mt-4">
             {additionalHoursText}
           </Body>
         </EntityField>

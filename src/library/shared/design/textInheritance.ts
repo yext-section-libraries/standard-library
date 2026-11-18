@@ -1,4 +1,4 @@
-/** Theme defaults belong on the section; ordinary paragraphs inherit their context. */
+/** Original values used by the historical text-inheritance migration. */
 export const bodyTextDefaults = {
   fontFamily: "var(--fontFamily-body-fontFamily, sans-serif)",
   fontWeight: "var(--fontWeight-body-fontWeight, 400)",

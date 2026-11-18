@@ -1,13 +1,11 @@
+import { type TypographyRole } from "@yext/visual-editor/section-library-support";
 import { FieldLabel, setDeep } from "@puckeditor/core";
 import { type MultiSelectorValue } from "@yext/visual-editor/section-library-support";
 import { YextAutoField } from "@yext/visual-editor/section-library-support";
 import { TranslatableString } from "@yext/visual-editor/section-library-support";
 import { msg, pt } from "@yext/visual-editor/section-library-support";
 import { TranslatableAssetImage } from "@yext/visual-editor/section-library-support";
-import {
-  backgroundColors,
-  ThemeColor,
-} from "@yext/visual-editor/section-library-support";
+import { ThemeColor } from "@yext/visual-editor/section-library-support";
 import {
   DEFAULT_ENTITY_TYPE,
   getEntityTypeLabel,
@@ -154,6 +152,7 @@ export interface LocatorProps {
    * Allows customizing the title text and its color.
    */
   pageHeading?: {
+    typographyRole?: TypographyRole;
     /** The title displayed at the top of the locator page. */
     title: TranslatableString;
     /**
@@ -306,7 +305,6 @@ const locatorFields: YextFields<LocatorProps> = {
     defaultItemProps: {
       entityType: DEFAULT_ENTITY_TYPE,
       pinIcon: { type: "none" },
-      pinColor: backgroundColors.background6.value,
     },
   },
   filters: {
@@ -390,6 +388,7 @@ const locatorFields: YextFields<LocatorProps> = {
     type: "object",
     label: msg("fields.pageHeading", "Page Heading"),
     objectFields: {
+      typographyRole: { type: "typographyRole" },
       title: {
         type: "translatableString",
         label: msg("fields.title", "Title"),

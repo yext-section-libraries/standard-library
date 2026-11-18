@@ -1,10 +1,10 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import { Slot, PuckComponent, setDeep } from "@puckeditor/core";
 import { PageSection, PageSectionProps } from "../atoms/pageSection.tsx";
 import { defaultCopyrightMessageSlotProps } from "./CopyrightMessageSlot.tsx";
 import {
   YextComponentConfig,
   YextFields,
-  ThemeColor,
   ThemeOptions,
   msg,
 } from "@yext/visual-editor";
@@ -30,7 +30,7 @@ export interface SecondaryFooterSlotProps {
    * @propCategory Style Props
    */
   styles: {
-    backgroundColor?: ThemeColor;
+    backgroundColor?: SurfaceValue;
     desktopContentAlignment: "left" | "center" | "right";
     mobileContentAlignment: "left" | "center" | "right";
     showLinks: boolean;
@@ -52,9 +52,9 @@ const secondaryFooterSlotFields: YextFields<SecondaryFooterSlotProps> = {
     label: msg("fields.styles", "Styles"),
     objectFields: {
       backgroundColor: {
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
+        allowInherit: false,
       },
       desktopContentAlignment: {
         label: msg(

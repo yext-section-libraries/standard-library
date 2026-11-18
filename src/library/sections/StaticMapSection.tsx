@@ -1,7 +1,6 @@
 import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import {
-  backgroundColors,
-  ThemeColor,
   msg,
   YextComponentConfig,
   YextFields,
@@ -18,8 +17,7 @@ export interface StaticMapStyles {
    * The background color of the section.
    * @defaultValue Background Color 1
    */
-  backgroundColor?: ThemeColor;
-
+  backgroundColor?: SurfaceValue;
   /**
    * The style of the map to be displayed.
    * @defaultValue Default (streets-v12)
@@ -56,9 +54,9 @@ const staticMapSectionFields: YextFields<StaticMapSectionProps> = {
     objectFields: {
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
+        allowInherit: false,
       },
       mapStyle: mapStyleField,
     },
@@ -91,31 +89,30 @@ const StaticMapSectionWrapper: PuckComponent<StaticMapSectionProps> = ({
   );
 };
 
-export const StaticMapSectionBody: YextComponentConfig<StaticMapSectionProps> =
-  {
-    label: msg("components.staticMap", "Static Map"),
-    fields: staticMapSectionFields,
-    defaultProps: {
-      liveVisibility: true,
-      styles: {
-        backgroundColor: backgroundColors.background1.value,
-        mapStyle: "streets-v12",
-      },
+export const StaticMapSectionBody: YextComponentConfig<StaticMapSectionProps> = {
+  label: msg("components.staticMap", "Static Map"),
+  fields: staticMapSectionFields,
+  defaultProps: {
+    liveVisibility: true,
+    styles: {
+      backgroundColor: "page",
+      mapStyle: "streets-v12",
     },
-    render: (props) => (
-      <ComponentErrorBoundary
+  },
+  render: (props) => (
+    <ComponentErrorBoundary
+      isEditing={props.puck.isEditing}
+      resetKeys={[props]}
+    >
+      <VisibilityWrapper
+        liveVisibility={props.liveVisibility}
         isEditing={props.puck.isEditing}
-        resetKeys={[props]}
       >
-        <VisibilityWrapper
-          liveVisibility={props.liveVisibility}
-          isEditing={props.puck.isEditing}
-        >
-          <StaticMapSectionWrapper {...props} />
-        </VisibilityWrapper>
-      </ComponentErrorBoundary>
-    ),
-  };
+        <StaticMapSectionWrapper {...props} />
+      </VisibilityWrapper>
+    </ComponentErrorBoundary>
+  ),
+};
 
 export const config: SectionConfig = {
   id: "StaticMapSection",

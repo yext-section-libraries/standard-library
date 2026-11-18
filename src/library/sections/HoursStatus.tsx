@@ -1,4 +1,5 @@
 import { withDesign } from "../shared/design/withDesign.tsx";
+import { getTextColorStyle } from "@yext/visual-editor/section-library-support";
 import { gridAtomPermissions } from "../shared/gridAtomPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { PuckComponent } from "@puckeditor/core";
@@ -15,11 +16,8 @@ import {
   YextFields,
   SectionConfig,
   ThemeColor,
+  TypographyRole,
 } from "@yext/visual-editor";
-import {
-  getTextColorClass,
-  getTextColorStyle,
-} from "@yext/visual-editor/section-library-support";
 import { HoursStatusAtom } from "../shared/sectionSupport/atoms/hoursStatus.tsx";
 
 export interface HoursStatusProps {
@@ -39,10 +37,9 @@ export interface HoursStatusProps {
     showDayNames?: boolean;
     /** Additional class names to apply to the underlying component */
     className?: string;
-    /** The body size variant */
-    bodyVariant?: "lg" | "base" | "sm";
     /** The color of the hours status text. */
     textColor?: ThemeColor;
+    typographyRole?: TypographyRole;
   };
 
   /** @internal */
@@ -72,6 +69,11 @@ export const hoursStatusWrapperFields: YextFields<HoursStatusProps> = {
     type: "object",
     label: msg("fields.styles", "Styles"),
     objectFields: {
+      textColor: {
+        type: "basicSelector",
+        label: msg("fields.textColor", "Text Color"),
+        options: "SITE_COLOR",
+      },
       showCurrentStatus: {
         generation: { required: false },
         label: msg("fields.showCurrentStatus", "Show Current Status"),
@@ -108,11 +110,7 @@ export const hoursStatusWrapperFields: YextFields<HoursStatusProps> = {
           { label: msg("fields.options.long", "Long"), value: "long" },
         ],
       },
-      textColor: {
-        type: "basicSelector",
-        label: msg("fields.textColor", "Text Color"),
-        options: "SITE_COLOR",
-      },
+      typographyRole: { type: "typographyRole" },
     },
   },
 };
@@ -141,13 +139,13 @@ const HoursStatusWrapper: PuckComponent<HoursStatusProps> = ({
         hours={hours ?? {}}
         comingSoon={comingSoon}
         timezone={timezone}
-        className={`${styles.className ?? ""} ${getTextColorClass(styles.textColor) ?? ""}`}
+        className={styles.className}
+        style={getTextColorStyle(styles.textColor)}
         showCurrentStatus={styles.showCurrentStatus}
         showDayNames={styles.showDayNames}
         timeFormat={styles.timeFormat}
         dayOfWeekFormat={styles.dayOfWeekFormat}
-        bodyVariant={styles.bodyVariant}
-        style={getTextColorStyle(styles.textColor)}
+        typographyRole={styles.typographyRole ?? "body"}
       />
     </EntityField>
   ) : puck.isEditing ? (

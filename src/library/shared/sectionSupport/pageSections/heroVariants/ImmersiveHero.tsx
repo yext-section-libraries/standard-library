@@ -1,5 +1,4 @@
 import {
-  backgroundColors,
   resolveYextEntityField,
   useDocument,
   isLocalizedAssetImage,
@@ -41,18 +40,12 @@ export const ImmersiveHero: PuckComponent<HeroVariantProps> = (props) => {
       className="bg-no-repeat bg-center bg-cover"
     >
       <PageSection
-        background={
-          localizedImage?.url
-            ? {
-                selectedColor: "[#00000099]", // keep in sync with VisualEditorThemeClassSafelist
-                contrastingColor: "white",
-                isDarkColor: true,
-              }
-            : backgroundColors.background1.value
-        }
+        surface={localizedImage?.url ? "inherit" : "page"}
+        background={styles.backgroundColor}
+        onDark={!!localizedImage?.url}
         aria-label={t("heroBanner", "Hero Banner")}
         className="z-10 flex items-center h-full w-full"
-        outerClassName="h-fit flex items-center"
+        outerClassName={`h-fit flex items-center ${localizedImage?.url ? "bg-black/60 text-white" : ""}`}
         outerStyle={{
           minHeight: `${styles.imageHeight}px`,
         }}

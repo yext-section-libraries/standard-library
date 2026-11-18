@@ -1,8 +1,7 @@
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import * as React from "react";
 import { PuckComponent, Slot, WithId } from "@puckeditor/core";
 import {
-  ThemeColor,
-  backgroundColors,
   TestimonialStruct,
   deepMerge,
   getDefaultRTF,
@@ -38,7 +37,7 @@ const defaultTestimonial = {
 export const defaultTestimonialCardSlotData = (
   id?: string,
   index?: number,
-  backgroundColor?: ThemeColor,
+  backgroundColor?: SurfaceValue,
   sharedSlotStyles?: Record<string, any>
 ) => {
   const cardData = {
@@ -47,7 +46,7 @@ export const defaultTestimonialCardSlotData = (
       ...(id && { id }),
       ...(index !== undefined && { index }),
       styles: {
-        backgroundColor: backgroundColor ?? backgroundColors.background1.value,
+        backgroundColor: backgroundColor,
       } satisfies TestimonialCardProps["styles"],
       slots: {
         DescriptionSlot: [
@@ -63,7 +62,7 @@ export const defaultTestimonialCardSlotData = (
                 },
               },
               styles: {
-                variant: "base",
+                typographyRole: "body",
               },
             } satisfies BodyTextProps,
           },
@@ -133,7 +132,7 @@ export type TestimonialCardProps = {
   /** Styling for all the cards. */
   styles: {
     /** The background color of each testimonial card */
-    backgroundColor?: ThemeColor;
+    backgroundColor?: SurfaceValue;
   };
 
   /** @internal */
@@ -167,9 +166,8 @@ const testimonialCardFields: YextFields<TestimonialCardProps> = {
     objectFields: {
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
       },
     },
   },
@@ -276,9 +274,7 @@ const TestimonialCardComponent: PuckComponent<TestimonialCardProps> = (
           ...otherProps,
           styles: {
             ...otherProps.styles,
-            backgroundColor:
-              sharedCardProps?.cardStyles.backgroundColor ||
-              backgroundColors.background1.value,
+            ...sharedCardProps?.cardStyles,
           },
           slots: newSlotData,
         } satisfies TestimonialCardProps,
@@ -309,12 +305,9 @@ const TestimonialCardComponent: PuckComponent<TestimonialCardProps> = (
   return (
     <div
       ref={puck.dragRef}
-      className="flex flex-col rounded-lg overflow-hidden border bg-white h-full"
+      className="flex flex-col ve-theme-card overflow-hidden h-full"
     >
-      <Background
-        background={backgroundColors.background1.value}
-        className="p-8 grow"
-      >
+      <Background surface="page" className="p-8 grow">
         {showDescription && (
           <slots.DescriptionSlot style={{ height: "auto" }} allow={[]} />
         )}
@@ -347,7 +340,7 @@ export const TestimonialCard: YextComponentConfig<TestimonialCardProps> = {
   inline: true,
   defaultProps: {
     styles: {
-      backgroundColor: backgroundColors.background1.value,
+      backgroundColor: "page",
     },
     slots: defaultTestimonialCardSlotData().props.slots,
   },

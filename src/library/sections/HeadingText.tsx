@@ -11,6 +11,7 @@ import {
   msg,
   ThemeOptions,
   HeadingLevel,
+  TypographyRole,
   ThemeColor,
   resolveDataFromParent,
   YextComponentConfig,
@@ -32,13 +33,17 @@ export type HeadingTextProps = {
   /** Styling for the heading. */
   styles: {
     /** The h tag level of the section heading */
-    level: HeadingProps["level"];
+    level?: HeadingProps["level"];
     /** Alignment of the event section heading */
     align: "left" | "center" | "right";
     /** Optional override to render a different HTML tag instead of the one based on the level */
-    semanticLevelOverride?: HeadingLevel | "span";
+    semanticLevelOverride?: HeadingLevel | "span" | "p";
     color?: ThemeColor;
+    typographyRole?: TypographyRole;
   };
+
+  /** @internal Default typography supplied by the placement. */
+  parentStyles?: { typographyRole?: TypographyRole };
 
   /** @internal Controlled data from the parent section */
   parentData?: {
@@ -75,15 +80,18 @@ const HeadingTextWrapper: PuckComponent<HeadingTextProps> = (props) => {
   return resolvedHeadingText ? (
     <div className={`flex w-full ${justifyClass}`}>
       <EntityField
-        displayName={pt("heading", "Heading") + " " + styles.level}
+        displayName={pt("heading", "Heading")}
         fieldId={parentData ? parentData.field : data.text.field}
         constantValueEnabled={!parentData && data.text.constantValueEnabled}
       >
         <Heading
-          level={styles.level}
+          level={styles.level ?? 2}
           className={alignClass}
           semanticLevelOverride={styles.semanticLevelOverride}
           color={styles.color}
+          typographyRole={
+            styles.typographyRole ?? props.parentStyles?.typographyRole
+          }
         >
           {resolvedHeadingText}
         </Heading>
@@ -114,20 +122,16 @@ const headingTextFields: YextFields<HeadingTextProps> = {
     label: msg("fields.styles", "Styles"),
     type: "object",
     objectFields: {
-      level: {
+      typographyRole: { type: "typographyRole" },
+      color: {
         type: "basicSelector",
-        label: msg("fields.headingLevel", "Heading Level"),
-        options: "HEADING_LEVEL",
+        label: msg("fields.color", "Color"),
+        options: "SITE_COLOR",
       },
       align: {
         label: msg("fields.headingAlign", "Heading Align"),
         type: "radio",
         options: ThemeOptions.ALIGNMENT,
-      },
-      color: {
-        type: "basicSelector",
-        label: msg("fields.color", "Color"),
-        options: "SITE_COLOR",
       },
     },
   },

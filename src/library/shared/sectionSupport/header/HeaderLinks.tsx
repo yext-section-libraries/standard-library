@@ -1,3 +1,4 @@
+import { type TypographyRole } from "@yext/visual-editor/section-library-support";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { FieldLabel, PuckComponent, setDeep } from "@puckeditor/core";
@@ -31,7 +32,6 @@ import {
   useExpandedHeaderMenu,
   useHeaderLinksDisplayMode,
 } from "./ExpandedHeaderMenuContext.tsx";
-import { BodyProps } from "../atoms/body.tsx";
 import {
   type ResolvedCTA,
   resolveLocalizedCtas,
@@ -50,9 +50,9 @@ export type HeaderLinksProps = {
     align?: "left" | "center" | "right";
 
     /**
-     * The variant of the header links
+     * The typography role of the header links
      */
-    variant?: BodyProps["variant"];
+    typographyRole?: TypographyRole;
 
     /**
      * The color of the header links
@@ -183,21 +183,7 @@ const headerLinksFields: YextFields<HeaderLinksProps> = {
     type: "object",
     label: msg("fields.styles", "Styles"),
     objectFields: {
-      align: {
-        generation: { required: false },
-        label: msg("fields.align", "Align"),
-        type: "radio",
-        options: ThemeOptions.ALIGNMENT,
-      },
-      variant: {
-        generation: {
-          required: false,
-          nullable: true,
-        },
-        label: msg("fields.variant", "Variant"),
-        type: "radio",
-        options: ThemeOptions.BODY_VARIANT,
-      },
+      typographyRole: { type: "typographyRole" },
       color: {
         type: "basicSelector",
         label: msg("fields.color", "Color"),
@@ -208,9 +194,19 @@ const headerLinksFields: YextFields<HeaderLinksProps> = {
         label: msg("fields.weight", "Weight"),
         type: "radio",
         options: [
+          {
+            label: msg("fields.defaultForPlacement", "Default for Placement"),
+            value: undefined,
+          },
           { label: msg("fields.options.normal", "Normal"), value: "normal" },
           { label: msg("fields.options.bold", "Bold"), value: "bold" },
         ],
+      },
+      align: {
+        generation: { required: false },
+        label: msg("fields.align", "Align"),
+        type: "radio",
+        options: ThemeOptions.ALIGNMENT,
       },
     },
   },
@@ -276,16 +272,6 @@ const HeaderLinksComponent: PuckComponent<HeaderLinksProps> = ({
     };
     return alignmentMap[styles?.align || "right"];
   }, [displayMode, isDesktop, styles?.align]);
-  const weightClass = styles?.weight === "bold" ? "font-bold" : "font-normal";
-  const sizeClass = styles?.variant
-    ? {
-        xs: "text-body-xs-fontSize",
-        sm: "text-body-sm-fontSize",
-        base: "text-body-fontSize",
-        lg: "text-body-lg-fontSize",
-      }[styles.variant]
-    : "text-body-fontSize";
-
   const linksToRender = React.useMemo(() => {
     if (displayMode !== "menu" || isSecondary) {
       return validLinks;
@@ -316,10 +302,17 @@ const HeaderLinksComponent: PuckComponent<HeaderLinksProps> = ({
 
   const renderLink = (item: ResolvedCTA, index: number) => (
     <CTA
-      variant={
-        !isSecondary ? "headerFooterMainLink" : "headerFooterSecondaryLink"
-      }
-      color={styles?.color}
+      variant="navigation-link"
+      color={styles.color}
+      typographyRole={styles.typographyRole}
+      style={{
+        fontWeight:
+          styles.weight === "bold"
+            ? 700
+            : styles.weight === "normal"
+              ? 400
+              : undefined,
+      }}
       openInNewTab={item.openInNewTab}
       eventName={`cta.${type.toLowerCase()}.${index}`}
       label={item.label}
@@ -330,7 +323,7 @@ const HeaderLinksComponent: PuckComponent<HeaderLinksProps> = ({
           ? false
           : (item.normalizeLink ?? true)
       }
-      className={`${justifyClass} ${weightClass} ${sizeClass} w-full text-wrap break-words`}
+      className={`${justifyClass} w-full text-wrap break-words`}
     />
   );
 
@@ -347,7 +340,7 @@ const HeaderLinksComponent: PuckComponent<HeaderLinksProps> = ({
     <nav
       aria-label={ariaLabel}
       ref={navRef}
-      className={`flex md:gap-6 md:items-center ${justifyClass} ${puck.isEditing ? " min-w-[100px] min-h-[30px]" : ""}`}
+      className={`flex md:gap-6 md:items-center ${justifyClass} ${puck.isEditing ? " min-w-[100px]" : ""}`}
     >
       {/* Hidden measure list for overflow math */}
       <ul
@@ -370,7 +363,7 @@ const HeaderLinksComponent: PuckComponent<HeaderLinksProps> = ({
                 ? "md:flex-row md:gap-6 md:items-center justify-end"
                 : "justify-start"
               : `${justifyClass} md:flex-row md:gap-6`
-          } ${sizeClass} ${weightClass}`}
+          }`}
         >
           {linksToRender.map((item, i) => (
             <li key={`visible-${i}`} className="py-4 lg:py-0">
@@ -390,8 +383,6 @@ export const defaultHeaderLinkProps: HeaderLinksProps = {
   },
   styles: {
     align: "right",
-    variant: "sm",
-    weight: "normal",
   },
 };
 

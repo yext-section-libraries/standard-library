@@ -1,8 +1,7 @@
 import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import { PuckComponent, Slot } from "@puckeditor/core";
 import {
-  backgroundColors,
-  ThemeColor,
   YextComponentConfig,
   YextFields,
   msg,
@@ -22,7 +21,7 @@ export interface VideoSectionProps {
      * The background color for the entire section, selected from the theme.
      * @defaultValue Background Color 1
      */
-    backgroundColor?: ThemeColor;
+    backgroundColor?: SurfaceValue;
   };
 
   slots: {
@@ -44,9 +43,9 @@ const videoSectionFields: YextFields<VideoSectionProps> = {
     objectFields: {
       backgroundColor: {
         generation: { required: false },
-        type: "basicSelector",
+        type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
+        allowInherit: false,
       },
     },
   },
@@ -96,7 +95,7 @@ export const VideoSectionBody: YextComponentConfig<VideoSectionProps> = {
   fields: videoSectionFields,
   defaultProps: {
     styles: {
-      backgroundColor: backgroundColors.background1.value,
+      backgroundColor: "page",
     },
     slots: {
       SectionHeadingSlot: [

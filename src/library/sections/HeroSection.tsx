@@ -1,4 +1,5 @@
 import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
+import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import { setDeep, Slot } from "@puckeditor/core";
 import {
   AnalyticsScopeProvider,
@@ -6,9 +7,7 @@ import {
   ImageType,
 } from "@yext/pages-components";
 import {
-  backgroundColors,
   ThemeColor,
-  HeadingLevel,
   ThemeOptions,
   msg,
   getAnalyticsScopeHash,
@@ -60,8 +59,8 @@ export interface HeroStyles {
    * The background color for the featured content (spotlight variant).
    * @defaultValue Background Color 1
    */
-  backgroundColor?: ThemeColor;
-
+  /** Theme variant or custom background color. */
+  backgroundColor?: SurfaceValue;
   /**
    * Image Height for the hero image with Immersive or Spotlight variant
    * Minimum height: content height + Page Section Top/Bottom Padding
@@ -220,6 +219,17 @@ const heroSectionFields: YextFields<HeroSectionProps> = {
     type: "object",
     label: msg("fields.styles", "Styles"),
     objectFields: {
+      backgroundColor: {
+        generation: { required: false },
+        type: "surface",
+        label: msg("fields.backgroundColor", "Background Color"),
+        allowInherit: false,
+      },
+      reviewStarsColor: {
+        type: "basicSelector",
+        label: msg("fields.reviewStarsColor", "Review Stars Color"),
+        options: "SITE_COLOR",
+      },
       variant: {
         type: "basicSelector",
         label: msg("fields.variant", "Variant"),
@@ -238,12 +248,6 @@ const heroSectionFields: YextFields<HeroSectionProps> = {
             value: "compact",
           },
         ],
-      },
-      backgroundColor: {
-        generation: { required: false },
-        type: "basicSelector",
-        label: msg("fields.backgroundColor", "Background Color"),
-        options: "BACKGROUND_COLOR",
       },
       imageHeight: {
         generation: { required: false },
@@ -343,11 +347,6 @@ const heroSectionFields: YextFields<HeroSectionProps> = {
         label: msg("fields.showAverageReview", "Show Average Review"),
         type: "radio",
         options: ThemeOptions.SHOW_HIDE,
-      },
-      reviewStarsColor: {
-        type: "basicSelector",
-        label: msg("fields.reviewStarsColor", "Review Stars Color"),
-        options: "SITE_COLOR",
       },
       showPrimaryCTA: {
         generation: {
@@ -475,7 +474,7 @@ export const HeroSectionBody: YextComponentConfig<HeroSectionProps> = {
     },
     styles: {
       variant: "classic",
-      backgroundColor: backgroundColors.background1.value,
+      backgroundColor: "page",
       imageHeight: 500,
       desktopImagePosition: "right",
       desktopContainerPosition: "left",
@@ -606,7 +605,7 @@ export const HeroSectionBody: YextComponentConfig<HeroSectionProps> = {
             },
             eventName: "primaryCta",
             styles: {
-              variant: "primary",
+              variant: "primary-button",
               presetImage: "app-store",
             },
           } satisfies CTAWrapperProps,
@@ -632,7 +631,7 @@ export const HeroSectionBody: YextComponentConfig<HeroSectionProps> = {
               },
             },
             styles: {
-              variant: "secondary",
+              variant: "secondary-button",
               presetImage: "app-store",
             },
             eventName: "secondaryCta",
@@ -656,7 +655,7 @@ export const HeroSectionBody: YextComponentConfig<HeroSectionProps> = {
       switch (variant) {
         case "link":
           return (
-            "py-3 border-2 border-transparent w-fit " +
+            "py-3 w-fit " +
             (data.props.styles.mobileContentAlignment === "center"
               ? " mx-auto sm:m-0"
               : "")
@@ -678,13 +677,28 @@ export const HeroSectionBody: YextComponentConfig<HeroSectionProps> = {
       ctaClassNameFn
     );
 
-    const geomodifierLevel =
-      data.props.slots.GeomodifierSlot[0]?.props.styles.level;
-    data = setDeep(
-      data,
-      "props.slots.BusinessNameSlot[0].props.styles.semanticLevelOverride",
-      geomodifierLevel < 6 ? ((geomodifierLevel + 1) as HeadingLevel) : "span"
-    );
+    // Semantics belong to placement; typography overrides never change tags.
+    for (const [slot, tag, role] of [
+      ["GeomodifierSlot", 1, "headline"],
+      [
+        "BusinessNameSlot",
+        data.props.styles.showGeomodifier ? "p" : 1,
+        data.props.styles.showGeomodifier ? "eyebrow" : "headline",
+      ],
+    ] as const) {
+      if (data.props.slots[slot]?.[0]) {
+        data = setDeep(
+          data,
+          `props.slots.${slot}[0].props.styles.semanticLevelOverride`,
+          tag
+        );
+        data = setDeep(
+          data,
+          `props.slots.${slot}[0].props.parentStyles.typographyRole`,
+          role
+        );
+      }
+    }
 
     switch (data.props.styles.variant) {
       case "compact":
@@ -703,7 +717,7 @@ export const HeroSectionBody: YextComponentConfig<HeroSectionProps> = {
         data = setDeep(
           data,
           "props.slots.ImageSlot[0].props.className",
-          "mx-auto max-w-full md:max-w-[350px] lg:max-w-[calc(min(calc(100vw-1.5rem),var(--maxWidth-pageSection-contentWidth))-350px)] rounded-image-borderRadius"
+          "mx-auto max-w-full md:max-w-[350px] lg:max-w-[calc(min(calc(100vw-1.5rem),var(--ve-page-content-max-width))-350px)] ve-theme-image"
         );
         break;
     }
@@ -774,11 +788,7 @@ export const HeroSectionBody: YextComponentConfig<HeroSectionProps> = {
         break;
       }
       case "immersive": {
-        fields = updateFields(
-          fields,
-          ["styles.objectFields.backgroundColor", "slots.ImageSlot"],
-          undefined
-        );
+        fields = updateFields(fields, ["slots.ImageSlot"], undefined);
         // immersive should also remove the props removed by spotlight
       }
       case "spotlight": {
