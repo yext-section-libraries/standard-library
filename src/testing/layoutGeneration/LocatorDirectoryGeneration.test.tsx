@@ -55,7 +55,13 @@ describe("locator and directory generation", () => {
     for (const props of [
       { ...defaults, mapStyle: "unsupported" },
       { ...defaults, distanceDisplay: "unsupported" },
-      { ...defaults, locationStyles: [{ entityType: "unsupported" }] },
+      { ...defaults, locationStyles: [{ entityType: "" }] },
+      {
+        ...defaults,
+        resultCard: [
+          { props: { ...DEFAULT_LOCATOR_RESULT_CARD_PROPS, entityType: "" } },
+        ],
+      },
       {
         ...defaults,
         locationStyles: [
@@ -98,6 +104,27 @@ describe("locator and directory generation", () => {
       }).success
     ).toBe(true);
   });
+
+  it.each([
+    { entityTypes: ["ce_warehouse"] },
+    { entityTypes: ["ce_warehouse", "location"] },
+    { entityTypes: ["location", "ce_warehouse"] },
+  ])(
+    "accepts custom entity types in locator generation: $entityTypes",
+    ({ entityTypes }) => {
+      const props = {
+        ...copy(Locator.defaultProps!),
+        locationStyles: entityTypes.map((entityType) => ({ entityType })),
+        resultCard: entityTypes.map((entityType) => ({
+          props: { ...copy(DEFAULT_LOCATOR_RESULT_CARD_PROPS), entityType },
+        })),
+      };
+      expect(locatorSchema.parse(props)).toMatchObject({
+        locationStyles: props.locationStyles,
+        resultCard: props.resultCard,
+      });
+    }
+  );
 
   it.each([{}, locatorDocument(["location", "restaurant", "location"])])(
     "reconciles duplicate, stale, missing and reordered locator configurations",

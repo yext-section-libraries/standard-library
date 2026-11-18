@@ -1,9 +1,11 @@
 import { z } from "zod";
-import { inferFieldZodSchema } from "@yext/visual-editor/section-library-support";
+import {
+  inferFieldZodSchema,
+  LOCATOR_ENTITY_TYPES,
+} from "@yext/visual-editor/section-library-support";
 import {
   DEFAULT_LOCATOR_RESULT_CARD_PROPS,
   LocatorResultCardFields,
-  locatorEntityTypeSchema,
 } from "./LocatorResultCard.tsx";
 import { getFacetFieldOptions } from "./Filters.tsx";
 
@@ -18,7 +20,7 @@ export const locatorFacetFieldsSchema = z
       z.object({
         value: z
           .enum(
-            getFacetFieldOptions(locatorEntityTypeSchema.options)
+            getFacetFieldOptions([...LOCATOR_ENTITY_TYPES])
               .map(({ value }) => value)
               .filter((value): value is string => typeof value === "string")
           )

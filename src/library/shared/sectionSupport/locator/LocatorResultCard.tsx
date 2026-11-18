@@ -39,7 +39,6 @@ import {
   getTextColorStyle,
   themeManagerCn,
   imageZodSchema,
-  LOCATOR_ENTITY_TYPES,
 } from "@yext/visual-editor/section-library-support";
 import { Body, BodyProps } from "../atoms/body.tsx";
 import { CTA, CTAVariant } from "../atoms/cta.tsx";
@@ -378,7 +377,7 @@ const DisplayFieldSelector = (
   translateOptions: false,
 });
 
-export const locatorEntityTypeSchema = z.enum(LOCATOR_ENTITY_TYPES);
+export const locatorEntityTypeSchema = z.string().min(1);
 
 export const LocatorResultCardFields: YextObjectField<LocatorResultCardProps> =
   {
