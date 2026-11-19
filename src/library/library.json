@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "id": "yext_standard-library",
-  "displayName": "Standard Library",
+  "id": "new-theme-standard-library",
+  "displayName": "New Theme Standard Library",
   "description": "The original Pages for Marketers sections.",
   "locales": [
     "cs",
