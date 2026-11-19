@@ -1,6 +1,11 @@
 import { styleSchema } from "./styleSchema.ts";
 import { cardGridDefaults, cardListDefaults } from "./cardLayout.tsx";
-import { headingRole, interactionRoleForVariant } from "./theme.ts";
+import {
+  headingRole,
+  interactionRoleForVariant,
+  professionalHeroTextPlacement,
+} from "./theme.ts";
+import type { HeadingLevel, TypographyRole } from "@yext/visual-editor";
 import type { Slot } from "@puckeditor/core";
 import {
   boxConfig,
@@ -83,28 +88,36 @@ export function recipeNode(
 }
 
 /** Convert fixed section slots into the same public atoms offered in the drawer. */
-export function editableNodes(nodes: Slot = []): Slot {
+export function editableNodes(
+  nodes: Slot = [],
+  placement?: { level: HeadingLevel | "p"; typographyRole: TypographyRole }
+): Slot {
   return nodes.map((node) => {
     const props = structuredClone(node.props);
     // Authored IDs are assigned by Puck when the preset is inserted.
     delete props.id;
     const parentStyles = props.parentStyles;
     delete props.parentStyles;
+    const typographyRole =
+      props.styles?.typographyRole ??
+      placement?.typographyRole ??
+      parentStyles?.typographyRole;
     const parentData = props.parentData;
     delete props.parentData;
     switch (node.type) {
       case "HeadingTextSlot": {
         const level =
-          props.styles?.semanticLevelOverride ?? props.styles?.level ?? 2;
+          placement?.level ??
+          props.styles?.semanticLevelOverride ??
+          props.styles?.level ??
+          2;
         const tag = typeof level === "number" ? `h${level}` : "p";
         const isHeading = /^h[1-6]$/.test(tag);
         return recipeNode(isHeading ? "Heading" : "Paragraph", {
           data: props.data,
           as: tag,
           typographyRole:
-            props.styles?.typographyRole ??
-            parentStyles?.typographyRole ??
-            (isHeading ? headingRole(tag) : "eyebrow"),
+            typographyRole ?? (isHeading ? headingRole(tag) : "eyebrow"),
           typography: {
             ...headingConfig.defaultProps?.typography,
             textAlign:
@@ -119,7 +132,7 @@ export function editableNodes(nodes: Slot = []): Slot {
       case "TextSlot":
         return recipeNode("Paragraph", {
           data: props.data,
-          typographyRole: props.styles?.typographyRole,
+          typographyRole,
           typography: {
             ...paragraphConfig.defaultProps?.typography,
             ...(props.styles?.fontStyle === "bold"
@@ -133,7 +146,7 @@ export function editableNodes(nodes: Slot = []): Slot {
       case "BodyTextSlot":
         return recipeNode("RichText", {
           data: props.data,
-          typographyRole: props.styles?.typographyRole,
+          typographyRole,
         });
       case "ImageSlot":
       case "HeroImageSlot":
@@ -229,6 +242,11 @@ const columns = (content: Slot, count = 2) =>
     content
   );
 
+const inheritSurface = (props: Props) => ({
+  ...props,
+  styles: { ...props.styles, backgroundColor: "inherit" },
+});
+
 /** Presets contain ordinary Puck data. There is no separate section layout renderer. */
 export function sectionRecipe(name: string, props: Props): Slot {
   switch (name) {
@@ -281,12 +299,12 @@ export function sectionRecipe(name: string, props: Props): Slot {
         columns([
           ...slot(props, "ImageSlot"),
           stack([
+            ...professionalHeroTextPlacement.flatMap(
+              ([key, level, typographyRole]) =>
+                editableNodes(props.slots?.[key], { level, typographyRole })
+            ),
             ...slot(
               props,
-              "ProfessionalNameSlot",
-              "CredentialsSlot",
-              "ProfessionalTitleSlot",
-              "BusinessNameSlot",
               "SubtitleSlot",
               "AddressSlot",
               "PhoneSlot",
@@ -398,8 +416,10 @@ export function sectionRecipe(name: string, props: Props): Slot {
       return [
         ...slot(props, "HeadingSlot"),
         recipeNode("FAQCollection", {
-          ...props,
-          styles: { ...props.styles, showSectionHeading: false },
+          ...inheritSurface({
+            ...props,
+            styles: { ...props.styles, showSectionHeading: false },
+          }),
           slots: { ...props.slots, HeadingSlot: [] },
         }),
       ];
@@ -424,11 +444,11 @@ export function sectionRecipe(name: string, props: Props): Slot {
         }),
       ];
     case "FormSection":
-      return [recipeNode("ContactForm", props)];
+      return [recipeNode("ContactForm", inheritSurface(props))];
     case "ReviewsSection":
-      return [recipeNode("Reviews", props)];
+      return [recipeNode("Reviews", inheritSurface(props))];
     case "BreadcrumbsSection":
-      return [recipeNode("Breadcrumbs", props)];
+      return [recipeNode("Breadcrumbs", inheritSurface(props))];
     default:
       throw new Error(`Missing editable section recipe for ${name}`);
   }

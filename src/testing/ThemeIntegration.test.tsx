@@ -13,6 +13,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { migrationRegistry as editorMigrations } from "@yext/visual-editor";
 import { migrationRegistry } from "../library/migrations/registry.ts";
 import { page } from "@vitest/browser/context";
+import { MapPinIcon } from "../library/shared/sectionSupport/MapPinIcon.tsx";
 import { Background } from "../library/shared/sectionSupport/atoms/background.tsx";
 import { CTA } from "../library/shared/sectionSupport/atoms/cta.tsx";
 import { VisualEditorProvider } from "./TestVisualEditorProvider.tsx";
@@ -123,6 +124,129 @@ describe("new site starter layouts", () => {
 afterEach(cleanup);
 
 describe("semantic theme integration", () => {
+  it("uses the outer surface for an embedded contact form", async () => {
+    testSetup({ colorPrimary: "#112233", colorPrimaryForeground: "#ffffff" });
+    const layout = makeLayout("FormSection");
+    layout.content[0].props.surfaceRole = "primary";
+
+    const { container } = await mount(layout);
+    const form = container.querySelector("form")!;
+    expect(form.closest(".ve-theme-primary")?.tagName).toBe("SECTION");
+    expect(form.closest(".ve-theme-page")).toBeNull();
+    expect(getComputedStyle(form).color).toBe("rgb(255, 255, 255)");
+  });
+
+  it("assigns the Professional Hero title and supporting text their placement roles", async () => {
+    const { getByRole, getByText } = await mount(
+      makeLayout("ProfessionalHeroSection")
+    );
+    expect(
+      getByRole("heading", { level: 1, name: "Professional Name" })
+    ).toHaveClass("sl-type-headline");
+    for (const label of ["Credentials", "Professional Title"]) {
+      const text = getByText(label);
+      expect(text.tagName).toBe("P");
+      expect(text).toHaveClass("sl-type-eyebrow");
+    }
+    expect(
+      getByText("Business Name").closest(".sl-type-eyebrow")
+    ).not.toBeNull();
+  });
+
+  it("uses solid pin colors with Primary and Accent gradients", () => {
+    testSetup({
+      colorPrimary: "linear-gradient(90deg, #112233 0%, #445566 100%)",
+      colorAccent: "linear-gradient(90deg, #aabbcc 0%, #ddeeff 100%)",
+    });
+    const { container } = render(
+      <VisualEditorProvider templateProps={{ document: streamDocument }}>
+        <MapPinIcon iconWidth={12} resultIndex={1} />
+        <MapPinIcon iconWidth={12} resultIndex={2} selected />
+        <MapPinIcon
+          iconWidth={12}
+          resultIndex={3}
+          color={{
+            selectedColor: "[linear-gradient(90deg, #223344 0%, #556677 100%)]",
+            contrastingColor: "white",
+          }}
+        />
+      </VisualEditorProvider>
+    );
+
+    expect(
+      Array.from(
+        container.querySelectorAll("svg"),
+        (pin) => getComputedStyle(pin).color
+      )
+    ).toEqual(["rgb(17, 34, 51)", "rgb(170, 187, 204)", "rgb(34, 51, 68)"]);
+  });
+
+  it.each([
+    ["primary-button", "primaryButtonTransition"],
+    ["secondary-button", "secondaryButtonTransition"],
+    ["link", "linkTransition"],
+    ["navigation-link", "navigationLinkTransition"],
+  ] as const)("uses the %s theme transition", async (role, themeField) => {
+    testSetup({ [themeField]: "color 180ms ease-in-out" });
+    const layout = makeLayout("Button");
+    layout.content[0].props.interactionRole = role;
+    const { getByRole } = await mount(layout);
+    const link = getByRole("link", { name: "Learn more" });
+    link.setAttribute("data-test-transitions", "");
+    const style = getComputedStyle(link);
+    expect(style.transitionProperty).toBe("color");
+    expect(style.transitionDuration).toBe("0.18s");
+  });
+
+  it("uses authored Pressed properties while keeping the other active theme styles", async () => {
+    testSetup({
+      primaryButtonActiveFontWeight: "800",
+      primaryButtonActiveTextColor: "#aa0000",
+    });
+    const layout = makeLayout("Button");
+    const props = layout.content[0].props;
+    props.action = "button";
+    props.states = { active: { typography: { color: "#225566" } } };
+    const { getByRole } = await mount(layout);
+    const button = getByRole("button", { name: "Learn more" });
+    let pressed: { color: string; weight: string } | undefined;
+    button.addEventListener(
+      "mousedown",
+      () => {
+        const style = getComputedStyle(button);
+        pressed = { color: style.color, weight: style.fontWeight };
+      },
+      { once: true }
+    );
+    await page.getByRole("button", { name: "Learn more" }).click();
+    expect(pressed).toEqual({ color: "rgb(34, 85, 102)", weight: "800" });
+    expect(getComputedStyle(button).color).not.toBe("rgb(34, 85, 102)");
+  });
+
+  it.each([
+    ["primary-button", "primaryButtonPadding"],
+    ["secondary-button", "secondaryButtonPadding"],
+  ] as const)(
+    "uses the %s theme padding while respecting a responsive side override",
+    async (role, themeField) => {
+      testSetup({ [themeField]: "14px 26px" });
+      const layout = makeLayout("Button");
+      const button = layout.content[0].props;
+      button.interactionRole = role;
+      button.responsive = {
+        mobile: { spacing: { paddingInlineStart: "8px" } },
+      };
+
+      const { getByRole } = await mount(layout);
+      const link = getByRole("link", { name: "Learn more" });
+
+      await page.viewport(1280, 800);
+      expect(getComputedStyle(link).padding).toBe("14px 26px");
+      await page.viewport(375, 800);
+      expect(getComputedStyle(link).padding).toBe("14px 26px 14px 8px");
+    }
+  );
+
   it("uses the nearest surface for CTAs, including live theme changes", () => {
     testSetup({
       colorPrimary: "#000000",

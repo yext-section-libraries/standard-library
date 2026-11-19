@@ -325,6 +325,266 @@
   --sl-f1q: initial;
   --sl-f1r: initial;
   --sl-f1s: initial;
+  --sl-a0: initial;
+  --sl-a1: initial;
+  --sl-a2: initial;
+  --sl-a3: initial;
+  --sl-a4: initial;
+  --sl-a5: initial;
+  --sl-a6: initial;
+  --sl-a7: initial;
+  --sl-a8: initial;
+  --sl-a9: initial;
+  --sl-aa: initial;
+  --sl-ab: initial;
+  --sl-ac: initial;
+  --sl-ad: initial;
+  --sl-ae: initial;
+  --sl-af: initial;
+  --sl-ag: initial;
+  --sl-ah: initial;
+  --sl-ai: initial;
+  --sl-aj: initial;
+  --sl-ak: initial;
+  --sl-al: initial;
+  --sl-am: initial;
+  --sl-an: initial;
+  --sl-ao: initial;
+  --sl-ap: initial;
+  --sl-aq: initial;
+  --sl-ar: initial;
+  --sl-as: initial;
+  --sl-at: initial;
+  --sl-au: initial;
+  --sl-av: initial;
+  --sl-aw: initial;
+  --sl-ax: initial;
+  --sl-ay: initial;
+  --sl-az: initial;
+  --sl-a10: initial;
+  --sl-a11: initial;
+  --sl-a12: initial;
+  --sl-a13: initial;
+  --sl-a14: initial;
+  --sl-a15: initial;
+  --sl-a16: initial;
+  --sl-a17: initial;
+  --sl-a18: initial;
+  --sl-a19: initial;
+  --sl-a1a: initial;
+  --sl-a1b: initial;
+  --sl-a1c: initial;
+  --sl-a1d: initial;
+  --sl-a1e: initial;
+  --sl-a1f: initial;
+  --sl-a1g: initial;
+  --sl-a1h: initial;
+  --sl-a1i: initial;
+  --sl-a1j: initial;
+  --sl-a1k: initial;
+  --sl-a1l: initial;
+  --sl-a1m: initial;
+  --sl-a1n: initial;
+  --sl-a1o: initial;
+  --sl-a1p: initial;
+  --sl-a1q: initial;
+  --sl-a1r: initial;
+  --sl-a1s: initial;
+  --sl-x0: initial;
+  --sl-x1: initial;
+  --sl-x2: initial;
+  --sl-x3: initial;
+  --sl-x4: initial;
+  --sl-x5: initial;
+  --sl-x6: initial;
+  --sl-x7: initial;
+  --sl-x8: initial;
+  --sl-x9: initial;
+  --sl-xa: initial;
+  --sl-xb: initial;
+  --sl-xc: initial;
+  --sl-xd: initial;
+  --sl-xe: initial;
+  --sl-xf: initial;
+  --sl-xg: initial;
+  --sl-xh: initial;
+  --sl-xi: initial;
+  --sl-xj: initial;
+  --sl-xk: initial;
+  --sl-xl: initial;
+  --sl-xm: initial;
+  --sl-xn: initial;
+  --sl-xo: initial;
+  --sl-xp: initial;
+  --sl-xq: initial;
+  --sl-xr: initial;
+  --sl-xs: initial;
+  --sl-xt: initial;
+  --sl-xu: initial;
+  --sl-xv: initial;
+  --sl-xw: initial;
+  --sl-xx: initial;
+  --sl-xy: initial;
+  --sl-xz: initial;
+  --sl-x10: initial;
+  --sl-x11: initial;
+  --sl-x12: initial;
+  --sl-x13: initial;
+  --sl-x14: initial;
+  --sl-x15: initial;
+  --sl-x16: initial;
+  --sl-x17: initial;
+  --sl-x18: initial;
+  --sl-x19: initial;
+  --sl-x1a: initial;
+  --sl-x1b: initial;
+  --sl-x1c: initial;
+  --sl-x1d: initial;
+  --sl-x1e: initial;
+  --sl-x1f: initial;
+  --sl-x1g: initial;
+  --sl-x1h: initial;
+  --sl-x1i: initial;
+  --sl-x1j: initial;
+  --sl-x1k: initial;
+  --sl-x1l: initial;
+  --sl-x1m: initial;
+  --sl-x1n: initial;
+  --sl-x1o: initial;
+  --sl-x1p: initial;
+  --sl-x1q: initial;
+  --sl-x1r: initial;
+  --sl-x1s: initial;
+  --sl-y0: initial;
+  --sl-y1: initial;
+  --sl-y2: initial;
+  --sl-y3: initial;
+  --sl-y4: initial;
+  --sl-y5: initial;
+  --sl-y6: initial;
+  --sl-y7: initial;
+  --sl-y8: initial;
+  --sl-y9: initial;
+  --sl-ya: initial;
+  --sl-yb: initial;
+  --sl-yc: initial;
+  --sl-yd: initial;
+  --sl-ye: initial;
+  --sl-yf: initial;
+  --sl-yg: initial;
+  --sl-yh: initial;
+  --sl-yi: initial;
+  --sl-yj: initial;
+  --sl-yk: initial;
+  --sl-yl: initial;
+  --sl-ym: initial;
+  --sl-yn: initial;
+  --sl-yo: initial;
+  --sl-yp: initial;
+  --sl-yq: initial;
+  --sl-yr: initial;
+  --sl-ys: initial;
+  --sl-yt: initial;
+  --sl-yu: initial;
+  --sl-yv: initial;
+  --sl-yw: initial;
+  --sl-yx: initial;
+  --sl-yy: initial;
+  --sl-yz: initial;
+  --sl-y10: initial;
+  --sl-y11: initial;
+  --sl-y12: initial;
+  --sl-y13: initial;
+  --sl-y14: initial;
+  --sl-y15: initial;
+  --sl-y16: initial;
+  --sl-y17: initial;
+  --sl-y18: initial;
+  --sl-y19: initial;
+  --sl-y1a: initial;
+  --sl-y1b: initial;
+  --sl-y1c: initial;
+  --sl-y1d: initial;
+  --sl-y1e: initial;
+  --sl-y1f: initial;
+  --sl-y1g: initial;
+  --sl-y1h: initial;
+  --sl-y1i: initial;
+  --sl-y1j: initial;
+  --sl-y1k: initial;
+  --sl-y1l: initial;
+  --sl-y1m: initial;
+  --sl-y1n: initial;
+  --sl-y1o: initial;
+  --sl-y1p: initial;
+  --sl-y1q: initial;
+  --sl-y1r: initial;
+  --sl-y1s: initial;
+  --sl-z0: initial;
+  --sl-z1: initial;
+  --sl-z2: initial;
+  --sl-z3: initial;
+  --sl-z4: initial;
+  --sl-z5: initial;
+  --sl-z6: initial;
+  --sl-z7: initial;
+  --sl-z8: initial;
+  --sl-z9: initial;
+  --sl-za: initial;
+  --sl-zb: initial;
+  --sl-zc: initial;
+  --sl-zd: initial;
+  --sl-ze: initial;
+  --sl-zf: initial;
+  --sl-zg: initial;
+  --sl-zh: initial;
+  --sl-zi: initial;
+  --sl-zj: initial;
+  --sl-zk: initial;
+  --sl-zl: initial;
+  --sl-zm: initial;
+  --sl-zn: initial;
+  --sl-zo: initial;
+  --sl-zp: initial;
+  --sl-zq: initial;
+  --sl-zr: initial;
+  --sl-zs: initial;
+  --sl-zt: initial;
+  --sl-zu: initial;
+  --sl-zv: initial;
+  --sl-zw: initial;
+  --sl-zx: initial;
+  --sl-zy: initial;
+  --sl-zz: initial;
+  --sl-z10: initial;
+  --sl-z11: initial;
+  --sl-z12: initial;
+  --sl-z13: initial;
+  --sl-z14: initial;
+  --sl-z15: initial;
+  --sl-z16: initial;
+  --sl-z17: initial;
+  --sl-z18: initial;
+  --sl-z19: initial;
+  --sl-z1a: initial;
+  --sl-z1b: initial;
+  --sl-z1c: initial;
+  --sl-z1d: initial;
+  --sl-z1e: initial;
+  --sl-z1f: initial;
+  --sl-z1g: initial;
+  --sl-z1h: initial;
+  --sl-z1i: initial;
+  --sl-z1j: initial;
+  --sl-z1k: initial;
+  --sl-z1l: initial;
+  --sl-z1m: initial;
+  --sl-z1n: initial;
+  --sl-z1o: initial;
+  --sl-z1p: initial;
+  --sl-z1q: initial;
+  --sl-z1r: initial;
+  --sl-z1s: initial;
   --sl-theme-font-family: initial;
   --sl-theme-font-size: initial;
   --sl-theme-font-weight: initial;
@@ -340,6 +600,7 @@
   --sl-theme-border-radius: initial;
   --sl-theme-border-style: initial;
   --sl-theme-border-width: initial;
+  --sl-background-foreground: initial;
 }
 .sl-atom {
   --sl-c0: var(--sl-b0);
@@ -543,316 +804,558 @@
     --sl-c1s: var(--sl-m1s, var(--sl-b1s));
   }
 }
-.sl-atom {
-  display: var(--sl-c0, revert-layer);
-  flex-direction: var(--sl-c1, revert-layer);
-  flex-wrap: var(--sl-c2, revert-layer);
-  align-items: var(--sl-c3, revert-layer);
-  justify-content: var(--sl-c4, revert-layer);
-  grid-template-columns: var(--sl-c5, revert-layer);
-  grid-auto-flow: var(--sl-c6, revert-layer);
-  row-gap: var(--sl-c8, revert-layer);
-  column-gap: var(--sl-c9, revert-layer);
-  align-self: var(--sl-ca, revert-layer);
-  flex-grow: var(--sl-cb, revert-layer);
-  flex-shrink: var(--sl-cc, revert-layer);
-  flex-basis: var(--sl-cd, revert-layer);
-  grid-column: var(--sl-ce, revert-layer);
-  grid-row: var(--sl-cf, revert-layer);
-  width: var(--sl-cg, revert-layer);
-  max-width: var(--sl-ch, revert-layer);
-  min-width: var(--sl-ci, 0);
-  height: var(--sl-cj, revert-layer);
-  min-height: var(--sl-ck, revert-layer);
-  max-height: var(--sl-cl, revert-layer);
-  aspect-ratio: var(--sl-cm, revert-layer);
-  overflow: var(--sl-cn, revert-layer);
-  padding-block-start: var(--sl-co, revert-layer);
-  padding-inline-end: var(--sl-cp, revert-layer);
-  padding-block-end: var(--sl-cq, revert-layer);
-  padding-inline-start: var(--sl-cr, revert-layer);
-  margin-block-start: var(--sl-cs, revert-layer);
-  margin-inline-end: var(--sl-ct, revert-layer);
-  margin-block-end: var(--sl-cu, revert-layer);
-  margin-inline-start: var(--sl-cv, revert-layer);
-  font-family: var(--sl-cw, var(--sl-theme-font-family, revert-layer));
-  font-size: var(--sl-cx, var(--sl-theme-font-size, revert-layer));
-  font-weight: var(--sl-cy, var(--sl-theme-font-weight, revert-layer));
-  line-height: var(--sl-cz, var(--sl-theme-line-height, revert-layer));
-  letter-spacing: var(--sl-c10, var(--sl-theme-letter-spacing, revert-layer));
-  text-align: var(--sl-c11, revert-layer);
-  text-transform: var(--sl-c12, var(--sl-theme-text-transform, revert-layer));
-  font-style: var(--sl-c13, var(--sl-theme-font-style, revert-layer));
-  text-decoration: var(--sl-c14, var(--sl-theme-text-decoration, revert-layer));
-  text-wrap: var(--sl-c15, revert-layer);
-  white-space: var(--sl-c16, revert-layer);
-  color: var(--sl-c17, var(--sl-theme-color, revert-layer));
-  background-color: var(
-    --sl-c18,
-    var(--sl-theme-background-color, revert-layer)
-  );
-  background-image: var(
-    --sl-c19,
-    var(--sl-c18, var(--sl-theme-background-image, revert-layer))
-  );
-  background-size: var(--sl-c1a, revert-layer);
-  background-position: var(--sl-c1b, revert-layer);
-  background-repeat: var(--sl-c1c, revert-layer);
-  border-color: var(--sl-c1d, var(--sl-theme-border-color, revert-layer));
-  border-width: var(--sl-c1e, var(--sl-theme-border-width, revert-layer));
-  border-style: var(--sl-c1f, var(--sl-theme-border-style, revert-layer));
-  border-radius: var(--sl-c1g, var(--sl-theme-border-radius, revert-layer));
-  box-shadow: var(--sl-c1h, revert-layer);
-  opacity: var(--sl-c1i, revert-layer);
-  object-fit: var(--sl-c1j, revert-layer);
-  object-position: var(--sl-c1k, revert-layer);
-  cursor: var(--sl-c1l, revert-layer);
-  position: var(--sl-c1m, revert-layer);
-  inset-block-start: var(--sl-c1n, revert-layer);
-  inset-inline-end: var(--sl-c1o, revert-layer);
-  inset-block-end: var(--sl-c1p, revert-layer);
-  inset-inline-start: var(--sl-c1q, revert-layer);
-  z-index: var(--sl-c1r, revert-layer);
-  transform: var(--sl-c1s, revert-layer);
-}
-.sl-atom.sl-editing {
-  position: var(--sl-c1m, relative) !important;
-}
 @media (hover: hover) {
   .sl-atom:hover {
-    display: var(--sl-h0, var(--sl-c0, revert-layer));
-    flex-direction: var(--sl-h1, var(--sl-c1, revert-layer));
-    flex-wrap: var(--sl-h2, var(--sl-c2, revert-layer));
-    align-items: var(--sl-h3, var(--sl-c3, revert-layer));
-    justify-content: var(--sl-h4, var(--sl-c4, revert-layer));
-    grid-template-columns: var(--sl-h5, var(--sl-c5, revert-layer));
-    grid-auto-flow: var(--sl-h6, var(--sl-c6, revert-layer));
-    row-gap: var(--sl-h8, var(--sl-h7, var(--sl-c8, revert-layer)));
-    column-gap: var(--sl-h9, var(--sl-h7, var(--sl-c9, revert-layer)));
-    align-self: var(--sl-ha, var(--sl-ca, revert-layer));
-    flex-grow: var(--sl-hb, var(--sl-cb, revert-layer));
-    flex-shrink: var(--sl-hc, var(--sl-cc, revert-layer));
-    flex-basis: var(--sl-hd, var(--sl-cd, revert-layer));
-    grid-column: var(--sl-he, var(--sl-ce, revert-layer));
-    grid-row: var(--sl-hf, var(--sl-cf, revert-layer));
-    width: var(--sl-hg, var(--sl-cg, revert-layer));
-    max-width: var(--sl-hh, var(--sl-ch, revert-layer));
-    min-width: var(--sl-hi, var(--sl-ci, 0));
-    height: var(--sl-hj, var(--sl-cj, revert-layer));
-    min-height: var(--sl-hk, var(--sl-ck, revert-layer));
-    max-height: var(--sl-hl, var(--sl-cl, revert-layer));
-    aspect-ratio: var(--sl-hm, var(--sl-cm, revert-layer));
-    overflow: var(--sl-hn, var(--sl-cn, revert-layer));
-    padding-block-start: var(--sl-ho, var(--sl-co, revert-layer));
-    padding-inline-end: var(--sl-hp, var(--sl-cp, revert-layer));
-    padding-block-end: var(--sl-hq, var(--sl-cq, revert-layer));
-    padding-inline-start: var(--sl-hr, var(--sl-cr, revert-layer));
-    margin-block-start: var(--sl-hs, var(--sl-cs, revert-layer));
-    margin-inline-end: var(--sl-ht, var(--sl-ct, revert-layer));
-    margin-block-end: var(--sl-hu, var(--sl-cu, revert-layer));
-    margin-inline-start: var(--sl-hv, var(--sl-cv, revert-layer));
-    font-family: var(
-      --sl-hw,
-      var(--sl-cw, var(--sl-theme-font-family, revert-layer))
-    );
-    font-size: var(
-      --sl-hx,
-      var(--sl-cx, var(--sl-theme-font-size, revert-layer))
-    );
-    font-weight: var(
-      --sl-hy,
-      var(--sl-cy, var(--sl-theme-font-weight, revert-layer))
-    );
-    line-height: var(
-      --sl-hz,
-      var(--sl-cz, var(--sl-theme-line-height, revert-layer))
-    );
-    letter-spacing: var(
-      --sl-h10,
-      var(--sl-c10, var(--sl-theme-letter-spacing, revert-layer))
-    );
-    text-align: var(--sl-h11, var(--sl-c11, revert-layer));
-    text-transform: var(
-      --sl-h12,
-      var(--sl-c12, var(--sl-theme-text-transform, revert-layer))
-    );
-    font-style: var(
-      --sl-h13,
-      var(--sl-c13, var(--sl-theme-font-style, revert-layer))
-    );
-    text-decoration: var(
-      --sl-h14,
-      var(--sl-c14, var(--sl-theme-text-decoration, revert-layer))
-    );
-    text-wrap: var(--sl-h15, var(--sl-c15, revert-layer));
-    white-space: var(--sl-h16, var(--sl-c16, revert-layer));
-    color: var(--sl-h17, var(--sl-c17, var(--sl-theme-color, revert-layer)));
-    background-color: var(
-      --sl-h18,
-      var(--sl-c18, var(--sl-theme-background-color, revert-layer))
-    );
-    background-image: var(
-      --sl-h19,
-      var(
-        --sl-c19,
-        var(
-          --sl-h18,
-          var(--sl-c18, var(--sl-theme-background-image, revert-layer))
-        )
-      )
-    );
-    background-size: var(--sl-h1a, var(--sl-c1a, revert-layer));
-    background-position: var(--sl-h1b, var(--sl-c1b, revert-layer));
-    background-repeat: var(--sl-h1c, var(--sl-c1c, revert-layer));
-    border-color: var(
-      --sl-h1d,
-      var(--sl-c1d, var(--sl-theme-border-color, revert-layer))
-    );
-    border-width: var(
-      --sl-h1e,
-      var(--sl-c1e, var(--sl-theme-border-width, revert-layer))
-    );
-    border-style: var(
-      --sl-h1f,
-      var(--sl-c1f, var(--sl-theme-border-style, revert-layer))
-    );
-    border-radius: var(
-      --sl-h1g,
-      var(--sl-c1g, var(--sl-theme-border-radius, revert-layer))
-    );
-    box-shadow: var(--sl-h1h, var(--sl-c1h, revert-layer));
-    opacity: var(--sl-h1i, var(--sl-c1i, revert-layer));
-    object-fit: var(--sl-h1j, var(--sl-c1j, revert-layer));
-    object-position: var(--sl-h1k, var(--sl-c1k, revert-layer));
-    cursor: var(--sl-h1l, var(--sl-c1l, revert-layer));
-    position: var(--sl-h1m, var(--sl-c1m, revert-layer));
-    inset-block-start: var(--sl-h1n, var(--sl-c1n, revert-layer));
-    inset-inline-end: var(--sl-h1o, var(--sl-c1o, revert-layer));
-    inset-block-end: var(--sl-h1p, var(--sl-c1p, revert-layer));
-    inset-inline-start: var(--sl-h1q, var(--sl-c1q, revert-layer));
-    z-index: var(--sl-h1r, var(--sl-c1r, revert-layer));
-    transform: var(--sl-h1s, var(--sl-c1s, revert-layer));
-  }
-  .sl-atom.sl-editing:hover {
-    position: var(--sl-h1m, var(--sl-c1m, relative)) !important;
+    --sl-x0: var(--sl-h0);
+    --sl-x1: var(--sl-h1);
+    --sl-x2: var(--sl-h2);
+    --sl-x3: var(--sl-h3);
+    --sl-x4: var(--sl-h4);
+    --sl-x5: var(--sl-h5);
+    --sl-x6: var(--sl-h6);
+    --sl-x7: var(--sl-h7);
+    --sl-x8: var(--sl-h8);
+    --sl-x9: var(--sl-h9);
+    --sl-xa: var(--sl-ha);
+    --sl-xb: var(--sl-hb);
+    --sl-xc: var(--sl-hc);
+    --sl-xd: var(--sl-hd);
+    --sl-xe: var(--sl-he);
+    --sl-xf: var(--sl-hf);
+    --sl-xg: var(--sl-hg);
+    --sl-xh: var(--sl-hh);
+    --sl-xi: var(--sl-hi);
+    --sl-xj: var(--sl-hj);
+    --sl-xk: var(--sl-hk);
+    --sl-xl: var(--sl-hl);
+    --sl-xm: var(--sl-hm);
+    --sl-xn: var(--sl-hn);
+    --sl-xo: var(--sl-ho);
+    --sl-xp: var(--sl-hp);
+    --sl-xq: var(--sl-hq);
+    --sl-xr: var(--sl-hr);
+    --sl-xs: var(--sl-hs);
+    --sl-xt: var(--sl-ht);
+    --sl-xu: var(--sl-hu);
+    --sl-xv: var(--sl-hv);
+    --sl-xw: var(--sl-hw);
+    --sl-xx: var(--sl-hx);
+    --sl-xy: var(--sl-hy);
+    --sl-xz: var(--sl-hz);
+    --sl-x10: var(--sl-h10);
+    --sl-x11: var(--sl-h11);
+    --sl-x12: var(--sl-h12);
+    --sl-x13: var(--sl-h13);
+    --sl-x14: var(--sl-h14);
+    --sl-x15: var(--sl-h15);
+    --sl-x16: var(--sl-h16);
+    --sl-x17: var(--sl-h17);
+    --sl-x18: var(--sl-h18);
+    --sl-x19: var(--sl-h19);
+    --sl-x1a: var(--sl-h1a);
+    --sl-x1b: var(--sl-h1b);
+    --sl-x1c: var(--sl-h1c);
+    --sl-x1d: var(--sl-h1d);
+    --sl-x1e: var(--sl-h1e);
+    --sl-x1f: var(--sl-h1f);
+    --sl-x1g: var(--sl-h1g);
+    --sl-x1h: var(--sl-h1h);
+    --sl-x1i: var(--sl-h1i);
+    --sl-x1j: var(--sl-h1j);
+    --sl-x1k: var(--sl-h1k);
+    --sl-x1l: var(--sl-h1l);
+    --sl-x1m: var(--sl-h1m);
+    --sl-x1n: var(--sl-h1n);
+    --sl-x1o: var(--sl-h1o);
+    --sl-x1p: var(--sl-h1p);
+    --sl-x1q: var(--sl-h1q);
+    --sl-x1r: var(--sl-h1r);
+    --sl-x1s: var(--sl-h1s);
   }
 }
 .sl-atom:focus-visible {
-  display: var(--sl-f0, var(--sl-c0, revert-layer));
-  flex-direction: var(--sl-f1, var(--sl-c1, revert-layer));
-  flex-wrap: var(--sl-f2, var(--sl-c2, revert-layer));
-  align-items: var(--sl-f3, var(--sl-c3, revert-layer));
-  justify-content: var(--sl-f4, var(--sl-c4, revert-layer));
-  grid-template-columns: var(--sl-f5, var(--sl-c5, revert-layer));
-  grid-auto-flow: var(--sl-f6, var(--sl-c6, revert-layer));
-  row-gap: var(--sl-f8, var(--sl-f7, var(--sl-c8, revert-layer)));
-  column-gap: var(--sl-f9, var(--sl-f7, var(--sl-c9, revert-layer)));
-  align-self: var(--sl-fa, var(--sl-ca, revert-layer));
-  flex-grow: var(--sl-fb, var(--sl-cb, revert-layer));
-  flex-shrink: var(--sl-fc, var(--sl-cc, revert-layer));
-  flex-basis: var(--sl-fd, var(--sl-cd, revert-layer));
-  grid-column: var(--sl-fe, var(--sl-ce, revert-layer));
-  grid-row: var(--sl-ff, var(--sl-cf, revert-layer));
-  width: var(--sl-fg, var(--sl-cg, revert-layer));
-  max-width: var(--sl-fh, var(--sl-ch, revert-layer));
-  min-width: var(--sl-fi, var(--sl-ci, 0));
-  height: var(--sl-fj, var(--sl-cj, revert-layer));
-  min-height: var(--sl-fk, var(--sl-ck, revert-layer));
-  max-height: var(--sl-fl, var(--sl-cl, revert-layer));
-  aspect-ratio: var(--sl-fm, var(--sl-cm, revert-layer));
-  overflow: var(--sl-fn, var(--sl-cn, revert-layer));
-  padding-block-start: var(--sl-fo, var(--sl-co, revert-layer));
-  padding-inline-end: var(--sl-fp, var(--sl-cp, revert-layer));
-  padding-block-end: var(--sl-fq, var(--sl-cq, revert-layer));
-  padding-inline-start: var(--sl-fr, var(--sl-cr, revert-layer));
-  margin-block-start: var(--sl-fs, var(--sl-cs, revert-layer));
-  margin-inline-end: var(--sl-ft, var(--sl-ct, revert-layer));
-  margin-block-end: var(--sl-fu, var(--sl-cu, revert-layer));
-  margin-inline-start: var(--sl-fv, var(--sl-cv, revert-layer));
-  font-family: var(
-    --sl-fw,
-    var(--sl-cw, var(--sl-theme-font-family, revert-layer))
+  --sl-y0: var(--sl-f0);
+  --sl-y1: var(--sl-f1);
+  --sl-y2: var(--sl-f2);
+  --sl-y3: var(--sl-f3);
+  --sl-y4: var(--sl-f4);
+  --sl-y5: var(--sl-f5);
+  --sl-y6: var(--sl-f6);
+  --sl-y7: var(--sl-f7);
+  --sl-y8: var(--sl-f8);
+  --sl-y9: var(--sl-f9);
+  --sl-ya: var(--sl-fa);
+  --sl-yb: var(--sl-fb);
+  --sl-yc: var(--sl-fc);
+  --sl-yd: var(--sl-fd);
+  --sl-ye: var(--sl-fe);
+  --sl-yf: var(--sl-ff);
+  --sl-yg: var(--sl-fg);
+  --sl-yh: var(--sl-fh);
+  --sl-yi: var(--sl-fi);
+  --sl-yj: var(--sl-fj);
+  --sl-yk: var(--sl-fk);
+  --sl-yl: var(--sl-fl);
+  --sl-ym: var(--sl-fm);
+  --sl-yn: var(--sl-fn);
+  --sl-yo: var(--sl-fo);
+  --sl-yp: var(--sl-fp);
+  --sl-yq: var(--sl-fq);
+  --sl-yr: var(--sl-fr);
+  --sl-ys: var(--sl-fs);
+  --sl-yt: var(--sl-ft);
+  --sl-yu: var(--sl-fu);
+  --sl-yv: var(--sl-fv);
+  --sl-yw: var(--sl-fw);
+  --sl-yx: var(--sl-fx);
+  --sl-yy: var(--sl-fy);
+  --sl-yz: var(--sl-fz);
+  --sl-y10: var(--sl-f10);
+  --sl-y11: var(--sl-f11);
+  --sl-y12: var(--sl-f12);
+  --sl-y13: var(--sl-f13);
+  --sl-y14: var(--sl-f14);
+  --sl-y15: var(--sl-f15);
+  --sl-y16: var(--sl-f16);
+  --sl-y17: var(--sl-f17);
+  --sl-y18: var(--sl-f18);
+  --sl-y19: var(--sl-f19);
+  --sl-y1a: var(--sl-f1a);
+  --sl-y1b: var(--sl-f1b);
+  --sl-y1c: var(--sl-f1c);
+  --sl-y1d: var(--sl-f1d);
+  --sl-y1e: var(--sl-f1e);
+  --sl-y1f: var(--sl-f1f);
+  --sl-y1g: var(--sl-f1g);
+  --sl-y1h: var(--sl-f1h);
+  --sl-y1i: var(--sl-f1i);
+  --sl-y1j: var(--sl-f1j);
+  --sl-y1k: var(--sl-f1k);
+  --sl-y1l: var(--sl-f1l);
+  --sl-y1m: var(--sl-f1m);
+  --sl-y1n: var(--sl-f1n);
+  --sl-y1o: var(--sl-f1o);
+  --sl-y1p: var(--sl-f1p);
+  --sl-y1q: var(--sl-f1q);
+  --sl-y1r: var(--sl-f1r);
+  --sl-y1s: var(--sl-f1s);
+}
+.sl-atom.sl-button:active:where(:not(:disabled, [aria-disabled="true"])) {
+  --sl-z0: var(--sl-a0);
+  --sl-z1: var(--sl-a1);
+  --sl-z2: var(--sl-a2);
+  --sl-z3: var(--sl-a3);
+  --sl-z4: var(--sl-a4);
+  --sl-z5: var(--sl-a5);
+  --sl-z6: var(--sl-a6);
+  --sl-z7: var(--sl-a7);
+  --sl-z8: var(--sl-a8);
+  --sl-z9: var(--sl-a9);
+  --sl-za: var(--sl-aa);
+  --sl-zb: var(--sl-ab);
+  --sl-zc: var(--sl-ac);
+  --sl-zd: var(--sl-ad);
+  --sl-ze: var(--sl-ae);
+  --sl-zf: var(--sl-af);
+  --sl-zg: var(--sl-ag);
+  --sl-zh: var(--sl-ah);
+  --sl-zi: var(--sl-ai);
+  --sl-zj: var(--sl-aj);
+  --sl-zk: var(--sl-ak);
+  --sl-zl: var(--sl-al);
+  --sl-zm: var(--sl-am);
+  --sl-zn: var(--sl-an);
+  --sl-zo: var(--sl-ao);
+  --sl-zp: var(--sl-ap);
+  --sl-zq: var(--sl-aq);
+  --sl-zr: var(--sl-ar);
+  --sl-zs: var(--sl-as);
+  --sl-zt: var(--sl-at);
+  --sl-zu: var(--sl-au);
+  --sl-zv: var(--sl-av);
+  --sl-zw: var(--sl-aw);
+  --sl-zx: var(--sl-ax);
+  --sl-zy: var(--sl-ay);
+  --sl-zz: var(--sl-az);
+  --sl-z10: var(--sl-a10);
+  --sl-z11: var(--sl-a11);
+  --sl-z12: var(--sl-a12);
+  --sl-z13: var(--sl-a13);
+  --sl-z14: var(--sl-a14);
+  --sl-z15: var(--sl-a15);
+  --sl-z16: var(--sl-a16);
+  --sl-z17: var(--sl-a17);
+  --sl-z18: var(--sl-a18);
+  --sl-z19: var(--sl-a19);
+  --sl-z1a: var(--sl-a1a);
+  --sl-z1b: var(--sl-a1b);
+  --sl-z1c: var(--sl-a1c);
+  --sl-z1d: var(--sl-a1d);
+  --sl-z1e: var(--sl-a1e);
+  --sl-z1f: var(--sl-a1f);
+  --sl-z1g: var(--sl-a1g);
+  --sl-z1h: var(--sl-a1h);
+  --sl-z1i: var(--sl-a1i);
+  --sl-z1j: var(--sl-a1j);
+  --sl-z1k: var(--sl-a1k);
+  --sl-z1l: var(--sl-a1l);
+  --sl-z1m: var(--sl-a1m);
+  --sl-z1n: var(--sl-a1n);
+  --sl-z1o: var(--sl-a1o);
+  --sl-z1p: var(--sl-a1p);
+  --sl-z1q: var(--sl-a1q);
+  --sl-z1r: var(--sl-a1r);
+  --sl-z1s: var(--sl-a1s);
+}
+.sl-atom {
+  display: var(--sl-z0, var(--sl-y0, var(--sl-x0, var(--sl-c0, revert-layer))));
+  flex-direction: var(
+    --sl-z1,
+    var(--sl-y1, var(--sl-x1, var(--sl-c1, revert-layer)))
   );
-  font-size: var(
-    --sl-fx,
-    var(--sl-cx, var(--sl-theme-font-size, revert-layer))
+  flex-wrap: var(
+    --sl-z2,
+    var(--sl-y2, var(--sl-x2, var(--sl-c2, revert-layer)))
   );
-  font-weight: var(
-    --sl-fy,
-    var(--sl-cy, var(--sl-theme-font-weight, revert-layer))
+  align-items: var(
+    --sl-z3,
+    var(--sl-y3, var(--sl-x3, var(--sl-c3, revert-layer)))
   );
-  line-height: var(
-    --sl-fz,
-    var(--sl-cz, var(--sl-theme-line-height, revert-layer))
+  justify-content: var(
+    --sl-z4,
+    var(--sl-y4, var(--sl-x4, var(--sl-c4, revert-layer)))
   );
-  letter-spacing: var(
-    --sl-f10,
-    var(--sl-c10, var(--sl-theme-letter-spacing, revert-layer))
+  grid-template-columns: var(
+    --sl-z5,
+    var(--sl-y5, var(--sl-x5, var(--sl-c5, revert-layer)))
   );
-  text-align: var(--sl-f11, var(--sl-c11, revert-layer));
-  text-transform: var(
-    --sl-f12,
-    var(--sl-c12, var(--sl-theme-text-transform, revert-layer))
+  grid-auto-flow: var(
+    --sl-z6,
+    var(--sl-y6, var(--sl-x6, var(--sl-c6, revert-layer)))
   );
-  font-style: var(
-    --sl-f13,
-    var(--sl-c13, var(--sl-theme-font-style, revert-layer))
-  );
-  text-decoration: var(
-    --sl-f14,
-    var(--sl-c14, var(--sl-theme-text-decoration, revert-layer))
-  );
-  text-wrap: var(--sl-f15, var(--sl-c15, revert-layer));
-  white-space: var(--sl-f16, var(--sl-c16, revert-layer));
-  color: var(--sl-f17, var(--sl-c17, var(--sl-theme-color, revert-layer)));
-  background-color: var(
-    --sl-f18,
-    var(--sl-c18, var(--sl-theme-background-color, revert-layer))
-  );
-  background-image: var(
-    --sl-f19,
+  row-gap: var(
+    --sl-z8,
     var(
-      --sl-c19,
+      --sl-z7,
       var(
-        --sl-f18,
-        var(--sl-c18, var(--sl-theme-background-image, revert-layer))
+        --sl-y8,
+        var(--sl-y7, var(--sl-x8, var(--sl-x7, var(--sl-c8, revert-layer))))
       )
     )
   );
-  background-size: var(--sl-f1a, var(--sl-c1a, revert-layer));
-  background-position: var(--sl-f1b, var(--sl-c1b, revert-layer));
-  background-repeat: var(--sl-f1c, var(--sl-c1c, revert-layer));
+  column-gap: var(
+    --sl-z9,
+    var(
+      --sl-z7,
+      var(
+        --sl-y9,
+        var(--sl-y7, var(--sl-x9, var(--sl-x7, var(--sl-c9, revert-layer))))
+      )
+    )
+  );
+  align-self: var(
+    --sl-za,
+    var(--sl-ya, var(--sl-xa, var(--sl-ca, revert-layer)))
+  );
+  flex-grow: var(
+    --sl-zb,
+    var(--sl-yb, var(--sl-xb, var(--sl-cb, revert-layer)))
+  );
+  flex-shrink: var(
+    --sl-zc,
+    var(--sl-yc, var(--sl-xc, var(--sl-cc, revert-layer)))
+  );
+  flex-basis: var(
+    --sl-zd,
+    var(--sl-yd, var(--sl-xd, var(--sl-cd, revert-layer)))
+  );
+  grid-column: var(
+    --sl-ze,
+    var(--sl-ye, var(--sl-xe, var(--sl-ce, revert-layer)))
+  );
+  grid-row: var(
+    --sl-zf,
+    var(--sl-yf, var(--sl-xf, var(--sl-cf, revert-layer)))
+  );
+  width: var(--sl-zg, var(--sl-yg, var(--sl-xg, var(--sl-cg, revert-layer))));
+  max-width: var(
+    --sl-zh,
+    var(--sl-yh, var(--sl-xh, var(--sl-ch, revert-layer)))
+  );
+  min-width: var(--sl-zi, var(--sl-yi, var(--sl-xi, var(--sl-ci, 0))));
+  height: var(--sl-zj, var(--sl-yj, var(--sl-xj, var(--sl-cj, revert-layer))));
+  min-height: var(
+    --sl-zk,
+    var(--sl-yk, var(--sl-xk, var(--sl-ck, revert-layer)))
+  );
+  max-height: var(
+    --sl-zl,
+    var(--sl-yl, var(--sl-xl, var(--sl-cl, revert-layer)))
+  );
+  aspect-ratio: var(
+    --sl-zm,
+    var(--sl-ym, var(--sl-xm, var(--sl-cm, revert-layer)))
+  );
+  overflow: var(
+    --sl-zn,
+    var(--sl-yn, var(--sl-xn, var(--sl-cn, revert-layer)))
+  );
+  padding-block-start: var(
+    --sl-zo,
+    var(--sl-yo, var(--sl-xo, var(--sl-co, revert-layer)))
+  );
+  padding-inline-end: var(
+    --sl-zp,
+    var(--sl-yp, var(--sl-xp, var(--sl-cp, revert-layer)))
+  );
+  padding-block-end: var(
+    --sl-zq,
+    var(--sl-yq, var(--sl-xq, var(--sl-cq, revert-layer)))
+  );
+  padding-inline-start: var(
+    --sl-zr,
+    var(--sl-yr, var(--sl-xr, var(--sl-cr, revert-layer)))
+  );
+  margin-block-start: var(
+    --sl-zs,
+    var(--sl-ys, var(--sl-xs, var(--sl-cs, revert-layer)))
+  );
+  margin-inline-end: var(
+    --sl-zt,
+    var(--sl-yt, var(--sl-xt, var(--sl-ct, revert-layer)))
+  );
+  margin-block-end: var(
+    --sl-zu,
+    var(--sl-yu, var(--sl-xu, var(--sl-cu, revert-layer)))
+  );
+  margin-inline-start: var(
+    --sl-zv,
+    var(--sl-yv, var(--sl-xv, var(--sl-cv, revert-layer)))
+  );
+  font-family: var(
+    --sl-zw,
+    var(
+      --sl-yw,
+      var(--sl-xw, var(--sl-cw, var(--sl-theme-font-family, revert-layer)))
+    )
+  );
+  font-size: var(
+    --sl-zx,
+    var(
+      --sl-yx,
+      var(--sl-xx, var(--sl-cx, var(--sl-theme-font-size, revert-layer)))
+    )
+  );
+  font-weight: var(
+    --sl-zy,
+    var(
+      --sl-yy,
+      var(--sl-xy, var(--sl-cy, var(--sl-theme-font-weight, revert-layer)))
+    )
+  );
+  line-height: var(
+    --sl-zz,
+    var(
+      --sl-yz,
+      var(--sl-xz, var(--sl-cz, var(--sl-theme-line-height, revert-layer)))
+    )
+  );
+  letter-spacing: var(
+    --sl-z10,
+    var(
+      --sl-y10,
+      var(--sl-x10, var(--sl-c10, var(--sl-theme-letter-spacing, revert-layer)))
+    )
+  );
+  text-align: var(
+    --sl-z11,
+    var(--sl-y11, var(--sl-x11, var(--sl-c11, revert-layer)))
+  );
+  text-transform: var(
+    --sl-z12,
+    var(
+      --sl-y12,
+      var(--sl-x12, var(--sl-c12, var(--sl-theme-text-transform, revert-layer)))
+    )
+  );
+  font-style: var(
+    --sl-z13,
+    var(
+      --sl-y13,
+      var(--sl-x13, var(--sl-c13, var(--sl-theme-font-style, revert-layer)))
+    )
+  );
+  text-decoration: var(
+    --sl-z14,
+    var(
+      --sl-y14,
+      var(
+        --sl-x14,
+        var(--sl-c14, var(--sl-theme-text-decoration, revert-layer))
+      )
+    )
+  );
+  text-wrap: var(
+    --sl-z15,
+    var(--sl-y15, var(--sl-x15, var(--sl-c15, revert-layer)))
+  );
+  white-space: var(
+    --sl-z16,
+    var(--sl-y16, var(--sl-x16, var(--sl-c16, revert-layer)))
+  );
+  color: var(
+    --sl-z17,
+    var(
+      --sl-y17,
+      var(
+        --sl-x17,
+        var(
+          --sl-c17,
+          var(--sl-background-foreground, var(--sl-theme-color, revert-layer))
+        )
+      )
+    )
+  );
+  background-color: var(
+    --sl-z18,
+    var(
+      --sl-y18,
+      var(
+        --sl-x18,
+        var(--sl-c18, var(--sl-theme-background-color, revert-layer))
+      )
+    )
+  );
+  background-image: var(
+    --sl-z19,
+    var(
+      --sl-y19,
+      var(
+        --sl-x19,
+        var(
+          --sl-c19,
+          var(
+            --sl-z18,
+            var(
+              --sl-y18,
+              var(
+                --sl-x18,
+                var(--sl-c18, var(--sl-theme-background-image, revert-layer))
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+  background-size: var(
+    --sl-z1a,
+    var(--sl-y1a, var(--sl-x1a, var(--sl-c1a, revert-layer)))
+  );
+  background-position: var(
+    --sl-z1b,
+    var(--sl-y1b, var(--sl-x1b, var(--sl-c1b, revert-layer)))
+  );
+  background-repeat: var(
+    --sl-z1c,
+    var(--sl-y1c, var(--sl-x1c, var(--sl-c1c, revert-layer)))
+  );
   border-color: var(
-    --sl-f1d,
-    var(--sl-c1d, var(--sl-theme-border-color, revert-layer))
+    --sl-z1d,
+    var(
+      --sl-y1d,
+      var(--sl-x1d, var(--sl-c1d, var(--sl-theme-border-color, revert-layer)))
+    )
   );
   border-width: var(
-    --sl-f1e,
-    var(--sl-c1e, var(--sl-theme-border-width, revert-layer))
+    --sl-z1e,
+    var(
+      --sl-y1e,
+      var(--sl-x1e, var(--sl-c1e, var(--sl-theme-border-width, revert-layer)))
+    )
   );
   border-style: var(
-    --sl-f1f,
-    var(--sl-c1f, var(--sl-theme-border-style, revert-layer))
+    --sl-z1f,
+    var(
+      --sl-y1f,
+      var(--sl-x1f, var(--sl-c1f, var(--sl-theme-border-style, revert-layer)))
+    )
   );
   border-radius: var(
-    --sl-f1g,
-    var(--sl-c1g, var(--sl-theme-border-radius, revert-layer))
+    --sl-z1g,
+    var(
+      --sl-y1g,
+      var(--sl-x1g, var(--sl-c1g, var(--sl-theme-border-radius, revert-layer)))
+    )
   );
-  box-shadow: var(--sl-f1h, var(--sl-c1h, revert-layer));
-  opacity: var(--sl-f1i, var(--sl-c1i, revert-layer));
-  object-fit: var(--sl-f1j, var(--sl-c1j, revert-layer));
-  object-position: var(--sl-f1k, var(--sl-c1k, revert-layer));
-  cursor: var(--sl-f1l, var(--sl-c1l, revert-layer));
-  position: var(--sl-f1m, var(--sl-c1m, revert-layer));
-  inset-block-start: var(--sl-f1n, var(--sl-c1n, revert-layer));
-  inset-inline-end: var(--sl-f1o, var(--sl-c1o, revert-layer));
-  inset-block-end: var(--sl-f1p, var(--sl-c1p, revert-layer));
-  inset-inline-start: var(--sl-f1q, var(--sl-c1q, revert-layer));
-  z-index: var(--sl-f1r, var(--sl-c1r, revert-layer));
-  transform: var(--sl-f1s, var(--sl-c1s, revert-layer));
+  box-shadow: var(
+    --sl-z1h,
+    var(--sl-y1h, var(--sl-x1h, var(--sl-c1h, revert-layer)))
+  );
+  opacity: var(
+    --sl-z1i,
+    var(--sl-y1i, var(--sl-x1i, var(--sl-c1i, revert-layer)))
+  );
+  object-fit: var(
+    --sl-z1j,
+    var(--sl-y1j, var(--sl-x1j, var(--sl-c1j, revert-layer)))
+  );
+  object-position: var(
+    --sl-z1k,
+    var(--sl-y1k, var(--sl-x1k, var(--sl-c1k, revert-layer)))
+  );
+  cursor: var(
+    --sl-z1l,
+    var(--sl-y1l, var(--sl-x1l, var(--sl-c1l, revert-layer)))
+  );
+  position: var(
+    --sl-z1m,
+    var(--sl-y1m, var(--sl-x1m, var(--sl-c1m, revert-layer)))
+  );
+  inset-block-start: var(
+    --sl-z1n,
+    var(--sl-y1n, var(--sl-x1n, var(--sl-c1n, revert-layer)))
+  );
+  inset-inline-end: var(
+    --sl-z1o,
+    var(--sl-y1o, var(--sl-x1o, var(--sl-c1o, revert-layer)))
+  );
+  inset-block-end: var(
+    --sl-z1p,
+    var(--sl-y1p, var(--sl-x1p, var(--sl-c1p, revert-layer)))
+  );
+  inset-inline-start: var(
+    --sl-z1q,
+    var(--sl-y1q, var(--sl-x1q, var(--sl-c1q, revert-layer)))
+  );
+  z-index: var(
+    --sl-z1r,
+    var(--sl-y1r, var(--sl-x1r, var(--sl-c1r, revert-layer)))
+  );
+  transform: var(
+    --sl-z1s,
+    var(--sl-y1s, var(--sl-x1s, var(--sl-c1s, revert-layer)))
+  );
 }
-.sl-atom.sl-editing:focus-visible {
-  position: var(--sl-f1m, var(--sl-c1m, relative)) !important;
+.sl-atom.sl-editing {
+  position: var(
+    --sl-z1m,
+    var(--sl-y1m, var(--sl-x1m, var(--sl-c1m, relative)))
+  ) !important;
+}
+header.sl-atom.sl-editing {
+  position: relative !important;
+  inset: auto;
+  z-index: auto;
+  transform: none;
+}
+@layer sl-theme-defaults {
+  .sl-atom.sl-interaction-primary-button {
+    padding: var(--ve-primary-button-padding);
+  }
+  .sl-atom.sl-interaction-secondary-button {
+    padding: var(--ve-secondary-button-padding);
+  }
 }
 .sl-atom.sl-surface-page {
   --sl-theme-background-color: var(--ve-color-background);
@@ -879,68 +1382,3343 @@
   --sl-theme-background-image: var(--ve-color-muted);
   --sl-theme-color: var(--ve-color-muted-foreground);
 }
-.sl-atom.sl-type-headline {
-  --sl-theme-font-family: var(--ve-headline-font-family);
-  --sl-theme-font-style: var(--ve-headline-font-style);
-  --sl-theme-letter-spacing: var(--ve-headline-letter-spacing);
-  --sl-theme-text-transform: var(--ve-headline-text-transform);
-  --sl-theme-font-size: var(--ve-headline-mobile-font-size);
-  --sl-theme-line-height: var(--ve-headline-mobile-line-height);
-  --sl-theme-font-weight: var(--ve-headline-font-weight);
+.sl-atom[data-sl-background-contrast="light"] {
+  --sl-background-foreground: #000;
 }
-.sl-atom.sl-type-section-title {
-  --sl-theme-font-family: var(--ve-section-title-font-family);
-  --sl-theme-font-style: var(--ve-section-title-font-style);
-  --sl-theme-letter-spacing: var(--ve-section-title-letter-spacing);
-  --sl-theme-text-transform: var(--ve-section-title-text-transform);
-  --sl-theme-font-size: var(--ve-section-title-mobile-font-size);
-  --sl-theme-line-height: var(--ve-section-title-mobile-line-height);
-  --sl-theme-font-weight: var(--ve-section-title-font-weight);
+.sl-atom:not(.sl-button)[data-sl-background-contrast="light"] {
+  --ve-surface-preset-image-background: #f9f9f9;
+  --ve-surface-primary-button-default-text-color: var(
+    --ve-primary-button-default-text-color
+  );
+  --ve-surface-primary-button-default-background-color: var(
+    --ve-primary-button-default-background-color
+  );
+  --ve-surface-primary-button-default-border-color: var(
+    --ve-primary-button-default-border-color
+  );
+  --ve-surface-primary-button-hover-text-color: var(
+    --ve-primary-button-hover-text-color
+  );
+  --ve-surface-primary-button-hover-background-color: var(
+    --ve-primary-button-hover-background-color
+  );
+  --ve-surface-primary-button-hover-border-color: var(
+    --ve-primary-button-hover-border-color
+  );
+  --ve-surface-primary-button-active-text-color: var(
+    --ve-primary-button-active-text-color
+  );
+  --ve-surface-primary-button-active-background-color: var(
+    --ve-primary-button-active-background-color
+  );
+  --ve-surface-primary-button-active-border-color: var(
+    --ve-primary-button-active-border-color
+  );
+  --ve-surface-secondary-button-default-text-color: var(
+    --ve-secondary-button-default-text-color
+  );
+  --ve-surface-secondary-button-default-background-color: var(
+    --ve-secondary-button-default-background-color
+  );
+  --ve-surface-secondary-button-default-border-color: var(
+    --ve-secondary-button-default-border-color
+  );
+  --ve-surface-secondary-button-hover-text-color: var(
+    --ve-secondary-button-hover-text-color
+  );
+  --ve-surface-secondary-button-hover-background-color: var(
+    --ve-secondary-button-hover-background-color
+  );
+  --ve-surface-secondary-button-hover-border-color: var(
+    --ve-secondary-button-hover-border-color
+  );
+  --ve-surface-secondary-button-active-text-color: var(
+    --ve-secondary-button-active-text-color
+  );
+  --ve-surface-secondary-button-active-background-color: var(
+    --ve-secondary-button-active-background-color
+  );
+  --ve-surface-secondary-button-active-border-color: var(
+    --ve-secondary-button-active-border-color
+  );
+  --ve-surface-link-default-text-color: var(--ve-link-default-text-color);
+  --ve-surface-link-hover-text-color: var(--ve-link-hover-text-color);
+  --ve-surface-link-active-text-color: var(--ve-link-active-text-color);
+  --ve-surface-navigation-link-default-text-color: var(
+    --ve-navigation-link-default-text-color
+  );
+  --ve-surface-navigation-link-hover-text-color: var(
+    --ve-navigation-link-hover-text-color
+  );
+  --ve-surface-navigation-link-active-text-color: var(
+    --ve-navigation-link-active-text-color
+  );
 }
-.sl-atom.sl-type-card-title {
-  --sl-theme-font-family: var(--ve-card-title-font-family);
-  --sl-theme-font-style: var(--ve-card-title-font-style);
-  --sl-theme-letter-spacing: var(--ve-card-title-letter-spacing);
-  --sl-theme-text-transform: var(--ve-card-title-text-transform);
-  --sl-theme-font-size: var(--ve-card-title-mobile-font-size);
-  --sl-theme-line-height: var(--ve-card-title-mobile-line-height);
-  --sl-theme-font-weight: var(--ve-card-title-font-weight);
+.sl-atom[data-sl-background-contrast="dark"] {
+  --sl-background-foreground: #fff;
 }
-.sl-atom.sl-type-eyebrow {
-  --sl-theme-font-family: var(--ve-eyebrow-font-family);
-  --sl-theme-font-style: var(--ve-eyebrow-font-style);
-  --sl-theme-letter-spacing: var(--ve-eyebrow-letter-spacing);
-  --sl-theme-text-transform: var(--ve-eyebrow-text-transform);
-  --sl-theme-font-size: var(--ve-eyebrow-mobile-font-size);
-  --sl-theme-line-height: var(--ve-eyebrow-mobile-line-height);
-  --sl-theme-font-weight: var(--ve-eyebrow-font-weight);
+.sl-atom:not(.sl-button)[data-sl-background-contrast="dark"] {
+  --ve-surface-preset-image-background: #fff;
+  --ve-surface-primary-button-default-text-color: var(
+    --ve-primary-button-default-text-color-on-dark
+  );
+  --ve-surface-primary-button-default-background-color: var(
+    --ve-primary-button-default-background-color-on-dark
+  );
+  --ve-surface-primary-button-default-border-color: var(
+    --ve-primary-button-default-border-color-on-dark
+  );
+  --ve-surface-primary-button-hover-text-color: var(
+    --ve-primary-button-hover-text-color-on-dark
+  );
+  --ve-surface-primary-button-hover-background-color: var(
+    --ve-primary-button-hover-background-color-on-dark
+  );
+  --ve-surface-primary-button-hover-border-color: var(
+    --ve-primary-button-hover-border-color-on-dark
+  );
+  --ve-surface-primary-button-active-text-color: var(
+    --ve-primary-button-active-text-color-on-dark
+  );
+  --ve-surface-primary-button-active-background-color: var(
+    --ve-primary-button-active-background-color-on-dark
+  );
+  --ve-surface-primary-button-active-border-color: var(
+    --ve-primary-button-active-border-color-on-dark
+  );
+  --ve-surface-secondary-button-default-text-color: var(
+    --ve-secondary-button-default-text-color-on-dark
+  );
+  --ve-surface-secondary-button-default-background-color: var(
+    --ve-secondary-button-default-background-color-on-dark
+  );
+  --ve-surface-secondary-button-default-border-color: var(
+    --ve-secondary-button-default-border-color-on-dark
+  );
+  --ve-surface-secondary-button-hover-text-color: var(
+    --ve-secondary-button-hover-text-color-on-dark
+  );
+  --ve-surface-secondary-button-hover-background-color: var(
+    --ve-secondary-button-hover-background-color-on-dark
+  );
+  --ve-surface-secondary-button-hover-border-color: var(
+    --ve-secondary-button-hover-border-color-on-dark
+  );
+  --ve-surface-secondary-button-active-text-color: var(
+    --ve-secondary-button-active-text-color-on-dark
+  );
+  --ve-surface-secondary-button-active-background-color: var(
+    --ve-secondary-button-active-background-color-on-dark
+  );
+  --ve-surface-secondary-button-active-border-color: var(
+    --ve-secondary-button-active-border-color-on-dark
+  );
+  --ve-surface-link-default-text-color: var(
+    --ve-link-default-text-color-on-dark
+  );
+  --ve-surface-link-hover-text-color: var(--ve-link-hover-text-color-on-dark);
+  --ve-surface-link-active-text-color: var(--ve-link-active-text-color-on-dark);
+  --ve-surface-navigation-link-default-text-color: var(
+    --ve-navigation-link-default-text-color-on-dark
+  );
+  --ve-surface-navigation-link-hover-text-color: var(
+    --ve-navigation-link-hover-text-color-on-dark
+  );
+  --ve-surface-navigation-link-active-text-color: var(
+    --ve-navigation-link-active-text-color-on-dark
+  );
 }
-.sl-atom.sl-type-body-large {
-  --sl-theme-font-family: var(--ve-body-large-font-family);
-  --sl-theme-font-style: var(--ve-body-large-font-style);
-  --sl-theme-letter-spacing: var(--ve-body-large-letter-spacing);
-  --sl-theme-text-transform: var(--ve-body-large-text-transform);
-  --sl-theme-font-size: var(--ve-body-large-mobile-font-size);
-  --sl-theme-line-height: var(--ve-body-large-mobile-line-height);
-  --sl-theme-font-weight: var(--ve-body-large-font-weight);
+@media (width >= 1024px) {
+  .sl-atom[data-sl-desktop-contrast="light"] {
+    --sl-background-foreground: #000;
+  }
+  .sl-atom:not(.sl-button)[data-sl-desktop-contrast="light"] {
+    --ve-surface-preset-image-background: #f9f9f9;
+    --ve-surface-primary-button-default-text-color: var(
+      --ve-primary-button-default-text-color
+    );
+    --ve-surface-primary-button-default-background-color: var(
+      --ve-primary-button-default-background-color
+    );
+    --ve-surface-primary-button-default-border-color: var(
+      --ve-primary-button-default-border-color
+    );
+    --ve-surface-primary-button-hover-text-color: var(
+      --ve-primary-button-hover-text-color
+    );
+    --ve-surface-primary-button-hover-background-color: var(
+      --ve-primary-button-hover-background-color
+    );
+    --ve-surface-primary-button-hover-border-color: var(
+      --ve-primary-button-hover-border-color
+    );
+    --ve-surface-primary-button-active-text-color: var(
+      --ve-primary-button-active-text-color
+    );
+    --ve-surface-primary-button-active-background-color: var(
+      --ve-primary-button-active-background-color
+    );
+    --ve-surface-primary-button-active-border-color: var(
+      --ve-primary-button-active-border-color
+    );
+    --ve-surface-secondary-button-default-text-color: var(
+      --ve-secondary-button-default-text-color
+    );
+    --ve-surface-secondary-button-default-background-color: var(
+      --ve-secondary-button-default-background-color
+    );
+    --ve-surface-secondary-button-default-border-color: var(
+      --ve-secondary-button-default-border-color
+    );
+    --ve-surface-secondary-button-hover-text-color: var(
+      --ve-secondary-button-hover-text-color
+    );
+    --ve-surface-secondary-button-hover-background-color: var(
+      --ve-secondary-button-hover-background-color
+    );
+    --ve-surface-secondary-button-hover-border-color: var(
+      --ve-secondary-button-hover-border-color
+    );
+    --ve-surface-secondary-button-active-text-color: var(
+      --ve-secondary-button-active-text-color
+    );
+    --ve-surface-secondary-button-active-background-color: var(
+      --ve-secondary-button-active-background-color
+    );
+    --ve-surface-secondary-button-active-border-color: var(
+      --ve-secondary-button-active-border-color
+    );
+    --ve-surface-link-default-text-color: var(--ve-link-default-text-color);
+    --ve-surface-link-hover-text-color: var(--ve-link-hover-text-color);
+    --ve-surface-link-active-text-color: var(--ve-link-active-text-color);
+    --ve-surface-navigation-link-default-text-color: var(
+      --ve-navigation-link-default-text-color
+    );
+    --ve-surface-navigation-link-hover-text-color: var(
+      --ve-navigation-link-hover-text-color
+    );
+    --ve-surface-navigation-link-active-text-color: var(
+      --ve-navigation-link-active-text-color
+    );
+  }
+  .sl-atom[data-sl-desktop-contrast="dark"] {
+    --sl-background-foreground: #fff;
+  }
+  .sl-atom:not(.sl-button)[data-sl-desktop-contrast="dark"] {
+    --ve-surface-preset-image-background: #fff;
+    --ve-surface-primary-button-default-text-color: var(
+      --ve-primary-button-default-text-color-on-dark
+    );
+    --ve-surface-primary-button-default-background-color: var(
+      --ve-primary-button-default-background-color-on-dark
+    );
+    --ve-surface-primary-button-default-border-color: var(
+      --ve-primary-button-default-border-color-on-dark
+    );
+    --ve-surface-primary-button-hover-text-color: var(
+      --ve-primary-button-hover-text-color-on-dark
+    );
+    --ve-surface-primary-button-hover-background-color: var(
+      --ve-primary-button-hover-background-color-on-dark
+    );
+    --ve-surface-primary-button-hover-border-color: var(
+      --ve-primary-button-hover-border-color-on-dark
+    );
+    --ve-surface-primary-button-active-text-color: var(
+      --ve-primary-button-active-text-color-on-dark
+    );
+    --ve-surface-primary-button-active-background-color: var(
+      --ve-primary-button-active-background-color-on-dark
+    );
+    --ve-surface-primary-button-active-border-color: var(
+      --ve-primary-button-active-border-color-on-dark
+    );
+    --ve-surface-secondary-button-default-text-color: var(
+      --ve-secondary-button-default-text-color-on-dark
+    );
+    --ve-surface-secondary-button-default-background-color: var(
+      --ve-secondary-button-default-background-color-on-dark
+    );
+    --ve-surface-secondary-button-default-border-color: var(
+      --ve-secondary-button-default-border-color-on-dark
+    );
+    --ve-surface-secondary-button-hover-text-color: var(
+      --ve-secondary-button-hover-text-color-on-dark
+    );
+    --ve-surface-secondary-button-hover-background-color: var(
+      --ve-secondary-button-hover-background-color-on-dark
+    );
+    --ve-surface-secondary-button-hover-border-color: var(
+      --ve-secondary-button-hover-border-color-on-dark
+    );
+    --ve-surface-secondary-button-active-text-color: var(
+      --ve-secondary-button-active-text-color-on-dark
+    );
+    --ve-surface-secondary-button-active-background-color: var(
+      --ve-secondary-button-active-background-color-on-dark
+    );
+    --ve-surface-secondary-button-active-border-color: var(
+      --ve-secondary-button-active-border-color-on-dark
+    );
+    --ve-surface-link-default-text-color: var(
+      --ve-link-default-text-color-on-dark
+    );
+    --ve-surface-link-hover-text-color: var(--ve-link-hover-text-color-on-dark);
+    --ve-surface-link-active-text-color: var(
+      --ve-link-active-text-color-on-dark
+    );
+    --ve-surface-navigation-link-default-text-color: var(
+      --ve-navigation-link-default-text-color-on-dark
+    );
+    --ve-surface-navigation-link-hover-text-color: var(
+      --ve-navigation-link-hover-text-color-on-dark
+    );
+    --ve-surface-navigation-link-active-text-color: var(
+      --ve-navigation-link-active-text-color-on-dark
+    );
+  }
+
+  .sl-atom[data-sl-desktop-surface="page"] {
+    --sl-background-foreground: var(--ve-color-foreground);
+  }
+  .sl-atom[data-sl-desktop-surface="primary"] {
+    --sl-background-foreground: var(--ve-color-primary-foreground);
+  }
+  .sl-atom[data-sl-desktop-surface="secondary"] {
+    --sl-background-foreground: var(--ve-color-secondary-foreground);
+  }
+  .sl-atom[data-sl-desktop-surface="accent"] {
+    --sl-background-foreground: var(--ve-color-accent-foreground);
+  }
+  .sl-atom[data-sl-desktop-surface="muted"] {
+    --sl-background-foreground: var(--ve-color-muted-foreground);
+  }
+
+  @media (hover: hover) {
+    .sl-atom[data-sl-state-contrast~="desktop-base:light"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover:light"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible:light"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover-focusVisible:light"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-active:light"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover-active:light"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible-active:light"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover-focusVisible-active:light"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --sl-background-foreground: #000;
+    }
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="desktop-base:light"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="desktop-hover:light"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="desktop-focusVisible:light"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="desktop-hover-focusVisible:light"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="desktop-active:light"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="desktop-hover-active:light"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="desktop-focusVisible-active:light"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="desktop-hover-focusVisible-active:light"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --ve-surface-preset-image-background: #f9f9f9;
+      --ve-surface-primary-button-default-text-color: var(
+        --ve-primary-button-default-text-color
+      );
+      --ve-surface-primary-button-default-background-color: var(
+        --ve-primary-button-default-background-color
+      );
+      --ve-surface-primary-button-default-border-color: var(
+        --ve-primary-button-default-border-color
+      );
+      --ve-surface-primary-button-hover-text-color: var(
+        --ve-primary-button-hover-text-color
+      );
+      --ve-surface-primary-button-hover-background-color: var(
+        --ve-primary-button-hover-background-color
+      );
+      --ve-surface-primary-button-hover-border-color: var(
+        --ve-primary-button-hover-border-color
+      );
+      --ve-surface-primary-button-active-text-color: var(
+        --ve-primary-button-active-text-color
+      );
+      --ve-surface-primary-button-active-background-color: var(
+        --ve-primary-button-active-background-color
+      );
+      --ve-surface-primary-button-active-border-color: var(
+        --ve-primary-button-active-border-color
+      );
+      --ve-surface-secondary-button-default-text-color: var(
+        --ve-secondary-button-default-text-color
+      );
+      --ve-surface-secondary-button-default-background-color: var(
+        --ve-secondary-button-default-background-color
+      );
+      --ve-surface-secondary-button-default-border-color: var(
+        --ve-secondary-button-default-border-color
+      );
+      --ve-surface-secondary-button-hover-text-color: var(
+        --ve-secondary-button-hover-text-color
+      );
+      --ve-surface-secondary-button-hover-background-color: var(
+        --ve-secondary-button-hover-background-color
+      );
+      --ve-surface-secondary-button-hover-border-color: var(
+        --ve-secondary-button-hover-border-color
+      );
+      --ve-surface-secondary-button-active-text-color: var(
+        --ve-secondary-button-active-text-color
+      );
+      --ve-surface-secondary-button-active-background-color: var(
+        --ve-secondary-button-active-background-color
+      );
+      --ve-surface-secondary-button-active-border-color: var(
+        --ve-secondary-button-active-border-color
+      );
+      --ve-surface-link-default-text-color: var(--ve-link-default-text-color);
+      --ve-surface-link-hover-text-color: var(--ve-link-hover-text-color);
+      --ve-surface-link-active-text-color: var(--ve-link-active-text-color);
+      --ve-surface-navigation-link-default-text-color: var(
+        --ve-navigation-link-default-text-color
+      );
+      --ve-surface-navigation-link-hover-text-color: var(
+        --ve-navigation-link-hover-text-color
+      );
+      --ve-surface-navigation-link-active-text-color: var(
+        --ve-navigation-link-active-text-color
+      );
+    }
+    .sl-atom[data-sl-state-contrast~="desktop-base:dark"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover:dark"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible:dark"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover-focusVisible:dark"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-active:dark"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover-active:dark"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible-active:dark"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover-focusVisible-active:dark"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --sl-background-foreground: #fff;
+    }
+    .sl-atom:not(.sl-button)[data-sl-state-contrast~="desktop-base:dark"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="desktop-hover:dark"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="desktop-focusVisible:dark"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="desktop-hover-focusVisible:dark"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="desktop-active:dark"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="desktop-hover-active:dark"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="desktop-focusVisible-active:dark"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="desktop-hover-focusVisible-active:dark"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --ve-surface-preset-image-background: #fff;
+      --ve-surface-primary-button-default-text-color: var(
+        --ve-primary-button-default-text-color-on-dark
+      );
+      --ve-surface-primary-button-default-background-color: var(
+        --ve-primary-button-default-background-color-on-dark
+      );
+      --ve-surface-primary-button-default-border-color: var(
+        --ve-primary-button-default-border-color-on-dark
+      );
+      --ve-surface-primary-button-hover-text-color: var(
+        --ve-primary-button-hover-text-color-on-dark
+      );
+      --ve-surface-primary-button-hover-background-color: var(
+        --ve-primary-button-hover-background-color-on-dark
+      );
+      --ve-surface-primary-button-hover-border-color: var(
+        --ve-primary-button-hover-border-color-on-dark
+      );
+      --ve-surface-primary-button-active-text-color: var(
+        --ve-primary-button-active-text-color-on-dark
+      );
+      --ve-surface-primary-button-active-background-color: var(
+        --ve-primary-button-active-background-color-on-dark
+      );
+      --ve-surface-primary-button-active-border-color: var(
+        --ve-primary-button-active-border-color-on-dark
+      );
+      --ve-surface-secondary-button-default-text-color: var(
+        --ve-secondary-button-default-text-color-on-dark
+      );
+      --ve-surface-secondary-button-default-background-color: var(
+        --ve-secondary-button-default-background-color-on-dark
+      );
+      --ve-surface-secondary-button-default-border-color: var(
+        --ve-secondary-button-default-border-color-on-dark
+      );
+      --ve-surface-secondary-button-hover-text-color: var(
+        --ve-secondary-button-hover-text-color-on-dark
+      );
+      --ve-surface-secondary-button-hover-background-color: var(
+        --ve-secondary-button-hover-background-color-on-dark
+      );
+      --ve-surface-secondary-button-hover-border-color: var(
+        --ve-secondary-button-hover-border-color-on-dark
+      );
+      --ve-surface-secondary-button-active-text-color: var(
+        --ve-secondary-button-active-text-color-on-dark
+      );
+      --ve-surface-secondary-button-active-background-color: var(
+        --ve-secondary-button-active-background-color-on-dark
+      );
+      --ve-surface-secondary-button-active-border-color: var(
+        --ve-secondary-button-active-border-color-on-dark
+      );
+      --ve-surface-link-default-text-color: var(
+        --ve-link-default-text-color-on-dark
+      );
+      --ve-surface-link-hover-text-color: var(
+        --ve-link-hover-text-color-on-dark
+      );
+      --ve-surface-link-active-text-color: var(
+        --ve-link-active-text-color-on-dark
+      );
+      --ve-surface-navigation-link-default-text-color: var(
+        --ve-navigation-link-default-text-color-on-dark
+      );
+      --ve-surface-navigation-link-hover-text-color: var(
+        --ve-navigation-link-hover-text-color-on-dark
+      );
+      --ve-surface-navigation-link-active-text-color: var(
+        --ve-navigation-link-active-text-color-on-dark
+      );
+    }
+    .sl-atom[data-sl-state-contrast~="desktop-base:page"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover:page"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible:page"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover-focusVisible:page"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-active:page"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover-active:page"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible-active:page"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover-focusVisible-active:page"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --sl-background-foreground: var(--ve-color-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="desktop-base:primary"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover:primary"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible:primary"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover-focusVisible:primary"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-active:primary"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover-active:primary"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible-active:primary"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover-focusVisible-active:primary"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --sl-background-foreground: var(--ve-color-primary-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="desktop-base:secondary"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover:secondary"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible:secondary"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover-focusVisible:secondary"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-active:secondary"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover-active:secondary"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible-active:secondary"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover-focusVisible-active:secondary"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --sl-background-foreground: var(--ve-color-secondary-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="desktop-base:accent"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover:accent"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible:accent"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover-focusVisible:accent"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-active:accent"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover-active:accent"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible-active:accent"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover-focusVisible-active:accent"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --sl-background-foreground: var(--ve-color-accent-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="desktop-base:muted"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover:muted"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible:muted"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover-focusVisible:muted"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-active:muted"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover-active:muted"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible-active:muted"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-hover-focusVisible-active:muted"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --sl-background-foreground: var(--ve-color-muted-foreground);
+    }
+  }
+  @media (hover: none) {
+    .sl-atom[data-sl-state-contrast~="desktop-base:light"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible:light"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-active:light"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible-active:light"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --sl-background-foreground: #000;
+    }
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="desktop-base:light"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="desktop-focusVisible:light"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="desktop-active:light"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="desktop-focusVisible-active:light"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --ve-surface-preset-image-background: #f9f9f9;
+      --ve-surface-primary-button-default-text-color: var(
+        --ve-primary-button-default-text-color
+      );
+      --ve-surface-primary-button-default-background-color: var(
+        --ve-primary-button-default-background-color
+      );
+      --ve-surface-primary-button-default-border-color: var(
+        --ve-primary-button-default-border-color
+      );
+      --ve-surface-primary-button-hover-text-color: var(
+        --ve-primary-button-hover-text-color
+      );
+      --ve-surface-primary-button-hover-background-color: var(
+        --ve-primary-button-hover-background-color
+      );
+      --ve-surface-primary-button-hover-border-color: var(
+        --ve-primary-button-hover-border-color
+      );
+      --ve-surface-primary-button-active-text-color: var(
+        --ve-primary-button-active-text-color
+      );
+      --ve-surface-primary-button-active-background-color: var(
+        --ve-primary-button-active-background-color
+      );
+      --ve-surface-primary-button-active-border-color: var(
+        --ve-primary-button-active-border-color
+      );
+      --ve-surface-secondary-button-default-text-color: var(
+        --ve-secondary-button-default-text-color
+      );
+      --ve-surface-secondary-button-default-background-color: var(
+        --ve-secondary-button-default-background-color
+      );
+      --ve-surface-secondary-button-default-border-color: var(
+        --ve-secondary-button-default-border-color
+      );
+      --ve-surface-secondary-button-hover-text-color: var(
+        --ve-secondary-button-hover-text-color
+      );
+      --ve-surface-secondary-button-hover-background-color: var(
+        --ve-secondary-button-hover-background-color
+      );
+      --ve-surface-secondary-button-hover-border-color: var(
+        --ve-secondary-button-hover-border-color
+      );
+      --ve-surface-secondary-button-active-text-color: var(
+        --ve-secondary-button-active-text-color
+      );
+      --ve-surface-secondary-button-active-background-color: var(
+        --ve-secondary-button-active-background-color
+      );
+      --ve-surface-secondary-button-active-border-color: var(
+        --ve-secondary-button-active-border-color
+      );
+      --ve-surface-link-default-text-color: var(--ve-link-default-text-color);
+      --ve-surface-link-hover-text-color: var(--ve-link-hover-text-color);
+      --ve-surface-link-active-text-color: var(--ve-link-active-text-color);
+      --ve-surface-navigation-link-default-text-color: var(
+        --ve-navigation-link-default-text-color
+      );
+      --ve-surface-navigation-link-hover-text-color: var(
+        --ve-navigation-link-hover-text-color
+      );
+      --ve-surface-navigation-link-active-text-color: var(
+        --ve-navigation-link-active-text-color
+      );
+    }
+    .sl-atom[data-sl-state-contrast~="desktop-base:dark"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible:dark"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-active:dark"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible-active:dark"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --sl-background-foreground: #fff;
+    }
+    .sl-atom:not(.sl-button)[data-sl-state-contrast~="desktop-base:dark"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="desktop-focusVisible:dark"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="desktop-active:dark"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="desktop-focusVisible-active:dark"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --ve-surface-preset-image-background: #fff;
+      --ve-surface-primary-button-default-text-color: var(
+        --ve-primary-button-default-text-color-on-dark
+      );
+      --ve-surface-primary-button-default-background-color: var(
+        --ve-primary-button-default-background-color-on-dark
+      );
+      --ve-surface-primary-button-default-border-color: var(
+        --ve-primary-button-default-border-color-on-dark
+      );
+      --ve-surface-primary-button-hover-text-color: var(
+        --ve-primary-button-hover-text-color-on-dark
+      );
+      --ve-surface-primary-button-hover-background-color: var(
+        --ve-primary-button-hover-background-color-on-dark
+      );
+      --ve-surface-primary-button-hover-border-color: var(
+        --ve-primary-button-hover-border-color-on-dark
+      );
+      --ve-surface-primary-button-active-text-color: var(
+        --ve-primary-button-active-text-color-on-dark
+      );
+      --ve-surface-primary-button-active-background-color: var(
+        --ve-primary-button-active-background-color-on-dark
+      );
+      --ve-surface-primary-button-active-border-color: var(
+        --ve-primary-button-active-border-color-on-dark
+      );
+      --ve-surface-secondary-button-default-text-color: var(
+        --ve-secondary-button-default-text-color-on-dark
+      );
+      --ve-surface-secondary-button-default-background-color: var(
+        --ve-secondary-button-default-background-color-on-dark
+      );
+      --ve-surface-secondary-button-default-border-color: var(
+        --ve-secondary-button-default-border-color-on-dark
+      );
+      --ve-surface-secondary-button-hover-text-color: var(
+        --ve-secondary-button-hover-text-color-on-dark
+      );
+      --ve-surface-secondary-button-hover-background-color: var(
+        --ve-secondary-button-hover-background-color-on-dark
+      );
+      --ve-surface-secondary-button-hover-border-color: var(
+        --ve-secondary-button-hover-border-color-on-dark
+      );
+      --ve-surface-secondary-button-active-text-color: var(
+        --ve-secondary-button-active-text-color-on-dark
+      );
+      --ve-surface-secondary-button-active-background-color: var(
+        --ve-secondary-button-active-background-color-on-dark
+      );
+      --ve-surface-secondary-button-active-border-color: var(
+        --ve-secondary-button-active-border-color-on-dark
+      );
+      --ve-surface-link-default-text-color: var(
+        --ve-link-default-text-color-on-dark
+      );
+      --ve-surface-link-hover-text-color: var(
+        --ve-link-hover-text-color-on-dark
+      );
+      --ve-surface-link-active-text-color: var(
+        --ve-link-active-text-color-on-dark
+      );
+      --ve-surface-navigation-link-default-text-color: var(
+        --ve-navigation-link-default-text-color-on-dark
+      );
+      --ve-surface-navigation-link-hover-text-color: var(
+        --ve-navigation-link-hover-text-color-on-dark
+      );
+      --ve-surface-navigation-link-active-text-color: var(
+        --ve-navigation-link-active-text-color-on-dark
+      );
+    }
+    .sl-atom[data-sl-state-contrast~="desktop-base:page"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible:page"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-active:page"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible-active:page"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --sl-background-foreground: var(--ve-color-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="desktop-base:primary"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible:primary"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-active:primary"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible-active:primary"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --sl-background-foreground: var(--ve-color-primary-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="desktop-base:secondary"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible:secondary"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-active:secondary"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible-active:secondary"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --sl-background-foreground: var(--ve-color-secondary-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="desktop-base:accent"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible:accent"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-active:accent"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible-active:accent"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --sl-background-foreground: var(--ve-color-accent-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="desktop-base:muted"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible:muted"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-active:muted"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="desktop-focusVisible-active:muted"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --sl-background-foreground: var(--ve-color-muted-foreground);
+    }
+  }
 }
-.sl-atom.sl-type-body {
-  --sl-theme-font-family: var(--ve-body-font-family);
-  --sl-theme-font-style: var(--ve-body-font-style);
-  --sl-theme-letter-spacing: var(--ve-body-letter-spacing);
-  --sl-theme-text-transform: var(--ve-body-text-transform);
-  --sl-theme-font-size: var(--ve-body-mobile-font-size);
-  --sl-theme-line-height: var(--ve-body-mobile-line-height);
-  --sl-theme-font-weight: var(--ve-body-font-weight);
+@media (768px <= width < 1024px) {
+  .sl-atom[data-sl-tablet-contrast="light"] {
+    --sl-background-foreground: #000;
+  }
+  .sl-atom:not(.sl-button)[data-sl-tablet-contrast="light"] {
+    --ve-surface-preset-image-background: #f9f9f9;
+    --ve-surface-primary-button-default-text-color: var(
+      --ve-primary-button-default-text-color
+    );
+    --ve-surface-primary-button-default-background-color: var(
+      --ve-primary-button-default-background-color
+    );
+    --ve-surface-primary-button-default-border-color: var(
+      --ve-primary-button-default-border-color
+    );
+    --ve-surface-primary-button-hover-text-color: var(
+      --ve-primary-button-hover-text-color
+    );
+    --ve-surface-primary-button-hover-background-color: var(
+      --ve-primary-button-hover-background-color
+    );
+    --ve-surface-primary-button-hover-border-color: var(
+      --ve-primary-button-hover-border-color
+    );
+    --ve-surface-primary-button-active-text-color: var(
+      --ve-primary-button-active-text-color
+    );
+    --ve-surface-primary-button-active-background-color: var(
+      --ve-primary-button-active-background-color
+    );
+    --ve-surface-primary-button-active-border-color: var(
+      --ve-primary-button-active-border-color
+    );
+    --ve-surface-secondary-button-default-text-color: var(
+      --ve-secondary-button-default-text-color
+    );
+    --ve-surface-secondary-button-default-background-color: var(
+      --ve-secondary-button-default-background-color
+    );
+    --ve-surface-secondary-button-default-border-color: var(
+      --ve-secondary-button-default-border-color
+    );
+    --ve-surface-secondary-button-hover-text-color: var(
+      --ve-secondary-button-hover-text-color
+    );
+    --ve-surface-secondary-button-hover-background-color: var(
+      --ve-secondary-button-hover-background-color
+    );
+    --ve-surface-secondary-button-hover-border-color: var(
+      --ve-secondary-button-hover-border-color
+    );
+    --ve-surface-secondary-button-active-text-color: var(
+      --ve-secondary-button-active-text-color
+    );
+    --ve-surface-secondary-button-active-background-color: var(
+      --ve-secondary-button-active-background-color
+    );
+    --ve-surface-secondary-button-active-border-color: var(
+      --ve-secondary-button-active-border-color
+    );
+    --ve-surface-link-default-text-color: var(--ve-link-default-text-color);
+    --ve-surface-link-hover-text-color: var(--ve-link-hover-text-color);
+    --ve-surface-link-active-text-color: var(--ve-link-active-text-color);
+    --ve-surface-navigation-link-default-text-color: var(
+      --ve-navigation-link-default-text-color
+    );
+    --ve-surface-navigation-link-hover-text-color: var(
+      --ve-navigation-link-hover-text-color
+    );
+    --ve-surface-navigation-link-active-text-color: var(
+      --ve-navigation-link-active-text-color
+    );
+  }
+  .sl-atom[data-sl-tablet-contrast="dark"] {
+    --sl-background-foreground: #fff;
+  }
+  .sl-atom:not(.sl-button)[data-sl-tablet-contrast="dark"] {
+    --ve-surface-preset-image-background: #fff;
+    --ve-surface-primary-button-default-text-color: var(
+      --ve-primary-button-default-text-color-on-dark
+    );
+    --ve-surface-primary-button-default-background-color: var(
+      --ve-primary-button-default-background-color-on-dark
+    );
+    --ve-surface-primary-button-default-border-color: var(
+      --ve-primary-button-default-border-color-on-dark
+    );
+    --ve-surface-primary-button-hover-text-color: var(
+      --ve-primary-button-hover-text-color-on-dark
+    );
+    --ve-surface-primary-button-hover-background-color: var(
+      --ve-primary-button-hover-background-color-on-dark
+    );
+    --ve-surface-primary-button-hover-border-color: var(
+      --ve-primary-button-hover-border-color-on-dark
+    );
+    --ve-surface-primary-button-active-text-color: var(
+      --ve-primary-button-active-text-color-on-dark
+    );
+    --ve-surface-primary-button-active-background-color: var(
+      --ve-primary-button-active-background-color-on-dark
+    );
+    --ve-surface-primary-button-active-border-color: var(
+      --ve-primary-button-active-border-color-on-dark
+    );
+    --ve-surface-secondary-button-default-text-color: var(
+      --ve-secondary-button-default-text-color-on-dark
+    );
+    --ve-surface-secondary-button-default-background-color: var(
+      --ve-secondary-button-default-background-color-on-dark
+    );
+    --ve-surface-secondary-button-default-border-color: var(
+      --ve-secondary-button-default-border-color-on-dark
+    );
+    --ve-surface-secondary-button-hover-text-color: var(
+      --ve-secondary-button-hover-text-color-on-dark
+    );
+    --ve-surface-secondary-button-hover-background-color: var(
+      --ve-secondary-button-hover-background-color-on-dark
+    );
+    --ve-surface-secondary-button-hover-border-color: var(
+      --ve-secondary-button-hover-border-color-on-dark
+    );
+    --ve-surface-secondary-button-active-text-color: var(
+      --ve-secondary-button-active-text-color-on-dark
+    );
+    --ve-surface-secondary-button-active-background-color: var(
+      --ve-secondary-button-active-background-color-on-dark
+    );
+    --ve-surface-secondary-button-active-border-color: var(
+      --ve-secondary-button-active-border-color-on-dark
+    );
+    --ve-surface-link-default-text-color: var(
+      --ve-link-default-text-color-on-dark
+    );
+    --ve-surface-link-hover-text-color: var(--ve-link-hover-text-color-on-dark);
+    --ve-surface-link-active-text-color: var(
+      --ve-link-active-text-color-on-dark
+    );
+    --ve-surface-navigation-link-default-text-color: var(
+      --ve-navigation-link-default-text-color-on-dark
+    );
+    --ve-surface-navigation-link-hover-text-color: var(
+      --ve-navigation-link-hover-text-color-on-dark
+    );
+    --ve-surface-navigation-link-active-text-color: var(
+      --ve-navigation-link-active-text-color-on-dark
+    );
+  }
+
+  .sl-atom[data-sl-tablet-surface="page"] {
+    --sl-background-foreground: var(--ve-color-foreground);
+  }
+  .sl-atom[data-sl-tablet-surface="primary"] {
+    --sl-background-foreground: var(--ve-color-primary-foreground);
+  }
+  .sl-atom[data-sl-tablet-surface="secondary"] {
+    --sl-background-foreground: var(--ve-color-secondary-foreground);
+  }
+  .sl-atom[data-sl-tablet-surface="accent"] {
+    --sl-background-foreground: var(--ve-color-accent-foreground);
+  }
+  .sl-atom[data-sl-tablet-surface="muted"] {
+    --sl-background-foreground: var(--ve-color-muted-foreground);
+  }
+
+  @media (hover: hover) {
+    .sl-atom[data-sl-state-contrast~="tablet-base:light"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover:light"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible:light"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover-focusVisible:light"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-active:light"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover-active:light"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible-active:light"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover-focusVisible-active:light"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --sl-background-foreground: #000;
+    }
+    .sl-atom:not(.sl-button)[data-sl-state-contrast~="tablet-base:light"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="tablet-hover:light"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="tablet-focusVisible:light"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="tablet-hover-focusVisible:light"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="tablet-active:light"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="tablet-hover-active:light"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="tablet-focusVisible-active:light"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="tablet-hover-focusVisible-active:light"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --ve-surface-preset-image-background: #f9f9f9;
+      --ve-surface-primary-button-default-text-color: var(
+        --ve-primary-button-default-text-color
+      );
+      --ve-surface-primary-button-default-background-color: var(
+        --ve-primary-button-default-background-color
+      );
+      --ve-surface-primary-button-default-border-color: var(
+        --ve-primary-button-default-border-color
+      );
+      --ve-surface-primary-button-hover-text-color: var(
+        --ve-primary-button-hover-text-color
+      );
+      --ve-surface-primary-button-hover-background-color: var(
+        --ve-primary-button-hover-background-color
+      );
+      --ve-surface-primary-button-hover-border-color: var(
+        --ve-primary-button-hover-border-color
+      );
+      --ve-surface-primary-button-active-text-color: var(
+        --ve-primary-button-active-text-color
+      );
+      --ve-surface-primary-button-active-background-color: var(
+        --ve-primary-button-active-background-color
+      );
+      --ve-surface-primary-button-active-border-color: var(
+        --ve-primary-button-active-border-color
+      );
+      --ve-surface-secondary-button-default-text-color: var(
+        --ve-secondary-button-default-text-color
+      );
+      --ve-surface-secondary-button-default-background-color: var(
+        --ve-secondary-button-default-background-color
+      );
+      --ve-surface-secondary-button-default-border-color: var(
+        --ve-secondary-button-default-border-color
+      );
+      --ve-surface-secondary-button-hover-text-color: var(
+        --ve-secondary-button-hover-text-color
+      );
+      --ve-surface-secondary-button-hover-background-color: var(
+        --ve-secondary-button-hover-background-color
+      );
+      --ve-surface-secondary-button-hover-border-color: var(
+        --ve-secondary-button-hover-border-color
+      );
+      --ve-surface-secondary-button-active-text-color: var(
+        --ve-secondary-button-active-text-color
+      );
+      --ve-surface-secondary-button-active-background-color: var(
+        --ve-secondary-button-active-background-color
+      );
+      --ve-surface-secondary-button-active-border-color: var(
+        --ve-secondary-button-active-border-color
+      );
+      --ve-surface-link-default-text-color: var(--ve-link-default-text-color);
+      --ve-surface-link-hover-text-color: var(--ve-link-hover-text-color);
+      --ve-surface-link-active-text-color: var(--ve-link-active-text-color);
+      --ve-surface-navigation-link-default-text-color: var(
+        --ve-navigation-link-default-text-color
+      );
+      --ve-surface-navigation-link-hover-text-color: var(
+        --ve-navigation-link-hover-text-color
+      );
+      --ve-surface-navigation-link-active-text-color: var(
+        --ve-navigation-link-active-text-color
+      );
+    }
+    .sl-atom[data-sl-state-contrast~="tablet-base:dark"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover:dark"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible:dark"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover-focusVisible:dark"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-active:dark"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover-active:dark"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible-active:dark"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover-focusVisible-active:dark"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --sl-background-foreground: #fff;
+    }
+    .sl-atom:not(.sl-button)[data-sl-state-contrast~="tablet-base:dark"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(.sl-button)[data-sl-state-contrast~="tablet-hover:dark"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="tablet-focusVisible:dark"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="tablet-hover-focusVisible:dark"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="tablet-active:dark"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="tablet-hover-active:dark"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="tablet-focusVisible-active:dark"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="tablet-hover-focusVisible-active:dark"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --ve-surface-preset-image-background: #fff;
+      --ve-surface-primary-button-default-text-color: var(
+        --ve-primary-button-default-text-color-on-dark
+      );
+      --ve-surface-primary-button-default-background-color: var(
+        --ve-primary-button-default-background-color-on-dark
+      );
+      --ve-surface-primary-button-default-border-color: var(
+        --ve-primary-button-default-border-color-on-dark
+      );
+      --ve-surface-primary-button-hover-text-color: var(
+        --ve-primary-button-hover-text-color-on-dark
+      );
+      --ve-surface-primary-button-hover-background-color: var(
+        --ve-primary-button-hover-background-color-on-dark
+      );
+      --ve-surface-primary-button-hover-border-color: var(
+        --ve-primary-button-hover-border-color-on-dark
+      );
+      --ve-surface-primary-button-active-text-color: var(
+        --ve-primary-button-active-text-color-on-dark
+      );
+      --ve-surface-primary-button-active-background-color: var(
+        --ve-primary-button-active-background-color-on-dark
+      );
+      --ve-surface-primary-button-active-border-color: var(
+        --ve-primary-button-active-border-color-on-dark
+      );
+      --ve-surface-secondary-button-default-text-color: var(
+        --ve-secondary-button-default-text-color-on-dark
+      );
+      --ve-surface-secondary-button-default-background-color: var(
+        --ve-secondary-button-default-background-color-on-dark
+      );
+      --ve-surface-secondary-button-default-border-color: var(
+        --ve-secondary-button-default-border-color-on-dark
+      );
+      --ve-surface-secondary-button-hover-text-color: var(
+        --ve-secondary-button-hover-text-color-on-dark
+      );
+      --ve-surface-secondary-button-hover-background-color: var(
+        --ve-secondary-button-hover-background-color-on-dark
+      );
+      --ve-surface-secondary-button-hover-border-color: var(
+        --ve-secondary-button-hover-border-color-on-dark
+      );
+      --ve-surface-secondary-button-active-text-color: var(
+        --ve-secondary-button-active-text-color-on-dark
+      );
+      --ve-surface-secondary-button-active-background-color: var(
+        --ve-secondary-button-active-background-color-on-dark
+      );
+      --ve-surface-secondary-button-active-border-color: var(
+        --ve-secondary-button-active-border-color-on-dark
+      );
+      --ve-surface-link-default-text-color: var(
+        --ve-link-default-text-color-on-dark
+      );
+      --ve-surface-link-hover-text-color: var(
+        --ve-link-hover-text-color-on-dark
+      );
+      --ve-surface-link-active-text-color: var(
+        --ve-link-active-text-color-on-dark
+      );
+      --ve-surface-navigation-link-default-text-color: var(
+        --ve-navigation-link-default-text-color-on-dark
+      );
+      --ve-surface-navigation-link-hover-text-color: var(
+        --ve-navigation-link-hover-text-color-on-dark
+      );
+      --ve-surface-navigation-link-active-text-color: var(
+        --ve-navigation-link-active-text-color-on-dark
+      );
+    }
+    .sl-atom[data-sl-state-contrast~="tablet-base:page"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover:page"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible:page"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover-focusVisible:page"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-active:page"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover-active:page"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible-active:page"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover-focusVisible-active:page"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --sl-background-foreground: var(--ve-color-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="tablet-base:primary"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover:primary"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible:primary"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover-focusVisible:primary"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-active:primary"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover-active:primary"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible-active:primary"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover-focusVisible-active:primary"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --sl-background-foreground: var(--ve-color-primary-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="tablet-base:secondary"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover:secondary"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible:secondary"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover-focusVisible:secondary"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-active:secondary"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover-active:secondary"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible-active:secondary"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover-focusVisible-active:secondary"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --sl-background-foreground: var(--ve-color-secondary-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="tablet-base:accent"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover:accent"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible:accent"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover-focusVisible:accent"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-active:accent"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover-active:accent"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible-active:accent"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover-focusVisible-active:accent"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --sl-background-foreground: var(--ve-color-accent-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="tablet-base:muted"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover:muted"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible:muted"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover-focusVisible:muted"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-active:muted"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover-active:muted"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible-active:muted"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-hover-focusVisible-active:muted"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --sl-background-foreground: var(--ve-color-muted-foreground);
+    }
+  }
+  @media (hover: none) {
+    .sl-atom[data-sl-state-contrast~="tablet-base:light"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible:light"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-active:light"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible-active:light"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --sl-background-foreground: #000;
+    }
+    .sl-atom:not(.sl-button)[data-sl-state-contrast~="tablet-base:light"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="tablet-focusVisible:light"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="tablet-active:light"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="tablet-focusVisible-active:light"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --ve-surface-preset-image-background: #f9f9f9;
+      --ve-surface-primary-button-default-text-color: var(
+        --ve-primary-button-default-text-color
+      );
+      --ve-surface-primary-button-default-background-color: var(
+        --ve-primary-button-default-background-color
+      );
+      --ve-surface-primary-button-default-border-color: var(
+        --ve-primary-button-default-border-color
+      );
+      --ve-surface-primary-button-hover-text-color: var(
+        --ve-primary-button-hover-text-color
+      );
+      --ve-surface-primary-button-hover-background-color: var(
+        --ve-primary-button-hover-background-color
+      );
+      --ve-surface-primary-button-hover-border-color: var(
+        --ve-primary-button-hover-border-color
+      );
+      --ve-surface-primary-button-active-text-color: var(
+        --ve-primary-button-active-text-color
+      );
+      --ve-surface-primary-button-active-background-color: var(
+        --ve-primary-button-active-background-color
+      );
+      --ve-surface-primary-button-active-border-color: var(
+        --ve-primary-button-active-border-color
+      );
+      --ve-surface-secondary-button-default-text-color: var(
+        --ve-secondary-button-default-text-color
+      );
+      --ve-surface-secondary-button-default-background-color: var(
+        --ve-secondary-button-default-background-color
+      );
+      --ve-surface-secondary-button-default-border-color: var(
+        --ve-secondary-button-default-border-color
+      );
+      --ve-surface-secondary-button-hover-text-color: var(
+        --ve-secondary-button-hover-text-color
+      );
+      --ve-surface-secondary-button-hover-background-color: var(
+        --ve-secondary-button-hover-background-color
+      );
+      --ve-surface-secondary-button-hover-border-color: var(
+        --ve-secondary-button-hover-border-color
+      );
+      --ve-surface-secondary-button-active-text-color: var(
+        --ve-secondary-button-active-text-color
+      );
+      --ve-surface-secondary-button-active-background-color: var(
+        --ve-secondary-button-active-background-color
+      );
+      --ve-surface-secondary-button-active-border-color: var(
+        --ve-secondary-button-active-border-color
+      );
+      --ve-surface-link-default-text-color: var(--ve-link-default-text-color);
+      --ve-surface-link-hover-text-color: var(--ve-link-hover-text-color);
+      --ve-surface-link-active-text-color: var(--ve-link-active-text-color);
+      --ve-surface-navigation-link-default-text-color: var(
+        --ve-navigation-link-default-text-color
+      );
+      --ve-surface-navigation-link-hover-text-color: var(
+        --ve-navigation-link-hover-text-color
+      );
+      --ve-surface-navigation-link-active-text-color: var(
+        --ve-navigation-link-active-text-color
+      );
+    }
+    .sl-atom[data-sl-state-contrast~="tablet-base:dark"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible:dark"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-active:dark"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible-active:dark"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --sl-background-foreground: #fff;
+    }
+    .sl-atom:not(.sl-button)[data-sl-state-contrast~="tablet-base:dark"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="tablet-focusVisible:dark"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="tablet-active:dark"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="tablet-focusVisible-active:dark"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --ve-surface-preset-image-background: #fff;
+      --ve-surface-primary-button-default-text-color: var(
+        --ve-primary-button-default-text-color-on-dark
+      );
+      --ve-surface-primary-button-default-background-color: var(
+        --ve-primary-button-default-background-color-on-dark
+      );
+      --ve-surface-primary-button-default-border-color: var(
+        --ve-primary-button-default-border-color-on-dark
+      );
+      --ve-surface-primary-button-hover-text-color: var(
+        --ve-primary-button-hover-text-color-on-dark
+      );
+      --ve-surface-primary-button-hover-background-color: var(
+        --ve-primary-button-hover-background-color-on-dark
+      );
+      --ve-surface-primary-button-hover-border-color: var(
+        --ve-primary-button-hover-border-color-on-dark
+      );
+      --ve-surface-primary-button-active-text-color: var(
+        --ve-primary-button-active-text-color-on-dark
+      );
+      --ve-surface-primary-button-active-background-color: var(
+        --ve-primary-button-active-background-color-on-dark
+      );
+      --ve-surface-primary-button-active-border-color: var(
+        --ve-primary-button-active-border-color-on-dark
+      );
+      --ve-surface-secondary-button-default-text-color: var(
+        --ve-secondary-button-default-text-color-on-dark
+      );
+      --ve-surface-secondary-button-default-background-color: var(
+        --ve-secondary-button-default-background-color-on-dark
+      );
+      --ve-surface-secondary-button-default-border-color: var(
+        --ve-secondary-button-default-border-color-on-dark
+      );
+      --ve-surface-secondary-button-hover-text-color: var(
+        --ve-secondary-button-hover-text-color-on-dark
+      );
+      --ve-surface-secondary-button-hover-background-color: var(
+        --ve-secondary-button-hover-background-color-on-dark
+      );
+      --ve-surface-secondary-button-hover-border-color: var(
+        --ve-secondary-button-hover-border-color-on-dark
+      );
+      --ve-surface-secondary-button-active-text-color: var(
+        --ve-secondary-button-active-text-color-on-dark
+      );
+      --ve-surface-secondary-button-active-background-color: var(
+        --ve-secondary-button-active-background-color-on-dark
+      );
+      --ve-surface-secondary-button-active-border-color: var(
+        --ve-secondary-button-active-border-color-on-dark
+      );
+      --ve-surface-link-default-text-color: var(
+        --ve-link-default-text-color-on-dark
+      );
+      --ve-surface-link-hover-text-color: var(
+        --ve-link-hover-text-color-on-dark
+      );
+      --ve-surface-link-active-text-color: var(
+        --ve-link-active-text-color-on-dark
+      );
+      --ve-surface-navigation-link-default-text-color: var(
+        --ve-navigation-link-default-text-color-on-dark
+      );
+      --ve-surface-navigation-link-hover-text-color: var(
+        --ve-navigation-link-hover-text-color-on-dark
+      );
+      --ve-surface-navigation-link-active-text-color: var(
+        --ve-navigation-link-active-text-color-on-dark
+      );
+    }
+    .sl-atom[data-sl-state-contrast~="tablet-base:page"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible:page"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-active:page"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible-active:page"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --sl-background-foreground: var(--ve-color-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="tablet-base:primary"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible:primary"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-active:primary"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible-active:primary"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --sl-background-foreground: var(--ve-color-primary-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="tablet-base:secondary"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible:secondary"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-active:secondary"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible-active:secondary"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --sl-background-foreground: var(--ve-color-secondary-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="tablet-base:accent"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible:accent"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-active:accent"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible-active:accent"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --sl-background-foreground: var(--ve-color-accent-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="tablet-base:muted"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible:muted"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-active:muted"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="tablet-focusVisible-active:muted"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --sl-background-foreground: var(--ve-color-muted-foreground);
+    }
+  }
 }
-.sl-atom.sl-type-body-small {
-  --sl-theme-font-family: var(--ve-body-small-font-family);
-  --sl-theme-font-style: var(--ve-body-small-font-style);
-  --sl-theme-letter-spacing: var(--ve-body-small-letter-spacing);
-  --sl-theme-text-transform: var(--ve-body-small-text-transform);
-  --sl-theme-font-size: var(--ve-body-small-mobile-font-size);
-  --sl-theme-line-height: var(--ve-body-small-mobile-line-height);
-  --sl-theme-font-weight: var(--ve-body-small-font-weight);
+@media (width < 768px) {
+  .sl-atom[data-sl-mobile-contrast="light"] {
+    --sl-background-foreground: #000;
+  }
+  .sl-atom:not(.sl-button)[data-sl-mobile-contrast="light"] {
+    --ve-surface-preset-image-background: #f9f9f9;
+    --ve-surface-primary-button-default-text-color: var(
+      --ve-primary-button-default-text-color
+    );
+    --ve-surface-primary-button-default-background-color: var(
+      --ve-primary-button-default-background-color
+    );
+    --ve-surface-primary-button-default-border-color: var(
+      --ve-primary-button-default-border-color
+    );
+    --ve-surface-primary-button-hover-text-color: var(
+      --ve-primary-button-hover-text-color
+    );
+    --ve-surface-primary-button-hover-background-color: var(
+      --ve-primary-button-hover-background-color
+    );
+    --ve-surface-primary-button-hover-border-color: var(
+      --ve-primary-button-hover-border-color
+    );
+    --ve-surface-primary-button-active-text-color: var(
+      --ve-primary-button-active-text-color
+    );
+    --ve-surface-primary-button-active-background-color: var(
+      --ve-primary-button-active-background-color
+    );
+    --ve-surface-primary-button-active-border-color: var(
+      --ve-primary-button-active-border-color
+    );
+    --ve-surface-secondary-button-default-text-color: var(
+      --ve-secondary-button-default-text-color
+    );
+    --ve-surface-secondary-button-default-background-color: var(
+      --ve-secondary-button-default-background-color
+    );
+    --ve-surface-secondary-button-default-border-color: var(
+      --ve-secondary-button-default-border-color
+    );
+    --ve-surface-secondary-button-hover-text-color: var(
+      --ve-secondary-button-hover-text-color
+    );
+    --ve-surface-secondary-button-hover-background-color: var(
+      --ve-secondary-button-hover-background-color
+    );
+    --ve-surface-secondary-button-hover-border-color: var(
+      --ve-secondary-button-hover-border-color
+    );
+    --ve-surface-secondary-button-active-text-color: var(
+      --ve-secondary-button-active-text-color
+    );
+    --ve-surface-secondary-button-active-background-color: var(
+      --ve-secondary-button-active-background-color
+    );
+    --ve-surface-secondary-button-active-border-color: var(
+      --ve-secondary-button-active-border-color
+    );
+    --ve-surface-link-default-text-color: var(--ve-link-default-text-color);
+    --ve-surface-link-hover-text-color: var(--ve-link-hover-text-color);
+    --ve-surface-link-active-text-color: var(--ve-link-active-text-color);
+    --ve-surface-navigation-link-default-text-color: var(
+      --ve-navigation-link-default-text-color
+    );
+    --ve-surface-navigation-link-hover-text-color: var(
+      --ve-navigation-link-hover-text-color
+    );
+    --ve-surface-navigation-link-active-text-color: var(
+      --ve-navigation-link-active-text-color
+    );
+  }
+  .sl-atom[data-sl-mobile-contrast="dark"] {
+    --sl-background-foreground: #fff;
+  }
+  .sl-atom:not(.sl-button)[data-sl-mobile-contrast="dark"] {
+    --ve-surface-preset-image-background: #fff;
+    --ve-surface-primary-button-default-text-color: var(
+      --ve-primary-button-default-text-color-on-dark
+    );
+    --ve-surface-primary-button-default-background-color: var(
+      --ve-primary-button-default-background-color-on-dark
+    );
+    --ve-surface-primary-button-default-border-color: var(
+      --ve-primary-button-default-border-color-on-dark
+    );
+    --ve-surface-primary-button-hover-text-color: var(
+      --ve-primary-button-hover-text-color-on-dark
+    );
+    --ve-surface-primary-button-hover-background-color: var(
+      --ve-primary-button-hover-background-color-on-dark
+    );
+    --ve-surface-primary-button-hover-border-color: var(
+      --ve-primary-button-hover-border-color-on-dark
+    );
+    --ve-surface-primary-button-active-text-color: var(
+      --ve-primary-button-active-text-color-on-dark
+    );
+    --ve-surface-primary-button-active-background-color: var(
+      --ve-primary-button-active-background-color-on-dark
+    );
+    --ve-surface-primary-button-active-border-color: var(
+      --ve-primary-button-active-border-color-on-dark
+    );
+    --ve-surface-secondary-button-default-text-color: var(
+      --ve-secondary-button-default-text-color-on-dark
+    );
+    --ve-surface-secondary-button-default-background-color: var(
+      --ve-secondary-button-default-background-color-on-dark
+    );
+    --ve-surface-secondary-button-default-border-color: var(
+      --ve-secondary-button-default-border-color-on-dark
+    );
+    --ve-surface-secondary-button-hover-text-color: var(
+      --ve-secondary-button-hover-text-color-on-dark
+    );
+    --ve-surface-secondary-button-hover-background-color: var(
+      --ve-secondary-button-hover-background-color-on-dark
+    );
+    --ve-surface-secondary-button-hover-border-color: var(
+      --ve-secondary-button-hover-border-color-on-dark
+    );
+    --ve-surface-secondary-button-active-text-color: var(
+      --ve-secondary-button-active-text-color-on-dark
+    );
+    --ve-surface-secondary-button-active-background-color: var(
+      --ve-secondary-button-active-background-color-on-dark
+    );
+    --ve-surface-secondary-button-active-border-color: var(
+      --ve-secondary-button-active-border-color-on-dark
+    );
+    --ve-surface-link-default-text-color: var(
+      --ve-link-default-text-color-on-dark
+    );
+    --ve-surface-link-hover-text-color: var(--ve-link-hover-text-color-on-dark);
+    --ve-surface-link-active-text-color: var(
+      --ve-link-active-text-color-on-dark
+    );
+    --ve-surface-navigation-link-default-text-color: var(
+      --ve-navigation-link-default-text-color-on-dark
+    );
+    --ve-surface-navigation-link-hover-text-color: var(
+      --ve-navigation-link-hover-text-color-on-dark
+    );
+    --ve-surface-navigation-link-active-text-color: var(
+      --ve-navigation-link-active-text-color-on-dark
+    );
+  }
+
+  .sl-atom[data-sl-mobile-surface="page"] {
+    --sl-background-foreground: var(--ve-color-foreground);
+  }
+  .sl-atom[data-sl-mobile-surface="primary"] {
+    --sl-background-foreground: var(--ve-color-primary-foreground);
+  }
+  .sl-atom[data-sl-mobile-surface="secondary"] {
+    --sl-background-foreground: var(--ve-color-secondary-foreground);
+  }
+  .sl-atom[data-sl-mobile-surface="accent"] {
+    --sl-background-foreground: var(--ve-color-accent-foreground);
+  }
+  .sl-atom[data-sl-mobile-surface="muted"] {
+    --sl-background-foreground: var(--ve-color-muted-foreground);
+  }
+
+  @media (hover: hover) {
+    .sl-atom[data-sl-state-contrast~="mobile-base:light"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover:light"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible:light"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover-focusVisible:light"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-active:light"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover-active:light"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible-active:light"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover-focusVisible-active:light"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --sl-background-foreground: #000;
+    }
+    .sl-atom:not(.sl-button)[data-sl-state-contrast~="mobile-base:light"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="mobile-hover:light"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="mobile-focusVisible:light"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="mobile-hover-focusVisible:light"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="mobile-active:light"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="mobile-hover-active:light"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="mobile-focusVisible-active:light"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="mobile-hover-focusVisible-active:light"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --ve-surface-preset-image-background: #f9f9f9;
+      --ve-surface-primary-button-default-text-color: var(
+        --ve-primary-button-default-text-color
+      );
+      --ve-surface-primary-button-default-background-color: var(
+        --ve-primary-button-default-background-color
+      );
+      --ve-surface-primary-button-default-border-color: var(
+        --ve-primary-button-default-border-color
+      );
+      --ve-surface-primary-button-hover-text-color: var(
+        --ve-primary-button-hover-text-color
+      );
+      --ve-surface-primary-button-hover-background-color: var(
+        --ve-primary-button-hover-background-color
+      );
+      --ve-surface-primary-button-hover-border-color: var(
+        --ve-primary-button-hover-border-color
+      );
+      --ve-surface-primary-button-active-text-color: var(
+        --ve-primary-button-active-text-color
+      );
+      --ve-surface-primary-button-active-background-color: var(
+        --ve-primary-button-active-background-color
+      );
+      --ve-surface-primary-button-active-border-color: var(
+        --ve-primary-button-active-border-color
+      );
+      --ve-surface-secondary-button-default-text-color: var(
+        --ve-secondary-button-default-text-color
+      );
+      --ve-surface-secondary-button-default-background-color: var(
+        --ve-secondary-button-default-background-color
+      );
+      --ve-surface-secondary-button-default-border-color: var(
+        --ve-secondary-button-default-border-color
+      );
+      --ve-surface-secondary-button-hover-text-color: var(
+        --ve-secondary-button-hover-text-color
+      );
+      --ve-surface-secondary-button-hover-background-color: var(
+        --ve-secondary-button-hover-background-color
+      );
+      --ve-surface-secondary-button-hover-border-color: var(
+        --ve-secondary-button-hover-border-color
+      );
+      --ve-surface-secondary-button-active-text-color: var(
+        --ve-secondary-button-active-text-color
+      );
+      --ve-surface-secondary-button-active-background-color: var(
+        --ve-secondary-button-active-background-color
+      );
+      --ve-surface-secondary-button-active-border-color: var(
+        --ve-secondary-button-active-border-color
+      );
+      --ve-surface-link-default-text-color: var(--ve-link-default-text-color);
+      --ve-surface-link-hover-text-color: var(--ve-link-hover-text-color);
+      --ve-surface-link-active-text-color: var(--ve-link-active-text-color);
+      --ve-surface-navigation-link-default-text-color: var(
+        --ve-navigation-link-default-text-color
+      );
+      --ve-surface-navigation-link-hover-text-color: var(
+        --ve-navigation-link-hover-text-color
+      );
+      --ve-surface-navigation-link-active-text-color: var(
+        --ve-navigation-link-active-text-color
+      );
+    }
+    .sl-atom[data-sl-state-contrast~="mobile-base:dark"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover:dark"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible:dark"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover-focusVisible:dark"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-active:dark"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover-active:dark"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible-active:dark"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover-focusVisible-active:dark"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --sl-background-foreground: #fff;
+    }
+    .sl-atom:not(.sl-button)[data-sl-state-contrast~="mobile-base:dark"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(.sl-button)[data-sl-state-contrast~="mobile-hover:dark"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="mobile-focusVisible:dark"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="mobile-hover-focusVisible:dark"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="mobile-active:dark"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="mobile-hover-active:dark"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="mobile-focusVisible-active:dark"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="mobile-hover-focusVisible-active:dark"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --ve-surface-preset-image-background: #fff;
+      --ve-surface-primary-button-default-text-color: var(
+        --ve-primary-button-default-text-color-on-dark
+      );
+      --ve-surface-primary-button-default-background-color: var(
+        --ve-primary-button-default-background-color-on-dark
+      );
+      --ve-surface-primary-button-default-border-color: var(
+        --ve-primary-button-default-border-color-on-dark
+      );
+      --ve-surface-primary-button-hover-text-color: var(
+        --ve-primary-button-hover-text-color-on-dark
+      );
+      --ve-surface-primary-button-hover-background-color: var(
+        --ve-primary-button-hover-background-color-on-dark
+      );
+      --ve-surface-primary-button-hover-border-color: var(
+        --ve-primary-button-hover-border-color-on-dark
+      );
+      --ve-surface-primary-button-active-text-color: var(
+        --ve-primary-button-active-text-color-on-dark
+      );
+      --ve-surface-primary-button-active-background-color: var(
+        --ve-primary-button-active-background-color-on-dark
+      );
+      --ve-surface-primary-button-active-border-color: var(
+        --ve-primary-button-active-border-color-on-dark
+      );
+      --ve-surface-secondary-button-default-text-color: var(
+        --ve-secondary-button-default-text-color-on-dark
+      );
+      --ve-surface-secondary-button-default-background-color: var(
+        --ve-secondary-button-default-background-color-on-dark
+      );
+      --ve-surface-secondary-button-default-border-color: var(
+        --ve-secondary-button-default-border-color-on-dark
+      );
+      --ve-surface-secondary-button-hover-text-color: var(
+        --ve-secondary-button-hover-text-color-on-dark
+      );
+      --ve-surface-secondary-button-hover-background-color: var(
+        --ve-secondary-button-hover-background-color-on-dark
+      );
+      --ve-surface-secondary-button-hover-border-color: var(
+        --ve-secondary-button-hover-border-color-on-dark
+      );
+      --ve-surface-secondary-button-active-text-color: var(
+        --ve-secondary-button-active-text-color-on-dark
+      );
+      --ve-surface-secondary-button-active-background-color: var(
+        --ve-secondary-button-active-background-color-on-dark
+      );
+      --ve-surface-secondary-button-active-border-color: var(
+        --ve-secondary-button-active-border-color-on-dark
+      );
+      --ve-surface-link-default-text-color: var(
+        --ve-link-default-text-color-on-dark
+      );
+      --ve-surface-link-hover-text-color: var(
+        --ve-link-hover-text-color-on-dark
+      );
+      --ve-surface-link-active-text-color: var(
+        --ve-link-active-text-color-on-dark
+      );
+      --ve-surface-navigation-link-default-text-color: var(
+        --ve-navigation-link-default-text-color-on-dark
+      );
+      --ve-surface-navigation-link-hover-text-color: var(
+        --ve-navigation-link-hover-text-color-on-dark
+      );
+      --ve-surface-navigation-link-active-text-color: var(
+        --ve-navigation-link-active-text-color-on-dark
+      );
+    }
+    .sl-atom[data-sl-state-contrast~="mobile-base:page"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover:page"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible:page"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover-focusVisible:page"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-active:page"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover-active:page"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible-active:page"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover-focusVisible-active:page"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --sl-background-foreground: var(--ve-color-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="mobile-base:primary"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover:primary"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible:primary"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover-focusVisible:primary"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-active:primary"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover-active:primary"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible-active:primary"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover-focusVisible-active:primary"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --sl-background-foreground: var(--ve-color-primary-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="mobile-base:secondary"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover:secondary"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible:secondary"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover-focusVisible:secondary"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-active:secondary"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover-active:secondary"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible-active:secondary"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover-focusVisible-active:secondary"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --sl-background-foreground: var(--ve-color-secondary-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="mobile-base:accent"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover:accent"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible:accent"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover-focusVisible:accent"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-active:accent"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover-active:accent"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible-active:accent"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover-focusVisible-active:accent"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --sl-background-foreground: var(--ve-color-accent-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="mobile-base:muted"]:where(
+        :not(:hover):not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover:muted"]:where(
+        :hover:not(:focus-visible):not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible:muted"]:where(
+        :not(:hover):focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover-focusVisible:muted"]:where(
+        :hover:focus-visible:not(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-active:muted"]:where(
+        :not(:hover):not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover-active:muted"]:where(
+        :hover:not(:focus-visible):is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible-active:muted"]:where(
+        :not(:hover):focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-hover-focusVisible-active:muted"]:where(
+        :hover:focus-visible:is(
+            .sl-button:active:not(:disabled, [aria-disabled="true"])
+          )
+      ) {
+      --sl-background-foreground: var(--ve-color-muted-foreground);
+    }
+  }
+  @media (hover: none) {
+    .sl-atom[data-sl-state-contrast~="mobile-base:light"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible:light"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-active:light"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible-active:light"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --sl-background-foreground: #000;
+    }
+    .sl-atom:not(.sl-button)[data-sl-state-contrast~="mobile-base:light"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="mobile-focusVisible:light"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="mobile-active:light"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="mobile-focusVisible-active:light"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --ve-surface-preset-image-background: #f9f9f9;
+      --ve-surface-primary-button-default-text-color: var(
+        --ve-primary-button-default-text-color
+      );
+      --ve-surface-primary-button-default-background-color: var(
+        --ve-primary-button-default-background-color
+      );
+      --ve-surface-primary-button-default-border-color: var(
+        --ve-primary-button-default-border-color
+      );
+      --ve-surface-primary-button-hover-text-color: var(
+        --ve-primary-button-hover-text-color
+      );
+      --ve-surface-primary-button-hover-background-color: var(
+        --ve-primary-button-hover-background-color
+      );
+      --ve-surface-primary-button-hover-border-color: var(
+        --ve-primary-button-hover-border-color
+      );
+      --ve-surface-primary-button-active-text-color: var(
+        --ve-primary-button-active-text-color
+      );
+      --ve-surface-primary-button-active-background-color: var(
+        --ve-primary-button-active-background-color
+      );
+      --ve-surface-primary-button-active-border-color: var(
+        --ve-primary-button-active-border-color
+      );
+      --ve-surface-secondary-button-default-text-color: var(
+        --ve-secondary-button-default-text-color
+      );
+      --ve-surface-secondary-button-default-background-color: var(
+        --ve-secondary-button-default-background-color
+      );
+      --ve-surface-secondary-button-default-border-color: var(
+        --ve-secondary-button-default-border-color
+      );
+      --ve-surface-secondary-button-hover-text-color: var(
+        --ve-secondary-button-hover-text-color
+      );
+      --ve-surface-secondary-button-hover-background-color: var(
+        --ve-secondary-button-hover-background-color
+      );
+      --ve-surface-secondary-button-hover-border-color: var(
+        --ve-secondary-button-hover-border-color
+      );
+      --ve-surface-secondary-button-active-text-color: var(
+        --ve-secondary-button-active-text-color
+      );
+      --ve-surface-secondary-button-active-background-color: var(
+        --ve-secondary-button-active-background-color
+      );
+      --ve-surface-secondary-button-active-border-color: var(
+        --ve-secondary-button-active-border-color
+      );
+      --ve-surface-link-default-text-color: var(--ve-link-default-text-color);
+      --ve-surface-link-hover-text-color: var(--ve-link-hover-text-color);
+      --ve-surface-link-active-text-color: var(--ve-link-active-text-color);
+      --ve-surface-navigation-link-default-text-color: var(
+        --ve-navigation-link-default-text-color
+      );
+      --ve-surface-navigation-link-hover-text-color: var(
+        --ve-navigation-link-hover-text-color
+      );
+      --ve-surface-navigation-link-active-text-color: var(
+        --ve-navigation-link-active-text-color
+      );
+    }
+    .sl-atom[data-sl-state-contrast~="mobile-base:dark"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible:dark"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-active:dark"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible-active:dark"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --sl-background-foreground: #fff;
+    }
+    .sl-atom:not(.sl-button)[data-sl-state-contrast~="mobile-base:dark"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="mobile-focusVisible:dark"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="mobile-active:dark"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom:not(
+        .sl-button
+      )[data-sl-state-contrast~="mobile-focusVisible-active:dark"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --ve-surface-preset-image-background: #fff;
+      --ve-surface-primary-button-default-text-color: var(
+        --ve-primary-button-default-text-color-on-dark
+      );
+      --ve-surface-primary-button-default-background-color: var(
+        --ve-primary-button-default-background-color-on-dark
+      );
+      --ve-surface-primary-button-default-border-color: var(
+        --ve-primary-button-default-border-color-on-dark
+      );
+      --ve-surface-primary-button-hover-text-color: var(
+        --ve-primary-button-hover-text-color-on-dark
+      );
+      --ve-surface-primary-button-hover-background-color: var(
+        --ve-primary-button-hover-background-color-on-dark
+      );
+      --ve-surface-primary-button-hover-border-color: var(
+        --ve-primary-button-hover-border-color-on-dark
+      );
+      --ve-surface-primary-button-active-text-color: var(
+        --ve-primary-button-active-text-color-on-dark
+      );
+      --ve-surface-primary-button-active-background-color: var(
+        --ve-primary-button-active-background-color-on-dark
+      );
+      --ve-surface-primary-button-active-border-color: var(
+        --ve-primary-button-active-border-color-on-dark
+      );
+      --ve-surface-secondary-button-default-text-color: var(
+        --ve-secondary-button-default-text-color-on-dark
+      );
+      --ve-surface-secondary-button-default-background-color: var(
+        --ve-secondary-button-default-background-color-on-dark
+      );
+      --ve-surface-secondary-button-default-border-color: var(
+        --ve-secondary-button-default-border-color-on-dark
+      );
+      --ve-surface-secondary-button-hover-text-color: var(
+        --ve-secondary-button-hover-text-color-on-dark
+      );
+      --ve-surface-secondary-button-hover-background-color: var(
+        --ve-secondary-button-hover-background-color-on-dark
+      );
+      --ve-surface-secondary-button-hover-border-color: var(
+        --ve-secondary-button-hover-border-color-on-dark
+      );
+      --ve-surface-secondary-button-active-text-color: var(
+        --ve-secondary-button-active-text-color-on-dark
+      );
+      --ve-surface-secondary-button-active-background-color: var(
+        --ve-secondary-button-active-background-color-on-dark
+      );
+      --ve-surface-secondary-button-active-border-color: var(
+        --ve-secondary-button-active-border-color-on-dark
+      );
+      --ve-surface-link-default-text-color: var(
+        --ve-link-default-text-color-on-dark
+      );
+      --ve-surface-link-hover-text-color: var(
+        --ve-link-hover-text-color-on-dark
+      );
+      --ve-surface-link-active-text-color: var(
+        --ve-link-active-text-color-on-dark
+      );
+      --ve-surface-navigation-link-default-text-color: var(
+        --ve-navigation-link-default-text-color-on-dark
+      );
+      --ve-surface-navigation-link-hover-text-color: var(
+        --ve-navigation-link-hover-text-color-on-dark
+      );
+      --ve-surface-navigation-link-active-text-color: var(
+        --ve-navigation-link-active-text-color-on-dark
+      );
+    }
+    .sl-atom[data-sl-state-contrast~="mobile-base:page"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible:page"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-active:page"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible-active:page"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --sl-background-foreground: var(--ve-color-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="mobile-base:primary"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible:primary"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-active:primary"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible-active:primary"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --sl-background-foreground: var(--ve-color-primary-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="mobile-base:secondary"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible:secondary"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-active:secondary"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible-active:secondary"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --sl-background-foreground: var(--ve-color-secondary-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="mobile-base:accent"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible:accent"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-active:accent"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible-active:accent"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --sl-background-foreground: var(--ve-color-accent-foreground);
+    }
+    .sl-atom[data-sl-state-contrast~="mobile-base:muted"]:where(
+        :not(:focus-visible):not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible:muted"]:where(
+        :focus-visible:not(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-active:muted"]:where(
+        :not(:focus-visible):is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ),
+    .sl-atom[data-sl-state-contrast~="mobile-focusVisible-active:muted"]:where(
+        :focus-visible:is(
+          .sl-button:active:not(:disabled, [aria-disabled="true"])
+        )
+      ) {
+      --sl-background-foreground: var(--ve-color-muted-foreground);
+    }
+  }
+}
+.sl-atom.sl-interaction-primary-button {
+  transition: var(--ve-primary-button-transition);
 }
 .sl-atom.sl-interaction-primary-button {
   --sl-theme-font-family: var(--ve-primary-button-font-family);
@@ -996,6 +4774,9 @@
     --ve-surface-primary-button-active-background-color
   );
   --sl-theme-border-color: var(--ve-surface-primary-button-active-border-color);
+}
+.sl-atom.sl-interaction-secondary-button {
+  transition: var(--ve-secondary-button-transition);
 }
 .sl-atom.sl-interaction-secondary-button {
   --sl-theme-font-family: var(--ve-secondary-button-font-family);
@@ -1059,6 +4840,9 @@
   );
 }
 .sl-atom.sl-interaction-link {
+  transition: var(--ve-link-transition);
+}
+.sl-atom.sl-interaction-link {
   --sl-theme-font-family: var(--ve-link-font-family);
   --sl-theme-font-style: var(--ve-link-font-style);
   --sl-theme-letter-spacing: var(--ve-link-letter-spacing);
@@ -1084,6 +4868,9 @@
   --sl-theme-font-weight: var(--ve-link-active-font-weight);
   --sl-theme-text-decoration: var(--ve-link-active-text-decoration);
   --sl-theme-color: var(--ve-surface-link-active-text-color);
+}
+.sl-atom.sl-interaction-navigation-link {
+  transition: var(--ve-navigation-link-transition);
 }
 .sl-atom.sl-interaction-navigation-link {
   --sl-theme-font-family: var(--ve-navigation-link-font-family);
@@ -1112,34 +4899,38 @@
   --sl-theme-text-decoration: var(--ve-navigation-link-active-text-decoration);
   --sl-theme-color: var(--ve-surface-navigation-link-active-text-color);
 }
-@media (min-width: 640px) {
-  .sl-atom.sl-type-headline {
-    --sl-theme-font-size: var(--ve-headline-font-size);
-    --sl-theme-line-height: var(--ve-headline-line-height);
-  }
-  .sl-atom.sl-type-section-title {
-    --sl-theme-font-size: var(--ve-section-title-font-size);
-    --sl-theme-line-height: var(--ve-section-title-line-height);
-  }
-  .sl-atom.sl-type-card-title {
-    --sl-theme-font-size: var(--ve-card-title-font-size);
-    --sl-theme-line-height: var(--ve-card-title-line-height);
-  }
-  .sl-atom.sl-type-eyebrow {
-    --sl-theme-font-size: var(--ve-eyebrow-font-size);
-    --sl-theme-line-height: var(--ve-eyebrow-line-height);
-  }
-  .sl-atom.sl-type-body-large {
-    --sl-theme-font-size: var(--ve-body-large-font-size);
-    --sl-theme-line-height: var(--ve-body-large-line-height);
-  }
-  .sl-atom.sl-type-body {
-    --sl-theme-font-size: var(--ve-body-font-size);
-    --sl-theme-line-height: var(--ve-body-line-height);
-  }
-  .sl-atom.sl-type-body-small {
-    --sl-theme-font-size: var(--ve-body-small-font-size);
-    --sl-theme-line-height: var(--ve-body-small-line-height);
+:root {
+  --sl-headline-font-size: var(--ve-headline-mobile-font-size);
+  --sl-headline-line-height: var(--ve-headline-mobile-line-height);
+  --sl-section-title-font-size: var(--ve-section-title-mobile-font-size);
+  --sl-section-title-line-height: var(--ve-section-title-mobile-line-height);
+  --sl-card-title-font-size: var(--ve-card-title-mobile-font-size);
+  --sl-card-title-line-height: var(--ve-card-title-mobile-line-height);
+  --sl-eyebrow-font-size: var(--ve-eyebrow-mobile-font-size);
+  --sl-eyebrow-line-height: var(--ve-eyebrow-mobile-line-height);
+  --sl-body-small-font-size: var(--ve-body-small-mobile-font-size);
+  --sl-body-small-line-height: var(--ve-body-small-mobile-line-height);
+  --sl-body-font-size: var(--ve-body-mobile-font-size);
+  --sl-body-line-height: var(--ve-body-mobile-line-height);
+  --sl-body-large-font-size: var(--ve-body-large-mobile-font-size);
+  --sl-body-large-line-height: var(--ve-body-large-mobile-line-height);
+}
+@media (min-width: 768px) {
+  :root {
+    --sl-headline-font-size: var(--ve-headline-font-size);
+    --sl-headline-line-height: var(--ve-headline-line-height);
+    --sl-section-title-font-size: var(--ve-section-title-font-size);
+    --sl-section-title-line-height: var(--ve-section-title-line-height);
+    --sl-card-title-font-size: var(--ve-card-title-font-size);
+    --sl-card-title-line-height: var(--ve-card-title-line-height);
+    --sl-eyebrow-font-size: var(--ve-eyebrow-font-size);
+    --sl-eyebrow-line-height: var(--ve-eyebrow-line-height);
+    --sl-body-small-font-size: var(--ve-body-small-font-size);
+    --sl-body-small-line-height: var(--ve-body-small-line-height);
+    --sl-body-font-size: var(--ve-body-font-size);
+    --sl-body-line-height: var(--ve-body-line-height);
+    --sl-body-large-font-size: var(--ve-body-large-font-size);
+    --sl-body-large-line-height: var(--ve-body-large-line-height);
   }
   .sl-atom.sl-interaction-primary-button {
     --sl-theme-font-size: var(--ve-primary-button-font-size);
@@ -1158,7 +4949,151 @@
     --sl-theme-line-height: var(--ve-navigation-link-line-height);
   }
 }
-.sl-button:focus-visible {
+@media (640px <= width < 768px) {
+  .sl-page-root.ve-theme-headline,
+  .sl-page-root .ve-theme-headline:where(:not(.sl-atom)) {
+    font-size: var(--ve-headline-mobile-font-size);
+    line-height: var(--ve-headline-mobile-line-height);
+  }
+  .sl-page-root.ve-theme-section-title,
+  .sl-page-root .ve-theme-section-title:where(:not(.sl-atom)) {
+    font-size: var(--ve-section-title-mobile-font-size);
+    line-height: var(--ve-section-title-mobile-line-height);
+  }
+  .sl-page-root.ve-theme-card-title,
+  .sl-page-root .ve-theme-card-title:where(:not(.sl-atom)) {
+    font-size: var(--ve-card-title-mobile-font-size);
+    line-height: var(--ve-card-title-mobile-line-height);
+  }
+  .sl-page-root.ve-theme-eyebrow,
+  .sl-page-root .ve-theme-eyebrow:where(:not(.sl-atom)) {
+    font-size: var(--ve-eyebrow-mobile-font-size);
+    line-height: var(--ve-eyebrow-mobile-line-height);
+  }
+  .sl-page-root.ve-theme-body-small,
+  .sl-page-root .ve-theme-body-small:where(:not(.sl-atom)) {
+    font-size: var(--ve-body-small-mobile-font-size);
+    line-height: var(--ve-body-small-mobile-line-height);
+  }
+  .sl-page-root.ve-theme-body,
+  .sl-page-root .ve-theme-body:where(:not(.sl-atom)) {
+    font-size: var(--ve-body-mobile-font-size);
+    line-height: var(--ve-body-mobile-line-height);
+  }
+  .sl-page-root.ve-theme-body-large,
+  .sl-page-root .ve-theme-body-large:where(:not(.sl-atom)) {
+    font-size: var(--ve-body-large-mobile-font-size);
+    line-height: var(--ve-body-large-mobile-line-height);
+  }
+  .sl-page-root.ve-theme-primary-button,
+  .sl-page-root .ve-theme-primary-button:where(:not(.sl-atom)) {
+    font-size: var(--ve-primary-button-mobile-font-size);
+    line-height: var(--ve-primary-button-mobile-line-height);
+  }
+  .sl-page-root.ve-theme-secondary-button,
+  .sl-page-root .ve-theme-secondary-button:where(:not(.sl-atom)) {
+    font-size: var(--ve-secondary-button-mobile-font-size);
+    line-height: var(--ve-secondary-button-mobile-line-height);
+  }
+  .sl-page-root.ve-theme-link,
+  .sl-page-root .ve-theme-link:where(:not(.sl-atom)),
+  .sl-page-root .rtf-wrapper a {
+    font-size: var(--ve-link-mobile-font-size);
+    line-height: var(--ve-link-mobile-line-height);
+  }
+  .sl-page-root.ve-theme-navigation-link,
+  .sl-page-root .ve-theme-navigation-link:where(:not(.sl-atom)) {
+    font-size: var(--ve-navigation-link-mobile-font-size);
+    line-height: var(--ve-navigation-link-mobile-line-height);
+  }
+
+  .sl-page-root .ve-theme-typography-override {
+    font-size: var(--ve-typography-mobile-size);
+    line-height: var(--ve-typography-mobile-line-height);
+  }
+}
+.sl-atom.sl-type-headline,
+.sl-atom.sl-button.sl-type-headline {
+  --sl-theme-font-family: var(--ve-headline-font-family);
+  --sl-theme-font-size: var(--sl-headline-font-size);
+  --sl-theme-font-weight: var(--ve-headline-font-weight);
+  --sl-theme-line-height: var(--sl-headline-line-height);
+  --sl-theme-letter-spacing: var(--ve-headline-letter-spacing);
+  --sl-theme-font-style: var(--ve-headline-font-style);
+  --sl-theme-text-transform: var(--ve-headline-text-transform);
+}
+.sl-atom.sl-type-section-title,
+.sl-atom.sl-button.sl-type-section-title {
+  --sl-theme-font-family: var(--ve-section-title-font-family);
+  --sl-theme-font-size: var(--sl-section-title-font-size);
+  --sl-theme-font-weight: var(--ve-section-title-font-weight);
+  --sl-theme-line-height: var(--sl-section-title-line-height);
+  --sl-theme-letter-spacing: var(--ve-section-title-letter-spacing);
+  --sl-theme-font-style: var(--ve-section-title-font-style);
+  --sl-theme-text-transform: var(--ve-section-title-text-transform);
+}
+.sl-atom.sl-type-card-title,
+.sl-atom.sl-button.sl-type-card-title {
+  --sl-theme-font-family: var(--ve-card-title-font-family);
+  --sl-theme-font-size: var(--sl-card-title-font-size);
+  --sl-theme-font-weight: var(--ve-card-title-font-weight);
+  --sl-theme-line-height: var(--sl-card-title-line-height);
+  --sl-theme-letter-spacing: var(--ve-card-title-letter-spacing);
+  --sl-theme-font-style: var(--ve-card-title-font-style);
+  --sl-theme-text-transform: var(--ve-card-title-text-transform);
+}
+.sl-atom.sl-type-eyebrow,
+.sl-atom.sl-button.sl-type-eyebrow {
+  --sl-theme-font-family: var(--ve-eyebrow-font-family);
+  --sl-theme-font-size: var(--sl-eyebrow-font-size);
+  --sl-theme-font-weight: var(--ve-eyebrow-font-weight);
+  --sl-theme-line-height: var(--sl-eyebrow-line-height);
+  --sl-theme-letter-spacing: var(--ve-eyebrow-letter-spacing);
+  --sl-theme-font-style: var(--ve-eyebrow-font-style);
+  --sl-theme-text-transform: var(--ve-eyebrow-text-transform);
+}
+.sl-atom.sl-type-body-small,
+.sl-atom.sl-button.sl-type-body-small {
+  --sl-theme-font-family: var(--ve-body-small-font-family);
+  --sl-theme-font-size: var(--sl-body-small-font-size);
+  --sl-theme-font-weight: var(--ve-body-small-font-weight);
+  --sl-theme-line-height: var(--sl-body-small-line-height);
+  --sl-theme-letter-spacing: var(--ve-body-small-letter-spacing);
+  --sl-theme-font-style: var(--ve-body-small-font-style);
+  --sl-theme-text-transform: var(--ve-body-small-text-transform);
+}
+.sl-atom.sl-type-body,
+.sl-atom.sl-button.sl-type-body {
+  --sl-theme-font-family: var(--ve-body-font-family);
+  --sl-theme-font-size: var(--sl-body-font-size);
+  --sl-theme-font-weight: var(--ve-body-font-weight);
+  --sl-theme-line-height: var(--sl-body-line-height);
+  --sl-theme-letter-spacing: var(--ve-body-letter-spacing);
+  --sl-theme-font-style: var(--ve-body-font-style);
+  --sl-theme-text-transform: var(--ve-body-text-transform);
+}
+.sl-atom.sl-type-body-large,
+.sl-atom.sl-button.sl-type-body-large {
+  --sl-theme-font-family: var(--ve-body-large-font-family);
+  --sl-theme-font-size: var(--sl-body-large-font-size);
+  --sl-theme-font-weight: var(--ve-body-large-font-weight);
+  --sl-theme-line-height: var(--sl-body-large-line-height);
+  --sl-theme-letter-spacing: var(--ve-body-large-letter-spacing);
+  --sl-theme-font-style: var(--ve-body-large-font-style);
+  --sl-theme-text-transform: var(--ve-body-large-text-transform);
+}
+.sl-atom.sl-type-inherit,
+.sl-atom.sl-button.sl-type-inherit {
+  --sl-theme-font-family: sl-parent();
+  --sl-theme-font-size: sl-parent();
+  --sl-theme-font-weight: sl-parent();
+  --sl-theme-line-height: sl-parent();
+  --sl-theme-letter-spacing: sl-parent();
+  --sl-theme-font-style: sl-parent();
+  --sl-theme-text-transform: sl-parent();
+}
+.sl-button:focus-visible,
+.sl-linked-image:focus-visible {
   outline: 2px solid var(--ve-color-focus-ring, currentColor);
   outline-offset: 4px;
 }

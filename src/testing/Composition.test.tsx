@@ -19,13 +19,17 @@ import {
   type Data,
 } from "@puckeditor/core";
 import { renderToStaticMarkup } from "react-dom/server";
-import { page } from "@vitest/browser/context";
+import { page, userEvent } from "@vitest/browser/context";
 import { axe } from "jest-axe";
 import { toPuckFields } from "@yext/visual-editor";
 import { testSetup } from "./componentTests.setup.ts";
 import { VisualEditorProvider } from "./TestVisualEditorProvider.tsx";
 import { sharedComponentConfigs } from "../library/shared/componentRegistry.ts";
 import { recipeNode } from "../library/shared/design/recipes.ts";
+import { automaticTypographyValue } from "../library/shared/design/controlContent.ts";
+import { typographyPresetValue } from "../library/shared/design/theme.ts";
+import { ThemeSurfaceProvider } from "../library/shared/design/ThemeSurfaceProvider.tsx";
+import { ControlPreview } from "../library/shared/design/ControlPreview.tsx";
 import {
   composableSectionNames,
   compositionData,
@@ -592,6 +596,425 @@ describe("responsive styles and accessibility", () => {
     expect(getComputedStyle(customHeading).fontSize).toBe("20px");
   });
 
+  it("uses an authored gradient for text and links independently of Primary", async () => {
+    const linkColors = {
+      navigationLinkDefaultTextColor: "#112233",
+      navigationLinkDefaultTextColorOnDark: "#ffeedd",
+    };
+    testSetup({
+      colorPrimary: "#0046be",
+      colorPrimaryForeground: "#fff",
+      ...linkColors,
+    });
+    const node = recipeNode(
+      "Box",
+      {
+        surfaceRole: "primary",
+        surface: {
+          backgroundImage:
+            "linear-gradient(90deg, #061e72 0%, #0046be 50%, #061e72 100%)",
+        },
+        responsive: {
+          mobile: {
+            surface: { backgroundImage: "none", backgroundColor: "#fff" },
+          },
+        },
+      },
+      [
+        recipeNode("Heading", { as: "h2" }),
+        recipeNode("Button", { interactionRole: "navigation-link" }),
+        recipeNode("Card", {}, [
+          recipeNode("Button", { interactionRole: "navigation-link" }),
+        ]),
+      ]
+    );
+    const view = render(
+      provider(<Render config={config} data={data([node])} />)
+    );
+    const heading = view.getByRole("heading", { level: 2 });
+    const [link, cardLink] = view.getAllByRole("link", { name: "Learn more" });
+
+    await page.viewport(1280, 800);
+    const surface = view.container.querySelector(".sl-surface-primary")!;
+    const paintedGradient = getComputedStyle(surface).backgroundImage;
+    expect(paintedGradient).toContain("linear-gradient");
+    expect(getComputedStyle(heading).color).toBe("rgb(255, 255, 255)");
+    expect(getComputedStyle(link).color).toBe("rgb(255, 238, 221)");
+
+    testSetup({
+      colorPrimary: "#fff200",
+      colorPrimaryForeground: "#000",
+      ...linkColors,
+    });
+    expect(getComputedStyle(surface).backgroundImage).toBe(paintedGradient);
+    expect(getComputedStyle(heading).color).toBe("rgb(255, 255, 255)");
+    expect(getComputedStyle(link).color).toBe("rgb(255, 238, 221)");
+    expect(getComputedStyle(cardLink).color).toBe("rgb(17, 34, 51)");
+
+    await page.viewport(375, 800);
+    expect(getComputedStyle(surface).backgroundImage).toBe("none");
+    expect(getComputedStyle(heading).color).toBe("rgb(0, 0, 0)");
+    expect(getComputedStyle(link).color).toBe("rgb(17, 34, 51)");
+  });
+
+  it("uses the responsive theme surface for inherited text and interaction colors", async () => {
+    const theme = {
+      colorPrimary: "#112233",
+      colorPrimaryForeground: "#ffeedd",
+      colorForeground: "#101010",
+      navigationLinkDefaultTextColor: "#334455",
+      navigationLinkDefaultTextColorOnDark: "#eeffee",
+    };
+    testSetup(theme);
+    const node = recipeNode(
+      "Box",
+      {
+        surface: { backgroundColor: "var(--ve-color-background)" },
+        responsive: {
+          mobile: { surface: { backgroundColor: "var(--ve-color-primary)" } },
+        },
+      },
+      [
+        recipeNode("Heading", { as: "h2" }),
+        recipeNode("Button", { interactionRole: "navigation-link" }),
+        recipeNode("Card", {}, [
+          recipeNode("Button", { interactionRole: "navigation-link" }),
+        ]),
+      ]
+    );
+    const view = render(
+      provider(
+        <ThemeSurfaceProvider>
+          <Render config={config} data={data([node])} />
+        </ThemeSurfaceProvider>
+      )
+    );
+    const heading = view.getByRole("heading", { level: 2 });
+    const [link, cardLink] = view.getAllByRole("link", { name: "Learn more" });
+    await page.viewport(1280, 800);
+    expect(getComputedStyle(heading).color).toBe("rgb(16, 16, 16)");
+    expect(getComputedStyle(link).color).toBe("rgb(51, 68, 85)");
+    await page.viewport(375, 800);
+    expect(getComputedStyle(heading).color).toBe("rgb(255, 238, 221)");
+    expect(getComputedStyle(link).color).toBe("rgb(238, 255, 238)");
+    expect(getComputedStyle(cardLink).color).toBe("rgb(51, 68, 85)");
+    testSetup({
+      ...theme,
+      colorPrimary: "#fff200",
+      colorPrimaryForeground: "#171717",
+    });
+    await waitFor(() =>
+      expect(getComputedStyle(link).color).toBe("rgb(51, 68, 85)")
+    );
+    expect(getComputedStyle(heading).color).toBe("rgb(23, 23, 23)");
+  });
+
+  it("updates foregrounds when a surface or a button paints a different background", async () => {
+    testSetup({
+      colorForeground: "#171717",
+      navigationLinkDefaultTextColor: "#112233",
+      navigationLinkDefaultTextColorOnDark: "#eeeeee",
+      primaryButtonDefaultTextColor: "#191919",
+    });
+    const node = recipeNode(
+      "Box",
+      {
+        surfaceRole: "page",
+        attributes: { htmlId: "changing-background" },
+        states: { hover: { surface: { backgroundColor: "#000" } } },
+      },
+      [
+        recipeNode("Heading", { as: "h2" }),
+        recipeNode("Button", { interactionRole: "navigation-link" }),
+        recipeNode("Button", {
+          action: "button",
+          surface: { backgroundColor: "#000" },
+        }),
+      ]
+    );
+    const view = render(
+      provider(<Render config={config} data={data([node])} />)
+    );
+    const surface = view.container.querySelector("#changing-background")!;
+    const heading = view.getByRole("heading", { level: 2 });
+    const link = view.getByRole("link", { name: "Learn more" });
+    const button = view.getByRole("button", { name: "Learn more" });
+    await userEvent.unhover(surface);
+    expect(getComputedStyle(heading).color).toBe("rgb(23, 23, 23)");
+    expect(getComputedStyle(button).color).toBe("rgb(255, 255, 255)");
+    await userEvent.hover(surface);
+    expect(getComputedStyle(surface).backgroundColor).toBe("rgb(0, 0, 0)");
+    expect(getComputedStyle(heading).color).toBe("rgb(255, 255, 255)");
+    expect(getComputedStyle(link).color).toBe("rgb(238, 238, 238)");
+  });
+
+  it("keeps a hover override when the button also receives keyboard focus", async () => {
+    const node = recipeNode("Button", {
+      action: "button",
+      typography: { color: "#112233" },
+      states: {
+        hover: { typography: { color: "#556677" } },
+        focusVisible: { surface: { borderColor: "#ddaa33" } },
+      },
+    });
+    const view = render(
+      provider(<Render config={config} data={data([node])} />)
+    );
+    const button = view.getByRole("button", { name: "Learn more" });
+    await userEvent.hover(button);
+    expect(getComputedStyle(button).color).toBe("rgb(85, 102, 119)");
+    await userEvent.tab();
+    expect(button.matches(":focus-visible")).toBe(true);
+    expect(getComputedStyle(button).borderTopColor).toBe("rgb(221, 170, 51)");
+    expect(getComputedStyle(button).color).toBe("rgb(85, 102, 119)");
+  });
+
+  it("uses a solid sample of the page gradient for text, borders, and their swatches", async () => {
+    const pageColor = "var(--ve-color-background)";
+    testSetup({
+      colorBackground: "linear-gradient(90deg, #123456 0%, #abcdef 100%)",
+    });
+    const node = recipeNode(
+      "Box",
+      {
+        attributes: { htmlId: "page-gradient-surface" },
+        surface: {
+          backgroundColor: pageColor,
+          borderColor: pageColor,
+          borderStyle: "solid",
+          borderWidth: "2px",
+        },
+      },
+      [recipeNode("Heading", { as: "h2", typography: { color: pageColor } })]
+    );
+    const view = render(
+      provider(
+        <>
+          <div data-testid="page-color-swatch">
+            <ControlPreview property="borderColor" value={pageColor} />
+          </div>
+          <ThemeSurfaceProvider>
+            <Render config={config} data={data([node])} />
+          </ThemeSurfaceProvider>
+        </>
+      )
+    );
+    const surface = view.container.querySelector("#page-gradient-surface")!;
+    const heading = view.getByRole("heading", { level: 2 });
+    const swatch = view.getByTestId("page-color-swatch").querySelector("span")!;
+    expect(getComputedStyle(surface).backgroundImage).toContain(
+      "linear-gradient"
+    );
+    expect(getComputedStyle(surface).borderTopColor).toBe("rgb(18, 52, 86)");
+    expect(getComputedStyle(heading).color).toBe("rgb(18, 52, 86)");
+    expect(getComputedStyle(swatch).backgroundColor).toBe("rgb(18, 52, 86)");
+    testSetup({ colorBackground: "#456789" });
+    await waitFor(() =>
+      expect(getComputedStyle(heading).color).toBe("rgb(69, 103, 137)")
+    );
+    expect(getComputedStyle(swatch).backgroundColor).toBe("rgb(69, 103, 137)");
+  });
+
+  it("uses the chosen theme background and distinguishes automatic link color from inheritance", async () => {
+    testSetup({
+      colorMuted: "#222",
+      colorMutedForeground: "#fff",
+      navigationLinkDefaultTextColorOnDark: "#ffeedd",
+    });
+    const node = recipeNode(
+      "Box",
+      { surface: { backgroundColor: "var(--ve-color-muted)" } },
+      [
+        recipeNode("Heading", { as: "h2" }),
+        recipeNode("Button", {
+          interactionRole: "navigation-link",
+          typography: { color: "inherit" },
+          responsive: {
+            mobile: {
+              typography: { color: automaticTypographyValue("color") },
+            },
+          },
+        }),
+      ]
+    );
+    const view = render(
+      provider(<Render config={config} data={data([node])} />)
+    );
+    const surface = view.container.querySelector(".sl-surface-muted")!;
+    const link = view.getByRole("link", { name: "Learn more" });
+    expect(getComputedStyle(surface).backgroundColor).toBe("rgb(34, 34, 34)");
+    expect(getComputedStyle(view.getByRole("heading")).color).toBe(
+      "rgb(255, 255, 255)"
+    );
+    await page.viewport(1280, 800);
+    expect(getComputedStyle(link).color).toBe("rgb(255, 255, 255)");
+    await page.viewport(375, 800);
+    expect(getComputedStyle(link).color).toBe("rgb(255, 238, 221)");
+  });
+
+  it("borrows a responsive size from another style while keeping the starting style", async () => {
+    const theme = {
+      headlineFontFamily: "Georgia",
+      headlineFontWeight: "800",
+      headlineFontSize: 48,
+      headlineMobileFontSize: 33,
+      sectionTitleFontSize: 40,
+      sectionTitleMobileFontSize: 26,
+      navigationLinkDefaultTextColor: "#114477",
+    };
+    testSetup(theme);
+    const node = recipeNode(
+      "Box",
+      { typography: { fontSize: "20px", fontWeight: "500" } },
+      [
+        recipeNode("Heading", {
+          as: "h1",
+          typographyRole: "headline",
+          typography: {
+            fontSize: typographyPresetValue("section-title", "font-size"),
+          },
+        }),
+        recipeNode("Heading", { as: "h2", typographyRole: "inherit" }),
+        recipeNode("RichText", { typographyRole: "inherit" }),
+        recipeNode("Button", {
+          interactionRole: "navigation-link",
+          typographyRole: "headline",
+          typography: { fontSize: "46px", letterSpacing: "1px" },
+          responsive: {
+            mobile: {
+              typography: { fontSize: automaticTypographyValue("font-size") },
+            },
+          },
+        }),
+      ]
+    );
+    const resolved = await resolveAllData(data([node]), config, {
+      streamDocument: { locale: "en" },
+    });
+    const linkProps = resolved.content[0].props.content[3].props;
+    expect(linkProps.typographyRole).toBeUndefined();
+    expect(linkProps.responsive.mobile.typography.fontSize).toBe(
+      typographyPresetValue("headline", "font-size")
+    );
+    const view = render(provider(<Render config={config} data={resolved} />));
+    const heading = view.getByRole("heading", { level: 1 });
+    const inheritedHeading = view.getByRole("heading", { level: 2 });
+    const inheritedRichText = view.container.querySelector(".sl-rich-text p")!;
+    const link = view.getByRole("link", { name: "Learn more" });
+    await page.viewport(1280, 800);
+    expect(getComputedStyle(heading).fontSize).toBe("40px");
+    expect(getComputedStyle(heading).fontFamily).toBe("Georgia");
+    expect(getComputedStyle(heading).fontWeight).toBe("800");
+    expect(getComputedStyle(inheritedHeading).fontSize).toBe("20px");
+    expect(getComputedStyle(inheritedHeading).fontWeight).toBe("500");
+    expect(getComputedStyle(inheritedRichText).fontSize).toBe("20px");
+    expect(getComputedStyle(link).fontSize).toBe("46px");
+    expect(getComputedStyle(link).fontWeight).toBe("800");
+    expect(getComputedStyle(link).letterSpacing).toBe("1px");
+    expect(getComputedStyle(link).color).toBe("rgb(17, 68, 119)");
+    // 700px is inside the editor's Mobile range, above the old theme breakpoint.
+    await page.viewport(700, 800);
+    expect(getComputedStyle(heading).fontSize).toBe("26px");
+    expect(getComputedStyle(link).fontSize).toBe("33px");
+    testSetup({ ...theme, sectionTitleMobileFontSize: 30 });
+    expect(getComputedStyle(heading).fontSize).toBe("30px");
+  });
+
+  it("shows color choices for their specific field and clears text to Automatic", async () => {
+    await page.viewport(1440, 900);
+    const view = render(
+      provider(
+        <DesignPreviewEditor
+          config={config}
+          data={data([
+            recipeNode("Box", { surface: { borderStyle: "solid" } }),
+          ])}
+          iframe={{ enabled: false }}
+          ui={{ itemSelector: { index: 0, zone: "root:default-zone" } }}
+        />
+      )
+    );
+    fireEvent.click(await view.findByRole("tab", { name: "Design" }));
+    for (const label of [
+      "Text defaults for children",
+      "Background, border and image",
+    ])
+      fireEvent.click(view.getAllByText(label, { exact: true }).at(-1)!);
+    const automatic = view.getByRole("button", {
+      name: "Text color: Automatic",
+    });
+    const inherit = view.getByRole("button", { name: "Text color: Inherit" });
+    expect(automatic.getAttribute("aria-pressed")).toBe("true");
+    fireEvent.click(inherit);
+    expect(inherit.getAttribute("aria-pressed")).toBe("true");
+    fireEvent.click(automatic);
+    expect(automatic.getAttribute("aria-pressed")).toBe("true");
+    for (const name of [
+      "Background color: Inherit",
+      "Background color: Transparent",
+      "Background color: Primary background",
+      "Text color: Primary background",
+      "Text color: Primary foreground",
+      "Border color: Border",
+    ])
+      expect(view.getByRole("button", { name })).toBeTruthy();
+    for (const name of [
+      "Background color: Default",
+      "Background color: Primary foreground",
+      "Background color: Border",
+      "Text color: Transparent",
+      "Text color: Border",
+      "Text color: Current text color",
+    ])
+      expect(view.queryByRole("button", { name })).toBeNull();
+    const primaryBackground = view.getByRole("button", {
+      name: "Background color: Primary background",
+    });
+    fireEvent.click(primaryBackground);
+    expect(primaryBackground.getAttribute("aria-pressed")).toBe("true");
+    fireEvent.click(
+      view.getByRole("button", { name: "Clear background override" })
+    );
+    expect(primaryBackground.getAttribute("aria-pressed")).toBe("false");
+  });
+
+  it("uses a manual contrast setting for a mixed gradient on a section preset", () => {
+    testSetup({ colorForeground: "#112233" });
+    const props = {
+      ...publicComponents.BannerSection.defaultProps,
+      surfaceRole: "page",
+      surface: { backgroundImage: "linear-gradient(#000, #fff, #000)" },
+      content: [recipeNode("Heading", { as: "h2" })],
+    };
+    const view = render(
+      provider(
+        <Render
+          config={config}
+          data={data([{ type: "BannerSection", props }])}
+        />
+      )
+    );
+    expect(getComputedStyle(view.getByRole("heading")).color).toBe(
+      "rgb(17, 34, 51)"
+    );
+    view.rerender(
+      provider(
+        <Render
+          config={config}
+          data={data([
+            {
+              type: "BannerSection",
+              props: { ...props, backgroundContrast: "dark" },
+            },
+          ])}
+        />
+      )
+    );
+    expect(getComputedStyle(view.getByRole("heading")).color).toBe(
+      "rgb(255, 255, 255)"
+    );
+  });
+
   it("preserves a dark banner's contrasting text", () => {
     testSetup({ colorPrimary: "#000000", colorPrimaryForeground: "#ffffff" });
     const props = publicComponents.BannerSection.defaultProps;
@@ -767,8 +1190,38 @@ describe("responsive styles and accessibility", () => {
     expect((await axe(view.container)).violations).toEqual([]);
     expect(view.container.querySelector("a")?.getAttribute("href")).toBe("#");
     const details = view.container.querySelector("details")!;
+    const summary = details.querySelector("summary")!;
+    expect(summary.hasAttribute("data-puck-overlay-portal")).toBe(false);
     expect(details.open).toBe(false);
-    fireEvent.click(details.querySelector("summary")!);
+    fireEvent.click(summary);
+    expect(details.open).toBe(true);
+  });
+
+  it("toggles an initially revealed disclosure through its Puck overlay portal", async () => {
+    await page.viewport(1440, 900);
+    const view = render(
+      provider(
+        <Puck
+          config={config}
+          data={data([recipeNode("Disclosure", {}, [recipeNode("Paragraph")])])}
+          iframe={{ enabled: false }}
+        />
+      )
+    );
+    const summary = await view.findByText("Your question", {
+      selector: "summary",
+    });
+    const details = summary.closest("details")!;
+    expect(details.open).toBe(true);
+    expect(summary.getAttribute("data-puck-overlay-portal")).toBe("true");
+    expect(details.hasAttribute("data-puck-overlay-portal")).toBe(false);
+
+    await act(async () => userEvent.click(summary));
+    expect(details.open).toBe(false);
+    await act(async () => {
+      summary.focus();
+      await userEvent.keyboard("{Enter}");
+    });
     expect(details.open).toBe(true);
   });
 
@@ -842,7 +1295,7 @@ describe("responsive styles and accessibility", () => {
       ).toBe("36px")
     );
   });
-  it("shows an explicit default choice and keeps custom sizing open when a preset or Parent is chosen", async () => {
+  it("shows typography styles and keeps custom sizing open when choosing a preset or Inherit", async () => {
     await page.viewport(1440, 900);
     const view = render(
       provider(
@@ -855,6 +1308,46 @@ describe("responsive styles and accessibility", () => {
       )
     );
     fireEvent.click(await view.findByRole("tab", { name: "Design" }));
+    const typographyStyle = view.getByRole("combobox", {
+      name: "Typography Style",
+    }) as HTMLSelectElement;
+    const styleOptions = Array.from(typographyStyle.options);
+    expect(styleOptions.map((option) => option.label)).toEqual([
+      "Inherit",
+      "Headline",
+      "Section title",
+      "Card title",
+      "Eyebrow",
+      "Body small",
+      "Body",
+      "Body large",
+    ]);
+    await waitFor(() =>
+      expect(typographyStyle.selectedOptions[0].label).toBe("Headline")
+    );
+    fireEvent.change(typographyStyle, {
+      target: {
+        value: styleOptions.find(({ label }) => label === "Section title")!
+          .value,
+      },
+    });
+    await waitFor(() =>
+      expect(
+        view.container.querySelector("h1.sl-type-section-title")
+      ).toBeTruthy()
+    );
+    fireEvent.change(typographyStyle, {
+      target: {
+        value: styleOptions.find(({ label }) => label === "Headline")!.value,
+      },
+    });
+    await waitFor(() =>
+      expect(view.container.querySelector("h1.sl-type-headline")).toBeTruthy()
+    );
+    const defaultSize = view.getByRole("button", {
+      name: "Font size: Default",
+    });
+    expect(defaultSize.getAttribute("aria-pressed")).toBe("true");
     expect(view.queryByRole("button", { name: /Reset font size/i })).toBeNull();
     fireEvent.click(
       view.getByRole("button", { name: "Font size: Custom value" })
@@ -868,7 +1361,7 @@ describe("responsive styles and accessibility", () => {
         .getByRole("button", { name: "Font size: Body" })
         .getAttribute("aria-pressed")
     ).toBe("true");
-    fireEvent.click(view.getByRole("button", { name: "Font size: Parent" }));
+    fireEvent.click(view.getByRole("button", { name: "Font size: Inherit" }));
     expect(
       view.getByText(
         "Currently follows the parent text style. Enter a value to override it."
@@ -876,10 +1369,12 @@ describe("responsive styles and accessibility", () => {
     ).toBeTruthy();
     expect(
       view
-        .getByRole("button", { name: "Font size: Parent" })
+        .getByRole("button", { name: "Font size: Inherit" })
         .getAttribute("aria-pressed")
     ).toBe("true");
     expect(view.getByRole("textbox", { name: "Font size value" })).toBe(input);
+    fireEvent.click(defaultSize);
+    expect(defaultSize.getAttribute("aria-pressed")).toBe("true");
     fireEvent.click(
       view.getAllByText("Layout and size", { exact: true }).at(-1)!
     );
@@ -1036,7 +1531,7 @@ describe("responsive styles and accessibility", () => {
   );
   it.each([
     {
-      name: "Parent text",
+      name: "inherited text",
       type: "Paragraph",
       props: { typography: { fontSize: "37px" } },
       path: ["typography", "fontSize"],
@@ -1044,7 +1539,7 @@ describe("responsive styles and accessibility", () => {
       after: "inherit",
       tab: "Design",
       groups: [],
-      button: "Font size: Parent",
+      button: "Font size: Inherit",
     },
     {
       name: "default spacing",
@@ -1167,7 +1662,7 @@ describe("responsive styles and accessibility", () => {
     fireEvent.click(
       view.getAllByText("Text defaults for children", { exact: true }).at(-1)!
     );
-    fireEvent.click(view.getByRole("button", { name: "Weight: Bold" }));
+    fireEvent.click(view.getByRole("button", { name: "Weight: Headline" }));
     await waitFor(() =>
       expect(getPuck().history.histories.length).toBeGreaterThan(1)
     );
@@ -1451,6 +1946,80 @@ describe("responsive styles and accessibility", () => {
         .position
     ).toBe("sticky");
   });
+  it("keeps responsive header navigation collapsed and in flow while editing", async () => {
+    await page.viewport(1280, 900);
+    const saved = data([
+      recipeNode(
+        "Box",
+        {
+          as: "header",
+          position: {
+            position: "sticky",
+            insetBlockStart: "12px",
+            zIndex: "10",
+          },
+        },
+        [
+          recipeNode(
+            "Flex",
+            {
+              as: "nav",
+              attributes: { htmlId: "desktop-navigation" },
+              revealWhenHiddenInEditor: false,
+              responsive: { mobile: { layout: { display: "none" } } },
+            },
+            [recipeNode("Paragraph")]
+          ),
+          recipeNode(
+            "Disclosure",
+            {
+              revealWhenHiddenInEditor: false,
+              layout: { display: "none" },
+              responsive: { mobile: { layout: { display: "block" } } },
+            },
+            [recipeNode("Paragraph")]
+          ),
+        ]
+      ),
+    ]);
+    const view = render(
+      provider(
+        <Puck config={config} data={saved} iframe={{ enabled: false }} />
+      )
+    );
+    const { header, desktopNav, mobileMenu } = await waitFor(() => {
+      const header = view.container.querySelector("header.sl-atom")!;
+      const desktopNav = header?.querySelector("#desktop-navigation")!;
+      const mobileMenu = header?.querySelector("details")!;
+      expect(desktopNav).toBeTruthy();
+      expect(mobileMenu).toBeTruthy();
+      return { header, desktopNav, mobileMenu };
+    });
+    expect(getComputedStyle(header).position).toBe("relative");
+    expect(getComputedStyle(header).zIndex).toBe("auto");
+    expect(getComputedStyle(desktopNav).display).toBe("flex");
+    expect(getComputedStyle(mobileMenu).display).toBe("none");
+
+    await page.viewport(390, 900);
+    expect(getComputedStyle(desktopNav).display).toBe("none");
+    expect(getComputedStyle(mobileMenu).display).toBe("block");
+    expect(mobileMenu.open).toBe(false);
+    const summary = mobileMenu.querySelector("summary")!;
+    fireEvent.click(summary);
+    expect(mobileMenu.open).toBe(true);
+    fireEvent.click(summary);
+    expect(mobileMenu.open).toBe(false);
+
+    view.unmount();
+    const published = render(provider(<Render config={config} data={saved} />));
+    const publishedHeader = published.container.querySelector("header")!;
+    expect(getComputedStyle(publishedHeader).position).toBe("sticky");
+    expect(getComputedStyle(publishedHeader).top).toBe("12px");
+    const publishedMenu = publishedHeader.querySelector("details")!;
+    expect(publishedMenu.open).toBe(false);
+    fireEvent.click(publishedMenu.querySelector("summary")!);
+    expect(publishedMenu.open).toBe(true);
+  });
   it("hides container and flex-item options on a root paragraph", async () => {
     await page.viewport(1440, 900);
     const view = render(
@@ -1549,6 +2118,99 @@ describe("responsive styles and accessibility", () => {
     expect(
       await view.findByRole("button", { name: "Image fit: Fill & crop" })
     ).toBeTruthy();
+    expect(
+      view
+        .getByRole("button", { name: "Corners: Theme image radius" })
+        .getAttribute("aria-pressed")
+    ).toBe("true");
+  });
+  it("applies the theme focus ring to a linked image", async () => {
+    testSetup({ colorFocusRing: "#234567" });
+    const image = recipeNode("Image");
+    image.props.data.link = { defaultValue: "#details" };
+    const view = render(
+      provider(<Render config={config} data={data([image])} />)
+    );
+    const link = view.getByRole("link");
+    await userEvent.tab();
+    expect(link.matches(":focus-visible")).toBe(true);
+    const style = getComputedStyle(link);
+    expect(style.outlineColor).toBe("rgb(35, 69, 103)");
+    expect(style.outlineStyle).toBe("solid");
+  });
+
+  it("offers theme section spacing for both vertical sides and preserves horizontal padding", async () => {
+    await page.viewport(1440, 900);
+    testSetup({ pageSectionVerticalSpacing: 52 });
+    const node = recipeNode("Box", {
+      attributes: { htmlId: "section-spacing" },
+      spacing: {
+        paddingBlockStart: "8px",
+        paddingInlineStart: "13px",
+        paddingInlineEnd: "15px",
+      },
+    });
+    const view = render(
+      provider(
+        <Puck
+          config={config}
+          data={data([node])}
+          iframe={{ enabled: false }}
+          ui={{ itemSelector: { index: 0, zone: "root:default-zone" } }}
+        />
+      )
+    );
+    fireEvent.click(await view.findByRole("tab", { name: "Design" }));
+    fireEvent.click(view.getAllByText("Spacing", { exact: true }).at(-1)!);
+    fireEvent.click(
+      await view.findByRole("button", {
+        name: "Padding: Theme section spacing",
+      })
+    );
+    await waitFor(() => {
+      const style = getComputedStyle(
+        view.container.querySelector("#section-spacing")!
+      );
+      expect(style.padding).toBe("52px 15px 52px 13px");
+    });
+    fireEvent.click(
+      view.getAllByRole("button", { name: /Set individual sides/ })[0]
+    );
+    expect(
+      view
+        .getByRole("button", { name: "Top: Theme section spacing" })
+        .getAttribute("aria-pressed")
+    ).toBe("true");
+    expect(
+      view
+        .getByRole("button", { name: "Bottom: Theme section spacing" })
+        .getAttribute("aria-pressed")
+    ).toBe("true");
+  });
+  it("names the theme radius and border weight on Card controls", async () => {
+    await page.viewport(1440, 900);
+    const view = render(
+      provider(
+        <Puck
+          config={config}
+          data={data([recipeNode("Card")])}
+          iframe={{ enabled: false }}
+          ui={{ itemSelector: { index: 0, zone: "root:default-zone" } }}
+        />
+      )
+    );
+    fireEvent.click(await view.findByRole("tab", { name: "Design" }));
+    fireEvent.click(
+      view.getAllByText("Background, border and image", { exact: true }).at(-1)!
+    );
+    for (const name of [
+      "Corners: Theme card radius",
+      "Border thickness: Theme card border weight",
+    ]) {
+      expect(
+        view.getByRole("button", { name }).getAttribute("aria-pressed")
+      ).toBe("true");
+    }
   });
   it("makes choosing a border thickness visibly add a border", async () => {
     await page.viewport(1440, 900);
@@ -1581,6 +2243,70 @@ describe("responsive styles and accessibility", () => {
       expect(getComputedStyle(image).borderTopWidth).toBe("1px");
     });
   });
+  it("selects an interaction preset and overrides one typography setting at a time", async () => {
+    await page.viewport(1440, 900);
+    testSetup({
+      headlineFontSize: 42,
+      secondaryButtonFontSize: 18,
+      secondaryButtonDefaultFontWeight: "600",
+      secondaryButtonDefaultBackgroundColor: "#224466",
+    });
+    const view = render(
+      provider(
+        <Puck
+          config={config}
+          data={data([recipeNode("Button")])}
+          iframe={{ enabled: false }}
+          ui={{ itemSelector: { index: 0, zone: "root:default-zone" } }}
+        />
+      )
+    );
+    fireEvent.click(await view.findByRole("tab", { name: "Design" }));
+    expect(
+      view.queryByRole("combobox", { name: "Typography Style" })
+    ).toBeNull();
+    fireEvent.click(
+      view.getAllByText("Interaction states", { exact: true }).at(-1)!
+    );
+    expect(
+      await view.findAllByText("Pressed", { exact: true })
+    ).not.toHaveLength(0);
+    const interaction = view.getByRole("combobox", {
+      name: "Theme interaction style",
+    }) as HTMLSelectElement;
+    const options = Array.from(interaction.options);
+    expect(options.map((option) => option.label)).toEqual([
+      "Primary button",
+      "Secondary button",
+      "Link",
+      "Navigation link",
+    ]);
+    fireEvent.change(interaction, {
+      target: {
+        value: options.find((option) => option.label === "Secondary button")!
+          .value,
+      },
+    });
+    const style = () =>
+      getComputedStyle(view.container.querySelector(".sl-button")!);
+    await waitFor(() =>
+      expect(style().backgroundColor).toBe("rgb(34, 68, 102)")
+    );
+    expect(style().fontSize).toBe("18px");
+    expect(
+      view.getByRole("button", { name: "Border color: Border" })
+    ).toBeTruthy();
+    fireEvent.click(view.getAllByText("Typography", { exact: true }).at(-1)!);
+    fireEvent.click(
+      await view.findByRole("button", { name: "Font size: Headline" })
+    );
+    await waitFor(() => expect(style().fontSize).toBe("42px"));
+    expect(style().fontWeight).toBe("600");
+    expect(style().backgroundColor).toBe("rgb(34, 68, 102)");
+    fireEvent.click(view.getByRole("button", { name: "Font size: Default" }));
+    await waitFor(() => expect(style().fontSize).toBe("18px"));
+  });
+
   it("uses a button-specific label alignment control on the actual button", async () => {
     await page.viewport(1440, 900);
     const view = render(

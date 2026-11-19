@@ -1,4 +1,7 @@
 import * as React from "react";
+import { useDocument, useThemeValue } from "@yext/visual-editor";
+import { pageBackgroundValue } from "./theme.ts";
+import { pageGradientSample } from "./ThemeSurfaceProvider.tsx";
 
 export type PreviewAxis = "horizontal" | "vertical";
 function Diagram({ children }: { children: React.ReactNode }) {
@@ -59,6 +62,19 @@ const arrow = (x1: number, y1: number, x2: number, y2: number) => {
   );
 };
 
+function PageColorSwatch() {
+  const document = useDocument();
+  const background = useThemeValue("--ve-color-background", document);
+  return (
+    <span
+      className="sl-swatch"
+      style={{
+        background: pageGradientSample(background) ?? pageBackgroundValue,
+      }}
+    />
+  );
+}
+
 /** These are effect diagrams, not generic decorative icons. Labels stay visible too. */
 export function ControlPreview({
   property,
@@ -86,6 +102,11 @@ export function ControlPreview({
         <circle cx="21" cy="24" r="3" fill="white" />
       </Diagram>
     );
+  if (
+    value === pageBackgroundValue &&
+    (property === "color" || property === "borderColor")
+  )
+    return <PageColorSwatch />;
   if (property === "color" || property.toLowerCase().includes("color"))
     return <span className="sl-swatch" style={{ background: value }} />;
   if (property === "gridTemplateColumns") {

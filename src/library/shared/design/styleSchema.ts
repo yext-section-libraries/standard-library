@@ -1,4 +1,4 @@
-/** Shared by the editor controls and the CSS compiler. Empty values inherit. */
+/** Shared by the editor controls and the CSS compiler. Empty values use the component's styles. */
 export const styleSchema = {
   layout: {
     display: [
@@ -143,7 +143,11 @@ export type StyleGroups = {
 
 export type DesignProps = StyleGroups & {
   responsive?: { tablet?: StyleGroups; mobile?: StyleGroups };
-  states?: { hover?: StyleGroups; focusVisible?: StyleGroups };
+  states?: {
+    hover?: StyleGroups;
+    focusVisible?: StyleGroups;
+    active?: StyleGroups;
+  };
   attributes?: {
     htmlId?: string;
     ariaLabel?: string;
@@ -161,6 +165,11 @@ export const styleGroupLabels: Record<StyleGroup, string> = {
   position: "Position",
 };
 
+export const themeSectionSpacing: [string, string] = [
+  "Theme section spacing",
+  "var(--ve-page-section-vertical-spacing)",
+];
+
 export const valueSuggestions: Record<string, [string, string][]> = {
   space: [
     ["None", "0"],
@@ -170,7 +179,7 @@ export const valueSuggestions: Record<string, [string, string][]> = {
     ["Medium", "var(--space-6, 1.5rem)"],
     ["Large", "var(--space-8, 2rem)"],
     ["Extra large", "var(--space-12, 3rem)"],
-    ["Section spacing", "var(--ve-page-section-vertical-spacing)"],
+    themeSectionSpacing,
   ],
   size: [
     ["Auto", "auto"],
@@ -180,37 +189,6 @@ export const valueSuggestions: Record<string, [string, string][]> = {
     ["Page width", "var(--ve-page-content-max-width)"],
     ["Viewport height", "100svh"],
     ["No minimum", "0"],
-  ],
-  color: [
-    ["Inherit", "inherit"],
-    ["Transparent", "transparent"],
-    ["Current text color", "currentColor"],
-    ["Brand", "var(--ve-color-primary-solid)"],
-    ["Text", "var(--ve-color-foreground)"],
-    ["Surface", "var(--ve-color-background)"],
-    ["Muted surface", "var(--ve-color-muted-solid)"],
-    ["Border", "var(--ve-color-border)"],
-  ],
-  font: [
-    ["Body", "var(--ve-body-font-family)"],
-    ["Heading", "var(--ve-section-title-font-family)"],
-  ],
-  fontSize: [
-    ["Theme heading", "var(--ve-section-title-font-size)"],
-    ["Body", "var(--ve-body-font-size)"],
-    ["Small", "0.875rem"],
-    ["Large", "1.25rem"],
-    ["Fluid heading", "clamp(2rem, 5vw, 4rem)"],
-  ],
-  weight: [
-    ["Theme body", "var(--ve-body-font-weight)"],
-    ["Theme heading", "var(--ve-section-title-font-weight)"],
-    ["Light", "300"],
-    ["Regular", "400"],
-    ["Medium", "500"],
-    ["Semibold", "600"],
-    ["Bold", "700"],
-    ["Extra bold", "800"],
   ],
   shadow: [
     ["None", "none"],

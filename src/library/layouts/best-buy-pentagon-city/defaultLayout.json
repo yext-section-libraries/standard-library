@@ -66,7 +66,7 @@
                                 },
                                 "surface": {
                                   "objectFit": "contain",
-                                  "borderRadius": "0"
+                                  "borderRadius": "var(--ve-image-border-radius)"
                                 },
                                 "altText": {
                                   "field": "",
@@ -148,7 +148,8 @@
                                     }
                                   }
                                 },
-                                "id": "bestbuy-box-003"
+                                "id": "bestbuy-box-003",
+                                "revealWhenHiddenInEditor": false
                               }
                             }
                           ],
@@ -169,7 +170,7 @@
                       "flexDirection": "column",
                       "gap": "24px",
                       "width": "100%",
-                      "maxWidth": "1120px"
+                      "maxWidth": "var(--ve-page-content-max-width)"
                     },
                     "spacing": {
                       "marginInlineStart": "auto",
@@ -486,7 +487,7 @@
                       "flexDirection": "column",
                       "gap": "24px",
                       "width": "100%",
-                      "maxWidth": "1120px"
+                      "maxWidth": "var(--ve-page-content-max-width)"
                     },
                     "spacing": {
                       "marginInlineStart": "auto",
@@ -520,7 +521,9 @@
           "ariaLabel": "Best Buy"
         },
         "id": "bestbuy-box-016",
-        "surfaceRole": "primary"
+        "surface": {
+          "backgroundColor": "var(--ve-color-primary)"
+        }
       }
     },
     {
@@ -828,7 +831,8 @@
                             "marginBlockStart": "0",
                             "marginBlockEnd": "0"
                           },
-                          "id": "bestbuy-heading-058"
+                          "id": "bestbuy-heading-058",
+                          "typographyRole": "headline"
                         }
                       },
                       {
@@ -1275,12 +1279,6 @@
                                   "width": "fit-content",
                                   "gap": "0.5rem"
                                 },
-                                "spacing": {
-                                  "paddingBlockStart": "6px",
-                                  "paddingBlockEnd": "6px",
-                                  "paddingInlineStart": "24px",
-                                  "paddingInlineEnd": "24px"
-                                },
                                 "states": {
                                   "hover": {
                                     "surface": {
@@ -1317,12 +1315,6 @@
                                   "minHeight": "36px",
                                   "width": "fit-content",
                                   "gap": "0.5rem"
-                                },
-                                "spacing": {
-                                  "paddingBlockStart": "6px",
-                                  "paddingBlockEnd": "6px",
-                                  "paddingInlineStart": "24px",
-                                  "paddingInlineEnd": "24px"
                                 },
                                 "states": {
                                   "hover": {
@@ -1378,7 +1370,8 @@
                                         "marginBlockStart": "0",
                                         "marginBlockEnd": "0"
                                       },
-                                      "id": "bestbuy-heading-029"
+                                      "id": "bestbuy-heading-029",
+                                      "typographyRole": "section-title"
                                     }
                                   },
                                   {
@@ -1637,14 +1630,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-037",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-037"
                               }
                             },
                             {
@@ -1672,7 +1665,8 @@
                                         "marginBlockStart": "0",
                                         "marginBlockEnd": "0"
                                       },
-                                      "id": "bestbuy-heading-038"
+                                      "id": "bestbuy-heading-038",
+                                      "typographyRole": "section-title"
                                     }
                                   },
                                   {
@@ -1729,7 +1723,7 @@
                                                   },
                                                   "surface": {
                                                     "objectFit": "contain",
-                                                    "borderRadius": "0"
+                                                    "borderRadius": "var(--ve-image-border-radius)"
                                                   },
                                                   "altText": {
                                                     "field": "",
@@ -1827,7 +1821,7 @@
                                                   },
                                                   "surface": {
                                                     "objectFit": "contain",
-                                                    "borderRadius": "0"
+                                                    "borderRadius": "var(--ve-image-border-radius)"
                                                   },
                                                   "altText": {
                                                     "field": "",
@@ -1925,7 +1919,7 @@
                                                   },
                                                   "surface": {
                                                     "objectFit": "contain",
-                                                    "borderRadius": "0"
+                                                    "borderRadius": "var(--ve-image-border-radius)"
                                                   },
                                                   "altText": {
                                                     "field": "",
@@ -2023,7 +2017,7 @@
                                                   },
                                                   "surface": {
                                                     "objectFit": "contain",
-                                                    "borderRadius": "0"
+                                                    "borderRadius": "var(--ve-image-border-radius)"
                                                   },
                                                   "altText": {
                                                     "field": "",
@@ -2121,7 +2115,7 @@
                                                   },
                                                   "surface": {
                                                     "objectFit": "contain",
-                                                    "borderRadius": "0"
+                                                    "borderRadius": "var(--ve-image-border-radius)"
                                                   },
                                                   "altText": {
                                                     "field": "",
@@ -2216,14 +2210,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-056",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-056"
                               }
                             }
                           ],
@@ -2291,7 +2285,8 @@
                                   "marginBlockStart": "0",
                                   "marginBlockEnd": "0"
                                 },
-                                "id": "bestbuy-heading-074"
+                                "id": "bestbuy-heading-074",
+                                "typographyRole": "section-title"
                               }
                             },
                             {
@@ -2615,7 +2610,7 @@
                       "flexDirection": "column",
                       "gap": "24px",
                       "width": "100%",
-                      "maxWidth": "1120px"
+                      "maxWidth": "var(--ve-page-content-max-width)"
                     },
                     "spacing": {
                       "marginInlineStart": "auto",
@@ -2629,16 +2624,16 @@
                 "ariaLabel": "Store details"
               },
               "surface": {
+                "backgroundColor": "transparent",
                 "backgroundImage": "linear-gradient(90deg, #061e72 0%, #0046be 50%, #061e72 100%)"
               },
               "spacing": {
-                "paddingBlockStart": "28px",
-                "paddingBlockEnd": "80px",
+                "paddingBlockStart": "calc(var(--ve-page-section-vertical-spacing) * 0.875)",
+                "paddingBlockEnd": "calc(var(--ve-page-section-vertical-spacing) * 2.5)",
                 "paddingInlineStart": "24px",
                 "paddingInlineEnd": "24px"
               },
-              "id": "bestbuy-box-084",
-              "surfaceRole": "primary"
+              "id": "bestbuy-box-084"
             }
           },
           {
@@ -2677,7 +2672,8 @@
                                   "marginBlockStart": "0",
                                   "marginBlockEnd": "0"
                                 },
-                                "id": "bestbuy-heading-103"
+                                "id": "bestbuy-heading-103",
+                                "typographyRole": "section-title"
                               }
                             },
                             {
@@ -2749,14 +2745,14 @@
                             "paddingInlineEnd": "24px"
                           },
                           "surface": {
-                            "borderRadius": "3px",
+                            "backgroundColor": "var(--ve-color-muted)",
+                            "borderRadius": "var(--ve-card-border-radius)",
                             "borderWidth": "1px",
                             "borderStyle": "solid",
                             "boxShadow": "none",
                             "borderColor": "var(--ve-color-border)"
                           },
-                          "id": "bestbuy-card-105",
-                          "surfaceRole": "muted"
+                          "id": "bestbuy-card-105"
                         }
                       },
                       {
@@ -2795,7 +2791,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -2868,14 +2864,14 @@
                                   "paddingInlineEnd": "14px"
                                 },
                                 "surface": {
-                                  "borderRadius": "8px",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-087",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-087"
                               }
                             },
                             {
@@ -2909,7 +2905,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -2982,14 +2978,14 @@
                                   "paddingInlineEnd": "14px"
                                 },
                                 "surface": {
-                                  "borderRadius": "8px",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-090",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-090"
                               }
                             },
                             {
@@ -3023,7 +3019,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -3096,14 +3092,14 @@
                                   "paddingInlineEnd": "14px"
                                 },
                                 "surface": {
-                                  "borderRadius": "8px",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-093",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-093"
                               }
                             },
                             {
@@ -3137,7 +3133,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -3210,14 +3206,14 @@
                                   "paddingInlineEnd": "14px"
                                 },
                                 "surface": {
-                                  "borderRadius": "8px",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-096",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-096"
                               }
                             },
                             {
@@ -3251,7 +3247,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -3324,14 +3320,14 @@
                                   "paddingInlineEnd": "14px"
                                 },
                                 "surface": {
-                                  "borderRadius": "8px",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-099",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-099"
                               }
                             },
                             {
@@ -3365,7 +3361,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -3438,14 +3434,14 @@
                                   "paddingInlineEnd": "14px"
                                 },
                                 "surface": {
-                                  "borderRadius": "8px",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-102",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-102"
                               }
                             }
                           ],
@@ -3476,7 +3472,7 @@
                       "flexDirection": "column",
                       "gap": "24px",
                       "width": "100%",
-                      "maxWidth": "1120px"
+                      "maxWidth": "var(--ve-page-content-max-width)"
                     },
                     "spacing": {
                       "marginInlineStart": "auto",
@@ -3490,13 +3486,15 @@
                 "ariaLabel": "Find items in this store"
               },
               "spacing": {
-                "paddingBlockStart": "32px",
-                "paddingBlockEnd": "32px",
+                "paddingBlockStart": "var(--ve-page-section-vertical-spacing)",
+                "paddingBlockEnd": "var(--ve-page-section-vertical-spacing)",
                 "paddingInlineStart": "24px",
                 "paddingInlineEnd": "24px"
               },
               "id": "bestbuy-box-108",
-              "surfaceRole": "page"
+              "surface": {
+                "backgroundColor": "var(--ve-color-background)"
+              }
             }
           },
           {
@@ -3529,7 +3527,8 @@
                             "marginBlockStart": "0",
                             "marginBlockEnd": "0"
                           },
-                          "id": "bestbuy-heading-145"
+                          "id": "bestbuy-heading-145",
+                          "typographyRole": "section-title"
                         }
                       },
                       {
@@ -3586,7 +3585,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -3656,14 +3655,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-111",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-111"
                               }
                             },
                             {
@@ -3697,7 +3696,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -3767,14 +3766,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-114",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-114"
                               }
                             },
                             {
@@ -3808,7 +3807,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -3878,14 +3877,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-117",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-117"
                               }
                             },
                             {
@@ -3919,7 +3918,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -3989,14 +3988,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-120",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-120"
                               }
                             },
                             {
@@ -4030,7 +4029,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -4100,14 +4099,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-123",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-123"
                               }
                             },
                             {
@@ -4141,7 +4140,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -4211,14 +4210,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-126",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-126"
                               }
                             },
                             {
@@ -4252,7 +4251,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -4322,14 +4321,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-129",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-129"
                               }
                             },
                             {
@@ -4363,7 +4362,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -4433,14 +4432,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-132",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-132"
                               }
                             },
                             {
@@ -4474,7 +4473,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -4544,14 +4543,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-135",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-135"
                               }
                             },
                             {
@@ -4585,7 +4584,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -4655,14 +4654,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-138",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-138"
                               }
                             },
                             {
@@ -4696,7 +4695,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -4766,14 +4765,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-141",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-141"
                               }
                             },
                             {
@@ -4807,7 +4806,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -4877,14 +4876,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-144",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-144"
                               }
                             }
                           ],
@@ -4915,7 +4914,7 @@
                       "flexDirection": "column",
                       "gap": "24px",
                       "width": "100%",
-                      "maxWidth": "1120px"
+                      "maxWidth": "var(--ve-page-content-max-width)"
                     },
                     "spacing": {
                       "marginInlineStart": "auto",
@@ -4930,13 +4929,15 @@
                 "htmlId": "shop"
               },
               "spacing": {
-                "paddingBlockStart": "64px",
-                "paddingBlockEnd": "64px",
+                "paddingBlockStart": "calc(var(--ve-page-section-vertical-spacing) * 2)",
+                "paddingBlockEnd": "calc(var(--ve-page-section-vertical-spacing) * 2)",
                 "paddingInlineStart": "24px",
                 "paddingInlineEnd": "24px"
               },
               "id": "bestbuy-box-149",
-              "surfaceRole": "page"
+              "surface": {
+                "backgroundColor": "var(--ve-color-background)"
+              }
             }
           },
           {
@@ -4969,7 +4970,8 @@
                             "marginBlockStart": "0",
                             "marginBlockEnd": "0"
                           },
-                          "id": "bestbuy-heading-150"
+                          "id": "bestbuy-heading-150",
+                          "typographyRole": "section-title"
                         }
                       },
                       {
@@ -5026,7 +5028,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -5115,14 +5117,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-155",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-155"
                               }
                             },
                             {
@@ -5156,7 +5158,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -5245,14 +5247,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-159",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-159"
                               }
                             },
                             {
@@ -5286,7 +5288,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -5375,14 +5377,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-163",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-163"
                               }
                             }
                           ],
@@ -5412,7 +5414,7 @@
                       "flexDirection": "column",
                       "gap": "24px",
                       "width": "100%",
-                      "maxWidth": "1120px"
+                      "maxWidth": "var(--ve-page-content-max-width)"
                     },
                     "spacing": {
                       "marginInlineStart": "auto",
@@ -5427,13 +5429,15 @@
                 "htmlId": "specialty"
               },
               "spacing": {
-                "paddingBlockStart": "64px",
-                "paddingBlockEnd": "64px",
+                "paddingBlockStart": "calc(var(--ve-page-section-vertical-spacing) * 2)",
+                "paddingBlockEnd": "calc(var(--ve-page-section-vertical-spacing) * 2)",
                 "paddingInlineStart": "24px",
                 "paddingInlineEnd": "24px"
               },
               "id": "bestbuy-box-166",
-              "surfaceRole": "page"
+              "surface": {
+                "backgroundColor": "var(--ve-color-background)"
+              }
             }
           },
           {
@@ -5466,7 +5470,8 @@
                             "marginBlockStart": "0",
                             "marginBlockEnd": "0"
                           },
-                          "id": "bestbuy-heading-167"
+                          "id": "bestbuy-heading-167",
+                          "typographyRole": "section-title"
                         }
                       },
                       {
@@ -5523,7 +5528,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -5555,7 +5560,8 @@
                                         "marginBlockStart": "0",
                                         "marginBlockEnd": "0"
                                       },
-                                      "id": "bestbuy-heading-170"
+                                      "id": "bestbuy-heading-170",
+                                      "typographyRole": "card-title"
                                     }
                                   },
                                   {
@@ -5636,14 +5642,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-173",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-173"
                               }
                             },
                             {
@@ -5677,7 +5683,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -5709,7 +5715,8 @@
                                         "marginBlockStart": "0",
                                         "marginBlockEnd": "0"
                                       },
-                                      "id": "bestbuy-heading-175"
+                                      "id": "bestbuy-heading-175",
+                                      "typographyRole": "card-title"
                                     }
                                   },
                                   {
@@ -5790,14 +5797,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-178",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-178"
                               }
                             },
                             {
@@ -5831,7 +5838,7 @@
                                       },
                                       "surface": {
                                         "objectFit": "contain",
-                                        "borderRadius": "0"
+                                        "borderRadius": "var(--ve-image-border-radius)"
                                       },
                                       "altText": {
                                         "field": "",
@@ -5863,7 +5870,8 @@
                                         "marginBlockStart": "0",
                                         "marginBlockEnd": "0"
                                       },
-                                      "id": "bestbuy-heading-180"
+                                      "id": "bestbuy-heading-180",
+                                      "typographyRole": "card-title"
                                     }
                                   },
                                   {
@@ -5944,14 +5952,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-183",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-183"
                               }
                             }
                           ],
@@ -5981,7 +5989,7 @@
                       "flexDirection": "column",
                       "gap": "24px",
                       "width": "100%",
-                      "maxWidth": "1120px"
+                      "maxWidth": "var(--ve-page-content-max-width)"
                     },
                     "spacing": {
                       "marginInlineStart": "auto",
@@ -5996,13 +6004,15 @@
                 "htmlId": "explore"
               },
               "spacing": {
-                "paddingBlockStart": "64px",
-                "paddingBlockEnd": "64px",
+                "paddingBlockStart": "calc(var(--ve-page-section-vertical-spacing) * 2)",
+                "paddingBlockEnd": "calc(var(--ve-page-section-vertical-spacing) * 2)",
                 "paddingInlineStart": "24px",
                 "paddingInlineEnd": "24px"
               },
               "id": "bestbuy-box-186",
-              "surfaceRole": "page"
+              "surface": {
+                "backgroundColor": "var(--ve-color-background)"
+              }
             }
           },
           {
@@ -6035,7 +6045,8 @@
                             "marginBlockStart": "0",
                             "marginBlockEnd": "0"
                           },
-                          "id": "bestbuy-heading-187"
+                          "id": "bestbuy-heading-187",
+                          "typographyRole": "section-title"
                         }
                       },
                       {
@@ -6283,7 +6294,7 @@
                       "flexDirection": "column",
                       "gap": "24px",
                       "width": "100%",
-                      "maxWidth": "1120px"
+                      "maxWidth": "var(--ve-page-content-max-width)"
                     },
                     "spacing": {
                       "marginInlineStart": "auto",
@@ -6298,13 +6309,15 @@
                 "htmlId": "faqs"
               },
               "spacing": {
-                "paddingBlockStart": "64px",
-                "paddingBlockEnd": "64px",
+                "paddingBlockStart": "calc(var(--ve-page-section-vertical-spacing) * 2)",
+                "paddingBlockEnd": "calc(var(--ve-page-section-vertical-spacing) * 2)",
                 "paddingInlineStart": "24px",
                 "paddingInlineEnd": "24px"
               },
               "id": "bestbuy-box-200",
-              "surfaceRole": "muted"
+              "surface": {
+                "backgroundColor": "var(--ve-color-muted)"
+              }
             }
           },
           {
@@ -6338,7 +6351,8 @@
                             "marginBlockStart": "0",
                             "marginBlockEnd": "0"
                           },
-                          "id": "bestbuy-heading-249"
+                          "id": "bestbuy-heading-249",
+                          "typographyRole": "section-title"
                         }
                       },
                       {
@@ -6499,7 +6513,8 @@
                                                     "marginBlockStart": "0",
                                                     "marginBlockEnd": "0"
                                                   },
-                                                  "id": "bestbuy-heading-206"
+                                                  "id": "bestbuy-heading-206",
+                                                  "typographyRole": "card-title"
                                                 }
                                               },
                                               {
@@ -6703,14 +6718,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "3px",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-211",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-211"
                               }
                             },
                             {
@@ -6748,7 +6763,8 @@
                                                     "marginBlockStart": "0",
                                                     "marginBlockEnd": "0"
                                                   },
-                                                  "id": "bestbuy-heading-217"
+                                                  "id": "bestbuy-heading-217",
+                                                  "typographyRole": "card-title"
                                                 }
                                               },
                                               {
@@ -6952,14 +6968,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "3px",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-222",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-222"
                               }
                             },
                             {
@@ -6997,7 +7013,8 @@
                                                     "marginBlockStart": "0",
                                                     "marginBlockEnd": "0"
                                                   },
-                                                  "id": "bestbuy-heading-232"
+                                                  "id": "bestbuy-heading-232",
+                                                  "typographyRole": "card-title"
                                                 }
                                               },
                                               {
@@ -7182,7 +7199,8 @@
                                                           "marginBlockStart": "0",
                                                           "marginBlockEnd": "0"
                                                         },
-                                                        "id": "bestbuy-heading-228"
+                                                        "id": "bestbuy-heading-228",
+                                                        "typographyRole": "card-title"
                                                       }
                                                     },
                                                     {
@@ -7239,14 +7257,14 @@
                                                     "paddingInlineEnd": "24px"
                                                   },
                                                   "surface": {
-                                                    "borderRadius": "3px",
+                                                    "backgroundColor": "var(--ve-color-background)",
+                                                    "borderRadius": "var(--ve-card-border-radius)",
                                                     "borderWidth": "1px",
                                                     "borderStyle": "solid",
                                                     "boxShadow": "none",
                                                     "borderColor": "var(--ve-color-border)"
                                                   },
-                                                  "id": "bestbuy-card-231",
-                                                  "surfaceRole": "page"
+                                                  "id": "bestbuy-card-231"
                                                 }
                                               }
                                             ],
@@ -7293,14 +7311,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "3px",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-237",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-237"
                               }
                             },
                             {
@@ -7338,7 +7356,8 @@
                                                     "marginBlockStart": "0",
                                                     "marginBlockEnd": "0"
                                                   },
-                                                  "id": "bestbuy-heading-243"
+                                                  "id": "bestbuy-heading-243",
+                                                  "typographyRole": "card-title"
                                                 }
                                               },
                                               {
@@ -7542,14 +7561,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "3px",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-248",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-248"
                               }
                             }
                           ],
@@ -7567,7 +7586,7 @@
                       "flexDirection": "column",
                       "gap": "24px",
                       "width": "100%",
-                      "maxWidth": "1120px"
+                      "maxWidth": "var(--ve-page-content-max-width)"
                     },
                     "spacing": {
                       "marginInlineStart": "auto",
@@ -7582,13 +7601,15 @@
                 "htmlId": "reviews"
               },
               "spacing": {
-                "paddingBlockStart": "64px",
-                "paddingBlockEnd": "64px",
+                "paddingBlockStart": "calc(var(--ve-page-section-vertical-spacing) * 2)",
+                "paddingBlockEnd": "calc(var(--ve-page-section-vertical-spacing) * 2)",
                 "paddingInlineStart": "24px",
                 "paddingInlineEnd": "24px"
               },
               "id": "bestbuy-box-257",
-              "surfaceRole": "page"
+              "surface": {
+                "backgroundColor": "var(--ve-color-background)"
+              }
             }
           },
           {
@@ -7649,7 +7670,8 @@
                                               "marginBlockStart": "0",
                                               "marginBlockEnd": "0"
                                             },
-                                            "id": "bestbuy-heading-259"
+                                            "id": "bestbuy-heading-259",
+                                            "typographyRole": "card-title"
                                           }
                                         },
                                         {
@@ -7702,12 +7724,6 @@
                                               "width": "fit-content",
                                               "gap": "0.5rem"
                                             },
-                                            "spacing": {
-                                              "paddingBlockStart": "6px",
-                                              "paddingBlockEnd": "6px",
-                                              "paddingInlineStart": "24px",
-                                              "paddingInlineEnd": "24px"
-                                            },
                                             "states": {
                                               "hover": {
                                                 "surface": {
@@ -7743,7 +7759,9 @@
                                   "paddingInlineEnd": "32px"
                                 },
                                 "id": "bestbuy-box-263",
-                                "surfaceRole": "muted"
+                                "surface": {
+                                  "backgroundColor": "var(--ve-color-muted)"
+                                }
                               }
                             },
                             {
@@ -7771,7 +7789,8 @@
                                         "marginBlockStart": "0",
                                         "marginBlockEnd": "0"
                                       },
-                                      "id": "bestbuy-heading-264"
+                                      "id": "bestbuy-heading-264",
+                                      "typographyRole": "section-title"
                                     }
                                   },
                                   {
@@ -7860,12 +7879,6 @@
                                         "width": "fit-content",
                                         "gap": "0.5rem"
                                       },
-                                      "spacing": {
-                                        "paddingBlockStart": "5px",
-                                        "paddingBlockEnd": "5px",
-                                        "paddingInlineStart": "10px",
-                                        "paddingInlineEnd": "10px"
-                                      },
                                       "states": {
                                         "hover": {
                                           "surface": {
@@ -7913,7 +7926,7 @@
                       "flexDirection": "column",
                       "gap": "24px",
                       "width": "100%",
-                      "maxWidth": "1120px"
+                      "maxWidth": "var(--ve-page-content-max-width)"
                     },
                     "spacing": {
                       "marginInlineStart": "auto",
@@ -7928,13 +7941,15 @@
                 "htmlId": "about"
               },
               "spacing": {
-                "paddingBlockStart": "64px",
-                "paddingBlockEnd": "64px",
+                "paddingBlockStart": "calc(var(--ve-page-section-vertical-spacing) * 2)",
+                "paddingBlockEnd": "calc(var(--ve-page-section-vertical-spacing) * 2)",
                 "paddingInlineStart": "24px",
                 "paddingInlineEnd": "24px"
               },
               "id": "bestbuy-box-272",
-              "surfaceRole": "page"
+              "surface": {
+                "backgroundColor": "var(--ve-color-background)"
+              }
             }
           },
           {
@@ -7972,7 +7987,8 @@
                                   "marginBlockStart": "0",
                                   "marginBlockEnd": "0"
                                 },
-                                "id": "bestbuy-heading-273"
+                                "id": "bestbuy-heading-273",
+                                "typographyRole": "section-title"
                               }
                             },
                             {
@@ -8078,7 +8094,8 @@
                                         "marginBlockStart": "0",
                                         "marginBlockEnd": "0"
                                       },
-                                      "id": "bestbuy-heading-277"
+                                      "id": "bestbuy-heading-277",
+                                      "typographyRole": "card-title"
                                     }
                                   },
                                   {
@@ -8224,14 +8241,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-282",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-282"
                               }
                             },
                             {
@@ -8259,7 +8276,8 @@
                                         "marginBlockStart": "0",
                                         "marginBlockEnd": "0"
                                       },
-                                      "id": "bestbuy-heading-283"
+                                      "id": "bestbuy-heading-283",
+                                      "typographyRole": "card-title"
                                     }
                                   },
                                   {
@@ -8405,14 +8423,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-288",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-288"
                               }
                             },
                             {
@@ -8440,7 +8458,8 @@
                                         "marginBlockStart": "0",
                                         "marginBlockEnd": "0"
                                       },
-                                      "id": "bestbuy-heading-289"
+                                      "id": "bestbuy-heading-289",
+                                      "typographyRole": "card-title"
                                     }
                                   },
                                   {
@@ -8586,14 +8605,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-294",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-294"
                               }
                             },
                             {
@@ -8621,7 +8640,8 @@
                                         "marginBlockStart": "0",
                                         "marginBlockEnd": "0"
                                       },
-                                      "id": "bestbuy-heading-295"
+                                      "id": "bestbuy-heading-295",
+                                      "typographyRole": "card-title"
                                     }
                                   },
                                   {
@@ -8767,14 +8787,14 @@
                                   "paddingInlineEnd": "24px"
                                 },
                                 "surface": {
-                                  "borderRadius": "0",
+                                  "backgroundColor": "var(--ve-color-background)",
+                                  "borderRadius": "var(--ve-card-border-radius)",
                                   "borderWidth": "1px",
                                   "borderStyle": "solid",
                                   "boxShadow": "none",
                                   "borderColor": "var(--ve-color-border)"
                                 },
-                                "id": "bestbuy-card-300",
-                                "surfaceRole": "page"
+                                "id": "bestbuy-card-300"
                               }
                             }
                           ],
@@ -8804,7 +8824,7 @@
                       "flexDirection": "column",
                       "gap": "24px",
                       "width": "100%",
-                      "maxWidth": "1120px"
+                      "maxWidth": "var(--ve-page-content-max-width)"
                     },
                     "spacing": {
                       "marginInlineStart": "auto",
@@ -8819,13 +8839,15 @@
                 "htmlId": "nearby"
               },
               "spacing": {
-                "paddingBlockStart": "64px",
-                "paddingBlockEnd": "64px",
+                "paddingBlockStart": "calc(var(--ve-page-section-vertical-spacing) * 2)",
+                "paddingBlockEnd": "calc(var(--ve-page-section-vertical-spacing) * 2)",
                 "paddingInlineStart": "24px",
                 "paddingInlineEnd": "24px"
               },
               "id": "bestbuy-box-303",
-              "surfaceRole": "page"
+              "surface": {
+                "backgroundColor": "var(--ve-color-background)"
+              }
             }
           }
         ],
@@ -8878,7 +8900,7 @@
                                 },
                                 "surface": {
                                   "objectFit": "contain",
-                                  "borderRadius": "0"
+                                  "borderRadius": "var(--ve-image-border-radius)"
                                 },
                                 "altText": {
                                   "field": "",
@@ -8983,7 +9005,7 @@
                                 },
                                 "surface": {
                                   "objectFit": "contain",
-                                  "borderRadius": "0"
+                                  "borderRadius": "var(--ve-image-border-radius)"
                                 },
                                 "altText": {
                                   "field": "",
@@ -9088,7 +9110,7 @@
                                 },
                                 "surface": {
                                   "objectFit": "contain",
-                                  "borderRadius": "0"
+                                  "borderRadius": "var(--ve-image-border-radius)"
                                 },
                                 "altText": {
                                   "field": "",
@@ -9193,7 +9215,7 @@
                                 },
                                 "surface": {
                                   "objectFit": "contain",
-                                  "borderRadius": "0"
+                                  "borderRadius": "var(--ve-image-border-radius)"
                                 },
                                 "altText": {
                                   "field": "",
@@ -9298,7 +9320,7 @@
                                 },
                                 "surface": {
                                   "objectFit": "contain",
-                                  "borderRadius": "0"
+                                  "borderRadius": "var(--ve-image-border-radius)"
                                 },
                                 "altText": {
                                   "field": "",
@@ -9446,7 +9468,8 @@
                                         "marginBlockStart": "0",
                                         "marginBlockEnd": "0"
                                       },
-                                      "id": "bestbuy-heading-321"
+                                      "id": "bestbuy-heading-321",
+                                      "typographyRole": "section-title"
                                     }
                                   },
                                   {
@@ -9784,7 +9807,8 @@
                                         "marginBlockStart": "0",
                                         "marginBlockEnd": "0"
                                       },
-                                      "id": "bestbuy-heading-330"
+                                      "id": "bestbuy-heading-330",
+                                      "typographyRole": "section-title"
                                     }
                                   },
                                   {
@@ -10007,7 +10031,8 @@
                                         "marginBlockStart": "0",
                                         "marginBlockEnd": "0"
                                       },
-                                      "id": "bestbuy-heading-337"
+                                      "id": "bestbuy-heading-337",
+                                      "typographyRole": "section-title"
                                     }
                                   },
                                   {
@@ -10302,7 +10327,8 @@
                                         "marginBlockStart": "0",
                                         "marginBlockEnd": "0"
                                       },
-                                      "id": "bestbuy-heading-345"
+                                      "id": "bestbuy-heading-345",
+                                      "typographyRole": "section-title"
                                     }
                                   },
                                   {
@@ -10482,7 +10508,8 @@
                                         "marginBlockStart": "0",
                                         "marginBlockEnd": "0"
                                       },
-                                      "id": "bestbuy-heading-351"
+                                      "id": "bestbuy-heading-351",
+                                      "typographyRole": "section-title"
                                     }
                                   },
                                   {
@@ -10820,7 +10847,8 @@
                                         "marginBlockStart": "0",
                                         "marginBlockEnd": "0"
                                       },
-                                      "id": "bestbuy-heading-360"
+                                      "id": "bestbuy-heading-360",
+                                      "typographyRole": "section-title"
                                     }
                                   },
                                   {
@@ -11355,7 +11383,7 @@
                 "flexDirection": "column",
                 "gap": "24px",
                 "width": "100%",
-                "maxWidth": "1120px"
+                "maxWidth": "var(--ve-page-content-max-width)"
               },
               "spacing": {
                 "marginInlineStart": "auto",
@@ -11369,13 +11397,15 @@
           "ariaLabel": "Best Buy support and company information"
         },
         "spacing": {
-          "paddingBlockStart": "64px",
-          "paddingBlockEnd": "64px",
+          "paddingBlockStart": "calc(var(--ve-page-section-vertical-spacing) * 2)",
+          "paddingBlockEnd": "calc(var(--ve-page-section-vertical-spacing) * 2)",
           "paddingInlineStart": "24px",
           "paddingInlineEnd": "24px"
         },
         "id": "bestbuy-box-378",
-        "surfaceRole": "muted"
+        "surface": {
+          "backgroundColor": "var(--ve-color-muted)"
+        }
       }
     }
   ],

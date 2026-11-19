@@ -6,6 +6,7 @@ import {
   axe,
   ComponentTest,
   logSuppressedWcagViolations,
+  testSetup,
   transformTests,
 } from "./componentTests.setup.ts";
 import {
@@ -1336,6 +1337,10 @@ describe("Locator", async () => {
   };
 
   it("loads q before initialLocation and syncs selected locations with history", async () => {
+    testSetup({
+      colorMuted: "linear-gradient(90deg, #112233 0%, #445566 100%)",
+      colorMutedForeground: "#ffffff",
+    });
     const originalUrl = window.location.href;
     const fixture = tests[1];
     const document = fixture.document;
@@ -1390,6 +1395,16 @@ describe("Locator", async () => {
       const suggestion = await screen.findByRole("option", {
         name: /Arlington, VA/,
       });
+      const label = suggestion.querySelector<HTMLElement>(
+        '[aria-hidden="true"] > div'
+      )!;
+      await page.getByRole("option", { name: /Arlington, VA/ }).hover();
+      expect(getComputedStyle(label).color).toBe("rgb(255, 255, 255)");
+
+      await page.getByRole("combobox", { name: "Find a Location" }).hover();
+      fireEvent.keyDown(searchInput, { key: "ArrowDown" });
+      expect(suggestion).toHaveAttribute("aria-selected", "true");
+      expect(getComputedStyle(label).color).toBe("rgb(255, 255, 255)");
       await act(async () => suggestion.click());
 
       const selectedUrl = new URL(window.location.href);

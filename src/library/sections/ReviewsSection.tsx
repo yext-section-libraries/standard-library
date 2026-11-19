@@ -156,7 +156,7 @@ const reviewsFields: YextFields<ReviewsSectionProps> = {
         generation: { required: false },
         type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        allowInherit: false,
+        allowInherit: true,
       },
       accentColor: {
         type: "basicSelector",

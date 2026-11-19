@@ -1082,7 +1082,7 @@ const formSectionFields: YextFields<FormSectionProps> = {
       backgroundColor: {
         type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        allowInherit: false,
+        allowInherit: true,
       },
       textColor: {
         type: "basicSelector",

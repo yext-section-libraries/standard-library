@@ -4,7 +4,6 @@ import { composableSectionNames } from "./compositionData.ts";
 /** Explicit page-area capabilities. Inner slots stay open to content and nested layouts. */
 export const pageAreaComponentIds: string[] = [
   ...composableSectionNames,
-  "BrandingPreviewSection",
   "Box",
   "Stack",
   "Flex",

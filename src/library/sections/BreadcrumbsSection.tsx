@@ -112,7 +112,7 @@ const breadcrumbsSectionFields: YextFields<BreadcrumbsSectionProps> = {
         generation: { required: false },
         type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        allowInherit: false,
+        allowInherit: true,
       },
       linkColor: {
         type: "basicSelector",

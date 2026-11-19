@@ -10,7 +10,7 @@ function Toggle({
     <TogglePrimitive.Root
       data-slot="toggle"
       className={themeManagerCn(
-        "ve-theme-control inline-flex items-center justify-center gap-2 rounded-full whitespace-nowrap self-start w-auto data-[state=on]:bg-[var(--ve-color-muted)]",
+        "ve-theme-control inline-flex items-center justify-center gap-2 rounded-full whitespace-nowrap self-start w-auto data-[state=on]:bg-[var(--ve-color-muted-solid)]",
         className
       )}
       {...props}

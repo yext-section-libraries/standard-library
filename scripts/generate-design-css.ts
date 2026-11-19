@@ -1,12 +1,16 @@
 import {
+  backgroundStateCombinations,
   interactionRoles,
   surfaceRoles,
+  themeTypographyProperties,
+  typographyPresetValue,
   typographyRoles,
 } from "../src/library/shared/design/theme.ts";
 import { designVariable } from "../src/library/shared/design/styleVariables.ts";
 import { writeFileSync } from "node:fs";
 import { format } from "prettier";
 import { styleSchema } from "../src/library/shared/design/styleSchema.ts";
+import { designBreakpoints } from "../src/library/shared/design/styles.ts";
 
 const properties = Object.values(styleSchema)
   .flatMap(Object.keys)
@@ -14,6 +18,21 @@ const properties = Object.values(styleSchema)
     property.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)
   );
 const names = ["base", "tablet", "mobile", "hover", "focus"];
+const matchedStates = [
+  {
+    source: "hover",
+    target: "x",
+    selector: ".sl-atom:hover",
+    media: "(hover: hover)",
+  },
+  { source: "focus", target: "y", selector: ".sl-atom:focus-visible" },
+  {
+    source: "active",
+    target: "z",
+    selector:
+      '.sl-atom.sl-button:active:where(:not(:disabled, [aria-disabled="true"]))',
+  },
+] as const;
 const fallback = (property: string, prefixes: string[]) => {
   let value = "";
   for (const name of prefixes) {
@@ -51,12 +70,27 @@ ${Object.entries(values)
 }
 `;
 // Custom properties must not inherit a parent's responsive or interaction overrides.
-css += `.sl-atom {\n${[...names.flatMap((name) => properties.map((property) => designVariable(name, property))), ...Array.from(themeDefaults, themeVariable)].map((variable) => `  ${variable}: initial;`).join("\n")}\n}\n`;
+const resets = [
+  ...[...names, "active", ...matchedStates.map(({ target }) => target)].flatMap(
+    (name) => properties.map((property) => designVariable(name, property))
+  ),
+  ...Array.from(themeDefaults, themeVariable),
+  "--sl-background-foreground",
+];
+css += `.sl-atom {\n${resets.map((variable) => `  ${variable}: initial;`).join("\n")}\n}\n`;
 // Resolve the active breakpoint once, then reuse it for normal, hover, and focus styles.
 const ranges = [
-  { prefixes: ["base"], query: "" },
-  { prefixes: ["base", "tablet"], query: "(768px <= width < 1024px)" },
-  { prefixes: ["base", "mobile"], query: "(width < 768px)" },
+  { screen: "desktop", prefixes: ["base"], query: "" },
+  {
+    screen: "tablet",
+    prefixes: ["base", "tablet"],
+    query: `(${designBreakpoints.mobile}px <= width < ${designBreakpoints.tablet}px)`,
+  },
+  {
+    screen: "mobile",
+    prefixes: ["base", "mobile"],
+    query: `(width < ${designBreakpoints.mobile}px)`,
+  },
 ];
 for (const { prefixes, query } of ranges) {
   const declarations = styledProperties
@@ -68,40 +102,59 @@ for (const { prefixes, query } of ranges) {
   const rule = `.sl-atom {\n${declarations}\n}\n`;
   css += query ? `@media ${query} {\n${rule}}\n` : rule;
 }
-const rule = (state?: string) => {
-  const selector = `.sl-atom${state === "hover" ? ":hover" : state === "focus" ? ":focus-visible" : ""}`;
-  const editorPosition = `.sl-atom.sl-editing${state === "hover" ? ":hover" : state === "focus" ? ":focus-visible" : ""}`;
-  const positionValue = state
-    ? `var(${designVariable(state, "position")}, var(${designVariable("current", "position")}, relative))`
-    : `var(${designVariable("current", "position")}, relative)`;
-  // Puck's inline drag ref writes position:relative on the actual element.
-  // Keep authored positioning responsive in the canvas as well as on the page.
-  const editorRule = `${editorPosition} { position: ${positionValue} !important; }\n`;
-  return `${selector} {\n${styledProperties
-    .map((property) => {
-      let defaultValue = themeDefaults.has(property)
-        ? `var(${themeVariable(property)}, revert-layer)`
-        : property === "min-width"
-          ? "0"
-          : "revert-layer";
-      if (property === "background-image") {
-        defaultValue = `var(${designVariable("current", "background-color")}, ${defaultValue})`;
-        if (state)
-          defaultValue = `var(${designVariable(state, "background-color")}, ${defaultValue})`;
-      }
-      let value = `var(${designVariable("current", property)}, ${defaultValue})`;
-      if (state) {
-        if (property === "row-gap" || property === "column-gap")
-          value = `var(${designVariable(state, "gap")}, ${value})`;
-        value = `var(${designVariable(state, property)}, ${value})`;
-      }
-      return `  ${property}: ${value};`;
-    })
-    .join("\n")}\n}\n${editorRule}`;
+// Activate each state's values independently. Unset properties fall through to the lower-priority state.
+for (const state of matchedStates) {
+  const rule = `${state.selector} {\n${properties
+    .map(
+      (property) =>
+        `  ${designVariable(state.target, property)}: var(${designVariable(state.source, property)});`
+    )
+    .join("\n")}\n}\n`;
+  css += "media" in state ? `@media ${state.media} {\n${rule}}\n` : rule;
+}
+const resolvedProperty = (property: string, defaultValue: string) => {
+  let value = `var(${designVariable("current", property)}, ${defaultValue})`;
+  for (const { target } of matchedStates) {
+    if (property === "row-gap" || property === "column-gap")
+      value = `var(${designVariable(target, "gap")}, ${value})`;
+    value = `var(${designVariable(target, property)}, ${value})`;
+  }
+  return value;
 };
-css += rule();
-css += `@media (hover: hover) {\n${rule("hover")}}\n`;
-css += rule("focus");
+css += `.sl-atom {\n${styledProperties
+  .map((property) => {
+    let defaultValue = themeDefaults.has(property)
+      ? `var(${themeVariable(property)}, revert-layer)`
+      : property === "min-width"
+        ? "0"
+        : "revert-layer";
+    if (property === "color")
+      defaultValue = `var(--sl-background-foreground, ${defaultValue})`;
+    if (property === "background-image")
+      defaultValue = resolvedProperty("background-color", defaultValue);
+    return `  ${property}: ${resolvedProperty(property, defaultValue)};`;
+  })
+  .join("\n")}\n}\n`;
+// Puck's drag ref applies position inline. Use the same resolved position in the editor.
+css += `.sl-atom.sl-editing { position: ${resolvedProperty("position", "relative")} !important; }\n`;
+// Keep headers in the canvas flow so scrolling exposes every editable block.
+css += `header.sl-atom.sl-editing {
+  position: relative !important;
+  inset: auto;
+  z-index: auto;
+  transform: none;
+}
+`;
+// The theme padding shorthand is a lower-layer default for each editable side.
+css += `@layer sl-theme-defaults {
+  .sl-atom.sl-interaction-primary-button {
+    padding: var(--ve-primary-button-padding);
+  }
+  .sl-atom.sl-interaction-secondary-button {
+    padding: var(--ve-secondary-button-padding);
+  }
+}
+`;
 for (const role of surfaceRoles) {
   const token = role === "page" ? "background" : role;
   const color = `var(--ve-color-${token})`;
@@ -111,6 +164,75 @@ for (const role of surfaceRoles) {
     color: `var(--ve-color-${role === "page" ? "foreground" : `${role}-foreground`})`,
   });
 }
+// A local background establishes a foreground and, for containers, an interaction boundary.
+const contrastRules = (
+  selectorFor: (tone: string, surfaceOnly: boolean) => string
+) =>
+  ["light", "dark"]
+    .map((tone) => {
+      const dark = tone === "dark";
+      const tokens = interactionRoles.flatMap((role) =>
+        ["default", "hover", "active"].flatMap((state) =>
+          (role.endsWith("-button")
+            ? ["text-color", "background-color", "border-color"]
+            : ["text-color"]
+          ).map((property) => {
+            const token = `${role}-${state}-${property}`;
+            return `--ve-surface-${token}: var(--ve-${token}${dark ? "-on-dark" : ""});`;
+          })
+        )
+      );
+      return `${selectorFor(tone, false)} { --sl-background-foreground: ${dark ? "#fff" : "#000"}; }
+${selectorFor(tone, true)} {
+  --ve-surface-preset-image-background: ${dark ? "#fff" : "#f9f9f9"};
+  ${tokens.join("\n  ")}
+}\n`;
+    })
+    .join("");
+const foregroundRules = (selectorFor: (role: string) => string) =>
+  surfaceRoles
+    .map(
+      (role) =>
+        `${selectorFor(role)} { --sl-background-foreground: var(--ve-color-${role === "page" ? "foreground" : `${role}-foreground`}); }\n`
+    )
+    .join("");
+const contrastAtom = (surfaceOnly: boolean) =>
+  surfaceOnly ? ".sl-atom:not(.sl-button)" : ".sl-atom";
+css += contrastRules(
+  (tone, surfaceOnly) =>
+    `${contrastAtom(surfaceOnly)}[data-sl-background-contrast="${tone}"]`
+);
+const activeButton = '.sl-button:active:not(:disabled, [aria-disabled="true"])';
+for (const { screen, query } of ranges) {
+  css += `@media ${query || `(width >= ${designBreakpoints.tablet}px)`} {
+${contrastRules((tone, surfaceOnly) => `${contrastAtom(surfaceOnly)}[data-sl-${screen}-contrast="${tone}"]`)}
+${foregroundRules((role) => `.sl-atom[data-sl-${screen}-surface="${role}"]`)}
+`;
+  for (const hoverAvailable of [true, false]) {
+    const selectorFor = (value: string, surfaceOnly = false) =>
+      backgroundStateCombinations
+        .flatMap((states) => {
+          const current = new Set<string>(states);
+          if (!hoverAvailable && current.has("hover")) return [];
+          const conditions = [
+            ...(hoverAvailable
+              ? [current.has("hover") ? ":hover" : ":not(:hover)"]
+              : []),
+            current.has("focusVisible")
+              ? ":focus-visible"
+              : ":not(:focus-visible)",
+            current.has("active")
+              ? `:is(${activeButton})`
+              : `:not(${activeButton})`,
+          ].join("");
+          const key = `${screen}-${states.join("-") || "base"}`;
+          return `${contrastAtom(surfaceOnly)}[data-sl-state-contrast~="${key}:${value}"]:where(${conditions})`;
+        })
+        .join(",\n");
+    css += `@media (hover: ${hoverAvailable ? "hover" : "none"}) {\n${contrastRules(selectorFor)}${foregroundRules(selectorFor)}}\n`;
+  }
+  css += "}\n";
+}
 const typographyProperties = [
   "font-family",
   "font-style",
@@ -118,65 +240,113 @@ const typographyProperties = [
   "text-transform",
 ];
 const desktopTypography: string[] = [];
-for (const [roles, prefix] of [
-  [typographyRoles, "type"],
-  [interactionRoles, "interaction"],
-] as const) {
-  for (const role of roles) {
-    const selector = `.sl-atom.sl-${prefix}-${role}`;
-    const props = Object.fromEntries(
-      typographyProperties.map((property) => [
-        property,
-        `var(--ve-${role}-${property})`,
-      ])
-    );
+for (const role of interactionRoles) {
+  const selector = `.sl-atom.sl-interaction-${role}`;
+  css += `${selector} { transition: var(--ve-${role}-transition); }\n`;
+  const props = Object.fromEntries(
+    typographyProperties.map((property) => [
+      property,
+      `var(--ve-${role}-${property})`,
+    ])
+  );
+  css += themeRule(selector, {
+    ...props,
+    "font-size": `var(--ve-${role}-mobile-font-size)`,
+    "line-height": `var(--ve-${role}-mobile-line-height)`,
+  });
+  desktopTypography.push(
+    themeRule(selector, {
+      "font-size": `var(--ve-${role}-font-size)`,
+      "line-height": `var(--ve-${role}-line-height)`,
+    })
+  );
+  const isButton = role.endsWith("-button");
+  if (isButton)
     css += themeRule(selector, {
-      ...props,
-      "font-size": `var(--ve-${role}-mobile-font-size)`,
-      "line-height": `var(--ve-${role}-mobile-line-height)`,
-      ...(prefix === "type"
-        ? { "font-weight": `var(--ve-${role}-font-weight)` }
+      "border-radius": `var(--ve-${role}-border-radius)`,
+      "border-width": `var(--ve-${role}-border-width)`,
+      "border-style": "solid",
+    });
+  for (const state of ["default", "hover", "active"]) {
+    const target =
+      state === "default"
+        ? selector
+        : `${selector}:where(:not(:disabled, [aria-disabled="true"])):${state}`;
+    const surface = `--ve-surface-${role}-${state}`;
+    css += themeRule(target, {
+      "font-weight": `var(--ve-${role}-${state}-font-weight)`,
+      "text-decoration": `var(--ve-${role}-${state}-text-decoration)`,
+      color: `var(${surface}-text-color)`,
+      ...(isButton
+        ? {
+            "background-color": `var(${surface}-background-color)`,
+            "background-image": `var(${surface}-background-color)`,
+            "border-color": `var(${surface}-border-color)`,
+          }
         : {}),
     });
-    desktopTypography.push(
-      themeRule(selector, {
-        "font-size": `var(--ve-${role}-font-size)`,
-        "line-height": `var(--ve-${role}-line-height)`,
-      })
-    );
-    if (prefix !== "interaction") continue;
-    const isButton = role.endsWith("-button");
-    if (isButton)
-      css += themeRule(selector, {
-        "border-radius": `var(--ve-${role}-border-radius)`,
-        "border-width": `var(--ve-${role}-border-width)`,
-        "border-style": "solid",
-      });
-    for (const state of ["default", "hover", "active"]) {
-      const target =
-        state === "default"
-          ? selector
-          : `${selector}:where(:not(:disabled, [aria-disabled="true"])):${state}`;
-      const surface = `--ve-surface-${role}-${state}`;
-      css += themeRule(target, {
-        "font-weight": `var(--ve-${role}-${state}-font-weight)`,
-        "text-decoration": `var(--ve-${role}-${state}-text-decoration)`,
-        color: `var(${surface}-text-color)`,
-        ...(isButton
-          ? {
-              "background-color": `var(${surface}-background-color)`,
-              "background-image": `var(${surface}-background-color)`,
-              "border-color": `var(${surface}-border-color)`,
-            }
-          : {}),
-      });
-    }
   }
 }
-css += `@media (min-width: 640px) {
-${desktopTypography.join("")}}
+const responsiveTypography = (mobile: boolean) => `:root {
+${typographyRoles
+  .flatMap((role) =>
+    ["font-size", "line-height"].map(
+      (property) =>
+        `  --sl-${role}-${property}: var(--ve-${role}-${mobile ? "mobile-" : ""}${property});`
+    )
+  )
+  .join("\n")}
+}\n`;
+css += responsiveTypography(true);
+css += `@media (min-width: ${designBreakpoints.mobile}px) {
+${responsiveTypography(false)}${desktopTypography.join("")}}
 `;
-css += `.sl-button:focus-visible { outline: 2px solid var(--ve-color-focus-ring, currentColor); outline-offset: 4px; }\n`;
+// Shared Visual Editor atoms switch at 640px. Align them with the page editor's mobile range.
+css += `@media (640px <= width < ${designBreakpoints.mobile}px) {
+${[...typographyRoles, ...interactionRoles]
+  .map((role) => {
+    const atom = `.ve-theme-${role}`;
+    const selectors = [
+      `.sl-page-root${atom}`,
+      `.sl-page-root ${atom}:where(:not(.sl-atom))`,
+    ];
+    if (role === "link") selectors.push(".sl-page-root .rtf-wrapper a");
+    return `${selectors.join(", ")} {
+  font-size: var(--ve-${role}-mobile-font-size);
+  line-height: var(--ve-${role}-mobile-line-height);
+}\n`;
+  })
+  .join("")}
+.sl-page-root .ve-theme-typography-override {
+  font-size: var(--ve-typography-mobile-size);
+  line-height: var(--ve-typography-mobile-line-height);
+}
+}
+`;
+// A selected typography style takes precedence over a button's interaction typography.
+const typographySelector = (role: string) =>
+  `.sl-atom.sl-type-${role}, .sl-atom.sl-button.sl-type-${role}`;
+for (const role of typographyRoles) {
+  css += themeRule(
+    typographySelector(role),
+    Object.fromEntries(
+      Object.values(themeTypographyProperties).map((property) => [
+        property,
+        typographyPresetValue(role, property),
+      ])
+    )
+  );
+}
+css += themeRule(
+  typographySelector("inherit"),
+  Object.fromEntries(
+    Object.values(themeTypographyProperties).map((property) => [
+      property,
+      "sl-parent()",
+    ])
+  )
+);
+css += `.sl-button:focus-visible, .sl-linked-image:focus-visible { outline: 2px solid var(--ve-color-focus-ring, currentColor); outline-offset: 4px; }\n`;
 css += `.sl-rich-text > .rtf-wrapper { font: inherit; letter-spacing: inherit; text-transform: inherit; }\n`;
 css += `.sl-rich-text :where(p, li, a, strong, em) { font-family: inherit; font-size: inherit; line-height: inherit; color: inherit; }\n`;
 css += `.sl-rich-text :where(p, ul, ol) { margin-block: 0 1em; }\n.sl-rich-text > :last-child { margin-block-end: 0; }\n`;

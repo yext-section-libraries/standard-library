@@ -15,13 +15,19 @@ import { semanticTagField, type SemanticTag } from "./DesignElement.tsx";
 import { structuralComponents } from "./containers.tsx";
 import { VisibilityWrapper } from "../sectionSupport/atoms/visibilityWrapper.tsx";
 import { AnalyticsScopeProvider } from "@yext/pages-components";
-import { surfaceRoles } from "./theme.ts";
+import { surfaceRoles, themeSurfaceClassName } from "./theme.ts";
 import { mappedSourcesAreEmpty } from "./sourceVisibility.ts";
+import {
+  useBackgroundContrastAttributes,
+  backgroundContrastField,
+  type BackgroundContrast,
+} from "./backgroundContrast.ts";
 
 export type CompositionProps = DesignProps & {
   content: Slot;
   as: SemanticTag;
   surfaceRole?: SurfaceRole;
+  backgroundContrast?: BackgroundContrast;
   liveVisibility: boolean;
   analytics?: { scope?: string };
   hideWhenMappedContentEmpty?: boolean;
@@ -45,6 +51,7 @@ export function createSectionPreset<Props extends Record<string, any>>(
       generation: { required: false },
       options: surfaceRoles.map((role) => ({ label: role, value: role })),
     },
+    backgroundContrast: backgroundContrastField,
     liveVisibility: {
       type: "radio",
       label: "Visible on live page",
@@ -93,6 +100,11 @@ export function createSectionPreset<Props extends Record<string, any>>(
       };
     },
     render: (props) => {
+      const design = props as DesignProps;
+      const contrastAttributes = useBackgroundContrastAttributes(
+        design,
+        props.backgroundContrast
+      );
       const {
         content: Content,
         puck,
@@ -113,9 +125,10 @@ export function createSectionPreset<Props extends Record<string, any>>(
             {Content({
               as,
               ref: puck.dragRef,
-              className: `components sl-atom ve-theme-${surfaceRole} sl-surface-${surfaceRole}`,
+              className: `components sl-atom ${themeSurfaceClassName(design.surface?.backgroundColor, surfaceRole)}`,
               ...designAttributes(props.attributes),
-              style: designStyle(props as DesignProps, puck.isEditing),
+              ...contrastAttributes,
+              style: designStyle(design, puck.isEditing),
               disallow: structuralComponents,
             })}
           </VisibilityWrapper>

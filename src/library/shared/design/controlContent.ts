@@ -1,4 +1,5 @@
 import type { StyleGroup } from "./styleSchema.ts";
+import { surfaceColorTokens, surfaceRoles } from "./theme.ts";
 
 export type StyleChoice = [string, string];
 
@@ -119,7 +120,7 @@ export const controlCopy: Record<string, { label?: string; help: string }> = {
     help: "Choose whether to keep the spaces and line breaks entered in the text.",
   },
   color: {
-    help: "Changes text color. Parent follows the surrounding text style.",
+    help: "Automatic uses the component’s normal text color. Inherit follows the surrounding text.",
   },
   backgroundColor: { help: "The color behind this element's content." },
   backgroundImage: {
@@ -195,20 +196,43 @@ export const controlCopy: Record<string, { label?: string; help: string }> = {
   },
 };
 
+const surfaceLabels = {
+  page: "Page",
+  primary: "Primary",
+  secondary: "Secondary",
+  accent: "Accent",
+  muted: "Muted",
+};
+const themeBackgrounds = (solid: boolean): StyleChoice[] =>
+  surfaceRoles.map((role) => [
+    `${surfaceLabels[role]} background`,
+    `var(--ve-color-${surfaceColorTokens[role]}${solid && role !== "page" ? "-solid" : ""})`,
+  ]);
+const themeForegrounds: StyleChoice[] = surfaceRoles.map((role) => [
+  `${surfaceLabels[role]} foreground`,
+  `var(--ve-color-${role === "page" ? "foreground" : `${role}-foreground`})`,
+]);
+
+export const automaticTypographyValue = (property: string) =>
+  `var(--sl-theme-${property}, revert-layer)`;
+
 export const preciseChoices: Record<string, StyleChoice[]> = {
+  backgroundColor: [
+    ["Inherit", "inherit"],
+    ["Transparent", "transparent"],
+    ...themeBackgrounds(false),
+  ],
+  color: [...themeBackgrounds(true), ...themeForegrounds],
+  borderColor: [
+    ["Inherit", "inherit"],
+    ["Transparent", "transparent"],
+    ["Border", "var(--ve-color-border)"],
+    ...themeBackgrounds(true),
+    ...themeForegrounds,
+  ],
   gridAutoFlow: [
     ["Across rows", "row"],
     ["Fill gaps", "dense"],
-  ],
-  lineHeight: [
-    ["Tight", "1.2"],
-    ["Regular", "1.5"],
-    ["Relaxed", "1.8"],
-  ],
-  letterSpacing: [
-    ["Tight", "-0.02em"],
-    ["Normal", "0"],
-    ["Wide", "0.08em"],
   ],
   borderWidth: [
     ["None", "0"],

@@ -5,6 +5,7 @@ import {
 import { ControlPreview, type PreviewAxis } from "./ControlPreview.tsx";
 import { CustomStyleValue } from "./CustomStyleValue.tsx";
 import {
+  automaticTypographyValue,
   controlCopy,
   preciseChoices,
   detailGroups,
@@ -19,10 +20,16 @@ import { FieldGroup, createUsePuck, useGetPuck } from "@puckeditor/core";
 import {
   styleSchema,
   styleGroupLabels,
+  themeSectionSpacing,
   valueSuggestions,
   type StyleGroup,
 } from "./styleSchema.ts";
 import { safeCssValue } from "./styles.ts";
+import {
+  themeTypographyProperties,
+  typographyPresetValue,
+  typographyStyleOptions,
+} from "./theme.ts";
 import "./designControls.css";
 
 const usePuck = createUsePuck();
@@ -85,6 +92,11 @@ const radiusChoices: Choice[] = [
   ["Round", "1rem"],
   ["Pill", "9999px"],
 ];
+const themePageStyleLabels: Record<string, string> = {
+  "var(--ve-image-border-radius)": "Theme image radius",
+  "var(--ve-card-border-radius)": "Theme card radius",
+  "var(--ve-card-border-width)": "Theme card border weight",
+};
 const spaceChoices: Choice[] = valueSuggestions.space.filter(([name]) =>
   ["None", "Extra small", "Small", "Medium", "Large"].includes(name)
 );
@@ -104,6 +116,7 @@ function Choices({
   defaultPreviewValue,
   allowDefault = true,
   mixed = false,
+  resetLabel,
 }: {
   label: string;
   value: string;
@@ -119,6 +132,7 @@ function Choices({
   defaultPreviewValue?: string;
   allowDefault?: boolean;
   mixed?: boolean;
+  resetLabel?: string;
 }) {
   const [custom, setCustom] = useInspectorDisclosure(`${property}:custom`);
   const inputId = React.useId();
@@ -167,6 +181,15 @@ function Choices({
       <div className="sl-control-heading">
         <span id={`${inputId}-label`}>{label}</span>
         <div className="sl-control-actions">
+          {resetLabel && value && (
+            <button
+              type="button"
+              className="sl-custom-link"
+              onClick={() => onChange("")}
+            >
+              {resetLabel}
+            </button>
+          )}
           {allowCustom && customLink && (
             <button
               type="button"
@@ -211,9 +234,10 @@ function Choices({
             <span className="sl-choice-preview" aria-hidden="true">
               <ControlPreview
                 property={
-                  candidate === emptyValue &&
-                  !defaultPreviewValue &&
-                  candidate !== "inherit"
+                  candidate === automaticTypographyValue(cssProperty) ||
+                  (candidate === emptyValue &&
+                    !defaultPreviewValue &&
+                    candidate !== "inherit")
                     ? "default"
                     : property
                 }
@@ -288,6 +312,7 @@ export function StyleValue({
   detailed = false,
   override = false,
   themeValue,
+  interactionPreset = false,
 }: {
   property: string;
   group: StyleGroup;
@@ -300,11 +325,32 @@ export function StyleValue({
   detailed?: boolean;
   override?: boolean;
   themeValue?: string;
+  interactionPreset?: boolean;
 }) {
   const definition = (styleSchema[group] as Record<string, readonly string[]>)[
     property
   ];
   const [defaultLabel, kind, ...options] = definition;
+  const textColor = property === "color";
+  const themeTypography = themeTypographyProperties[property];
+  const automaticProperty = textColor ? "color" : themeTypography;
+  const usesInteractionDefault =
+    interactionPreset &&
+    (automaticProperty ||
+      [
+        "textDecoration",
+        "backgroundColor",
+        "borderColor",
+        "borderRadius",
+        "borderStyle",
+        "borderWidth",
+      ].includes(property));
+  const baseBackgroundColor =
+    property === "backgroundColor" && !override && !interactionPreset;
+  const parentTypography =
+    group === "typography" &&
+    property !== "textDecoration" &&
+    !automaticProperty;
   const presets =
     choices ??
     preciseChoices[property] ??
@@ -318,14 +364,32 @@ export function StyleValue({
           ? spaceChoices
           : (valueSuggestions[kind] ?? []));
   const themedPresets =
+    kind !== "color" &&
+    !themeTypography &&
     themeValue?.startsWith("var(") &&
     !presets.some(([, value]) => value === themeValue)
-      ? [["Theme", themeValue] as Choice, ...presets]
-      : presets;
-  const choicesWithParent =
-    group === "typography" && property !== "textDecoration"
       ? [
-          ["Parent", "inherit"] as Choice,
+          [themePageStyleLabels[themeValue] ?? "Theme", themeValue] as Choice,
+          ...presets,
+        ]
+      : presets;
+  const fieldChoices: Choice[] = automaticProperty
+    ? [
+        ["Inherit", "inherit"],
+        [
+          textColor && !interactionPreset ? "Automatic" : "Default",
+          override ? automaticTypographyValue(automaticProperty) : "",
+        ],
+        ...(themeTypography
+          ? typographyStyleOptions.map(({ label, value }): Choice => [
+              label,
+              typographyPresetValue(value, themeTypography),
+            ])
+          : themedPresets),
+      ]
+    : parentTypography
+      ? [
+          ["Parent", "inherit"],
           ...themedPresets.filter(([, value]) => value !== "inherit"),
         ]
       : themedPresets;
@@ -336,22 +400,28 @@ export function StyleValue({
         label={label ?? controlCopy[property]?.label ?? defaultLabel}
         value={value}
         onChange={onChange}
-        choices={choicesWithParent}
+        choices={fieldChoices}
         axis={axis}
         showHelp={detailed}
         emptyLabel={override ? "Use Design" : "Default"}
-        emptyValue={
-          !override && group === "typography" && property !== "textDecoration"
-            ? "inherit"
-            : ""
+        emptyValue={!override && parentTypography ? "inherit" : ""}
+        allowDefault={!baseBackgroundColor}
+        resetLabel={
+          baseBackgroundColor ? "Clear background override" : undefined
         }
         defaultPreviewValue={override ? inheritedValue : undefined}
         defaultDescription={
           override
             ? `Uses Design${inheritedValue ? `: ${presets.find(([, candidate]) => candidate === inheritedValue)?.[0] ?? inheritedValue}` : " for this setting"}.`
-            : group === "typography" && property !== "textDecoration"
-              ? "Matches the surrounding text style."
-              : "Uses the element's normal style. Choose a value to override it."
+            : usesInteractionDefault
+              ? "Uses this setting from the selected interaction style."
+              : textColor
+                ? "Uses the component’s normal text color."
+                : themeTypography
+                  ? "Uses this setting from the selected Typography Style or the component’s usual style."
+                  : parentTypography
+                    ? "Matches the surrounding text style."
+                    : "Uses the element's normal style. Choose a value to override it."
         }
       />
     </div>
@@ -389,6 +459,10 @@ function SpacingControl({
     `${keys[0]}:sides`
   );
   const values = keys.map((key) => value[key] ?? "");
+  const blockKeys = keys.filter((key) => key.includes("Block"));
+  const sectionSpacing = blockKeys.every(
+    (key) => value[key] === themeSectionSpacing[1]
+  );
   const mixed = values.some((candidate) => candidate !== values[0]);
   return (
     <div className="sl-spacing-control">
@@ -396,21 +470,25 @@ function SpacingControl({
       <Choices
         property={keys[0].startsWith("padding") ? "padding" : "margin"}
         label={label}
-        value={mixed ? "" : values[0]}
-        choices={spaceChoices}
-        mixed={mixed}
+        value={sectionSpacing ? themeSectionSpacing[1] : mixed ? "" : values[0]}
+        choices={[...spaceChoices, themeSectionSpacing]}
+        mixed={mixed && !sectionSpacing}
         emptyLabel={override ? "Use Design" : "Default"}
         defaultDescription={
           override
             ? "Uses the spacing from Design."
             : "Removes local spacing values and uses the element's normal spacing."
         }
-        onChange={(next) =>
+        onChange={(next) => {
+          const updatedKeys =
+            next === themeSectionSpacing[1] || (next === "" && sectionSpacing)
+              ? blockKeys
+              : keys;
           onChange({
             ...value,
-            ...Object.fromEntries(keys.map((key) => [key, next])),
-          })
-        }
+            ...Object.fromEntries(updatedKeys.map((key) => [key, next])),
+          });
+        }}
       />
       <button
         type="button"
@@ -430,6 +508,12 @@ function SpacingControl({
                 property={key}
                 label={["Top", "Right / end", "Bottom", "Left / start"][index]}
                 value={value[key]}
+                choices={
+                  blockKeys.includes(key)
+                    ? [...spaceChoices, themeSectionSpacing]
+                    : spaceChoices
+                }
+                override={override}
                 detailed
                 onChange={(next) => onChange({ ...value, [key]: next })}
               />
@@ -508,6 +592,11 @@ export function StyleGroupEditor({
     selected?.props.layout?.display ||
     (selected?.props.as === "span" ? "inline" : "block");
   const profile = styleCapabilities(selectedType);
+  const interactionRole = selected?.props.interactionRole ?? "primary-button";
+  const themedBorder =
+    profile.button &&
+    (interactionRole === "primary-button" ||
+      interactionRole === "secondary-button");
   const context = {
     type: selectedType,
     display: ownDisplay,
@@ -554,6 +643,7 @@ export function StyleGroupEditor({
         choices={choices}
         detailed={detailed}
         override={override}
+        interactionPreset={profile.button}
         themeValue={
           getPuck().config.components[selectedType]?.defaultProps?.[group]?.[
             property
@@ -594,6 +684,8 @@ export function StyleGroupEditor({
             [property]:
               !override &&
               group === "typography" &&
+              property !== "color" &&
+              !themeTypographyProperties[property] &&
               property !== "textDecoration" &&
               !next
                 ? "inherit"
@@ -921,7 +1013,9 @@ export function StyleGroupEditor({
       <p key="text-help" className="sl-help">
         {container || selectedType.endsWith("Section")
           ? "Text defaults for children that inherit. Headings, buttons, and individually styled text can have their own styles."
-          : "Parent uses the surrounding text style. A preset or custom value overrides it for this element."}
+          : profile.button
+            ? "Default follows the interaction style. Inherit follows the surrounding text."
+            : "Default follows the Typography Style. Inherit follows the surrounding text."}
       </p>
     );
     if (container || selectedType.endsWith("Section")) {
@@ -997,12 +1091,7 @@ export function StyleGroupEditor({
     fields.push(
       field("fontFamily"),
       field("fontSize"),
-      field(
-        "fontWeight",
-        valueSuggestions.weight.filter(([name]) =>
-          ["Regular", "Medium", "Bold"].includes(name)
-        )
-      ),
+      field("fontWeight"),
       !profile.button &&
         field("textAlign", [
           ["Start", "start"],
@@ -1010,7 +1099,8 @@ export function StyleGroupEditor({
           ["End", "end"],
           ["Justify", "justify"],
         ]),
-      field("color")
+      field("color"),
+      profile.button && field("textDecoration")
     );
   } else if (group === "surface") {
     if (profile.image) {
@@ -1044,7 +1134,10 @@ export function StyleGroupEditor({
           "Border"
         )
       );
-      if (effective.borderStyle && effective.borderStyle !== "none")
+      if (
+        effective.borderStyle !== "none" &&
+        (effective.borderStyle || themedBorder)
+      )
         fields.push(field("borderWidth"), field("borderColor"));
     }
   }
@@ -1205,6 +1298,7 @@ export function DesignPanel({
       {fields.styles}
       {fields.ctaStyles}
       {fields.surfaceRole}
+      {fields.backgroundContrast}
       {fields.typographyRole}
       {fields.interactionRole}
       {order.map((key) => (

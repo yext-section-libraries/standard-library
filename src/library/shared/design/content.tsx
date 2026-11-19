@@ -3,8 +3,10 @@ import * as React from "react";
 // callers can still supply authored values. Avoid tooltip DOM wrappers here:
 // the semantic element must remain the actual grid/flex item in the editor.
 import { useTranslation } from "react-i18next";
+import { setDeep } from "@puckeditor/core";
 import {
   getDefaultRTF,
+  toPuckFields,
   resolveComponentData,
   useDocument,
   type TranslatableString,
@@ -15,7 +17,6 @@ import {
   type PresetImageType,
   type YextFieldDefinition,
   type InteractionRole,
-  type TypographyRole,
   isLocalizedAssetImage,
   resolveLocalizedAssetImage,
 } from "@yext/visual-editor";
@@ -31,16 +32,26 @@ import {
 } from "@yext/visual-editor/section-library-support";
 import { CTA } from "../sectionSupport/atoms/cta.tsx";
 import { designStyle } from "./styles.ts";
+import { useBackgroundContrastAttributes } from "./backgroundContrast.ts";
 import { DesignElement } from "./DesignElement.tsx";
 import { designFields, renderDesignFields } from "./fields.tsx";
-import type { DesignProps } from "./styleSchema.ts";
+import { automaticTypographyValue } from "./controlContent.ts";
+import type { DesignProps, StyleGroups } from "./styleSchema.ts";
 import {
   getImageUrl,
   imageDefaultProps,
   type ImageWrapperProps,
 } from "../../sections/ImageWrapper.tsx";
 import { getImageAltText } from "../sectionSupport/atoms/image.tsx";
-import { headingRole, interactionRoles } from "./theme.ts";
+import {
+  headingRole,
+  interactionRoles,
+  themeTypographyProperties,
+  typographyPresetValue,
+  typographyStyleClassName,
+  typographyStyleOptions,
+  type TypographyStyle,
+} from "./theme.ts";
 import { designIcons } from "./icons.ts";
 
 export const constantText = (
@@ -53,10 +64,20 @@ export const constantText = (
 
 export type TextContentProps = DesignProps & {
   binding?: ItemBinding;
-  typographyRole?: TypographyRole;
+  typographyRole?: TypographyStyle;
   data: { text: YextEntityField<TranslatableString | TranslatableRichText> };
   as: "p" | "span" | "div" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 };
+
+const typographyStyleField = {
+  type: "select",
+  label: "Typography Style",
+  generation: { required: false },
+  options: [{ label: "Inherit", value: "inherit" }, ...typographyStyleOptions],
+} satisfies YextFieldDefinition;
+
+const headingTag = (tag: TextContentProps["as"]) =>
+  /^h[1-6]$/.test(tag) ? tag : "h2";
 
 const textDataField = (
   rich = false
@@ -82,7 +103,7 @@ export const headingConfig: YextComponentConfig<TextContentProps> = {
   fields: {
     binding: itemBindingField(["title", "eyebrow", "value"]),
     data: textDataField(),
-    typographyRole: { type: "typographyRole", generation: { required: false } },
+    typographyRole: typographyStyleField,
     as: {
       type: "select",
       label: "Heading level",
@@ -103,6 +124,12 @@ export const headingConfig: YextComponentConfig<TextContentProps> = {
     },
     spacing: { marginBlockStart: "0", marginBlockEnd: "0" },
   },
+  resolveData: ({ props }) => ({
+    props: {
+      ...props,
+      typographyRole: props.typographyRole ?? headingRole(headingTag(props.as)),
+    },
+  }),
   render: function Heading({
     data,
     binding,
@@ -120,13 +147,13 @@ export const headingConfig: YextComponentConfig<TextContentProps> = {
       { output: "plainText" }
     );
     if (!text && !puck.isEditing) return <></>;
-    const tag = /^h[1-6]$/.test(as) ? as : "h2";
+    const tag = headingTag(as);
     return (
       <>
         <DesignElement
           elementRef={puck.dragRef}
           as={tag}
-          className={`sl-type-${typographyRole ?? headingRole(tag)}`}
+          className={typographyStyleClassName(typographyRole, headingRole(tag))}
           design={design}
           isEditing={puck.isEditing}
         >
@@ -144,7 +171,7 @@ export const paragraphConfig: YextComponentConfig<TextContentProps> = {
     ...designFields,
     binding: itemBindingField(["title", "eyebrow", "value"]),
     data: textDataField(),
-    typographyRole: { type: "typographyRole", generation: { required: false } },
+    typographyRole: typographyStyleField,
     as: {
       type: "select",
       label: "HTML element",
@@ -157,6 +184,9 @@ export const paragraphConfig: YextComponentConfig<TextContentProps> = {
     data: { text: constantText("Add your text here.") },
     typography: {},
   },
+  resolveData: ({ props }) => ({
+    props: { ...props, typographyRole: props.typographyRole ?? "inherit" },
+  }),
   render: function Paragraph({
     data,
     binding,
@@ -179,7 +209,7 @@ export const paragraphConfig: YextComponentConfig<TextContentProps> = {
         <DesignElement
           elementRef={puck.dragRef}
           as={["p", "span", "div"].includes(as) ? as : "p"}
-          className={typographyRole ? `sl-type-${typographyRole}` : undefined}
+          className={typographyStyleClassName(typographyRole)}
           design={design}
           isEditing={puck.isEditing}
         >
@@ -196,10 +226,7 @@ export const richTextConfig: YextComponentConfig<Omit<TextContentProps, "as">> =
     fields: {
       binding: itemBindingField(["body", "title"]),
       data: textDataField(true),
-      typographyRole: {
-        type: "typographyRole",
-        generation: { required: false },
-      },
+      typographyRole: typographyStyleField,
       ...designFields,
     },
     renderFields: renderDesignFields,
@@ -215,10 +242,13 @@ export const richTextConfig: YextComponentConfig<Omit<TextContentProps, "as">> =
         },
       },
     },
+    resolveData: ({ props }) => ({
+      props: { ...props, typographyRole: props.typographyRole ?? "body" },
+    }),
     render: function RichText({
       data,
       binding,
-      typographyRole = "body",
+      typographyRole,
       puck,
       ...design
     }) {
@@ -228,7 +258,10 @@ export const richTextConfig: YextComponentConfig<Omit<TextContentProps, "as">> =
         useItemValue(binding, data.text),
         i18n.language,
         document,
-        { typographyRole }
+        {
+          typographyRole:
+            typographyRole === "inherit" ? undefined : typographyRole || "body",
+        }
       );
       if (!content && !puck.isEditing) return <></>;
       return (
@@ -237,7 +270,7 @@ export const richTextConfig: YextComponentConfig<Omit<TextContentProps, "as">> =
             elementRef={puck.dragRef}
             design={design}
             isEditing={puck.isEditing}
-            className={`sl-rich-text sl-type-${typographyRole}`}
+            className={`sl-rich-text ${typographyStyleClassName(typographyRole, "body")}`}
           >
             {content || "Add rich text"}
           </DesignElement>
@@ -426,6 +459,7 @@ export const imageConfig: YextComponentConfig<PictureProps> = {
     return linked ? (
       <DesignElement
         as="a"
+        className="sl-linked-image"
         design={design}
         elementRef={puck.dragRef}
         isEditing={puck.isEditing}
@@ -466,6 +500,7 @@ export type ButtonProps = DesignProps & {
   cta: YextCTAField;
   action: "link" | "button" | "submit" | "reset";
   interactionRole?: InteractionRole;
+  typographyRole?: TypographyStyle;
   openInNewTab: boolean | "data";
   presetImage?: PresetImageType;
   eventName?: string;
@@ -484,7 +519,7 @@ export const buttonConfig: YextComponentConfig<ButtonProps> = {
       generation: { required: false },
       options: interactionRoles.map((value) => ({
         value,
-        label: value.replace(/-/g, " "),
+        label: value[0].toUpperCase() + value.slice(1).replace(/-/g, " "),
       })),
     },
     action: {
@@ -562,12 +597,74 @@ export const buttonConfig: YextComponentConfig<ButtonProps> = {
       width: "fit-content",
       gap: "0.5rem",
     },
-    spacing: {
-      paddingBlockStart: "0.75rem",
-      paddingBlockEnd: "0.75rem",
-      paddingInlineStart: "1.5rem",
-      paddingInlineEnd: "1.5rem",
-    },
+  },
+  resolveFields: ({ props }, { metadata }) => {
+    const document = metadata?.streamDocument;
+    const resolved = resolveComponentData(
+      props.cta,
+      document?.locale ?? "en",
+      document
+    );
+    const ctaType = resolved?.ctaType ?? getCTAType(props.cta).ctaType;
+    const isPresetImageLink =
+      props.action === "link" && ctaType === "presetImage";
+    // A collection template can render both artwork and text links across its items.
+    const showTextStyles = props.binding === "cta" || !isPresetImageLink;
+    const fields = setDeep(
+      buttonConfig.fields!,
+      "interactionRole.visible",
+      showTextStyles
+    );
+    return toPuckFields(
+      setDeep(fields, "states.objectFields.active.visible", showTextStyles)
+    );
+  },
+  resolveData: ({ props }) => {
+    const { typographyRole } = props;
+    if (!typographyRole) return { props };
+
+    // Older buttons stored a single text style. Keep its settings editable individually.
+    const typography = Object.fromEntries(
+      Object.entries(themeTypographyProperties).map(([name, property]) => [
+        name,
+        typographyRole === "inherit"
+          ? "inherit"
+          : typographyPresetValue(typographyRole, property),
+      ])
+    );
+    const overrides = (authored: DesignProps["typography"]) =>
+      Object.fromEntries(
+        Object.entries(authored ?? {})
+          .filter(([, value]) => value)
+          .map(([name, value]) => [
+            name,
+            value === automaticTypographyValue(themeTypographyProperties[name])
+              ? (typography[name] ?? value)
+              : value,
+          ])
+      );
+    // In older responsive and state overrides, "Default" referred to the text style.
+    const preserveDefaults = (
+      groups?: Record<string, StyleGroups | undefined>
+    ) =>
+      groups &&
+      Object.fromEntries(
+        Object.entries(groups).map(([key, group]) => [
+          key,
+          group?.typography
+            ? { ...group, typography: overrides(group.typography) }
+            : group,
+        ])
+      );
+    return {
+      props: {
+        ...props,
+        typographyRole: undefined,
+        typography: { ...typography, ...overrides(props.typography) },
+        responsive: preserveDefaults(props.responsive),
+        states: preserveDefaults(props.states),
+      },
+    };
   },
   render: function Button({
     cta,
@@ -579,9 +676,15 @@ export const buttonConfig: YextComponentConfig<ButtonProps> = {
     icon,
     iconPosition = "after",
     interactionRole = "primary-button",
+    typographyRole,
     puck,
     ...design
   }) {
+    const contrastAttributes = useBackgroundContrastAttributes(
+      design,
+      undefined,
+      true
+    );
     const document = useDocument();
     const { i18n } = useTranslation();
     const source = useItemValue(binding, cta);
@@ -627,7 +730,8 @@ export const buttonConfig: YextComponentConfig<ButtonProps> = {
           elementRef={puck.dragRef}
           design={design}
           isEditing
-          className={`sl-button sl-interaction-${interactionRole}`}
+          {...contrastAttributes}
+          className={`sl-button sl-interaction-${interactionRole} ${typographyStyleClassName(typographyRole)}`}
           aria-disabled="true"
           title="Choose a link destination"
         >
@@ -685,7 +789,8 @@ export const buttonConfig: YextComponentConfig<ButtonProps> = {
           as={action === "link" ? Link : "button"}
           design={design}
           isEditing={puck.isEditing}
-          className={`sl-button sl-interaction-${interactionRole}`}
+          {...contrastAttributes}
+          className={`sl-button sl-interaction-${interactionRole} ${typographyStyleClassName(typographyRole)}`}
           {...(action === "link"
             ? {
                 href,

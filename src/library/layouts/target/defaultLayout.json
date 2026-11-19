@@ -1,0 +1,4118 @@
+{
+  "root": {
+    "props": {
+      "version": 86,
+      "sectionLibraryMigrationVersion": 8,
+      "title": {
+        "field": "name",
+        "constantValueEnabled": false,
+        "constantValue": ""
+      },
+      "description": {
+        "field": "description",
+        "constantValueEnabled": false,
+        "constantValue": ""
+      }
+    }
+  },
+  "content": [
+    {
+      "type": "Box",
+      "props": {
+        "id": "target-header",
+        "as": "header",
+        "content": [
+          {
+            "type": "Button",
+            "props": {
+              "id": "target-skip-main",
+              "cta": {
+                "field": "",
+                "constantValueEnabled": true,
+                "constantValue": {
+                  "label": {
+                    "defaultValue": "Skip to main content"
+                  },
+                  "link": {
+                    "defaultValue": "#main-content"
+                  },
+                  "linkType": "URL",
+                  "ctaType": "textAndLink"
+                }
+              },
+              "action": "link",
+              "openInNewTab": false,
+              "interactionRole": "primary-button",
+              "layout": {
+                "display": "inline-flex",
+                "alignItems": "center",
+                "gap": "8px",
+                "width": "fit-content",
+                "minHeight": "44px",
+                "justifyContent": "center"
+              },
+              "position": {
+                "position": "absolute",
+                "insetBlockStart": "4px",
+                "insetInlineStart": "8px",
+                "zIndex": "10",
+                "transform": "translateY(-150%)"
+              },
+              "states": {
+                "focusVisible": {
+                  "position": {
+                    "transform": "none"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "Button",
+            "props": {
+              "id": "target-skip-footer",
+              "cta": {
+                "field": "",
+                "constantValueEnabled": true,
+                "constantValue": {
+                  "label": {
+                    "defaultValue": "Skip to footer"
+                  },
+                  "link": {
+                    "defaultValue": "#target-footer"
+                  },
+                  "linkType": "URL",
+                  "ctaType": "textAndLink"
+                }
+              },
+              "action": "link",
+              "openInNewTab": false,
+              "interactionRole": "primary-button",
+              "layout": {
+                "display": "inline-flex",
+                "alignItems": "center",
+                "gap": "8px",
+                "width": "fit-content",
+                "minHeight": "44px",
+                "justifyContent": "center"
+              },
+              "position": {
+                "position": "absolute",
+                "insetBlockStart": "4px",
+                "insetInlineStart": "8px",
+                "zIndex": "10",
+                "transform": "translateY(-150%)"
+              },
+              "states": {
+                "focusVisible": {
+                  "position": {
+                    "transform": "none"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "Box",
+            "props": {
+              "id": "target-utility",
+              "as": "div",
+              "content": [
+                {
+                  "type": "Flex",
+                  "props": {
+                    "id": "target-utility-links",
+                    "as": "nav",
+                    "content": [
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-utility-0",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Target Circle™"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.target.com/l/target-circle/-/N-pzno9"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-utility-1",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Target Circle™ Card"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.target.com/circlecard"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-utility-2",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Target Circle 360™"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.target.com/l/target-circle-360/-/N-2rguk"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-utility-3",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Registry & Wish List"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.target.com/gift-registry"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-utility-4",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Weekly Ad"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.target.com/weekly-ad"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-utility-5",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Find Stores"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.target.com/store-locator/find-stores"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      }
+                    ],
+                    "attributes": {
+                      "ariaLabel": "Target shopping resources"
+                    },
+                    "layout": {
+                      "display": "flex",
+                      "flexDirection": "row",
+                      "alignItems": "center",
+                      "flexWrap": "wrap",
+                      "gap": "20px",
+                      "width": "100%",
+                      "maxWidth": "calc(var(--ve-page-content-max-width) + 32px)",
+                      "justifyContent": "end"
+                    },
+                    "spacing": {
+                      "paddingBlockStart": "10px",
+                      "paddingBlockEnd": "10px",
+                      "paddingInlineStart": "16px",
+                      "paddingInlineEnd": "16px",
+                      "marginBlockStart": "0",
+                      "marginBlockEnd": "0",
+                      "marginInlineStart": "auto",
+                      "marginInlineEnd": "auto"
+                    }
+                  }
+                }
+              ],
+              "surfaceRole": "primary",
+              "responsive": {
+                "mobile": {
+                  "layout": {
+                    "display": "none"
+                  }
+                }
+              },
+              "revealWhenHiddenInEditor": false
+            }
+          },
+          {
+            "type": "Flex",
+            "props": {
+              "id": "target-site-nav",
+              "as": "div",
+              "content": [
+                {
+                  "type": "Flex",
+                  "props": {
+                    "id": "target-brand",
+                    "as": "div",
+                    "content": [
+                      {
+                        "type": "Image",
+                        "props": {
+                          "id": "target-brand-icon",
+                          "data": {
+                            "image": {
+                              "field": "",
+                              "constantValueEnabled": true,
+                              "constantValue": {
+                                "url": "https://assets.targetimg1.com/static/images/favicon-96x96.png",
+                                "width": 96,
+                                "height": 96
+                              }
+                            },
+                            "link": {
+                              "defaultValue": "https://www.target.com/"
+                            }
+                          },
+                          "altText": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "defaultValue": "Target home"
+                            }
+                          },
+                          "decorative": false,
+                          "loading": "eager",
+                          "layout": {
+                            "display": "block",
+                            "width": "36px",
+                            "height": "36px"
+                          },
+                          "surface": {
+                            "objectFit": "contain"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-brand-name",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Target"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.target.com/"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "navigation-link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          },
+                          "typography": {
+                            "fontSize": "20px"
+                          }
+                        }
+                      }
+                    ],
+                    "layout": {
+                      "display": "flex",
+                      "flexDirection": "row",
+                      "alignItems": "center",
+                      "flexWrap": "nowrap",
+                      "gap": "8px"
+                    }
+                  }
+                },
+                {
+                  "type": "Flex",
+                  "props": {
+                    "id": "target-nav-links",
+                    "as": "nav",
+                    "content": [
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-nav-0",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Categories"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.target.com/c/shop-all-categories/-/N-5xsxf?prehydrateClick=true"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "navigation-link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-nav-1",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Deals"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.target.com/c/top-deals/-/N-4xw74?prehydrateClick=true"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "navigation-link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-nav-2",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Pickup & delivery"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.target.com/c/order-pickup/-/N-ng0a0?l1_nid=5xt1a&prehydrateClick=true"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "navigation-link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-nav-3",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Sign in"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.target.com/account?prehydrateClick=true"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "navigation-link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-nav-4",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Cart"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.target.com/cart?prehydrateClick=true"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "navigation-link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      }
+                    ],
+                    "layout": {
+                      "display": "flex",
+                      "flexDirection": "row",
+                      "alignItems": "center",
+                      "flexWrap": "wrap",
+                      "gap": "clamp(10px, 3vw, 28px)"
+                    },
+                    "attributes": {
+                      "ariaLabel": "Target shopping"
+                    }
+                  }
+                }
+              ],
+              "layout": {
+                "display": "flex",
+                "flexDirection": "row",
+                "alignItems": "center",
+                "flexWrap": "wrap",
+                "gap": "12px",
+                "width": "100%",
+                "maxWidth": "calc(var(--ve-page-content-max-width) + 32px)",
+                "justifyContent": "space-between",
+                "columnGap": "24px",
+                "rowGap": "8px"
+              },
+              "spacing": {
+                "paddingBlockStart": "16px",
+                "paddingBlockEnd": "16px",
+                "paddingInlineStart": "16px",
+                "paddingInlineEnd": "16px",
+                "marginBlockStart": "0",
+                "marginBlockEnd": "0",
+                "marginInlineStart": "auto",
+                "marginInlineEnd": "auto"
+              }
+            }
+          }
+        ],
+        "surfaceRole": "page",
+        "surface": {
+          "borderStyle": "solid",
+          "borderWidth": "0 0 1px",
+          "borderColor": "var(--ve-color-border)"
+        }
+      }
+    },
+    {
+      "type": "MainContent",
+      "props": {
+        "id": "target-main",
+        "content": [
+          {
+            "type": "Stack",
+            "props": {
+              "id": "target-page-content",
+              "as": "div",
+              "content": [
+                {
+                  "type": "Stack",
+                  "props": {
+                    "id": "target-store-intro",
+                    "as": "section",
+                    "content": [
+                      {
+                        "type": "Flex",
+                        "props": {
+                          "id": "target-breadcrumb",
+                          "as": "nav",
+                          "content": [
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-crumb-home",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Target"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Paragraph",
+                              "props": {
+                                "id": "target-crumb-divider",
+                                "as": "p",
+                                "typographyRole": "body-small",
+                                "data": {
+                                  "text": {
+                                    "field": "",
+                                    "constantValueEnabled": true,
+                                    "constantValue": {
+                                      "defaultValue": "/"
+                                    }
+                                  }
+                                },
+                                "spacing": {
+                                  "marginBlockStart": "0",
+                                  "marginBlockEnd": "0"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-crumb-locator",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Store Locator"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/store-locator/find-stores"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            }
+                          ],
+                          "layout": {
+                            "display": "flex",
+                            "flexDirection": "row",
+                            "alignItems": "center",
+                            "flexWrap": "wrap",
+                            "gap": "8px"
+                          },
+                          "attributes": {
+                            "ariaLabel": "Breadcrumb"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-find-a-store",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Find a store"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.target.com/store-locator/find-stores"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          },
+                          "icon": "ArrowRight",
+                          "iconPosition": "before"
+                        }
+                      },
+                      {
+                        "type": "Columns",
+                        "props": {
+                          "id": "target-store-heading-and-actions",
+                          "as": "div",
+                          "content": [
+                            {
+                              "type": "Stack",
+                              "props": {
+                                "id": "target-store-details",
+                                "as": "div",
+                                "content": [
+                                  {
+                                    "type": "Heading",
+                                    "props": {
+                                      "id": "target-store-name",
+                                      "as": "h1",
+                                      "typographyRole": "headline",
+                                      "data": {
+                                        "text": {
+                                          "field": "name",
+                                          "constantValueEnabled": false,
+                                          "constantValue": {
+                                            "defaultValue": ""
+                                          }
+                                        }
+                                      },
+                                      "spacing": {
+                                        "marginBlockStart": "0",
+                                        "marginBlockEnd": "0"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "Address",
+                                    "props": {
+                                      "id": "target-store-address",
+                                      "data": {
+                                        "address": {
+                                          "field": "address",
+                                          "constantValueEnabled": false,
+                                          "constantValue": {
+                                            "line1": "",
+                                            "city": "",
+                                            "region": "",
+                                            "postalCode": "",
+                                            "countryCode": ""
+                                          }
+                                        }
+                                      },
+                                      "styles": {
+                                        "showRegion": true,
+                                        "showCountry": false,
+                                        "showGetDirectionsLink": false,
+                                        "ctaVariant": "link"
+                                      },
+                                      "typography": {
+                                        "fontStyle": "normal"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "Phone",
+                                    "props": {
+                                      "id": "target-store-phone",
+                                      "data": {
+                                        "number": {
+                                          "field": "mainPhone",
+                                          "constantValueEnabled": false,
+                                          "constantValue": ""
+                                        },
+                                        "label": {
+                                          "defaultValue": "Call Store"
+                                        }
+                                      },
+                                      "styles": {
+                                        "phoneFormat": "domestic",
+                                        "includePhoneHyperlink": true,
+                                        "includeIcon": false
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "HoursStatus",
+                                    "props": {
+                                      "id": "target-store-status",
+                                      "data": {
+                                        "hours": {
+                                          "field": "hours",
+                                          "constantValueEnabled": false,
+                                          "constantValue": {}
+                                        }
+                                      },
+                                      "styles": {
+                                        "showCurrentStatus": true,
+                                        "timeFormat": "12h",
+                                        "showDayNames": false,
+                                        "dayOfWeekFormat": "long",
+                                        "className": ""
+                                      }
+                                    }
+                                  }
+                                ],
+                                "layout": {
+                                  "display": "flex",
+                                  "flexDirection": "column",
+                                  "gap": "8px"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Flex",
+                              "props": {
+                                "id": "target-store-actions",
+                                "as": "div",
+                                "content": [
+                                  {
+                                    "type": "Button",
+                                    "props": {
+                                      "id": "target-directions",
+                                      "cta": {
+                                        "field": "",
+                                        "constantValueEnabled": true,
+                                        "constantValue": {
+                                          "label": {
+                                            "defaultValue": "Directions"
+                                          },
+                                          "link": {
+                                            "defaultValue": ""
+                                          },
+                                          "linkType": "URL",
+                                          "ctaType": "getDirections"
+                                        }
+                                      },
+                                      "action": "link",
+                                      "openInNewTab": true,
+                                      "interactionRole": "secondary-button",
+                                      "layout": {
+                                        "display": "inline-flex",
+                                        "alignItems": "center",
+                                        "gap": "8px",
+                                        "width": "fit-content",
+                                        "minHeight": "44px",
+                                        "justifyContent": "center"
+                                      },
+                                      "icon": "MapPin",
+                                      "iconPosition": "before"
+                                    }
+                                  }
+                                ],
+                                "layout": {
+                                  "display": "flex",
+                                  "flexDirection": "row",
+                                  "alignItems": "center",
+                                  "flexWrap": "wrap",
+                                  "gap": "8px"
+                                },
+                                "responsive": {
+                                  "tablet": {
+                                    "layout": {
+                                      "justifyContent": "start"
+                                    }
+                                  },
+                                  "mobile": {
+                                    "layout": {
+                                      "justifyContent": "start"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "layout": {
+                            "display": "grid",
+                            "gridTemplateColumns": "minmax(0, 1fr) auto",
+                            "gap": "16px",
+                            "alignItems": "end"
+                          },
+                          "responsive": {
+                            "tablet": {
+                              "layout": {
+                                "gridTemplateColumns": "minmax(0, 1fr)"
+                              }
+                            },
+                            "mobile": {
+                              "layout": {
+                                "gridTemplateColumns": "minmax(0, 1fr)"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ],
+                    "attributes": {
+                      "ariaLabel": "Store information"
+                    },
+                    "layout": {
+                      "display": "flex",
+                      "flexDirection": "column",
+                      "gap": "14px"
+                    }
+                  }
+                },
+                {
+                  "type": "Box",
+                  "props": {
+                    "id": "target-map",
+                    "as": "section",
+                    "content": [
+                      {
+                        "type": "MapboxStaticMap",
+                        "props": {
+                          "id": "target-location-map",
+                          "coordinate": {
+                            "field": "yextDisplayCoordinate",
+                            "constantValueEnabled": false,
+                            "constantValue": {
+                              "latitude": 0,
+                              "longitude": 0
+                            }
+                          },
+                          "mapStyle": "light-v11",
+                          "height": "clamp(110px, 25vw, 300px)",
+                          "zoom": 15
+                        }
+                      }
+                    ],
+                    "layout": {
+                      "overflow": "hidden"
+                    },
+                    "attributes": {
+                      "ariaLabel": "Store location map"
+                    }
+                  }
+                },
+                {
+                  "type": "Columns",
+                  "props": {
+                    "id": "target-hours-and-services",
+                    "as": "div",
+                    "content": [
+                      {
+                        "type": "Stack",
+                        "props": {
+                          "id": "target-hours-panel",
+                          "as": "section",
+                          "content": [
+                            {
+                              "type": "Heading",
+                              "props": {
+                                "id": "target-hours-title",
+                                "as": "h2",
+                                "typographyRole": "section-title",
+                                "data": {
+                                  "text": {
+                                    "field": "",
+                                    "constantValueEnabled": true,
+                                    "constantValue": {
+                                      "defaultValue": "Store Hours"
+                                    }
+                                  }
+                                },
+                                "spacing": {
+                                  "marginBlockStart": "0",
+                                  "marginBlockEnd": "0"
+                                }
+                              }
+                            },
+                            {
+                              "type": "HoursTable",
+                              "props": {
+                                "id": "target-hours",
+                                "data": {
+                                  "hours": {
+                                    "field": "hours",
+                                    "constantValueEnabled": false,
+                                    "constantValue": {}
+                                  }
+                                },
+                                "styles": {
+                                  "startOfWeek": "today",
+                                  "collapseDays": false,
+                                  "showAdditionalHoursText": false,
+                                  "alignment": "items-start"
+                                }
+                              }
+                            }
+                          ],
+                          "spacing": {
+                            "paddingBlockStart": "20px",
+                            "paddingBlockEnd": "20px",
+                            "paddingInlineStart": "20px",
+                            "paddingInlineEnd": "20px"
+                          },
+                          "surface": {
+                            "borderStyle": "solid",
+                            "borderWidth": "var(--ve-card-border-width)",
+                            "borderColor": "var(--ve-color-border)",
+                            "borderRadius": "var(--ve-card-border-radius)"
+                          },
+                          "layout": {
+                            "display": "flex",
+                            "flexDirection": "column",
+                            "gap": "12px"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Stack",
+                        "props": {
+                          "id": "target-shopping-panel",
+                          "as": "div",
+                          "content": [
+                            {
+                              "type": "Stack",
+                              "props": {
+                                "id": "target-pickup-delivery",
+                                "as": "section",
+                                "content": [
+                                  {
+                                    "type": "Heading",
+                                    "props": {
+                                      "id": "target-pickup-delivery-title",
+                                      "as": "h2",
+                                      "typographyRole": "section-title",
+                                      "data": {
+                                        "text": {
+                                          "field": "",
+                                          "constantValueEnabled": true,
+                                          "constantValue": {
+                                            "defaultValue": "Shop pickup & delivery"
+                                          }
+                                        }
+                                      },
+                                      "spacing": {
+                                        "marginBlockStart": "0",
+                                        "marginBlockEnd": "0"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "Paragraph",
+                                    "props": {
+                                      "id": "target-start-order",
+                                      "as": "p",
+                                      "typographyRole": "body",
+                                      "data": {
+                                        "text": {
+                                          "field": "",
+                                          "constantValueEnabled": true,
+                                          "constantValue": {
+                                            "defaultValue": "Start an order at [[address.city]]"
+                                          }
+                                        }
+                                      },
+                                      "spacing": {
+                                        "marginBlockStart": "0",
+                                        "marginBlockEnd": "0"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "Columns",
+                                    "props": {
+                                      "id": "target-ordering-options",
+                                      "as": "div",
+                                      "content": [
+                                        {
+                                          "type": "Stack",
+                                          "props": {
+                                            "id": "target-order-pickup",
+                                            "as": "div",
+                                            "content": [
+                                              {
+                                                "type": "Button",
+                                                "props": {
+                                                  "id": "target-order-pickup-link",
+                                                  "cta": {
+                                                    "field": "",
+                                                    "constantValueEnabled": true,
+                                                    "constantValue": {
+                                                      "label": {
+                                                        "defaultValue": "Order Pickup"
+                                                      },
+                                                      "link": {
+                                                        "defaultValue": "https://www.target.com/c/order-pickup/-/N-ng0a0"
+                                                      },
+                                                      "linkType": "URL",
+                                                      "ctaType": "textAndLink"
+                                                    }
+                                                  },
+                                                  "action": "link",
+                                                  "openInNewTab": false,
+                                                  "interactionRole": "link",
+                                                  "layout": {
+                                                    "display": "inline-flex",
+                                                    "alignItems": "center",
+                                                    "gap": "8px",
+                                                    "width": "fit-content"
+                                                  },
+                                                  "typography": {
+                                                    "fontWeight": "700",
+                                                    "textDecoration": "underline"
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                "type": "Paragraph",
+                                                "props": {
+                                                  "id": "target-order-pickup-description",
+                                                  "as": "p",
+                                                  "typographyRole": "body-small",
+                                                  "data": {
+                                                    "text": {
+                                                      "field": "",
+                                                      "constantValueEnabled": true,
+                                                      "constantValue": {
+                                                        "defaultValue": "Order ahead and pickup in-store"
+                                                      }
+                                                    }
+                                                  },
+                                                  "spacing": {
+                                                    "marginBlockStart": "0",
+                                                    "marginBlockEnd": "0"
+                                                  }
+                                                }
+                                              }
+                                            ],
+                                            "spacing": {
+                                              "paddingBlockStart": "12px",
+                                              "paddingBlockEnd": "12px",
+                                              "paddingInlineStart": "12px",
+                                              "paddingInlineEnd": "12px"
+                                            },
+                                            "surface": {
+                                              "borderStyle": "solid",
+                                              "borderWidth": "var(--ve-card-border-width)",
+                                              "borderColor": "var(--ve-color-border)",
+                                              "borderRadius": "var(--ve-card-border-radius)"
+                                            },
+                                            "layout": {
+                                              "display": "flex",
+                                              "flexDirection": "column",
+                                              "gap": "4px"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "type": "Stack",
+                                          "props": {
+                                            "id": "target-same-day",
+                                            "as": "div",
+                                            "content": [
+                                              {
+                                                "type": "Button",
+                                                "props": {
+                                                  "id": "target-same-day-link",
+                                                  "cta": {
+                                                    "field": "",
+                                                    "constantValueEnabled": true,
+                                                    "constantValue": {
+                                                      "label": {
+                                                        "defaultValue": "Same Day Delivery"
+                                                      },
+                                                      "link": {
+                                                        "defaultValue": "https://www.target.com/c/same-day-delivery/-/N-bswkz"
+                                                      },
+                                                      "linkType": "URL",
+                                                      "ctaType": "textAndLink"
+                                                    }
+                                                  },
+                                                  "action": "link",
+                                                  "openInNewTab": false,
+                                                  "interactionRole": "link",
+                                                  "layout": {
+                                                    "display": "inline-flex",
+                                                    "alignItems": "center",
+                                                    "gap": "8px",
+                                                    "width": "fit-content"
+                                                  },
+                                                  "typography": {
+                                                    "fontWeight": "700",
+                                                    "textDecoration": "underline"
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                "type": "Paragraph",
+                                                "props": {
+                                                  "id": "target-same-day-description",
+                                                  "as": "p",
+                                                  "typographyRole": "body-small",
+                                                  "data": {
+                                                    "text": {
+                                                      "field": "",
+                                                      "constantValueEnabled": true,
+                                                      "constantValue": {
+                                                        "defaultValue": "Brought to your door by Shipt"
+                                                      }
+                                                    }
+                                                  },
+                                                  "spacing": {
+                                                    "marginBlockStart": "0",
+                                                    "marginBlockEnd": "0"
+                                                  }
+                                                }
+                                              }
+                                            ],
+                                            "spacing": {
+                                              "paddingBlockStart": "12px",
+                                              "paddingBlockEnd": "12px",
+                                              "paddingInlineStart": "12px",
+                                              "paddingInlineEnd": "12px"
+                                            },
+                                            "surface": {
+                                              "borderStyle": "solid",
+                                              "borderWidth": "var(--ve-card-border-width)",
+                                              "borderColor": "var(--ve-color-border)",
+                                              "borderRadius": "var(--ve-card-border-radius)"
+                                            },
+                                            "layout": {
+                                              "display": "flex",
+                                              "flexDirection": "column",
+                                              "gap": "4px"
+                                            }
+                                          }
+                                        }
+                                      ],
+                                      "layout": {
+                                        "display": "grid",
+                                        "gridTemplateColumns": "repeat(2, minmax(0, 1fr))",
+                                        "gap": "16px",
+                                        "alignItems": "start"
+                                      },
+                                      "responsive": {
+                                        "tablet": {
+                                          "layout": {
+                                            "gridTemplateColumns": "repeat(2, minmax(0, 1fr))"
+                                          }
+                                        },
+                                        "mobile": {
+                                          "layout": {
+                                            "gridTemplateColumns": "repeat(2, minmax(0, 1fr))"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                ],
+                                "spacing": {
+                                  "paddingBlockStart": "20px",
+                                  "paddingBlockEnd": "20px",
+                                  "paddingInlineStart": "20px",
+                                  "paddingInlineEnd": "20px"
+                                },
+                                "surface": {
+                                  "borderStyle": "solid",
+                                  "borderWidth": "var(--ve-card-border-width)",
+                                  "borderColor": "var(--ve-color-border)",
+                                  "borderRadius": "var(--ve-card-border-radius)"
+                                },
+                                "layout": {
+                                  "display": "flex",
+                                  "flexDirection": "column",
+                                  "gap": "12px"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Stack",
+                              "props": {
+                                "id": "target-services",
+                                "as": "section",
+                                "content": [
+                                  {
+                                    "type": "Heading",
+                                    "props": {
+                                      "id": "target-services-title",
+                                      "as": "h2",
+                                      "typographyRole": "section-title",
+                                      "data": {
+                                        "text": {
+                                          "field": "",
+                                          "constantValueEnabled": true,
+                                          "constantValue": {
+                                            "defaultValue": "At your [[name]]"
+                                          }
+                                        }
+                                      },
+                                      "spacing": {
+                                        "marginBlockStart": "0",
+                                        "marginBlockEnd": "0"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "TextList",
+                                    "props": {
+                                      "id": "target-store-services",
+                                      "list": {
+                                        "field": "services",
+                                        "constantValueEnabled": false,
+                                        "constantValue": []
+                                      },
+                                      "commaSeparated": false
+                                    }
+                                  }
+                                ],
+                                "spacing": {
+                                  "paddingBlockStart": "20px",
+                                  "paddingBlockEnd": "20px",
+                                  "paddingInlineStart": "20px",
+                                  "paddingInlineEnd": "20px"
+                                },
+                                "surface": {
+                                  "borderStyle": "solid",
+                                  "borderWidth": "var(--ve-card-border-width)",
+                                  "borderColor": "var(--ve-color-border)",
+                                  "borderRadius": "var(--ve-card-border-radius)"
+                                },
+                                "layout": {
+                                  "display": "flex",
+                                  "flexDirection": "column",
+                                  "gap": "12px"
+                                }
+                              }
+                            }
+                          ],
+                          "layout": {
+                            "display": "flex",
+                            "flexDirection": "column",
+                            "gap": "16px"
+                          }
+                        }
+                      }
+                    ],
+                    "layout": {
+                      "display": "grid",
+                      "gridTemplateColumns": "minmax(0, 3fr) minmax(0, 4fr)",
+                      "gap": "16px",
+                      "alignItems": "start"
+                    },
+                    "responsive": {
+                      "tablet": {
+                        "layout": {
+                          "gridTemplateColumns": "minmax(0, 1fr)"
+                        }
+                      },
+                      "mobile": {
+                        "layout": {
+                          "gridTemplateColumns": "minmax(0, 1fr)"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Stack",
+                  "props": {
+                    "id": "target-categories",
+                    "as": "section",
+                    "content": [
+                      {
+                        "type": "Flex",
+                        "props": {
+                          "id": "target-categories-heading",
+                          "as": "div",
+                          "content": [
+                            {
+                              "type": "Heading",
+                              "props": {
+                                "id": "target-categories-title",
+                                "as": "h2",
+                                "typographyRole": "section-title",
+                                "data": {
+                                  "text": {
+                                    "field": "",
+                                    "constantValueEnabled": true,
+                                    "constantValue": {
+                                      "defaultValue": "Feature Categories"
+                                    }
+                                  }
+                                },
+                                "spacing": {
+                                  "marginBlockStart": "0",
+                                  "marginBlockEnd": "0"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-shop-all",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Shop all"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/c/shop-all-categories/-/N-5xsxf"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                },
+                                "icon": "ArrowRight"
+                              }
+                            }
+                          ],
+                          "layout": {
+                            "display": "flex",
+                            "flexDirection": "row",
+                            "alignItems": "center",
+                            "flexWrap": "wrap",
+                            "gap": "12px",
+                            "justifyContent": "space-between"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Columns",
+                        "props": {
+                          "id": "target-categories-grid",
+                          "as": "div",
+                          "content": [
+                            {
+                              "type": "Stack",
+                              "props": {
+                                "id": "target-category-0",
+                                "as": "div",
+                                "content": [
+                                  {
+                                    "type": "Image",
+                                    "props": {
+                                      "id": "target-category-image-0",
+                                      "data": {
+                                        "image": {
+                                          "field": "",
+                                          "constantValueEnabled": true,
+                                          "constantValue": {
+                                            "url": "https://target.scene7.com/is/image/Target/5wk4_Grocery_CatNavs_Produce226138-200504_1588627319062?wid=128",
+                                            "width": 128,
+                                            "height": 128
+                                          }
+                                        }
+                                      },
+                                      "altText": {
+                                        "field": "",
+                                        "constantValueEnabled": true,
+                                        "constantValue": {
+                                          "defaultValue": ""
+                                        }
+                                      },
+                                      "decorative": true,
+                                      "loading": "lazy",
+                                      "layout": {
+                                        "display": "block",
+                                        "width": "clamp(56px, 10vw, 104px)",
+                                        "height": "auto"
+                                      },
+                                      "surface": {
+                                        "objectFit": "contain",
+                                        "borderRadius": "50%"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "Button",
+                                    "props": {
+                                      "id": "target-category-link-0",
+                                      "cta": {
+                                        "field": "",
+                                        "constantValueEnabled": true,
+                                        "constantValue": {
+                                          "label": {
+                                            "defaultValue": "Grocery"
+                                          },
+                                          "link": {
+                                            "defaultValue": "https://www.target.com/c/grocery/-/N-5xt1a"
+                                          },
+                                          "linkType": "URL",
+                                          "ctaType": "textAndLink"
+                                        }
+                                      },
+                                      "action": "link",
+                                      "openInNewTab": false,
+                                      "interactionRole": "link",
+                                      "layout": {
+                                        "display": "inline-flex",
+                                        "alignItems": "center",
+                                        "gap": "8px",
+                                        "width": "fit-content"
+                                      },
+                                      "typography": {
+                                        "textAlign": "center",
+                                        "fontWeight": "700"
+                                      }
+                                    }
+                                  }
+                                ],
+                                "layout": {
+                                  "display": "flex",
+                                  "flexDirection": "column",
+                                  "gap": "8px",
+                                  "alignItems": "center"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Stack",
+                              "props": {
+                                "id": "target-category-1",
+                                "as": "div",
+                                "content": [
+                                  {
+                                    "type": "Image",
+                                    "props": {
+                                      "id": "target-category-image-1",
+                                      "data": {
+                                        "image": {
+                                          "field": "",
+                                          "constantValueEnabled": true,
+                                          "constantValue": {
+                                            "url": "https://target.scene7.com/is/image/Target/home138095-180815_1534366815826?wid=128",
+                                            "width": 128,
+                                            "height": 128
+                                          }
+                                        }
+                                      },
+                                      "altText": {
+                                        "field": "",
+                                        "constantValueEnabled": true,
+                                        "constantValue": {
+                                          "defaultValue": ""
+                                        }
+                                      },
+                                      "decorative": true,
+                                      "loading": "lazy",
+                                      "layout": {
+                                        "display": "block",
+                                        "width": "clamp(56px, 10vw, 104px)",
+                                        "height": "auto"
+                                      },
+                                      "surface": {
+                                        "objectFit": "contain",
+                                        "borderRadius": "50%"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "Button",
+                                    "props": {
+                                      "id": "target-category-link-1",
+                                      "cta": {
+                                        "field": "",
+                                        "constantValueEnabled": true,
+                                        "constantValue": {
+                                          "label": {
+                                            "defaultValue": "Home"
+                                          },
+                                          "link": {
+                                            "defaultValue": "https://www.target.com/c/home/-/N-5xtvd"
+                                          },
+                                          "linkType": "URL",
+                                          "ctaType": "textAndLink"
+                                        }
+                                      },
+                                      "action": "link",
+                                      "openInNewTab": false,
+                                      "interactionRole": "link",
+                                      "layout": {
+                                        "display": "inline-flex",
+                                        "alignItems": "center",
+                                        "gap": "8px",
+                                        "width": "fit-content"
+                                      },
+                                      "typography": {
+                                        "textAlign": "center",
+                                        "fontWeight": "700"
+                                      }
+                                    }
+                                  }
+                                ],
+                                "layout": {
+                                  "display": "flex",
+                                  "flexDirection": "column",
+                                  "gap": "8px",
+                                  "alignItems": "center"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Stack",
+                              "props": {
+                                "id": "target-category-2",
+                                "as": "div",
+                                "content": [
+                                  {
+                                    "type": "Image",
+                                    "props": {
+                                      "id": "target-category-image-2",
+                                      "data": {
+                                        "image": {
+                                          "field": "",
+                                          "constantValueEnabled": true,
+                                          "constantValue": {
+                                            "url": "https://target.scene7.com/is/image/Target/Baby219475-200305_1583423490259?wid=128",
+                                            "width": 128,
+                                            "height": 128
+                                          }
+                                        }
+                                      },
+                                      "altText": {
+                                        "field": "",
+                                        "constantValueEnabled": true,
+                                        "constantValue": {
+                                          "defaultValue": ""
+                                        }
+                                      },
+                                      "decorative": true,
+                                      "loading": "lazy",
+                                      "layout": {
+                                        "display": "block",
+                                        "width": "clamp(56px, 10vw, 104px)",
+                                        "height": "auto"
+                                      },
+                                      "surface": {
+                                        "objectFit": "contain",
+                                        "borderRadius": "50%"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "Button",
+                                    "props": {
+                                      "id": "target-category-link-2",
+                                      "cta": {
+                                        "field": "",
+                                        "constantValueEnabled": true,
+                                        "constantValue": {
+                                          "label": {
+                                            "defaultValue": "Baby"
+                                          },
+                                          "link": {
+                                            "defaultValue": "https://www.target.com/c/baby/-/N-5xtly"
+                                          },
+                                          "linkType": "URL",
+                                          "ctaType": "textAndLink"
+                                        }
+                                      },
+                                      "action": "link",
+                                      "openInNewTab": false,
+                                      "interactionRole": "link",
+                                      "layout": {
+                                        "display": "inline-flex",
+                                        "alignItems": "center",
+                                        "gap": "8px",
+                                        "width": "fit-content"
+                                      },
+                                      "typography": {
+                                        "textAlign": "center",
+                                        "fontWeight": "700"
+                                      }
+                                    }
+                                  }
+                                ],
+                                "layout": {
+                                  "display": "flex",
+                                  "flexDirection": "column",
+                                  "gap": "8px",
+                                  "alignItems": "center"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Stack",
+                              "props": {
+                                "id": "target-category-3",
+                                "as": "div",
+                                "content": [
+                                  {
+                                    "type": "Image",
+                                    "props": {
+                                      "id": "target-category-image-3",
+                                      "data": {
+                                        "image": {
+                                          "field": "",
+                                          "constantValueEnabled": true,
+                                          "constantValue": {
+                                            "url": "https://target.scene7.com/is/image/Target/electronics138096-180815_1534366746718?wid=128",
+                                            "width": 128,
+                                            "height": 128
+                                          }
+                                        }
+                                      },
+                                      "altText": {
+                                        "field": "",
+                                        "constantValueEnabled": true,
+                                        "constantValue": {
+                                          "defaultValue": ""
+                                        }
+                                      },
+                                      "decorative": true,
+                                      "loading": "lazy",
+                                      "layout": {
+                                        "display": "block",
+                                        "width": "clamp(56px, 10vw, 104px)",
+                                        "height": "auto"
+                                      },
+                                      "surface": {
+                                        "objectFit": "contain",
+                                        "borderRadius": "50%"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "Button",
+                                    "props": {
+                                      "id": "target-category-link-3",
+                                      "cta": {
+                                        "field": "",
+                                        "constantValueEnabled": true,
+                                        "constantValue": {
+                                          "label": {
+                                            "defaultValue": "Electronics"
+                                          },
+                                          "link": {
+                                            "defaultValue": "https://www.target.com/c/electronics/-/N-5xtg6"
+                                          },
+                                          "linkType": "URL",
+                                          "ctaType": "textAndLink"
+                                        }
+                                      },
+                                      "action": "link",
+                                      "openInNewTab": false,
+                                      "interactionRole": "link",
+                                      "layout": {
+                                        "display": "inline-flex",
+                                        "alignItems": "center",
+                                        "gap": "8px",
+                                        "width": "fit-content"
+                                      },
+                                      "typography": {
+                                        "textAlign": "center",
+                                        "fontWeight": "700"
+                                      }
+                                    }
+                                  }
+                                ],
+                                "layout": {
+                                  "display": "flex",
+                                  "flexDirection": "column",
+                                  "gap": "8px",
+                                  "alignItems": "center"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Stack",
+                              "props": {
+                                "id": "target-category-4",
+                                "as": "div",
+                                "content": [
+                                  {
+                                    "type": "Image",
+                                    "props": {
+                                      "id": "target-category-image-4",
+                                      "data": {
+                                        "image": {
+                                          "field": "",
+                                          "constantValueEnabled": true,
+                                          "constantValue": {
+                                            "url": "https://target.scene7.com/is/image/Target/GUEST_92820d09-e7c4-4ec4-b28d-12f5e31056eb?wid=128",
+                                            "width": 128,
+                                            "height": 128
+                                          }
+                                        }
+                                      },
+                                      "altText": {
+                                        "field": "",
+                                        "constantValueEnabled": true,
+                                        "constantValue": {
+                                          "defaultValue": ""
+                                        }
+                                      },
+                                      "decorative": true,
+                                      "loading": "lazy",
+                                      "layout": {
+                                        "display": "block",
+                                        "width": "clamp(56px, 10vw, 104px)",
+                                        "height": "auto"
+                                      },
+                                      "surface": {
+                                        "objectFit": "contain",
+                                        "borderRadius": "50%"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "Button",
+                                    "props": {
+                                      "id": "target-category-link-4",
+                                      "cta": {
+                                        "field": "",
+                                        "constantValueEnabled": true,
+                                        "constantValue": {
+                                          "label": {
+                                            "defaultValue": "Toys"
+                                          },
+                                          "link": {
+                                            "defaultValue": "https://www.target.com/c/toys/-/N-5xtb0"
+                                          },
+                                          "linkType": "URL",
+                                          "ctaType": "textAndLink"
+                                        }
+                                      },
+                                      "action": "link",
+                                      "openInNewTab": false,
+                                      "interactionRole": "link",
+                                      "layout": {
+                                        "display": "inline-flex",
+                                        "alignItems": "center",
+                                        "gap": "8px",
+                                        "width": "fit-content"
+                                      },
+                                      "typography": {
+                                        "textAlign": "center",
+                                        "fontWeight": "700"
+                                      }
+                                    }
+                                  }
+                                ],
+                                "layout": {
+                                  "display": "flex",
+                                  "flexDirection": "column",
+                                  "gap": "8px",
+                                  "alignItems": "center"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Stack",
+                              "props": {
+                                "id": "target-category-5",
+                                "as": "div",
+                                "content": [
+                                  {
+                                    "type": "Image",
+                                    "props": {
+                                      "id": "target-category-image-5",
+                                      "data": {
+                                        "image": {
+                                          "field": "",
+                                          "constantValueEnabled": true,
+                                          "constantValue": {
+                                            "url": "https://target.scene7.com/is/image/Target/2Wk1_CleanDrivers_CN_CleanBeauty215295-200129_1580315595227?wid=128",
+                                            "width": 128,
+                                            "height": 128
+                                          }
+                                        }
+                                      },
+                                      "altText": {
+                                        "field": "",
+                                        "constantValueEnabled": true,
+                                        "constantValue": {
+                                          "defaultValue": ""
+                                        }
+                                      },
+                                      "decorative": true,
+                                      "loading": "lazy",
+                                      "layout": {
+                                        "display": "block",
+                                        "width": "clamp(56px, 10vw, 104px)",
+                                        "height": "auto"
+                                      },
+                                      "surface": {
+                                        "objectFit": "contain",
+                                        "borderRadius": "50%"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "Button",
+                                    "props": {
+                                      "id": "target-category-link-5",
+                                      "cta": {
+                                        "field": "",
+                                        "constantValueEnabled": true,
+                                        "constantValue": {
+                                          "label": {
+                                            "defaultValue": "Beauty"
+                                          },
+                                          "link": {
+                                            "defaultValue": "https://www.target.com/c/beauty/-/N-55r1x"
+                                          },
+                                          "linkType": "URL",
+                                          "ctaType": "textAndLink"
+                                        }
+                                      },
+                                      "action": "link",
+                                      "openInNewTab": false,
+                                      "interactionRole": "link",
+                                      "layout": {
+                                        "display": "inline-flex",
+                                        "alignItems": "center",
+                                        "gap": "8px",
+                                        "width": "fit-content"
+                                      },
+                                      "typography": {
+                                        "textAlign": "center",
+                                        "fontWeight": "700"
+                                      }
+                                    }
+                                  }
+                                ],
+                                "layout": {
+                                  "display": "flex",
+                                  "flexDirection": "column",
+                                  "gap": "8px",
+                                  "alignItems": "center"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Stack",
+                              "props": {
+                                "id": "target-category-6",
+                                "as": "div",
+                                "content": [
+                                  {
+                                    "type": "Image",
+                                    "props": {
+                                      "id": "target-category-image-6",
+                                      "data": {
+                                        "image": {
+                                          "field": "",
+                                          "constantValueEnabled": true,
+                                          "constantValue": {
+                                            "url": "https://target.scene7.com/is/image/Target/YA_homepage_pic-nav_328x328138565-180801_1533152365096?wid=128",
+                                            "width": 128,
+                                            "height": 128
+                                          }
+                                        }
+                                      },
+                                      "altText": {
+                                        "field": "",
+                                        "constantValueEnabled": true,
+                                        "constantValue": {
+                                          "defaultValue": ""
+                                        }
+                                      },
+                                      "decorative": true,
+                                      "loading": "lazy",
+                                      "layout": {
+                                        "display": "block",
+                                        "width": "clamp(56px, 10vw, 104px)",
+                                        "height": "auto"
+                                      },
+                                      "surface": {
+                                        "objectFit": "contain",
+                                        "borderRadius": "50%"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "Button",
+                                    "props": {
+                                      "id": "target-category-link-6",
+                                      "cta": {
+                                        "field": "",
+                                        "constantValueEnabled": true,
+                                        "constantValue": {
+                                          "label": {
+                                            "defaultValue": "Clothing, Shoes & Accessories"
+                                          },
+                                          "link": {
+                                            "defaultValue": "https://www.target.com/c/clothing-shoes-accessories/-/N-rdihz"
+                                          },
+                                          "linkType": "URL",
+                                          "ctaType": "textAndLink"
+                                        }
+                                      },
+                                      "action": "link",
+                                      "openInNewTab": false,
+                                      "interactionRole": "link",
+                                      "layout": {
+                                        "display": "inline-flex",
+                                        "alignItems": "center",
+                                        "gap": "8px",
+                                        "width": "fit-content"
+                                      },
+                                      "typography": {
+                                        "textAlign": "center",
+                                        "fontWeight": "700"
+                                      }
+                                    }
+                                  }
+                                ],
+                                "layout": {
+                                  "display": "flex",
+                                  "flexDirection": "column",
+                                  "gap": "8px",
+                                  "alignItems": "center"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Stack",
+                              "props": {
+                                "id": "target-category-7",
+                                "as": "div",
+                                "content": [
+                                  {
+                                    "type": "Image",
+                                    "props": {
+                                      "id": "target-category-image-7",
+                                      "data": {
+                                        "image": {
+                                          "field": "",
+                                          "constantValueEnabled": true,
+                                          "constantValue": {
+                                            "url": "https://target.scene7.com/is/image/Target/household_essentials138103-180815_1534365990760?wid=128",
+                                            "width": 128,
+                                            "height": 128
+                                          }
+                                        }
+                                      },
+                                      "altText": {
+                                        "field": "",
+                                        "constantValueEnabled": true,
+                                        "constantValue": {
+                                          "defaultValue": ""
+                                        }
+                                      },
+                                      "decorative": true,
+                                      "loading": "lazy",
+                                      "layout": {
+                                        "display": "block",
+                                        "width": "clamp(56px, 10vw, 104px)",
+                                        "height": "auto"
+                                      },
+                                      "surface": {
+                                        "objectFit": "contain",
+                                        "borderRadius": "50%"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "Button",
+                                    "props": {
+                                      "id": "target-category-link-7",
+                                      "cta": {
+                                        "field": "",
+                                        "constantValueEnabled": true,
+                                        "constantValue": {
+                                          "label": {
+                                            "defaultValue": "Household Essentials"
+                                          },
+                                          "link": {
+                                            "defaultValue": "https://www.target.com/c/household-essentials/-/N-5xsz1"
+                                          },
+                                          "linkType": "URL",
+                                          "ctaType": "textAndLink"
+                                        }
+                                      },
+                                      "action": "link",
+                                      "openInNewTab": false,
+                                      "interactionRole": "link",
+                                      "layout": {
+                                        "display": "inline-flex",
+                                        "alignItems": "center",
+                                        "gap": "8px",
+                                        "width": "fit-content"
+                                      },
+                                      "typography": {
+                                        "textAlign": "center",
+                                        "fontWeight": "700"
+                                      }
+                                    }
+                                  }
+                                ],
+                                "layout": {
+                                  "display": "flex",
+                                  "flexDirection": "column",
+                                  "gap": "8px",
+                                  "alignItems": "center"
+                                }
+                              }
+                            }
+                          ],
+                          "layout": {
+                            "display": "grid",
+                            "gridTemplateColumns": "repeat(8, minmax(0, 1fr))",
+                            "gap": "16px",
+                            "alignItems": "start",
+                            "rowGap": "20px"
+                          },
+                          "responsive": {
+                            "tablet": {
+                              "layout": {
+                                "gridTemplateColumns": "repeat(4, minmax(0, 1fr))"
+                              }
+                            },
+                            "mobile": {
+                              "layout": {
+                                "gridTemplateColumns": "repeat(2, minmax(0, 1fr))"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ],
+                    "layout": {
+                      "display": "flex",
+                      "flexDirection": "column",
+                      "gap": "16px"
+                    }
+                  }
+                },
+                {
+                  "type": "Columns",
+                  "props": {
+                    "id": "target-target-app",
+                    "as": "section",
+                    "content": [
+                      {
+                        "type": "Stack",
+                        "props": {
+                          "id": "target-app-details",
+                          "as": "div",
+                          "content": [
+                            {
+                              "type": "Heading",
+                              "props": {
+                                "id": "target-app-title",
+                                "as": "h2",
+                                "typographyRole": "section-title",
+                                "data": {
+                                  "text": {
+                                    "field": "",
+                                    "constantValueEnabled": true,
+                                    "constantValue": {
+                                      "defaultValue": "The easiest way to shop & save"
+                                    }
+                                  }
+                                },
+                                "spacing": {
+                                  "marginBlockStart": "0",
+                                  "marginBlockEnd": "0"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-app-link",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Download the Target app"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/c/target-app/-/N-4th2r"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "primary-button",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content",
+                                  "minHeight": "44px",
+                                  "justifyContent": "center"
+                                }
+                              }
+                            }
+                          ],
+                          "layout": {
+                            "display": "flex",
+                            "flexDirection": "column",
+                            "gap": "12px"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Image",
+                        "props": {
+                          "id": "target-app-qr",
+                          "data": {
+                            "image": {
+                              "field": "",
+                              "constantValueEnabled": true,
+                              "constantValue": {
+                                "url": "https://target.scene7.com/is/image/Target/GUEST_53d31c23-41c0-4d3d-875a-9242dccbb8b5?wid=256&qlt=80",
+                                "width": 256,
+                                "height": 256
+                              }
+                            },
+                            "link": {
+                              "defaultValue": "https://www.target.com/c/target-app/-/N-4th2r"
+                            }
+                          },
+                          "altText": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "defaultValue": "Scan QR code to download the Target app"
+                            }
+                          },
+                          "decorative": false,
+                          "loading": "lazy",
+                          "layout": {
+                            "display": "block",
+                            "width": "96px",
+                            "height": "auto"
+                          },
+                          "surface": {
+                            "objectFit": "contain"
+                          },
+                          "responsive": {
+                            "mobile": {
+                              "layout": {
+                                "display": "none"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "type": "Image",
+                        "props": {
+                          "id": "target-app-image",
+                          "data": {
+                            "image": {
+                              "field": "",
+                              "constantValueEnabled": true,
+                              "constantValue": {
+                                "url": "https://target.scene7.com/is/content/Target/GUEST_0dccf966-e225-4ef1-9682-2fd859af48f3?wid=384&qlt=80",
+                                "width": 384,
+                                "height": 384
+                              }
+                            }
+                          },
+                          "altText": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "defaultValue": "Hand holding phone with Target app"
+                            }
+                          },
+                          "decorative": false,
+                          "loading": "lazy",
+                          "layout": {
+                            "display": "block",
+                            "width": "100%",
+                            "maxWidth": "220px",
+                            "height": "auto"
+                          },
+                          "surface": {
+                            "objectFit": "contain"
+                          }
+                        }
+                      }
+                    ],
+                    "surfaceRole": "muted",
+                    "surface": {
+                      "borderRadius": "var(--ve-card-border-radius)"
+                    },
+                    "spacing": {
+                      "paddingBlockStart": "24px",
+                      "paddingBlockEnd": "24px",
+                      "paddingInlineStart": "24px",
+                      "paddingInlineEnd": "24px"
+                    },
+                    "layout": {
+                      "display": "grid",
+                      "gridTemplateColumns": "minmax(0, 1fr) auto auto",
+                      "gap": "16px",
+                      "alignItems": "center",
+                      "columnGap": "24px"
+                    },
+                    "responsive": {
+                      "tablet": {
+                        "layout": {
+                          "gridTemplateColumns": "minmax(0, 1fr) auto auto"
+                        }
+                      },
+                      "mobile": {
+                        "layout": {
+                          "gridTemplateColumns": "minmax(0, 1fr)"
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              "layout": {
+                "display": "flex",
+                "flexDirection": "column",
+                "gap": "var(--ve-page-section-vertical-spacing)",
+                "width": "100%",
+                "maxWidth": "calc(var(--ve-page-content-max-width) + 32px)"
+              },
+              "spacing": {
+                "paddingBlockStart": "20px",
+                "paddingBlockEnd": "var(--ve-page-section-vertical-spacing)",
+                "paddingInlineStart": "16px",
+                "paddingInlineEnd": "16px",
+                "marginBlockStart": "0",
+                "marginBlockEnd": "0",
+                "marginInlineStart": "auto",
+                "marginInlineEnd": "auto"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Box",
+      "props": {
+        "id": "target-footer",
+        "as": "footer",
+        "content": [
+          {
+            "type": "Stack",
+            "props": {
+              "id": "target-footer-content",
+              "as": "div",
+              "content": [
+                {
+                  "type": "Columns",
+                  "props": {
+                    "id": "target-footer-nav",
+                    "as": "div",
+                    "content": [
+                      {
+                        "type": "Stack",
+                        "props": {
+                          "id": "target-footer-column-0",
+                          "as": "nav",
+                          "content": [
+                            {
+                              "type": "Heading",
+                              "props": {
+                                "id": "target-footer-title-0",
+                                "as": "h2",
+                                "typographyRole": "card-title",
+                                "data": {
+                                  "text": {
+                                    "field": "",
+                                    "constantValueEnabled": true,
+                                    "constantValue": {
+                                      "defaultValue": "About Us"
+                                    }
+                                  }
+                                },
+                                "spacing": {
+                                  "marginBlockStart": "0",
+                                  "marginBlockEnd": "0"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-0-0",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "About Target"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://corporate.target.com/about"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-0-1",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Careers"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://corporate.target.com/careers/"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-0-2",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "News & Blog"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://corporate.target.com/news-features"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-0-3",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Target Brands"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://corporate.target.com/about/products-services/Target-Brands"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-0-4",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Bullseye Shop"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.bullseyeshop.com/"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-0-5",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Sustainability & Governance"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://corporate.target.com/sustainability-governance"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-0-6",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Press Center"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://corporate.target.com/press"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-0-7",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Advertise with Us"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://roundel.com/?utm_source=Referral&utm_medium=Targetwebsite&utm_campaign=advertisewithus"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-0-8",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Investors"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://corporate.target.com/investors"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-0-9",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Affiliates & Partners"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://partners.target.com/"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-0-10",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Club Target"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/c/club-target/-/N-q6m3b"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-0-11",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Suppliers"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://corporate.target.com/about/products-services/suppliers#?lnk=fnav_t_spc_1_16"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-0-12",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "TargetPlus"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://plus.target.com/"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            }
+                          ],
+                          "attributes": {
+                            "ariaLabel": "About Us"
+                          },
+                          "layout": {
+                            "display": "flex",
+                            "flexDirection": "column",
+                            "gap": "10px"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Stack",
+                        "props": {
+                          "id": "target-footer-column-1",
+                          "as": "nav",
+                          "content": [
+                            {
+                              "type": "Heading",
+                              "props": {
+                                "id": "target-footer-title-1",
+                                "as": "h2",
+                                "typographyRole": "card-title",
+                                "data": {
+                                  "text": {
+                                    "field": "",
+                                    "constantValueEnabled": true,
+                                    "constantValue": {
+                                      "defaultValue": "Help"
+                                    }
+                                  }
+                                },
+                                "spacing": {
+                                  "marginBlockStart": "0",
+                                  "marginBlockEnd": "0"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-1-0",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Target Help"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/help"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-1-1",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Returns"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/returns"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-1-2",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Track Orders"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/orders"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-1-3",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Recalls"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/help/articles/news-safety/product-recalls"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-1-4",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Contact Us"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/help/contact-us"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-1-5",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Accessibility"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/help/articles/compliances/accessibility"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-1-6",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Security & Fraud"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://security.target.com/"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-1-7",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Team Member Services"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/targethr"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-1-8",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Legal & Privacy"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/guest-privacy/legal-privacy"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            }
+                          ],
+                          "attributes": {
+                            "ariaLabel": "Help"
+                          },
+                          "layout": {
+                            "display": "flex",
+                            "flexDirection": "column",
+                            "gap": "10px"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Stack",
+                        "props": {
+                          "id": "target-footer-column-2",
+                          "as": "nav",
+                          "content": [
+                            {
+                              "type": "Heading",
+                              "props": {
+                                "id": "target-footer-title-2",
+                                "as": "h2",
+                                "typographyRole": "card-title",
+                                "data": {
+                                  "text": {
+                                    "field": "",
+                                    "constantValueEnabled": true,
+                                    "constantValue": {
+                                      "defaultValue": "Stores"
+                                    }
+                                  }
+                                },
+                                "spacing": {
+                                  "marginBlockStart": "0",
+                                  "marginBlockEnd": "0"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-2-0",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Find a Store"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/store-locator/find-stores"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-2-1",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Clinic"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/c/clinic/-/N-54x94"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-2-2",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Pharmacy"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/c/pharmacy-health/-/N-54y52"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-2-3",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Target Optical"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/c/optical/-/N-4y8o9"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-2-4",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "More In-Store Services"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/c/services/-/N-oq1wk"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            }
+                          ],
+                          "attributes": {
+                            "ariaLabel": "Stores"
+                          },
+                          "layout": {
+                            "display": "flex",
+                            "flexDirection": "column",
+                            "gap": "10px"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Stack",
+                        "props": {
+                          "id": "target-footer-column-3",
+                          "as": "nav",
+                          "content": [
+                            {
+                              "type": "Heading",
+                              "props": {
+                                "id": "target-footer-title-3",
+                                "as": "h2",
+                                "typographyRole": "card-title",
+                                "data": {
+                                  "text": {
+                                    "field": "",
+                                    "constantValueEnabled": true,
+                                    "constantValue": {
+                                      "defaultValue": "Services"
+                                    }
+                                  }
+                                },
+                                "spacing": {
+                                  "marginBlockStart": "0",
+                                  "marginBlockEnd": "0"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-3-0",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Target Circle™"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/l/target-circle/-/N-pzno9"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-3-1",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Target Circle™ Card"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/circlecard"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-3-2",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Target Circle 360™"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/l/target-circle-360/-/N-2rguk"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-3-3",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Target App"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/c/target-app/-/N-4th2r"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-3-4",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Registry"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/gift-registry"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-3-5",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Same Day Delivery"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/c/same-day-delivery/-/N-bswkz"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-3-6",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Order Pickup"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/c/order-pickup/-/N-ng0a0"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-3-7",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "Drive up & Delivery"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/c/shipping-order-services/-/N-551st"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            },
+                            {
+                              "type": "Button",
+                              "props": {
+                                "id": "target-footer-link-3-8",
+                                "cta": {
+                                  "field": "",
+                                  "constantValueEnabled": true,
+                                  "constantValue": {
+                                    "label": {
+                                      "defaultValue": "More Services"
+                                    },
+                                    "link": {
+                                      "defaultValue": "https://www.target.com/c/services/-/N-oq1wk"
+                                    },
+                                    "linkType": "URL",
+                                    "ctaType": "textAndLink"
+                                  }
+                                },
+                                "action": "link",
+                                "openInNewTab": false,
+                                "interactionRole": "link",
+                                "layout": {
+                                  "display": "inline-flex",
+                                  "alignItems": "center",
+                                  "gap": "8px",
+                                  "width": "fit-content"
+                                }
+                              }
+                            }
+                          ],
+                          "attributes": {
+                            "ariaLabel": "Services"
+                          },
+                          "layout": {
+                            "display": "flex",
+                            "flexDirection": "column",
+                            "gap": "10px"
+                          }
+                        }
+                      }
+                    ],
+                    "layout": {
+                      "display": "grid",
+                      "gridTemplateColumns": "repeat(4, minmax(0, 1fr))",
+                      "gap": "16px",
+                      "alignItems": "start"
+                    },
+                    "responsive": {
+                      "tablet": {
+                        "layout": {
+                          "gridTemplateColumns": "repeat(2, minmax(0, 1fr))"
+                        }
+                      },
+                      "mobile": {
+                        "layout": {
+                          "gridTemplateColumns": "repeat(2, minmax(0, 1fr))"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Button",
+                  "props": {
+                    "id": "target-promotion-terms",
+                    "cta": {
+                      "field": "",
+                      "constantValueEnabled": true,
+                      "constantValue": {
+                        "label": {
+                          "defaultValue": "Restrictions and terms apply"
+                        },
+                        "link": {
+                          "defaultValue": "https://www.target.com/help/articles/promotions-coupons/current-promotions"
+                        },
+                        "linkType": "URL",
+                        "ctaType": "textAndLink"
+                      }
+                    },
+                    "action": "link",
+                    "openInNewTab": false,
+                    "interactionRole": "link",
+                    "layout": {
+                      "display": "inline-flex",
+                      "alignItems": "center",
+                      "gap": "8px",
+                      "width": "fit-content"
+                    }
+                  }
+                },
+                {
+                  "type": "Flex",
+                  "props": {
+                    "id": "target-footer-legal",
+                    "as": "nav",
+                    "content": [
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-legal-0",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Terms"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.target.com/c/terms-conditions/-/N-4sr7l"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-legal-1",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "CA Supply Chain"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.target.com/help/articles/compliances/ca-transparency-in-supply-chains-act"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-legal-2",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Privacy Policy"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.target.com/c/target-privacy-policy/-/N-4sr7p"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-legal-3",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Your CA Privacy Rights"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.target.com/c/your-ca-privacy-rights-/N-m2wjt"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-legal-4",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Your Privacy Choices"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.target.com/guest-privacy"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-legal-5",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Interest Based Ads"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.target.com/c/interest-based-advertising-privacy-policy/-/N-ztavm"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-legal-6",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Health Privacy Policy"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.target.com/c/health-policy/-/N-4gc0k"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      }
+                    ],
+                    "attributes": {
+                      "ariaLabel": "Legal and privacy"
+                    },
+                    "layout": {
+                      "display": "flex",
+                      "flexDirection": "row",
+                      "alignItems": "center",
+                      "flexWrap": "wrap",
+                      "gap": "12px"
+                    }
+                  }
+                },
+                {
+                  "type": "Flex",
+                  "props": {
+                    "id": "target-footer-social",
+                    "as": "nav",
+                    "content": [
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-social-0",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Pinterest"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.pinterest.com/target"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-social-1",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Facebook"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.facebook.com/target"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-social-2",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Instagram"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.instagram.com/target"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-social-3",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "X"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.x.com/Target"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-social-4",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Youtube"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.youtube.com/target"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "props": {
+                          "id": "target-social-5",
+                          "cta": {
+                            "field": "",
+                            "constantValueEnabled": true,
+                            "constantValue": {
+                              "label": {
+                                "defaultValue": "Tiktok"
+                              },
+                              "link": {
+                                "defaultValue": "https://www.tiktok.com/@target"
+                              },
+                              "linkType": "URL",
+                              "ctaType": "textAndLink"
+                            }
+                          },
+                          "action": "link",
+                          "openInNewTab": false,
+                          "interactionRole": "link",
+                          "layout": {
+                            "display": "inline-flex",
+                            "alignItems": "center",
+                            "gap": "8px",
+                            "width": "fit-content"
+                          }
+                        }
+                      }
+                    ],
+                    "attributes": {
+                      "ariaLabel": "Social media"
+                    },
+                    "layout": {
+                      "display": "flex",
+                      "flexDirection": "row",
+                      "alignItems": "center",
+                      "flexWrap": "wrap",
+                      "gap": "12px"
+                    }
+                  }
+                }
+              ],
+              "layout": {
+                "display": "flex",
+                "flexDirection": "column",
+                "gap": "24px",
+                "width": "100%",
+                "maxWidth": "calc(var(--ve-page-content-max-width) + 32px)"
+              },
+              "spacing": {
+                "paddingBlockStart": "32px",
+                "paddingBlockEnd": "32px",
+                "paddingInlineStart": "16px",
+                "paddingInlineEnd": "16px",
+                "marginBlockStart": "0",
+                "marginBlockEnd": "0",
+                "marginInlineStart": "auto",
+                "marginInlineEnd": "auto"
+              }
+            }
+          }
+        ],
+        "attributes": {
+          "htmlId": "target-footer"
+        },
+        "surfaceRole": "muted"
+      }
+    }
+  ],
+  "zones": {}
+}

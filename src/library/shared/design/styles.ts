@@ -1,5 +1,6 @@
 import { designVariable } from "./styleVariables.ts";
 import type { CSSProperties } from "react";
+import { pageBackgroundSolidValue, pageBackgroundValue } from "./theme.ts";
 import {
   styleSchema,
   type DesignProps,
@@ -49,6 +50,16 @@ export function designStyle(
           )?.[property]
         );
         if (!value) continue;
+        if (
+          property === "color" &&
+          value === "var(--sl-theme-color, revert-layer)"
+        )
+          value = `var(--sl-background-foreground, ${value})`;
+        if (
+          value === pageBackgroundValue &&
+          (property === "color" || property === "borderColor")
+        )
+          value = pageBackgroundSolidValue;
         // An unknown function is valid inside a custom property but makes an
         // inheritable text declaration compute to its inherited value. Using
         // the raw CSS keyword here would inherit the parent's *transport var*,
@@ -73,6 +84,7 @@ export function designStyle(
   add(props.responsive?.mobile, "mobile");
   add(props.states?.hover, "hover");
   add(props.states?.focusVisible, "focus");
+  add(props.states?.active, "active");
   return { ...baseAtomStyle, ...variables };
 }
 

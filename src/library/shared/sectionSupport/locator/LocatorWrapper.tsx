@@ -44,6 +44,7 @@ import {
   createSearchAnalyticsConfig,
   createSearchHeadlessConfig,
   getThemeColorCssValue,
+  getThemeColorHexValue,
   DEFAULT_ENTITY_TYPE,
   LocatorEntityType,
   getLocatorEntityTypeSourceMap,
@@ -950,9 +951,11 @@ const LocatorInternal = ({
     ).length > 0;
   const hasFilterModalToggle =
     openNowButton || showDistanceOptions || hasFacetOptions;
+  const filterAccent = getThemeColorCssValue(accentColor);
   const filterAccentColorCssVariable =
-    getThemeColorCssValue(accentColor?.selectedColor) ??
-    "var(--ve-color-primary)";
+    (filterAccent?.toLowerCase().includes("gradient(")
+      ? getThemeColorHexValue(`[${filterAccent}]`, streamDocument)
+      : filterAccent) ?? "var(--ve-color-primary-solid)";
   const resolvedHeading =
     (pageHeading?.title &&
       resolveComponentData(pageHeading.title, i18n.language, streamDocument)) ||
@@ -1003,8 +1006,9 @@ const LocatorInternal = ({
               customCssClasses={{
                 filterSearchContainer: "ve-theme-body ve-locator-filter-search",
                 focusedOption:
-                  "ve-theme-muted hover:bg-[var(--ve-color-muted)] block",
-                option: "hover:bg-[var(--ve-color-muted)] px-4 py-3",
+                  "group/locator-option ve-theme-muted hover:bg-[var(--ve-color-muted-solid)] block",
+                option:
+                  "px-4 py-3 hover:bg-[var(--ve-color-muted-solid)] hover:text-[color:var(--ve-color-muted-foreground)] group-aria-selected/locator-option:text-[color:var(--ve-color-muted-foreground)]",
                 inputElement:
                   "ve-theme-input rounded-md p-4 h-11 ve-theme-body",
                 currentLocationButton:

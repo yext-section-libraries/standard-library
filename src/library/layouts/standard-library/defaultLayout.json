@@ -420,7 +420,7 @@
                             }
                           },
                           "styles": {
-                            "backgroundColor": "page",
+                            "backgroundColor": "inherit",
                             "showCurrentPage": true
                           },
                           "analytics": {
@@ -2329,7 +2329,7 @@
                           },
                           "liveVisibility": true,
                           "styles": {
-                            "backgroundColor": "muted",
+                            "backgroundColor": "inherit",
                             "showSectionHeading": false
                           },
                           "data": {

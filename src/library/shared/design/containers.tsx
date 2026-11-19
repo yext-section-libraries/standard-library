@@ -7,13 +7,20 @@ import { semanticTagField, type SemanticTag } from "./DesignElement.tsx";
 import type { DesignProps } from "./styleSchema.ts";
 import "./design.css";
 import { useScopedAttributes } from "./CollectionScope.tsx";
-import { surfaceRoles } from "./theme.ts";
+import { surfaceRoles, themeSurfaceClassName } from "./theme.ts";
 import { headingConfig, paragraphConfig } from "./content.tsx";
+import {
+  useBackgroundContrastAttributes,
+  backgroundContrastField,
+  type BackgroundContrast,
+} from "./backgroundContrast.ts";
 
 export type ContainerProps = DesignProps & {
   as: SemanticTag;
   content: Slot;
   surfaceRole?: SurfaceRole | "";
+  backgroundContrast?: BackgroundContrast;
+  revealWhenHiddenInEditor?: boolean;
 };
 
 /** Structural editor objects may not become children of a content container. */
@@ -57,19 +64,40 @@ export function createContainer(
           ...surfaceRoles.map((role) => ({ label: role, value: role })),
         ],
       },
+      backgroundContrast: backgroundContrastField,
+      revealWhenHiddenInEditor: {
+        type: "radio",
+        label: "Reveal hidden container in editor",
+        generation: { required: false },
+        options: [
+          { label: "Yes", value: true },
+          { label: "No", value: false },
+        ],
+      },
       ...designFields,
     },
     renderFields: renderDesignFields,
     inline: true,
-    defaultProps: { as: "div", content: [], ...defaults },
+    defaultProps: {
+      as: "div",
+      content: [],
+      revealWhenHiddenInEditor: true,
+      ...defaults,
+    },
     render: ({
       content: Content,
       as = "div",
       surfaceRole,
+      backgroundContrast,
+      revealWhenHiddenInEditor = true,
       puck,
       ...design
     }) => {
       const attributes = useScopedAttributes(design.attributes);
+      const contrastAttributes = useBackgroundContrastAttributes(
+        design,
+        backgroundContrast
+      );
       const tag =
         allowedTags && !allowedTags.includes(as) ? allowedTags[0] : as;
       // Invoke the slot callback rather than mounting its changing function as a React type.
@@ -79,9 +107,13 @@ export function createContainer(
           {Content({
             as: tag,
             ref: puck.dragRef,
-            className: `components sl-atom ${puck.isEditing ? "sl-editing" : ""} ${surfaceRole ? `ve-theme-${surfaceRole} sl-surface-${surfaceRole}` : ""}`,
+            className: `components sl-atom ${puck.isEditing ? "sl-editing" : ""} ${themeSurfaceClassName(design.surface?.backgroundColor, surfaceRole)}`,
             ...designAttributes(attributes),
-            style: designStyle(design, puck.isEditing),
+            ...contrastAttributes,
+            style: designStyle(
+              design,
+              puck.isEditing && revealWhenHiddenInEditor
+            ),
             disallow:
               tag === "ul" || tag === "ol" ? undefined : structuralComponents,
             ...(tag === "ul" || tag === "ol" ? { allow: ["ListItem"] } : {}),

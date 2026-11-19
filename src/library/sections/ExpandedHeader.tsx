@@ -131,10 +131,15 @@ const expandedHeaderSectionFields: YextFields<ExpandedHeaderProps> = {
 const ExpandedHeaderWrapper: PuckComponent<ExpandedHeaderProps> = ({
   styles,
   slots,
+  puck,
 }) => {
   return (
     <ExpandedHeaderMenuProvider>
-      <header className={headerWrapper({ position: styles.headerPosition })}>
+      <header
+        className={headerWrapper({
+          position: puck.isEditing ? "scrollsWithPage" : styles.headerPosition,
+        })}
+      >
         {/* Secondary Header (Top Bar) */}
         <div className="hidden md:flex">
           <slots.SecondaryHeaderSlot

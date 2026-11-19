@@ -91,6 +91,7 @@ export const designFields: YextFields<DesignProps> = {
     objectFields: {
       hover: overrideField("Hover · pointer devices"),
       focusVisible: overrideField("Keyboard focus"),
+      active: { ...overrideField("Pressed"), visible: false },
     },
   },
   attributes: {
@@ -137,11 +138,15 @@ const appearanceKeys = new Set([
   "styles",
   "ctaStyles",
   "surfaceRole",
+  "backgroundContrast",
   "typographyRole",
   "interactionRole",
 ]);
 const accessibilityKeys = new Set(["as", "decorative", "altText", "loading"]);
-const designKeys = new Set(Object.keys(designFields));
+const designKeys = new Set([
+  ...Object.keys(designFields),
+  "revealWhenHiddenInEditor",
+]);
 
 /** Puck renders the actual field nodes, so mapping, validation, and read-only state survive. */
 export const renderDesignFields = ({
@@ -175,6 +180,7 @@ export const renderDesignFields = ({
         or mobile only. Clear an exception to use Design again.
       </p>
       {fields.responsive}
+      {fields.revealWhenHiddenInEditor}
     </FieldTab>
     <FieldTab label="Accessibility">
       {fields.as}

@@ -1,4 +1,5 @@
 import { createSectionPreset } from "../shared/design/createSectionPreset.tsx";
+import { professionalHeroTextPlacement } from "../shared/design/theme.ts";
 import { type SurfaceValue } from "@yext/visual-editor/section-library-support";
 import { setDeep, Slot, PuckComponent } from "@puckeditor/core";
 import {
@@ -796,12 +797,7 @@ export const ProfessionalHeroSectionBody: YextComponentConfig<ProfessionalHeroSe
       liveVisibility: true,
     },
     resolveData: (data, params) => {
-      for (const [slot, tag, role] of [
-        ["BusinessNameSlot", "p", "eyebrow"],
-        ["ProfessionalNameSlot", 1, "headline"],
-        ["CredentialsSlot", "p", "eyebrow"],
-        ["ProfessionalTitleSlot", "p", "eyebrow"],
-      ] as const) {
+      for (const [slot, tag, role] of professionalHeroTextPlacement) {
         const child = data.props.slots[slot]?.[0];
         if (child) {
           if (child.type === "HeadingTextSlot")

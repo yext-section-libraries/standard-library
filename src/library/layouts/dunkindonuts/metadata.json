@@ -1,0 +1,11 @@
+{
+  "id": "dunkindonuts",
+  "displayName": "Dunkin’",
+  "pageSetType": "ENTITY",
+  "vertical": [
+    "FOOD_AND_DINING"
+  ],
+  "purpose": [
+    "LOCATION"
+  ]
+}

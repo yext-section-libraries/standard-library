@@ -15,5 +15,10 @@ html {
   animation: none !important;
   caret-color: transparent !important;
   scroll-behavior: auto !important;
+}
+
+*:not([data-test-transitions]),
+*::before,
+*::after {
   transition: none !important;
 }

@@ -105,7 +105,7 @@ const FAQsSectionFields: YextFields<FAQSectionProps> = {
         generation: { required: false },
         type: "surface",
         label: msg("fields.backgroundColor", "Background Color"),
-        allowInherit: false,
+        allowInherit: true,
       },
       showSectionHeading: {
         label: msg("fields.showSectionHeading", "Show Section Heading"),

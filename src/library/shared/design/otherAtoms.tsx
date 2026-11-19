@@ -1,6 +1,6 @@
 import * as React from "react";
 import { designIcons as icons } from "./icons.ts";
-import type { Slot } from "@puckeditor/core";
+import { registerOverlayPortal, type Slot } from "@puckeditor/core";
 import {
   resolveComponentData,
   useDocument,
@@ -126,6 +126,7 @@ export type DisclosureProps = DesignProps & {
   summary: YextEntityField<TranslatableString>;
   content: Slot;
   initiallyOpen: boolean;
+  revealWhenHiddenInEditor?: boolean;
 };
 
 export const disclosureConfig: YextComponentConfig<DisclosureProps> = {
@@ -146,6 +147,15 @@ export const disclosureConfig: YextComponentConfig<DisclosureProps> = {
         { label: "Yes", value: true },
       ],
     },
+    revealWhenHiddenInEditor: {
+      type: "radio",
+      label: "Reveal hidden content in editor",
+      generation: { required: false },
+      options: [
+        { label: "Yes", value: true },
+        { label: "No", value: false },
+      ],
+    },
     ...designFields,
   },
   renderFields: renderDesignFields,
@@ -153,6 +163,7 @@ export const disclosureConfig: YextComponentConfig<DisclosureProps> = {
   defaultProps: {
     summary: constantText("Your question"),
     initiallyOpen: false,
+    revealWhenHiddenInEditor: true,
     content: [],
     spacing: { paddingBlockStart: "1rem", paddingBlockEnd: "1rem" },
     surface: {
@@ -166,6 +177,7 @@ export const disclosureConfig: YextComponentConfig<DisclosureProps> = {
     binding,
     content: Content,
     initiallyOpen,
+    revealWhenHiddenInEditor = true,
     puck,
     ...design
   }) {
@@ -179,15 +191,38 @@ export const disclosureConfig: YextComponentConfig<DisclosureProps> = {
         output: "plainText",
       }
     );
+    const summaryRef = React.useRef<HTMLElement>(null);
+    const [editorOpen, setEditorOpen] = React.useState<boolean>();
+    const revealInEditor = puck.isEditing && revealWhenHiddenInEditor;
+    const editorInitiallyOpen = revealWhenHiddenInEditor || initiallyOpen;
+    const open = puck.isEditing
+      ? (editorOpen ?? editorInitiallyOpen)
+      : initiallyOpen;
+
+    React.useEffect(() => {
+      if (puck.isEditing) {
+        return registerOverlayPortal(summaryRef.current, { disableDrag: true });
+      }
+    }, [puck.isEditing]);
+
     return (
       <DesignElement
         elementRef={puck.dragRef}
         as="details"
         design={design}
-        isEditing={puck.isEditing}
-        {...{ open: puck.isEditing || initiallyOpen || undefined }}
+        isEditing={revealInEditor}
+        {...{ open: open || undefined }}
       >
         <summary
+          ref={summaryRef}
+          onClick={
+            puck.isEditing
+              ? (event) => {
+                  event.preventDefault();
+                  setEditorOpen((wasOpen) => !(wasOpen ?? editorInitiallyOpen));
+                }
+              : undefined
+          }
           style={{
             cursor: "pointer",
             fontWeight: 600,

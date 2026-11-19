@@ -389,29 +389,19 @@ const CTAWrapperBase: YextComponentConfig<CTAWrapperProps> = {
     const showNormalizeLinkField =
       !showButtonFields && !isNonNormalizableLinkType(constantLinkType);
 
-    if (effectiveCtaType === "presetImage") {
+    const isPresetImage = effectiveCtaType === "presetImage";
+    for (const field of ["variant", "color", "textColor"]) {
       updatedFields = setDeep(
         updatedFields,
-        "styles.objectFields.variant.visible",
-        false
-      );
-      updatedFields = setDeep(
-        updatedFields,
-        "styles.objectFields.presetImage.visible",
-        true
-      );
-    } else {
-      updatedFields = setDeep(
-        updatedFields,
-        "styles.objectFields.variant.visible",
-        true
-      );
-      updatedFields = setDeep(
-        updatedFields,
-        "styles.objectFields.presetImage.visible",
-        false
+        `styles.objectFields.${field}.visible`,
+        !isPresetImage
       );
     }
+    updatedFields = setDeep(
+      updatedFields,
+      "styles.objectFields.presetImage.visible",
+      isPresetImage
+    );
 
     // If the show field exists, make it visible in the editor
     if (data.props.data.show !== undefined) {
