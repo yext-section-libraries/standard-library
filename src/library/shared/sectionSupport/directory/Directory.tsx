@@ -43,6 +43,9 @@ export interface DirectoryStyles {
 }
 
 export interface DirectoryProps {
+  /** Whether directory list labels include the available base entity count. */
+  includeCount?: boolean;
+
   /**
    * This object contains properties for customizing the component's appearance.
    * @propCategory Style Props
@@ -64,6 +67,15 @@ export interface DirectoryProps {
 }
 
 const directoryFields: YextFields<DirectoryProps> = {
+  includeCount: {
+    type: "radio",
+    label: msg("fields.includeCount", "Include count"),
+    visible: false,
+    options: [
+      { label: msg("fields.options.yes", "Yes"), value: true },
+      { label: msg("fields.options.no", "No"), value: false },
+    ],
+  },
   styles: {
     type: "object",
     label: msg("fields.styles", "Styles"),
@@ -158,6 +170,7 @@ const directoryFields: YextFields<DirectoryProps> = {
 };
 
 const DirectoryComponent: PuckComponent<DirectoryProps> = ({
+  includeCount,
   styles,
   slots,
 }) => {
@@ -181,6 +194,7 @@ const DirectoryComponent: PuckComponent<DirectoryProps> = ({
         !isDirectoryGrid(streamDocument.dm_directoryChildren) && (
           <DirectoryList
             streamDocument={streamDocument}
+            includeCount={includeCount}
             directoryChildren={streamDocument.dm_directoryChildren}
             relativePrefixToRoot={relativePrefixToRoot ?? ""}
             linkColor={styles.linkColor}
@@ -202,11 +216,10 @@ const DirectoryComponent: PuckComponent<DirectoryProps> = ({
 export const Directory: YextComponentConfig<DirectoryProps> = {
   label: msg("components.directory", "Directory"),
   fields: directoryFields,
-  resolveFields: (data, params) => {
-    if (
-      params.metadata?.streamDocument?.dm_directoryChildren &&
-      isDirectoryGrid(params.metadata.streamDocument.dm_directoryChildren)
-    ) {
+  resolveFields: (_data, params) => {
+    const streamDocument = params.metadata?.streamDocument;
+    const children = streamDocument?.dm_directoryChildren;
+    if (children && isDirectoryGrid(children)) {
       const updatedFields = setDeep(
         directoryFields,
         "styles.objectFields.listBackgroundColor.visible",
@@ -225,9 +238,16 @@ export const Directory: YextComponentConfig<DirectoryProps> = {
         )
       );
     }
-    return toPuckFields(directoryFields);
+    const hasBaseEntityCount =
+      streamDocument?.dm_baseEntityCount != null ||
+      (Array.isArray(children) &&
+        children.some((child) => child.dm_baseEntityCount != null));
+    return toPuckFields(
+      setDeep(directoryFields, "includeCount.visible", hasBaseEntityCount)
+    );
   },
   defaultProps: {
+    includeCount: false,
     styles: {
       backgroundColor: backgroundColors.background1.value,
       listBackgroundColor: backgroundColors.background1.value,
