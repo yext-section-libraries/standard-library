@@ -16,7 +16,7 @@
     "prettier": "prettier --write --cache .",
     "typecheck": "tsc -p tsconfig.json",
     "test": "vitest run ./src/testing/*.test.ts ./src/testing/*.test.tsx",
-    "test:layouts:pilot": "node --import tsx --test scripts/layout-pilot/pilot.test.ts",
+    "generate-brand": "node --import tsx --test scripts/layout-pilot/pilot.test.ts",
     "test:generation": "SECTION_LIBRARY_REVISION_ID=local vitest run ./src/testing/layoutGeneration",
     "test:components": "SECTION_LIBRARY_REVISION_ID=local vitest run ./src/testing/*.test.ts ./src/testing/*.test.tsx ./src/testing/layoutGeneration",
     "generate-notices": "generate-license-file --input package.json --output ./THIRD-PARTY-NOTICES --overwrite",
