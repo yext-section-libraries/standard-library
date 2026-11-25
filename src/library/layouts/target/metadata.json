@@ -1,7 +1,8 @@
 {
   "id": "target",
-  "displayName": "Target",
+  "displayName": "Target Store Location — Harrisonburg Reference",
   "pageSetType": "ENTITY",
-  "vertical": ["RETAIL"],
-  "purpose": ["LOCATION"]
+  "purpose": [
+    "LOCATION"
+  ]
 }

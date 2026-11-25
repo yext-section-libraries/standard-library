@@ -3,11 +3,12 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { join } from "node:path";
 import { promisify } from "node:util";
-import { chromium } from "playwright";
+import { chromium, type Frame, type Locator, type Page } from "playwright";
+import { captureFooter, captureHeader } from "./sourceRegions.ts";
 
 const exec = promisify(execFile);
 const footerLandmarks =
-  "footer, [role=contentinfo], #footer, .site-footer, [class~='footer' i], [data-testid='footer' i], nav[aria-label*='footer' i]";
+  "footer, [role=contentinfo], #footer, #global-footer, .site-footer, .global-footer, .cmp-footer, [class~='footer' i], [data-testid='footer' i], nav[aria-label*='footer' i]";
 const footerSelector = `:is(${footerLandmarks}):not(article *, :is(${footerLandmarks}) *)`;
 const { JSDOM } = createRequire(import.meta.url)("jsdom") as {
   JSDOM: new (html: string) => {
@@ -29,14 +30,57 @@ async function launchBrowser() {
   }
 }
 
+class SourceRouteChangedError extends Error {}
+
+async function captureRegions(
+  page: Page,
+  footer: Locator,
+  sourceUrl: string,
+  hover: boolean,
+  sampleInteractions: boolean
+) {
+  const routeError = () =>
+    new SourceRouteChangedError("The source route changed during capture");
+  if (page.url() !== sourceUrl) throw routeError();
+
+  const { promise: routeChanged, reject } = Promise.withResolvers<never>();
+  const onNavigation = (frame: Frame) => {
+    if (frame === page.mainFrame() && frame.url() !== sourceUrl) {
+      reject(routeError());
+    }
+  };
+  page.on("framenavigated", onNavigation);
+  try {
+    return await Promise.race([
+      routeChanged,
+      (async () => {
+        const header = await captureHeader(page, hover, sampleInteractions);
+        const footerCapture = await captureFooter(
+          page,
+          footer,
+          hover,
+          sampleInteractions
+        );
+        if (page.url() !== sourceUrl) throw routeError();
+        return { header, footerCapture };
+      })(),
+    ]);
+  } finally {
+    page.off("framenavigated", onNavigation);
+  }
+}
+
 export async function capturePage(url: URL, scratch: string) {
   const browser = await launchBrowser();
   try {
     const captures = [];
-    for (const [name, width, height] of [
-      ["desktop", 1440, 1000],
-      ["mobile", 390, 844],
-    ] as const) {
+    const pending = [
+      { name: "desktop", width: 1440, height: 1000, sampleInteractions: true },
+      { name: "mobile", width: 390, height: 844, sampleInteractions: true },
+    ];
+    while (pending.length) {
+      const viewport = pending.shift()!;
+      const { name, width, height, sampleInteractions } = viewport;
       const started = performance.now();
       const page = await browser.newPage({ viewport: { width, height } });
       try {
@@ -113,6 +157,7 @@ export async function capturePage(url: URL, scratch: string) {
             new Promise((resolve) => setTimeout(resolve, 2_000)),
           ])
         );
+        const sourceUrl = page.url();
         const inventory = await page.evaluate((footerSelector) => {
           const linkSamples = new Map<
             string,
@@ -258,6 +303,7 @@ export async function capturePage(url: URL, scratch: string) {
                     : style.gridTemplateColumns,
                 gap: style.gap === "normal" ? undefined : style.gap,
                 overflowX: style.overflowX,
+                ...(tag === "img" ? { objectFit: style.objectFit } : {}),
               },
             });
           }
@@ -283,126 +329,46 @@ export async function capturePage(url: URL, scratch: string) {
           clip: { x: 0, y: 0, width, height: Math.min(documentHeight, 3_000) },
           path: join(scratch, `${name}.jpg`),
         });
-        let footerData;
-        let footerScreenshot;
-        if (await footer.count()) {
-          await footer.scrollIntoViewIfNeeded();
-          footerData = await footer.evaluate((root) => {
-            type Item = {
-              tag: string;
-              label?: string;
-              text?: string;
-              href?: string;
-              src?: string;
-              open?: boolean;
-              style?: string[];
-              children?: Item[];
-            };
-            const tree = {
-              visit(element: Element): Item[] {
-                if (
-                  element.matches("script, style, svg") ||
-                  (element !== root &&
-                    !element.checkVisibility({
-                      checkOpacity: true,
-                      checkVisibilityCSS: true,
-                    }) &&
-                    getComputedStyle(element).display !== "contents")
-                )
-                  return [];
-                const tag = element.tagName.toLowerCase();
-                const href =
-                  element instanceof HTMLAnchorElement
-                    ? element.href
-                    : undefined;
-                const src =
-                  element instanceof HTMLImageElement
-                    ? element.currentSrc || element.src || element.dataset.src
-                    : undefined;
-                const label =
-                  element.getAttribute("aria-label") ??
-                  element.getAttribute("alt") ??
-                  element.getAttribute("title") ??
-                  (href
-                    ? element.querySelector("svg title")?.textContent
-                    : undefined) ??
-                  undefined;
-                const text = (
-                  element.matches(
-                    "a, button, summary, h1, h2, h3, h4, h5, h6, [role=heading]"
-                  )
-                    ? (element as HTMLElement).innerText
-                    : [...element.childNodes]
-                        .filter((node) => node.nodeType === Node.TEXT_NODE)
-                        .map((node) => node.textContent)
-                        .join(" ")
-                )
-                  ?.replace(/\s+/g, " ")
-                  .trim()
-                  .slice(0, 750);
-                const children = [...element.children].flatMap((child) =>
-                  tree.visit(child)
-                );
-                const style = getComputedStyle(element);
-                const open =
-                  element instanceof HTMLDetailsElement
-                    ? element.open
-                    : undefined;
-                const group =
-                  element === root ||
-                  children.length > 1 ||
-                  element.matches(
-                    "nav, section, ul, ol, details, [role=navigation]"
-                  );
-                if (!group && !href && !src && !label && !text) return children;
-                return [
-                  {
-                    tag,
-                    href,
-                    src: src?.startsWith("data:") ? undefined : src,
-                    label,
-                    text: text || undefined,
-                    open,
-                    style: group
-                      ? [
-                          style.display,
-                          style.backgroundColor,
-                          style.gridTemplateColumns,
-                          style.flexDirection,
-                          style.gap,
-                          style.padding,
-                        ]
-                      : undefined,
-                    children: children.length ? children : undefined,
-                  },
-                ];
-              },
-            };
-            return tree.visit(root)[0];
-          });
-          footerScreenshot = await footer.screenshot({
-            type: "jpeg",
-            quality: 72,
-            animations: "disabled",
-            timeout: 15_000,
-            path: join(scratch, `${name}-footer.jpg`),
-          });
+        const { header, footerCapture } = await captureRegions(
+          page,
+          footer,
+          sourceUrl,
+          name === "desktop",
+          sampleInteractions
+        );
+        if (!sampleInteractions) {
+          header.data.notes.push(
+            "The source route changed during capture. Retried without probing controls."
+          );
         }
+        const {
+          screenshot: footerScreenshot,
+          tree: footerTree,
+          ...footerEvidence
+        } = footerCapture;
         const data = {
           name,
           width,
           height,
-          finalUrl: page.url(),
+          finalUrl: sourceUrl,
           ...inventory,
-          footer: footerData,
+          header: header.data,
+          footer: footerTree,
+          footerEvidence,
         };
         await writeFile(join(scratch, `${name}.json`), JSON.stringify(data));
         captures.push({
           data,
           screenshot,
+          headerScreenshot: header.screenshot,
+          expandedHeaderScreenshot: header.expandedScreenshot,
           footerScreenshot,
           elapsedMs: Math.round(performance.now() - started),
         });
+      } catch (error) {
+        if (!(error instanceof SourceRouteChangedError) || !sampleInteractions)
+          throw error;
+        pending.unshift({ ...viewport, sampleInteractions: false });
       } finally {
         await page.close();
       }

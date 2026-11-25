@@ -1,0 +1,8 @@
+{
+  "id": "truist",
+  "displayName": "Truist ATM Location",
+  "pageSetType": "ENTITY",
+  "purpose": [
+    "LOCATION"
+  ]
+}

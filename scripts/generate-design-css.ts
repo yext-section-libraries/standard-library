@@ -346,7 +346,23 @@ css += themeRule(
     ])
   )
 );
-css += `.sl-button:focus-visible, .sl-linked-image:focus-visible { outline: 2px solid var(--ve-color-focus-ring, currentColor); outline-offset: 4px; }\n`;
+const focusOutlineDefaults = {
+  "outline-style": "solid",
+  "outline-width": "2px",
+  "outline-color": "var(--ve-color-focus-ring, currentColor)",
+  "outline-offset": "4px",
+};
+css += `.sl-button:focus-visible, .sl-linked-image:focus-visible {
+${Object.entries(focusOutlineDefaults)
+  .map(
+    ([property, value]) =>
+      `  ${property}: ${resolvedProperty(property, value)};`
+  )
+  .join("\n")}
+}\n`;
+css += `.sl-navigation-disclosure > summary { list-style: none; }
+.sl-navigation-disclosure > summary::-webkit-details-marker { display: none; }
+.sl-navigation-disclosure > summary > svg { display: block; }\n`;
 css += `.sl-rich-text > .rtf-wrapper { font: inherit; letter-spacing: inherit; text-transform: inherit; }\n`;
 css += `.sl-rich-text :where(p, li, a, strong, em) { font-family: inherit; font-size: inherit; line-height: inherit; color: inherit; }\n`;
 css += `.sl-rich-text :where(p, ul, ol) { margin-block: 0 1em; }\n.sl-rich-text > :last-child { margin-block-end: 0; }\n`;

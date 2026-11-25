@@ -17,7 +17,12 @@ import { parseArgs } from "node:util";
 import { createServer } from "vite";
 import { capturePage, extractGuide } from "./capture.ts";
 import { openRunLog, type Diagnostic } from "./diagnostics.ts";
-import { defaultModel, gatewayUrl, requestDraft } from "./gateway.ts";
+import {
+  applyRepair,
+  defaultModel,
+  gatewayUrl,
+  requestDraft,
+} from "./gateway.ts";
 
 const repository = fileURLToPath(new URL("../../", import.meta.url));
 const { get: registrableDomain } = createRequire(import.meta.url)("psl") as {
@@ -195,7 +200,14 @@ export async function runPilot(
       log("Capturing the source page at desktop and mobile widths");
       return capturePage(url, scratchPath);
     });
-    for (const { data, screenshot, footerScreenshot, elapsedMs } of captures) {
+    for (const {
+      data,
+      screenshot,
+      headerScreenshot,
+      expandedHeaderScreenshot,
+      footerScreenshot,
+      elapsedMs,
+    } of captures) {
       record("capture.ready", {
         viewport: data.name,
         width: data.width,
@@ -203,7 +215,19 @@ export async function runPilot(
         inventoryEntries: data.count,
         includedEntries: data.entries.length,
         screenshotBytes: screenshot.length,
+        headerScreenshotBytes: headerScreenshot?.length,
+        expandedHeaderScreenshotBytes: expandedHeaderScreenshot?.length,
         footerScreenshotBytes: footerScreenshot?.length,
+        headerNotes: data.header.notes,
+        footerNotes: data.footerEvidence.notes,
+        unavailableInteractions: [
+          ...(data.header.linkStates ?? []),
+          ...(data.header.disclosures ?? []),
+          ...(data.footerEvidence.linkStates ?? []),
+          ...(data.footerEvidence.disclosures ?? []),
+        ].flatMap(({ label, unavailable }) =>
+          unavailable?.length ? [{ label, reason: unavailable }] : []
+        ),
         elapsedMs,
       });
     }
@@ -265,12 +289,18 @@ export async function runPilot(
         true
       );
     } catch (error) {
-      const failure = message(
-        error instanceof Error ? (error.cause ?? error) : error
+      const failure = error instanceof Error ? (error.cause ?? error) : error;
+      if (!(failure instanceof contractModule.LayoutValidationError))
+        throw error;
+      draft = failure.draft;
+      log(
+        `Static validation failed: ${failure.message}. Requesting one repair.`
       );
-      log(`Static validation failed: ${failure}. Requesting one repair.`);
-      draft = await stage("Model gateway repair", () =>
-        requestDraft(evidence, gateway, { draft, failure })
+      const repair = await stage("Model gateway repair", () =>
+        requestDraft(evidence, gateway, { draft, issues: failure.issues })
+      );
+      draft = await stage("Applying repair edits", () =>
+        applyRepair(draft, repair, failure.issues)
       );
       candidate = await stage(
         "Static validation after repair",

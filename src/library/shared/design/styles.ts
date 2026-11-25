@@ -22,6 +22,18 @@ export function safeCssValue(value: unknown): string | undefined {
   return trimmed;
 }
 
+function splitGap(value: string) {
+  let depth = 0;
+  for (let index = 0; index < value.length; index++) {
+    const character = value[index];
+    if (character === "(") depth++;
+    if (character === ")") depth--;
+    if (depth === 0 && /\s/.test(character)) {
+      return [value.slice(0, index), value.slice(index).trim()] as const;
+    }
+  }
+}
+
 export function designAttributes(attributes: DesignProps["attributes"]) {
   return {
     id: attributes?.htmlId || undefined,
@@ -50,6 +62,14 @@ export function designStyle(
           )?.[property]
         );
         if (!value) continue;
+        if (property === "gap") {
+          const axes = splitGap(value);
+          if (axes) {
+            variables[designVariable(prefix, "row-gap")] = axes[0];
+            variables[designVariable(prefix, "column-gap")] = axes[1];
+            continue;
+          }
+        }
         if (
           property === "color" &&
           value === "var(--sl-theme-color, revert-layer)"
@@ -57,7 +77,7 @@ export function designStyle(
           value = `var(--sl-background-foreground, ${value})`;
         if (
           value === pageBackgroundValue &&
-          (property === "color" || property === "borderColor")
+          ["color", "borderColor", "outlineColor"].includes(property)
         )
           value = pageBackgroundSolidValue;
         // An unknown function is valid inside a custom property but makes an

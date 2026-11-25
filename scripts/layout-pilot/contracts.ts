@@ -17,12 +17,18 @@ import {
   pageAreaComponentIds,
   pageRootComponentIds,
 } from "../../src/library/shared/design/pageStructure.ts";
-import { instructions, outputSchema, type Draft } from "./gateway.ts";
+import {
+  legacyInstructions,
+  legacyOutputSchema,
+  type Draft,
+  type RepairIssue,
+} from "./gateway.ts";
 
 type Field = {
   type: string;
   objectFields?: Fields;
   arrayFields?: Fields;
+  repeated?: { mappingFields: Fields };
   allow?: string[];
   disallow?: string[];
   filter?: { types?: string[]; includeListsOnly?: boolean };
@@ -58,6 +64,16 @@ const defaultFieldTypes: Record<string, string> = {
   services: "type.string[]",
   yextDisplayCoordinate: "type.coordinate",
   c_featuredProducts: "type.products_section",
+};
+
+const productItemFields: Record<string, string[]> = {
+  image: ["type.image"],
+  name: ["type.string"],
+  category: ["type.string", "type.rich_text_v2"],
+  brow: ["type.string", "type.rich_text_v2"],
+  price: ["type.price"],
+  description: ["type.rich_text_v2"],
+  cta: ["type.cta"],
 };
 
 const sections = import.meta.glob<{ config: { id: string } }>(
@@ -199,6 +215,13 @@ export async function loadContracts(entitySchemaPath?: string) {
                 unrepresentable: "any",
                 reused: "ref",
                 override: ({ jsonSchema }) => {
+                  if (
+                    jsonSchema.type === "object" &&
+                    jsonSchema.properties &&
+                    jsonSchema.additionalProperties === undefined
+                  ) {
+                    jsonSchema.additionalProperties = false;
+                  }
                   const choices = jsonSchema.anyOf;
                   const values = choices?.map((choice) => choice.const);
                   if (
@@ -229,12 +252,14 @@ export async function loadContracts(entitySchemaPath?: string) {
           }
         )
       );
+      const bindings = bindingFilters(generationFields(id));
       return [
         id,
         {
           description: component.description,
           instructions: component.generation!.instructions,
           props,
+          ...(bindings.length ? { bindingFilters: bindings } : {}),
           defaults: Object.keys(component.defaultProps ?? {}).filter((key) =>
             Object.hasOwn(props, key)
           ),
@@ -262,6 +287,7 @@ export async function loadContracts(entitySchemaPath?: string) {
         Object.hasOwn(registered, id)
       ),
       entityFields,
+      collectionItemFields: { "type.products_section": productItemFields },
       theme: themeContract,
       linkFontFamilies: Object.keys(defaultFonts),
       paletteVariables: Object.fromEntries(
@@ -336,8 +362,8 @@ export async function exportContract() {
     editorVersion: editorPackage.version as string,
     editorMigrationVersion: editorMigrations.length,
     libraryMigrationVersion: migrationRegistry.length,
-    instructions,
-    draftSchema: outputSchema,
+    instructions: legacyInstructions,
+    draftSchema: legacyOutputSchema,
     prompt: contracts.prompt,
     validation: {
       addressFields,
@@ -425,20 +451,28 @@ export async function exportParityFixtures() {
     displayName: "Contract fixture",
     nodes: [
       {
+        key: "footer",
         type: "Box",
-        parentIndex: null,
+        parentKey: null,
         slot: null,
         propsJson:
           '{"as":"footer","surface":{"backgroundColor":"rgb(18, 52, 86)"}}',
       },
       {
+        key: "heading",
         type: "Heading",
-        parentIndex: 0,
+        parentKey: "footer",
         slot: "content",
         propsJson:
           '{"as":"h2","data":{"text":{"field":"address.city","constantValueEnabled":false}}}',
       },
-      { type: "FAQSection", parentIndex: null, slot: null, propsJson: "{}" },
+      {
+        key: "faq",
+        type: "FAQSection",
+        parentKey: null,
+        slot: null,
+        propsJson: "{}",
+      },
     ],
     themeOverrides: [
       { key: "colorPrimary", value: "#123456" },
@@ -491,12 +525,22 @@ export async function exportParityFixtures() {
     ],
   ];
   return variants.map(([name, draft]) => {
+    const legacyDraft = {
+      ...draft,
+      nodes: draft.nodes.map(({ key: _key, parentKey, ...node }) => ({
+        ...node,
+        parentIndex:
+          parentKey === null
+            ? null
+            : draft.nodes.findIndex(({ key }) => key === parentKey),
+      })),
+    };
     try {
       const result = materialize(draft, brand, contracts);
       return {
         name,
         brand,
-        draft,
+        draft: legacyDraft,
         artifacts: {
           "defaultLayout.json": result.layout,
           "metadata.json": result.metadata,
@@ -508,7 +552,7 @@ export async function exportParityFixtures() {
         throw new Error(
           "The reference validator rejected the valid parity fixture"
         );
-      return { name, brand, draft, invalid: true };
+      return { name, brand, draft: legacyDraft, invalid: true };
     }
   });
 }
@@ -529,16 +573,30 @@ function mergeProps(defaults: RecordValue, changes: RecordValue): RecordValue {
   );
 }
 
-function assertAuthoredKeys(value: unknown, parsed: unknown, path: string) {
+function containsPrimaryFooterLinks(node: unknown): boolean {
+  if (Array.isArray(node)) return node.some(containsPrimaryFooterLinks);
+  if (!isRecord(node)) return false;
+  if (node.type === "FooterLinksSlot" && isRecord(node.props))
+    return node.props.variant === "primary";
+  return Object.values(node).some(containsPrimaryFooterLinks);
+}
+
+function checkAuthoredKeys(
+  value: unknown,
+  parsed: unknown,
+  path: string[],
+  report: (path: string[], message: string) => void
+) {
   if (Array.isArray(value) && Array.isArray(parsed)) {
     value.forEach((entry, index) =>
-      assertAuthoredKeys(entry, parsed[index], `${path}[${index}]`)
+      checkAuthoredKeys(entry, parsed[index], [...path, String(index)], report)
     );
   } else if (isRecord(value) && isRecord(parsed)) {
     for (const [key, entry] of Object.entries(value)) {
+      const childPath = [...path, key];
       if (!Object.hasOwn(parsed, key))
-        throw new Error(`${path}.${key} is not a supported prop`);
-      assertAuthoredKeys(entry, parsed[key], `${path}.${key}`);
+        report(childPath, `${childPath.join(".")} is not a supported prop`);
+      else checkAuthoredKeys(entry, parsed[key], childPath, report);
     }
   }
 }
@@ -558,88 +616,138 @@ function validateProps(
   defaults: RecordValue,
   props: RecordValue,
   authored: RecordValue,
-  path: string
+  report: (path: string[], message: string) => void
 ) {
-  for (const key of Object.keys(authored)) {
-    if (!Object.hasOwn(schema.shape, key)) {
-      throw new Error(`${path}.${key} is not a supported prop`);
-    }
-  }
   const parsed = schema.safeParse(props);
-  if (parsed.success) {
-    assertAuthoredKeys(authored, parsed.data, path);
-    return;
-  }
-  // Some shipped defaults contain inactive placeholders or stored mapping fields
-  // outside the generation schema. Keep those defaults and validate model edits.
-  const baseline = schema.safeParse(defaults);
-  const signature = (issue: z.core.$ZodIssue) =>
-    JSON.stringify([issue.code, issue.path, issue.message]);
-  const existing = new Set(baseline.error?.issues.map(signature));
-  const issues = parsed.error.issues.filter((issue) => {
-    if (!existing.has(signature(issue))) return true;
-    if (issue.code === "unrecognized_keys") {
-      return issue.keys.some((key) =>
-        hasAtPath(authored, [...issue.path, key])
-      );
+  if (!parsed.success) {
+    // Shipped defaults can contain inactive placeholders outside the generation schema.
+    const baseline = schema.safeParse(defaults);
+    const signature = (issue: z.core.$ZodIssue) =>
+      JSON.stringify([issue.code, issue.path, issue.message]);
+    const existing = new Set(baseline.error?.issues.map(signature));
+    for (const issue of parsed.error.issues) {
+      if (issue.code === "unrecognized_keys") {
+        for (const key of issue.keys) {
+          const path = [...issue.path, key];
+          if (hasAtPath(authored, path))
+            report(
+              path.map(String),
+              `${path.join(".")} is not a supported prop`
+            );
+        }
+      } else if (
+        !existing.has(signature(issue)) ||
+        hasAtPath(authored, issue.path)
+      ) {
+        report(
+          issue.path.map(String),
+          `${issue.path.join(".")} ${issue.message}`.trim()
+        );
+      }
     }
-    return hasAtPath(authored, issue.path);
-  });
-  if (issues.length) {
-    throw new Error(
-      `${path}: ${issues
-        .map((issue) => `${issue.path.join(".")} ${issue.message}`)
-        .join("; ")}`
-    );
   }
   for (const [key, value] of Object.entries(authored)) {
-    const field = schema.shape[key].safeParse(props[key]);
-    if (field.success) assertAuthoredKeys(value, field.data, `${path}.${key}`);
+    if (!Object.hasOwn(schema.shape, key)) {
+      report([key], `${key} is not a supported prop`);
+      continue;
+    }
+    const field = parsed.success
+      ? undefined
+      : schema.shape[key].safeParse(props[key]);
+    if (parsed.success)
+      checkAuthoredKeys(value, parsed.data[key], [key], report);
+    else if (field?.success)
+      checkAuthoredKeys(value, field.data, [key], report);
   }
 }
 
 function validateBindings(
-  value: unknown,
+  props: RecordValue,
   fields: Fields,
   entityFields: Contracts["entityFields"],
-  path: string
+  report: (path: string[], message: string) => void
 ) {
-  function checkBinding(name: string, field?: Field) {
-    const type = Object.hasOwn(entityFields, name)
-      ? entityFields[name]
-      : undefined;
-    if (!type) throw new Error(`${path} uses an unknown entity field ${name}`);
+  function entityType(name: string) {
+    return Object.hasOwn(entityFields, name) ? entityFields[name] : undefined;
+  }
+  function checkBinding(name: string, path: string[], field?: Field) {
+    const type = entityType(name);
+    if (!type) {
+      report(path, `uses an unknown entity field ${name}`);
+      return;
+    }
     const allowed = field?.filter?.types;
     if (allowed?.length && !allowed.includes(type.replace(/\[\]$/, ""))) {
-      throw new Error(
-        `${path} cannot bind ${name} (${type}); expected ${allowed.join(" or ")}`
+      report(
+        path,
+        `cannot bind ${name} (${type}); expected ${allowed.join(" or ")}`
       );
     }
-    if (field?.filter?.includeListsOnly && !type.endsWith("[]")) {
-      throw new Error(`${path} requires a list entity field`);
-    }
+    if (field?.filter?.includeListsOnly && !type.endsWith("[]"))
+      report(path, "requires a list entity field");
   }
-  function visit(entry: unknown, field?: Field) {
+  function visit(entry: unknown, path: string[], field?: Field) {
+    if (field?.type === "slot") return;
     if (typeof entry === "string") {
       for (const [, name] of entry.matchAll(/\[\[\s*([\w.]+)\s*\]\]/g))
-        checkBinding(name);
+        checkBinding(name, path);
     } else if (Array.isArray(entry)) {
-      entry.forEach((item) =>
-        visit(item, { type: "object", objectFields: field?.arrayFields })
+      entry.forEach((item, index) =>
+        visit(item, [...path, String(index)], {
+          type: "object",
+          objectFields: field?.arrayFields,
+        })
       );
     } else if (isRecord(entry)) {
       if (
         typeof entry.field === "string" &&
         entry.field &&
         entry.constantValueEnabled !== true
-      ) {
-        checkBinding(entry.field, field);
+      )
+        checkBinding(entry.field, path, field);
+      for (const [key, child] of Object.entries(entry)) {
+        const isProductMapping =
+          key === "mappings" &&
+          typeof entry.field === "string" &&
+          entry.constantValueEnabled !== true &&
+          entityType(entry.field) === "type.products_section" &&
+          field?.repeated &&
+          isRecord(child);
+        if (!isProductMapping) {
+          visit(child, [...path, key], field?.objectFields?.[key]);
+          continue;
+        }
+        for (const [target, mapping] of Object.entries(child)) {
+          if (
+            !isRecord(mapping) ||
+            typeof mapping.field !== "string" ||
+            !mapping.field ||
+            mapping.constantValueEnabled === true
+          )
+            continue;
+          const mappingPath = [...path, key, target];
+          const types = Object.hasOwn(productItemFields, mapping.field)
+            ? productItemFields[mapping.field]
+            : undefined;
+          const allowed = field.repeated?.mappingFields[target]?.filter?.types;
+          if (!types)
+            report(
+              mappingPath,
+              `uses an unknown product item field ${mapping.field}`
+            );
+          else if (
+            allowed?.length &&
+            !types.some((type) => allowed.includes(type))
+          )
+            report(
+              mappingPath,
+              `cannot map product item field ${mapping.field}; expected ${allowed.join(" or ")}`
+            );
+        }
       }
-      for (const [key, child] of Object.entries(entry))
-        visit(child, field?.objectFields?.[key]);
     }
   }
-  visit(value, { type: "object", objectFields: fields });
+  visit(props, [], { type: "object", objectFields: fields });
 }
 
 function validThemeValue(field: ThemeField, value: ThemeValue) {
@@ -747,32 +855,191 @@ function usePaletteTokens(
   return replacements;
 }
 
-export function materialize(draft: Draft, brand: string, contracts: Contracts) {
-  if (!draft.displayName.trim() || !draft.nodes.length)
-    throw new Error(
-      "The layout needs a display name and at least one component"
-    );
+function errorMessage(error: unknown) {
+  return error instanceof Error ? error.message : String(error);
+}
+
+export class LayoutValidationError extends Error {
+  constructor(
+    public readonly issues: RepairIssue[],
+    public readonly draft: Draft
+  ) {
+    super([...new Set(issues.map(({ message }) => message))].join("\n"));
+  }
+}
+
+function normalizeDraftKeys(draft: Draft) {
+  const keys = new Map<string, string[]>();
+  const reserved = new Set<string>();
+  for (const { key, parentKey } of draft.nodes) {
+    const occurrences = keys.get(key) ?? [];
+    occurrences.push(key);
+    keys.set(key, occurrences);
+    reserved.add(key);
+    if (parentKey !== null) reserved.add(parentKey);
+  }
+  let sequence = 0;
+  for (const [key, occurrences] of keys) {
+    if (key.trim() && occurrences.length === 1) continue;
+    for (let index = 0; index < occurrences.length; index++) {
+      let replacement: string;
+      do replacement = `repair-node-${++sequence}`;
+      while (reserved.has(replacement));
+      occurrences[index] = replacement;
+      reserved.add(replacement);
+    }
+  }
+  const nextOccurrence = new Map<string, number>();
+  const nodes = draft.nodes.map((node) => {
+    const index = nextOccurrence.get(node.key) ?? 0;
+    nextOccurrence.set(node.key, index + 1);
+    const parents =
+      node.parentKey === null ? undefined : keys.get(node.parentKey);
+    return {
+      ...node,
+      key: keys.get(node.key)![index],
+      parentKey: parents?.length === 1 ? parents[0] : node.parentKey,
+    };
+  });
+  return { draft: { ...draft, nodes }, keys };
+}
+
+function indexDraftNodes(
+  nodes: DraftNode[],
+  sourceKeys: Map<string, string[]>,
+  issues: RepairIssue[]
+) {
+  const byKey = new Map(nodes.map((node) => [node.key, node]));
+  const invalid = new Set<string>();
+  const placementIssue = (
+    node: DraftNode,
+    message: string,
+    expected?: unknown
+  ) => {
+    invalid.add(node.key);
+    issues.push({
+      kind: "placement",
+      key: node.key,
+      component: node.type,
+      message,
+      expected,
+    });
+  };
+
+  for (const node of nodes) {
+    const path = `Node ${node.key}`;
+    if (node.parentKey === null) {
+      if (node.slot !== null)
+        placementIssue(node, `${path} is a root and must have a null slot`);
+      else if (
+        Object.hasOwn(registered, node.type) &&
+        !pageRootComponentIds.includes(node.type)
+      )
+        placementIssue(
+          node,
+          `${path}: ${node.type} is not allowed at the page root`,
+          pageRootComponentIds
+        );
+      continue;
+    }
+    const parent = byKey.get(node.parentKey);
+    if (!parent) {
+      const candidates = sourceKeys.get(node.parentKey);
+      placementIssue(
+        node,
+        candidates
+          ? `${path} references ambiguous parent ${JSON.stringify(node.parentKey)}. Select the intended parent key.`
+          : `${path} references unknown parent ${node.parentKey}`,
+        candidates
+      );
+      continue;
+    }
+    if (!Object.hasOwn(registered, parent.type)) continue;
+    const slots = componentSlots(parent.type);
+    const rules =
+      node.slot && Object.hasOwn(slots, node.slot)
+        ? slots[node.slot]
+        : undefined;
+    if (!rules) {
+      placementIssue(
+        node,
+        `${path}: parent ${parent.key} has no slot ${node.slot}`,
+        Object.keys(slots)
+      );
+    } else if (
+      (rules.allow && !rules.allow.includes(node.type)) ||
+      rules.disallow?.includes(node.type)
+    ) {
+      placementIssue(
+        node,
+        `${path}: ${parent.key}.${node.slot} does not allow ${node.type}`,
+        rules
+      );
+    }
+  }
+
+  const visited = new Set<string>();
+  for (const node of nodes) {
+    const chain = new Set<string>();
+    let current: DraftNode | undefined = node;
+    while (current && !invalid.has(current.key) && !visited.has(current.key)) {
+      if (chain.has(current.key)) {
+        placementIssue(
+          current,
+          `Node ${current.key} is part of a parent cycle`
+        );
+        break;
+      }
+      chain.add(current.key);
+      current =
+        current.parentKey === null ? undefined : byKey.get(current.parentKey);
+    }
+    for (const key of chain) visited.add(key);
+  }
+
+  const children = new Map<string | null, Map<string | null, DraftNode[]>>();
+  for (const node of nodes) {
+    if (invalid.has(node.key)) continue;
+    const slots =
+      children.get(node.parentKey) ?? new Map<string | null, DraftNode[]>();
+    const siblings = slots.get(node.slot) ?? [];
+    siblings.push(node);
+    slots.set(node.slot, siblings);
+    children.set(node.parentKey, slots);
+  }
+  return { children, detached: nodes.filter((node) => invalid.has(node.key)) };
+}
+
+export function materialize(input: Draft, brand: string, contracts: Contracts) {
+  const { draft, keys } = normalizeDraftKeys(input);
+  const issues: RepairIssue[] = [];
+  if (!draft.displayName.trim())
+    issues.push({
+      kind: "displayName",
+      message: "The layout needs a display name",
+    });
+  if (!draft.nodes.length)
+    issues.push({
+      kind: "insert",
+      key: null,
+      slot: null,
+      message: "The layout needs at least one root component",
+    });
   const theme = Object.fromEntries(
     Object.entries(contracts.theme).map(([key, field]) => [key, field.default])
   );
-  const failures: string[] = [];
-  function check<T>(validate: () => T): T | undefined {
-    try {
-      return validate();
-    } catch (error) {
-      failures.push(error instanceof Error ? error.message : String(error));
-    }
-  }
   const overrides = new Set<string>();
   for (const { key, value } of draft.themeOverrides) {
-    check(() => {
-      if (!Object.hasOwn(contracts.theme, key))
-        throw new Error(`Unknown theme field ${key}`);
+    const field = Object.hasOwn(contracts.theme, key)
+      ? contracts.theme[key]
+      : undefined;
+    try {
+      if (!field) throw new Error(`Unknown theme field ${key}`);
       if (overrides.has(key))
         throw new Error(`Duplicate override for theme field ${key}`);
-      if (!validThemeValue(contracts.theme[key], value))
-        throw new Error(`Invalid value for theme field ${key}`);
       overrides.add(key);
+      if (!validThemeValue(field, value))
+        throw new Error(`Invalid value for theme field ${key}`);
       if (linkFontFields.has(key) && typeof value === "string") {
         const family = value
           .split(",")[0]
@@ -787,39 +1054,32 @@ export function materialize(draft: Draft, brand: string, contracts: Contracts) {
       } else {
         theme[key] = value;
       }
-    });
+    } catch (error) {
+      issues.push({
+        kind: "theme",
+        key,
+        message: errorMessage(error),
+        expected: linkFontFields.has(key)
+          ? "A name from linkFontFamilies"
+          : field?.type,
+        example: field?.default,
+      });
+    }
   }
   for (const [key, value] of Object.entries(theme)) {
     if (!validThemeValue(contracts.theme[key], value))
       throw new Error(`Invalid registry default for theme field ${key}`);
   }
 
-  const children = new Map<number | null, Map<string | null, number[]>>();
-  for (const [index, node] of draft.nodes.entries()) {
-    if (
-      node.parentIndex !== null &&
-      (node.parentIndex < 0 || node.parentIndex >= index)
-    ) {
-      throw new Error(`Node ${index} must reference an earlier parent index`);
-    }
-    if (node.parentIndex === null ? node.slot !== null : !node.slot) {
-      throw new Error(
-        `Node ${index} needs a slot exactly when it has a parent`
-      );
-    }
-    const slots = children.get(node.parentIndex) ?? new Map();
-    const siblings = slots.get(node.slot) ?? [];
-    siblings.push(index);
-    slots.set(node.slot, siblings);
-    children.set(node.parentIndex, slots);
-  }
+  const { children, detached } = indexDraftNodes(draft.nodes, keys, issues);
   let nextId = 0;
   function compile(
     type: string,
     authored: RecordValue,
     path: string,
-    authoredChildren?: Map<string | null, number[]>,
-    inheritedProps?: RecordValue
+    authoredChildren?: Map<string | null, DraftNode[]>,
+    inheritedProps?: RecordValue,
+    owner?: DraftNode
   ): Component {
     if (!Object.hasOwn(registered, type))
       throw new Error(`${path} uses unsupported component ${type}`);
@@ -829,6 +1089,32 @@ export function materialize(draft: Draft, brand: string, contracts: Contracts) {
       ? mergeProps(component.defaultProps ?? {}, inheritedProps)
       : (component.defaultProps ?? {});
     const props = mergeProps(defaults, authored);
+    if (
+      type === "ProductCardsWrapper" &&
+      isRecord(props.data) &&
+      typeof props.data.field === "string" &&
+      props.data.constantValueEnabled !== true &&
+      Object.hasOwn(contracts.entityFields, props.data.field) &&
+      contracts.entityFields[props.data.field] === "type.products_section"
+    ) {
+      const mappings = isRecord(props.data.mappings) ? props.data.mappings : {};
+      const styles = isRecord(props.styles) ? props.styles : {};
+      for (const [key, show] of [
+        ["name", "showTitle"],
+        ["image", "showImage"],
+      ]) {
+        const binding = mappings[key];
+        if (
+          styles[show] !== false &&
+          !(
+            isRecord(binding) &&
+            (binding.field || binding.constantValueEnabled === true)
+          )
+        )
+          mappings[key] = { field: key, constantValueEnabled: false };
+      }
+      props.data.mappings = mappings;
+    }
     const id = `${brand}-${type.toLowerCase()}-${++nextId}`;
 
     for (const slot of authoredChildren?.keys() ?? []) {
@@ -845,7 +1131,7 @@ export function materialize(draft: Draft, brand: string, contracts: Contracts) {
           throw new Error(`${path}.${slot} is not a slot object`);
         container = container[segment] as RecordValue;
       }
-      const indices = authoredChildren?.get(slot);
+      const authoredNodes = authoredChildren?.get(slot);
       const existing = container[leaf] ?? [];
       if (!Array.isArray(existing))
         throw new Error(`${path}.${slot} must be an array`);
@@ -857,15 +1143,10 @@ export function materialize(draft: Draft, brand: string, contracts: Contracts) {
           throw new Error(`${path}.${slot} does not allow ${childType}`);
         }
       };
-      if (indices) {
-        container[leaf] = indices.map((index) => {
-          const node = draft.nodes[index];
-          return (
-            check(() => {
-              assertChildAllowed(node.type);
-              return compileNode(index, node);
-            }) ?? { type: node.type, props: {} }
-          );
+      if (authoredNodes) {
+        container[leaf] = authoredNodes.flatMap((node) => {
+          const child = compileNode(node);
+          return child ? [child] : [];
         });
       } else {
         container[leaf] = existing.map((child, index) => {
@@ -887,55 +1168,140 @@ export function materialize(draft: Draft, brand: string, contracts: Contracts) {
         });
       }
     }
+    const fields = generationFields(type);
+    const reportProp = (propPath: string[], message: string) => {
+      const detail = `${path} (${type}): ${message}`;
+      if (!owner || !propPath.length) throw new Error(detail);
+      // Keep binding wrappers together so a repair can replace an invalid encoding
+      // with the registry example. Other props can be repaired at the failing leaf.
+      const scope: string[] = [];
+      let example: unknown = defaults;
+      let draftValue: unknown = authored;
+      let field: Field | undefined = { type: "object", objectFields: fields };
+      for (const part of propPath) {
+        scope.push(part);
+        example =
+          isRecord(example) || Array.isArray(example)
+            ? (example as Record<string, unknown>)[part]
+            : undefined;
+        draftValue =
+          (isRecord(draftValue) || Array.isArray(draftValue)) &&
+          Object.hasOwn(draftValue, part)
+            ? (draftValue as Record<string, unknown>)[part]
+            : undefined;
+        field = field?.objectFields?.[part];
+        if (
+          field?.type === "entityField" ||
+          field?.type === "ctaSelector" ||
+          !isRecord(draftValue)
+        )
+          break;
+      }
+      issues.push({
+        kind: "prop",
+        key: owner.key,
+        component: owner.type,
+        path: scope,
+        schemaIndex: contracts.prompt.components[type]?.props[scope[0]],
+        message: detail,
+        example,
+      });
+    };
     validateProps(
       component.generation!.props,
       defaults,
       props,
       authored,
-      `${path} (${type})`
+      reportProp
     );
-    validateBindings(
-      props,
-      generationFields(type),
-      contracts.entityFields,
-      path
-    );
+    validateBindings(props, fields, contracts.entityFields, reportProp);
+    if (props.as === "nav" && containsPrimaryFooterLinks(props.content)) {
+      const checkGrid = (value: unknown, prefix: string[]) => {
+        if (
+          isRecord(value) &&
+          typeof value.gridTemplateColumns === "string" &&
+          /\bmax-content\b/.test(value.gridTemplateColumns)
+        )
+          reportProp(
+            [...prefix, "layout", "gridTemplateColumns"],
+            "Footer navigation with primary FooterLinksSlot grids needs bounded columns. Use minmax(0, …fr) tracks."
+          );
+      };
+      checkGrid(props.layout, []);
+      if (isRecord(props.responsive))
+        for (const [breakpoint, value] of Object.entries(props.responsive))
+          if (isRecord(value))
+            checkGrid(value.layout, ["responsive", breakpoint]);
+    }
+    if (
+      type === "Breadcrumbs" &&
+      isRecord(props.data) &&
+      JSON.stringify(props.data.directoryRoot)?.match(/(?:^|")https?:\/\//i)
+    ) {
+      reportProp(
+        ["data", "directoryRoot"],
+        "directoryRoot is the displayed root breadcrumb label. Use its observed text instead of a URL."
+      );
+    }
     return { type, props: { ...props, id } };
   }
-  function compileNode(index: number, node: DraftNode) {
-    let props: unknown;
+
+  const compiled = new Set<string>();
+  function compileNode(node: DraftNode): Component | undefined {
+    if (compiled.has(node.key)) return;
+    compiled.add(node.key);
+    const path = `Node ${node.key}`;
     try {
-      props = JSON.parse(node.propsJson);
-    } catch {
-      throw new Error(`Node ${index} propsJson must be valid JSON`);
-    }
-    if (!isRecord(props))
-      throw new Error(`Node ${index} propsJson must be a JSON object`);
-    const slots = Object.hasOwn(registered, node.type)
-      ? componentSlots(node.type)
-      : {};
-    for (const slot of Object.keys(slots)) {
-      let value: unknown = props;
-      for (const segment of slot.split("."))
-        value = isRecord(value) ? value[segment] : undefined;
-      if (value !== undefined && (!Array.isArray(value) || value.length)) {
-        throw new Error(
-          `Node ${index} must provide children of ${slot} as separate nodes`
-        );
+      let props: unknown;
+      try {
+        props = JSON.parse(node.propsJson);
+      } catch {
+        throw new Error(`${path} propsJson must be valid JSON`);
       }
+      if (!isRecord(props))
+        throw new Error(`${path} propsJson must be a JSON object`);
+      const slots = Object.hasOwn(registered, node.type)
+        ? componentSlots(node.type)
+        : {};
+      for (const slot of Object.keys(slots)) {
+        let value: unknown = props;
+        for (const segment of slot.split("."))
+          value = isRecord(value) ? value[segment] : undefined;
+        if (value !== undefined && (!Array.isArray(value) || value.length)) {
+          issues.push({
+            kind: "prop",
+            key: node.key,
+            component: node.type,
+            path: slot.split("."),
+            message: `${path} must provide children of ${slot} as separate nodes`,
+          });
+        }
+      }
+      return compile(
+        node.type,
+        props,
+        path,
+        children.get(node.key),
+        undefined,
+        node
+      );
+    } catch (error) {
+      issues.push({
+        kind: "node",
+        key: node.key,
+        component: node.type,
+        message: errorMessage(error),
+      });
     }
-    return compile(node.type, props, `Node ${index}`, children.get(index));
   }
-  const content = (children.get(null)?.get(null) ?? []).flatMap((index) => {
-    const node = draft.nodes[index];
-    const component = check(() => {
-      if (!pageRootComponentIds.includes(node.type))
-        throw new Error(`${node.type} is not allowed at the page root`);
-      return compileNode(index, node);
-    });
+  const content = (children.get(null)?.get(null) ?? []).flatMap((node) => {
+    const component = compileNode(node);
     return component ? [component] : [];
   });
-  if (failures.length) throw new Error([...new Set(failures)].join("\n"));
+  // Check detached subtrees and children of malformed nodes for additional repair issues.
+  for (const node of detached) compileNode(node);
+  for (const node of draft.nodes) compileNode(node);
+  if (issues.length) throw new LayoutValidationError(issues, draft);
   const paletteReplacements = usePaletteTokens(content, theme, contracts.theme);
   const rootBinding = (field: string) => ({
     field,
