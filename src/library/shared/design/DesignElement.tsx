@@ -63,7 +63,7 @@ export function DesignElement({
       ref={elementRef}
       {...designAttributes(attributes)}
       {...rest}
-      className={`components sl-atom ${className}`}
+      className={`components sl-atom ${isEditing ? "sl-editing " : ""}${className}`}
       style={{ ...designStyle(design, isEditing), ...rest.style }}
     >
       {children}

@@ -242,7 +242,7 @@ const columns = (content: Slot, count = 2) =>
     content
   );
 
-const inheritSurface = (props: Props) => ({
+const inheritSurface = ({ id: _sectionId, ...props }: Props) => ({
   ...props,
   styles: { ...props.styles, backgroundColor: "inherit" },
 });

@@ -24,6 +24,7 @@ export function styleGroupField(
     label: styleGroupLabels[group],
     generation: {
       required: false,
+      sparseInsertion: true,
       schema: z
         .object(
           Object.fromEntries(
@@ -66,13 +67,13 @@ const overrideField = (label: string): YextFieldDefinition => ({
       styleGroupField(group, true),
     ])
   ),
-  generation: { required: false },
+  generation: { required: false, sparseInsertion: true },
 });
 
 export const designFields: YextFields<DesignProps> = {
   ...groupFields,
   responsive: {
-    generation: { required: false },
+    generation: { required: false, sparseInsertion: true },
     type: "object",
     label: "Responsive overrides",
     variant: "flush",
@@ -82,7 +83,7 @@ export const designFields: YextFields<DesignProps> = {
     },
   },
   states: {
-    generation: { required: false },
+    generation: { required: false, sparseInsertion: true },
     type: "object",
     label: "Interaction states",
     collapsible: true,
