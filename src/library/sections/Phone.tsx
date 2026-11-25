@@ -72,7 +72,7 @@ export const PhoneDataFields: YextFields<PhoneProps["data"]> = {
 
 // Phone style definitions used in Phone and CoreInfoSection
 export const PhoneStyleFields: YextFields<PhoneProps["styles"]> = {
-  backgroundColor: { type: "surface" },
+  backgroundColor: { type: "surface", generation: { required: false } },
   color: {
     generation: {
       instructions: "Controls the phone link color.",

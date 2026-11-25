@@ -124,12 +124,6 @@ export const headingConfig: YextComponentConfig<TextContentProps> = {
     },
     spacing: { marginBlockStart: "0", marginBlockEnd: "0" },
   },
-  resolveData: ({ props }) => ({
-    props: {
-      ...props,
-      typographyRole: props.typographyRole ?? headingRole(headingTag(props.as)),
-    },
-  }),
   render: function Heading({
     data,
     binding,
@@ -184,9 +178,6 @@ export const paragraphConfig: YextComponentConfig<TextContentProps> = {
     data: { text: constantText("Add your text here.") },
     typography: {},
   },
-  resolveData: ({ props }) => ({
-    props: { ...props, typographyRole: props.typographyRole ?? "inherit" },
-  }),
   render: function Paragraph({
     data,
     binding,
@@ -209,7 +200,7 @@ export const paragraphConfig: YextComponentConfig<TextContentProps> = {
         <DesignElement
           elementRef={puck.dragRef}
           as={["p", "span", "div"].includes(as) ? as : "p"}
-          className={typographyStyleClassName(typographyRole)}
+          className={typographyStyleClassName(typographyRole ?? "inherit")}
           design={design}
           isEditing={puck.isEditing}
         >
@@ -242,9 +233,6 @@ export const richTextConfig: YextComponentConfig<Omit<TextContentProps, "as">> =
         },
       },
     },
-    resolveData: ({ props }) => ({
-      props: { ...props, typographyRole: props.typographyRole ?? "body" },
-    }),
     render: function RichText({
       data,
       binding,

@@ -2,7 +2,7 @@ import { DesignPreviewEditor } from "./DesignPreviewEditor.tsx";
 import { localEditorPlugins } from "./editorPlugins.ts";
 import { demoDocument, demoEntityFields } from "./designDemoData.ts";
 import * as React from "react";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   act,
   cleanup,
@@ -1945,6 +1945,104 @@ describe("responsive styles and accessibility", () => {
       getComputedStyle(published.container.querySelector("#positioned-box")!)
         .position
     ).toBe("sticky");
+  });
+  it("keeps an absolute image behind overlay text in the editor and preview", async () => {
+    const saved = data([
+      recipeNode(
+        "Box",
+        {
+          layout: { width: "240px", height: "160px" },
+          position: { position: "relative" },
+        },
+        [
+          recipeNode("Image", {
+            attributes: { htmlId: "overlay-image" },
+            data: {
+              image: {
+                field: "",
+                constantValue: {
+                  url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='160'/%3E",
+                  width: 240,
+                  height: 160,
+                },
+                constantValueEnabled: true,
+              },
+            },
+            layout: { height: "100%" },
+            position: {
+              position: "absolute",
+              insetBlockStart: "0px",
+              insetInlineStart: "0px",
+              zIndex: "0",
+            },
+          }),
+          recipeNode("Heading", {
+            attributes: { htmlId: "overlay-heading" },
+            position: { position: "relative", zIndex: "1" },
+          }),
+        ]
+      ),
+      recipeNode("Box", { attributes: { htmlId: "overlay-drop-target" } }),
+    ]);
+    let getPuck!: ReturnType<typeof useGetPuck>;
+    function Capture() {
+      getPuck = useGetPuck();
+      return <></>;
+    }
+    const view = render(
+      provider(
+        <Puck
+          config={config}
+          data={saved}
+          iframe={{ enabled: false }}
+          overrides={{ header: Capture }}
+          dnd={{ enableDragHandle: true }}
+        />
+      )
+    );
+    const editedImage = await waitFor(() => {
+      const image = view.container.querySelector<HTMLImageElement>(
+        "#overlay-image[data-puck-dnd]"
+      );
+      expect(image).toBeTruthy();
+      return image!;
+    });
+    const checkOverlay = (container: HTMLElement) => {
+      const image =
+        container.querySelector<HTMLImageElement>("#overlay-image")!;
+      const heading = container.querySelector<HTMLElement>("#overlay-heading")!;
+      expect(getComputedStyle(image).position).toBe("absolute");
+      expect(getComputedStyle(image).zIndex).toBe("0");
+      expect(getComputedStyle(heading).zIndex).toBe("1");
+      const imageBounds = image.getBoundingClientRect();
+      const headingBounds = heading.getBoundingClientRect();
+      expect(headingBounds.bottom).toBeGreaterThan(imageBounds.top);
+      expect(headingBounds.top).toBeLessThan(imageBounds.bottom);
+    };
+    checkOverlay(view.container);
+    await act(async () =>
+      userEvent.click(editedImage, { position: { x: 20, y: 130 } })
+    );
+    expect(getPuck().selectedItem?.type).toBe("Image");
+    const dropTarget = view.container.querySelector(
+      "#overlay-drop-target[data-puck-dropzone]"
+    )!;
+    const dragHandle = view.getByRole("button", { name: "Drag to reorder" });
+    const dragStarted = vi.fn();
+    const observer = new MutationObserver(dragStarted);
+    observer.observe(editedImage.closest("[data-puck-entry]")!, {
+      attributeFilter: ["data-puck-dragging"],
+    });
+    try {
+      await act(async () => userEvent.dragAndDrop(dragHandle, dropTarget));
+      expect(dragStarted).toHaveBeenCalled();
+    } finally {
+      observer.disconnect();
+    }
+
+    view.unmount();
+    const preview = render(provider(<Render config={config} data={saved} />));
+    checkOverlay(preview.container);
   });
   it("keeps responsive header navigation collapsed and in flow while editing", async () => {
     await page.viewport(1280, 900);
