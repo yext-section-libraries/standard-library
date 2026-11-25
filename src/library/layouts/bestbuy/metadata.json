@@ -1,0 +1,8 @@
+{
+  "id": "bestbuy",
+  "displayName": "Best Buy Store Location",
+  "pageSetType": "ENTITY",
+  "purpose": [
+    "LOCATION"
+  ]
+}

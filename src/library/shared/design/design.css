@@ -44,6 +44,7 @@
   --sl-b15: initial;
   --sl-b16: initial;
   --sl-b17: initial;
+  --sl-b1t: initial;
   --sl-b18: initial;
   --sl-b19: initial;
   --sl-b1a: initial;
@@ -58,6 +59,10 @@
   --sl-b1j: initial;
   --sl-b1k: initial;
   --sl-b1l: initial;
+  --sl-b1u: initial;
+  --sl-b1v: initial;
+  --sl-b1w: initial;
+  --sl-b1x: initial;
   --sl-b1m: initial;
   --sl-b1n: initial;
   --sl-b1o: initial;
@@ -109,6 +114,7 @@
   --sl-t15: initial;
   --sl-t16: initial;
   --sl-t17: initial;
+  --sl-t1t: initial;
   --sl-t18: initial;
   --sl-t19: initial;
   --sl-t1a: initial;
@@ -123,6 +129,10 @@
   --sl-t1j: initial;
   --sl-t1k: initial;
   --sl-t1l: initial;
+  --sl-t1u: initial;
+  --sl-t1v: initial;
+  --sl-t1w: initial;
+  --sl-t1x: initial;
   --sl-t1m: initial;
   --sl-t1n: initial;
   --sl-t1o: initial;
@@ -174,6 +184,7 @@
   --sl-m15: initial;
   --sl-m16: initial;
   --sl-m17: initial;
+  --sl-m1t: initial;
   --sl-m18: initial;
   --sl-m19: initial;
   --sl-m1a: initial;
@@ -188,6 +199,10 @@
   --sl-m1j: initial;
   --sl-m1k: initial;
   --sl-m1l: initial;
+  --sl-m1u: initial;
+  --sl-m1v: initial;
+  --sl-m1w: initial;
+  --sl-m1x: initial;
   --sl-m1m: initial;
   --sl-m1n: initial;
   --sl-m1o: initial;
@@ -239,6 +254,7 @@
   --sl-h15: initial;
   --sl-h16: initial;
   --sl-h17: initial;
+  --sl-h1t: initial;
   --sl-h18: initial;
   --sl-h19: initial;
   --sl-h1a: initial;
@@ -253,6 +269,10 @@
   --sl-h1j: initial;
   --sl-h1k: initial;
   --sl-h1l: initial;
+  --sl-h1u: initial;
+  --sl-h1v: initial;
+  --sl-h1w: initial;
+  --sl-h1x: initial;
   --sl-h1m: initial;
   --sl-h1n: initial;
   --sl-h1o: initial;
@@ -304,6 +324,7 @@
   --sl-f15: initial;
   --sl-f16: initial;
   --sl-f17: initial;
+  --sl-f1t: initial;
   --sl-f18: initial;
   --sl-f19: initial;
   --sl-f1a: initial;
@@ -318,6 +339,10 @@
   --sl-f1j: initial;
   --sl-f1k: initial;
   --sl-f1l: initial;
+  --sl-f1u: initial;
+  --sl-f1v: initial;
+  --sl-f1w: initial;
+  --sl-f1x: initial;
   --sl-f1m: initial;
   --sl-f1n: initial;
   --sl-f1o: initial;
@@ -369,6 +394,7 @@
   --sl-a15: initial;
   --sl-a16: initial;
   --sl-a17: initial;
+  --sl-a1t: initial;
   --sl-a18: initial;
   --sl-a19: initial;
   --sl-a1a: initial;
@@ -383,6 +409,10 @@
   --sl-a1j: initial;
   --sl-a1k: initial;
   --sl-a1l: initial;
+  --sl-a1u: initial;
+  --sl-a1v: initial;
+  --sl-a1w: initial;
+  --sl-a1x: initial;
   --sl-a1m: initial;
   --sl-a1n: initial;
   --sl-a1o: initial;
@@ -434,6 +464,7 @@
   --sl-x15: initial;
   --sl-x16: initial;
   --sl-x17: initial;
+  --sl-x1t: initial;
   --sl-x18: initial;
   --sl-x19: initial;
   --sl-x1a: initial;
@@ -448,6 +479,10 @@
   --sl-x1j: initial;
   --sl-x1k: initial;
   --sl-x1l: initial;
+  --sl-x1u: initial;
+  --sl-x1v: initial;
+  --sl-x1w: initial;
+  --sl-x1x: initial;
   --sl-x1m: initial;
   --sl-x1n: initial;
   --sl-x1o: initial;
@@ -499,6 +534,7 @@
   --sl-y15: initial;
   --sl-y16: initial;
   --sl-y17: initial;
+  --sl-y1t: initial;
   --sl-y18: initial;
   --sl-y19: initial;
   --sl-y1a: initial;
@@ -513,6 +549,10 @@
   --sl-y1j: initial;
   --sl-y1k: initial;
   --sl-y1l: initial;
+  --sl-y1u: initial;
+  --sl-y1v: initial;
+  --sl-y1w: initial;
+  --sl-y1x: initial;
   --sl-y1m: initial;
   --sl-y1n: initial;
   --sl-y1o: initial;
@@ -564,6 +604,7 @@
   --sl-z15: initial;
   --sl-z16: initial;
   --sl-z17: initial;
+  --sl-z1t: initial;
   --sl-z18: initial;
   --sl-z19: initial;
   --sl-z1a: initial;
@@ -578,6 +619,10 @@
   --sl-z1j: initial;
   --sl-z1k: initial;
   --sl-z1l: initial;
+  --sl-z1u: initial;
+  --sl-z1v: initial;
+  --sl-z1w: initial;
+  --sl-z1x: initial;
   --sl-z1m: initial;
   --sl-z1n: initial;
   --sl-z1o: initial;
@@ -646,6 +691,7 @@
   --sl-c15: var(--sl-b15);
   --sl-c16: var(--sl-b16);
   --sl-c17: var(--sl-b17);
+  --sl-c1t: var(--sl-b1t);
   --sl-c18: var(--sl-b18);
   --sl-c19: var(--sl-b19);
   --sl-c1a: var(--sl-b1a);
@@ -660,6 +706,10 @@
   --sl-c1j: var(--sl-b1j);
   --sl-c1k: var(--sl-b1k);
   --sl-c1l: var(--sl-b1l);
+  --sl-c1u: var(--sl-b1u);
+  --sl-c1v: var(--sl-b1v);
+  --sl-c1w: var(--sl-b1w);
+  --sl-c1x: var(--sl-b1x);
   --sl-c1m: var(--sl-b1m);
   --sl-c1n: var(--sl-b1n);
   --sl-c1o: var(--sl-b1o);
@@ -713,6 +763,7 @@
     --sl-c15: var(--sl-t15, var(--sl-b15));
     --sl-c16: var(--sl-t16, var(--sl-b16));
     --sl-c17: var(--sl-t17, var(--sl-b17));
+    --sl-c1t: var(--sl-t1t, var(--sl-b1t));
     --sl-c18: var(--sl-t18, var(--sl-b18));
     --sl-c19: var(--sl-t19, var(--sl-b19));
     --sl-c1a: var(--sl-t1a, var(--sl-b1a));
@@ -727,6 +778,10 @@
     --sl-c1j: var(--sl-t1j, var(--sl-b1j));
     --sl-c1k: var(--sl-t1k, var(--sl-b1k));
     --sl-c1l: var(--sl-t1l, var(--sl-b1l));
+    --sl-c1u: var(--sl-t1u, var(--sl-b1u));
+    --sl-c1v: var(--sl-t1v, var(--sl-b1v));
+    --sl-c1w: var(--sl-t1w, var(--sl-b1w));
+    --sl-c1x: var(--sl-t1x, var(--sl-b1x));
     --sl-c1m: var(--sl-t1m, var(--sl-b1m));
     --sl-c1n: var(--sl-t1n, var(--sl-b1n));
     --sl-c1o: var(--sl-t1o, var(--sl-b1o));
@@ -781,6 +836,7 @@
     --sl-c15: var(--sl-m15, var(--sl-b15));
     --sl-c16: var(--sl-m16, var(--sl-b16));
     --sl-c17: var(--sl-m17, var(--sl-b17));
+    --sl-c1t: var(--sl-m1t, var(--sl-b1t));
     --sl-c18: var(--sl-m18, var(--sl-b18));
     --sl-c19: var(--sl-m19, var(--sl-b19));
     --sl-c1a: var(--sl-m1a, var(--sl-b1a));
@@ -795,6 +851,10 @@
     --sl-c1j: var(--sl-m1j, var(--sl-b1j));
     --sl-c1k: var(--sl-m1k, var(--sl-b1k));
     --sl-c1l: var(--sl-m1l, var(--sl-b1l));
+    --sl-c1u: var(--sl-m1u, var(--sl-b1u));
+    --sl-c1v: var(--sl-m1v, var(--sl-b1v));
+    --sl-c1w: var(--sl-m1w, var(--sl-b1w));
+    --sl-c1x: var(--sl-m1x, var(--sl-b1x));
     --sl-c1m: var(--sl-m1m, var(--sl-b1m));
     --sl-c1n: var(--sl-m1n, var(--sl-b1n));
     --sl-c1o: var(--sl-m1o, var(--sl-b1o));
@@ -850,6 +910,7 @@
     --sl-x15: var(--sl-h15);
     --sl-x16: var(--sl-h16);
     --sl-x17: var(--sl-h17);
+    --sl-x1t: var(--sl-h1t);
     --sl-x18: var(--sl-h18);
     --sl-x19: var(--sl-h19);
     --sl-x1a: var(--sl-h1a);
@@ -864,6 +925,10 @@
     --sl-x1j: var(--sl-h1j);
     --sl-x1k: var(--sl-h1k);
     --sl-x1l: var(--sl-h1l);
+    --sl-x1u: var(--sl-h1u);
+    --sl-x1v: var(--sl-h1v);
+    --sl-x1w: var(--sl-h1w);
+    --sl-x1x: var(--sl-h1x);
     --sl-x1m: var(--sl-h1m);
     --sl-x1n: var(--sl-h1n);
     --sl-x1o: var(--sl-h1o);
@@ -918,6 +983,7 @@
   --sl-y15: var(--sl-f15);
   --sl-y16: var(--sl-f16);
   --sl-y17: var(--sl-f17);
+  --sl-y1t: var(--sl-f1t);
   --sl-y18: var(--sl-f18);
   --sl-y19: var(--sl-f19);
   --sl-y1a: var(--sl-f1a);
@@ -932,6 +998,10 @@
   --sl-y1j: var(--sl-f1j);
   --sl-y1k: var(--sl-f1k);
   --sl-y1l: var(--sl-f1l);
+  --sl-y1u: var(--sl-f1u);
+  --sl-y1v: var(--sl-f1v);
+  --sl-y1w: var(--sl-f1w);
+  --sl-y1x: var(--sl-f1x);
   --sl-y1m: var(--sl-f1m);
   --sl-y1n: var(--sl-f1n);
   --sl-y1o: var(--sl-f1o);
@@ -985,6 +1055,7 @@
   --sl-z15: var(--sl-a15);
   --sl-z16: var(--sl-a16);
   --sl-z17: var(--sl-a17);
+  --sl-z1t: var(--sl-a1t);
   --sl-z18: var(--sl-a18);
   --sl-z19: var(--sl-a19);
   --sl-z1a: var(--sl-a1a);
@@ -999,6 +1070,10 @@
   --sl-z1j: var(--sl-a1j);
   --sl-z1k: var(--sl-a1k);
   --sl-z1l: var(--sl-a1l);
+  --sl-z1u: var(--sl-a1u);
+  --sl-z1v: var(--sl-a1v);
+  --sl-z1w: var(--sl-a1w);
+  --sl-z1x: var(--sl-a1x);
   --sl-z1m: var(--sl-a1m);
   --sl-z1n: var(--sl-a1n);
   --sl-z1o: var(--sl-a1o);
@@ -1216,6 +1291,10 @@
       )
     )
   );
+  overflow-wrap: var(
+    --sl-z1t,
+    var(--sl-y1t, var(--sl-x1t, var(--sl-c1t, revert-layer)))
+  );
   background-color: var(
     --sl-z18,
     var(
@@ -1307,6 +1386,22 @@
   cursor: var(
     --sl-z1l,
     var(--sl-y1l, var(--sl-x1l, var(--sl-c1l, revert-layer)))
+  );
+  outline-style: var(
+    --sl-z1u,
+    var(--sl-y1u, var(--sl-x1u, var(--sl-c1u, revert-layer)))
+  );
+  outline-width: var(
+    --sl-z1v,
+    var(--sl-y1v, var(--sl-x1v, var(--sl-c1v, revert-layer)))
+  );
+  outline-color: var(
+    --sl-z1w,
+    var(--sl-y1w, var(--sl-x1w, var(--sl-c1w, revert-layer)))
+  );
+  outline-offset: var(
+    --sl-z1x,
+    var(--sl-y1x, var(--sl-x1x, var(--sl-c1x, revert-layer)))
   );
   position: var(
     --sl-z1m,
@@ -5094,8 +5189,34 @@ header.sl-atom.sl-editing {
 }
 .sl-button:focus-visible,
 .sl-linked-image:focus-visible {
-  outline: 2px solid var(--ve-color-focus-ring, currentColor);
-  outline-offset: 4px;
+  outline-style: var(
+    --sl-z1u,
+    var(--sl-y1u, var(--sl-x1u, var(--sl-c1u, solid)))
+  );
+  outline-width: var(
+    --sl-z1v,
+    var(--sl-y1v, var(--sl-x1v, var(--sl-c1v, 2px)))
+  );
+  outline-color: var(
+    --sl-z1w,
+    var(
+      --sl-y1w,
+      var(--sl-x1w, var(--sl-c1w, var(--ve-color-focus-ring, currentColor)))
+    )
+  );
+  outline-offset: var(
+    --sl-z1x,
+    var(--sl-y1x, var(--sl-x1x, var(--sl-c1x, 4px)))
+  );
+}
+.sl-navigation-disclosure > summary {
+  list-style: none;
+}
+.sl-navigation-disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+.sl-navigation-disclosure > summary > svg {
+  display: block;
 }
 .sl-rich-text > .rtf-wrapper {
   font: inherit;
@@ -5172,6 +5293,10 @@ header.sl-atom.sl-editing {
   :where(p, h1, h2, h3, h4, h5, h6, a, span, li, summary) {
   color: var(--sl-b17) !important;
 }
+.sl-yext-block.sl-type-base-overflow-wrap
+  :where(p, h1, h2, h3, h4, h5, h6, a, span, li, summary) {
+  overflow-wrap: var(--sl-b1t) !important;
+}
 @media (768px <= width < 1024px) {
   .sl-yext-block.sl-type-tablet-font-family
     :where(p, h1, h2, h3, h4, h5, h6, a, span, li, summary) {
@@ -5220,6 +5345,10 @@ header.sl-atom.sl-editing {
   .sl-yext-block.sl-type-tablet-color
     :where(p, h1, h2, h3, h4, h5, h6, a, span, li, summary) {
     color: var(--sl-t17) !important;
+  }
+  .sl-yext-block.sl-type-tablet-overflow-wrap
+    :where(p, h1, h2, h3, h4, h5, h6, a, span, li, summary) {
+    overflow-wrap: var(--sl-t1t) !important;
   }
 }
 @media (width < 768px) {
@@ -5271,6 +5400,10 @@ header.sl-atom.sl-editing {
     :where(p, h1, h2, h3, h4, h5, h6, a, span, li, summary) {
     color: var(--sl-m17) !important;
   }
+  .sl-yext-block.sl-type-mobile-overflow-wrap
+    :where(p, h1, h2, h3, h4, h5, h6, a, span, li, summary) {
+    overflow-wrap: var(--sl-m1t) !important;
+  }
 }
 @media (hover: hover) {
   .sl-yext-block.sl-type-hover-font-family:hover
@@ -5321,6 +5454,10 @@ header.sl-atom.sl-editing {
     :where(p, h1, h2, h3, h4, h5, h6, a, span, li, summary) {
     color: var(--sl-h17) !important;
   }
+  .sl-yext-block.sl-type-hover-overflow-wrap:hover
+    :where(p, h1, h2, h3, h4, h5, h6, a, span, li, summary) {
+    overflow-wrap: var(--sl-h1t) !important;
+  }
 }
 .sl-yext-block.sl-type-focus-font-family:focus-visible
   :where(p, h1, h2, h3, h4, h5, h6, a, span, li, summary) {
@@ -5369,4 +5506,8 @@ header.sl-atom.sl-editing {
 .sl-yext-block.sl-type-focus-color:focus-visible
   :where(p, h1, h2, h3, h4, h5, h6, a, span, li, summary) {
   color: var(--sl-f17) !important;
+}
+.sl-yext-block.sl-type-focus-overflow-wrap:focus-visible
+  :where(p, h1, h2, h3, h4, h5, h6, a, span, li, summary) {
+  overflow-wrap: var(--sl-f1t) !important;
 }

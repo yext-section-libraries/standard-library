@@ -126,8 +126,11 @@ export type DisclosureProps = DesignProps & {
   summary: YextEntityField<TranslatableString>;
   content: Slot;
   initiallyOpen: boolean;
+  trigger?: "summary" | "hamburger";
   revealWhenHiddenInEditor?: boolean;
 };
+
+const disclosurePlaceholder = "Your question";
 
 export const disclosureConfig: YextComponentConfig<DisclosureProps> = {
   label: "Disclosure / accordion item",
@@ -139,6 +142,15 @@ export const disclosureConfig: YextComponentConfig<DisclosureProps> = {
       filter: { types: ["type.string"] },
     },
     content: { type: "slot", visible: false, disallow: structuralComponents },
+    trigger: {
+      type: "select",
+      label: "Trigger",
+      generation: { required: false },
+      options: [
+        { label: "Summary text", value: "summary" },
+        { label: "Hamburger menu", value: "hamburger" },
+      ],
+    },
     initiallyOpen: {
       type: "radio",
       label: "Initially expanded",
@@ -161,8 +173,9 @@ export const disclosureConfig: YextComponentConfig<DisclosureProps> = {
   renderFields: renderDesignFields,
   inline: true,
   defaultProps: {
-    summary: constantText("Your question"),
+    summary: constantText(disclosurePlaceholder),
     initiallyOpen: false,
+    trigger: "summary",
     revealWhenHiddenInEditor: true,
     content: [],
     spacing: { paddingBlockStart: "1rem", paddingBlockEnd: "1rem" },
@@ -177,6 +190,7 @@ export const disclosureConfig: YextComponentConfig<DisclosureProps> = {
     binding,
     content: Content,
     initiallyOpen,
+    trigger,
     revealWhenHiddenInEditor = true,
     puck,
     ...design
@@ -192,6 +206,8 @@ export const disclosureConfig: YextComponentConfig<DisclosureProps> = {
       }
     );
     const summaryRef = React.useRef<HTMLElement>(null);
+    const hamburger = trigger === "hamburger";
+    const menuLabel = text === disclosurePlaceholder ? undefined : text;
     const [editorOpen, setEditorOpen] = React.useState<boolean>();
     const revealInEditor = puck.isEditing && revealWhenHiddenInEditor;
     const editorInitiallyOpen = revealWhenHiddenInEditor || initiallyOpen;
@@ -211,10 +227,26 @@ export const disclosureConfig: YextComponentConfig<DisclosureProps> = {
         as="details"
         design={design}
         isEditing={revealInEditor}
+        className={hamburger ? "sl-navigation-disclosure" : undefined}
+        onKeyDown={
+          hamburger
+            ? (event: React.KeyboardEvent<HTMLDetailsElement>) => {
+                if (event.key !== "Escape" || !event.currentTarget.open) return;
+                event.preventDefault();
+                event.stopPropagation();
+                if (puck.isEditing) setEditorOpen(false);
+                else event.currentTarget.open = false;
+                summaryRef.current?.focus();
+              }
+            : undefined
+        }
         {...{ open: open || undefined }}
       >
         <summary
           ref={summaryRef}
+          aria-label={
+            hamburger ? menuLabel || i18n.t("menu", "Menu") : undefined
+          }
           onClick={
             puck.isEditing
               ? (event) => {
@@ -230,10 +262,14 @@ export const disclosureConfig: YextComponentConfig<DisclosureProps> = {
             paddingBlock: "0.5rem",
           }}
         >
-          {text || "Your question"}
+          {hamburger ? (
+            <icons.Menu width="1.5rem" height="1.5rem" aria-hidden="true" />
+          ) : (
+            text || disclosurePlaceholder
+          )}
         </summary>
         {Content({
-          style: { paddingBlockStart: "1rem" },
+          style: hamburger ? undefined : { paddingBlockStart: "1rem" },
           disallow: structuralComponents,
         })}
       </DesignElement>

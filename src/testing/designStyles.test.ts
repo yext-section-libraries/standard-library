@@ -50,6 +50,24 @@ describe("authored style values", () => {
     expect(style).not.toHaveProperty("minWidth");
   });
 
+  it("splits two-axis gaps while preserving nested CSS functions and overrides", () => {
+    const style = designStyle({
+      layout: { gap: "0 12px" },
+      responsive: {
+        mobile: { layout: { gap: "calc(1rem + 2px) var(--space, 8px)" } },
+      },
+      states: { hover: { layout: { gap: "4px 6px", columnGap: "2px" } } },
+    });
+    expect(style).toMatchObject({
+      [designVariable("base", "row-gap")]: "0",
+      [designVariable("base", "column-gap")]: "12px",
+      [designVariable("mobile", "row-gap")]: "calc(1rem + 2px)",
+      [designVariable("mobile", "column-gap")]: "var(--space, 8px)",
+      [designVariable("hover", "row-gap")]: "4px",
+      [designVariable("hover", "column-gap")]: "2px",
+    });
+  });
+
   it("keeps hidden blocks selectable only in the editor", () => {
     expect(designStyle({ layout: { display: "none" } })).toHaveProperty(
       designVariable("base", "display"),

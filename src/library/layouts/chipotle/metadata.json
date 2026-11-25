@@ -1,10 +1,7 @@
 {
   "id": "chipotle",
-  "displayName": "Chipotle",
+  "displayName": "Chipotle | Entity Location Page",
   "pageSetType": "ENTITY",
-  "vertical": [
-    "FOOD_AND_DINING"
-  ],
   "purpose": [
     "LOCATION"
   ]

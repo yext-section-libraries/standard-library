@@ -90,6 +90,7 @@ export const styleSchema = {
     textWrap: ["Text wrapping", "", "wrap", "balance", "pretty", "nowrap"],
     whiteSpace: ["Whitespace", "", "normal", "pre-line", "pre-wrap"],
     color: ["Text color", "color"],
+    overflowWrap: ["Break long words", "", "normal", "anywhere"],
   },
   surface: {
     backgroundColor: ["Background color", "color"],
@@ -114,6 +115,17 @@ export const styleSchema = {
     ],
     objectPosition: ["Image focal point", "value"],
     cursor: ["Cursor", "", "auto", "pointer"],
+    outlineStyle: [
+      "Focus outline style",
+      "",
+      "solid",
+      "dashed",
+      "dotted",
+      "double",
+    ],
+    outlineWidth: ["Focus outline width", "space"],
+    outlineColor: ["Focus outline color", "color"],
+    outlineOffset: ["Focus outline offset", "space"],
   },
   position: {
     position: [

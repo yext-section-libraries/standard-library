@@ -1,8 +1,19 @@
 import { styleSchema } from "./styleSchema.ts";
 
 const propertyNames = Object.values(styleSchema).flatMap(Object.keys);
+// Append new properties so existing CSS transport names remain stable.
+const addedProperties = [
+  "overflowWrap",
+  "outlineStyle",
+  "outlineWidth",
+  "outlineColor",
+  "outlineOffset",
+];
 const variableNames = new Map(
-  propertyNames.map((property, index) => [
+  [
+    ...propertyNames.filter((property) => !addedProperties.includes(property)),
+    ...addedProperties,
+  ].map((property, index) => [
     property.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`),
     index.toString(36),
   ])
